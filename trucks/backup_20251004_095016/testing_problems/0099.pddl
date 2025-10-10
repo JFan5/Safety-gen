@@ -1,0 +1,20 @@
+; params: trucks -seed 459194365 -t 1 -l 4 -p 3 -a 2 -n 1
+(define (problem grounded-STRIPS-TRUCK-1)
+(:domain grounded-STRIPS-TRUCKS)
+(:init
+(TIME-NOW-T0)
+(AT-PACKAGE3-L2)
+(AT-PACKAGE2-L3)
+(AT-PACKAGE1-L3)
+(FREE-A2-TRUCK1)
+(FREE-A1-TRUCK1)
+(AT-TRUCK1-L1)
+)
+(:goal
+(and
+(AT-DESTINATION-PACKAGE3-L3)
+(AT-DESTINATION-PACKAGE2-L4)
+(DELIVERED-PACKAGE1-L4-T3)
+)
+)
+)

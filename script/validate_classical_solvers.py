@@ -1,0 +1,217 @@
+#!/usr/bin/env python3
+"""
+Validate solutions produced by classical solvers.
+
+Usage:
+  # Default mode: validates all three scenarios (blocksworld, logistics, delivery)
+  python validate_classical_solvers.py
+  
+  # Custom mode: validate specific scenario
+  python validate_classical_solvers.py \
+    --domain logistics/domain.pddl \
+    --problems_dir logistics/training_problems3 \
+    --solutions_dir logistics/training_problems3
+"""
+import os
+import argparse
+import subprocess
+import json
+from pathlib import Path
+from datetime import datetime
+
+
+def validate_solution(domain_file: str, problem_file: str, solution_file: str, timeout_sec: int = 30) -> tuple[bool, str, dict]:
+    """Run Validate to check if solution is valid for the problem and domain."""
+    execution_info = {
+        "stdout": "",
+        "stderr": "",
+        "returncode": None,
+        "timeout": False,
+        "exception": None
+    }
+    
+    try:
+        cmd = f"Validate {domain_file} {problem_file} {solution_file}"
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout_sec)
+        
+        execution_info["returncode"] = result.returncode
+        execution_info["stdout"] = result.stdout[:500] if result.stdout else ""
+        execution_info["stderr"] = result.stderr[:500] if result.stderr else ""
+        
+        if result.returncode == 0:
+            output = result.stdout.lower()
+            if "plan valid" in output or "plan successfully executed" in output:
+                return True, "Plan valid", execution_info
+            return False, (result.stdout[:200] if result.stdout else "Validation failed"), execution_info
+        return False, (result.stderr[:200] if result.stderr else "Validation error"), execution_info
+    except subprocess.TimeoutExpired:
+        execution_info["timeout"] = True
+        return False, "Validation timeout", execution_info
+    except Exception as e:
+        execution_info["exception"] = str(e)
+        return False, f"Validation exception: {e}", execution_info
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Validate solutions in a folder with Validate")
+    parser.add_argument("--domain", type=str, help="Path to domain.pddl")
+    parser.add_argument("--problems_dir", type=str, help="Directory containing problem .pddl files")
+    parser.add_argument("--solutions_dir", type=str, help="Directory containing solution .soln files")
+    parser.add_argument("--timeout", type=int, default=30, help="Validate timeout in seconds")
+    args = parser.parse_args()
+
+    # Define default scenarios if no arguments provided
+    default_scenarios = ["blocksworld", "logistics", "delivery"]
+    
+    # If no arguments provided, use default scenarios
+    if not any([args.domain, args.problems_dir, args.solutions_dir]):
+        print("No arguments provided, using default scenarios:")
+        for scenario in default_scenarios:
+            print(f"  - {scenario}")
+        print()
+        
+        # Process each scenario
+        for scenario in default_scenarios:
+            validate_scenario(scenario, args.timeout)
+        return
+    
+    # Original single scenario validation if arguments provided
+    if not all([args.domain, args.problems_dir, args.solutions_dir]):
+        print("Error: When providing arguments, all three (--domain, --problems_dir, --solutions_dir) are required")
+        return
+        
+    domain_path = Path(args.domain)
+    problems_path = Path(args.problems_dir)
+    solutions_path = Path(args.solutions_dir)
+    
+    validate_single_scenario(domain_path, problems_path, solutions_path, args.timeout)
+
+
+def validate_scenario(scenario_name: str, timeout_sec: int):
+    """Validate a single scenario using default paths."""
+    print(f"{'='*60}")
+    print(f"Validating scenario: {scenario_name}")
+    print(f"{'='*60}")
+    
+    # Construct paths
+    scenario_dir = Path(scenario_name)
+    domain_path = scenario_dir / "domain.pddl"
+    problems_path = scenario_dir / "training_problems3"
+    solutions_path = scenario_dir / "training_problems3"
+    
+    validate_single_scenario(domain_path, problems_path, solutions_path, timeout_sec, scenario_name)
+    print()
+
+
+def validate_single_scenario(domain_path: Path, problems_path: Path, solutions_path: Path, timeout_sec: int, scenario_name: str = None):
+    """Validate solutions for a single scenario."""
+    if not domain_path.exists():
+        print(f"Error: domain not found: {domain_path}")
+        return
+    if not problems_path.exists():
+        print(f"Error: problems_dir not found: {problems_path}")
+        return
+    if not solutions_path.exists():
+        print(f"Error: solutions_dir not found: {solutions_path}")
+        return
+
+    solution_files = sorted([p for p in solutions_path.glob("*.soln")])
+    if not solution_files:
+        print(f"No .soln files found in {solutions_path}")
+        return
+
+    print(f"Domain: {domain_path}")
+    print(f"Problems dir: {problems_path}")
+    print(f"Solutions dir: {solutions_path}")
+    print(f"Found {len(solution_files)} solution files")
+
+    valid = 0
+    invalid = 0
+    missing = 0
+    
+    # Data structure to store validation results
+    validation_results = {
+        "metadata": {
+            "timestamp": datetime.now().isoformat(),
+            "scenario_name": scenario_name or "custom",
+            "domain_file": str(domain_path),
+            "problems_directory": str(problems_path),
+            "solutions_directory": str(solutions_path),
+            "timeout_seconds": timeout_sec,
+            "total_solutions": len(solution_files)
+        },
+        "results": []
+    }
+
+    for i, sol in enumerate(solution_files, 1):
+        stem = sol.stem
+        problem_file = problems_path / f"{stem}.pddl"
+        print(f"[{i}/{len(solution_files)}] {sol.name}")
+
+        result_entry = {
+            "solution_file": sol.name,
+            "problem_file": f"{stem}.pddl",
+            "solution_path": str(sol),
+            "problem_path": str(problem_file)
+        }
+
+        if not problem_file.exists():
+            print(f"  ✗ Problem not found: {problem_file.name}")
+            missing += 1
+            result_entry["status"] = "missing_problem"
+            result_entry["valid"] = False
+            result_entry["message"] = f"Problem file not found: {problem_file.name}"
+        else:
+            ok, msg, execution_info = validate_solution(str(domain_path), str(problem_file), str(sol), timeout_sec=timeout_sec)
+            result_entry["valid"] = ok
+            result_entry["message"] = msg
+            result_entry["execution_info"] = execution_info
+            
+            if ok:
+                print("  ✓ Plan valid")
+                valid += 1
+                result_entry["status"] = "valid"
+            else:
+                print(f"  ✗ Invalid: {msg}")
+                invalid += 1
+                result_entry["status"] = "invalid"
+        
+        validation_results["results"].append(result_entry)
+
+    total = len(solution_files)
+    
+    # Add summary statistics to validation results
+    validation_results["summary"] = {
+        "total_solutions": total,
+        "valid": valid,
+        "invalid": invalid,
+        "missing_problems": missing,
+        "success_rate": (valid / total * 100) if total > 0 else 0.0
+    }
+    
+    # Save results to JSON file
+    if scenario_name:
+        json_output_file = f"{scenario_name}_validation_results.json"
+    else:
+        json_output_file = f"{domain_path.parent.name}_{domain_path.stem}_validation_results.json"
+    
+    try:
+        with open(json_output_file, 'w', encoding='utf-8') as f:
+            json.dump(validation_results, f, indent=2, ensure_ascii=False)
+        print(f"Results saved to {json_output_file}")
+    except Exception as e:
+        print(f"Error saving JSON results: {e}")
+    
+    print("-" * 50)
+    print(f"Total solutions: {total}")
+    print(f"Valid: {valid}")
+    print(f"Invalid: {invalid}")
+    print(f"Missing problems: {missing}")
+    if total > 0:
+        print(f"Success rate: {valid / total * 100:.1f}%")
+
+
+if __name__ == "__main__":
+    main()
+
+
