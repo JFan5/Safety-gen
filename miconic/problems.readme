@@ -1,0 +1,15 @@
+Scenario: miconic
+Generated at: 2025-10-03 09:32:17
+
+Training problems: 996 (duplicates removed: 0)
+Testing problems:  100 (duplicates removed: 0)
+
+Parameter samples (first 5):
+- miconic -f 20 -p 12 -r 1026083533
+- miconic -f 11 -p 21 -r 525072963
+- miconic -f 7 -p 12 -r 1223144940
+- miconic -f 33 -p 24 -r 404265305
+- miconic -f 15 -p 8 -r 1348592436
+
+Notes:
+- Each .pddl begins with a '; params: ...' comment capturing generator arguments.

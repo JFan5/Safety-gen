@@ -1,0 +1,8 @@
+(move rooma roomb)
+(pick ball16 roomb left)
+(move roomb rooma)
+(drop ball16 rooma left)
+(move rooma roomb)
+(pick ball15 roomb left)
+(move roomb rooma)
+(drop ball15 rooma left)

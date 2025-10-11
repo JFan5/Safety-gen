@@ -1,0 +1,7 @@
+(switch_on instrument1 satellite0)
+(turn_to satellite0 star0 star4)
+(calibrate satellite0 instrument1 star0)
+(turn_to satellite0 star5 star0)
+(take_image satellite0 star5 instrument1 image1)
+(turn_to satellite0 star4 star5)
+(take_image satellite0 star4 instrument1 infrared3)

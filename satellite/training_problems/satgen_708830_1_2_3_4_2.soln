@@ -1,0 +1,8 @@
+(switch_on instrument0 satellite0)
+(turn_to satellite0 star1 phenomenon5)
+(calibrate satellite0 instrument0 star1)
+(turn_to satellite0 phenomenon4 star1)
+(take_image satellite0 phenomenon4 instrument0 thermograph2)
+(turn_to satellite0 phenomenon5 phenomenon4)
+(take_image satellite0 phenomenon5 instrument0 thermograph1)
+(turn_to satellite0 phenomenon4 phenomenon5)
