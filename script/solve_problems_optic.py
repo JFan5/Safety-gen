@@ -64,7 +64,7 @@ def solve_problem(problem_file, domain_file="domain.pddl"):
         # 检查是否超时
         if time.time() - start_time >= timeout:
             scenario_name = os.path.basename(os.getcwd())
-            print(f"✗ [{scenario_name}] 超时，跳过且不保存: {problem_file}")
+            print(f"✗ [{scenario_name}] 超时，跳过且不保存: {os.path.abspath(problem_file)}")
             # 终止进程
             process.terminate()
             try:
@@ -132,7 +132,7 @@ def solve_problem(problem_file, domain_file="domain.pddl"):
         print(f"✓ [{scenario_name}] 成功求解并保存到: {solution_file}")
         return True
     else:
-        print(f"✗ [{scenario_name}] 求解失败: {problem_file}")
+        print(f"✗ [{scenario_name}] 求解失败: {os.path.abspath(problem_file)}")
         # 删除失败的解决方案文件
         try:
             if os.path.exists(solution_file):
@@ -204,8 +204,8 @@ def solve_all_problems(problems_dir="problems", domain_file="domain.pddl"):
     if failed_problems:
         print(f"\n❌ 求解失败的问题 ({len(failed_problems)}个):")
         for i, problem in enumerate(failed_problems, 1):
-            problem_name = os.path.basename(problem)
-            print(f"  {i:2d}. {problem_name}")
+            abs_path = os.path.abspath(problem)
+            print(f"  {i:2d}. {abs_path}")
         print("-" * 50)
 
 if __name__ == "__main__":

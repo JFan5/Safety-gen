@@ -14,3 +14,39 @@ Description of the parameters:
 - `max_nr_packages`: The maximum number of packages to be delivered. The generator will create instances with [1, max_nr_packages] packages, for each integer in the interval.
 - `nr_instances_per_setup`: The number of instances to be generated for each setup.
 
+## Ferry-like unique problem generation (simplest-first)
+
+We also provide a unique-problem generator and a shell script that prioritizes simplest instances first, similar to the `ferry` setup.
+
+### Quick start
+
+```bash
+# Trucks-style: predefined simplest-first tiers (produces ~1000 problems)
+./generate_delivery_training_unique.sh
+
+# Manual single-tier generation
+./generate_delivery_unique.sh ./all_problems 2 1 100
+```
+
+This script iterates tiers in increasing difficulty by `(size, packages)`
+from `size=MIN_SIZE..MAX_SIZE` and `packages=1..MAX_PACKAGES`,
+splitting the total target approximately evenly across tiers. Uniqueness is
+enforced by the tuple `(size, packages, truck_cell, sorted(init package cells), sorted(goal package cells))`.
+
+### Standalone generator
+
+You can also run the Python generator directly for a single tier:
+
+```bash
+python3 gen_unique_delivery.py \
+  --count 100 \
+  --target-dir all_problems \
+  --size 2 \
+  --packages 1 \
+  --seed 20250101 \
+  --domain domain.pddl
+```
+
+Output files are written under the chosen target directory with names like
+`delivery-s2-p1-seed1234567.pddl`.
+

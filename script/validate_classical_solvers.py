@@ -13,14 +13,16 @@ Usage:
     --solutions_dir logistics/training_problems3
 """
 import os
+import re
 import argparse
 import subprocess
 import json
 from pathlib import Path
 from datetime import datetime
+from typing import Tuple, Dict, List, Optional, Set
 
 
-def validate_solution(domain_file: str, problem_file: str, solution_file: str, timeout_sec: int = 30) -> tuple[bool, str, dict]:
+def validate_solution(domain_file: str, problem_file: str, solution_file: str, timeout_sec: int = 30) -> Tuple[bool, str, Dict]:
     """Run Validate to check if solution is valid for the problem and domain."""
     execution_info = {
         "stdout": "",
@@ -32,6 +34,7 @@ def validate_solution(domain_file: str, problem_file: str, solution_file: str, t
     
     try:
         cmd = f"Validate {domain_file} {problem_file} {solution_file}"
+        execution_info["command"] = cmd
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout_sec)
         
         execution_info["returncode"] = result.returncode
@@ -50,6 +53,81 @@ def validate_solution(domain_file: str, problem_file: str, solution_file: str, t
     except Exception as e:
         execution_info["exception"] = str(e)
         return False, f"Validation exception: {e}", execution_info
+
+
+SOMETIME_BEFORE_RE = re.compile(r"\(\s*sometime-before\s*\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*\)", re.IGNORECASE)
+ALWAYS_NOT_AT_RE = re.compile(r"\(\s*always\s*\(\s*not\s*\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*\)\s*\)\s*\)", re.IGNORECASE)
+DEBARK_RE = re.compile(r"^\(\s*debark\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*$", re.IGNORECASE)
+
+
+def _extract_sometime_before(problem_text: str) -> List[Tuple[Tuple[str, str], Tuple[str, str]]]:
+    constraints: List[Tuple[Tuple[str, str], Tuple[str, str]]] = []
+    for m in SOMETIME_BEFORE_RE.finditer(problem_text):
+        a_car, a_loc, b_car, b_loc = m.group(1), m.group(2), m.group(3), m.group(4)
+        constraints.append(((a_car, a_loc), (b_car, b_loc)))
+    return constraints
+
+
+def _extract_always_not_at(problem_text: str) -> List[Tuple[str, str]]:
+    forbids: List[Tuple[str, str]] = []
+    for m in ALWAYS_NOT_AT_RE.finditer(problem_text):
+        car, loc = m.group(1), m.group(2)
+        forbids.append((car, loc))
+    return forbids
+
+
+def _parse_debark_order(soln_path: str) -> List[Tuple[str, str]]:
+    order: List[Tuple[str, str]] = []
+    seen: Set[Tuple[str, str]] = set()
+    try:
+        with open(soln_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                m = DEBARK_RE.match(line)
+                if not m:
+                    continue
+                car, loc = m.group(1), m.group(2)
+                key = (car, loc)
+                if key not in seen:
+                    order.append(key)
+                    seen.add(key)
+    except FileNotFoundError:
+        return []
+    return order
+
+
+def _violates_sometime_before(plan_order: List[Tuple[str, str]], constraints: List[Tuple[Tuple[str, str], Tuple[str, str]]]) -> bool:
+    positions: Dict[Tuple[str, str], int] = {pair: idx for idx, pair in enumerate(plan_order)}
+    for (a, b) in constraints:
+        if a in positions and b in positions:
+            if positions[b] <= positions[a]:
+                return True
+    return False
+
+
+def _violates_always_not_at(plan_order: List[Tuple[str, str]], forbids: List[Tuple[str, str]]) -> bool:
+    if not forbids:
+        return False
+    forbidden = set(forbids)
+    for step in plan_order:
+        if step in forbidden:
+            return True
+    return False
+
+
+def enforce_pddl3_constraints_if_present(problem_text: str, soln_path: str) -> Tuple[bool, Optional[str]]:
+    # Quick exit if no constraints block
+    if "(:constraints" not in problem_text:
+        return True, None
+    plan_order = _parse_debark_order(soln_path)
+    sb = _extract_sometime_before(problem_text)
+    forbids = _extract_always_not_at(problem_text)
+
+    if _violates_sometime_before(plan_order, sb):
+        return False, "Violates PDDL3 sometime-before constraint"
+    if _violates_always_not_at(plan_order, forbids):
+        return False, "Violates PDDL3 always-not positional constraint"
+    return True, None
 
 
 def main():
@@ -163,6 +241,19 @@ def validate_single_scenario(domain_path: Path, problems_path: Path, solutions_p
             result_entry["message"] = f"Problem file not found: {problem_file.name}"
         else:
             ok, msg, execution_info = validate_solution(str(domain_path), str(problem_file), str(sol), timeout_sec=timeout_sec)
+
+            # Enforce PDDL3 constraints locally if present (covers sometime-before and always-not at debark states)
+            try:
+                with open(problem_file, 'r', encoding='utf-8') as pf:
+                    problem_text = pf.read()
+                pddl3_ok, pddl3_msg = enforce_pddl3_constraints_if_present(problem_text, str(sol))
+                if ok and not pddl3_ok:
+                    ok = False
+                    msg = pddl3_msg or "PDDL3 constraints violated"
+                    # reflect as if validator failed; keep execution_info for external validator
+            except Exception as _e:
+                # If local enforcement fails, do not mask external validator result
+                pass
             result_entry["valid"] = ok
             result_entry["message"] = msg
             result_entry["execution_info"] = execution_info
