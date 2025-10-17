@@ -1,0 +1,19 @@
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+{domain_content}
+
+PROBLEM:
+{problem_content}
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+### Plan:
+"""

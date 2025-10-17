@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o fine_tune_llm.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N fine_tune_llm     # Specify job name
+#$ -t 1-5               # Specify number of tasks in array (5 models)
+
+conda activate llmstl
+
+# Define model configurations
+models=( 
+    "unsloth/qwen3-14b-unsloth-bnb-4bit:qwen3_14b_pddl_mix"
+    "unsloth/gpt-oss-20b:gpt_oss_20b_pddl_mix"
+    "unsloth/mistral-7b-instruct-v0.3-bnb-4bit:mistral_7b_pddl_mix"
+    "unsloth/llama-3.2-3b-instruct:llama_3_2_3b_pddl_mix"
+    "unsloth/gemma-3-270m:gemma_3_270m_pddl_mix"
+)
+
+# Split model and output name
+IFS=':' read -r model_name output_name <<< "${models[$SGE_TASK_ID-1]}"
+
+# Note that different tasks will use different model parameters.
+python3 pddl_finetune.py --mode train --model "$model_name" --output "$output_name" --dataset data/sft/pddl_dataset.hf --scenarios blocksworld delivery logistics
