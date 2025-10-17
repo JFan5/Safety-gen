@@ -15,6 +15,9 @@ MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 OUTPUT_NAME="mistral_7b_ferry"
 DATASET_PATH="data/sft/ferry_dataset.hf"
 
+
+
+
 python3 pddl_finetune.py \
   --mode train \
   --model "$MODEL_NAME" \
