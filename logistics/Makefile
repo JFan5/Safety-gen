@@ -30,7 +30,7 @@ OBJECTS 	= $(SOURCES:.c=.o)
 ####### Build rules
 
 
-miconic: $(OBJECTS)
+logistics: $(OBJECTS)
 	$(CC) -o logistics $(OBJECTS) $(CFLAGS) $(LIBS)
 
 # misc

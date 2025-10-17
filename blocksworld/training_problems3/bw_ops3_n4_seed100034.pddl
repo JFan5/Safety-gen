@@ -20,7 +20,7 @@
 )
 
   (:constraints
-    (always (not (on-table b3)))
+    (always (not (on b4 b3)))
   )
 )
 

@@ -24,50 +24,50 @@ SEED=10001
 # Tiers from simplest to more complex (size, packages)
 SEED=${SEED:-10001}
 
-# 1) size=2, packages=1 → 35
-"$PYTHON_EXEC" "$GEN_PY" \
-  --count 35 \
-  --target-dir "$TARGET_DIR" \
-  --size 2 \
-  --packages 1 \
-  --seed $SEED \
-  --domain "$SCRIPT_DIR/domain.pddl"
+  # 1) size=2, packages=1 → 36
+  "$PYTHON_EXEC" "$GEN_PY" \
+    --count 35 \
+    --target-dir "$TARGET_DIR" \
+    --size 2 \
+    --packages 1 \
+    --seed $SEED \
+    --domain "$SCRIPT_DIR/domain.pddl"
 
-# 2) size=2, packages=2 → 120
-"$PYTHON_EXEC" "$GEN_PY" \
-  --count 120 \
-  --target-dir "$TARGET_DIR" \
-  --size 2 \
-  --packages 2 \
-  --seed $SEED \
-  --domain "$SCRIPT_DIR/domain.pddl"
+  # 2) size=2, packages=2 → 216
+  "$PYTHON_EXEC" "$GEN_PY" \
+    --count 100 \
+    --target-dir "$TARGET_DIR" \
+    --size 2 \
+    --packages 2 \
+    --seed $SEED \
+    --domain "$SCRIPT_DIR/domain.pddl"
 
-# 3) size=3, packages=1 → 150
-"$PYTHON_EXEC" "$GEN_PY" \
-  --count 150 \
-  --target-dir "$TARGET_DIR" \
-  --size 3 \
-  --packages 1 \
-  --seed $SEED \
-  --domain "$SCRIPT_DIR/domain.pddl"
+  # 3) size=3, packages=1 → 576
+  "$PYTHON_EXEC" "$GEN_PY" \
+    --count 300 \
+    --target-dir "$TARGET_DIR" \
+    --size 3 \
+    --packages 1 \
+    --seed $SEED \
+    --domain "$SCRIPT_DIR/domain.pddl"
 
-# 4) size=3, packages=2 → 300
-"$PYTHON_EXEC" "$GEN_PY" \
-  --count 300 \
-  --target-dir "$TARGET_DIR" \
-  --size 3 \
-  --packages 2 \
-  --seed $SEED \
-  --domain "$SCRIPT_DIR/domain.pddl"
+  # 4) size=3, packages=2 → 32256
+  "$PYTHON_EXEC" "$GEN_PY" \
+    --count 600 \
+    --target-dir "$TARGET_DIR" \
+    --size 3 \
+    --packages 2 \
+    --seed $SEED \
+    --domain "$SCRIPT_DIR/domain.pddl"
 
-# 5) size=4, packages=2 → 495（把多出来的量放到容量巨大的档位）
-"$PYTHON_EXEC" "$GEN_PY" \
-  --count 495 \
-  --target-dir "$TARGET_DIR" \
-  --size 4 \
-  --packages 2 \
-  --seed $SEED \
-  --domain "$SCRIPT_DIR/domain.pddl"
+  # 5) size=4, packages=2 → 756000
+  "$PYTHON_EXEC" "$GEN_PY" \
+    --count 1065 \
+    --target-dir "$TARGET_DIR" \
+    --size 4 \
+    --packages 2 \
+    --seed $SEED \
+    --domain "$SCRIPT_DIR/domain.pddl"
 
 # Report
 TOTAL=$(ls -1 "$TARGET_DIR"/*.pddl 2>/dev/null | wc -l || true)

@@ -1,0 +1,1 @@
+对于这个场景，帮我生成或修改python脚本，可以生成指定参数的unique problem。同时生成一个shell脚本，可以调用python来生成指定数目的问题。类似于ferry或者blocksworld文件夹下的形式

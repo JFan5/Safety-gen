@@ -1,9 +1,0 @@
-This domain models a simple blocks world with a single robot arm that can move identical blocks. Each block can either sit on the table or on top of another block, and a block is “clear” when nothing rests on it. The robot’s hand can be empty or holding exactly one block.
-
-There are four actions the robot can perform:
-- Pick up a block from the table: allowed only if the block is on the table, nothing is on top of it, and the robot’s hand is empty. After picking up, the robot holds the block, the block is no longer on the table, it is not clear (because the robot is holding it), and the hand is no longer empty.
-- Put a held block down on the table: allowed only when the robot is holding a block. After putting it down, the block is on the table, becomes clear (nothing on it), the robot’s hand becomes empty, and the robot is no longer holding the block.
-- Stack a held block onto another block: allowed only if the block being stacked is held and the target block has nothing on top. After stacking, the held block sits on the target block, the target block is no longer clear, the stacked block becomes clear (since nothing sits on it), and the robot’s hand becomes empty.
-- Unstack a block from on top of another block: allowed only if the top block is on the other block, the top block is clear, and the robot’s hand is empty. After unstacking, the robot holds the top block, the lower block becomes clear, the top block is no longer on the lower block and is no longer clear, and the robot’s hand is not empty.
-
-Logical constraints implied by these rules include that only one block can be held at a time, a block cannot be picked up if something is on it, and a block cannot receive another block on top unless it is clear.

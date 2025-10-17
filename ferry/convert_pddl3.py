@@ -5,6 +5,8 @@ import argparse
 from typing import Dict, List, Tuple, Set, Optional
 import pathlib
 
+AT_FERRY_RE = re.compile(r"\(\s*at-ferry\s+([^\s()]+)\s*\)", re.IGNORECASE)
+
 PROBLEM_HEADER_RE = re.compile(r"^\(define\s*\(problem\s+([^\)]+)\)")
 OBJECTS_SECTION_RE = re.compile(r"\(\s*:objects(.*?)\)\s*\(\s*:\w+", re.DOTALL | re.IGNORECASE)
 INIT_SECTION_RE = re.compile(r"\(\s*:init(.*?)\)\s*\(\s*:\w+", re.DOTALL | re.IGNORECASE)
@@ -69,6 +71,41 @@ def extract_goal_map(goal_text: str) -> Dict[str, str]:
             car_to_loc[car] = loc
     return car_to_loc
 
+def extract_ferry_start_and_locations(init_text: str) -> Tuple[Optional[str], Set[str]]:
+    """从 :init 中抽取渡轮起点，以及出现过的 location 集（含 (location l) 与 at/at-ferry 中出现的 l）。"""
+    ferry_start = None
+    m = AT_FERRY_RE.search(init_text)
+    if m:
+        ferry_start = m.group(1)
+
+    locs: Set[str] = set(LOC_RE.findall(init_text))
+    # 把 at/at-ferry 中出现的 loc 也纳入
+    for _, l in AT_RE.findall(init_text):
+        if l.startswith("l"):
+            locs.add(l)
+    if ferry_start:
+        locs.add(ferry_start)
+    return ferry_start, locs
+
+
+def pick_checkpoint_for_car(all_locations: Set[str], car_init: Optional[str], car_goal: Optional[str],
+                            ferry_start: Optional[str]) -> Optional[str]:
+    """
+    选择一个检查点位置：
+      1) 不是 car 的 init，也不是 car 的 goal；
+      2) 优先也不是渡轮起点（避免“刚好起点就满足”导致约束失效）。
+    若找不到严格满足 1)+2) 的，就退而求其次找 != goal 的；仍找不到则返回 None。
+    """
+    candidates = [l for l in sorted(all_locations) if l not in {car_init, car_goal}]
+    # 优先非 ferry_start
+    pref = [l for l in candidates if l != ferry_start]
+    if pref:
+        return pref[0]
+    if candidates:
+        return candidates[0]
+    # 退而求其次：只要 != goal 也行（避免与目标相同导致 vacuous/不可能）
+    fallback = [l for l in sorted(all_locations) if l != car_goal]
+    return fallback[0] if fallback else None
 
 def sometime_before_formula(car_a: str, loc_a: str, car_b: str, loc_b: str) -> str:
     return f"(sometime-before (at {car_a} {loc_a}) (at {car_b} {loc_b}))"
@@ -154,56 +191,52 @@ def _build_plan_informed_constraints(init_map: Dict[str, str], goal_map: Dict[st
 
 
 def build_constraints(problem_text: str, init_text: str, goal_text: str, input_path: Optional[str]) -> List[str]:
-    init_map, cars_init, locs_init = extract_init_maps(init_text)
+    """
+    检查点先行（checkpoint-first）：
+      对每一辆需要移动的车 c（init(c) != goal(c)），生成：
+        (sometime-before (at-ferry Lchk) (at c goal(c)))
+      其中 Lchk 自动从所有位置中选择（既不等于 init(c)，也不等于 goal(c)，并尽量不等于渡轮起点）。
+    """
+    # 解析 init / goal
+    init_map, cars_init, _locs_from_init = extract_init_maps(init_text)
     goal_map = extract_goal_map(goal_text)
+
+    # 汇总对象区里的位置（若有）
     cars_objs, locs_objs = extract_objects(problem_text)
 
+    # 汇总所有位置：来自 objects、init 声明、at/at-ferry 出现过的
+    ferry_start, locs_seen = extract_ferry_start_and_locations(init_text)
+    all_locations: Set[str] = set(locs_objs) | set(_locs_from_init) | set(locs_seen)
+
+    # 汇总所有车：来自 objects、init、goal
     cars: Set[str] = set(cars_objs) | set(cars_init) | set(goal_map.keys())
-    locations: Set[str] = set(locs_objs) | set(locs_init) | set(goal_map.values())
 
     constraints: List[str] = []
 
-    # Plan-informed ordering (if a matching PDDL2 plan exists)
-    soln_path = _find_matching_solution_file(input_path)
-    plan_constraints = _build_plan_informed_constraints(init_map, goal_map, soln_path)
-
-    if plan_constraints:
-        constraints.extend(plan_constraints)
-    else:
-        # Fallback: ordering among cars sharing an origin (chain by id)
-        origin_to_cars: Dict[str, List[str]] = {}
-        for car in cars:
-            origin = init_map.get(car)
-            if origin:
-                origin_to_cars.setdefault(origin, []).append(car)
-        for origin, cars_at_origin in origin_to_cars.items():
-            cars_at_origin_sorted = sorted(cars_at_origin)
-            for i in range(len(cars_at_origin_sorted) - 1):
-                a = cars_at_origin_sorted[i]
-                b = cars_at_origin_sorted[i + 1]
-                ga = goal_map.get(a)
-                gb = goal_map.get(b)
-                if ga and gb and ga != gb:
-                    # Skip ordering if either car already satisfies its goal in the initial state.
-                    # This avoids unsatisfiable or vacuous sometime-before constraints under strict semantics.
-                    if init_map.get(a) == ga or init_map.get(b) == gb:
-                        continue
-                    constraints.append(sometime_before_formula(a, ga, b, gb))
-
-    # Restrict cars to origin/goal only
     for car in sorted(cars):
-        allowed = set()
-        if init_map.get(car):
-            allowed.add(init_map[car])
-        if goal_map.get(car):
-            allowed.add(goal_map[car])
-        if not allowed:
+        g = goal_map.get(car)
+        i = init_map.get(car)
+        # 只对“确实需要移动”的车加约束
+        if not g or i == g:
             continue
-        for loc in sorted(locations):
-            if loc not in allowed:
-                constraints.append(f"(always (not (at {car} {loc})))")
+        # 选检查点
+        chk = pick_checkpoint_for_car(all_locations, i, g, ferry_start)
+        if not chk or chk == g:
+            # 找不到合适检查点就跳过该车（不产生不满足/不可解的 vacuous 约束）
+            continue
+        # 插入检查点先行
+        constraints.append(f"(sometime-before  (at {car} {g}) (at-ferry {chk}))")
 
-    return constraints
+    # 去重（不同车可能挑到同一检查点）
+    dedup: List[str] = []
+    seen: Set[str] = set()
+    for c in constraints:
+        if c not in seen:
+            seen.add(c)
+            dedup.append(c)
+
+    return dedup
+
 
 
 def insert_constraints(problem_text: str, constraints: List[str]) -> str:

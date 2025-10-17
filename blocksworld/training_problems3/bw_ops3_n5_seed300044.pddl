@@ -23,7 +23,7 @@
 )
 
   (:constraints
-    (sometime (holding b3))
+    (always (not (on b5 b1)))
   )
 )
 

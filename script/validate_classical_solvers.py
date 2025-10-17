@@ -58,6 +58,9 @@ def validate_solution(domain_file: str, problem_file: str, solution_file: str, t
 SOMETIME_BEFORE_RE = re.compile(r"\(\s*sometime-before\s*\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*\)", re.IGNORECASE)
 ALWAYS_NOT_AT_RE = re.compile(r"\(\s*always\s*\(\s*not\s*\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*\)\s*\)\s*\)", re.IGNORECASE)
 DEBARK_RE = re.compile(r"^\(\s*debark\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*$", re.IGNORECASE)
+BOARD_RE = re.compile(r"^\(\s*board\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*$", re.IGNORECASE)
+SAIL_RE = re.compile(r"^\(\s*sail\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)\s*$", re.IGNORECASE)
+INIT_AT_RE = re.compile(r"\(\s*at\s+([^\s\(\)]+)\s+([^\s\(\)]+)\s*\)", re.IGNORECASE)
 
 
 def _extract_sometime_before(problem_text: str) -> List[Tuple[Tuple[str, str], Tuple[str, str]]]:
@@ -105,6 +108,138 @@ def _violates_sometime_before(plan_order: List[Tuple[str, str]], constraints: Li
     return False
 
 
+def _extract_init_at(problem_text: str) -> Dict[str, Optional[str]]:
+    """Extract initial at(car, loc) facts from the (:init ...) block.
+
+    Returns a mapping from car -> location (or None if unknown).
+    """
+    lines = problem_text.splitlines()
+    collecting = False
+    depth = 0
+    init_lines: List[str] = []
+    for line in lines:
+        if not collecting and "(:init" in line:
+            collecting = True
+            # start counting parentheses from this line
+            depth = 0
+        if collecting:
+            init_lines.append(line)
+            depth += line.count("(") - line.count(")")
+            if depth <= 0:
+                break
+    car_to_location: Dict[str, Optional[str]] = {}
+    for l in init_lines:
+        for m in INIT_AT_RE.finditer(l):
+            car, loc = m.group(1), m.group(2)
+            car_to_location[car] = loc
+    return car_to_location
+
+
+def _simulate_at_holds(problem_text: str, soln_path: str) -> Tuple[Dict[Tuple[str, str], int], Dict[Tuple[str, str], int]]:
+    """Simulate plan to compute when at(car, loc) holds across state indices.
+
+    Returns two dicts:
+      - earliest_holds[(car, loc)] = smallest state index where it holds
+      - latest_holds[(car, loc)] = largest state index where it holds
+
+    State index 0 corresponds to the initial state. After each action we advance
+    the index by 1 and record resulting holdings.
+    """
+    car_to_location = _extract_init_at(problem_text)
+    # Ensure we also track cars that appear only in the plan
+    cars_seen: Set[str] = set(car_to_location.keys())
+
+    # Helper to record holdings for current state index
+    earliest: Dict[Tuple[str, str], int] = {}
+    latest: Dict[Tuple[str, str], int] = {}
+
+    def record_state(state_index: int):
+        for car, loc in car_to_location.items():
+            if loc is None:
+                continue
+            key = (car, loc)
+            if key not in earliest:
+                earliest[key] = state_index
+            latest[key] = state_index
+
+    # Record initial state
+    current_index = 0
+    record_state(current_index)
+
+    # Step through actions in solution
+    try:
+        with open(soln_path, "r", encoding="utf-8") as f:
+            for raw_line in f:
+                line = raw_line.strip()
+                if not line:
+                    continue
+                # Board: car leaves current location (no longer at any location)
+                m = BOARD_RE.match(line)
+                if m:
+                    car, _loc = m.group(1), m.group(2)
+                    cars_seen.add(car)
+                    # Car is no longer at any location while onboard
+                    if car in car_to_location:
+                        car_to_location[car] = None
+                    else:
+                        car_to_location[car] = None
+                    current_index += 1
+                    record_state(current_index)
+                    continue
+                # Debark: car is now at the given location
+                m = DEBARK_RE.match(line)
+                if m:
+                    car, loc = m.group(1), m.group(2)
+                    cars_seen.add(car)
+                    car_to_location[car] = loc
+                    current_index += 1
+                    record_state(current_index)
+                    continue
+                # Sail does not change at(car, loc) facts for cars already debarked/boarded
+                if SAIL_RE.match(line):
+                    current_index += 1
+                    record_state(current_index)
+                    continue
+                # Unknown action: still advance state index to keep alignment with validator's step count
+                current_index += 1
+                record_state(current_index)
+    except FileNotFoundError:
+        # If solution missing, return initial holdings only
+        pass
+
+    return earliest, latest
+
+
+def _violates_sometime_before_intervals(earliest: Dict[Tuple[str, str], int], latest: Dict[Tuple[str, str], int], constraints: List[Tuple[Tuple[str, str], Tuple[str, str]]]) -> bool:
+    """Check sometime-before using non-strict interval semantics.
+
+    Interprets the constraint as: if B ever holds, then there must exist a time
+    point t1 where A holds and a time point t2 where B holds with t1 <= t2.
+    If B never holds, the constraint is vacuously satisfied.
+    """
+    for (a, b) in constraints:
+        a_key = (a[0], a[1])
+        b_key = (b[0], b[1])
+        if b_key not in earliest:
+            # B never holds -> vacuously satisfied
+            continue
+        if a_key not in earliest:
+            return True
+        # Need some time where B holds not earlier than earliest A
+        if latest.get(b_key, -1) < earliest[a_key]:
+            return True
+    return False
+
+
+def _violates_always_not_at_intervals(earliest: Dict[Tuple[str, str], int], forbids: List[Tuple[str, str]]) -> bool:
+    """Check always-not using simulated holdings: forbidden at(car, loc) must never hold."""
+    if not forbids:
+        return False
+    for pair in forbids:
+        if pair in earliest:
+            return True
+    return False
+
 def _violates_always_not_at(plan_order: List[Tuple[str, str]], forbids: List[Tuple[str, str]]) -> bool:
     if not forbids:
         return False
@@ -119,13 +254,14 @@ def enforce_pddl3_constraints_if_present(problem_text: str, soln_path: str) -> T
     # Quick exit if no constraints block
     if "(:constraints" not in problem_text:
         return True, None
-    plan_order = _parse_debark_order(soln_path)
+    # Simulate plan to compute when at(car, loc) holds; use interval semantics
+    earliest, latest = _simulate_at_holds(problem_text, soln_path)
     sb = _extract_sometime_before(problem_text)
     forbids = _extract_always_not_at(problem_text)
 
-    if _violates_sometime_before(plan_order, sb):
+    if _violates_sometime_before_intervals(earliest, latest, sb):
         return False, "Violates PDDL3 sometime-before constraint"
-    if _violates_always_not_at(plan_order, forbids):
+    if _violates_always_not_at_intervals(earliest, forbids):
         return False, "Violates PDDL3 always-not positional constraint"
     return True, None
 

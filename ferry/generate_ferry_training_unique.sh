@@ -13,47 +13,53 @@ TARGET_DIR="${1:-$SCRIPT_DIR/all_problems}"
 rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
-# Tiers from simplest upwards
-# 1) 3 locations, 2 cars → max 81; take all 81
+# 1) 3 locations, 2 cars → 81
 $PYTHON_EXEC "$GEN_PY" \
   --count 81 \
   --target-dir "$TARGET_DIR" \
   --locations 3 \
   --cars 2 \
-  --seed 10001
+  --seed 11001
 
-# 2) 3 locations, 3 cars → add 319 to reach subtotal 400
+# 2) 3 locations, 3 cars → 729
 $PYTHON_EXEC "$GEN_PY" \
-  --count 319 \
+  --count 500 \
   --target-dir "$TARGET_DIR" \
   --locations 3 \
   --cars 3 \
-  --seed 10001
+  --seed 11002
 
-# 3) 4 locations, 2 cars → 400 (simpler than adding more cars)
+# 3) 4 locations, 2 cars  256
 $PYTHON_EXEC "$GEN_PY" \
   --count 100 \
   --target-dir "$TARGET_DIR" \
   --locations 4 \
   --cars 2 \
-  --seed 10001
+  --seed 11003
 
-# 4) 5 locations, 2 cars → 200
+# 4) 5 locations, 2 cars → 625
 $PYTHON_EXEC "$GEN_PY" \
-  --count 300 \
+  --count 400 \
   --target-dir "$TARGET_DIR" \
   --locations 5 \
   --cars 2 \
-  --seed 10001
+  --seed 11004
 
-# 5) 4 locations, 3 cars → 100 (only if needed to reach 1100)
+# 5) 4 locations, 3 cars → 4096
 $PYTHON_EXEC "$GEN_PY" \
   --count 300 \
   --target-dir "$TARGET_DIR" \
   --locations 4 \
   --cars 3 \
-  --seed 10001
+  --seed 11005
 
+# 6) 5 locations, 3 cars → 15,625
+$PYTHON_EXEC "$GEN_PY" \
+  --count 719 \
+  --target-dir "$TARGET_DIR" \
+  --locations 5 \
+  --cars 3 \
+  --seed 11006
 # Report
 TOTAL=$(ls -1 "$TARGET_DIR"/*.pddl 2>/dev/null | wc -l || true)
-echo "Generated $TOTAL problems in $TARGET_DIR (expected 1100)."
+echo "Generated $TOTAL problems in $TARGET_DIR (expected 2100)."

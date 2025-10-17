@@ -13,6 +13,7 @@
         (carrying ?x1 - truck ?x2 - package)
         (empty ?x1 - truck)
         (adjacent ?x1 - cell ?x2 - cell)
+          (last ?t - truck ?c - cell)   
     )
 
     (:action pick-package
@@ -38,6 +39,9 @@
      :precondition (and (adjacent ?from ?to) (at ?t ?from) (not (= ?from ?to)))
      :effect (and
         (not (at ?t ?from))
-        (at ?t ?to))
+        (at ?t ?to)
+        (last ?t ?from))
+        )
+        
     )
 )

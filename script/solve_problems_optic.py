@@ -5,7 +5,7 @@ import time
 import subprocess
 import signal
 
-def solve_problem(problem_file, domain_file="domain.pddl"):
+def solve_problem(problem_file, domain_file="domain.pddl", timeout=5):
     """
     使用optic求解单个问题
     """
@@ -49,7 +49,6 @@ def solve_problem(problem_file, domain_file="domain.pddl"):
     
     # 使用非阻塞方式执行命令，实现真正的超时控制
     start_time = time.time()
-    timeout = 5  # 10秒超时
     
     # 启动进程
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -141,7 +140,7 @@ def solve_problem(problem_file, domain_file="domain.pddl"):
             pass
         return False
 
-def solve_all_problems(problems_dir="problems", domain_file="domain.pddl"):
+def solve_all_problems(problems_dir="problems", domain_file="domain.pddl", timeout=5):
     """
     求解problems文件夹下的所有问题
     """
@@ -167,6 +166,7 @@ def solve_all_problems(problems_dir="problems", domain_file="domain.pddl"):
     
     print(f"🎯 Scenario: {scenario_name}")
     print(f"📁 找到 {len(problem_files)} 个问题文件")
+    print(f"⏱️  超时: {timeout} 秒")
     print(f"🚀 开始求解... (按Ctrl+C中断)")
     print("-" * 50)
     
@@ -179,7 +179,7 @@ def solve_all_problems(problems_dir="problems", domain_file="domain.pddl"):
         for i, problem_file in enumerate(problem_files, 1):
             print(f"[{i}/{len(problem_files)}] ", end="")
             
-            if solve_problem(problem_file, domain_file):
+            if solve_problem(problem_file, domain_file, timeout):
                 successful += 1
             else:
                 failed += 1
@@ -211,8 +211,19 @@ def solve_all_problems(problems_dir="problems", domain_file="domain.pddl"):
 if __name__ == "__main__":
     import sys
     
-    # 可以通过命令行参数指定文件夹和领域文件
+    # 可以通过命令行参数指定文件夹、领域文件以及超时时间（秒）
     problems_dir = sys.argv[1] if len(sys.argv) > 1 else "problems"
     domain_file = sys.argv[2] if len(sys.argv) > 2 else "domain.pddl"
     
-    solve_all_problems(problems_dir, domain_file)
+    # 第三个参数为timeout（秒），可为整数或浮点数
+    default_timeout = 5
+    if len(sys.argv) > 3:
+        try:
+            timeout_arg = float(sys.argv[3])
+            timeout_value = timeout_arg if timeout_arg > 0 else default_timeout
+        except Exception:
+            timeout_value = default_timeout
+    else:
+        timeout_value = default_timeout
+    
+    solve_all_problems(problems_dir, domain_file, timeout_value)
