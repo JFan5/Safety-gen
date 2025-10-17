@@ -13,9 +13,9 @@ from pathlib import Path
 from datasets import load_from_disk, Dataset
 from transformers import TrainerCallback, TrainingArguments
 
-# Import Unsloth with compatibility fixes
-from unsloth_compat import safe_import_unsloth
-unsloth, FastLanguageModel, SFTTrainer = safe_import_unsloth()
+# Import Unsloth components
+from unsloth import FastLanguageModel
+from trl import SFTTrainer
 
 # 配置参数
 max_seq_length = 8000  # 最大序列长度
