@@ -127,9 +127,6 @@ def generate_n_with_params(
     seed = start_seed
 
     while generated < num:
-        if attempts >= max_attempts_per_problem * max(1, (num - generated)):
-            print(f"[warn] 达到尝试上限，已生成 {generated}/{num} 个。")
-            break
 
         content = generate_logistics_problem(
             cities=cities,
@@ -377,7 +374,7 @@ def main():
     parser.add_argument("--unique", action="store_true", help="去重生成，避免与输出目录中现有问题重复")
     parser.add_argument("--use-param-filename", action="store_true",
                         help="使用参数+seed 作为文件名；不加时使用自增编号 001/002...")
-    parser.add_argument("--max-attempts-per-problem", type=int, default=20,
+    parser.add_argument("--max-attempts-per-problem", type=int, default=50,
                         help="unique 模式下，每个目标问题的最大尝试次数（避免死循环）")
 
     args = parser.parse_args()

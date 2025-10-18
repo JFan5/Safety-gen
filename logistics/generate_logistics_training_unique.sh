@@ -23,7 +23,7 @@ $PYTHON_EXEC "$GEN_PY" \
   --type single \
   --cities 2 --city-size 3 --packages 4 --airplanes 1 \
   --seed $((BASE_SEED+0)) \
-  --num 400 \
+  --num 200 \
   --output-dir "$TARGET_DIR" \
   --max-attempts-per-problem "$MAX_ATTEMPTS" \
   "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
@@ -34,7 +34,7 @@ $PYTHON_EXEC "$GEN_PY" \
   --type single \
   --cities 2 --city-size 3 --packages 6 --airplanes 1 \
   --seed $((BASE_SEED+400)) \
-  --num 400 \
+  --num 300 \
   --output-dir "$TARGET_DIR" \
   --max-attempts-per-problem "$MAX_ATTEMPTS" \
   "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
@@ -45,7 +45,7 @@ $PYTHON_EXEC "$GEN_PY" \
   --type single \
   --cities 3 --city-size 4 --packages 8 --airplanes 2 \
   --seed $((BASE_SEED+800)) \
-  --num 400 \
+  --num 500 \
   --output-dir "$TARGET_DIR" \
   --max-attempts-per-problem "$MAX_ATTEMPTS" \
   "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
@@ -56,11 +56,44 @@ $PYTHON_EXEC "$GEN_PY" \
   --type single \
   --cities 3 --city-size 4 --packages 6 --airplanes 2 \
   --seed $((BASE_SEED+1200)) \
-  --num 300 \
+  --num 500 \
   --output-dir "$TARGET_DIR" \
   --max-attempts-per-problem "$MAX_ATTEMPTS" \
   "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
 
+
+# -----------------------------------------------------------------------------
+echo "[GEN] c=2 s=5 p=7 a=2 count=200 seed=$((BASE_SEED+1600))"
+$PYTHON_EXEC "$GEN_PY" \
+  --type single \
+  --cities 2 --city-size 5 --packages 7 --airplanes 2 \
+  --seed $((BASE_SEED+1600)) \
+  --num 200 \
+  --output-dir "$TARGET_DIR" \
+  --max-attempts-per-problem "$MAX_ATTEMPTS" \
+  "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
+
+# -----------------------------------------------------------------------------
+echo "[GEN] c=4 s=3 p=6 a=2 count=300 seed=$((BASE_SEED+1800))"
+$PYTHON_EXEC "$GEN_PY" \
+  --type single \
+  --cities 4 --city-size 3 --packages 6 --airplanes 2 \
+  --seed $((BASE_SEED+1800)) \
+  --num 200 \
+  --output-dir "$TARGET_DIR" \
+  --max-attempts-per-problem "$MAX_ATTEMPTS" \
+  "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
+
+
+echo "[GEN] c=4 s=3 p=5 a=2 count=300 seed=$((BASE_SEED+1800))"
+$PYTHON_EXEC "$GEN_PY" \
+  --type single \
+  --cities 4 --city-size 3 --packages 5 --airplanes 2 \
+  --seed $((BASE_SEED+2000)) \
+  --num 200 \
+  --output-dir "$TARGET_DIR" \
+  --max-attempts-per-problem "$MAX_ATTEMPTS" \
+  "${UNIQUE_OPT[@]}" "${NAME_OPT[@]}"
 #
 #-----------------------------------------------------------------------------
 TOTAL=$(find "$TARGET_DIR" -maxdepth 1 -name "*.pddl" | wc -l)

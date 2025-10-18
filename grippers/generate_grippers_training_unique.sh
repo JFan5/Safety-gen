@@ -24,7 +24,7 @@ SEED=${SEED:-10001}
 "$PYTHON_EXEC" "$GEN_PY" \
   --count "200" \
   --target-dir "$TARGET_DIR" \
-  --robots "1" \
+  --robots "2" \
   --rooms "3" \
   --objects "2" \
   --seed "$SEED" \
@@ -44,7 +44,7 @@ echo "Progress: $(find "$TARGET_DIR" -maxdepth 1 -name '*.pddl' | wc -l | tr -d 
 
 echo "[BATCH] n=1 r=4 o=3 count=300 uniq=isomorphic"
 "$PYTHON_EXEC" "$GEN_PY" \
-  --count "300" \
+  --count "400" \
   --target-dir "$TARGET_DIR" \
   --robots "1" \
   --rooms "4" \
@@ -55,7 +55,7 @@ echo "Progress: $(find "$TARGET_DIR" -maxdepth 1 -name '*.pddl' | wc -l | tr -d 
 
 echo "[BATCH] n=2 r=3 o=3 count=300 uniq=isomorphic"
 "$PYTHON_EXEC" "$GEN_PY" \
-  --count "300" \
+  --count "400" \
   --target-dir "$TARGET_DIR" \
   --robots "2" \
   --rooms "3" \
@@ -66,9 +66,9 @@ echo "Progress: $(find "$TARGET_DIR" -maxdepth 1 -name '*.pddl' | wc -l | tr -d 
 
 echo "[BATCH] n=1 r=4 o=4 count=300 uniq=text"
 "$PYTHON_EXEC" "$GEN_PY" \
-  --count "300" \
+  --count "400" \
   --target-dir "$TARGET_DIR" \
-  --robots "1" \
+  --robots "2" \
   --rooms "4" \
   --objects "4" \
   --seed "$SEED" \
@@ -77,7 +77,7 @@ echo "Progress: $(find "$TARGET_DIR" -maxdepth 1 -name '*.pddl' | wc -l | tr -d 
 
 echo "[BATCH] n=2 r=4 o=3 count=300 uniq=text"
 "$PYTHON_EXEC" "$GEN_PY" \
-  --count "300" \
+  --count "400" \
   --target-dir "$TARGET_DIR" \
   --robots "2" \
   --rooms "4" \
