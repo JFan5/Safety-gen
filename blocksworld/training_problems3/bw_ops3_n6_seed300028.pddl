@@ -1,5 +1,3 @@
-
-
 (define (problem BW-rand-6)
 (:domain blocksworld)
 (:objects b1 b2 b3 b4 b5 b6 )
@@ -26,9 +24,7 @@
 (on-table b6))
 )
 
-  (:constraints
-    (always (not (on b4 b1)))
-  )
+(:constraints
+  (sometime-before (on b2 b5) (on b1 b4))
 )
-
-
+)

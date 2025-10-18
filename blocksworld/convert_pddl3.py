@@ -1,204 +1,299 @@
-#!/usr/bin/env python3
+
 import os
-import glob
 import re
-from typing import List, Tuple, Optional, Set
-import shutil
+import sys
+from typing import List, Tuple, Dict, Optional
 
-def _extract_block(text: str, key: str) -> Optional[str]:
-    """
-    提取 problem.pddl 中像 (:objects ...)、(:init ...)、(:goal ...) 的块（最外层）。
-    使用启发式正则：匹配 '(:key' 到其后第一个单独的右括号 ) 之间的内容。
-    对于常见 problem.pddl 写法足够；若你的格式非常规，可视需要加强解析。
-    """
-    # 在忽略大小写的前提下查找起点
-    m = re.search(rf'\(\s*:{re.escape(key)}\b', text, flags=re.IGNORECASE)
-    if not m:
-        return None
-    start = m.start()
-    # 从起点开始做一个简单的括号计数，找到匹配的右括号
-    depth = 0
-    for i in range(start, len(text)):
-        c = text[i]
-        if c == '(':
-            depth += 1
-        elif c == ')':
-            depth -= 1
-            if depth == 0:
-                return text[start:i+1]
-    return None  # 未能成功闭合（格式异常）
+Action = Tuple[str, Tuple[str, ...]]
+Literal = Tuple[str, Tuple[str, ...]]
 
-def _extract_on_pairs(block_text: str) -> Set[Tuple[str, str]]:
-    """从一个块（如 :init 或 :goal）里提取所有形如 (on a b) 的对。"""
-    if not block_text:
-        return set()
-    pairs = set()
-    for m in re.finditer(r'\(\s*on\s+([^\s()]+)\s+([^\s()]+)\s*\)', block_text, flags=re.IGNORECASE):
-        pairs.add((m.group(1), m.group(2)))
-    return pairs
+ACTION_RE = re.compile(r"\(\s*([a-zA-Z0-9_\-]+)\s+([^\)]*)\s*\)")
 
-def _extract_objects(objects_block: str) -> List[str]:
-    """从 (:objects ...) 块中提取对象标识符列表。"""
-    if not objects_block:
-        return []
-    inner = re.sub(r'^\(\s*:objects', '', objects_block, flags=re.IGNORECASE).rstrip(')')
-    # 去掉换行和多余空白
-    toks = re.findall(r'[^\s()]+', inner)
-    return toks
+def read_text(fp: str) -> str:
+    with open(fp, "r", encoding="utf-8") as f:
+        return f.read()
 
-def generate_safe_constraint(problem_text: str) -> Optional[str]:
-    """
-    基于 problem.pddl 自动生成一条不与 init/goal 冲突的安全约束（PDDL 3.0 S-expr，不含外层 (:constraints ...)）。
-    优先生成：对每个 (on x y) 目标，禁止 (on y x) 的逆。
-    若不可行，则选择任一不在 init、且非目标 on 的 (on a b) 禁止之。
-    返回值为形如 "(always (not (on b1 b4)))" 的字符串；若无法生成，返回 None。
-    """
-    objects_block = _extract_block(problem_text, 'objects')
-    init_block    = _extract_block(problem_text, 'init')
-    goal_block    = _extract_block(problem_text, 'goal')
+def write_text(fp: str, s: str) -> None:
+    with open(fp, "w", encoding="utf-8") as f:
+        f.write(s)
 
-    objs = _extract_objects(objects_block)
-    init_on  = _extract_on_pairs(init_block)
-    goal_on  = _extract_on_pairs(goal_block)
+def strip_comments(s: str) -> str:
+    return re.sub(r";[^\n]*", "", s)
 
-    # 1) 尝试对每个目标 (on x y) 生成逆 (on y x) 的禁止约束
-    for (x, y) in goal_on:
-        rev = (y, x)
-        if rev not in init_on:  # 初始不为真，才能用 always not
-            return f"(always (not (on {rev[0]} {rev[1]})))"
+def parse_problem(pddl: str) -> Dict:
+    s = strip_comments(pddl)
+    objs_match = re.search(r"\(:objects\s+(.*?)\)", s, flags=re.DOTALL|re.IGNORECASE)
+    objects = []
+    if objs_match:
+        raw = objs_match.group(1)
+        raw = re.sub(r"-\s+[A-Za-z_][A-Za-z0-9_]*", "", raw)
+        tokens = raw.split()
+        objects = [t for t in tokens if t.strip()]
+    init_match = re.search(r"\(:init\s*(.*?)\)\s*", s, flags=re.DOTALL|re.IGNORECASE)
+    init_literals: Dict[str, set] = {"on": set(), "on-table": set(), "clear": set(),
+                                     "holding": set(), "arm-empty": set()}
+    if init_match:
+        init_block = init_match.group(1)
+        for m in re.finditer(r"\(\s*([a-zA-Z0-9_\-]+)([^\)]*)\)", init_block):
+            pred = m.group(1).lower()
+            args = tuple(a for a in m.group(2).split() if a)
+            if pred == "on" and len(args) == 2:
+                init_literals["on"].add((args[0], args[1]))
+            elif pred == "on-table" and len(args) == 1:
+                init_literals["on-table"].add((args[0],))
+            elif pred == "clear" and len(args) == 1:
+                init_literals["clear"].add((args[0],))
+            elif pred == "holding" and len(args) == 1:
+                init_literals["holding"].add((args[0],))
+            elif pred == "arm-empty":
+                init_literals["arm-empty"].add(tuple())
+    goal_literals: List[Literal] = []
+    goal_match = re.search(r"\(:goal\s*\(\s*and\s*(.*?)\)\s*\)\s*\)", s, flags=re.DOTALL|re.IGNORECASE)
+    if goal_match:
+        goal_block = goal_match.group(1)
+        for m in re.finditer(r"\(\s*([a-zA-Z0-9_\-]+)([^\)]*)\)", goal_block):
+            pred = m.group(1).lower()
+            args = tuple(a for a in m.group(2).split() if a)
+            goal_literals.append((pred, args))
+    else:
+        goal_match2 = re.search(r"\(:goal\s*(\(.*?\))\s*\)\s*\)", s, flags=re.DOTALL|re.IGNORECASE)
+        if goal_match2:
+            for m in re.finditer(r"\(\s*([a-zA-Z0-9_\-]+)([^\)]*)\)", goal_match2.group(1)):
+                pred = m.group(1).lower()
+                args = tuple(a for a in m.group(2).split() if a)
+                goal_literals.append((pred, args))
+    return {"objects": objects, "init": init_literals, "goal": goal_literals, "raw": s}
 
-    # 2) 备选：挑选任一 (a,b) 使得 a!=b，且 (a,b) 不在 init/on-goal 中
-    #        这样禁止它不会与目标直接冲突，也不会与初始真值冲突
-    all_pairs = [(a, b) for a in objs for b in objs if a != b]
-    for a, b in all_pairs:
-        if (a, b) not in init_on and (a, b) not in goal_on:
-            return f"(always (not (on {a} {b})))"
+def parse_solution(sol_text: str) -> List[Action]:
+    s = strip_comments(sol_text)
+    acts: List[Action] = []
+    for line in s.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        m = ACTION_RE.match(line.lower())
+        if not m:
+            continue
+        name = m.group(1)
+        args = tuple(a for a in m.group(2).split() if a)
+        acts.append((name, args))
+    return acts
 
-    # 如果连备选都找不到，返回 None（极少见，意味着所有成对关系要么是初始为真、要么在目标中）
-    return None
-
-def insert_constraints(problem_text: str, constraint_expr: Optional[str] = None) -> str:
-    """
-    将自动生成或指定的约束插入 problem.pddl 文本，形成 (:constraints ...) 段。
-    - 若 constraint_expr 为 None：自动生成一条不冲突的安全约束。
-    - 若已存在 (:constraints ...)：当前版本**不修改**原文，直接返回（避免合并多个 constraints 块的复杂性）。
-      （需要合并时，可根据你的规划器语法实现对现有块的 AST 级合并）
-    """
-    # 已有 constraints 则直接返回（保守处理）
-    if re.search(r'\(\s*:constraints\b', problem_text, flags=re.IGNORECASE):
-        return problem_text
-
-    # 自动生成约束
-    if constraint_expr is None:
-        constraint_expr = generate_safe_constraint(problem_text)
-        if constraint_expr is None:
-            raise ValueError("无法自动生成与 init/goal 兼容的安全约束。请提供自定义 constraint_expr。")
-
-    # 估计缩进
-    last_newline = problem_text.rfind('\n')
-    indent = ""
-    if last_newline != -1:
-        tail = problem_text[last_newline+1:]
-        m = re.match(r'(\s*)', tail)
-        indent = m.group(1) if m else ""
-    if not indent:
-        indent = "  "
-
-    constraints_block = (
-        f"\n{indent}(:constraints\n"
-        f"{indent}  {constraint_expr}\n"
-        f"{indent})\n"
-    )
-
-    # 在 problem 顶层最后一个 ')' 前插入
-    last_paren = problem_text.rfind(')')
-    if last_paren == -1:
-        raise ValueError("未找到 problem 的收尾右括号 ')'")
-    return problem_text[:last_paren] + constraints_block + problem_text[last_paren:]
-
-def convert_problem_to_pddl3(problem_file: str, output_dir: str = "problems_pddl3") -> bool:
-    """
-    将单个问题文件转换为PDDL3格式
+class BWState:
+    def __init__(self, objects: List[str], init: Dict[str, set]):
+        self.objects = set(objects)
+        self.on = set(init.get("on", set()))
+        self.on_table = set(init.get("on-table", set()))
+        self.clear = set(init.get("clear", set()))
+        self.arm_empty = (len(init.get("arm-empty", set())) > 0)
+        self.holding: Optional[str] = None
+        if init.get("holding"):
+            (x,) = list(init["holding"])[0]
+            self.holding = x
+            self.arm_empty = False
     
-    Args:
-        problem_file: 输入问题文件路径
-        output_dir: 输出目录
-    
-    Returns:
-        bool: 是否成功转换
-    """
-    try:
-        # 读取原始问题文件
-        with open(problem_file, 'r') as f:
-            problem_text = f.read()
-        
-        # 转换为PDDL3格式
-        pddl3_text = insert_constraints(problem_text)
-        
-        # 生成输出文件名
-        base_name = os.path.basename(problem_file)
-        output_file = os.path.join(output_dir, base_name)
-        
-        # 写入PDDL3问题文件
-        with open(output_file, 'w') as f:
-            f.write(pddl3_text)
-        
-        return True
-        
-    except Exception as e:
-        print(f"转换失败 {problem_file}: {e}")
+    def holds(self, lit: Literal) -> bool:
+        pred, args = lit
+        if pred == "on" and len(args) == 2:
+            return (args[0], args[1]) in self.on
+        if pred == "on-table" and len(args) == 1:
+            return (args[0],) in self.on_table
+        if pred == "clear" and len(args) == 1:
+            return (args[0],) in self.clear
+        if pred == "holding" and len(args) == 1:
+            return self.holding == args[0]
+        if pred == "arm-empty" and len(args) == 0:
+            return self.arm_empty
         return False
 
-def convert_all_problems(problems_dir: str = "problems", output_dir: str = "problems_pddl3"):
-    """
-    转换problems文件夹中的所有问题为PDDL3格式
-    
-    Args:
-        problems_dir: 输入问题文件夹
-        output_dir: 输出文件夹
-    """
-    # 清空并创建输出目录
+    def pickup(self, x: str) -> bool:
+        if (x,) in self.clear and (x,) in self.on_table and self.arm_empty:
+            self.holding = x
+            self.arm_empty = False
+            self.clear.discard((x,))
+            self.on_table.discard((x,))
+            return True
+        return False
+
+    def putdown(self, x: str) -> bool:
+        if self.holding == x:
+            self.clear.add((x,))
+            self.arm_empty = True
+            self.on_table.add((x,))
+            self.holding = None
+            return True
+        return False
+
+    def stack(self, x: str, y: str) -> bool:
+        if (y,) in self.clear and self.holding == x:
+            self.arm_empty = True
+            self.clear.add((x,))
+            self.on.add((x, y))
+            self.clear.discard((y,))
+            self.holding = None
+            return True
+        return False
+
+    def unstack(self, x: str, y: str) -> bool:
+        if (x, y) in self.on and (x,) in self.clear and self.arm_empty:
+            self.holding = x
+            self.clear.add((y,))
+            self.on.discard((x, y))
+            self.clear.discard((x,))
+            self.arm_empty = False
+            return True
+        return False
+
+    def step(self, action: Action) -> bool:
+        name, args = action
+        if name == "pickup" and len(args) == 1:
+            return self.pickup(args[0])
+        if name == "putdown" and len(args) == 1:
+            return self.putdown(args[0])
+        if name == "stack" and len(args) == 2:
+            return self.stack(args[0], args[1])
+        if name == "unstack" and len(args) == 2:
+            return self.unstack(args[0], args[1])
+        return False
+
+def first_achievements(objects: List[str], init: Dict[str, set], plan: List[Action], goals: List[Literal]) -> Dict[Literal, Optional[int]]:
+    st = BWState(objects, init)
+    achieved: Dict[Literal, Optional[int]] = {g: (0 if st.holds(g) else None) for g in goals}
+    t = 0
+    for act in plan:
+        t += 1
+        st.step(act)
+        for g in goals:
+            if achieved[g] is None and st.holds(g):
+                achieved[g] = t
+    return achieved
+
+def pick_constraint(goals, achieved):
+    pairs = []
+    for i in range(len(goals)):
+        for j in range(len(goals)):
+            if i == j: continue
+            A, B = goals[i], goals[j]
+            ta, tb = achieved.get(A), achieved.get(B)
+            if ta is not None and tb is not None and ta < tb:
+                pairs.append((A, B, ta, tb))
+    if pairs:
+        pairs.sort(key=lambda x: (x[3]-x[2], x[2]))
+        A, B, *_ = pairs[-1]
+        return A, B
+    # 没有严格先后时，若至少两个不同目标，选择任意一对；否则跳过（不插入约束）
+    if len(goals) >= 2:
+        return goals[0], goals[1]
+    return None
+
+def lit_to_str(lit: Literal) -> str:
+    pred, args = lit
+    if len(args) == 0:
+        return f"({pred})"
+    return f"({pred} {' '.join(args)})"
+
+def inject_constraints(problem_raw: str, A: Literal, B: Literal) -> str:
+    s = problem_raw.strip()
+    # 不在 problem 顶层插入/修改 :requirements，保持与 convert_pddl3 一致
+
+    if A[0] == "arm-empty" and A[1] == tuple():
+        cons = f"(sometime-before {lit_to_str(B)} (arm-empty))"
+    else:
+        cons = f"(sometime-before {lit_to_str(B)} {lit_to_str(A)})"
+
+    if re.search(r"\(:constraints\s*\(", s, flags=re.IGNORECASE|re.DOTALL):
+        s = re.sub(r"\(:constraints\s*\((.*?)\)\s*\)",
+                   lambda m: f"(:constraints ({m.group(1)} {cons}))",
+                   s, flags=re.IGNORECASE|re.DOTALL, count=1)
+    else:
+        s = s.rstrip(")")
+        s += f"\n(:constraints\n  {cons}\n)\n)"
+    return s
+
+def process_problem(problem_fp: str, solution_fp: Optional[str], output_dir: str) -> Optional[str]:
+    prob_raw = read_text(problem_fp)
+    parsed = parse_problem(prob_raw)
+    objects = parsed["objects"]
+    init = parsed["init"]
+    goals = parsed["goal"]
+    if not goals:
+        print(f"[WARN] No goals found in {problem_fp}; skipping.", file=sys.stderr)
+        return None
+
+    plan: List[Action] = []
+    if solution_fp and os.path.exists(solution_fp):
+        plan = parse_solution(read_text(solution_fp))
+    else:
+        print(f"[WARN] No solution file for {problem_fp}; using empty plan (fallback constraint).", file=sys.stderr)
+
+    achieved = first_achievements(objects, init, plan, goals)
+    picked = pick_constraint(goals, achieved)
+    if not picked:
+        # 无可插入的约束，跳过
+        return None
+    A, B = picked
+    new_prob = inject_constraints(prob_raw, A, B)
+
+    os.makedirs(output_dir, exist_ok=True)
+    out_fp = os.path.join(output_dir, os.path.basename(problem_fp))
+    write_text(out_fp, new_prob)
+    return out_fp
+
+def find_solution_fp(problem_fp: str) -> Optional[str]:
+    base, _ = os.path.splitext(problem_fp)
+    for ext in (".soln", ".sol", ".plan", ".solution", ".txt"):
+        cand = base + ext
+        if os.path.exists(cand):
+            return cand
+    return None
+
+def convert_all_problems(input_dir: str, output_dir: str) -> None:
+    # 清空并创建输出目录（与 convert_pddl3 对齐）
     if os.path.exists(output_dir):
+        import shutil
         shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
-    
-    # 获取所有PDDL问题文件
-    problem_files = glob.glob(os.path.join(problems_dir, "*.pddl"))
-    
-    if not problem_files:
-        print(f"在 {problems_dir} 文件夹中没有找到PDDL问题文件")
+
+    names = [n for n in os.listdir(input_dir) if n.lower().endswith('.pddl')]
+    if not names:
+        print(f"在 {input_dir} 文件夹中没有找到PDDL问题文件")
         return
-    
-    print(f"找到 {len(problem_files)} 个问题文件")
+
+    print(f"找到 {len(names)} 个问题文件")
     print(f"开始转换为PDDL3格式...")
     print(f"输出目录: {output_dir}")
     print("-" * 50)
-    
-    successful = 0
-    failed = 0
-    
-    for i, problem_file in enumerate(problem_files, 1):
-        print(f"[{i}/{len(problem_files)}] 转换: {os.path.basename(problem_file)} ", end="")
-        
-        if convert_problem_to_pddl3(problem_file, output_dir):
+
+    ok = 0
+    fail = 0
+    for i, name in enumerate(names, 1):
+        # 避免误处理 domain 文件（若存在）
+        if 'domain' in name.lower():
+            continue
+        problem_fp = os.path.join(input_dir, name)
+        sol_fp = find_solution_fp(problem_fp)
+        print(f"[{i}/{len(names)}] 转换: {name} ", end="")
+        out = process_problem(problem_fp, sol_fp, output_dir)
+        if out:
             print("✓ 成功")
-            successful += 1
+            ok += 1
         else:
             print("✗ 失败")
-            failed += 1
-    
+            fail += 1
+
     print("-" * 50)
-    print(f"转换完成!")
-    print(f"成功: {successful} 个")
-    print(f"失败: {failed} 个")
-    if successful + failed > 0:
-        print(f"成功率: {successful/(successful+failed)*100:.1f}%")
+    print("转换完成!")
+    print(f"成功: {ok} 个")
+    print(f"失败: {fail} 个")
+    if ok + fail > 0:
+        print(f"成功率: {ok/(ok+fail)*100:.1f}%")
+
+
+def main(argv: List[str]) -> None:
+    # 与 convert_pddl3 一致：支持 <输入目录> [输出目录]，无参数时使用默认
+    problems_dir = argv[1] if len(argv) > 1 else "problems"
+    output_dir   = argv[2] if len(argv) > 2 else "problems_pddl3"
+    convert_all_problems(problems_dir, output_dir)
 
 if __name__ == "__main__":
-    import sys
-    
-    # 可以通过命令行参数指定输入和输出目录
-    problems_dir = sys.argv[1] if len(sys.argv) > 1 else "problems"
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else "problems_pddl3"
-    
-    convert_all_problems(problems_dir, output_dir)
+    main(sys.argv)
