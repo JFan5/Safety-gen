@@ -24,5 +24,4 @@
 (navigate rover0 waypoint5 waypoint0)
 (sample_rock rover1 rover1store waypoint4)
 (communicate_rock_data rover0 general waypoint5 waypoint0 waypoint8)
-(navigate rover1 waypoint4 waypoint0)
-(communicate_rock_data rover1 general waypoint4 waypoint0 waypoint8)
+(communicate_rock_data rover1 general waypoint4 waypoint4 waypoint8)

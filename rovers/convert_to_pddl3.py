@@ -413,11 +413,6 @@ def convert_problem_to_pddl3(
         return False
 
 
-def _copy_solution_files(input_dir: Path, output_dir: Path) -> None:
-    for soln_path in input_dir.glob("*.soln"):
-        target = output_dir / soln_path.name
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(soln_path, target)
 
 
 def convert_directory(
@@ -427,7 +422,6 @@ def convert_directory(
     min_constraints: int,
     max_constraints: int,
     pattern: str = "*.pddl",
-    copy_solutions: bool = True,
     clean_output: bool = True,
 ) -> None:
     """Convert every *.pddl under input_dir into output_dir."""
@@ -460,8 +454,6 @@ def convert_directory(
         else:
             print("✗")
     print(f"完成：成功 {success}/{total}")
-    if copy_solutions:
-        _copy_solution_files(input_dir, output_dir)
 
 
 # -----------------------------
@@ -481,11 +473,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min", type=int, default=1, dest="min_constraints", help="每个问题最少约束条数")
     parser.add_argument("--max", type=int, default=3, dest="max_constraints", help="每个问题最多约束条数")
     parser.add_argument("--pattern", default="*.pddl", help="目录转换时匹配的文件模式")
-    parser.add_argument(
-        "--no-copy-solutions",
-        action="store_true",
-        help="目录转换时不额外拷贝 .soln 文件",
-    )
+    
     parser.add_argument(
         "--no-clean",
         action="store_true",
@@ -522,7 +510,6 @@ def main() -> None:
             min_constraints,
             max_constraints,
             pattern=args.pattern,
-            copy_solutions=not args.no_copy_solutions,
             clean_output=not args.no_clean,
         )
 

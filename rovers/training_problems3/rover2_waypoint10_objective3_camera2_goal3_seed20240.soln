@@ -1,5 +1,5 @@
 (calibrate rover0 camera0 objective2 waypoint0)
-(calibrate rover0 camera1 objective2 waypoint0)
+(navigate rover1 waypoint3 waypoint0)
 (navigate rover0 waypoint0 waypoint8)
 (take_image rover0 waypoint8 objective0 camera0 colour)
 (sample_soil rover0 rover0store waypoint8)
