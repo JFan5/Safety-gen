@@ -7,10 +7,12 @@ set -euo pipefail
 # Defaults:
 #   OUTPUT_DIR = rovers/all_problems
 #   PYTHON_EXEC = ${PYTHON_EXEC:-/usr/bin/env python3}
+PYTHON_EXEC="/opt/crc/c/conda/23.5.2/bin/python3"
+
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 TARGET_DIR="${1:-$SCRIPT_DIR/all_problems}"
-PYTHON_EXEC="${2:-${PYTHON_EXEC:-/usr/bin/env python3}}"
+PYTHON_EXEC="${2:-${PYTHON_EXEC}}"
 GENERATOR_PY="$SCRIPT_DIR/generate_rovers_training_unique.py"
 
 if [[ ! -f "$GENERATOR_PY" ]]; then
@@ -31,89 +33,26 @@ function progress() {
 
 echo "Generating Rover training problems (total target: 2100)"
 
-echo "[BATCH] rovers=1 waypoints=5 objectives=2 cameras=1 goals=2 count=250"
+echo "[BATCH 1] rovers=1 waypoints=6 objectives=2 cameras=1 goals=2 count=700"
 "$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 250 \
-  --seed-start 1 \
-  --rovers 1 \
-  --waypoints 5 \
-  --objectives 2 \
-  --cameras 1 \
-  --goals 2 \
+  --count 700 --seed-start 1 \
+  --rovers 1 --waypoints 6 --objectives 2 --cameras 1 --goals 2 \
   --out-dir "$TARGET_DIR"
 progress "batch 1"
 
-echo "[BATCH] rovers=1 waypoints=7 objectives=3 cameras=2 goals=3 count=300"
+echo "[BATCH 2] rovers=1 waypoints=8 objectives=3 cameras=2 goals=2 count=700"
 "$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 300 \
-  --seed-start 10001 \
-  --rovers 1 \
-  --waypoints 7 \
-  --objectives 3 \
-  --cameras 2 \
-  --goals 3 \
+  --count 700 --seed-start 10001 \
+  --rovers 1 --waypoints 8 --objectives 3 --cameras 2 --goals 2 \
   --out-dir "$TARGET_DIR"
 progress "batch 2"
 
-echo "[BATCH] rovers=2 waypoints=8 objectives=3 cameras=3 goals=4 count=300"
+echo "[BATCH 3] rovers=2 waypoints=10 objectives=3 cameras=2 goals=3 count=700"
 "$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 300 \
-  --seed-start 20001 \
-  --rovers 2 \
-  --waypoints 8 \
-  --objectives 3 \
-  --cameras 3 \
-  --goals 4 \
+  --count 700 --seed-start 20001 \
+  --rovers 2 --waypoints 10 --objectives 3 --cameras 2 --goals 3 \
   --out-dir "$TARGET_DIR"
 progress "batch 3"
-
-echo "[BATCH] rovers=2 waypoints=10 objectives=4 cameras=3 goals=5 count=300"
-"$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 300 \
-  --seed-start 30001 \
-  --rovers 2 \
-  --waypoints 10 \
-  --objectives 4 \
-  --cameras 3 \
-  --goals 5 \
-  --out-dir "$TARGET_DIR"
-progress "batch 4"
-
-echo "[BATCH] rovers=3 waypoints=12 objectives=5 cameras=4 goals=6 count=300"
-"$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 300 \
-  --seed-start 40001 \
-  --rovers 3 \
-  --waypoints 12 \
-  --objectives 5 \
-  --cameras 4 \
-  --goals 6 \
-  --out-dir "$TARGET_DIR"
-progress "batch 5"
-
-echo "[BATCH] rovers=3 waypoints=16 objectives=6 cameras=5 goals=7 count=350"
-"$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 350 \
-  --seed-start 50001 \
-  --rovers 3 \
-  --waypoints 16 \
-  --objectives 6 \
-  --cameras 5 \
-  --goals 7 \
-  --out-dir "$TARGET_DIR"
-progress "batch 6"
-
-echo "[BATCH] rovers=4 waypoints=20 objectives=7 cameras=6 goals=8 count=300"
-"$PYTHON_EXEC" "$GENERATOR_PY" \
-  --count 300 \
-  --seed-start 60001 \
-  --rovers 4 \
-  --waypoints 20 \
-  --objectives 7 \
-  --cameras 6 \
-  --goals 8 \
-  --out-dir "$TARGET_DIR"
-progress "batch 7"
 
 TOTAL=$(find "$TARGET_DIR" -maxdepth 1 -type f -name '*.pddl' | wc -l | tr -d ' ')
 echo "Done. Generated $TOTAL rover training problems in $TARGET_DIR"
