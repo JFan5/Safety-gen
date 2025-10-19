@@ -262,20 +262,31 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
     )
 
     training_args = TrainingArguments(
-        per_device_train_batch_size=2,
-        gradient_accumulation_steps=4,
+        num_train_epochs=4,                   # 建议 3~4 轮即可，防止过拟合
+        per_device_train_batch_size=4,        # A10 24G 可安全支撑 7B + 4bit + LoRA
+        gradient_accumulation_steps=4,        # 等效全局 batch = 16
+        learning_rate=5e-5,                   # 对小数据集更稳，泛化好
         warmup_ratio=0.05,
-        num_train_epochs=6,
-        learning_rate=3e-4,
-        fp16=not is_bfloat16_supported(),
-        bf16=is_bfloat16_supported(),
+        weight_decay=0.01,                    # 防止过拟合
+        lr_scheduler_type="cosine",           # 平滑衰减学习率
+        max_grad_norm=1.0,                    # 防梯度爆炸
+
+        # ========= 评估与日志 =========
+        eval_strategy="epoch",                # ✅ 用 eval_strategy 替代 evaluation_strategy
+        eval_steps=100,                       # 可选，每多少步跑一次验证（或每个 epoch）
+        save_strategy="epoch",
+        load_best_model_at_end=True,          # 自动加载 eval_loss 最低模型
+        metric_for_best_model="eval_loss",
+        greater_is_better=False,
+
         logging_steps=10,
-        save_steps=200,
-        save_total_limit=5,
-        optim="adamw_8bit",
-        seed=3407,
+        report_to="wandb",                    # 启用 wandb 记录
+        save_total_limit=3,                   # 最多保存 3 个 checkpoint
         output_dir=f"sft_results/pddl_sft_results_{output_note}",
-        report_to="wandb",
+        fp16=False,                            # A10 支持 fp16
+        bf16=True,                           # A10 不支持 bfloat16
+        optim="adamw_torch",                  # 比 adamw_8bit 稳定些（2000 条小数据推荐）
+        seed=3407,
     )
     
     # 创建训练器

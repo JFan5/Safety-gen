@@ -4,22 +4,22 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o fine_tune_mistral_spanner.o
+#$ -o fine_tune_mistral_blocksworld.o
 #$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N fine_tune_mistral_spanner     # Specify job name
+#$ -N fine_tune_mistral_blocksworld     # Specify job name
 
 conda activate llmstl
 
-# Model and output configuration for Mistral on spanner scenario
+# Model and output configuration for Mistral on blocksworld scenario
 MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-OUTPUT_NAME="mistral_7b_spanner"
-DATASET_PATH="data/sft/spanner_dataset.hf"
+OUTPUT_NAME="mistral_7b_blocksworld"
+DATASET_PATH="data/sft/blocksworld_dataset.hf"
 
 python3 pddl_finetune.py \
   --mode train \
   --model "$MODEL_NAME" \
   --output "$OUTPUT_NAME" \
   --dataset "$DATASET_PATH" \
-  --scenarios spanner
+  --scenarios blocksworld
 
 

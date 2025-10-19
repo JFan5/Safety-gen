@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o fine_tune_mistral_grippers.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N fine_tune_mistral_grippers     # Specify job name
+
+conda activate llmstl
+
+# Model and output configuration for Mistral on grippers scenario
+MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+OUTPUT_NAME="mistral_7b_grippers"
+DATASET_PATH="data/sft/grippers_dataset.hf"
+
+python3 pddl_finetune.py \
+  --mode train \
+  --model "$MODEL_NAME" \
+  --output "$OUTPUT_NAME" \
+  --dataset "$DATASET_PATH" \
+  --scenarios grippers
+
+
