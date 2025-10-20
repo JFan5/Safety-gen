@@ -1,5 +1,5 @@
 prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+You are a planning expert. Your task is to generate a **valid plan** for the given PDDL3 domain and problem.
 
 DOMAIN:
 {domain_content}
@@ -15,5 +15,6 @@ PROBLEM:
 - Do NOT include any explanations, comments, or headers.
 - Do NOT output anything except the plan lines.
 - The output must NOT contain natural language sentences.
+- The generated planning sequences should not violate safety constraints in problem file.
 ### Plan:
 """

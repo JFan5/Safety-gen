@@ -39,8 +39,7 @@ def build_prompt(domain_content: str, problem_content: str) -> str:
 
     with open('prompt.txt', 'r', encoding='utf-8') as f:
         prompt = f.read()
-        
-    return prompt
+        return prompt.format(domain_content=domain_content, problem_content=problem_content)
 
 def collect_scenario_data(scenario_name: str, root_dir: Path) -> List[Dict]:
     """收集单个场景（<root>/training_problems3）中的 problem/solution 对。"""
