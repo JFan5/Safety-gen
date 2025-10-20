@@ -123,6 +123,7 @@ def parse_problem(pddl: str) -> Dict:
     return {
         "robots": robots,
         "rooms_all": list(room_set),
+        "rooms_declared": rooms_from_obj,
         "rooms_from_init": rooms_init,
         "grippers": grippers_from_obj,
         "at_robby": at_robby,
@@ -248,10 +249,11 @@ def build_constraint_no_same_room(problem_info: Dict, rooms_simult: Set[str]) ->
     if len(robots) < 2 or not rooms_simult:
         return ""
     r1, r2 = robots[:2]
-    parts = [
-        f"(always (not (and (at-robby {r1} {room}) (at-robby {r2} {room}))))"
-        for room in sorted(rooms_simult)
-    ]
+    allowed_rooms = set(problem_info.get("rooms_declared") or problem_info.get("rooms_all") or [])
+    filtered = [room for room in sorted(rooms_simult) if room in allowed_rooms]
+    if not filtered:
+        return ""
+    parts = [f"(always (not (and (at-robby {r1} {room}) (at-robby {r2} {room}))))" for room in filtered]
     joined = "\n    ".join(parts)
     return f"""(:constraints
   (and
@@ -310,6 +312,7 @@ def build_constraint_forbid_room(problem_info: Dict,
                 candidate_rooms.append(to_room)
 
     rooms_all = list(problem_info.get("rooms_all", []))
+    rooms_declared = set(problem_info.get("rooms_declared", []))
     # 优先 room3（若存在且不等于初始房间）
     if "room3" in rooms_all and init_room != "room3":
         # 确保 room3 在候选前面
@@ -323,6 +326,9 @@ def build_constraint_forbid_room(problem_info: Dict,
             if rm not in candidate_rooms:
                 candidate_rooms.append(rm)
 
+    # 仅允许声明过的房间
+    if rooms_declared:
+        candidate_rooms = [rm for rm in candidate_rooms if rm in rooms_declared]
     # 选出第一个 != 初始房间 的房间
     target_room = None
     for rm in candidate_rooms:
