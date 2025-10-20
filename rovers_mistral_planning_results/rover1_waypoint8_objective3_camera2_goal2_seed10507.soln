@@ -1,0 +1,6 @@
+(sample_rock rover0 waypoint2 rover0store)
+(navigate rover0 waypoint2 waypoint5)
+(communicate_rock_data rover0 general waypoint2 waypoint5 waypoint0)
+(navigate rover0 waypoint5 waypoint1)
+(take_image rover0 waypoint1 objective2 high_res camera0)
+(communicate_image_data rover0 general objective2 high_res waypoint1 waypoint0)

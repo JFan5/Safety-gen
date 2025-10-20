@@ -1,20 +1,34 @@
 prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given PDDL3 domain and problem.
+You are a PDDL3 planning engine. Produce a valid, grounded, totally-ordered plan for the input below.
 
-DOMAIN:
+<DOMAIN>
 {domain_content}
+</DOMAIN>
 
-PROBLEM:
+<PROBLEM>
 {problem_content}
+</PROBLEM>
 
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- The generated planning sequences should not violate safety constraints in problem file.
-### Plan:
+## Planning Rules
+1) Achieve all goal conditions and satisfy all **hard** constraints specified by PDDL3 (e.g., items under :constraints that are not preferences).
+2) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+3) Generate a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+4) Validate internally before emitting:
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints in the domain/problem.
+   (Do not include this reasoning in the output.)
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2> ...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- No blank lines at the start or end; no trailing spaces; use a single space between tokens.
+- If the initial state already satisfies all goals and hard constraints, output **nothing** (i.e., zero lines).
+- (Optional) If the task is unsatisfiable, output **exactly one** line: `(NO-PLAN)`.
+
+PLAN:
 """

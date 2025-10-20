@@ -26,9 +26,9 @@ def extract_problem_name(problem_file: Path) -> str:
     return problem_file.stem
 
 def resolve_domain_file(root: Path) -> Path:
-    """优先使用 <root>/domain.pddl，否则回退到 <root>/training_problems3/domain.pddl。"""
-    cand1 = root / "domain.pddl"
-    cand2 = root / "training_problems3" / "domain.pddl"
+    """优先使用 <root>/training_problems3/domain3.pddl，否则回退到 <root>/domain3.pddl。"""
+    cand1 = root / "domain3.pddl"
+    cand2 = root / "training_problems3" / "domain3.pddl"
     if cand1.exists():
         return cand1
     return cand2
@@ -61,8 +61,8 @@ def collect_scenario_data(scenario_name: str, root_dir: Path) -> List[Dict]:
 
     dataset_entries: List[Dict] = []
 
-    # 遍历 training_problems3 下的所有 .pddl（排除 domain.pddl），配对同目录下同名 .soln
-    problem_files = sorted([p for p in problems_dir.glob("*.pddl") if p.name.lower() != "domain.pddl"])
+    # 遍历 training_problems3 下的所有 .pddl（排除 domain.pddl 与 domain3.pddl），配对同目录下同名 .soln
+    problem_files = sorted([p for p in problems_dir.glob("*.pddl") if p.name.lower() not in {"domain.pddl", "domain3.pddl"}])
     print(f"Found {len(problem_files)} problem files in {problems_dir}")
 
     for problem_file in problem_files:
@@ -135,6 +135,15 @@ def create_dataset(dataset_entries: List[Dict], output_path: str, scenario_name:
 
     print(f"Dataset saved to {output_path}")
     print(f"Total entries: {len(dataset)}")
+
+    # 同步导出完整数据内容为 JSON 文件（数组形式）
+    full_json_path = output_dir / f"{scenario_name}_dataset.json"
+    try:
+        with open(full_json_path, 'w', encoding='utf-8') as f:
+            json.dump(dataset_entries, f, ensure_ascii=False, indent=2)
+        print(f"Full dataset JSON saved to {full_json_path}")
+    except Exception as e:
+        print(f"Error saving full dataset JSON: {e}")
 
     stats = {
         "total_entries": len(dataset_entries),
