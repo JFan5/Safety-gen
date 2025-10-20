@@ -283,7 +283,7 @@ def _find_solution_file(problem_file: str, solution_dir: Optional[str]) -> Optio
     """
     base = os.path.splitext(os.path.basename(problem_file))[0]
     cand_dirs = [solution_dir] if solution_dir else [os.path.dirname(problem_file)]
-    exts = ['.sol', '.plan', '.txt']
+    exts = ['.soln', '.plan', '.txt']
     for d in cand_dirs:
         if not d:
             continue
