@@ -1,0 +1,11 @@
+Warnings encountered when parsing Domain/Problem File
+
+Errors: 0, warnings: 1
+training_problems3/c4_s3_p5_a2_seed12171.pddl: line: 79: Warning: Undeclared requirement :negative-preconditions 
+Number of literals: 146
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Initial heuristic = 33.000, admissible cost estimate 0.000
+b (32.000 | 0.000)b (31.000 | 0.000)b (30.000 | 0.000)b (29.000 | 0.001)b (28.000 | 0.002)b (27.000 | 0.003)b (26.000 | 0.003)b (25.000 | 0.004)b (24.000 | 0.005)b (23.000 | 0.006)b (22.000 | 0.006)b (21.000 | 0.006)b (20.000 | 0.006)b (19.000 | 0.006)b (18.000 | 0.006)b (17.000 | 0.007)b (16.000 | 0.007)b (15.000 | 0.008)
