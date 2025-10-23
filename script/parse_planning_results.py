@@ -11,18 +11,23 @@ from typing import Dict, Optional
 import argparse
 
 
-def _classify_validation_stdout(stdout_text: str) -> str:
-    """根据 validation_stdout 文本分类结果。"""
+def _classify_result(item: dict) -> str:
+    """根据 is_valid 和 validation_stdout 分类结果。"""
+    # 首先检查 is_valid 字段
+    is_valid = item.get("is_valid", False)
+    
+    if is_valid:
+        return "success_plans"
+    
+    # 如果 is_valid 为 False，再根据 validation_stdout 分类失败原因
+    stdout_text = item.get("validation_stdout", "")
     if not stdout_text:
-        return "others"
+        return "plan_format_error"  # 空的validation_stdout归类为plan_format_error
+    
     text = stdout_text.lower()
 
-    # 1) success_plans
-    if "plan valid" in text or "successful plans" in text:
-        return "success_plans"
-
     # 2) plan format error
-    if "bad operator in plan" in text:
+    if "bad operator in plan" in text or "bad plan description!" in text or "no matching action defined" in text or "object with unknown type" in text:
         return "plan_format_error"
 
     # 5) goal not satisfied
@@ -52,17 +57,39 @@ def _summarize_results(items):
         "others": []
     }
 
+    others_details = []  # 存储others分类的详细信息
+
     for it in items:
         name = it.get("problem_name") or it.get("solution_file") or "unknown"
-        cat = _classify_validation_stdout(it.get("validation_stdout", ""))
+        cat = _classify_result(it)
         categories[cat].append(name)
+        
+        # 如果是others分类，记录详细信息
+        if cat == "others":
+            others_details.append({
+                "name": name,
+                "is_valid": it.get("is_valid"),
+                "validation_stdout_preview": it.get("validation_stdout", "")[:200] + "..." if len(it.get("validation_stdout", "")) > 200 else it.get("validation_stdout", "")
+            })
 
     summary = {k: len(v) for k, v in categories.items()}
     summary["total"] = sum(summary.values())
-    return {
+    
+    result = {
         "summary": summary,
         "problems_by_category": categories,
     }
+    
+    # 如果有others分类，添加详细信息
+    if others_details:
+        result["others_details"] = others_details
+        print(f"⚠️  发现 {len(others_details)} 个 'others' 分类的结果:")
+        for detail in others_details:
+            print(f"  - {detail['name']}: is_valid={detail['is_valid']}")
+            print(f"    validation_stdout: {detail['validation_stdout_preview']}")
+            print()
+    
+    return result
 
 
 def _find_results_json(directory: Path) -> Optional[Path]:
