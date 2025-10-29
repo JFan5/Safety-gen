@@ -1,8 +1,0 @@
-(pickup-and-loose pos3-4 key2 pos3-3)
-(move pos3-4 pos3-3)
-(unlock pos3-3 pos2-3)
-(move pos3-3 pos2-3)
-(pickup pos2-3 key2)
-(move pos2-3 pos3-4)
-(drop key2 pos0-4)
-(move pos3-4 pos0-4)

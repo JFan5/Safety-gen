@@ -224,7 +224,7 @@
         "scenario_name": "custom",
         "domain_file": "blocksworld/domain3.pddl",
         "problems_directory": "blocksworld/all_problems3/testing",
-        "solutions_directory": "planning_results/blocksworld_baseline_all_testing",
+        "solutions_directory": "planning_results/unsloth_Qwen3-1.7B-unsloth-bnb-4bit/blocksworld/baseline",
         "timeout_seconds": 30,
         "total_solutions": 200
       }
@@ -1124,7 +1124,7 @@
         "scenario_name": "custom",
         "domain_file": "blocksworld/domain3.pddl",
         "problems_directory": "blocksworld/all_problems3/testing",
-        "solutions_directory": "planning_results/blocksworld_pddl2_all_testing",
+        "solutions_directory": "planning_results/qwen3_1_7b/blocksworld/pddl2",
         "timeout_seconds": 30,
         "total_solutions": 200
       }
@@ -2232,7 +2232,7 @@
         "scenario_name": "custom",
         "domain_file": "blocksworld/domain3.pddl",
         "problems_directory": "blocksworld/all_problems3/testing",
-        "solutions_directory": "planning_results/blocksworld_pddl3_all_testing",
+        "solutions_directory": "planning_results/qwen3_1_7b/blocksworld/pddl3",
         "timeout_seconds": 30,
         "total_solutions": 200
       }
@@ -2243,7 +2243,7 @@
       "summary": {
         "total": 0
       },
-      "error": "目录不存在: planning_results/grid_baseline_all_testing"
+      "error": "目录不存在: planning_results/unsloth_Qwen3-1.7B-unsloth-bnb-4bit/grid/baseline"
     },
     "pddl2": {
       "summary": {
@@ -2626,7 +2626,7 @@
         "scenario_name": "custom",
         "domain_file": "grid/domain3.pddl",
         "problems_directory": "grid/all_problems3/testing",
-        "solutions_directory": "planning_results/grid_pddl2_all_testing",
+        "solutions_directory": "planning_results/sft_mistral_7b/grid/pddl2",
         "timeout_seconds": 30,
         "total_solutions": 179
       }
@@ -2635,7 +2635,7 @@
       "summary": {
         "total": 0
       },
-      "error": "目录不存在: planning_results/grid_pddl3_all_testing"
+      "error": "目录不存在: planning_results/sft_mistral_7b/grid/pddl3"
     }
   }
 }
