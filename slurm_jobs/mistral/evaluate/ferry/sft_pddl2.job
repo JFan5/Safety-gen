@@ -10,7 +10,7 @@
 
 conda activate llmstl
 
-python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/ferry/pddl2  --problems-dir ferry/all_problems --domain-file ferry/domain.pddl --max-problems 100 --output ferry_test_results_pddl2.json  --results-dir planning_results/sft_mistral_7b/ferry/pddl2
+python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/ferry/pddl2  --problems-dir ferry/all_problems3/testing --domain-file ferry/domain.pddl --max-problems 100 --output ferry_test_results_pddl2.json  --results-dir planning_results/sft_mistral_7b/ferry/pddl2
 
 
 

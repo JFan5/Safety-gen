@@ -319,7 +319,7 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
 
     training_args = TrainingArguments(
         num_train_epochs=3,
-        per_device_train_batch_size=8,      # A100 可尝试 8~16
+        per_device_train_batch_size=4,      # A100 可尝试 8~16
         gradient_accumulation_steps=2,      # 全局 batch ≈ 16~32
         learning_rate=2e-5,
         warmup_ratio=0.1,

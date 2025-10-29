@@ -13,4 +13,4 @@
 # python3 logistcs/convert_to_pddl3.py logistics/all_problems/tes logistics/testing_problems3
 
 
-python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/logistics/base  --problems-dir logistics/testing_problems3 --domain-file logistics/domain3.pddl --max-problems 100 --output logistics_test_results.json  --results-dir planning_results/sft_mistral_7b/logistics/baseline
+python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/logistics/base  --problems-dir logistics/all_problems3/testing --domain-file logistics/domain3.pddl --max-problems 100 --output logistics_test_results.json  --results-dir planning_results/sft_mistral_7b/logistics/baseline

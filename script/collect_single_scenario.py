@@ -8,9 +8,8 @@ import os
 import json
 import argparse
 from pathlib import Path
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Optional
 from datasets import Dataset
-import re
 
 def read_pddl_file(file_path: Path) -> str:
     """读取文本文件内容"""
@@ -175,25 +174,25 @@ def filter_valid_solutions(dataset_entries: List[Dict]) -> List[Dict]:
             print(f"Invalid solution format for {entry['problem_name']}")
     return valid_entries
 
-def create_dataset(dataset_entries: List[Dict], output_path: str, scenario_name: str, pddl_version: str):
+def create_dataset(dataset_entries: List[Dict], output_path: Path, scenario_name: str, pddl_version: str):
     """创建HuggingFace数据集"""
     if not dataset_entries:
         print("No valid dataset entries found!")
         return
 
-    output_dir = Path(output_path).parent
+    output_dir = output_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
 
     dataset = Dataset.from_list(dataset_entries)
-    dataset.save_to_disk(output_path)
+    dataset.save_to_disk(str(output_path))
 
     print(f"Dataset saved to {output_path}")
     print(f"Total entries: {len(dataset)}")
 
     # 根据pddl标准设置full_json_path的文件名
-    if pddl_version:
-        pddl_suffix = pddl_version.upper()
-        full_json_path = output_dir / f"{scenario_name}_{pddl_suffix}_dataset.json"
+    suffix = (pddl_version or "").lower()
+    if suffix:
+        full_json_path = output_dir / f"{suffix}_dataset.json"
     else:
         full_json_path = output_dir / f"{scenario_name}_dataset.json"
 
@@ -211,9 +210,9 @@ def create_dataset(dataset_entries: List[Dict], output_path: str, scenario_name:
         "pddl": (pddl_version or "").upper(),
     }
     # 根据pddl标准设置统计文件名
-    if pddl_version:
-        pddl_suffix = pddl_version.upper()
-        stats_json_path = output_dir / f"{scenario_name}_{pddl_suffix}_dataset_stats.json"
+    suffix = (pddl_version or "").lower()
+    if suffix:
+        stats_json_path = output_dir / f"{suffix}_dataset_stats.json"
     else:
         stats_json_path = output_dir / f"{scenario_name}_dataset_stats.json"
     with open(stats_json_path, 'w') as f:
@@ -225,7 +224,7 @@ def main():
     parser = argparse.ArgumentParser(description="Collect PDDL dataset for a single scenario")
     parser.add_argument("scenario", help="Scenario name (e.g., blocksworld, delivery, logistics)")
     parser.add_argument("--root", default=None, help="Root directory for the scenario (default: ./<scenario>)")
-    parser.add_argument("--output", default=None, help="Output path for the dataset (default: data/sft/<scenario>_dataset.hf)")
+    parser.add_argument("--output", default=None, help="Output path for the dataset (default: data/sft/<scenario>/pddl{2,3}.hf)")
     parser.add_argument(
         "--pddl",
         type=lambda s: s.upper(),
@@ -253,9 +252,12 @@ def main():
     
     # 确定输出路径
     if args.output:
-        output_path = args.output
+        output_path = Path(args.output)
     else:
-        output_path = f"data/sft/{args.scenario}_dataset.hf"
+        base_dir = Path("data/sft") / args.scenario
+        base_dir.mkdir(parents=True, exist_ok=True)
+        suffix = "pddl2" if args.pddl.upper() == "PDDL2" else "pddl3"
+        output_path = base_dir / f"{suffix}.hf"
     
     if args.max_number is not None and args.max_number <= 0:
         print("Error: --max_number must be a positive integer.")
@@ -288,7 +290,12 @@ def main():
     print("\nFiltering valid solutions...")
     valid_entries = filter_valid_solutions(entries)
     print(f"Valid entries: {len(valid_entries)}")
-    print("valid_entries[0]:",valid_entries[0])
+    if not valid_entries:
+        print("No valid solutions found after filtering; aborting dataset creation.")
+        return
+    else:
+        sample = valid_entries[0]
+        print(f"Example valid entry: {sample['problem_name']}")
 
     print("\nCreating dataset...")
     create_dataset(valid_entries, output_path, args.scenario, args.pddl)

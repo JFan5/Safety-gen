@@ -12,6 +12,6 @@ conda activate llmstl
 
 
 
-python3 script/evaluate_llm_solver.py --model sft_model/sft_model_pddl_mistral_7b_grippers  --problems-dir grippers/testing_problems3 --domain-file grippers/domain3.pddl --max-problems 100 --output grippers_test_results.json  --results-dir planning_results/sft_model_pddl_mistral_7b/grippers/baseline
+python3 script/evaluate_llm_solver.py --model sft_model/sft_model_pddl_mistral_7b_grippers  --problems-dir grippers/all_problems3/testing --domain-file grippers/domain3.pddl --max-problems 100 --output grippers_test_results.json  --results-dir planning_results/sft_model_pddl_mistral_7b/grippers/baseline
 
 

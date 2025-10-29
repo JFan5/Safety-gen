@@ -13,4 +13,4 @@ conda activate llmstl
 # 生成测试问题
 python3 delivery/convert_pddl3.py delivery/all_problems/testing delivery/testing_problems3
 
-python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/delivery/base  --problems-dir delivery/testing_problems3 --domain-file delivery/domain3.pddl --max-problems 100 --output delivery_test_results.json  --results-dir planning_results/sft_mistral_7b/delivery/baseline
+python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/delivery/base  --problems-dir delivery/all_problems3/testing --domain-file delivery/domain3.pddl --max-problems 100 --output delivery_test_results.json  --results-dir planning_results/sft_mistral_7b/delivery/baseline

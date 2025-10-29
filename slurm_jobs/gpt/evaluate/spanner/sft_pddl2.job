@@ -10,7 +10,7 @@
 
 conda activate llmstl
 
-python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/spanner/pddl2  --problems-dir spanner/all_problems --domain-file spanner/domain.pddl --max-problems 100 --output spanner_test_results_pddl2.json  --results-dir planning_results/gpt_oss_20b/spanner/pddl2
+python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/spanner/pddl2  --problems-dir spanner/all_problems3/testing --domain-file spanner/domain.pddl --max-problems 100 --output spanner_test_results_pddl2.json  --results-dir planning_results/gpt_oss_20b/spanner/pddl2
 
 
 

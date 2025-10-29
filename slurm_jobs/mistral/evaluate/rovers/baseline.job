@@ -10,7 +10,7 @@
 
 BASE_MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
-PROBLEMS_DIR="rovers/testing_problems3"
+PROBLEMS_DIR="rovers/all_problems3/testing"
 DOMAIN_FILE="rovers/domain3.pddl"
 RESULTS_DIR="planning_results/unsloth_mistral-7b-instruct-v0.3-bnb-4bit/rovers/baseline"
 OUTPUT_NAME="rovers_test_results.json"

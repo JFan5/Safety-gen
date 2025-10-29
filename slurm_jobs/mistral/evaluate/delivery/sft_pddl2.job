@@ -10,7 +10,7 @@
 
 conda activate llmstl
 
-python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/delivery/pddl2  --problems-dir delivery/all_problems_test --domain-file delivery/domain.pddl --max-problems 100 --output delivery_test_results_pddl2.json  --results-dir planning_results/sft_mistral_7b/delivery/pddl2
+python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/delivery/pddl2  --problems-dir delivery/all_problems3/testing --domain-file delivery/domain.pddl --max-problems 100 --output delivery_test_results_pddl2.json  --results-dir planning_results/sft_mistral_7b/delivery/pddl2
 
 
 
