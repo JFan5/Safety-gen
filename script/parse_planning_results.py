@@ -4,7 +4,7 @@
 import argparse
 import json
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, Optional
 
 
 def _classify_result(item: dict) -> str:
@@ -96,27 +96,7 @@ def _summarize_results(items):
     return result
 
 
-def _iter_available_scenarios(planning_results_dir: Path) -> List[str]:
-    """扫描 planning_results 目录，推断可用的场景名称。"""
-    scenarios = set()
-    for child in planning_results_dir.iterdir():
-        if not child.is_dir():
-            continue
-        name = child.name
-        if name.endswith("_baseline_all_testing"):
-            scenarios.add(name[:-len("_baseline_all_testing")])
-        elif name.endswith("_pddl2_all_testing"):
-            scenarios.add(name[:-len("_pddl2_all_testing")])
-        elif name.endswith("_pddl3_all_testing"):
-            scenarios.add(name[:-len("_pddl3_all_testing")])
-    return sorted(scenarios)
-
-
-CATEGORY_SUFFIXES = {
-    "baseline": "_baseline_all_testing",
-    "pddl2": "_pddl2_all_testing",
-    "pddl3": "_pddl3_all_testing",
-}
+VALID_VARIANTS: tuple[str, ...] = ("baseline", "pddl2", "pddl3")
 
 
 def _load_json(path: Path) -> Optional[dict]:
@@ -126,103 +106,145 @@ def _load_json(path: Path) -> Optional[dict]:
         return json.load(f)
 
 
-def _summarize_category(
+def _find_json_file(variant_dir: Path, scenario: str, variant: str) -> Optional[Path]:
+    """在 variant 目录下定位主要的 JSON 结果文件。"""
+    preferred_names = [
+        f"{scenario}_all_testing_{'baseline' if variant == 'baseline' else variant}.json",
+        f"{scenario}_testing_results_{variant}.json",
+        f"{scenario}_test_results_{variant}.json",
+        f"{scenario}_testing_results.json",
+        f"{scenario}_test_results.json",
+        f"{scenario}_{variant}.json",
+    ]
+
+    for name in preferred_names:
+        candidate = variant_dir / name
+        if candidate.exists():
+            return candidate
+
+    json_files = sorted(variant_dir.glob("*.json"))
+    if json_files:
+        return json_files[0]
+    return None
+
+
+def _summarize_variant(
+    model: str,
     scenario: str,
-    category: str,
-    planning_results_dir: Path,
+    variant: str,
+    variant_dir: Path,
 ) -> Dict[str, object]:
-    dir_suffix = CATEGORY_SUFFIXES[category]
-    scenario_dir = planning_results_dir / f"{scenario}{dir_suffix}"
-    json_file = scenario_dir / f"{scenario}_all_testing_{category}.json"
+    json_path = _find_json_file(variant_dir, scenario, variant)
 
-    if not scenario_dir.exists():
-        return {"summary": {"total": 0}, "error": f"目录不存在: {scenario_dir}"}
-
-    if not json_file.exists():
-        available = list(scenario_dir.glob("*.json"))
-        extra = f" 可用: {available[0].name}" if available else ""
-        return {"summary": {"total": 0}, "error": f"未找到结果文件: {json_file.name}{extra}"}
+    if json_path is None:
+        return {"summary": {"total": 0}, "error": f"未找到JSON结果文件 (目录: {variant_dir})"}
 
     try:
-        raw = _load_json(json_file)
+        raw = _load_json(json_path)
     except json.JSONDecodeError as exc:
         return {"summary": {"total": 0}, "error": f"JSON解析失败: {exc}"}
-    except Exception as exc:  # 记录其他IO异常
+    except Exception as exc:
         return {"summary": {"total": 0}, "error": str(exc)}
 
     if raw is None:
-        return {"summary": {"total": 0}, "error": f"结果文件缺失: {json_file.name}"}
+        return {"summary": {"total": 0}, "error": f"结果文件缺失: {json_path.name}"}
 
     items = raw.get("results") or []
     summarized = _summarize_results(items)
-    metadata = raw.get("metadata")
-    if metadata:
-        summarized["metadata"] = metadata
+    metadata = raw.get("metadata") or {}
+    metadata.update({
+        "model": metadata.get("model_path") or model,
+        "scenario": metadata.get("scenario_name") or scenario,
+        "variant": variant,
+        "results_directory": metadata.get("results_directory") or str(variant_dir),
+        "source_file": json_path.name,
+    })
+    summarized["metadata"] = metadata
     return summarized
 
 
 def aggregate_planning_results(
     planning_results_dir: str,
+    models: Optional[Iterable[str]] = None,
     scenarios: Optional[Iterable[str]] = None,
-    categories: Optional[Iterable[str]] = None,
-) -> Dict[str, Dict[str, dict]]:
+    variants: Optional[Iterable[str]] = None,
+) -> Dict[str, Dict[str, Dict[str, dict]]]:
     planning_root = Path(planning_results_dir)
     if not planning_root.exists():
         raise FileNotFoundError(f"planning_results目录不存在: {planning_root}")
 
-    chosen_categories = list(categories) if categories else list(CATEGORY_SUFFIXES.keys())
-    for cat in chosen_categories:
-        if cat not in CATEGORY_SUFFIXES:
-            raise ValueError(f"未知category: {cat}")
+    model_filter = set(models) if models else None
+    scenario_filter = set(scenarios) if scenarios else None
+    chosen_variants = list(variants) if variants else list(VALID_VARIANTS)
 
-    if scenarios is None:
-        scenario_list = _iter_available_scenarios(planning_root)
-    else:
-        scenario_list = list(scenarios)
+    for variant in chosen_variants:
+        if variant not in VALID_VARIANTS:
+            raise ValueError(f"未知variant: {variant}")
 
-    if not scenario_list:
-        raise ValueError("未找到任何场景，请确认 planning_results 目录或 --scenarios 参数。")
+    aggregated: Dict[str, Dict[str, Dict[str, dict]]] = {}
 
-    aggregated: Dict[str, Dict[str, dict]] = {}
-    for scenario in scenario_list:
-        scenario_result: Dict[str, dict] = {}
-        available_dirs = [
-            planning_root / f"{scenario}{CATEGORY_SUFFIXES[cat]}"
-            for cat in chosen_categories
-            if (planning_root / f"{scenario}{CATEGORY_SUFFIXES[cat]}").exists()
-        ]
-        if not available_dirs:
-            raise FileNotFoundError(f"场景 {scenario} 在 {planning_root} 下未找到匹配的baseline/pddl2/pddl3目录")
+    for model_dir in sorted(planning_root.iterdir()):
+        if not model_dir.is_dir():
+            continue
+        model_name = model_dir.name
+        if model_filter and model_name not in model_filter:
+            continue
 
-        for category in chosen_categories:
-            scenario_result[category] = _summarize_category(
-                scenario=scenario,
-                category=category,
-                planning_results_dir=planning_root,
-            )
-        aggregated[scenario] = scenario_result
+        model_result: Dict[str, Dict[str, dict]] = {}
+
+        for scenario_dir in sorted(model_dir.iterdir()):
+            if not scenario_dir.is_dir():
+                continue
+            scenario_name = scenario_dir.name
+            if scenario_filter and scenario_name not in scenario_filter:
+                continue
+
+            scenario_result: Dict[str, dict] = {}
+            for variant in chosen_variants:
+                variant_dir = scenario_dir / variant
+                if not variant_dir.exists():
+                    continue
+                scenario_result[variant] = _summarize_variant(
+                    model=model_name,
+                    scenario=scenario_name,
+                    variant=variant,
+                    variant_dir=variant_dir,
+                )
+
+            if scenario_result:
+                model_result[scenario_name] = scenario_result
+
+        if model_result:
+            aggregated[model_name] = model_result
+
+    if not aggregated:
+        raise ValueError("未在指定条件下找到任何规划结果。")
 
     return aggregated
 
 def main():
     """主函数 - 仅支持聚合已有planning结果"""
-    parser = argparse.ArgumentParser(description="聚合 planning_results 下 baseline/pddl2/pddl3 的JSON结果并分类统计")
+    parser = argparse.ArgumentParser(description="聚合 planning_results/<model>/<scenario>/<variant> 结构下的JSON结果并分类统计")
     parser.add_argument("--planning-results-dir", default="planning_results",
                        help="planning结果所在目录，默认 planning_results")
     parser.add_argument("--aggregate-output", default=None,
                        help="聚合输出JSON文件路径（默认 ./planning_results_aggregated.json）")
     parser.add_argument("--scenarios", nargs="+", default=None,
-                       help="指定一个或多个场景名称（不含后缀），默认解析目录下全部场景")
-    parser.add_argument("--categories", nargs="+", choices=list(CATEGORY_SUFFIXES.keys()), default=None,
-                       help="指定需要聚合的类别，默认 baseline/pddl2/pddl3 全部处理")
+                       help="指定一个或多个场景名称，默认解析全部场景")
+    parser.add_argument("--models", nargs="+", default=None,
+                       help="指定一个或多个模型名称，默认解析全部模型")
+    parser.add_argument("--variants", nargs="+", choices=list(VALID_VARIANTS), default=None,
+                       help="指定需要聚合的结果类型（默认 baseline/pddl2/pddl3 全部处理）")
+    parser.add_argument("--categories", nargs="+", choices=list(VALID_VARIANTS), dest="variants", help=argparse.SUPPRESS)
     
     args = parser.parse_args()
     
     # 执行聚合
     data = aggregate_planning_results(
         planning_results_dir=args.planning_results_dir,
+        models=args.models,
         scenarios=args.scenarios,
-        categories=args.categories,
+        variants=args.variants,
     )
     out_path = args.aggregate_output or "planning_results_aggregated.json"
     with open(out_path, "w", encoding="utf-8") as f:

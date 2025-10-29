@@ -16,7 +16,7 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir spanner/all_problems3/testing \
   --domain-file spanner/domain3.pddl \
   --output spanner_all_testing_pddl2.json \
-  --results-dir planning_results/spanner_pddl2_all_testing
+  --results-dir planning_results/gpt_oss_20b/spanner/pddl2
 
 # PDDL3 fine-tuned model evaluated on PDDL2 testing set
 python3 script/evaluate_llm_solver.py \
@@ -24,7 +24,7 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir spanner/all_problems3/testing \
   --domain-file spanner/domain3.pddl \
   --output spanner_all_testing_pddl3.json \
-  --results-dir planning_results/spanner_pddl3_all_testing
+  --results-dir planning_results/gpt_oss_20b/spanner/pddl3
 
 # Baseline unsloth model
 python3 script/evaluate_llm_solver.py \
@@ -32,4 +32,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir spanner/all_problems3/testing \
   --domain-file spanner/domain3.pddl \
   --output spanner_all_testing_baseline.json \
-  --results-dir planning_results/spanner_baseline_all_testing
+  --results-dir planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/spanner/baseline

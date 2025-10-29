@@ -33,31 +33,31 @@ case "$scenario_name" in
   "blocksworld")
     PROBLEMS_DIR="blocksworld/all_problems"
     DOMAIN_FILE="blocksworld/domain.pddl"
-    RESULTS_DIR="planning_results/blocksworld_gpt_planning_results_pddl2"
+    RESULTS_DIR="planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/blocksworld/pddl2"
     OUTPUT_NAME="blocksworld_test_results_pddl2.json"
     ;;
   "delivery")
     PROBLEMS_DIR="delivery/all_problems_test"
     DOMAIN_FILE="delivery/domain.pddl"
-    RESULTS_DIR="planning_results/delivery_gpt_planning_results_pddl2"
+    RESULTS_DIR="planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/delivery/pddl2"
     OUTPUT_NAME="delivery_test_results_pddl2.json"
     ;;
   "ferry")
     PROBLEMS_DIR="ferry/all_problems"
     DOMAIN_FILE="ferry/domain.pddl"
-    RESULTS_DIR="planning_results/ferry_gpt_planning_results_pddl2"
+    RESULTS_DIR="planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/ferry/pddl2"
     OUTPUT_NAME="ferry_test_results_pddl2.json"
     ;;
   "grippers")
     PROBLEMS_DIR="grippers/testing_problems_all"
     DOMAIN_FILE="grippers/domain.pddl"
-    RESULTS_DIR="planning_results/grippers_gpt_planning_results_pddl2"
+    RESULTS_DIR="planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/grippers/pddl2"
     OUTPUT_NAME="grippers_test_results_pddl2.json"
     ;;
   "spanner")
     PROBLEMS_DIR="spanner/all_problems"
     DOMAIN_FILE="spanner/domain.pddl"
-    RESULTS_DIR="planning_results/spanner_gpt_planning_results_pddl2"
+    RESULTS_DIR="planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/spanner/pddl2"
     OUTPUT_NAME="spanner_test_results_pddl2.json"
     ;;
   *)
@@ -72,6 +72,5 @@ python3 script/evaluate_llm_solver.py \
   --max-problems 100 \
   --output ${OUTPUT_NAME} \
   --results-dir ${RESULTS_DIR}
-
 
 

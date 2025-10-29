@@ -13,7 +13,7 @@ conda activate llmstl
 # 生成测试问题（PDDL3）
 python3 delivery/convert_pddl3.py delivery/all_problems/testing delivery/testing_problems3
 
-python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/delivery/pddl3  --problems-dir delivery/testing_problems3 --domain-file delivery/domain3.pddl --max-problems 100 --output delivery_test_results_pddl3.json  --results-dir sft_results/gpt_oss_20b/delivery/pddl3
+python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/delivery/pddl3  --problems-dir delivery/testing_problems3 --domain-file delivery/domain3.pddl --max-problems 100 --output delivery_test_results_pddl3.json  --results-dir planning_results/gpt_oss_20b/delivery/pddl3
 
 
 

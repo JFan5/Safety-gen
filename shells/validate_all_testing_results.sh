@@ -1,71 +1,114 @@
 #!/usr/bin/env bash
 
-# Validate solution sets for each scenario and result variant.
+# Validate solution sets stored in planning_results/<model>/<scenario>/<variant>.
 set -euo pipefail
 
 # Allow overriding the Python interpreter: PYTHON_BIN=python ./validate_all_testing_results.sh
 PYTHON_BIN="${PYTHON_BIN:-python3}"
-
-SCENARIOS=(blocksworld ferry grid rovers spanner)
+PLANNING_ROOT="planning_results"
 RESULT_VARIANTS=(pddl2 pddl3 baseline)
 
-for scenario in "${SCENARIOS[@]}"; do
-  domain="${scenario}/domain3.pddl"
-  problems_dir="${scenario}/all_problems3/testing"
+if [[ ! -d "${PLANNING_ROOT}" ]]; then
+  echo "[error] planning results directory not found: ${PLANNING_ROOT}" >&2
+  exit 1
+fi
 
-  if [[ ! -f "${domain}" ]]; then
-    echo "[skip] ${scenario}: missing domain file ${domain}" >&2
-    continue
-  fi
+for model_path in "${PLANNING_ROOT}"/*; do
+  [[ -d "${model_path}" ]] || continue
+  model="$(basename "${model_path}")"
 
-  if [[ ! -d "${problems_dir}" ]]; then
-    echo "[skip] ${scenario}: missing problems dir ${problems_dir}" >&2
-    continue
-  fi
+  for scenario_path in "${model_path}"/*; do
+    [[ -d "${scenario_path}" ]] || continue
+    scenario="$(basename "${scenario_path}")"
 
-  echo "================================================================"
-  echo "Scenario: ${scenario}"
-  echo "Domain: ${domain}"
-  echo "Problems dir: ${problems_dir}"
-  echo "================================================================"
+    domain=""
+    for candidate in "domain3.pddl" "domain.pddl"; do
+      potential="${scenario}/${candidate}"
+      if [[ -f "${potential}" ]]; then
+        domain="${potential}"
+        break
+      fi
+    done
 
-  for variant in "${RESULT_VARIANTS[@]}"; do
-    case "${variant}" in
-      pddl2)
-        solutions_dir="planning_results/${scenario}_pddl2_all_testing"
-        output_file="${solutions_dir}/${scenario}_all_testing_pddl2.json"
-        ;;
-      pddl3)
-        solutions_dir="planning_results/${scenario}_pddl3_all_testing"
-        output_file="${solutions_dir}/${scenario}_all_testing_pddl3.json"
-        ;;
-      baseline)
-        solutions_dir="planning_results/${scenario}_baseline_all_testing"
-        output_file="${solutions_dir}/${scenario}_all_testing_baseline.json"
-        ;;
-      *)
-        echo "[skip] ${scenario}: unknown result variant ${variant}" >&2
+    if [[ -z "${domain}" ]]; then
+      echo "[skip] ${model}/${scenario}: missing domain file (tried domain3.pddl, domain.pddl)" >&2
+      continue
+    fi
+
+    header_printed=false
+
+    for variant in "${RESULT_VARIANTS[@]}"; do
+      solutions_dir="${scenario_path}/${variant}"
+      if [[ ! -d "${solutions_dir}" ]]; then
         continue
-        ;;
-    esac
+      fi
 
-    if [[ ! -d "${solutions_dir}" ]]; then
-      echo "[skip] ${scenario} (${variant}): solutions dir not found: ${solutions_dir}" >&2
-      continue
-    fi
+      case "${variant}" in
+        pddl2)
+          candidates=(
+            "all_problems"
+            "all_problems_test"
+            "testing_problems_all"
+            "all_problems3/testing"
+            "testing_problems3"
+            "testing_problems"
+          )
+          ;;
+        *)
+          candidates=(
+            "all_problems3/testing"
+            "testing_problems3"
+            "testing_problems_all"
+            "all_problems"
+            "all_problems_test"
+            "testing_problems"
+          )
+          ;;
+      esac
 
-    if ! compgen -G "${solutions_dir}/*.soln" > /dev/null; then
-      echo "[skip] ${scenario} (${variant}): no .soln files found in ${solutions_dir}" >&2
-      continue
-    fi
+      problems_dir=""
+      for candidate in "${candidates[@]}"; do
+        potential="${scenario}/${candidate}"
+        if [[ -d "${potential}" ]]; then
+          problems_dir="${potential}"
+          break
+        fi
+      done
 
-    echo "Validating ${scenario} (${variant})"
-    "${PYTHON_BIN}" script/validate_classical_solvers.py \
-      --domain "${domain}" \
-      --problems_dir "${problems_dir}" \
-      --solutions_dir "${solutions_dir}" \
-      --output "${output_file}"
-    echo
+      if [[ -z "${problems_dir}" ]]; then
+        echo "[skip] ${model}/${scenario} (${variant}): unable to locate problems directory" >&2
+        continue
+      fi
+
+      if ! compgen -G "${solutions_dir}/*.soln" > /dev/null; then
+        echo "[skip] ${model}/${scenario} (${variant}): no .soln files in ${solutions_dir}" >&2
+        continue
+      fi
+
+      if [[ "${header_printed}" == false ]]; then
+        echo "================================================================"
+        echo "Model:    ${model}"
+        echo "Scenario: ${scenario}"
+        echo "Domain:   ${domain}"
+        echo "Problems: ${problems_dir}"
+        echo "================================================================"
+        header_printed=true
+      fi
+
+      case "${variant}" in
+        baseline) output_file="${solutions_dir}/${scenario}_all_testing_baseline.json" ;;
+        pddl2)    output_file="${solutions_dir}/${scenario}_all_testing_pddl2.json" ;;
+        pddl3)    output_file="${solutions_dir}/${scenario}_all_testing_pddl3.json" ;;
+      esac
+
+      echo "Validating ${model}/${scenario} (${variant})"
+      "${PYTHON_BIN}" script/validate_classical_solvers.py \
+        --domain "${domain}" \
+        --problems_dir "${problems_dir}" \
+        --solutions_dir "${solutions_dir}" \
+        --output "${output_file}"
+      echo
+    done
   done
 done
 

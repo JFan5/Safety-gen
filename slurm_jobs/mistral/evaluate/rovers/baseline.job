@@ -12,9 +12,8 @@ BASE_MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
 PROBLEMS_DIR="rovers/testing_problems3"
 DOMAIN_FILE="rovers/domain3.pddl"
-RESULTS_DIR="planning_results/rovers_mistral_planning_results"
+RESULTS_DIR="planning_results/unsloth_mistral-7b-instruct-v0.3-bnb-4bit/rovers/baseline"
 OUTPUT_NAME="rovers_test_results.json"
 
 python3 script/evaluate_llm_solver.py --model $BASE_MODEL --problems-dir $PROBLEMS_DIR --domain-file $DOMAIN_FILE --max-problems 100 --output $OUTPUT_NAME  --results-dir $RESULTS_DIR
-
 

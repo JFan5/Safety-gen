@@ -18,5 +18,5 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir blocksworld/all_problems3/testing \
   --domain-file blocksworld/domain3.pddl \
   --output blocksworld_all_testing_pddl3.json \
-  --results-dir planning_results/blocksworld_pddl3_all_testing
+  --results-dir planning_results/phi4_mini/blocksworld/pddl3
 

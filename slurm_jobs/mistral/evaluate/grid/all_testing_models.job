@@ -16,7 +16,7 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir grid/all_problems3/testing \
   --domain-file grid/domain3.pddl \
   --output grid_all_testing_pddl2.json \
-  --results-dir planning_results/grid_pddl2_all_testing
+  --results-dir planning_results/sft_mistral_7b/grid/pddl2
 
 # PDDL3 fine-tuned model evaluated on PDDL2 testing set
 python3 script/evaluate_llm_solver.py \
@@ -24,7 +24,7 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir grid/all_problems3/testing \
   --domain-file grid/domain3.pddl \
   --output grid_all_testing_pddl3.json \
-  --results-dir planning_results/grid_pddl3_all_testing
+  --results-dir planning_results/sft_mistral_7b/grid/pddl3
 
 # Baseline unsloth model
 python3 script/evaluate_llm_solver.py \
@@ -32,4 +32,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir grid/all_problems3/testing \
   --domain-file grid/domain3.pddl \
   --output grid_all_testing_baseline.json \
-  --results-dir planning_results/grid_baseline_all_testing
+  --results-dir planning_results/unsloth_mistral-7b-instruct-v0.3-bnb-4bit/grid/baseline
