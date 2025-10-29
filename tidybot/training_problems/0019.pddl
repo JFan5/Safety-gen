@@ -1,0 +1,79 @@
+;  4 x 4 with 1 robots, 1 carts, 0 tables, and 1  cupboards
+(define 
+  (problem test) 
+  (:domain TIDYBOT) 
+  
+  (:objects 
+   pr2 - robot 
+   cart - cart 
+   x0 - xc 
+   x1 - xc 
+   x2 - xc 
+   x3 - xc 
+   y0 - yc 
+   y1 - yc 
+   y2 - yc 
+   y3 - yc 
+   xrel-1 - xrel 
+   xrel0 - xrel 
+   xrel1 - xrel 
+   yrel-1 - yrel 
+   yrel0 - yrel 
+   yrel1 - yrel 
+  ) 
+  
+  (:init 
+   (leftof x0 x1)
+   (leftof x1 x2)
+   (leftof x2 x3)
+   (above y0 y1)
+   (above y1 y2)
+   (above y2 y3)
+   (leftof-rel xrel-1 xrel0)
+   (leftof-rel xrel0 xrel1)
+   (above-rel yrel-1 yrel0)
+   (above-rel yrel0 yrel1)
+   (sum-x x0 xrel0 x0)
+   (sum-x x0 xrel1 x1)
+   (sum-x x1 xrel-1 x0)
+   (sum-x x1 xrel0 x1)
+   (sum-x x1 xrel1 x2)
+   (sum-x x2 xrel-1 x1)
+   (sum-x x2 xrel0 x2)
+   (sum-x x2 xrel1 x3)
+   (sum-x x3 xrel-1 x2)
+   (sum-x x3 xrel0 x3)
+   (sum-y y0 yrel0 y0)
+   (sum-y y0 yrel1 y1)
+   (sum-y y1 yrel-1 y0)
+   (sum-y y1 yrel0 y1)
+   (sum-y y1 yrel1 y2)
+   (sum-y y2 yrel-1 y1)
+   (sum-y y2 yrel0 y2)
+   (sum-y y2 yrel1 y3)
+   (sum-y y3 yrel-1 y2)
+   (sum-y y3 yrel0 y3)
+   (zerox-rel xrel0) 
+   (zeroy-rel yrel0) 
+   
+   (parked pr2)
+   (not-pushing pr2)
+   (base-pos pr2 x0 y0)
+   (base-obstacle x0 y0)
+   (base-obstacle x1 y1)(gripper-obstacle x1 y1)
+   (base-obstacle x1 y2)(gripper-obstacle x1 y2)
+   (base-obstacle x2 y1)(gripper-obstacle x2 y1)
+   (base-obstacle x2 y2)(gripper-obstacle x2 y2)
+   
+   (cart-pos cart x0 y1)
+   (not-pushed cart)
+   (base-obstacle x0 y1)
+   
+   
+   (gripper-empty pr2)
+   (gripper-rel pr2 xrel0 yrel0)
+  ) 
+  
+  (:goal 
+   (and 
+  )))

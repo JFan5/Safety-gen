@@ -1,0 +1,16 @@
+Based on the provided domain and problem, here is a valid, grounded, totally-ordered plan:
+
+```
+(navigate rover0 waypoint1)
+(navigate rover0 waypoint3)
+(sample_soil rover0 rover0store waypoint3)
+(navigate rover0 waypoint2)
+(navigate rover0 waypoint1)
+(drop rover0store waypoint1)
+(take_image rover0 waypoint3 colour)
+(calibrate rover0 camera0 objective1)
+(take_image rover0 waypoint3 low_res)
+(communicate_image_data rover0 general objective1 low_res)
+```
+
+This plan will navigate the rover from waypoint0 to waypoint3, collect soil samples, navigate back to waypoint1, drop the sample, calibrate the camera, take color and low-res images of waypoint3, and communicate the low-res image data back to the lander. After executing this plan, the rover will reach the state where it has achieved all the goal conditions and satisfied the hard constraints specified by PDDL3.

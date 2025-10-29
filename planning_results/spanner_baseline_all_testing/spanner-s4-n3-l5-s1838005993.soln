@@ -1,0 +1,20 @@
+Based on the provided rules, here is the output for the given problem:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner3 location1)
+(walk bob location2 location3)
+(pickup_spanner bob spanner1 location3)
+(walk bob location4 location5)
+(use spanner1 nut1)
+(walk bob gate location1)
+(drop spanner1 bob)
+(walk bob location5 location2)
+(use spanner3 nut2)
+(walk bob gate location2)
+(drop spanner3 bob)
+(walk bob location2 location3)
+(use spanner2 nut3)
+(walk bob gate location3)
+(drop spanner2 bob)
+```

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_sft_rovers.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N evaluate_sft_rovers     # Specify job name
+
+conda activate llmstl
+
+
+
+python3 script/evaluate_llm_solver.py --model sft_model/sft_model_pddl_mistral_7b_rovers  --problems-dir rovers/testing_problems3 --domain-file rovers/domain3.pddl --max-problems 100 --output rovers_test_results.json  --results-dir planning_results/rovers_mistral_sft_planning_results
+
+

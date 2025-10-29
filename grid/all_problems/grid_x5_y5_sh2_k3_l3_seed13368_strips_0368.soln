@@ -1,0 +1,6 @@
+(pickup pos3-2 key2)
+(move pos3-2 pos2-2)
+(move pos2-2 pos2-3)
+(unlock pos2-3 pos2-4 key2 shape1)
+(move pos2-3 pos2-4)
+(putdown pos2-4 key2)

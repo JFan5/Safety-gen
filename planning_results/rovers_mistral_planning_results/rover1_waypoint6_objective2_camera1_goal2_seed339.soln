@@ -1,0 +1,17 @@
+Based on the provided domain and problem, here is a possible plan for the given scenario:
+
+```
+(navigate rover0 waypoint3)
+(sample_soil rover0 rover0store waypoint2)
+(navigate rover0 waypoint2)
+(take_image rover0 waypoint2 objective1 camera0 high_res)
+(navigate rover0 waypoint3)
+(communicate_soil_data rover0 general waypoint2 waypoint0)
+(navigate rover0 waypoint1)
+(take_image rover0 waypoint1 objective1 camera0 colour)
+(navigate rover0 waypoint0)
+(communicate_image_data rover0 general objective1 high_res)
+(communicate_image_data rover0 general objective1 colour)
+```
+
+This plan assumes that the rover can traverse between waypoints as specified in the domain, and that the rover is initially at waypoint3. The plan collects soil samples, takes images of the soil and a different objective, and communicates the data back to the lander.

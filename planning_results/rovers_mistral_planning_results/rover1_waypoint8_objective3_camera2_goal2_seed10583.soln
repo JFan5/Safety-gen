@@ -1,0 +1,28 @@
+Based on the provided domain and problem, here is a possible plan for the given scenario:
+
+```
+(navigate rover0 waypoint0 waypoint1)
+(navigate rover0 waypoint1 waypoint2)
+(navigate rover0 waypoint2 waypoint3)
+(sample_rock rover0 waypoint3 rover0store)
+(drop rover0store waypoint3)
+(navigate rover0 waypoint3 waypoint4)
+(sample_rock rover0 waypoint4 rover0store)
+(drop rover0store waypoint4)
+(navigate rover0 waypoint4 waypoint5)
+(sample_rock rover0 waypoint5 rover0store)
+(drop rover0store waypoint5)
+(navigate rover0 waypoint5 waypoint6)
+(sample_rock rover0 waypoint6 rover0store)
+(drop rover0store waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_rock rover0 waypoint7 rover0store)
+(drop rover0store waypoint7)
+(navigate rover0 waypoint7 waypoint0)
+(calibrate rover0 camera1 objective1)
+(take_image rover0 waypoint7 objective1 camera1 high_res)
+(communicate_rock_data rover0 general waypoint7 waypoint0 waypoint1 waypoint2)
+(communicate_image_data rover0 general objective1 colour)
+```
+
+This plan assumes that the rover can traverse between all waypoints and that the lander is always available for communication. The plan collects rock samples from each waypoint, drops them in the rover's store, and then navigates back to the lander to communicate the rock data and take an image using the high-resolution camera.

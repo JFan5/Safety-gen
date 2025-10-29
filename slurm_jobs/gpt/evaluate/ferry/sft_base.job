@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#SBATCH --mail-user=jfan5@nd.edu
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --output=job_outputs/evaluate_sft_ferry_gpt.o
+#SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
+#SBATCH --job-name=evaluate_sft_ferry_gpt # Specify job name
+
+conda activate llmstl
+
+
+
+python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/ferry/base  --problems-dir ferry/testing_problems3 --domain-file ferry/domain3.pddl --max-problems 100 --output ferry_test_results.json  --results-dir sft_results/gpt_oss_20b/ferry/base
+
+

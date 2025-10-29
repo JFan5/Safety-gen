@@ -1,0 +1,23 @@
+Based on the provided domain and problem, here's a plan that satisfies the conditions:
+
+```
+(navigate rover0 waypoint0)
+(sample_soil rover0 rover0store waypoint4)
+(navigate rover0 waypoint4)
+(communicate_soil_data rover0 general waypoint4 waypoint0)
+(navigate rover0 waypoint0)
+(drop rover0store)
+(navigate rover0 waypoint1)
+(sample_rock rover0 rover0store waypoint3)
+(navigate rover0 waypoint3)
+(communicate_rock_data rover0 general waypoint3 waypoint0)
+(navigate rover0 waypoint0)
+(drop rover0store)
+(navigate rover0 waypoint2)
+(calibrate rover0 camera0 objective0 general)
+(take_image rover0 waypoint0 objective0 camera0 colour)
+(navigate rover0 waypoint0)
+(communicate_image_data rover0 general objective0 colour waypoint0)
+```
+
+This plan will make the rover navigate to various waypoints, sample soil and rocks, communicate data back to the lander, drop samples when full, calibrate the camera, take an image in the high-res mode, and communicate the image data back to the lander.

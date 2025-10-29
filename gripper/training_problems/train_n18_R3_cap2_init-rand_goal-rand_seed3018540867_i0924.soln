@@ -1,0 +1,6 @@
+(move rooma roomb)
+(pick ball13 roomb left)
+(pick ball12 roomb right)
+(move roomb room3)
+(drop ball13 room3 left)
+(drop ball12 room3 right)

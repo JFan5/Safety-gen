@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_mistral_ferry_pddl3_all_testing.o
+#$ -pe smp 8
+#$ -N evaluate_mistral_ferry_pddl3_all_testing
+
+conda activate llmstl
+
+# Evaluate PDDL3 fine-tuned model
+MODEL_PATH="sft_model/mistral_7b/ferry/pddl3"
+
+python3 script/evaluate_llm_solver.py \
+  --model "$MODEL_PATH" \
+  --problems-dir ferry/all_problems3/testing \
+  --domain-file ferry/domain3.pddl \
+  --output ferry_all_testing_pddl3.json \
+  --results-dir planning_results/ferry_pddl3_all_testing
+

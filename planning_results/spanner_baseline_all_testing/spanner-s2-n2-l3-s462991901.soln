@@ -1,0 +1,15 @@
+Based on the provided domain and problem, the plan to tighten both nuts can be as follows:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location2 location1)
+(pickup_spanner bob spanner2 bob)
+(walk bob gate location3)
+(use_spanner bob spanner1 nut1)
+(walk bob location2 gate)
+(use_spanner bob spanner2 nut2)
+(walk bob shed location1)
+```
+
+This plan assumes that the spanner can be used in any location, and the nut can be tightened in its current location. If there are additional constraints or requirements, the plan may need to be adjusted accordingly.

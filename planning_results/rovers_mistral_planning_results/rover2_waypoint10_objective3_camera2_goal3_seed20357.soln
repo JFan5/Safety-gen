@@ -1,0 +1,14 @@
+Based on the provided domain and problem, here is a valid, grounded, totally-ordered plan:
+
+```
+(navigate rover0 waypoint4 waypoint0)
+(navigate rover0 waypoint0 waypoint1)
+(take_image rover0 waypoint1 objective2 high_res)
+(navigate rover0 waypoint1 waypoint2)
+(take_image rover0 waypoint2 objective2 low_res)
+(navigate rover0 waypoint2 waypoint3)
+(communicate_image_data rover0 general objective2 colour)
+(communicate_image_data rover0 general objective2 low_res)
+```
+
+This plan assumes that the rover can traverse between waypoints as specified in the problem, and that the rover is initially at waypoint4. The plan also assumes that the rover is equipped for imaging and that the camera is on board the rover. The plan collects images from waypoints 1 and 2, communicates the images to the lander, and satisfies the goal conditions.

@@ -1,0 +1,18 @@
+Based on the provided domain and problem, here is the plan to tighten all nuts:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location2 spanner1)
+(walk bob location3 spanner1)
+(pickup_spanner bob spanner2 bob)
+(walk bob location4 spanner2)
+(use_spanner bob nut1 spanner1)
+(drop spanner1 nut1)
+(use_spanner bob nut2 spanner2)
+(drop spanner2 nut2)
+(use_spanner bob nut3 spanner1)
+(drop spanner1 nut3)
+```
+
+This plan assumes that the spanner can be used after being dropped, and that the order of tightening the nuts does not matter. If there are additional constraints in the domain or problem that require the spanner to be picked up and used again after being dropped, the plan would need to be adjusted accordingly.

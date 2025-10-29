@@ -1,0 +1,15 @@
+Scenario: ferry
+Generated at: 2025-10-04 09:44:03
+
+Training problems: 1000 (duplicates removed: 0)
+Testing problems:  100 (duplicates removed: 0)
+
+Parameter samples (first 5):
+- ferry -l <locations> -c <cars> -seed <random>
+- ferry -l <locations> -c <cars> -seed <random>
+- ferry -l <locations> -c <cars> -seed <random>
+- ferry -l <locations> -c <cars> -seed <random>
+- ferry -l <locations> -c <cars> -seed <random>
+
+Notes:
+- Each .pddl begins with a '; params: ...' comment capturing generator arguments.

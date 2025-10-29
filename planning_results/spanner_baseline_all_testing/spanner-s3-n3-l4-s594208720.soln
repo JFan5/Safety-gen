@@ -1,0 +1,19 @@
+Based on the provided domain and problem, and adhering to the rules you've specified, the plan to tighten all nuts would be as follows:
+
+```
+(pickup_spanner bob spanner1)
+(walk bob location1 location2)
+(use_spanner bob nut1)
+(walk bob location2 location3)
+(drop_spanner bob spanner2)
+(use_spanner bob nut2)
+(walk bob location3 location4)
+(drop_spanner bob spanner3)
+(use_spanner bob nut3)
+```
+
+This plan assumes that:
+
+1. Spanner1, spanner2, and spanner3 are all usable to tighten the respective nuts.
+2. The man Bob can walk from the shed to location1, location1 to location2, location2 to location3, and location3 to location4.
+3. The nut1, nut2, and nut3 are all loose initially, and the initial state satisfies all constraints (if any).

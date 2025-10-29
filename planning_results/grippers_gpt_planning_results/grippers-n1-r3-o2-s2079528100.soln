@@ -1,0 +1,3 @@
+<|channel|>final<|message|>(pick robot1 ball1 room1 rgripper1)
+(move robot1 room1 room2)
+(drop robot1 ball1 room2 rgripper1)<|return|>

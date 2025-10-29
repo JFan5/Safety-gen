@@ -1,0 +1,37 @@
+Number of literals: 53
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Action 26 - (take_image rover0 waypoint6 objective0 camera1 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 27 - (take_image rover0 waypoint1 objective1 camera1 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 28 - (take_image rover0 waypoint3 objective1 camera1 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 29 - (take_image rover0 waypoint5 objective1 camera1 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 30 - (take_image rover0 waypoint7 objective1 camera1 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 31 - (take_image rover0 waypoint2 objective2 camera1 colour) is uninteresting once we have fact (have_image rover0 objective2 colour)
+Action 32 - (take_image rover0 waypoint5 objective2 camera1 colour) is uninteresting once we have fact (have_image rover0 objective2 colour)
+Action 33 - (take_image rover0 waypoint6 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective0 high_res)
+Action 34 - (take_image rover0 waypoint1 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 35 - (take_image rover0 waypoint3 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 36 - (take_image rover0 waypoint5 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 37 - (take_image rover0 waypoint7 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 38 - (take_image rover0 waypoint2 objective2 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective2 high_res)
+Action 39 - (take_image rover0 waypoint5 objective2 camera0 high_res) is uninteresting once we have fact (have_image rover0 objective2 high_res)
+Action 40 - (take_image rover0 waypoint6 objective0 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective0 high_res)
+Action 41 - (take_image rover0 waypoint1 objective1 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 42 - (take_image rover0 waypoint3 objective1 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 43 - (take_image rover0 waypoint5 objective1 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 44 - (take_image rover0 waypoint7 objective1 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective1 high_res)
+Action 45 - (take_image rover0 waypoint2 objective2 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective2 high_res)
+Action 46 - (take_image rover0 waypoint5 objective2 camera1 high_res) is uninteresting once we have fact (have_image rover0 objective2 high_res)
+Action 47 - (take_image rover0 waypoint6 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective0 low_res)
+Action 48 - (take_image rover0 waypoint1 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective1 low_res)
+Action 49 - (take_image rover0 waypoint3 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective1 low_res)
+Action 50 - (take_image rover0 waypoint5 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective1 low_res)
+Action 51 - (take_image rover0 waypoint7 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective1 low_res)
+Action 52 - (take_image rover0 waypoint2 objective2 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective2 low_res)
+Action 53 - (take_image rover0 waypoint5 objective2 camera1 low_res) is uninteresting once we have fact (have_image rover0 objective2 low_res)
+Initial heuristic = 14.000, admissible cost estimate 0.000
+b (12.000 | 0.000)b (11.000 | 0.001)b (10.000 | 0.002)b (9.000 | 0.003)b (8.000 | 0.004)b (7.000 | 0.007)b (6.000 | 0.008)b (5.000 | 0.009)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (13.000 | 0.000)b (12.000 | 0.000)b (11.000 | 0.001)b (10.000 | 0.002)b (9.000 | 0.003)b (8.000 | 0.004)b (7.000 | 0.007)b (6.000 | 0.008)b (6.000 | 0.007)b (5.000 | 0.009)b (5.000 | 0.008)b (5.000 | 0.007)

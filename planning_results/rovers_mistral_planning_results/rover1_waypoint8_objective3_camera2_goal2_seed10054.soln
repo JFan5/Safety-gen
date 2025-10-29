@@ -1,0 +1,18 @@
+Based on the provided domain and problem, here is a valid, grounded, totally-ordered plan:
+
+```
+(navigate rover0 waypoint2)
+(sample_soil rover0 rover0store waypoint2)
+(navigate rover0 waypoint3)
+(communicate_soil_data rover0 general waypoint2 waypoint0 waypoint1)
+(navigate rover0 waypoint7)
+(sample_rock rover0 rover0store waypoint7)
+(navigate rover0 waypoint6)
+(communicate_rock_data rover0 general waypoint7 waypoint6 waypoint3)
+(take_image rover0 waypoint6 objective2 colour)
+(drop rover0store)
+(navigate rover0 waypoint0)
+(communicate_image_data rover0 general objective2 colour objective1 waypoint5 waypoint0)
+```
+
+This plan starts with the rover at waypoint6, moves to waypoint2 to collect soil samples, then moves to waypoint3 to communicate the soil data back to the lander. After that, it moves to waypoint7 to collect rock samples, then moves to waypoint6 to communicate the rock data back to the lander and take an image of waypoint6 using the high-resolution camera. The rover then drops the store, moves back to the lander, and communicates the image data back to the lander and the objective.

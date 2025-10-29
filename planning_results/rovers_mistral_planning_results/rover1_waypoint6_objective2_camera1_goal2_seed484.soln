@@ -1,0 +1,20 @@
+Based on the provided domain and problem, here is a possible plan for the given scenario:
+
+```
+(navigate rover0 waypoint3 waypoint2)
+(sample_soil rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint3)
+(drop rover0store waypoint2)
+(navigate rover0 waypoint3 waypoint1)
+(sample_rock rover0 rover0store waypoint1)
+(drop rover0store waypoint1)
+(navigate rover0 waypoint1 waypoint0)
+(calibrate rover0 camera0 objective1 waypoint0)
+(take_image rover0 waypoint0 objective0 low_res)
+(take_image rover0 waypoint0 objective1 high_res)
+(communicate_soil_data rover0 general waypoint2 waypoint0)
+(communicate_image_data rover0 general objective1 colour)
+(communicate_image_data rover0 general objective0 low_res)
+```
+
+This plan assumes that the rover can traverse between waypoints, sample soil and rocks, drop the store, calibrate the camera, take images, and communicate soil and image data to the lander. The plan also respects the given constraints and achieves the specified goals.

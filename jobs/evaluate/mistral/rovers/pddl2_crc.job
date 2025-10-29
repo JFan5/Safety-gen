@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_mistral_rovers_pddl2_all_testing.o
+#$ -pe smp 28
+#$ -N evaluate_mistral_rovers_pddl2_all_testing
+
+conda activate llmstl
+
+# Evaluate PDDL2 fine-tuned model
+MODEL_PATH="sft_model/mistral_7b/rovers/pddl2"
+
+python3 script/evaluate_llm_solver.py \
+  --model "$MODEL_PATH" \
+  --problems-dir rovers/all_problems3/testing \
+  --domain-file rovers/domain3.pddl \
+  --output rovers_all_testing_pddl2.json \
+  --results-dir planning_results/rovers_pddl2_all_testing
+

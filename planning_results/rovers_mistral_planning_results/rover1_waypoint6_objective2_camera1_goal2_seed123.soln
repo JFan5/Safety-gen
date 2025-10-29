@@ -1,0 +1,15 @@
+Based on the provided domain and problem, here is a valid, grounded, totally-ordered plan:
+
+```
+(navigate rover0 waypoint5 waypoint4)
+(sample_soil rover0 waypoint4 rover0store)
+(communicate_soil_data rover0 general waypoint4 waypoint0)
+(navigate rover0 waypoint4 waypoint1)
+(sample_rock rover0 waypoint1 rover0store)
+(communicate_rock_data rover0 general waypoint1 waypoint5)
+(navigate rover0 waypoint1 waypoint0)
+(take_image rover0 waypoint0 objective0 camera0 colour)
+(communicate_image_data rover0 general objective0 colour waypoint0)
+```
+
+This plan assumes that the rover can traverse between waypoints as specified in the domain, and that the rover is initially at waypoint5. The plan collects soil and rock samples from waypoints 4 and 1, communicates the data to the lander, and takes an image of waypoint0 using the camera.

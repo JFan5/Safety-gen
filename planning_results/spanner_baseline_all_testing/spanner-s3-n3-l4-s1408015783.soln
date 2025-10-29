@@ -1,0 +1,21 @@
+Based on the provided domain and problem, here is the plan to tighten all nuts:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location2 spanner1)
+(walk bob location3 spanner1)
+(pickup_spanner bob spanner2 bob)
+(walk bob location1 spanner2)
+(use_spanner bob nut1 spanner1)
+(drop_spanner bob spanner1 bob)
+(walk bob location2 spanner2)
+(use_spanner bob nut2 spanner2)
+(drop_spanner bob spanner2 bob)
+(pickup_spanner bob spanner3 bob)
+(walk bob location3 spanner3)
+(use_spanner bob nut3 spanner3)
+(drop_spanner bob spanner3 bob)
+```
+
+This plan assumes that the spanners are used in the order they are available, and the man (bob) can carry only one spanner at a time. The plan also assumes that the man starts at the shed and moves to the locations where the nuts and spanners are located. The spanners are picked up and dropped off as needed, and the nuts are tightened using the appropriate spanner.

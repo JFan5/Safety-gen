@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_sft_logistics.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N evaluate_sft_logistics     # Specify job name
+
+conda activate llmstl
+
+# 生成测试问题
+python3 logistcs/convert_to_pddl3.py logistics/all_problems/tes logistics/testing_problems3
+
+
+python3 script/evaluate_llm_solver.py --model sft_model/sft_model_pddl_mistral_7b_logistics  --problems-dir logistics/testing_problems3 --domain-file logistics/domain3.pddl --max-problems 100 --output logistics_test_results.json  --results-dir planning_results/logistics_mistral_sft_planning_results
+
+

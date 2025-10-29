@@ -1,0 +1,25 @@
+Based on the provided domain and problem, here is the plan to tighten all nuts:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location2 spanner1)
+(walk bob location3 spanner1)
+(pickup_spanner bob spanner3 bob)
+(walk bob location4 spanner3)
+(use_spanner bob nut1 spanner3)
+(walk bob location5 spanner3)
+(drop_spanner bob spanner3 bob)
+(walk bob location2 spanner1)
+(pickup_spanner bob spanner2 bob)
+(walk bob location3 spanner2)
+(use_spanner bob nut2 spanner2)
+(walk bob location4 spanner2)
+(drop_spanner bob spanner2 bob)
+(walk bob location1 spanner1)
+(pickup_spanner bob spanner4 bob)
+(walk bob location2 spanner4)
+(use_spanner bob nut3 spanner4)
+(walk bob location3 spanner4)
+(drop_spanner bob spanner4 bob)
+```

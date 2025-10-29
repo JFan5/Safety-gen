@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o fine_tune_phi4_mini_rovers_pddl3.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N fine_tune_phi4_mini_rovers_pddl3     # Specify job name
+
+conda activate llmstl
+
+# Model and output configuration for Phi-4-mini on rovers scenario (PDDL3)
+MODEL_NAME="unsloth/Phi-4-mini-instruct"
+OUTPUT_NAME="phi4_mini/rovers/pddl3"
+DATASET_PATH="data/sft/rovers_pddl3.hf"
+
+python3 pddl_finetune.py \
+  --mode train \
+  --model "$MODEL_NAME" \
+  --output "$OUTPUT_NAME" \
+  --dataset "$DATASET_PATH" \
+  --scenarios rovers
+

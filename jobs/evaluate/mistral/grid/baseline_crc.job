@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_mistral_grid_baseline_all_testing.o
+#$ -pe smp 8
+#$ -N evaluate_mistral_grid_baseline_all_testing
+
+conda activate llmstl
+
+# Evaluate baseline unsloth model
+BASE_MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+
+python3 script/evaluate_llm_solver.py \
+  --model "$BASE_MODEL" \
+  --problems-dir grid/all_problems3/testing \
+  --domain-file grid/domain3.pddl \
+  --output grid_all_testing_baseline.json \
+  --results-dir planning_results/grid_baseline_all_testing
+

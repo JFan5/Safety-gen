@@ -1,0 +1,19 @@
+Based on the provided domain and problem, here is a valid, grounded, totally-ordered plan:
+
+```
+(navigate rover0 waypoint4 waypoint0)
+(navigate rover0 waypoint0 waypoint2)
+(sample_soil rover0 waypoint2 waypoint0store)
+(navigate rover0 waypoint2 waypoint1)
+(take_image rover0 waypoint1 objective2 high_res)
+(navigate rover0 waypoint1 waypoint3)
+(sample_rock rover0 waypoint3 waypoint2store)
+(navigate rover0 waypoint3 waypoint2)
+(drop rover0 waypoint2store)
+(navigate rover0 waypoint2 waypoint0)
+(navigate rover0 waypoint0 waypoint4)
+(communicate_image_data rover0 general objective2 colour)
+(communicate_image_data rover0 general objective1 low_res)
+```
+
+This plan assumes that the rover can traverse between waypoints as specified in the domain, and that the rover can sample soil and rock as well as take images as specified in the domain. The plan also assumes that the lander is available for communication when needed. The plan satisfies all the hard constraints and goal conditions specified in the problem.

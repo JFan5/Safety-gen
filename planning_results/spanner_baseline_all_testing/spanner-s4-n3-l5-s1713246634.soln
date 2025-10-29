@@ -1,0 +1,21 @@
+Based on the provided domain and problem, here is the plan to tighten all nuts:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location2 spanner1)
+(walk bob location3 spanner1)
+(pickup_spanner bob spanner2 bob)
+(walk bob location4 spanner2)
+(use_spanner bob nut1 spanner1)
+(drop_spanner bob spanner1 bob)
+(walk bob location5 spanner2)
+(use_spanner bob nut2 spanner2)
+(drop_spanner bob spanner2 bob)
+(pickup_spanner bob spanner3 bob)
+(walk bob location4 spanner3)
+(use_spanner bob nut3 spanner3)
+(drop_spanner bob spanner3 bob)
+```
+
+This plan assumes that the spanner used to tighten a nut is the one that is currently being carried by the man. The order of tightening the nuts is not specified, but the constraint `(sometime-before (tightened nut2) (tightened nut3))` ensures that nut2 is tightened before nut3.

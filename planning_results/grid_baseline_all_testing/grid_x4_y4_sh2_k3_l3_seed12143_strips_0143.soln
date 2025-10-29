@@ -1,0 +1,6 @@
+(unlock pos0-3 pos0-2)
+(move pos0-3 pos0-2)
+(pickup pos0-2 key1)
+(move pos0-2 pos0-1)
+(drop pos0-1 key1)
+(move pos0-3 pos0-1)

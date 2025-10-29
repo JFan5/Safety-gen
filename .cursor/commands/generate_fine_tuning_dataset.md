@@ -1,0 +1,1 @@
+读取场景下的all problems下的training文件夹，domain文件为domain.pddl，帮我生成用于fine-tune的数据集，生成fine-tune数据集为

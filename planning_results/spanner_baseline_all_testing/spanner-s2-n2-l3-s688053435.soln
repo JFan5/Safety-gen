@@ -1,0 +1,12 @@
+Based on the provided domain and problem, here is the plan:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location2 location1)
+(pickup_spanner bob spanner2 bob)
+(walk bob gate location2)
+(tighten_nut bob spanner1 nut1 bob)
+(walk bob location3 gate)
+(tighten_nut bob spanner2 nut2 bob)
+```

@@ -1,0 +1,22 @@
+Based on the provided domain and problem, the plan to tighten all nuts can be as follows:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location3 location2)
+(pickup_spanner bob spanner2 bob)
+(walk bob location4 location3)
+(tighten_nut bob spanner1 nut1 bob)
+(walk bob location2 location1)
+(drop spanner1 bob)
+(walk bob location3 location2)
+(drop spanner2 bob)
+(walk bob location4 location3)
+(tighten_nut bob spanner2 nut2 bob)
+(walk bob location2 location1)
+(drop spanner1 bob)
+(walk bob location4 location2)
+(tighten_nut bob spanner3 nut3 bob)
+```
+
+This plan assumes that spanner1 and spanner2 are useable, and nut1, nut2, and nut3 are loose. The plan satisfies the given problem and constraints.

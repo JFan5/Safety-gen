@@ -1,0 +1,22 @@
+Based on the provided domain and problem, here is a possible plan for the given scenario:
+
+```
+(navigate rover0 waypoint5 waypoint0)
+(sample_rock rover0 rover0store waypoint0)
+(drop rover0store rover0store)
+(navigate rover0 waypoint0 waypoint1)
+(sample_soil rover0 rover0store waypoint1)
+(drop rover0store rover0store)
+(navigate rover0 waypoint1 waypoint2)
+(navigate rover0 waypoint2 waypoint3)
+(navigate rover0 waypoint3 waypoint4)
+(navigate rover0 waypoint4 waypoint5)
+(calibrate rover0 camera0 objective0)
+(take_image rover0 waypoint0 high_res camera0)
+(take_image rover0 waypoint1 high_res camera0)
+(communicate_rock_data rover0 general waypoint0 waypoint5 waypoint0 waypoint4)
+(communicate_image_data rover0 general objective0 high_res waypoint0 waypoint5 waypoint4)
+(communicate_image_data rover0 general objective1 high_res waypoint1 waypoint4)
+```
+
+This plan assumes that the rover can traverse between waypoints as specified in the domain, and that the actions can be executed in the given order to achieve the goals. It also assumes that the rover has the necessary equipment to sample soil and rocks, take images, and communicate the data to the lander.

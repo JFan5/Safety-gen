@@ -1,0 +1,24 @@
+Based on the provided domain and problem, here is the plan to tighten both nuts:
+
+```
+(walk bob shed location1)
+(pickup_spanner bob spanner1 bob)
+(walk bob location1 location2)
+(walk bob location2 location3)
+(walk bob location3 gate)
+(use_spanner bob spanner1 nut1)
+(walk bob gate location4)
+(drop_spanner bob spanner1 bob)
+(walk bob location4 location3)
+(walk bob location3 location2)
+(walk bob location2 location1)
+(pickup_spanner bob spanner2 bob)
+(walk bob location1 location2)
+(walk bob location2 location3)
+(walk bob location3 gate)
+(use_spanner bob spanner2 nut2)
+(walk bob gate location4)
+(drop_spanner bob spanner2 bob)
+```
+
+This plan assumes that the spanner being used is always the one currently being carried by the man. The plan also assumes that the man walks to the location of the nut before using the spanner to tighten it. After tightening a nut, the man drops the spanner before moving to the next nut.

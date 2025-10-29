@@ -1,0 +1,26 @@
+{
+  "model_path": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+  "problems_dir": "blocksworld/tmp_single",
+  "domain_file": "blocksworld/domain3.pddl",
+  "max_problems": 0,
+  "results_directory": "planning_results/qwen3_bw_tmp",
+  "total_tests": 1,
+  "valid_count": 0,
+  "generation_error_count": 0,
+  "success_rate": 0.0,
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "bw_ops3_n3_seed117",
+      "problem_file": "blocksworld/tmp_single/bw_ops3_n3_seed117.pddl",
+      "solution_file": "planning_results/qwen3_bw_tmp/bw_ops3_n3_seed117.soln",
+      "is_valid": false,
+      "validation_stdout": "",
+      "validation_stderr": "/bin/sh: 1: /users/jfan5/VAL/build/bin/Validate: not found\n",
+      "validation_cmd": "/users/jfan5/VAL/build/bin/Validate  -v blocksworld/domain3.pddl blocksworld/tmp_single/bw_ops3_n3_seed117.pddl planning_results/qwen3_bw_tmp/bw_ops3_n3_seed117.soln",
+      "raw_solution": "(pick b2 b3)\n(stack b2 b3)\n(pick b3 b3)\n(putdown b3 b3)",
+      "generation_error": null,
+      "ground_truth": ""
+    }
+  ]
+}
