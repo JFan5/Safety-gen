@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for GPT-OSS-20B on rovers scenario (PDDL3)
 MODEL_NAME="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
 OUTPUT_NAME="gpt_oss_20b/rovers/pddl3"
-DATASET_PATH="data/sft/rovers_pddl3.hf"
+DATASET_PATH="data/sft/rovers/pddl3.hf"
 
 python3 pddl_finetune.py \
   --mode train \

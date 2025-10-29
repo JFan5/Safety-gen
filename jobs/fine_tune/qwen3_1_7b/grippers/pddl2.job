@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Qwen3-1.7B on grippers scenario (PDDL2)
 MODEL_NAME="unsloth/Qwen3-1.7B-unsloth-bnb-4bit"
 OUTPUT_NAME="qwen3_1_7b/grippers/pddl2"
-DATASET_PATH="data/sft/grippers_pddl2.hf"
+DATASET_PATH="data/sft/grippers/pddl2.hf"
 
 python3 pddl_finetune.py \
   --mode train \

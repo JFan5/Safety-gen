@@ -12,10 +12,10 @@ conda activate llmstl
 
 # Fine-tune GPT-OSS-20B on the PDDL2 multi-scenario dataset.
 # Ensure the dataset is generated via:
-#   python3 script/collect_finetuned_dataset_together.py --pddl PDDL2 --output data/sft/multiple_scenarios/combined_pddl2.hf
+#   python3 script/collect_finetuned_dataset_together.py --pddl PDDL2 --output data/sft/multi_scenarios/pddl2.hf
 
 MODEL_NAME="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
-DATASET_PATH="data/sft/multiple_scenarios/combined_pddl2.hf"
+DATASET_PATH="data/sft/multi_scenarios/pddl2.hf"
 OUTPUT_NOTE="gpt_multi_pddl2"
 
 if [ ! -d "${DATASET_PATH}" ]; then

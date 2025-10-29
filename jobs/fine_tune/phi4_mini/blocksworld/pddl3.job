@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Phi-4-mini on blocksworld scenario (PDDL3)
 MODEL_NAME="unsloth/Phi-4-mini-instruct"
 OUTPUT_NAME="phi4_mini/blocksworld/pddl3"
-DATASET_PATH="data/sft/blocksworld_pddl3.hf"
+DATASET_PATH="data/sft/blocksworld/pddl3.hf"
 
 python3 pddl_finetune.py \
   --mode train \

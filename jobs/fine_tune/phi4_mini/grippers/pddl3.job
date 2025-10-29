@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Phi-4-mini on grippers scenario (PDDL3)
 MODEL_NAME="unsloth/Phi-4-mini-instruct"
 OUTPUT_NAME="phi4_mini/grippers/pddl3"
-DATASET_PATH="data/sft/grippers_pddl3.hf"
+DATASET_PATH="data/sft/grippers/pddl3.hf"
 
 python3 pddl_finetune.py \
   --mode train \

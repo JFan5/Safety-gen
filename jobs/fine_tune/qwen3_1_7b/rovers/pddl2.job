@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Qwen3-1.7B on rovers scenario (PDDL2)
 MODEL_NAME="unsloth/Qwen3-1.7B-unsloth-bnb-4bit"
 OUTPUT_NAME="qwen3_1_7b/rovers/pddl2"
-DATASET_PATH="data/sft/rovers_pddl2.hf"
+DATASET_PATH="data/sft/rovers/pddl2.hf"
 
 python3 pddl_finetune.py \
   --mode train \

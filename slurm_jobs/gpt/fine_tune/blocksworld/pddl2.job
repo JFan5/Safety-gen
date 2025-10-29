@@ -13,7 +13,7 @@
 # Model and output configuration for GPT-OSS-20B on blocksworld scenario (PDDL2)
 MODEL_NAME="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
 OUTPUT_NAME="gpt_oss_20b/blocksworld/pddl2"
-DATASET_PATH="data/sft/blocksworld_pddl2.hf"
+DATASET_PATH="data/sft/blocksworld/pddl2.hf"
 
 python3 pddl_finetune.py \
   --mode train \

@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Mistral on rovers scenario (PDDL3)
 MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 OUTPUT_NAME="mistral_7b/rovers/pddl3"
-DATASET_PATH="data/sft/rovers_pddl3.hf"
+DATASET_PATH="data/sft/rovers/pddl3.hf"
 
 python3 pddl_finetune.py \
   --mode train \

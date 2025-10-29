@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Phi-4-mini on delivery scenario (PDDL3)
 MODEL_NAME="unsloth/Phi-4-mini-instruct"
 OUTPUT_NAME="phi4_mini/delivery/pddl3"
-DATASET_PATH="data/sft/delivery_pddl3.hf"
+DATASET_PATH="data/sft/delivery/pddl3.hf"
 
 python3 pddl_finetune.py \
   --mode train \

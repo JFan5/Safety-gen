@@ -189,7 +189,7 @@ def filter_valid_solutions(dataset_entries: List[Dict]) -> List[Dict]:
             print(f"Invalid solution format for {entry['problem_name']}")
     return valid_entries
 
-def create_dataset(dataset_entries: List[Dict], output_path: str = "data/sft/multiple_scenarios/combined_dataset.hf"):
+def create_dataset(dataset_entries: List[Dict], output_path: str = "data/sft/multi_scenarios/base.hf"):
     """创建HuggingFace数据集"""
     if not dataset_entries:
         print("No valid dataset entries found!")
@@ -260,8 +260,8 @@ def parse_arguments():
     
     parser.add_argument(
         "--output", 
-        default="data/sft/multiple_scenarios/combined_dataset.hf",
-        help="输出数据集路径 (默认: data/sft/multiple_scenarios/combined_dataset.hf)"
+        default="data/sft/multi_scenarios/base.hf",
+        help="输出数据集路径 (默认: data/sft/multi_scenarios/base.hf)"
     )
     parser.add_argument(
         "--pddl",
