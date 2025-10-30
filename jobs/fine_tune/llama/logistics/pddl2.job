@@ -11,7 +11,7 @@
 conda activate llmstl
 
 # Model and output configuration for Llama-3-8B on logistics scenario (PDDL2)
-MODEL_NAME="unsloth/llama-3-8b-bnb-4bit"
+MODEL_NAME="unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
 OUTPUT_NAME="llama/logistics/pddl2"
 DATASET_PATH="data/sft/logistics/pddl2.hf"
 

@@ -11,7 +11,7 @@
 conda activate llmstl
 
 # Evaluate baseline unsloth model
-BASE_MODEL="unsloth/llama-3-8b-bnb-4bit"
+BASE_MODEL="unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
 
 python3 script/evaluate_llm_solver.py \
   --model "$BASE_MODEL" \
