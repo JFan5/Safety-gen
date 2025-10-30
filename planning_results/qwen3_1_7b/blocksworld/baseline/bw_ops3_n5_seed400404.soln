@@ -1,0 +1,8 @@
+(pick b2 b1)
+(pick b3 b5)
+(stack b3 b1)
+(pick b4 b3)
+(putdown b4 b3)
+(stack b4 b1)
+(pick b5 b4)
+(putdown b5 b4)

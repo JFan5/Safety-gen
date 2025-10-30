@@ -42,30 +42,17 @@ def resolve_domain_file(root: Path, pddl_version: str) -> Path:
 
 
 def build_prompt(domain_content: str, problem_content: str, pddl_version: str) -> str:
-    """根据 PDDL 版本选择对应的 prompt 模板并构建输入。
-
-    - PDDL2: 使用 prompt_pddl2.txt
-    - PDDL3: 使用 prompt_pddl3.txt
-    若对应模板不存在，则回退到 prompt.txt（若存在）。
-    """
-    version = (pddl_version or "").upper()
-    candidate_files = []
-    if version == "PDDL2":
-        candidate_files.append('prompt_pddl2.txt')
-    else:
-        candidate_files.append('prompt_pddl3.txt')
-    candidate_files.append('prompt.txt')
-
-    prompt_text = None
-    for file_name in candidate_files:
-        file_path = Path(file_name)
-        if file_path.exists():
+    """使用统一的 prompt.txt 模板构建输入；若不存在则使用默认格式。"""
+    file_path = Path('prompt.txt')
+    if file_path.exists():
+        try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 prompt_text = f.read()
-            break
-
-    if prompt_text is None:
-        print("Warning: No prompt template found. Expected one of: " + ", ".join(candidate_files))
+        except Exception as e:
+            print(f"Error reading prompt template prompt.txt: {e}")
+            prompt_text = "{domain_content}\n\n{problem_content}"
+    else:
+        print("Warning: prompt.txt not found. Falling back to default prompt format.")
         prompt_text = "{domain_content}\n\n{problem_content}"
 
     return prompt_text.format(domain_content=domain_content, problem_content=problem_content)

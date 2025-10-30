@@ -1,0 +1,5 @@
+(pick b2 b3)
+(stack b3 b1)
+(pick b3 b1)
+(unstack b3 b1)
+(pick b1 b3)
