@@ -32,4 +32,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir grid/all_problems3/testing \
   --domain-file grid/domain3.pddl \
   --output grid_all_testing_baseline.json \
-  --results-dir planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/grid/baseline
+  --results-dir planning_results/gpt_oss_20b/grid/baseline

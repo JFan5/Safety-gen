@@ -32,4 +32,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir spanner/all_problems3/testing \
   --domain-file spanner/domain3.pddl \
   --output spanner_all_testing_baseline.json \
-  --results-dir planning_results/unsloth_mistral-7b-instruct-v0.3-bnb-4bit/spanner/baseline
+  --results-dir planning_results/mistral_7b/spanner/baseline

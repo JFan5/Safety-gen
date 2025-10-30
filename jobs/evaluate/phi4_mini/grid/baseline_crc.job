@@ -18,5 +18,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir grid/all_problems3/testing \
   --domain-file grid/domain3.pddl \
   --output grid_all_testing_baseline.json \
-  --results-dir planning_results/unsloth_Phi-4-mini-instruct/grid/baseline
-
+  --results-dir planning_results/phi4_mini/grid/baseline

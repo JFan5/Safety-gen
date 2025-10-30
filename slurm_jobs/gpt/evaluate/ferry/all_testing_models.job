@@ -32,4 +32,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir ferry/all_problems3/testing \
   --domain-file ferry/domain3.pddl \
   --output ferry_all_testing_baseline.json \
-  --results-dir planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/ferry/baseline
+  --results-dir planning_results/gpt_oss_20b/ferry/baseline

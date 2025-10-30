@@ -223,17 +223,12 @@ def test_model_on_testing_data(model_path,
         # 按目录命名
         dir_tag = Path(problems_dir).name if problems_dir else "problems"
         results_dir = Path(f"{model_name}_planning_results_{dir_tag}")
-    results_dir.mkdir(exist_ok=True)
-    
-    # 清空结果目录下的所有文件
+    # 如果目录存在就删除目录然后重新创建
     if results_dir.exists():
-        for file in results_dir.glob("*"):
-            if file.is_file():
-                file.unlink()
-                print(f"Deleted existing file: {file}")
-    
+        import shutil
+        shutil.rmtree(results_dir)
+    results_dir.mkdir(exist_ok=True)
     print(f"Planning results will be saved to: {results_dir}")
-    
     # 加载测试数据（需要显式提供 problems_dir 与 domain_file）
     if not problems_dir or not domain_file:
         print("--problems-dir 和 --domain-file 都是必需参数。")

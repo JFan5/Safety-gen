@@ -32,4 +32,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir rovers/all_problems3/testing \
   --domain-file rovers/domain3.pddl \
   --output rovers_all_testing_baseline.json \
-  --results-dir planning_results/unsloth_gpt-oss-20b-unsloth-bnb-4bit/rovers/baseline
+  --results-dir planning_results/gpt_oss_20b/rovers/baseline
