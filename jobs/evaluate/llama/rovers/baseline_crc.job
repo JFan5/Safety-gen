@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_llama_rovers_baseline_all_testing.o
+#$ -pe smp 28
+#$ -N evaluate_llama_rovers_baseline_all_testing
+
+conda activate llmstl
+
+# Evaluate baseline unsloth model
+BASE_MODEL="unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
+
+python3 script/evaluate_llm_solver.py \
+  --model "$BASE_MODEL" \
+  --problems-dir rovers/all_problems3/testing \
+  --domain-file rovers/domain3.pddl \
+  --output rovers_all_testing_baseline.json \
+  --results-dir planning_results/llama/rovers/baseline
