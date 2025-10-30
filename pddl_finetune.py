@@ -40,57 +40,6 @@ def template_output(path):
     return [{"role": "assistant", "content": path}]
 
 
-def ensure_chat_template(tokenizer, family: str):
-    """Ensure tokenizer has a chat template; fall back to sensible defaults per family."""
-    if getattr(tokenizer, "chat_template", None):
-        return
-
-    print(f"[Info] tokenizer.chat_template missing; applying fallback template for family='{family}'.")
-    family = (family or "").lower()
-
-    mistral_like_template = (
-        "{{ bos_token }}"
-        "{% for message in messages %}"
-        "{% if message['role'] == 'system' %}"
-        "{{ (message['content'] | default('', true)) + '\\n\\n' }}"
-        "{% elif message['role'] == 'user' %}"
-        "{{ '[INST] ' + (message['content'] | default('', true)) + ' [/INST]' }}"
-        "{% elif message['role'] == 'assistant' %}"
-        "{{ ' ' + (message['content'] | default('', true)) + eos_token }}"
-        "{% endif %}"
-        "{% endfor %}"
-    )
-
-    chatml_template = (
-        "{% for message in messages %}"
-        "{{ '<|im_start|>' + message['role'] + '\\n' + (message['content'] | default('', true)) + '<|im_end|>' }}"
-        "{% endfor %}"
-    )
-
-    simple_template = (
-        "{% for message in messages %}"
-        "{% if message['role'] == 'system' %}"
-        "{{ 'System: ' + (message['content'] | default('', true)) + '\\n' }}"
-        "{% elif message['role'] == 'user' %}"
-        "{{ 'User: ' + (message['content'] | default('', true)) + '\\n' }}"
-        "{% elif message['role'] == 'assistant' %}"
-        "{{ 'Assistant: ' + (message['content'] | default('', true)) + eos_token }}"
-        "{% else %}"
-        "{{ message['role'].capitalize() + ': ' + (message['content'] | default('', true)) + '\\n' }}"
-        "{% endif %}"
-        "{% endfor %}"
-    )
-
-    if family in {"mistral", "llama"}:
-        tokenizer.chat_template = mistral_like_template
-    elif family in {"qwen"}:
-        tokenizer.chat_template = chatml_template
-    elif family in {"phi", "gpt"}:
-        tokenizer.chat_template = simple_template
-    else:
-        tokenizer.chat_template = simple_template
-
-
 def extract_llm_output(output: str, family: str = 'mistral') -> str:
     """提取模型生成的计划文本，兼容多种Chat模板"""
     if not output:
@@ -222,8 +171,6 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
         tokenizer.add_bos_token = True
         tokenizer.pad_token = tokenizer.eos_token
         model.config.pad_token_id = tokenizer.eos_token_id
-
-    ensure_chat_template(tokenizer, family)
     
     # 配置LoRA
     print("Configuring LoRA...")
@@ -470,8 +417,6 @@ def test_pddl_model(model_path, test_prompt, n=5, family='mistral', dataset_path
         load_in_4bit=load_in_4bit,
     )
     
-    ensure_chat_template(tokenizer, family)
-
     FastLanguageModel.for_inference(model)
     
     inputs = tokenizer.apply_chat_template(
