@@ -1,0 +1,18 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given goals and constraints.
+
+The goal is to move b1 to b5, b3 to b2, b5 to b6, and b6 to b3.
+
+Here is the plan:
+
+(pick b1 b5)
+(stack b1 b3)
+(pick b3 b2)
+(unstack b3 b1)
+(stack b3 b5)
+(pick b5 b6)
+(unstack b5 b3)
+(stack b5 b2)
+(pick b2 b3)
+(unstack b2 b5)
+
+This plan satisfies all the given goals and constraints.

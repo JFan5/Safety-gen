@@ -1,0 +1,9 @@
+Here is the plan:
+
+(sail l0 l1)
+(board c0 l1)
+(board c1 l0)
+(debark c1 l0)
+(debark c2 l1)
+(debark c0 l2)
+(debark c1 l2)

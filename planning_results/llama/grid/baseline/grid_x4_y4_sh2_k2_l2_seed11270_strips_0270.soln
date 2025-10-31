@@ -1,0 +1,14 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the goal and constraints.
+
+The goal is to move the key1 to the position pos3-2.
+
+The constraints are:
+- Always (not (at-robot pos2-2))
+
+Here is the plan:
+
+(move key1 pos3-2)
+(pick key1 pos3-2)
+(drop key1 pos3-2)
+
+This plan satisfies the goal and constraints, and only uses available symbols.

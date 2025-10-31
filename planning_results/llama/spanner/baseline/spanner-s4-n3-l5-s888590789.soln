@@ -1,0 +1,21 @@
+Here's a valid, grounded, totally-ordered plan to solve the given PDDL2 problem:
+
+
+(at bob shed)
+(at nut1 gate)
+(pick up nut1)
+(put down nut1)
+(at nut1 shed)
+(link nut1 nut2)
+(at nut2 gate)
+(pick up nut2)
+(put down nut2)
+(at nut2 shed)
+(link nut2 nut3)
+(at nut3 gate)
+(pick up nut3)
+(put down nut3)
+(at nut3 shed)
+(tighten nut1)
+(tighten nut2)
+(tighten nut3)

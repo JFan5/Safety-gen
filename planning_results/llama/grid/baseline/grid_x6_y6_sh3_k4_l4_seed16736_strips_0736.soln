@@ -1,0 +1,27 @@
+Based on the provided domain and problem, the plan can be generated as follows:
+
+1. (unlock pos0-2 shape0)
+2. (unlock pos2-4 shape1)
+3. (unlock pos4-1 shape2)
+4. (unlock pos3-4 shape0)
+5. (move pos1-3)
+6. (pick pos3-4 shape0)
+7. (pick pos4-0 shape1)
+8. (pick pos5-3 shape2)
+9. (putdown pos3-4 shape0)
+10. (putdown pos4-0 shape1)
+11. (putdown pos5-3 shape2)
+
+The final output is:
+
+(unlock pos0-2 shape0)
+(unlock pos2-4 shape1)
+(unlock pos4-1 shape2)
+(unlock pos3-4 shape0)
+(move pos1-3)
+(pick pos3-4 shape0)
+(pick pos4-0 shape1)
+(pick pos5-3 shape2)
+(putdown pos3-4 shape0)
+(putdown pos4-0 shape1)
+(putdown pos5-3 shape2)

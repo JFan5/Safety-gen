@@ -1,0 +1,14 @@
+Since the goal is to tighten three nuts, we first need to move the first nut to the gate, then the second nut, and finally the third nut. We also need to pick up the spanner at location 4 and move it to location 1. Here is the plan:
+
+(move nut1 gate)
+(pick spanner4)
+(move spanner4 location1)
+(tighten nut1)
+(move nut2 gate)
+(pick spanner4)
+(move spanner4 location1)
+(tighten nut2)
+(move nut3 gate)
+(pick spanner4)
+(move spanner4 location1)
+(tighten nut3)

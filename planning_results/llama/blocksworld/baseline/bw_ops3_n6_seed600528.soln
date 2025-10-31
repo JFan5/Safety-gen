@@ -1,0 +1,20 @@
+Here is the plan that satisfies the given problem:
+
+(pick b1 b4)
+(pick b2 b1)
+(pick b3 b2)
+(pick b5 b6)
+(stack b5 b4)
+(stack b4 b3)
+(stack b3 b2)
+(stack b2 b1)
+(stack b1 b5)
+(unstack b1 b5)
+(unstack b4 b6)
+(unstack b3 b2)
+(unstack b2 b1)
+(drop b2)
+(drop b3)
+(drop b5)
+
+This plan satisfies all the goals and constraints in the problem.

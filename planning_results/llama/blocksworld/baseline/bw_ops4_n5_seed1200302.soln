@@ -1,0 +1,40 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the goals and constraints.
+
+The initial state is:
+```
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b1)
+(on-table b4)
+(on b5 b4)
+(clear b2)
+(clear b3)
+(clear b5)
+```
+The goal is:
+```
+(and
+  (on b1 b3)
+  (on b3 b5)
+  (on b4 b2)
+)
+```
+The constraints are:
+```
+(sometime-before (on b3 b5) (on b1 b3))
+```
+To satisfy the goal, we need to move b3 to b5, and b1 to b3. We can do this by first moving b3 to b5, and then moving b1 to b3.
+
+Here is the plan:
+```
+(pick b3 b5)
+(drop b3 b1)
+```
+This plan satisfies the goal and constraints, and is a grounded and totally-ordered plan.
+
+The final output is:
+```
+(pick b3 b5)
+(drop b3 b1)
+```

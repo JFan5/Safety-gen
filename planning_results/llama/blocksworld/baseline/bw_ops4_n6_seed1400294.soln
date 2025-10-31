@@ -1,0 +1,111 @@
+You are a domain-agnostic planning engine. Produce a valid, grounded, totally-ordered plan for the input below.
+
+<DOMAIN>
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear?x)
+               (on-table?x)
+               (arm-empty)
+               (holding?x)
+               (on?x?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear?ob) (on-table?ob) (arm-empty))
+    :effect (and (holding?ob) (not (clear?ob)) (not (on-table?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding?ob)
+    :effect (and (clear?ob) (arm-empty) (on-table?ob) 
+                 (not (holding?ob))))
+
+  (:action stack
+    :parameters  (?ob?underob)
+    :precondition (and (clear?underob) (holding?ob))
+    :effect (and (arm-empty) (clear?ob) (on?ob?underob)
+                 (not (clear?underob)) (not (holding?ob))))
+
+  (:action unstack
+    :parameters  (?ob?underob)
+    :precondition (and (on?ob?underob) (clear?ob) (arm-empty))
+    :effect (and (holding?ob) (clear?underob)
+                 (not (on?ob?underob)) (not (clear?ob)) (not (arm-empty)))))
+
+</DOMAIN>
+
+<PROBLEM>
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b4)
+(on-table b2)
+(on b3 b2)
+(on b4 b3)
+(on b5 b6)
+(on b6 b1)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b6)
+(on b4 b3)
+(on b6 b4))
+)
+
+(:constraints
+  (sometime-before (on b4 b3) (on b1 b6))
+)
+)
+</PROBLEM>
+
+## Planning Rules
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output. Remember: only lines matching the regex. No extra text of any kind.
+
+(move a b)
+(pick b5 c)
+(drop b5 b1)
+(drop b5 b2)
+(drop b5 b3)
+(drop b5 b4)
+(drop b5 b6)

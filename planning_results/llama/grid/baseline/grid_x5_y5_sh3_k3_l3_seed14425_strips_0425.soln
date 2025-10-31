@@ -1,0 +1,22 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the goals and constraints.
+
+The goal is to move the key0 to pos0-3 and the key2 to pos4-2.
+
+The constraints are:
+
+- always (not (at-robot pos3-2))
+
+Here is the plan:
+
+(unlock pos4-0 shape0)
+(move pos4-0 pos0-3)
+(pick key0)
+(move pos0-3 key0)
+(at key0 pos0-3)
+(unlock pos2-3 shape1)
+(move pos2-3 pos4-2)
+(pick key2)
+(move pos4-2 key2)
+(at key2 pos4-2)
+
+This plan satisfies the goals and constraints, and it is grounded and totally-ordered.

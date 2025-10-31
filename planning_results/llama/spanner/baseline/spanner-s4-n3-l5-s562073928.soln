@@ -1,0 +1,15 @@
+Here is the plan:
+
+(walk bob location2 location1)
+(walk bob location2 location3)
+(walk bob location2 gate)
+(walk bob gate location1)
+(walk bob gate location2)
+(walk bob gate location3)
+(walk bob gate location4)
+(walk bob gate location5)
+(pickup_spanner bob location1 spanner1 location2)
+(pickup_spanner bob location2 spanner2 location3)
+(tighten_nut bob location2 nut1 gate)
+(tighten_nut bob location3 nut2 gate)
+(tighten_nut bob location4 nut3 gate)

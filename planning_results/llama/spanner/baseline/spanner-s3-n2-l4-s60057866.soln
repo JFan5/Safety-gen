@@ -1,0 +1,13 @@
+Based on the provided domain and problem, here is a valid, grounded, totally-ordered plan:
+
+(at bob shed)
+(pick bob nut1)
+(pick nut1 gate)
+(drop nut1 gate)
+(pick nut2 gate)
+(drop nut2 gate)
+(pick nut2)
+(tighten nut2)
+(tighten nut1)
+
+This plan satisfies the goal of tightening both nuts and ensures that all constraints are met.

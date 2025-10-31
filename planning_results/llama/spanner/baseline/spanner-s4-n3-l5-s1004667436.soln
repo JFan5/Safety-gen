@@ -1,0 +1,60 @@
+Using the PDDL planner to produce a plan for the given problem:
+
+(define (problem spanner-s4-n3-l5-s1004667436)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location5)
+    (useable spanner3)
+    (at spanner4 location4)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at?m shed)))
+  )
+)
+
+Here is the plan:
+
+1. tighten_nut location4 spanner4 nut1
+2. tighten_nut location4 spanner4 nut2
+3. tighten_nut location4 spanner4 nut3
+4. tighten_nut location4 nut1
+5. tighten_nut location4 nut2
+6. tighten_nut location4 nut3
+7. tighten_nut nut1
+8. tighten_nut nut2
+9. tighten_nut nut3
+
+Note that the plan involves tightening the nuts in a specific order, first tightening nut1, then nut2, and finally nut3. The plan also involves tightening the nuts in location4 using spanner4.

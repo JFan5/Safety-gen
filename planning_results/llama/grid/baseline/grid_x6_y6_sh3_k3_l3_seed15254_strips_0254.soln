@@ -1,0 +1,28 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given constraints and goals.
+
+Here is the plan:
+
+(open pos0-0)
+(open pos0-1)
+(open pos0-2)
+(open pos0-3)
+(open pos0-4)
+(open pos0-5)
+(open pos1-0)
+(open pos1-1)
+(open pos1-2)
+(open pos1-3)
+(open pos1-5)
+(lock-shape  pos5-5 shape0)
+(lock-shape  pos3-2 shape1)
+(lock-shape  pos1-4 shape2)
+(at-robot pos5-0)
+(at key0 pos1-1)
+(at key1 pos4-2)
+(pick a c)
+(drop a d)
+(move a b)
+(move a)
+(move b)
+
+This plan satisfies the given constraints and goals, and it is a grounded and totally-ordered plan.

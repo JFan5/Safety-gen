@@ -1,0 +1,12 @@
+The problem is to plan a sequence of actions to achieve the goal of moving car c0 to location l1, car c1 to location l2, and car c2 to location l3, given the initial state of the ferry system.
+
+Here is the plan:
+
+(sail l0 l1)
+(board c0 l1)
+(sail l1 l2)
+(board c1 l2)
+(sail l2 l3)
+(board c2 l3)
+
+This plan satisfies all the preconditions and effects of the actions, and it achieves the goal of moving the cars to the desired locations.

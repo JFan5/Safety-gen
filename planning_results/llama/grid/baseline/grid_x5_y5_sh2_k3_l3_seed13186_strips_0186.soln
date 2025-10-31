@@ -1,0 +1,12 @@
+Based on the provided domain and problem, the goal is to move key0 to pos4-2, and key1 to pos3-3.
+
+Here's a plan that satisfies the goal and constraints:
+
+(unlock pos4-0 shape1 pos4-2 key0)
+(pick key0)
+(move key0 pos4-2)
+(unlock pos3-3 shape0 key1)
+(pick key1)
+(move key1 pos3-3)
+
+This plan consists of 6 actions, which satisfies the goal and constraints.

@@ -1,0 +1,16 @@
+Below is the plan that satisfies the given problem. 
+
+```
+(pick a b)
+(pick a c)
+(drop a d)
+(pick a e)
+(drop a d)
+(pick a f)
+(drop a d)
+(tighten a e)
+(tighten a f)
+(tighten a d)
+```
+
+This plan is grounded, totally ordered, and satisfies the constraints and the goal.

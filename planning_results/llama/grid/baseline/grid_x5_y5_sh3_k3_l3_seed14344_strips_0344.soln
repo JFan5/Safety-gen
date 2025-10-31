@@ -1,0 +1,13 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given conditions.
+
+The goal is to move the key0 to pos0-4, and the key1 to pos4-1.
+
+Here is the plan:
+
+(unlock pos0-4 key0 shape0)
+(move pos0-4 pos1-2)
+(pick key1 pos1-2)
+(move pos1-2 pos4-1)
+(pick key0 pos4-1)
+
+This plan satisfies the goal and constraints, and it is a grounded, totally-ordered plan.

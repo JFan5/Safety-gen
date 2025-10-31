@@ -1,0 +1,9 @@
+The plan to satisfy the given problem is:
+
+(sail l0 l1)
+(board c0 l1)
+(board c1 l0)
+(board c2 l1)
+(debark c0 l1)
+(debark c1 l0)
+(debark c2 l1)

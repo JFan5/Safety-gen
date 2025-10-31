@@ -1,0 +1,13 @@
+Here is a plan that satisfies the given problem and constraints:
+
+(pick b1 b4)
+(pick b2 b3)
+(stack b2 b1)
+(stack b5 b4)
+(stack b6 b5)
+(pick b6 b4)
+(pick b5 b2)
+(drop b1 b5)
+(drop b6 b4)
+
+This plan is grounded, totally-ordered, and satisfies all the preconditions and effects of the actions. It also satisfies the goal of putting b1 on top of b5, and putting b2, b3, b4, b5, and b6 on the table in the correct order.

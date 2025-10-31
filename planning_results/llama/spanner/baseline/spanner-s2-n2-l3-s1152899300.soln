@@ -1,0 +1,9 @@
+Here is the final plan based on the provided input:
+
+
+(pickup_spanner location3 spanner1 bob)
+(walk location3 gate location1 location3)
+(walk location3 gate location2 location3)
+(pickup_spanner location1 spanner2 bob)
+(tighten_nut location1 spanner2 bob nut1)
+(tighten_nut location2 spanner2 bob nut2)

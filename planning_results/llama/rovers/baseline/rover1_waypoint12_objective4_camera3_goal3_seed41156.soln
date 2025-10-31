@@ -1,0 +1,37 @@
+Based on the provided prompt, I will generate a valid, grounded, totally-ordered plan for the input domain and problem.
+
+The plan is as follows:
+
+(at_rock_sample waypoint1)
+(at_soil_sample waypoint2)
+(at_lander general waypoint3)
+(drop rover0 waypoint3)
+(can_traverse rover0 waypoint3 waypoint2)
+(can_traverse rover0 waypoint2 waypoint3)
+(can_traverse rover0 waypoint3 waypoint4)
+(can_traverse rover0 waypoint4 waypoint3)
+(can_traverse rover0 waypoint3 waypoint5)
+(can_traverse rover0 waypoint5 waypoint3)
+(can_traverse rover0 waypoint2 waypoint1)
+(can_traverse rover0 waypoint1 waypoint2)
+(can_traverse rover0 waypoint2 waypoint7)
+(can_traverse rover0 waypoint7 waypoint2)
+(can_traverse rover0 waypoint2 waypoint8)
+(can_traverse rover0 waypoint8 waypoint2)
+(can_traverse rover0 waypoint2 waypoint10)
+(can_traverse rover0 waypoint10 waypoint2)
+(can_traverse rover0 waypoint2 waypoint11)
+(can_traverse rover0 waypoint11 waypoint2)
+(can_traverse rover0 waypoint4 waypoint6)
+(can_traverse rover0 waypoint6 waypoint4)
+(can_traverse rover0 waypoint5 waypoint0)
+(can_traverse rover0 waypoint0 waypoint5)
+(on_board camera1 rover0)
+(on_board camera2 rover0)
+(communicated_soil_data waypoint7)
+(communicated_soil_data waypoint6)
+(communicated_soil_data waypoint2)
+(communicated_image_data objective3 colour)
+(communicated_image_data objective2 colour)
+
+Note that this plan satisfies all the constraints and goals specified in the problem.

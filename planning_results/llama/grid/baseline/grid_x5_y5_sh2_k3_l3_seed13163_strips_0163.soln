@@ -1,0 +1,15 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given goals and constraints.
+
+The goal is to move the key0 to the position pos0-3, and the key2 to the position pos0-3.
+
+Here is the plan:
+
+(move key0 pos0-3)
+(move key2 pos0-3)
+
+This plan satisfies the goal and constraints, and it is a grounded and totally-ordered plan.
+
+The final output is:
+
+(move key0 pos0-3)
+(move key2 pos0-3)

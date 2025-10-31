@@ -1,0 +1,135 @@
+You are a domain-agnostic planning engine. Produce a valid, grounded, totally-ordered plan for the input below.
+
+<DOMAIN>
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at?m - locatable?l - location)
+	(carrying?m - man?s - spanner)
+	(useable?s - spanner)
+	(link?l1 - location?l2 - location)
+	(tightened?n - nut)
+	(loose?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location?end - location?m - man)
+        :precondition (and (at?m?start) 
+                           (link?start?end))                                                          
+        :effect (and (not (at?m?start)) (at?m?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location?s - spanner?m - man)
+        :precondition (and (at?m?l) 
+                           (at?s?l))
+        :effect (and (not (at?s?l))
+                     (carrying?m?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location?s - spanner?m - man?n - nut)
+        :precondition (and (at?m?l) 
+		      	   (at?n?l)
+			   (carrying?m?s)
+			   (useable?s)
+			   (loose?n))
+        :effect (and (not (loose?n))(not (useable?s)) (tightened?n)))
+)
+</DOMAIN>
+
+<PROBLEM>
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 66042071 --problem-name spanner-s4-n3-l5-s66042071
+(define (problem spanner-s4-n3-l5-s66042071)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (at spanner4 location4)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at?m shed)))
+  )
+)
+)
+
+</PROBLEM>
+
+## Planning Rules
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output.
+
+(move a b)
+(pick a c)
+(drop a d)

@@ -1,0 +1,25 @@
+Using the provided domain and problem, we can generate a plan that satisfies the given conditions.
+
+The problem is to sail from l0 to l5 with c0, and from l1 to l5 with c1, and from l2 to l3 with c2. The initial state satisfies all the constraints, so the plan is as follows:
+
+1. Sail from l0 to l1 with c0.
+2. Sail from l1 to l2 with c0.
+3. Sail from l2 to l3 with c0.
+4. Board c0 at l4.
+5. Board c1 at l5.
+6. Board c2 at l3.
+7. Deboard c0 at l4.
+8. Deboard c1 at l5.
+9. Deboard c2 at l3.
+
+The final output is:
+
+(move c0 l0 l1)
+(move c0 l1 l2)
+(move c0 l2 l3)
+(board c0 l4)
+(board c1 l5)
+(board c2 l3)
+(deboard c0 l4)
+(deboard c1 l5)
+(deboard c2 l3)

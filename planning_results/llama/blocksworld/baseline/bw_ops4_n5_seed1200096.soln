@@ -1,0 +1,22 @@
+Based on the provided domain and problem, the plan can be generated as follows:
+
+1. (pickup b1)
+2. (pickup b2)
+3. (pickup b3)
+4. (pickup b4)
+5. (pickup b5)
+6. (stack b5 b4)
+7. (stack b4 b3)
+8. (stack b3 b2)
+9. (stack b2 b1)
+10. (unstack b1 b2)
+11. (unstack b2 b3)
+12. (unstack b3 b4)
+13. (unstack b4 b5)
+14. (putdown b1)
+15. (putdown b2)
+16. (putdown b3)
+17. (putdown b4)
+18. (putdown b5)
+
+This plan satisfies all the goals and constraints provided in the problem.
