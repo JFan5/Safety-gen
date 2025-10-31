@@ -126,7 +126,17 @@ class PDDLTestCallback(TrainerCallback):
         print(path_w_tag)
         print("="*50)
 
-def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data/sft/pddl_dataset.hf", scenarios=None, val_ratio=0.05):
+def sft_train_pddl(
+    model_name,
+    output_note,
+    family='mistral',
+    dataset_path="data/sft/pddl_dataset.hf",
+    scenarios=None,
+    val_ratio=0.05,
+    training_overrides=None,
+    max_seq_length_override=None,
+    load_in_4bit_override=None,
+):
     """
     使用unsloth进行PDDL fine-tune训练（多场景）
     
@@ -142,6 +152,16 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
     print("="*60)
     print(f"PDDL Fine-tuning with {model_name}")
     print("="*60)
+
+    training_overrides = training_overrides or {}
+    max_seq_length_local = max_seq_length_override or max_seq_length
+    load_in_4bit_local = load_in_4bit if load_in_4bit_override is None else load_in_4bit_override
+
+    if family == 'gpt':
+        if load_in_4bit_override is None:
+            load_in_4bit_local = True
+        if max_seq_length_override is None and max_seq_length_local > 2048:
+            max_seq_length_local = 2048
     
     # 检查GPU
     print(f"GPU count: {torch.cuda.device_count()}")
@@ -152,9 +172,9 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
     print("\nLoading model and tokenizer...")
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_name,
-        max_seq_length=max_seq_length,
+        max_seq_length=max_seq_length_local,
         dtype="bfloat16" if use_bf16 else None,
-        load_in_4bit=load_in_4bit,
+        load_in_4bit=load_in_4bit_local,
     )
     tokenizer.pad_token = tokenizer.eos_token
     model.config.pad_token_id = tokenizer.eos_token_id
@@ -184,7 +204,7 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
         bias="none",
         use_gradient_checkpointing="unsloth",
         random_state=3407,
-        max_seq_length=max_seq_length,
+        max_seq_length=max_seq_length_local,
     )
     
     # 加载数据集
@@ -296,9 +316,6 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
             output_path = Path("sft_models") / raw_output_path
     output_path.mkdir(parents=True, exist_ok=True)
     
-    # 配置训练参数
-    from unsloth import is_bfloat16_supported
-    
     # 初始化wandb
     wandb_run_name = output_path.name or str(output_path)
     wandb.init(
@@ -307,7 +324,8 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
         config={
             "model_name": model_name,
             "family": family,
-            "max_seq_length": max_seq_length,
+            "max_seq_length": max_seq_length_local,
+            "load_in_4bit": load_in_4bit_local,
             "scenarios": scenarios,
             "val_ratio": val_ratio,
             "output_dir": str(output_path),
@@ -317,32 +335,46 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
         }
     )
 
-    training_args = TrainingArguments(
-        num_train_epochs=3,
-        per_device_train_batch_size=4,      # A100 可尝试 8~16
-        gradient_accumulation_steps=2,      # 全局 batch ≈ 16~32
-        learning_rate=2e-5,
-        warmup_ratio=0.1,
-        weight_decay=0.05,
-        lr_scheduler_type="cosine",
-        max_grad_norm=1.0,
-        # ========= 评估与日志 =========
-        eval_strategy="epoch",                # ✅ 用 eval_strategy 替代 evaluation_strategy
-        eval_steps=100,                       # 可选，每多少步跑一次验证（或每个 epoch）
-        save_strategy="epoch",
-        load_best_model_at_end=True,          # 自动加载 eval_loss 最低模型
-        metric_for_best_model="eval_loss",
-        greater_is_better=False,
+    base_training_args = {
+        "num_train_epochs": 3,
+        "per_device_train_batch_size": 4,      # A100 可尝试 8~16
+        "gradient_accumulation_steps": 2,      # 全局 batch ≈ 16~32
+        "learning_rate": 2e-5,
+        "warmup_ratio": 0.1,
+        "weight_decay": 0.05,
+        "lr_scheduler_type": "cosine",
+        "max_grad_norm": 1.0,
+        "eval_strategy": "epoch",
+        "eval_steps": 100,
+        "save_strategy": "epoch",
+        "load_best_model_at_end": True,
+        "metric_for_best_model": "eval_loss",
+        "greater_is_better": False,
+        "logging_steps": 10,
+        "report_to": "wandb",
+        "save_total_limit": 1,
+        "output_dir": str(output_path),
+        "fp16": False,
+        "bf16": use_bf16,
+        "optim": "adamw_torch",
+        "seed": 3407,
+    }
 
-        logging_steps=10,
-        report_to="wandb",                    # 启用 wandb 记录
-        save_total_limit=1,                   # 仅保留最新/最佳 checkpoint
-        output_dir=str(output_path),
-        fp16=False,                            # A10 支持 fp16
-        bf16=True,                           
-        optim="adamw_torch",                  # 比 adamw_8bit 稳定些（2000 条小数据推荐）
-        seed=3407,
-    )
+    if family == 'gpt':
+        if "per_device_train_batch_size" not in training_overrides:
+            base_training_args["per_device_train_batch_size"] = 4
+        if "gradient_accumulation_steps" not in training_overrides:
+            base_training_args["gradient_accumulation_steps"] = 4
+
+    effective_training_args = {**base_training_args, **training_overrides}
+
+    print("\nResolved training arguments:")
+    for key in ["num_train_epochs", "per_device_train_batch_size", "gradient_accumulation_steps", "learning_rate", "warmup_ratio", "weight_decay"]:
+        print(f"  {key}: {effective_training_args.get(key)}")
+    print(f"  max_seq_length: {max_seq_length_local}")
+    print(f"  load_in_4bit: {load_in_4bit_local}")
+
+    training_args = TrainingArguments(**effective_training_args)
     
     # 创建训练器
     print("\nCreating trainer...")
@@ -352,7 +384,7 @@ def sft_train_pddl(model_name, output_note, family='mistral', dataset_path="data
         train_dataset=train_ds,
         eval_dataset=eval_ds,
         dataset_text_field="text",
-        max_seq_length=max_seq_length,
+        max_seq_length=max_seq_length_local,
         dataset_num_proc=2,
         packing=True,
         args=training_args,
@@ -379,6 +411,14 @@ def test_pddl_model(model_path, test_prompt, n=5, family='mistral', dataset_path
     测试训练好的PDDL模型
     """
     print(f"Testing PDDL model: {model_path}")
+
+    dtype = "bfloat16" if use_bf16 else None
+    load_in_4bit_local = load_in_4bit
+    max_seq_length_local = max_seq_length
+    if family == 'gpt':
+        load_in_4bit_local = True
+        if max_seq_length_local > 2048:
+            max_seq_length_local = 2048
     
     # 如果没有提供test_prompt，尝试从数据集加载一个真实的prompt
     if not test_prompt or test_prompt == "Generate a PDDL solution for a simple problem.":
@@ -412,9 +452,9 @@ def test_pddl_model(model_path, test_prompt, n=5, family='mistral', dataset_path
     # 加载模型
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_path,
-        max_seq_length=max_seq_length,
+        max_seq_length=max_seq_length_local,
         dtype=dtype,
-        load_in_4bit=load_in_4bit,
+        load_in_4bit=load_in_4bit_local,
     )
     
     FastLanguageModel.for_inference(model)
@@ -513,6 +553,39 @@ def main():
                        help="Number of test generations")
     parser.add_argument("--list-scenarios", action="store_true",
                        help="List available scenarios in the dataset and exit")
+    parser.add_argument("--num-train-epochs", type=float, default=None,
+                       help="Number of training epochs (default 3; adjustable).")
+    parser.add_argument("--per-device-train-batch-size", type=int, default=None,
+                       help="Per-device batch size (default 4; GPT family defaults lower).")
+    parser.add_argument("--gradient-accumulation-steps", type=int, default=None,
+                       help="Gradient accumulation steps (default 2).")
+    parser.add_argument("--learning-rate", type=float, default=None,
+                       help="Learning rate (default 2e-5).")
+    parser.add_argument("--warmup-ratio", type=float, default=None,
+                       help="Warmup ratio (default 0.1).")
+    parser.add_argument("--weight-decay", type=float, default=None,
+                       help="Weight decay (default 0.05).")
+    parser.add_argument("--lr-scheduler-type", type=str, default=None,
+                       help="LR scheduler type (default cosine).")
+    parser.add_argument("--max-grad-norm", type=float, default=None,
+                       help="Max gradient norm (default 1.0).")
+    parser.add_argument("--eval-steps", type=int, default=None,
+                       help="Evaluation frequency in steps (default 100).")
+    parser.add_argument("--logging-steps", type=int, default=None,
+                       help="Logging frequency in steps (default 10).")
+    parser.add_argument("--save-total-limit", type=int, default=None,
+                       help="Limit of checkpoints to keep (default 1).")
+    parser.add_argument("--eval-strategy", type=str, choices=["no", "steps", "epoch"], default=None,
+                       help="Evaluation strategy (default epoch).")
+    parser.add_argument("--save-strategy", type=str, choices=["no", "steps", "epoch"], default=None,
+                       help="Checkpoint save strategy (default epoch).")
+    parser.add_argument("--max-seq-length", type=int, default=None,
+                       help="Override maximum sequence length (default 4096).")
+    parser.add_argument("--load-in-4bit", dest="load_in_4bit", action="store_true",
+                       help="Force 4-bit loading even for smaller models.")
+    parser.add_argument("--no-load-in-4bit", dest="load_in_4bit", action="store_false",
+                       help="Disable 4-bit loading even for large GPT models.")
+    parser.set_defaults(load_in_4bit=None)
     
     args = parser.parse_args()
     
@@ -542,7 +615,37 @@ def main():
             # 使用指定的场景
             use_scenarios = args.scenarios
         
-        sft_train_pddl(args.model, args.output, args.family, args.dataset, use_scenarios, args.val_ratio)
+        training_overrides = {
+            key: getattr(args, key)
+            for key in [
+                "num_train_epochs",
+                "per_device_train_batch_size",
+                "gradient_accumulation_steps",
+                "learning_rate",
+                "warmup_ratio",
+                "weight_decay",
+                "lr_scheduler_type",
+                "max_grad_norm",
+                "eval_steps",
+                "logging_steps",
+                "save_total_limit",
+                "eval_strategy",
+                "save_strategy",
+            ]
+            if getattr(args, key) is not None
+        }
+
+        sft_train_pddl(
+            args.model,
+            args.output,
+            args.family,
+            args.dataset,
+            use_scenarios,
+            args.val_ratio,
+            training_overrides=training_overrides,
+            max_seq_length_override=args.max_seq_length,
+            load_in_4bit_override=args.load_in_4bit,
+        )
     elif args.mode == "test":
         test_pddl_model(args.model, args.test_prompt, args.test_count, args.family, args.dataset)
 
