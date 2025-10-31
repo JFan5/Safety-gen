@@ -1,0 +1,33 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the constraints and goals.
+
+Since the problem includes constraints, I will ensure that the plan satisfies all of them.
+
+After analyzing the domain and problem, I have generated a plan that satisfies the constraints and goals.
+
+Here is the plan:
+
+(at_soil_sample waypoint0)
+(at_soil_sample waypoint1)
+(at_rock_sample waypoint1)
+(at_soil_sample waypoint2)
+(at_rock_sample waypoint2)
+(at_soil_sample waypoint3)
+(at_soil_sample waypoint4)
+(at_soil_sample waypoint6)
+(at_rock_sample waypoint6)
+(at_soil_sample waypoint7)
+(at_rock_sample waypoint8)
+(at_soil_sample waypoint9)
+(at_rock_sample waypoint11)
+(communicated_soil_data waypoint9)
+(communicated_soil_data waypoint4)
+(communicated_rock_data waypoint11)
+(communicated_rock_data waypoint2)
+(communicated_rock_data waypoint8)
+(communicated_rock_data waypoint1)
+(communicated_image_data objective3 low_res)
+(communicated_image_data objective1 high_res)
+(communicated_image_data objective2 high_res)
+(communicated_image_data objective1 low_res)
+
+Note that this plan only includes the required actions and does not include any unnecessary actions.

@@ -1,0 +1,35 @@
+Based on the provided prompt, I will generate a valid, grounded, totally-ordered plan for the input domain and problem.
+
+The problem is to communicate soil, rock, and image data from three different waypoints to the general lander. The plan should satisfy the constraints and goals specified in the problem.
+
+Here is the plan:
+
+(at_soil_sample waypoint1)
+(drop waypoint1)
+(at_soil_sample waypoint8)
+(drop waypoint8)
+(at_soil_sample waypoint11)
+(drop waypoint11)
+(at_rock_sample waypoint1)
+(drop waypoint1)
+(at_rock_sample waypoint6)
+(drop waypoint6)
+(at_rock_sample waypoint7)
+(drop waypoint7)
+(at_rock_sample waypoint5)
+(drop waypoint5)
+(at_rock_sample waypoint4)
+(drop waypoint4)
+(at_lander general)
+(communicated_soil_data waypoint1)
+(communicated_soil_data waypoint8)
+(communicated_soil_data waypoint11)
+(communicated_rock_data waypoint1)
+(communicated_rock_data waypoint6)
+(communicated_rock_data waypoint7)
+(communicated_rock_data waypoint5)
+(communicated_rock_data waypoint4)
+(communicated_image_data objective0 high_res)
+(communicated_image_data objective3 colour)
+
+This plan satisfies all the constraints and goals specified in the problem.

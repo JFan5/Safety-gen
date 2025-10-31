@@ -1,0 +1,15 @@
+The plan is:
+
+(pick b1 b4)
+(pick b2 b5)
+(pick b3 b1)
+(stack b3 b2)
+(stack b3 b1)
+(unstack b3 b1)
+(unstack b3 b2)
+(unstack b3 b5)
+(drop b2 b3)
+(drop b4 b2)
+(drop b5 b3)
+
+This plan satisfies the initial state and the goal, and also satisfies the constraint that the block b2 is on top of block b3 before block b2 is on top of block b5.

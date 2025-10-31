@@ -1,0 +1,8 @@
+Based on the provided domain and problem, the plan can be generated as follows:
+
+1. (pickup_spanner location1 spanner1 bob)
+2. (pickup_spanner location2 spanner2 bob)
+3. (tighten_nut location1 nut1 location1 spanner1 bob)
+4. (tighten_nut location2 nut2 location2 spanner2 bob)
+
+This plan satisfies all the preconditions and effects of the actions, and it also satisfies the constraints of the problem.

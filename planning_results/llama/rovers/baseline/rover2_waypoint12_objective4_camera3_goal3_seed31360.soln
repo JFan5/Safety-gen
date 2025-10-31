@@ -1,0 +1,9 @@
+Based on the provided domain and problem, the plan can be generated as follows:
+
+(communicated_rock_data waypoint11)
+(communicated_rock_data waypoint0)
+(communicated_image_data objective2 high_res)
+(communicated_image_data objective0 high_res)
+(communicated_image_data objective0 colour)
+
+Note that the plan consists of only one action, which is to communicate the rock data for both waypoint11 and waypoint0, followed by communicating the image data for objective2 (high resolution), objective0 (high resolution), and objective0 (colour).

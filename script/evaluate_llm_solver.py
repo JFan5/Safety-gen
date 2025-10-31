@@ -227,7 +227,7 @@ def test_model_on_testing_data(model_path,
     if results_dir.exists():
         import shutil
         shutil.rmtree(results_dir)
-    results_dir.mkdir(exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
     print(f"Planning results will be saved to: {results_dir}")
     # 加载测试数据（需要显式提供 problems_dir 与 domain_file）
     if not problems_dir or not domain_file:

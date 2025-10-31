@@ -1,0 +1,18 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given constraints and goals.
+
+The goal is to tighten three nuts: nut1, nut2, and nut3. The constraints are that nut1 must be tightened before nut2, and no man can be at the shed more than once.
+
+Here is the plan:
+
+(at bob shed)
+(pick nut1 gate)
+(pick nut2 gate)
+(pick nut3 gate)
+(drop nut1 shed)
+(drop nut2 shed)
+(drop nut3 shed)
+(tighten nut1)
+(tighten nut2)
+(tighten nut3)
+
+This plan satisfies the constraints and goals, and it is a grounded, totally-ordered plan with no variables or timestamps.

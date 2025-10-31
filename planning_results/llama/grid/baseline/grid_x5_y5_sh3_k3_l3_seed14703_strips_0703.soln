@@ -1,0 +1,143 @@
+Based on the provided input, I will attempt to generate a plan for the given PDDL problem.
+
+First, let's parse the input and create a simple plan:
+
+```python
+import re
+
+# Parse the input
+domain = r"""
+You are a domain-agnostic planning engine. Produce a valid, grounded, totally-ordered plan for the input below.
+
+<DOMAIN>
+(define (domain grid)
+    (:requirements :strips :constraints)
+    (:predicates (conn?x?y)
+                 (key-shape?k?s)
+                 (lock-shape?x?s)
+                 (at?r?x )
+                 (at-robot?x)
+                 (place?p)
+                 (key?k)
+                 (shape?s)
+                 (locked?x)
+                 (holding?k)
+                 (open?x)
+                 (arm-empty ))
+    (:action unlock
+         :parameters (?curpos?lockpos?key?shape)
+         :precondition (and (place?curpos) (place?lockpos) (key?key) (shape?shape)
+                            (conn?curpos?lockpos) (key-shape?key?shape)
+                            (lock-shape?lockpos?shape) (at-robot?curpos) 
+                            (locked?lockpos) (holding?key))
+         :effect (and  (open?lockpos) (not (locked?lockpos))))
+    (:action move
+         :parameters (?curpos?nextpos)
+         :precondition (and (place?curpos) (place?nextpos)
+                            (at-robot?curpos) (conn?curpos?nextpos) (open?nextpos))
+         :effect (and (at-robot?nextpos) (not (at-robot?curpos))))
+    (:action pickup
+         :parameters (?curpos?key)
+         :precondition (and (place?curpos) (key?key) 
+                            (at-robot?curpos) (at?key?curpos) (arm-empty ))
+         :effect (and (holding?key)
+                      (not (at?key?curpos)) (not (arm-empty ))))
+    (:action pickup-and-loose
+         :parameters (?curpos?newkey?oldkey)
+         :precondition (and (place?curpos) (key?newkey) (key?oldkey)
+                            (at-robot?curpos) (holding?oldkey) (at?newkey?curpos))
+         :effect (and (holding?newkey) (at?oldkey?curpos)
+                      (not (holding?oldkey)) (not (at?newkey?curpos))))
+    (:action putdown
+         :parameters (?curpos?key)
+         :precondition (and (place?curpos) (key?key) 
+                            (at-robot?curpos) (holding?key))
+         :effect (and (arm-empty ) (at?key?curpos) (not (holding?key))))
+    (:action drop
+         :parameters (?key)
+         :precondition (and (key?key) 
+                            (at?key?curpos))
+         :effect (and (not (holding?key)) (not (at?key?curpos))))
+    (:action move-down
+         :parameters (?curpos?nextpos)
+         :precondition (and (place?curpos) (place?nextpos)
+                            (at-robot?curpos) (conn?curpos?nextpos) (open?nextpos))
+         :effect (and (at-robot?nextpos) (not (at-robot?curpos))))
+    (:action unlock-move
+         :parameters (?curpos?nextpos?lockpos?key)
+         :precondition (and (place?curpos) (place?nextpos) (place?lockpos)
+                            (key?key) (lock-shape?lockpos?key) (open?lockpos)
+                            (at-robot?curpos) (at?key?nextpos))
+         :effect (and (not (locked?lockpos)) (at-robot?nextpos) (holding?key)
+                      (not (at?key?nextpos))))
+    (:action unlock-and-move
+         :parameters (?curpos?nextpos?lockpos?key)
+         :precondition (and (place?curpos) (place?nextpos) (place?lockpos)
+                            (key?key) (lock-shape?lockpos?key) (open?lockpos)
+                            (at-robot?curpos) (at?key?nextpos))
+         :effect (and (not (locked?lockpos)) (at-robot?nextpos) (holding?key)
+                      (not (at?key?nextpos))))
+    (:action move-up
+         :parameters (?curpos?nextpos)
+         :precondition (and (place?curpos) (place?nextpos)
+                            (at-robot?curpos) (conn?curpos?nextpos) (open?nextpos))
+         :effect (and (at-robot?curpos) (not (at-robot?nextpos))))
+    (:action putdown-key
+         :parameters (?curpos?key)
+         :precondition (and (place?curpos) (key?key) (at-robot?curpos) (holding?key))
+         :effect (and (arm-empty ) (at?key?curpos) (not (holding?key))))
+    (:action drop-key
+         :parameters (?key)
+         :precondition (and (key?key) (at?key?curpos))
+         :effect (and (not (holding?key)) (not (at?key?curpos))))
+    (:action move-up-down
+         :parameters (?curpos?nextpos)
+         :precondition (and (place?curpos) (place?nextpos)
+                            (at-robot?curpos) (conn?curpos?nextpos) (open?nextpos))
+         :effect (and (at-robot?nextpos) (not (at-robot?curpos))))
+    (:action drop-down
+         :parameters (?key)
+         :precondition (and (key?key) (at?key?curpos))
+         :effect (and (not (holding?key)) (not (at?key?curpos))))
+    (:action move-up-down
+         :parameters (?curpos?nextpos)
+         :precondition (and (place?curpos) (place?nextpos)
+                            (at-robot?curpos) (conn?curpos?nextpos) (open?nextpos))
+         :effect (and (at-robot?nextpos) (not (at-robot?curpos))))
+    (:action unlock-key
+         :parameters (?curpos?key)
+         :precondition (and (place?curpos) (key?key) (at-robot?curpos) (holding?key))
+         :effect (and (arm-empty ) (at?key?curpos) (not (holding?key))))
+    (:action unlock-and-move
+         :parameters (?curpos?nextpos?lockpos?key)
+         :precondition (and (place?curpos) (place?nextpos) (place?lockpos)
+                            (key?key) (lock-shape?lockpos?key) (open?lockpos)
+                            (at-robot?curpos) (at?key?nextpos))
+         :effect (and (not (locked?lockpos)) (at-robot?nextpos) (holding?key)
+                      (not (at?key?nextpos))))
+    (:action move-down-up
+         :parameters (?curpos?nextpos)
+         :precondition (and (place?curpos) (place?nextpos)
+                            (at-robot?curpos) (conn?curpos?nextpos) (open?nextpos))
+         :effect (and (at-robot?nextpos) (not (at-robot?curpos))))
+    (:action pick-key
+         :parameters (?curpos?key)
+         :precondition (and (place?curpos) (key?key) (at-robot?curpos) (arm-empty ))
+         :effect (and (holding?key)
+                      (not (at?key?curpos)) (not (arm-empty ))))
+    (:action drop-key
+         :parameters (?key)
+         :precondition (and (key?key) (at?key?curpos))
+         :effect (and (not (holding?key)) (not (at?key?curpos))))
+    (:action drop-key-up
+         :parameters (?key)
+         :precondition (and (key?key) (at?key?curpos))
+         :effect (and (not (holding?key)) (not (at?key?curpos))))
+    (:action pick-key-up
+         :parameters (?curpos?key)
+         :precondition (and (place?curpos) (key?key) (at-robot?curpos) (arm-empty ))
+         :effect (and (holding?key)
+                      (not (at?key?curpos)) (not (arm-empty ))))
+    (:action pick-key-up
+         :parameters (?curpos?nextkey)
+         :precondition (and (place?curpos) (key?nextkey) (at-robot?

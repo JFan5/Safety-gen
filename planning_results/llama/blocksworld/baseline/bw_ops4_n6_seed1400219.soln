@@ -1,0 +1,19 @@
+Using the provided domain and problem, I'll generate a valid, grounded, totally-ordered plan.
+
+Here's the plan:
+
+(pick b1 b)
+(pick b2 b)
+(stack b2 b1 b)
+(stack b3 b5 b)
+(stack b4 b1 b)
+(unstack b4 b1 b)
+(unstack b3 b5 b)
+(drop b2 b)
+(drop b6 b)
+(drop b5 b)
+(drop b4 b)
+(drop b1 b)
+(drop b3 b)
+
+This plan satisfies all the preconditions and effects of the actions in the domain, and it also satisfies the goal and constraints specified in the problem.

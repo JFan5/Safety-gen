@@ -1,0 +1,15 @@
+Based on the provided rules, the plan for the given problem would be as follows:
+
+```
+(pickup b1)
+(unstack b1 b5)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(unstack b3 b2)
+(stack b3 b4)
+(putdown b3)
+(pickup b2)
+(stack b2 b4)
+(putdown b2)
+```

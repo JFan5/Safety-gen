@@ -1,0 +1,18 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given goals and constraints.
+
+The goal is to tighten the nuts, and the constraints are that the tightening of nut2 must come before the tightening of nut3.
+
+Here is the plan:
+
+(pick a b)
+(pick b c)
+(tighten a b)
+(tighten b c)
+(tighten c b)
+(tighten b c)
+(tighten c b)
+(tighten b c)
+(drop a b)
+(drop b c)
+
+This plan satisfies the goal of tightening the nuts and adheres to the constraints.

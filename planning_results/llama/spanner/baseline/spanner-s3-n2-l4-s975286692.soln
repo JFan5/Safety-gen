@@ -1,0 +1,91 @@
+(:action tighten_nut 
+        :parameters (?l - location?s - spanner?m - man?n - nut)
+        :precondition (and (at?m?l) 
+		      	   (at?n?l)
+			   (carrying?m?s)
+			   (useable?s)
+			   (loose?n))
+        :effect (and (not (loose?n))(not (useable?s)) (tightened?n)))
+
+(:action carry 
+        :parameters (?m - man?s - spanner)
+        :precondition (carrying?m?s)
+        :effect (not (carrying?m?s)))
+        
+(:action pickup_spanner 
+        :parameters (?l - location?s - spanner?m - man)
+        :precondition (and (at?m?l) 
+                           (at?s?l))
+        :effect (and (not (at?s?l))
+                     (carrying?m?s)))
+
+(:action walk 
+        :parameters (?start - location?end - location?m - man)
+        :precondition (and (at?m?start) 
+                           (link?start?end))
+        :effect (and (not (at?m?start)) (at?m?end)))
+
+(:action loosen 
+        :parameters (?n - nut?m - man)
+        :precondition (loose?n)
+        :effect (not (loose?n)))
+    
+(:action tighten 
+        :parameters (?n - nut)
+        :precondition (not (loose?n))
+        :effect (tightened?n))
+    
+(:action use 
+        :parameters (?s - spanner)
+        :precondition (useable?s)
+        :effect (not (useable?s)))
+    
+(:action put 
+        :parameters (?s - spanner)
+        :precondition (not (carrying?s))
+        :effect (not (at?s?loc)))
+    
+(:action at 
+        :parameters (?m - man?l - location)
+        :precondition (at-most-once (at?m?l))
+        :effect (at?m?l))
+    
+(:action link 
+        :parameters (?l1 - location?l2 - location)
+        :precondition (link?l1?l2)
+        :effect (link?l2?l1))
+    
+(:action unlink 
+        :parameters (?l1 - location?l2 - location)
+        :precondition (link?l1?l2)
+        :effect (not (link?l1?l2)))
+    
+(:action move 
+        :parameters (?o1 - object?o2 - object)
+        :precondition (carry-once?o1?o2)
+        :effect (carry-once?o2?o1))
+    
+(:action drop 
+        :parameters (?o1 - object?o2 - object)
+        :precondition (not (carry?o1?o2))
+        :effect (drop?o2))
+    
+(:action pick 
+        :parameters (?o1 - object?o2 - object)
+        :precondition (not (carry?o1?o2))
+        :effect (carry?o1?o2))
+    
+(:action carry 
+        :parameters (?o1 - object?o2 - object)
+        :precondition (not (pick?o1?o2))
+        :effect (drop?o1))
+    
+(:action loose 
+        :parameters (?o1 - object?o2 - object)
+        :precondition (not (carry?o1?o2))
+        :effect (drop?o1))
+    
+(:action tighten 
+        :parameters (?o1 - object?o2 - object)
+        :precondition (not (loose?o1))
+        :effect (carry?o1?o2))

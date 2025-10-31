@@ -1,0 +1,9 @@
+The given problem is a planning task from the PDDL (Planning Domain Definition Language) domain of a ferry. The goal is to plan a sequence of actions to move car c0 from location l0 to location l2, while also moving car c1 from location l3 to location l2.
+
+Here is a valid, grounded, totally-ordered plan:
+
+(sail l0 l2)
+(board c0 l2)
+(debark c1 l2)
+
+This plan satisfies all the preconditions and effects of the actions, and also satisfies the goal of moving car c0 from location l0 to location l2, and car c1 from location l3 to location l2.

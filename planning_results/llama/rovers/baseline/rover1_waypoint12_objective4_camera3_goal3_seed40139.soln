@@ -1,0 +1,21 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the goal and constraints.
+
+The goal is to communicate image data for objectives 1 and 0, and the constraints are satisfied by the initial state.
+
+Here is the plan:
+
+(at_soil_sample waypoint0)
+(at_rock_sample waypoint1)
+(at_lander general waypoint10)
+(on_board camera1 rover0)
+(calibration_target camera1 objective1)
+(supports camera1 high_res)
+(communicated_image_data objective1 high_res)
+(at_soil_sample waypoint0)
+(at_lander general waypoint10)
+(on_board camera2 rover0)
+(calibration_target camera2 objective3)
+(supports camera2 colour)
+(communicated_image_data objective0 high_res)
+
+Note that the plan involves multiple actions and objects, and it is a grounded plan that satisfies the goal and constraints.

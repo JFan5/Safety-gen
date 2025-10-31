@@ -1,0 +1,13 @@
+Based on the provided prompt, I will generate a valid, grounded, totally-ordered plan for the input domain and problem.
+
+The problem is to communicate soil data from waypoint 9 to the lander, and communicate rock data from waypoint 1 to the lander.
+
+Here is the plan:
+
+(at_soil_sample waypoint9)
+(at_lander general waypoint11)
+(communicated_soil_data waypoint9)
+(communicated_rock_data waypoint1)
+(communicated_rock_data waypoint11)
+
+This plan satisfies the goal of communicating soil data from waypoint 9 to the lander, and communicating rock data from both waypoints 1 and 11 to the lander.

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 收集PDDL数据集用于fine-tune
-从三个场景收集数据：blocksworld, delivery, logistics
-来源：各场景根目录下的 problems3 中的 problem/solution 对
+从每个场景的 all_problems3/all_problems 的 training 子目录收集数据
+支持通过 --max-number 限制每个场景采样的 problem/solution 对数量
 """
 
 import json
@@ -93,12 +93,10 @@ def build_prompt(domain_content: str, problem_content: str, pddl_version: str) -
     return prompt_text.format(domain_content=domain_content, problem_content=problem_content)
 
 def _iter_problem_directories(root_dir: Path, allowed_versions: Set[str]) -> List[Tuple[str, Path]]:
-    """返回按优先级排序的问题目录列表。"""
+    """返回按优先级排序的问题目录列表，仅限 all_problems*/training。"""
     candidates: List[Tuple[str, Path]] = [
         ("PDDL3", root_dir / "all_problems3" / "training"),
         ("PDDL2", root_dir / "all_problems" / "training"),
-        ("PDDL3", root_dir / "training_problems3"),
-        ("PDDL2", root_dir / "training_problems"),
     ]
     result: List[Tuple[str, Path]] = []
     for version, path in candidates:
@@ -106,8 +104,13 @@ def _iter_problem_directories(root_dir: Path, allowed_versions: Set[str]) -> Lis
             result.append((version, path))
     return result
 
-def collect_scenario_data(scenario_name: str, root_dir: Path, allowed_versions: Set[str]) -> List[Dict]:
-    """收集单个场景中的 problem/solution 对，支持新的 all_problems/all_problems3 目录结构。"""
+def collect_scenario_data(
+    scenario_name: str,
+    root_dir: Path,
+    allowed_versions: Set[str],
+    max_entries: Optional[int] = None,
+) -> List[Dict]:
+    """收集单个场景中的 problem/solution 对，来源限定为 all_problems*/training。"""
     print(f"Collecting data from {scenario_name}...")
 
     problem_dirs = _iter_problem_directories(root_dir, allowed_versions)
@@ -117,7 +120,12 @@ def collect_scenario_data(scenario_name: str, root_dir: Path, allowed_versions: 
 
     dataset_entries: List[Dict] = []
 
+    remaining_quota: Optional[int] = max_entries
+
     for version, problems_dir in problem_dirs:
+        if remaining_quota is not None and remaining_quota <= 0:
+            break
+
         domain_file = resolve_domain_file(root_dir, version)
         if domain_file is None or not domain_file.exists():
             print(f"Domain file not found for {scenario_name} ({version}): {domain_file}")
@@ -134,6 +142,9 @@ def collect_scenario_data(scenario_name: str, root_dir: Path, allowed_versions: 
         print(f"  [{version}] Found {len(problem_files)} problem files in {problems_dir}")
 
         for problem_file in problem_files:
+            if remaining_quota is not None and remaining_quota <= 0:
+                break
+
             solution_file = problem_file.with_suffix('.soln')
             if not solution_file.exists():
                 continue
@@ -156,6 +167,12 @@ def collect_scenario_data(scenario_name: str, root_dir: Path, allowed_versions: 
                 "domain_file": str(domain_file),
             }
             dataset_entries.append(entry)
+
+            if remaining_quota is not None:
+                remaining_quota -= 1
+                if remaining_quota == 0:
+                    print(f"  Reached requested maximum of {max_entries} entries for {scenario_name}.")
+                    break
 
     print(f"Collected {len(dataset_entries)} entries from {scenario_name}")
     return dataset_entries
@@ -189,7 +206,11 @@ def filter_valid_solutions(dataset_entries: List[Dict]) -> List[Dict]:
             print(f"Invalid solution format for {entry['problem_name']}")
     return valid_entries
 
-def create_dataset(dataset_entries: List[Dict], output_path: str = "data/sft/multi_scenarios/base.hf"):
+def create_dataset(
+    dataset_entries: List[Dict],
+    output_path: str = "data/sft/multi_scenarios/base.hf",
+    max_entries: Optional[int] = None,
+):
     """创建HuggingFace数据集"""
     if not dataset_entries:
         print("No valid dataset entries found!")
@@ -226,6 +247,8 @@ def create_dataset(dataset_entries: List[Dict], output_path: str = "data/sft/mul
         "pddl_counts": pddl_counts,
         "output_path": output_path
     }
+    if max_entries is not None:
+        stats["max_number_per_scenario"] = max_entries
     with open(output_dir / "combined_dataset_stats.json", 'w') as f:
         json.dump(stats, f, indent=2)
     print(f"Statistics saved to {output_dir / 'combined_dataset_stats.json'}")
@@ -262,6 +285,12 @@ def parse_arguments():
         "--output", 
         default="data/sft/multi_scenarios/base.hf",
         help="输出数据集路径 (默认: data/sft/multi_scenarios/base.hf)"
+    )
+    parser.add_argument(
+        "--max-number",
+        type=int,
+        default=None,
+        help="限制每个场景采样的 problem/solution 对数量（默认：使用全部）"
     )
     parser.add_argument(
         "--pddl",
@@ -319,6 +348,10 @@ def main():
     """主函数"""
     args = parse_arguments()
     allowed_versions = normalize_pddl_selection(args.pddl)
+
+    if args.max_number is not None and args.max_number <= 0:
+        print("Error: --max-number must be a positive integer.")
+        return
     
     # 如果只是列出场景，则显示并退出
     if args.list_scenarios:
@@ -341,6 +374,8 @@ def main():
     print(f"场景数量: {len(scenarios_to_use)}")
     print(f"场景列表: {', '.join(scenarios_to_use)}")
     print(f"输出路径: {args.output}")
+    if args.max_number is not None:
+        print(f"每个场景最大采样数: {args.max_number}")
     print("="*60)
 
     all_entries: List[Dict] = []
@@ -349,7 +384,12 @@ def main():
         if root is None:
             print(f"Root directory not found for scenario {scenario_name}")
             continue
-        entries = collect_scenario_data(scenario_name, root, allowed_versions)
+        entries = collect_scenario_data(
+            scenario_name,
+            root,
+            allowed_versions,
+            max_entries=args.max_number,
+        )
         all_entries.extend(entries)
 
     print(f"\nTotal collected entries: {len(all_entries)}")
@@ -362,7 +402,7 @@ def main():
     print(f"Valid entries: {len(valid_entries)}")
 
     print("\nCreating dataset...")
-    create_dataset(valid_entries, args.output)
+    create_dataset(valid_entries, args.output, args.max_number)
 
     print("\nDataset collection completed!")
 

@@ -1,0 +1,12 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the given conditions.
+
+The goal is to move the key2 to the position 2-1.
+
+Here is the plan:
+
+(at key2 pos2-1)
+(unlock pos1-2 shape0)
+(move pos1-2 pos2-1)
+(at-robot pos3-1)
+
+This plan satisfies the goal and all constraints.

@@ -1,0 +1,112 @@
+Using the provided domain and problem, we can generate a plan. The initial state already satisfies all goals and all constraints, so we output nothing.
+
+However, to demonstrate that the domain and problem can be used to generate a plan, let's modify the problem to add a new goal:
+
+<DOMAIN>
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+(location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at?m - locatable?l - location)
+	(carrying?m - man?s - spanner)
+	(useable?s - spanner)
+	(link?l1 - location?l2 - location)
+	(tightened?n - nut)
+	(loose?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location?end - location?m - man)
+        :precondition (and (at?m?start) 
+                           (link?start?end))                                                          
+        :effect (and (not (at?m?start)) (at?m?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location?s - spanner?m - man)
+        :precondition (and (at?m?l) 
+                           (at?s?l))
+        :effect (and (not (at?s?l))
+                     (carrying?m?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location?s - spanner?m - man?n - nut)
+        :precondition (and (at?m?l) 
+		      	   (at?n?l)
+			   (carrying?m?s)
+			   (useable?s)
+			   (loose?n))
+        :effect (and (not (loose?n))(not (useable?s)) (tightened?n)))
+)
+</DOMAIN>
+
+<PROBLEM>
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 95513942 --problem-name spanner-s4-n3-l5-s95513942
+(define (problem spanner-s4-n3-l5-s95513942)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location5)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (at spanner4 location3)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+(:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+   (carrying bob spanner1)
+  )
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at?m shed)))
+  )
+)
+)
+
+</PROBLEM>
+
+Now, let's produce a plan to satisfy the new goal:
+
+1. Pick up the spanner (at spanner2 location3)
+2. Carry the spanner (at bob spanner1)
+3. Tighten the nut (at nut3 gate)
+
+The plan is:
+ 
+(pick a b)
+(pick a c)
+(carve a c)
+(Tighten a c)
+(drop a b)
+(carry a b)
+(carry a c)
+(carry a b)
+(Tighten a c)

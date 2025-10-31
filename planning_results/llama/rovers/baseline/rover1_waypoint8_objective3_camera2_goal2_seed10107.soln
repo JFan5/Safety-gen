@@ -1,0 +1,22 @@
+Based on the provided domain and problem, I will generate a plan that satisfies the goal and constraints.
+
+Since there are no constraints in the problem, I will focus on satisfying the goal.
+
+The goal is to communicate image data.
+
+Here is the plan:
+
+(at_soil_sample waypoint0)
+(drop waypoint0)
+(at_rock_sample waypoint0)
+(drop waypoint0)
+(at_lander general waypoint4)
+(channel_free general)
+(at rover0 waypoint0)
+(available rover0)
+(pick rover0)
+(at rover0 waypoint4)
+(communicated_image_data objective2 high_res)
+(drop rover0)
+
+Note that this plan involves picking up the rover and moving it to the waypoint where the image data is communicated. The rover is then dropped and the image data is communicated. The rover is then dropped again.

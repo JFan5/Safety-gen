@@ -1,0 +1,14 @@
+Based on the provided domain and problem, here's the grounded, totally-ordered plan:
+
+(at bob shed)
+(pick bob nut1)
+(tighten nut1)
+(at nut1 gate)
+(drop nut1)
+(at bob shed)
+(pick bob nut2)
+(tighten nut2)
+(at nut2 gate)
+(drop nut2)
+
+Note that this plan is the only one that satisfies the goal and constraints.

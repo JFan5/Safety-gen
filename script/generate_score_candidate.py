@@ -19,10 +19,14 @@ import torch
 from unsloth import FastLanguageModel
 
 # -----------------------
-# 可调默认参数
+# 可调默认参数（可通过命令行覆盖）
 # -----------------------
-MAX_SEQ_LEN = 8000
-MAX_NEW_TOKENS = 2000
+DEFAULT_MAX_SEQ_LEN = 3000
+DEFAULT_MAX_NEW_TOKENS = 512
+DEFAULT_TEMPERATURE = 0.7
+DEFAULT_TOP_P = 0.9
+DEFAULT_TOP_K = 50
+DEFAULT_SEED = 42
 DTYPE = None
 LOAD_IN_4BIT = True
 
@@ -156,31 +160,6 @@ def load_problems_from_dir(problems_dir: str, domain_file: str, prompt_template:
         })
     return items
 
-# ========== 采样策略 ==========
-
-def gen_sampling_grid(k: int, temps: list, top_ps: list, top_ks: list, seeds: list):
-    """
-    生成长度 >= k 的(temperature, top_p, top_k, seed) 组合列表。
-    会循环填充到至少 k 个。
-    """
-    grid = []
-    for T in temps:
-        for P in top_ps:
-            for K in top_ks:
-                for S in seeds:
-                    grid.append((T, P, K, S))
-    if not grid:
-        grid = [(0.7, 0.9, 50, 42)]
-    # 扩展/裁剪到 k
-    if len(grid) < k:
-        # 重复填充
-        mul = (k + len(grid) - 1) // len(grid)
-        grid = (grid * mul)[:k]
-    else:
-        random.shuffle(grid)
-        grid = grid[:k]
-    return grid
-
 # ========== 主流程：采样→验证→打分→写 jsonl ==========
 
 def main():
@@ -191,17 +170,21 @@ def main():
     ap.add_argument("--problems-dir", required=True, help="包含多个 problem.pddl 的目录")
     ap.add_argument("--prompt-template", default="prompt.txt", help="用于拼接 domain/problem 的 prompt 模板文件")
     ap.add_argument("--out", default="scored.jsonl", help="输出 JSONL 路径")
-    ap.add_argument("--k", type=int, default=6, help="每个 problem 采样候选个数")
     ap.add_argument("--max-problems", type=int, default=0,
                     help="若 >0，则仅处理前 max_problems 个问题（可结合 --problem-sample-seed 打乱顺序）")
     ap.add_argument("--problem-sample-seed", type=int, default=None,
                     help="当 --max-problems 生效时，先用该种子随机打乱问题列表再截断")
     ap.add_argument("--start-index", type=int, default=0,
                     help="跳过前 start_index 个问题后再开始处理（默认从 0 开始）")
-    ap.add_argument("--temps", default="0.7,0.9", help="温度列表, 逗号分隔")
-    ap.add_argument("--top-ps", default="0.85,0.95,1.0", help="top_p 列表, 逗号分隔")
-    ap.add_argument("--top-ks", default="50,100,200", help="top_k 列表, 逗号分隔")
-    ap.add_argument("--seeds", default="13,17,23", help="采样种子列表, 逗号分隔")
+    ap.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE, help="采样温度")
+    ap.add_argument("--top-p", type=float, default=DEFAULT_TOP_P, help="top_p 截断")
+    ap.add_argument("--top-k", type=int, default=DEFAULT_TOP_K, help="top_k 截断")
+    ap.add_argument("--seed", type=int, default=DEFAULT_SEED, help="采样随机种子")
+    ap.add_argument("--max-new-tokens", type=int, default=DEFAULT_MAX_NEW_TOKENS, help="生成的最大新 token 数")
+    ap.add_argument("--max-seq-len", type=int, default=DEFAULT_MAX_SEQ_LEN, help="模型最大序列长度")
+    ap.add_argument("--penalty-alpha", type=float, default=0.0, help="logits penalty alpha（默认关闭）")
+    ap.add_argument("--deterministic", action="store_true",
+                    help="关闭采样（do_sample=False），使用 greedy 生成")
     args = ap.parse_args()
 
     # family 自动识别
@@ -240,7 +223,7 @@ def main():
     try:
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=args.model,
-            max_seq_length=MAX_SEQ_LEN,
+            max_seq_length=args.max_seq_len,
             dtype=DTYPE,
             load_in_4bit=LOAD_IN_4BIT,
         )
@@ -249,7 +232,7 @@ def main():
             print("[Warn] GPU RAM insufficient, retry with CPU offload ...")
             model, tokenizer = FastLanguageModel.from_pretrained(
                 model_name=args.model,
-                max_seq_length=MAX_SEQ_LEN,
+                max_seq_length=args.max_seq_len,
                 dtype=DTYPE,
                 load_in_4bit=LOAD_IN_4BIT,
                 llm_int8_enable_fp32_cpu_offload=True,
@@ -258,12 +241,6 @@ def main():
         else:
             raise
     FastLanguageModel.for_inference(model)
-
-    # 采样参数网格
-    temps  = [float(x) for x in args.temps.split(",") if x.strip()]
-    top_ps = [float(x) for x in args.top_ps.split(",") if x.strip()]
-    top_ks = [int(x)   for x in args.top_ks.split(",") if x.strip()]
-    seeds  = [int(x)   for x in args.seeds.split(",") if x.strip()]
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -287,91 +264,102 @@ def main():
             except:
                 pass
 
-            # 为该 problem 生成 k 个采样配置
-            grid = gen_sampling_grid(args.k, temps, top_ps, top_ks, seeds)
+            # 设置采样/生成配置
+            cfg = {
+                "do_sample": not args.deterministic,
+            }
+            if args.penalty_alpha > 0:
+                cfg["penalty_alpha"] = args.penalty_alpha
+            if not args.deterministic:
+                cfg.update({
+                    "temperature": args.temperature,
+                    "top_p": args.top_p,
+                    "top_k": args.top_k,
+                })
 
-            for c_idx, (T, P, K, S) in enumerate(grid, 1):
-                cfg = dict(
-                    do_sample=True,
-                    temperature=T,
-                    top_p=P,
-                    top_k=K,
-                    penalty_alpha=0.0,  # 可按需开启
+            # 随机种子
+            random.seed(args.seed)
+            torch.manual_seed(args.seed)
+            if torch.cuda.is_available():
+                torch.cuda.manual_seed_all(args.seed)
+
+            # 生成
+            generation_error = None
+            raw_output = ""
+            try:
+                gen = model.generate(
+                    input_ids=input_ids,
+                    max_new_tokens=args.max_new_tokens,
+                    **cfg,
                 )
-                random.seed(S)
-                torch.manual_seed(S)
-                if torch.cuda.is_available():
-                    torch.cuda.manual_seed_all(S)
-
-                # 生成
-                generation_error = None
-                raw_output = ""
-                try:
-                    gen = model.generate(
-                        input_ids=input_ids,
-                        max_new_tokens=MAX_NEW_TOKENS,
-                        **cfg
-                    )
-                    raw_output = tokenizer.batch_decode(gen)[0]
-                except torch.cuda.OutOfMemoryError as e:
-                    generation_error = f"CUDA OOM: {e}"
+                raw_output = tokenizer.batch_decode(gen)[0]
+            except torch.cuda.OutOfMemoryError as e:
+                generation_error = f"CUDA OOM: {e}"
+                torch.cuda.empty_cache()
+            except RuntimeError as e:
+                if "out of memory" in str(e).lower():
+                    generation_error = f"Runtime OOM: {e}"
                     torch.cuda.empty_cache()
-                except RuntimeError as e:
-                    if "out of memory" in str(e).lower():
-                        generation_error = f"Runtime OOM: {e}"
-                        torch.cuda.empty_cache()
-                    else:
-                        generation_error = f"RuntimeError: {e}"
-                except Exception as e:
-                    generation_error = f"GenerationError: {e}"
-
-                llm_output = "" if generation_error else extract_llm_output(raw_output, family=family)
-
-                # 验证（VAL）
-                is_valid, vmsg, v_stdout, v_stderr, v_cmd = (False, "", "", "", "")
-                if not generation_error and llm_output.strip():
-                    is_valid, vmsg, v_stdout, v_stderr, v_cmd = validate_solution(
-                        args.domain_file,
-                        sample["problem_file"],
-                        llm_output
-                    )
-                elif generation_error:
-                    vmsg = generation_error
                 else:
-                    vmsg = "Empty solution"
+                    generation_error = f"RuntimeError: {e}"
+            except Exception as e:
+                generation_error = f"GenerationError: {e}"
 
-                # 分类→分数（与聚合脚本一致）
-                tag = classify_from_val(is_valid, v_stdout)
-                score = SCORE_MAP.get(tag, 1)
+            llm_output = "" if generation_error else extract_llm_output(raw_output, family=family)
 
-                # 写一条 scored 行
-                record = {
-                    "timestamp": datetime.utcnow().isoformat(),
-                    "problem_name": sample["problem_name"],
-                    "problem_file": sample["problem_file"],
-                    "domain_file": args.domain_file,
-                    "prompt": sample["prompt"],         # 方便复现
-                    "candidate": llm_output,            # 直接存原始候选文本（建议你的 Step 0 用 JSON 规范）
-                    "score": score,                     # 1..5
-                    "tag": tag,                         # 枚举标签
-                    "is_valid": bool(is_valid),
-                    "val_message": vmsg,
-                    "val_stdout": v_stdout[:2000],      # 截断，避免文件过大
-                    "val_stderr": v_stderr[:2000],
-                    "val_cmd": v_cmd,
-                    "sampling": {                       # 记录采样超参
-                        "temperature": T, "top_p": P, "top_k": K, "seed": S,
-                        "max_new_tokens": MAX_NEW_TOKENS
-                    },
-                    "model": args.model,
-                    "family": family,
-                }
-                fout.write(json.dumps(record, ensure_ascii=False) + "\n")
-                n_written += 1
+            # 验证（VAL）
+            is_valid, vmsg, v_stdout, v_stderr, v_cmd = (False, "", "", "", "")
+            if not generation_error and llm_output.strip():
+                is_valid, vmsg, v_stdout, v_stderr, v_cmd = validate_solution(
+                    args.domain_file,
+                    sample["problem_file"],
+                    llm_output
+                )
+            elif generation_error:
+                vmsg = generation_error
+            else:
+                vmsg = "Empty solution"
 
-                # 打印简报
-                print(f"  [{c_idx}/{args.k}] tag={tag} score={score} valid={is_valid}  "
-                      f"T={T} p={P} k={K} seed={S}")
+            # 分类→分数
+            tag = classify_from_val(is_valid, v_stdout)
+            score = SCORE_MAP.get(tag, 1)
+
+            # 写一条 scored 行
+            record = {
+                "timestamp": datetime.utcnow().isoformat(),
+                "problem_name": sample["problem_name"],
+                "problem_file": sample["problem_file"],
+                "domain_file": args.domain_file,
+                "prompt": sample["prompt"],
+                "candidate": llm_output,
+                "score": score,
+                "tag": tag,
+                "is_valid": bool(is_valid),
+                "val_message": vmsg,
+                "val_stdout": v_stdout[:2000],
+                "val_stderr": v_stderr[:2000],
+                "val_cmd": v_cmd,
+                "sampling": {
+                    "do_sample": not args.deterministic,
+                    "temperature": None if args.deterministic else args.temperature,
+                    "top_p": None if args.deterministic else args.top_p,
+                    "top_k": None if args.deterministic else args.top_k,
+                    "seed": args.seed,
+                    "penalty_alpha": args.penalty_alpha if args.penalty_alpha > 0 else 0.0,
+                    "max_new_tokens": args.max_new_tokens,
+                },
+                "model": args.model,
+                "family": family,
+            }
+            fout.write(json.dumps(record, ensure_ascii=False) + "\n")
+            n_written += 1
+
+            # 打印简报
+            summary_temp = "greedy" if args.deterministic else f"T={args.temperature}"
+            top_p_repr = "N/A" if args.deterministic else args.top_p
+            top_k_repr = "N/A" if args.deterministic else args.top_k
+            print(f"  tag={tag} score={score} valid={is_valid}  "
+                  f"{summary_temp} top_p={top_p_repr} top_k={top_k_repr} seed={args.seed}")
 
     print(f"\nDone. Wrote {n_written} scored candidates to: {out_path}")
 

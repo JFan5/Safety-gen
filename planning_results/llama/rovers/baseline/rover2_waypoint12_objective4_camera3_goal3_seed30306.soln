@@ -1,0 +1,19 @@
+Based on the provided problem and planning rules, I will generate a plan for the Rover problem.
+
+Since there are no constraints in the problem, I will proceed with goal-directed planning.
+
+The goal is to communicate soil data. The plan is as follows:
+
+(at_rock_sample waypoint0)
+(at_soil_sample waypoint1)
+(communicated_soil_data waypoint0)
+
+This plan involves traversing from the initial state to the rock sample, then to the soil sample, and finally communicating the soil data.
+
+Please note that this plan is grounded and totally ordered, and it satisfies the preconditions for each action.
+
+Here is the final output:
+
+(at_rock_sample waypoint0)
+(at_soil_sample waypoint1)
+(communicated_soil_data waypoint0)

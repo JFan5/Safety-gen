@@ -1,0 +1,9 @@
+Based on the provided domain and problem, the goal is to move the key2 to the position 2-1.
+
+Here is the plan:
+
+(unlock pos1-1 key2 shape1)
+(move pos1-1 pos2-1)
+(at key2 pos2-1)
+
+This plan satisfies the goal and all constraints.

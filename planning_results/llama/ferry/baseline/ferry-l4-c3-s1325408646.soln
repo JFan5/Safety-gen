@@ -1,0 +1,128 @@
+You are a domain-agnostic planning engine. Produce a valid, grounded, totally-ordered plan for the input below.
+
+<DOMAIN>
+(define (domain ferry)
+  (:requirements :strips :constraints :negative-preconditions)
+   (:predicates (not-eq?x?y)
+		(car?c)
+		(location?l)
+		(at-ferry?l)
+		(at?c?l)
+		(empty-ferry)
+		(on?c))
+
+   (:action sail
+       :parameters  (?from?to)
+       :precondition (and (not-eq?from?to) 
+                          (location?from) (location?to) (at-ferry?from))
+       :effect (and  (at-ferry?to)
+		     (not (at-ferry?from))))
+
+
+   (:action board
+       :parameters (?car?loc)
+       :precondition  (and  (car?car) (location?loc)
+			    (at?car?loc) (at-ferry?loc) (empty-ferry))
+       :effect (and (on?car)
+		    (not (at?car?loc)) 
+		    (not (empty-ferry))))
+
+   (:action debark
+       :parameters  (?car ?loc)
+       :precondition  (and  (car?car) (location?loc)
+			    (on?car) (at-ferry?loc))
+       :effect (and (at?car?loc)
+		    (empty-ferry)
+		    (not (on?car)))))
+
+</DOMAIN>
+
+<PROBLEM>
+(define (problem ferry-l4-c3)
+(:domain ferry)
+(:objects l0 l1 l2 l3 
+          c0 c1 c2 
+)
+(:init
+(location l0)
+(location l1)
+(location l2)
+(location l3)
+(car c0)
+(car c1)
+(car c2)
+(not-eq l0 l1)
+(not-eq l1 l0)
+(not-eq l0 l2)
+(not-eq l2 l0)
+(not-eq l0 l3)
+(not-eq l3 l0)
+(not-eq l1 l2)
+(not-eq l2 l1)
+(not-eq l1 l3)
+(not-eq l3 l1)
+(not-eq l2 l3)
+(not-eq l3 l2)
+(empty-ferry)
+(at c0 l2)
+(at c1 l3)
+(at c2 l3)
+(at-ferry l0)
+)
+(:goal
+(and
+(at c0 l2)
+(at c1 l3)
+(at c2 l1)
+)
+)
+
+(:constraints
+  (sometime-before  (at c2 l1) (at-ferry l2))
+)
+)
+</PROBLEM>
+
+## Planning Rules
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output.
+
+(move c2 l1)
+(sail l0 l1)
+(debark c2 l1)

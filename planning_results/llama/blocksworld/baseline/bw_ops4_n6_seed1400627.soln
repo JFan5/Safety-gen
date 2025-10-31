@@ -1,0 +1,16 @@
+Here is a valid, grounded, totally-ordered plan for the input:
+
+(pick b1 b4)
+(pick b2 b5)
+(stack b1 b2)
+(stack b3 b4)
+(stack b4 b5)
+(stack b6 b1)
+(unstack b1 b6)
+(unstack b3 b4)
+(pick b1 b3)
+(drop b1 b3)
+(drop b3 b3)
+(drop b4 b3)
+(drop b4 b2)
+(drop b5 b2)

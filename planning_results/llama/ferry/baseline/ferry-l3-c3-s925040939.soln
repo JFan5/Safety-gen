@@ -1,0 +1,11 @@
+To generate the plan, we need to follow the given rules and constraints. The goal is to move car c0 from location l0 to location l1, and car c1 from location l0 to location l1, and car c2 from location l0 to location l2.
+
+Here is the plan:
+
+(sail l0 l1)
+(board c0 l1)
+(board c1 l1)
+(board c2 l2)
+(debark c0 l1)
+(debark c1 l1)
+(debark c2 l2)

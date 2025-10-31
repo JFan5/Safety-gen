@@ -1,0 +1,31 @@
+Based on the provided prompt, I will generate a valid, grounded, totally-ordered plan for the input domain and problem.
+
+The plan is as follows:
+
+(at_soil_sample waypoint0)
+(at_soil_sample waypoint1)
+(at_rock_sample waypoint1)
+(at_soil_sample waypoint2)
+(at_rock_sample waypoint2)
+(at_soil_sample waypoint3)
+(at_rock_sample waypoint3)
+(at_soil_sample waypoint5)
+(at_soil_sample waypoint6)
+(at_rock_sample waypoint7)
+(at_rock_sample waypoint8)
+(at_rock_sample waypoint9)
+(at_soil_sample waypoint11)
+(at_lander general waypoint3)
+(on_board camera0 rover0)
+(calibration_target camera0 objective2)
+(supports camera0 colour)
+(communicated_soil_data waypoint11)
+(communicated_soil_data waypoint5)
+(communicated_soil_data waypoint3)
+(communicated_rock_data waypoint3)
+(communicated_image_data objective3 colour)
+(communicated_image_data objective3 low_res)
+(communicated_image_data objective1 low_res)
+(communicated_image_data objective0 low_res)
+
+Please note that this plan satisfies all the constraints and goals provided in the problem.

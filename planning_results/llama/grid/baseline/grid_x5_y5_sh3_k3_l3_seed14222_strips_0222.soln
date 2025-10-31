@@ -1,0 +1,19 @@
+Based on the provided domain and problem, the goal is to move the key2 to the position 1-4.
+
+Here is the plan:
+
+(unlock pos4-0 shape0)
+(move pos4-0 pos1-4)
+(pick key2 pos1-4)
+(move pos1-4 pos1-0)
+(drop key2 pos1-4)
+(move pos1-4 pos1-1)
+(drop key2 pos1-4)
+(move pos1-4 pos1-2)
+(drop key2 pos1-4)
+(move pos1-4 pos1-3)
+(drop key2 pos1-4)
+(move pos1-4 pos1-0)
+(drop key2 pos1-4)
+
+Note: The plan involves unlocking the shape at position 4-0, moving it to position 1-4, picking up the key2, and then moving it back to position 1-4.

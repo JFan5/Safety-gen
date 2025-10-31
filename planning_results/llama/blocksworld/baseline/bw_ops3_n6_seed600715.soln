@@ -1,0 +1,10 @@
+Here is the plan:
+
+(pick b1 b4)
+(pick b2 b3)
+(pick b5 b1)
+(pick b6 b5)
+(drop b6 b4)
+(drop b5 b3)
+(drop b4 b2)
+(drop b3 b1)
