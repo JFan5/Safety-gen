@@ -1,0 +1,6 @@
+(move rover0 waypoint3 waypoint0)
+(navigate rover0 waypoint0 waypoint3)
+(sample_soil rover0 waypoint3)
+(sample_soil rover0 waypoint6)
+(communicate_soil_data rover0 rover0 rover0 rover0 channel_free general)
+(drop rover0 rover0store)

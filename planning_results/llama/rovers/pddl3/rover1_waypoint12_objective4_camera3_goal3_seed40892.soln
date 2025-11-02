@@ -1,0 +1,17 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(:goal (and
+(communicated_rock_data waypoint2)
+(communicated_rock_data waypoint3)
+(communicated_rock_data waypoint9)
+(communicated_image_data objective2 high_res)
+(communicated_image_data objective3 high_res)
+(communicated_image_data objective1 high_res)
+(communicated_image_data objective3 colour)
+))
+(:constraints (sometime-before (at rover0 waypoint3) (at rover0 waypoint9)))
+</PROBLEM>
+
+[(navigate rover0 waypoint2 waypoint3)(navigate rover0 waypoint3 waypoint9)(sample_rock rover0 waypoint3 waypoint9)(take_image rover0 waypoint3 camera0 objective3)(take_image rover0 waypoint9 camera1 objective1)(communicate_image_data objective1 objective3 camera1 high_res colour)(communicate_rock_data waypoint3 waypoint9 rover0)]

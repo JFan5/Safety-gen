@@ -1,0 +1,48 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(:goal (and
+(communicated_soil_data waypoint1)
+(communicated_soil_data waypoint11)
+(communicated_soil_data waypoint0)
+(communicated_image_data objective3 high_res)
+(communicated_image_data objective3 colour)
+(communicated_image_data objective2 colour)
+))
+(:constraints
+ (sometime-before (at rover0 waypoint10) (at rover0 waypoint9))
+)</PROBLEM>
+
+(<navigate rover0 waypoint11 waypoint10>
+<navigate rover0 waypoint9 waypoint8>
+<navigate rover0 waypoint7 waypoint10>
+<navigate rover0 waypoint0 waypoint9>
+<sample_soil rover0 waypoint11 store_of rover0store>
+<sample_soil rover0 waypoint9 store_of rover0store>
+<drop rover0store>
+<sample_soil rover0 waypoint7 store_of rover0store>
+<sample_rock rover0 waypoint7 store_of rover0store>
+<drop rover0store>
+<calibrate camera0 rover0 waypoint11 objective1>
+<calibrate camera0 rover0 waypoint9 objective2>
+<take_image rover0 waypoint11 objective3 camera0 low_res>
+<take_image rover0 waypoint9 objective2 camera0 high_res>
+<communicate_image_data objective3 camera0 low_res>
+<communicate_image_data objective2 camera0 high_res>
+</DOMAIN>
+
+<PROBLEM>
+(:goal 
+(communicated_soil_data waypoint1)
+(communicated_soil_data waypoint11)
+(communicated_soil_data waypoint0)
+(communicated_image_data objective3 high_res)
+(communicated_image_data objective3 colour)
+(communicated_image_data objective2 colour)
+)
+(:constraints
+ (sometime-before (at rover0 waypoint10) (at rover0 waypoint9))
+)</PROBLEM>
+
+(no plan possible)

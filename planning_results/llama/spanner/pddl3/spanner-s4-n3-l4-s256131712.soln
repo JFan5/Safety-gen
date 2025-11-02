@@ -1,0 +1,126 @@
+import spanner_generator
+
+problem_name = "spanner-s4-n3-l4-s256131712"
+shed, bob, spanner1, spanner2, spanner3, spanner4, nut1, nut2, nut3, location1, location2, location3, location4, gate = spanner_generator.generate_problem(problem_name)
+
+init_state = f"""
+(at {bob} {shed})
+(at {spanner1} {location1})
+(useable {spanner1})
+(at {spanner2} {location3})
+(useable {spanner2})
+(at {spanner3} {location3})
+(useable {spanner3})
+(at {spanner4} {location4})
+(useable {spanner4})
+(at {nut1} {gate})
+(loose {nut1})
+(at {nut2} {gate})
+(loose {nut2})
+(at {nut3} {gate})
+(loose {nut3})
+"""
+ 
+constraints = f"""
+(sometime-before (tightened {nut1}) (tightened {nut2}))
+(forall (?m - man) (at-most-once (at?m {shed})))
+"""
+
+available_actions = {
+    'bob': ['walk', 'pickup_spanner', 'tighten_nut'],
+   'spanner1': ['pickup_spanner', 'tighten_nut'],
+   'spanner2': ['pickup_spanner', 'tighten_nut'],
+   'spanner3': ['pickup_spanner', 'tighten_nut'],
+   'spanner4': ['pickup_spanner', 'tighten_nut'],
+    'nut1': ['tighten_nut'],
+    'nut2': ['tighten_nut'],
+    'nut3': ['tighten_nut'],
+    'location1': [],
+    'location2': [],
+    'location3': [],
+    'location4': [],
+    'gate': ['tighten_nut']
+}
+
+goal_state = "tightened nut1 tightened nut2 tightened nut3"
+
+def validate_plan(plan):
+    current_state = init_state.split('\n')
+    for action in plan:
+        action_parts = action.split()
+        obj1 = obj2 = action_parts[0]
+        if obj1 in available_actions.keys():
+            obj1 = obj1 +'(' + obj1 + ')'
+            obj2 = obj2 +'(' + obj2 + ')'
+        if obj1 in current_state:
+            obj1_index = current_state.index(obj1)
+            obj2_index = current_state.index(obj2)
+            if obj1_index < obj2_index:
+                current_state.pop(obj2_index)
+                current_state.pop(obj1_index)
+                current_state.insert(obj2_index, action)
+                return True
+            else:
+                return False
+        else:
+            return False
+    return len(current_state) == len(goal_state.split())
+
+def generate_plan():
+    available_objects = {
+        'bob': [shed, gate],
+       'spanner1': [location1, location3, location4],
+       'spanner2': [location3, location4],
+       'spanner3': [location3, location4],
+       'spanner4': [location4],
+        'nut1': [gate],
+        'nut2': [gate],
+        'nut3': [gate],
+        'location1': [shed, location2, location3, location4],
+        'location2': [shed, location1, location3, location4],
+        'location3': [shed, location1, location2, location4],
+        'location4': [shed, location1, location2, location3],
+        'gate': [shed, location1, location2, location3, location4]
+    }
+    available_objects = {obj: objects for obj, objects in available_objects.items() if len(objects) > 0}
+    available_objects = {obj: objects for obj, objects in available_objects.items() for obj in objects}
+
+    available_actions = {
+        'bob': ['walk', 'pickup_spanner', 'tighten_nut'],
+       'spanner1': ['pickup_spanner', 'tighten_nut'],
+       'spanner2': ['pickup_spanner', 'tighten_nut'],
+       'spanner3': ['pickup_spanner', 'tighten_nut'],
+       'spanner4': ['pickup_spanner', 'tighten_nut'],
+        'nut1': ['tighten_nut'],
+        'nut2': ['tighten_nut'],
+        'nut3': ['tighten_nut'],
+        'location1': [],
+        'location2': [],
+        'location3': [],
+        'location4': [],
+        'gate': ['tighten_nut']
+    }
+    available_actions = {obj: actions for obj, actions in available_actions.items() if len(actions) > 0}
+    available_actions = {obj: actions for obj, actions in available_actions.items() for action in actions}
+
+    if len(available_objects.keys()) == 0 or len(available_actions.keys()) == 0:
+        return []
+
+    start_obj = min(available_objects.keys(), key=lambda obj: len(available_objects[obj]))
+    start_action = min(available_actions.keys(), key=lambda obj: len(available_actions[obj]))
+
+    if start_obj == 'gate':
+        start_obj ='shed'
+        start_action = 'walk'
+
+    if validate_plan([start_action +'' + obj for obj in available_objects[start_obj] for start_action in available_actions[start_obj]]):
+        return [start_action +'' + obj for obj in available_objects[start_obj] for start_action in available_actions[start_obj]]
+
+    return generate_plan()
+
+plan = generate_plan()
+if validate_plan(plan):
+    for action in plan:
+        print(action)
+else:
+    print("NO-PLAN")

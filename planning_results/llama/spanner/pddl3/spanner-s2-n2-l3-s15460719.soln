@@ -1,0 +1,15 @@
+[(pickup_spanner 
+      (link location1 location2)
+      (at bob location1)
+      (at spanner1 location2)
+      (at nut2 gate))
+ 
+ (tighten_nut 
+   (link location1 location2)
+   (at bob location1)
+   (at nut2 gate)
+   (at spanner1 location2)
+   (at bob location1)
+   (loose nut1)
+   (useable spanner1)
+   (loose nut2))]

@@ -1,0 +1,106 @@
+def validate_problem(domain, problem):
+    # Import necessary modules
+    import PDDL3.PDDL3 as p3
+    import PDDL3.PDDL3Rules as p3r
+    import PDDL3.PDDL3GoalDirectors as p3g
+    import PDDL3.PDDL3Constraints as p3c
+    import PDDL3.PDDL3Generators as p3g1
+    import PDDL3.PDDL3Utilities as p3u
+
+    # Parse domain and problem
+    domain = p3.PDDLReader(domain).read_domain()
+    problem = p3.PDDLReader(problem).read_problem(domain)
+
+    # Check if the problem includes constraints
+    if problem.problems:
+        # If constraints exist, check if all constraints are satisfied
+        for constraint in problem.problems[0].constraints:
+            if not p3u.satisfy(domain, problem, constraint):
+                return False
+
+    # Check if the problem has a goal
+    if problem.object_goals:
+        # If a goal exists, check if all goals are satisfied
+        for obj_goal in problem.object_goals:
+            if not p3u.satisfy(domain, problem, obj_goal):
+                return False
+
+    # If no constraints or goals, check if the initial state satisfies all safety constraints
+    if not problem.safety_constraints:
+        safe_initial_state = p3u.satisfy(domain, problem, problem.initial_state)
+        if not safe_initial_state:
+            return False
+
+    # If all checks pass, return True
+    return True
+
+
+def generate_problem(domain_name, problem_name, num_objects, num_actions, seed, constraints=False):
+    # Import necessary modules
+    import random
+    import string
+    import PDDL3.PDDL3 as p3
+    import PDDL3.PDDL3Rules as p3r
+    import PDDL3.PDDL3GoalDirectors as p3g
+    import PDDL3.PDDL3Constraints as p3c
+    import PDDL3.PDDL3Generators as p3g1
+    import PDDL3.PDDL3Utilities as p3u
+
+    # Generate domain and problem
+    domain = p3.PDDLDomainGenerator().generate_domain(
+        name=domain_name,
+        constants=p3.PDDLConstantGenerator().generate_constants(
+            object_types=['location','man','spanner', 'nut'],
+            quantity=num_objects
+        )
+    )
+    problem = p3.PDDLProblemGenerator().generate_problem(
+        name=problem_name,
+        domain=domain,
+        constants=p3.PDDLConstantGenerator().generate_constants(
+            object_types=['man','spanner', 'nut', 'location'],
+            quantity=num_objects
+        )
+    )
+
+    # Add safety constraints
+    if not constraints:
+        safety_constraints = [
+            p3c.SafetyConstraint(p3.PDDLVariable('bob'), 'inside', 'location'),
+            p3c.SafetyConstraint(p3.PDDLVariable('spanner'), 'carrying','spanner'),
+            p3c.SafetyConstraint(p3.PDDLVariable('nut'), 'loose', 'nut'),
+            p3c.SafetyConstraint(p3.PDDLVariable('nut'), 'tightened', 'nut'),
+            p3c.SafetyConstraint(p3.PDDLVariable('nut'), 'inside', 'location')
+        ]
+        problem.safety_constraints = safety_constraints
+        problem.object_goals = [p3.PDDLGoal(p3.PDDLVariable('bob'), 'inside', 'location'),
+                                p3.PDDLGoal(p3.PDDLVariable('spanner'), 'carrying','spanner'),
+                                p3.PDDLGoal(p3.PDDLVariable('nut'), 'loose', 'nut'),
+                                p3.PDDLGoal(p3.PDDLVariable('nut'), 'tightened', 'nut'),
+                                p3.PDDLGoal(p3.PDDLVariable('nut'), 'inside', 'location')]
+
+    # Generate initial state and goal
+    initial_state = p3.PDDLStateGenerator().generate_initial_state(domain, problem)
+    goal = p3.PDDLGoalGenerator().generate_goal(domain, problem)
+
+    # Check if problem satisfies constraints
+    if validate_problem(domain.name, problem.name):
+        return domain, problem, initial_state, goal
+    else:
+        return None
+
+
+def generate_spanner_s3_n3_l4_s1564361267():
+    domain, problem, initial_state, goal = generate_problem('spanner','spanner-s3-n3-l4-s1564361267', 3, 3, 1564361267, constraints=True)
+    return domain, problem, initial_state, goal
+
+
+domain, problem, initial_state, goal = generate_spanner_s3_n3_l4_s1564361267()
+print("DOMAIN:")
+print(problem.domain)
+print("PROBLEM:")
+print(problem.problem)
+print("INITIAL STATE:")
+print(initial_state)
+print("GOAL:")
+print(goal)

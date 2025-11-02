@@ -1,0 +1,104 @@
+import (open)
+location1 = "shed"
+spanner1 = "spanner1"
+nut1 = "nut1"
+gate = "gate"
+link1 = "location1"
+link2 = "location2"
+link3 = "location3"
+link4 = "location4"
+
+def validate(state, goal, constraints):
+    if constraints == "None":
+        return all([goal]) == all([p for p in state]) and all([not p for p in state]) == all([not g for g in goal])
+    else:
+        for constraint in constraints.split("and"):
+            if not constraint.replace(" ", "").replace("(sometime-before (tightened nut2))", "").replace("(at-most-once (at bob shed))", "").strip() == constraint.strip():
+                return False
+        return True
+
+def generate(state, goal, constraints):
+    if constraints == "None":
+        available_objects = [obj for obj in state if obj!= "gate" and obj!= "link1" and obj!= "link2" and obj!= "link3" and obj!= "link4"]
+        available_actions = ["walk", "pickup_spanner", "tighten_nut"]
+        actions = []
+        for action in available_actions:
+            if action == "walk":
+                for obj in [spanner1, spanner2, spanner3, spanner4, nut1, nut2, nut3, bob, gate]:
+                    for other_obj in obj + [obj.replace("spanner", "nut").replace("man", "nut").replace("spanner", "spanner").replace("nut", "nut"), bob, gate, location1, location2, location3, location4]:
+                        if obj!= other_obj:
+                            actions.append(f"({action} {obj} {other_obj})")
+            elif action == "pickup_spanner":
+                for spanner in [spanner1, spanner2, spanner3, spanner4]:
+                    for location in [location1, location2, location3, location4]:
+                        for other_spanner in spanner + [spanner.replace("spanner1", "spanner2").replace("spanner2", "spanner3").replace("spanner3", "spanner4").replace("spanner4", "spanner1")]:
+                            if spanner!= other_spanner:
+                                actions.append(f"({action} {spanner} {location})")
+                        for nut in [nut1, nut2, nut3]:
+                            if spanner == nut:
+                                continue
+                            actions.append(f"({action} {spanner} {nut})")
+            elif action == "tighten_nut":
+                for spanner in [spanner1, spanner2, spanner3, spanner4]:
+                    for location in [location1, location2, location3, location4]:
+                        for nut in [nut1, nut2, nut3]:
+                            if spanner == nut:
+                                continue
+                            actions.append(f"({action} {spanner} {nut})")
+        return actions
+    else:
+        available_objects = [obj for obj in state if obj!= "gate" and obj!= "link1" and obj!= "link2" and obj!= "link3" and obj!= "link4"]
+        available_actions = ["walk", "pickup_spanner", "tighten_nut"]
+        actions = []
+        for action in available_actions:
+            if action == "walk":
+                for spanner in [spanner1, spanner2, spanner3, spanner4]:
+                    for location in [location1, location2, location3, location4]:
+                        actions.append(f"({action} {spanner} {location})")
+            elif action == "pickup_spanner":
+                for spanner in [spanner1, spanner2, spanner3, spanner4]:
+                    for nut in [nut1, nut2, nut3]:
+                        actions.append(f"({action} {spanner} {nut})")
+            elif action == "tighten_nut":
+                for nut in [nut1, nut2, nut3]:
+                    actions.append(f"({action} {nut})")
+        return actions
+
+available_objects = [location1, spanner1, spanner2, spanner3, spanner4, nut1, nut2, nut3, gate]
+available_actions = ["walk", "pickup_spanner", "tighten_nut"]
+actions = []
+for action in available_actions:
+    if action == "walk":
+        for obj in [spanner1, spanner2, spanner3, spanner4, nut1, nut2, nut3, gate]:
+            for other_obj in obj + [obj.replace("spanner", "nut").replace("man", "nut").replace("spanner", "spanner").replace("nut", "nut"), gate, location1, location2, location3]:
+                if obj!= other_obj:
+                    actions.append(f"({action} {obj} {other_obj})")
+    elif action == "pickup_spanner":
+        for spanner in [spanner1, spanner2, spanner3, spanner4]:
+            for nut in [nut1, nut2, nut3]:
+                actions.append(f"({action} {spanner} {nut})")
+    elif action == "tighten_nut":
+        for nut in [nut1, nut2, nut3]:
+            actions.append(f"({action} {nut})")
+
+state = available_objects
+goal = []
+for link in [link1, link2, link3, link4]:
+    goal.append(f"(tightened {link})")
+
+constraints = None
+
+# validate the initial state and goal
+if not validate(state, goal, constraints):
+    print("Invalid initial state or goal")
+else:
+    # generate a plan
+    plan = generate(state, goal, constraints)
+
+    # validate the plan
+    if not validate(state, goal, constraints):
+        print("Invalid plan")
+    else:
+        # print the plan
+        for action in plan:
+            print(action)

@@ -1,0 +1,84 @@
+<DOMAIN>
+...</DOMAIN>
+<PROBLEM>
+(define (problem roverprob30463) (:domain Rover)
+...
+(:goal (and
+(communicated_soil_data waypoint9)
+(communicated_soil_data waypoint4)
+(communicated_rock_data waypoint11)
+(communicated_rock_data waypoint2)
+(communicated_rock_data waypoint8)
+(communicated_rock_data waypoint1)
+(communicated_image_data objective3 low_res)
+(communicated_image_data objective1 high_res)
+(communicated_image_data objective2 high_res)
+(communicated_image_data objective1 low_res)
+))
+</PROBLEM>
+
+<DOMAIN>
+(:requirements :strips :typing :constraints)
+...</DOMAIN>
+<DOMAIN>
+(:typing (object general - Lander waypoint0 - Waypoint waypoint1 - Waypoint waypoint2 - Waypoint waypoint3 - Waypoint waypoint4 - Waypoint waypoint5 - Waypoint waypoint6 - Waypoint waypoint7 - Waypoint waypoint8 - Waypoint waypoint9 - Waypoint waypoint10 - Waypoint waypoint11 - Store rover0store - Store rover1store - Camera camera0 - Camera camera1 - Camera camera2 - Objective objective0 - Objective objective1 - Objective objective2 - Objective objective3 - Mode low_res - Mode high_res - Range)
+...</DOMAIN>
+
+<DOMAIN>
+(:constraints (always (not (at rover0 waypoint11))))
+...</DOMAIN>
+
+<DOMAIN>
+(:objects rover0 - Rover waypoint0 - Waypoint waypoint1 - Waypoint waypoint2 - Waypoint waypoint3 - Waypoint waypoint4 - Waypoint waypoint5 - Waypoint waypoint6 - Waypoint waypoint7 - Waypoint waypoint8 - Waypoint waypoint9 - Waypoint waypoint10 - Waypoint waypoint11 - store0 - Store waypoint0 - Store waypoint1 - camera0 - Camera waypoint0 - Camera waypoint1 - Camera waypoint2 - objective0 - Objective waypoint0 - Objective waypoint1 - Objective waypoint2 - objective3 - Objective waypoint3 - mode0 - Mode waypoint0 - mode1 - Mode waypoint1 - lander - Lander)
+...</DOMAIN>
+
+<DOMAIN>
+(:predicates (at?x - Rover?y - Waypoint) (at_lander?x - Lander?y - Waypoint) (can_traverse?r - Rover?x - Waypoint?y - Waypoint) (equipped_for_soil_analysis?r - Rover) (equipped_for_rock_analysis?r - Rover) (equipped_for_imaging?r - Rover) (empty?s - Store) (have_rock_analysis?r - Rover?w - Waypoint) (have_soil_analysis?r - Rover?w - Waypoint) (full?s - Store) (calibrated?c - Camera?r - Rover) (on_board?i - Camera?r - Rover) (supports?c - Camera?m - Mode) (visible?w - Waypoint?p - Waypoint) (available?r - Rover) (visible_from?o - Objective?p - Waypoint) (at_soil_sample?w - Waypoint) (at_rock_sample?w - Waypoint) (communicated_soil_data?w - Waypoint) (communicated_rock_data?w - Waypoint) (communicated_image_data?o - Objective?m - Mode) (channel_free?l - Lander?p - Waypoint))
+...</DOMAIN>
+
+<DOMAIN>
+(:action navigate :parameters (?x - Rover?y - Waypoint?z - Waypoint) :precondition (and (can_traverse?x?y?z) (available?x) (at?x?y) (visible?y?z)) :effect (and (not (at?x?y)) (at?x?z)))
+...</DOMAIN>
+
+<DOMAIN>
+(:action sample_soil :parameters (?x - Rover?s - Store?p - Waypoint) :precondition (and (at?x?p) (at_soil_sample?p) (equipped_for_soil_analysis?x) (store_of?s?x) (empty?s)) :effect (and (not (empty?s)) (full?s) (have_soil_analysis?x?p) (not (at_soil_sample?p))))
+...</DOMAIN>
+
+<DOMAIN>
+(:action sample_rock :parameters (?x - Rover?s - Store?p - Waypoint) :precondition (and (at?x?p) (at_rock_sample?p) (equipped_for_rock_analysis?x) (store_of?s?x)(empty?s)) :effect (and (not (empty?s)) (full?s) (have_rock_analysis?x?p) (not (at_rock_sample?p))))
+...</DOMAIN>
+
+<DOMAIN>
+(:action drop :parameters (?x - Rover?y - Store) :precondition (and (store_of?y?x) (full?y)) :effect (and (not (full?y)) (empty?y)))
+...</DOMAIN>
+
+<DOMAIN>
+(:action calibrate :parameters (?r - Rover?i - Camera?t - Objective?w - Waypoint) :precondition (and (equipped_for_imaging?r) (calibration_target?i?t) (at?r?w) (visible_from?t?w)(on_board?i?r)) :effect (calibrated?i?r))
+...</DOMAIN>
+
+<DOMAIN>
+(:action take_image :parameters (?r - Rover?p - Waypoint?o - Objective?i - Camera?m - Mode) :precondition (and (calibrated?i?r) (on_board?i?r) (equipped_for_imaging?r) (supports?i?m) (visible_from?o?p)(at?r?p)) :effect (and (have_image?r?o?m)(not (calibrated?i?r))))
+...</DOMAIN>
+
+<DOMAIN>
+(:action communicate_soil_data :parameters (?r - Rover?l - Lander?p - Waypoint?x - Waypoint) :precondition (and (at?r?x)(at_lander?l?y)(have_soil_analysis?r?p)(visible?x?y)(available?r)(channel_free?l)) :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_soil_data?p)(available?r)))
+...</DOMAIN>
+
+<DOMAIN>
+(:action communicate_rock_data :parameters (?r - Rover?l - Lander?p - Waypoint?x - Waypoint) :precondition (and (at?r?x)(at_lander?l?y)(have_rock_analysis?r?p)(visible?x?y)(available?r)(channel_free?l)) :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_rock_data?p)(available?r)))
+...</DOMAIN>
+
+<DOMAIN>
+(:action communicate_image_data :parameters (?r - Rover?l - Lander?o - Objective?m - Mode?p - Waypoint?i - Camera?x - Waypoint) :precondition (and (at?r?p)(at_lander?l?x)(have_image?r?o?m)(visible?p?x)(available?r)(channel_free?l)) :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_image_data?o?m?p?i)(available?r)))
+...</DOMAIN>
+
+<DOMAIN>
+(:constraints (always (not (at rover0 waypoint11))))
+...</DOMAIN>
+
+<DOMAIN>
+(:objects rover0 - Rover waypoint0 - Waypoint waypoint1 - Waypoint waypoint2 - Waypoint waypoint3 - Waypoint waypoint4 - Waypoint waypoint5 - Waypoint waypoint6 - Waypoint waypoint7 - Waypoint waypoint8 - Waypoint waypoint9 - Waypoint waypoint10 - Waypoint waypoint11 - store0 - Store waypoint0 - Store waypoint1 - camera0 - Camera waypoint0 - Camera waypoint1 - Camera waypoint2 - objective0 - Objective waypoint0 - Objective waypoint1 - Objective waypoint2 - objective3 - Objective waypoint3 - mode0 - Mode waypoint0 - mode1 - Mode waypoint1 - lander - Lander)
+...</DOMAIN>
+
+<DOMAIN>
+(:predicates (at?x - Rover?y - Waypoint) (at_lander?x - Lander?y - Waypoint) (can_traverse?r - Rover?x - Waypoint?y - Waypoint) (equipped_for_soil_analysis?r - Rover) (equipped_for_rock_analysis?r - Rover) (equipped_for_imaging?r - Rover) (empty?s - Store) (have_rock_analysis?r - Rover?w - Waypoint) (have_soil_analysis?r - Rover?w - Waypoint) (full?s - Store) (calibrated?c - Camera?r - Rover) (on_board?i - Camera?r - Rover) (supports?c - Camera?m - Mode) (visible?w - Waypoint?p - Waypoint) (available?r - Rover) (visible_from?o - Objective?p - Waypoint) (at_soil_sample?w - Waypoint) (at_rock_sample?w - Waypoint) (communicated_soil_data?w - Waypoint) (communicated_rock_data?w - Waypoint) (communicated_image_data?o -

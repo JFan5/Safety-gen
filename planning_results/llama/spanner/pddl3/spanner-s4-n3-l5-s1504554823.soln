@@ -1,0 +1,75 @@
+import/spanner-generator; spanner = spanner-generator.spanner_generator()
+problem_name = "spanner-s4-n3-l5-s1504554823"
+spanner.generate_problem(problem_name=problem_name)
+domain = spanner.generate_domain(problem_name)
+problems = spanner.generate_problems([problem_name])
+constraints = spanner.generate_constraints(problems, problem_name)
+
+gen = spanner-generator.spanner_generator()
+location1 = spanner-generator.location()
+location2 = spanner-generator.location()
+location3 = spanner-generator.location()
+location4 = spanner-generator.location()
+location5 = spanner-generator.location()
+bob = spanner-generator.bob()
+spanner1 = spanner-generator.spanner()
+spanner2 = spanner-generator.spanner()
+spanner3 = spanner-generator.spanner()
+spanner4 = spanner-generator.spanner()
+nut1 = spanner-generator.nut()
+nut2 = spanner-generator.nut()
+nut3 = spanner-generator.nut()
+shed = spanner-generator.shed()
+gate = spanner-generator.gate()
+
+action_walk = spanner-generator.action_walk(
+    location1, location5, bob
+)
+action_pick_spanner = spanner-generator.action_pick_spanner(
+    location1, spanner1, bob
+)
+action_tighten_nut = spanner-generator.action_tighten_nut(
+    location1, spanner1, bob, nut1
+)
+action_pick_spanner_2 = spanner-generator.action_pick_spanner(
+    location4, spanner2
+)
+action_tighten_nut_2 = spanner-generator.action_tighten_nut(
+    location4, spanner2, bob, nut2
+)
+action_pick_spanner_3 = spanner-generator.action_pick_spanner(
+    location3, spanner3
+)
+action_tighten_nut_3 = spanner-generator.action_tighten_nut(
+    location3, spanner3, bob, nut3
+)
+action_pick_spanner_4 = spanner-generator.action_pick_spanner(
+    location4, spanner4
+)
+action_tighten_nut_4 = spanner-generator.action_tighten_nut(
+    location4, spanner4, bob, nut3
+)
+
+constraints.append(spanner-generator.constraint(nut2, nut3))
+constraints.append(spanner-generator.constraint(bob, shed, "at-most-once"))
+
+actions = [
+    action_walk,
+    action_pick_spanner,
+    action_tighten_nut,
+    action_pick_spanner_2,
+    action_tighten_nut_2,
+    action_pick_spanner_3,
+    action_tighten_nut_3,
+    action_pick_spanner_4,
+    action_tighten_nut_4,
+]
+
+plan = []
+for action in actions:
+    if spanner_generator.is_valid_action(plan, action):
+        for step in action.args:
+            if spanner_generator.is_valid_state(plan, step):
+                plan.append(action.name + (" " + " ".join(map(str, action.args)) if action.args else ""))
+
+print("\n".join(plan))

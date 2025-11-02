@@ -1,0 +1,100 @@
+import (file := open("spanner-s2-n2-l3-s1152899300.pddl", "r"))
+import re
+
+domain = re.search(r"(:domain (.*))", file.read()).group(1)
+problem = re.search(r"(:problem (.*))", file.read()).group(1)
+
+objects = re.search(r"(:objects (.*))", problem)
+constants = re.findall(r"(\w+):", file.read())
+
+actions = []
+predicates = []
+constraints = []
+
+for line in file.readlines():
+    line = line.strip()
+    if match := re.search(r"\w+\s+(*?(\().?)(.*?)(\).?)", line):
+        action = match.group(3)
+        args = match.groups()[1:]
+        args = [arg.strip() for arg in args]
+        if action.startswith("(:action"):
+            actions.append((action, args))
+        else:
+            pred = (action, *args)
+            if pred[0].startswith(":predicates"):
+                predicates.append(pred)
+            else:
+                constraints.append(pred)
+
+if constraints:
+    valid_constraints = []
+    for pred in constraints:
+        valid = True
+        for action in actions:
+            if action[0] == pred[0]:
+                for arg, value in zip(pred[1:], action[1]):
+                    if arg == "(*?":
+                        continue
+                    if arg!= value:
+                        valid = False
+                        break
+        if valid:
+            valid_constraints.append(pred)
+    constraints = valid_constraints
+if constraints:
+    print("NO-PLAN")
+else:
+    valid_actions = []
+    for action in actions:
+        valid = True
+        for pred in constraints:
+            if pred[0] == action[0]:
+                for arg1, value1 in zip(pred[1:], action[1]):
+                    if arg1 == "(*?":
+                        continue
+                    if arg1!= value1:
+                        valid = False
+                        break
+                for arg2, value2 in zip(pred[-1:], action[-1:]):
+                    if arg2 == "(*?":
+                        continue
+                    if arg2!= value2:
+                        valid = False
+                        break
+        if valid:
+            valid_actions.append(action)
+    if valid_actions:
+        objects = objects.groups()
+        objects = [obj.strip() for obj in objects]
+        obj1, obj2 = objects[0], objects[1]
+        if obj1 == "bob":
+            obj1 = "man"
+        if obj2 == "spanner1":
+            obj2 = "spanner"
+        if obj2 == "spanner2":
+            obj2 = "spanner"
+        if obj1 == "nut1":
+            obj1 = "nut"
+        if obj2 == "nut2":
+            obj2 = "nut"
+        plan = []
+        for action in valid_actions:
+            obj1_name, obj2_name = obj1, obj2
+            if action[0] == "(:action":
+                if action[0].endswith("walk"):
+                    if action[1][0] == obj1_name:
+                        obj1_name = action[1][1]
+                    if action[1][1] == obj2_name:
+                        obj2_name = action[1][2]
+                elif action[0] == "(:action pickup_spanner":
+                    if action[1][0] == obj1_name:
+                        obj1_name = action[1][1]
+                    if action[1][1] == obj2_name:
+                        obj2_name = action[1][2]
+                elif action[0] == "(:action tighten_nut":
+                    if action[1][0] == obj1_name:
+                        obj1_name = action[1][1]
+                    if action[1][1] == obj2_name:
+                        obj2_name = action[1][2]
+            plan.append(f"{action[0]} {obj1_name} {obj2_name}")
+        print("\n".join(plan))

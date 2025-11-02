@@ -1,0 +1,32 @@
+import spanner_generator
+
+problem_name = "spanner-s4-n3-l5-s646739284"
+spanner_generator.generate_spanner_problem(problem_name)
+domain = spanner_generator.get_domain(problem_name)
+problem = spanner_generator.get_problem(problem_name)
+
+objects = problem.objects
+constants = spanner_generator.get_constants(domain, problem)
+
+available_objects = []
+for obj in objects:
+    if spanner_generator.is_available(domain, problem, obj):
+        available_objects.append(obj)
+
+available_actions = []
+for action in spanner_generator.get_available_actions(domain, problem):
+    if spanner_generator.is_available(domain, problem, action):
+        available_actions.append(action)
+
+available_objects_and_actions = list(set(available_objects + available_actions))
+
+constraints = spanner_generator.get_constraints(problem)
+if constraints:
+    valid_plan = spanner_generator.validate_plan(domain, problem, constraints, available_objects_and_actions)
+else:
+    valid_plan = spanner_generator.validate_goal_directed(domain, problem, available_objects_and_actions)
+
+if valid_plan:
+    spanner_generator.generate_plan(domain, problem, constraints, available_objects_and_actions)
+else:
+    print("NO-PLAN")

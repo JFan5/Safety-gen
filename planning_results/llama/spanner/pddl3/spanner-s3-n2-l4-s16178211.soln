@@ -1,0 +1,73 @@
+[(pickup_spanner 
+        (link location1 location2)
+        (at bob location1)
+        (at spanner1 location2)
+        (at nut2 gate))
+ 
+ (tighten_nut 
+        (link location1 location2)
+        (at bob location1)
+        (at nut2 gate)
+        (at spanner1 location2)
+        (at nut1 gate)
+        (useable spanner1)
+        (loose nut1)
+        (tightened nut1))
+ 
+ (walk 
+        (link shed location1)
+        (at bob shed)
+        (at spanner1 location2)
+        (at nut1 gate)
+        (at nut2 gate)
+        (at bob location1))
+ 
+ (pickup_spanner 
+        (link location1 location2)
+        (at bob location1)
+        (at spanner1 location2)
+        (at nut2 gate)
+        (at nut1 gate)
+        (at spanner1 location2)
+        (useable spanner1)
+        (tightened nut1)
+        (at spanner1 location4))
+ 
+ (tighten_nut 
+        (link location1 location2)
+        (at bob location1)
+        (at spanner1 location4)
+        (at nut2 gate)
+        (at nut1 gate)
+        (at spanner1 location4)
+        (at nut1 gate)
+        (useable spanner1)
+        (tightened nut1))
+ 
+ (walk 
+        (link gate location1)
+        (at nut1 gate)
+        (at nut2 gate)
+        (at bob location1))
+ 
+ (pickup_spanner 
+        (link gate location1)
+        (at bob location1)
+        (at spanner1 location4)
+        (at nut2 gate)
+        (at nut1 gate)
+        (at spanner1 location4)
+        (useable spanner1)
+        (tightened nut1)
+        (at spanner1 location2))
+ 
+ (tighten_nut 
+        (link gate location1)
+        (at bob location1)
+        (at spanner1 location4)
+        (at nut2 gate)
+        (at nut1 gate)
+        (at spanner1 location4)
+        (at nut2 gate)
+        (useable spanner1)
+        (tightened nut2))

@@ -1,0 +1,28 @@
+😉
+
+<step>
+  (tightened nut1)
+  (tightened nut2)
+</step>
+<step>
+  (walk bob gate)
+  (walk nut1 gate)
+  (walk nut2 gate)
+  (pickup_spanner1 gate shed)
+  (pickup_spanner2 gate shed)
+  (walk spanner1 gate)
+  (pickup_spanner spanner1 gate)
+  (tighten_nut nut1 gate)
+</step>
+<step>
+  (tighten_nut spanner1 gate)
+  (tighten_nut nut2 gate)
+  (walk spanner1 gate)
+  (pickup_spanner spanner1 gate)
+  (walk spanner2 gate)
+  (pickup_spanner spanner2 gate)
+  (walk spanner3 gate)
+  (pickup_spanner spanner3 gate)
+  (tighten_nut spanner3 gate)
+</step>
+</step>

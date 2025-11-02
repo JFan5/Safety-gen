@@ -4,7 +4,7 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o fine_tune_mistral_ferry_pddl2.o
+#$ -o job_outputs/fine_tune/mistral/ferry/pddl2.o
 #$ -pe smp 8          # Specify parallel environment and legal core size
 #$ -N fine_tune_mistral_ferry_pddl2     # Specify job name
 

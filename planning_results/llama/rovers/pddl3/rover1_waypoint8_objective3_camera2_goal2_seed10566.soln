@@ -1,0 +1,261 @@
+<DOMAIN>
+(...)
+
+<PROBLEM>
+(define (problem roverprob10566) (:domain Rover)
+(...)
+
+(:goal (and
+(communicated_image_data objective2 low_res)
+))
+
+(:constraints
+(sometime-before (at rover0 waypoint5) (at rover0 waypoint6))
+)
+
+</PROBLEM>
+
+## Planning Rules
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output.
+
+(define (problem roverprob10566) (:domain Rover)
+(:objects
+	general - Lander
+	colour high_res low_res - Mode
+	rover0 - Rover
+	rover0store - Store
+	waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 - Waypoint
+	camera0 - Camera
+	objective0 objective1 objective2 - Objective
+	)
+(:init
+	(visible waypoint0 waypoint1)
+	(visible waypoint1 waypoint0)
+	(visible waypoint0 waypoint3)
+	(visible waypoint3 waypoint0)
+	(visible waypoint0 waypoint5)
+	(visible waypoint5 waypoint0)
+	(visible waypoint0 waypoint6)
+	(visible waypoint6 waypoint0)
+	(visible waypoint1 waypoint6)
+	(visible waypoint6 waypoint1)
+	(visible waypoint2 waypoint0)
+	(visible waypoint0 waypoint2)
+	(visible waypoint2 waypoint1)
+	(visible waypoint1 waypoint2)
+	(visible waypoint2 waypoint3)
+	(visible waypoint3 waypoint2)
+	(visible waypoint2 waypoint5)
+	(visible waypoint5 waypoint2)
+	(visible waypoint3 waypoint1)
+	(visible waypoint1 waypoint3)
+	(visible waypoint4 waypoint0)
+	(visible waypoint0 waypoint4)
+	(visible waypoint4 waypoint1)
+	(visible waypoint4 waypoint2)
+	(visible waypoint2 waypoint4)
+	(visible waypoint4 waypoint3)
+	(visible waypoint3 waypoint4)
+	(visible waypoint4 waypoint5)
+	(visible waypoint5 waypoint4)
+	(visible waypoint4 waypoint7)
+	(visible waypoint7 waypoint4)
+	(visible waypoint5 waypoint3)
+	(visible waypoint3 waypoint5)
+	(visible waypoint5 waypoint7)
+	(visible waypoint7 waypoint5)
+	(visible waypoint6 waypoint2)
+	(visible waypoint2 waypoint6)
+	(visible waypoint6 waypoint4)
+	(visible waypoint4 waypoint6)
+	(visible waypoint6 waypoint5)
+	(visible waypoint5 waypoint6)
+	(visible waypoint7 waypoint0)
+	(visible waypoint0 waypoint7)
+	(visible waypoint7 waypoint6)
+	(visible waypoint6 waypoint7)
+	(at_soil_sample waypoint0)
+	(at_rock_sample waypoint0)
+	(at_soil_sample waypoint1)
+	(at_rock_sample waypoint1)
+	(at_soil_sample waypoint2)
+	(at_rock_sample waypoint2)
+	(at_soil_sample waypoint3)
+	(at_soil_sample waypoint4)
+	(at_rock_sample waypoint4)
+	(at_soil_sample waypoint6)
+	(at_rock_sample waypoint6)
+	(at_soil_sample waypoint7)
+	(at_rock_sample waypoint7)
+	(at_lander general waypoint5)
+	(channel_free general)
+	(at_rover0 waypoint5)
+	(available rover0)
+	(store_of rover0store rover0)
+	(empty rover0store)
+	(equipped_for_imaging rover0)
+	(can_traverse rover0 waypoint5 waypoint0)
+	(can_traverse rover0 waypoint0 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint2)
+	(can_traverse rover0 waypoint2 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint3)
+	(can_traverse rover0 waypoint3 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint6)
+	(can_traverse rover0 waypoint6 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint7)
+	(can_traverse rover0 waypoint7 waypoint5)
+	(can_traverse rover0 waypoint0 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint0)
+	(on_board camera0 rover0)
+	(calibration_target camera0 objective1)
+	(supports camera0 colour)
+	(supports camera0 high_res)
+	(supports camera0 low_res)
+	(on_board camera1 rover0)
+	(calibration_target camera1 objective2)
+	(supports camera1 high_res)
+	(supports camera1 low_res)
+	(visible_from objective0 waypoint1)
+	(visible_from objective0 waypoint2)
+	(visible_from objective0 waypoint4)
+	(visible_from objective0 waypoint5)
+	(visible_from objective1 waypoint0)
+	(visible_from objective1 waypoint2)
+	(visible_from objective1 waypoint7)
+	(visible_from objective2 waypoint0)
+	(visible_from objective2 waypoint1)
+	(visible_from objective2 waypoint4)
+	(visible_from objective2 waypoint5)
+	(visible_from objective2 waypoint7)
+)
+(:goal (and
+(communicated_image_data objective2 low_res)
+))
+
+(:constraints
+(sometime-before (at rover0 waypoint5) (at rover0 waypoint6))
+)
+
+</PROBLEM>
+
+<DOMAIN>
+(...)
+
+<PROBLEM>
+(define (problem roverprob10566) (:domain Rover)
+(:objects
+	general - Lander
+	colour high_res low_res - Mode
+	rover0 - Rover
+	rover0store - Store
+	waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 - Waypoint
+	camera0 - Camera
+	objective0 objective1 objective2 - Objective
+	)
+(:init
+	(visible waypoint0 waypoint1)
+	(visible waypoint1 waypoint0)
+	(visible waypoint0 waypoint3)
+	(visible waypoint3 waypoint0)
+	(visible waypoint0 waypoint5)
+	(visible waypoint5 waypoint0)
+	(visible waypoint0 waypoint6)
+	(visible waypoint6 waypoint0)
+	(visible waypoint1 waypoint6)
+	(visible waypoint6 waypoint1)
+	(visible waypoint2 waypoint0)
+	(visible waypoint0 waypoint2)
+	(visible waypoint2 waypoint1)
+	(visible waypoint1 waypoint2)
+	(visible waypoint2 waypoint3)
+	(visible waypoint3 waypoint2)
+	(visible waypoint2 waypoint5)
+	(visible waypoint5 waypoint2)
+	(visible waypoint3 waypoint1)
+	(visible waypoint1 waypoint3)
+	(visible waypoint4 waypoint0)
+	(visible waypoint0 waypoint4)
+	(visible waypoint4 waypoint1)
+	(visible waypoint4 waypoint2)
+	(visible waypoint2 waypoint4)
+	(visible waypoint4 waypoint3)
+	(visible waypoint3 waypoint4)
+	(visible waypoint4 waypoint5)
+	(visible waypoint5 waypoint4)
+	(visible waypoint4 waypoint7)
+	(visible waypoint7 waypoint4)
+	(visible waypoint5 waypoint3)
+	(visible waypoint3 waypoint5)
+	(visible waypoint5 waypoint7)
+	(visible waypoint7 waypoint5)
+	(visible waypoint6 waypoint2)
+	(visible waypoint2 waypoint6)
+	(visible waypoint6 waypoint4)
+	(visible waypoint4 waypoint6)
+	(visible waypoint6 waypoint5)
+	(visible waypoint5 waypoint6)
+	(visible waypoint7 waypoint0)
+	(visible waypoint0 waypoint7)
+	(visible waypoint7 waypoint6)
+	(visible waypoint6 waypoint7)
+	(at_soil_sample waypoint0)
+	(at_rock_sample waypoint0)
+	(at_soil_sample waypoint1)
+	(at_rock_sample waypoint1)
+	(at_soil_sample waypoint2)
+	(at_rock_sample waypoint2)
+	(at_soil_sample waypoint3)
+	(at_soil_sample waypoint4)
+	(at_rock_sample waypoint4)
+	(at_soil_sample waypoint6)
+	(at_rock_sample waypoint6)
+	(at_soil_sample waypoint7)
+	(at_rock_sample waypoint7)
+	(at_lander general waypoint5)
+	(channel_free general)
+	(at_rover0 waypoint5)
+	(available rover0)
+	(store_of rover0store rover0)
+	(empty rover0store)
+	(equipped_for_imaging rover0)
+	(can_traverse rover0 waypoint5 waypoint0)
+	(can_traverse rover0 waypoint0 waypoint

@@ -1,0 +1,198 @@
+<DOMAIN>
+(define (domain roverprob10377) (:domain Rover)
+(:objects
+	general - Lander
+	colour high_res low_res - Mode
+	rover0 - Rover
+	rover0store - Store
+	waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 - Waypoint
+	camera0 - Camera
+	camera1 - Camera
+	objective0 - Objective
+	objective1 - Objective
+	objective2 - Objective
+	)
+(:init
+	(visible waypoint0 waypoint1)
+	(visible waypoint1 waypoint0)
+	(visible waypoint1 waypoint3)
+	(visible waypoint3 waypoint1)
+	(visible waypoint1 waypoint4)
+	(visible waypoint4 waypoint1)
+	(visible waypoint2 waypoint0)
+	(visible waypoint0 waypoint2)
+	(visible waypoint2 waypoint1)
+	(visible waypoint1 waypoint2)
+	(visible waypoint2 waypoint4)
+	(visible waypoint4 waypoint2)
+	(visible waypoint3 waypoint5)
+	(visible waypoint5 waypoint3)
+	(visible waypoint3 waypoint6)
+	(visible waypoint6 waypoint3)
+	(visible waypoint3 waypoint7)
+	(visible waypoint7 waypoint3)
+	(visible waypoint4 waypoint5)
+	(visible waypoint5 waypoint4)
+	(visible waypoint5 waypoint1)
+	(visible waypoint1 waypoint5)
+	(visible waypoint5 waypoint2)
+	(visible waypoint6 waypoint0)
+	(visible waypoint0 waypoint6)
+	(visible waypoint6 waypoint1)
+	(visible waypoint1 waypoint6)
+	(visible waypoint6 waypoint4)
+	(visible waypoint4 waypoint6)
+	(visible waypoint6 waypoint5)
+	(visible waypoint5 waypoint6)
+	(visible waypoint6 waypoint7)
+	(visible waypoint7 waypoint6)
+	(visible waypoint7 waypoint1)
+	(visible waypoint1 waypoint7)
+	(visible waypoint7 waypoint4)
+	(visible waypoint4 waypoint7)
+	(visible waypoint7 waypoint5)
+	(at_soil_sample waypoint0)
+	(at_soil_sample waypoint1)
+	(at_rock_sample waypoint2)
+	(at_rock_sample waypoint3)
+	(at_soil_sample waypoint6)
+	(at_rock_sample waypoint6)
+	(at_soil_sample waypoint7)
+	(at_rock_sample waypoint7)
+	(at_lander general waypoint5)
+	(channel_free general)
+	(at rover0 waypoint4)
+	(available rover0)
+	(store_of rover0store rover0)
+	(empty rover0store)
+	(equipped_for_soil_analysis rover0)
+	(equipped_for_imaging rover0)
+	(can_traverse rover0 waypoint4 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint6)
+	(can_traverse rover0 waypoint6 waypoint4)
+	(can_traverse rover0 waypoint1 waypoint0)
+	(can_traverse rover0 waypoint0 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint2)
+	(can_traverse rover0 waypoint2 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint3)
+	(can_traverse rover0 waypoint3 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint7)
+	(can_traverse rover0 waypoint7 waypoint1)
+	(on_board camera0 rover0)
+	(calibration_target camera1 objective1)
+	(supports camera1 colour)
+	(supports camera1 high_res)
+	(visible_from objective0 waypoint0)
+	(visible_from objective0 waypoint3)
+	(visible_from objective0 waypoint5)
+	(visible_from objective0 waypoint6)
+	(visible_from objective0 waypoint7)
+	(visible_from objective1 waypoint1)
+	(visible_from objective1 waypoint2)
+	(visible_from objective1 waypoint7)
+	(visible_from objective2 waypoint3)
+	)
+(:goal (and
+	(communicated_soil_data waypoint6)
+	(communicated_soil_data waypoint7)
+	(communicated_image_data objective0 colour)
+	)
+)
+
+(:constraints
+    (sometime-before (at rover0 waypoint0) (at rover0 waypoint1))
+)
+)
+
+</PROBLEM>
+
+## Step 1: Plan for Communicating Soil Data
+To communicate soil data from waypoint6 to the lander, we need to move the rover from waypoint6 to the lander.
+
+## Step 2: Plan for Communicating Image Data
+To communicate the image data, we need to move the rover from waypoint7 to the lander.
+
+## Step 3: Plan for Moving to Waypoint7
+To move the rover from waypoint6 to waypoint7, we need to traverse from waypoint6 to waypoint7.
+
+## Step 4: Plan for Moving to Waypoint4
+To move the rover from waypoint7 to waypoint4, we need to traverse from waypoint7 to waypoint4.
+
+## Step 5: Plan for Moving to Waypoint1
+To move the rover from waypoint4 to waypoint1, we need to traverse from waypoint4 to waypoint1.
+
+## Step 6: Plan for Moving to Waypoint0
+To move the rover from waypoint1 to waypoint0, we need to traverse from waypoint1 to waypoint0.
+
+## Step 7: Plan for Communicating Soil Data (Again)
+To communicate soil data from waypoint0 to the lander, we need to move the rover from waypoint0 to the lander.
+
+## Step 8: Plan for Moving to Waypoint3
+To move the rover from waypoint0 to waypoint3, we need to traverse from waypoint0 to waypoint3.
+
+## Step 9: Plan for Moving to Waypoint5
+To move the rover from waypoint3 to waypoint5, we need to traverse from waypoint3 to waypoint5.
+
+## Step 10: Plan for Moving to Waypoint4 (Again)
+To move the rover from waypoint5 to waypoint4, we need to traverse from waypoint5 to waypoint4.
+
+## Step 11: Plan for Moving to Waypoint7 (Again)
+To move the rover from waypoint4 to waypoint7, we need to traverse from waypoint4 to waypoint7.
+
+## Step 12: Plan for Moving to Waypoint6 (Again)
+To move the rover from waypoint7 to waypoint6, we need to traverse from waypoint7 to waypoint6.
+
+## Step 13: Plan for Communicating Image Data (Again)
+To communicate the image data, we need to move the rover from waypoint6 to the lander.
+
+## Step 14: Finalize the Plan
+All the steps are now complete.
+
+The final answer is:
+1. (navigate rover0 waypoint6 waypoint7)
+2. (navigate rover0 waypoint7 waypoint4)
+3. (navigate rover0 waypoint4 waypoint1)
+4. (navigate rover0 waypoint1 waypoint0)
+5. (navigate rover0 waypoint0 waypoint3)
+6. (navigate rover0 waypoint3 waypoint5)
+7. (navigate rover0 waypoint5 waypoint4)
+8. (navigate rover0 waypoint4 waypoint7)
+9. (navigate rover0 waypoint7 waypoint6)
+10. (navigate rover0 waypoint6 waypoint0)
+11. (navigate rover0 waypoint0 waypoint7)
+12. (navigate rover0 waypoint7 waypoint5)
+13. (navigate rover0 waypoint5 waypoint6)
+14. (navigate rover0 waypoint6 waypoint7)
+15. (navigate rover0 waypoint7 waypoint1)
+16. (navigate rover0 waypoint1 waypoint0)
+17. (navigate rover0 waypoint0 waypoint7)
+18. (navigate rover0 waypoint7 waypoint5)
+19. (navigate rover0 waypoint5 waypoint6)
+20. (navigate rover0 waypoint6 waypoint7)
+21. (navigate rover0 waypoint7 waypoint1)
+22. (navigate rover0 waypoint1 waypoint0)
+23. (navigate rover0 waypoint0 waypoint3)
+24. (navigate rover0 waypoint3 waypoint5)
+25. (navigate rover0 waypoint5 waypoint4)
+26. (navigate rover0 waypoint4 waypoint7)
+27. (navigate rover0 waypoint7 waypoint6)
+28. (navigate rover0 waypoint6 waypoint0)
+29. (navigate rover0 waypoint0 waypoint7)
+30. (navigate rover0 waypoint7 waypoint4)
+31. (navigate rover0 waypoint4 waypoint5)
+32. (navigate rover0 waypoint5 waypoint6)
+33. (navigate rover0 waypoint6 waypoint7)
+34. (navigate rover0 waypoint7 waypoint0)
+35. (navigate rover0 waypoint0 waypoint1)
+36. (navigate rover0 waypoint1 waypoint2)
+37. (navigate rover0 waypoint2 waypoint1)
+38. (navigate rover0 waypoint1 waypoint3)
+39. (navigate rover0 waypoint3 waypoint1)
+40. (navigate rover0 waypoint1 waypoint7)
+41. (navigate rover0 waypoint7 waypoint1)
+42. (drop rover0store rover0)
+43. (take_image rover0 waypoint3 objective2 low_res)
+44. (communicate_image_data objective2 low_res general)

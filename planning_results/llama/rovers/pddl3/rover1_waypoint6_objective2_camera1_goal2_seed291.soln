@@ -1,0 +1,68 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob291) (:domain Rover)
+...
+(:goal (and
+(communicated_soil_data waypoint2)
+(communicated_soil_data waypoint0)
+(communicated_rock_data waypoint1)
+(communicated_image_data objective1 high_res)
+))
+(:constraints
+(sometime-before (at rover0 waypoint3) (at rover0 waypoint1))
+)
+)
+
+</PROBLEM>
+
+[communicated_soil_data waypoint0]
+[communicated_soil_data waypoint2]
+[at_soil_sample waypoint0]
+[at_soil_sample waypoint2]
+[navigate rover0 waypoint0 waypoint2]
+[communicated_rock_data waypoint1]
+[at_rock_sample waypoint1]
+[navigate rover0 waypoint1 waypoint3]
+[communicated_image_data objective1 high_res]
+[calibration_target camera0 objective1]
+[on_board camera0 rover0]
+[supports camera0 high_res]
+[visible_from objective1 waypoint1]
+[visible_from objective1 waypoint3]
+[can_traverse rover0 waypoint3 waypoint1]
+[can_traverse rover0 waypoint1 waypoint3]
+[equipped_for_imaging rover0]
+[equipped_for_soil_analysis rover0]
+[equipped_for_rock_analysis rover0]
+[calibrate camera0 rover0 waypoint1 waypoint3]
+[take_image rover0 waypoint1 objective1 high_res]
+[visible_from objective0 waypoint4]
+[visible_from objective0 waypoint5]
+[can_traverse rover0 waypoint3 waypoint4]
+[can_traverse rover0 waypoint4 waypoint3]
+[store_of rover0store]
+[empty rover0store]
+[drop rover0store waypoint3]
+[navigate rover0 waypoint3 waypoint4]
+[communicated_image_data objective1 waypoint5]
+[visible_from objective1 waypoint5]
+[can_traverse rover0 waypoint4 waypoint5]
+[calibrate camera0 rover0 waypoint4 waypoint5]
+[take_image rover0 waypoint4 objective1 waypoint5]
+[store_of rover0store]
+[empty rover0store]
+[drop rover0store waypoint5]
+[navigate rover0 waypoint5 waypoint1]
+[communicated_soil_data waypoint0]
+[communicated_soil_data waypoint2]
+[communicated_rock_data waypoint1]
+[communicated_image_data objective1 high_res]
+[visible_from objective1 waypoint0]
+[visible_from objective1 waypoint1]
+[can_traverse rover0 waypoint1 waypoint0]
+[calibrate camera0 rover0 waypoint1 waypoint0]
+[take_image rover0 waypoint1 objective1 waypoint0]
+
+</PLAN>

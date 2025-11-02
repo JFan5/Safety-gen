@@ -1,0 +1,29 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob30954) (:domain Rover)
+...
+(:goal (and
+(communicated_soil_data waypoint1)
+(communicated_soil_data waypoint7)
+(communicated_soil_data waypoint0)
+(communicated_image_data objective0 high_res)
+(communicated_image_data objective2 high_res)
+))
+</PROBLEM>
+
+<PLAN>
+(navigate rover0 waypoint0 waypoint1)
+(navigate rover1 waypoint0 waypoint1 waypoint7)
+(sample_soil rover1 waypoint1 waypoint0)
+(sample_rock rover1 waypoint1 waypoint7 waypoint8)
+(drop rover1 waypoint8 waypoint1)
+(navigate rover1 waypoint1 waypoint0)
+(at_soil_sample waypoint0)
+(at_rock_sample waypoint7)
+(navigate rover1 waypoint7 waypoint0)
+(navigate rover1 waypoint0 waypoint1)
+(take_image rover1 waypoint0 objective2 high_res)
+ communicate_image_data objective2 high_res)
+</PLAN>

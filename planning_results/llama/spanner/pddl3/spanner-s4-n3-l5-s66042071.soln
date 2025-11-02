@@ -1,0 +1,106 @@
+import spanner_generator
+
+problem_name = "spanner-s4-n3-l5-s66042071"
+spanner_generator.generate_spanner_problem(problem_name)
+
+domain = "<DOMAIN>"
+print(domain)
+
+problem = "<PROBLEM>"
+print(problem)
+
+available_objects = spanner_generator.get_available_objects(problem_name)
+constants = spanner_generator.get_constants(problem_name)
+
+objects = ""
+for obj in available_objects:
+    objects += f"{obj} - {obj.lower()}\n"
+
+constraints = spanner_generator.get_constraints(problem_name)
+constraints_str = ""
+if constraints:
+    constraints_str = f"\n:constraints\n{constraints}"
+
+init_str = ""
+obj_init = spanner_generator.get_obj_init(available_objects, constants)
+for obj in obj_init:
+    obj_init_str += f"(at {obj}?loc)\n"
+init_str += f"(:init\n{obj_init_str}\n):init\n"
+
+goal_str = ""
+obj_goal = spanner_generator.get_obj_goal(available_objects, constants)
+for obj in obj_goal:
+    obj_goal_str += f"(at {obj}?loc)\n"
+goal_str += f"(:goal\n{obj_goal_str}\n):goal\n"
+
+constraints_str += f"\n:constraints\n{constraints_str}"
+
+typing = "<TYING>"
+tying = spanner_generator.get_typing(available_objects, constants)
+for obj in tying:
+    obj_tying = spanner_generator.get_obj_tying(obj, available_objects, constants)
+    typing_str += f"(typing {obj} {obj_tying})\n"
+tying_str += f":typing\n{typing_str}\n:typing\n{tying_str}"
+
+strips = "<STRIPS>"
+strips_obj = spanner_generator.get_strips_obj(available_objects, constants)
+strips_str = f":strips\n(forall (?obj?loc) (at?obj?loc))\n(forall (?obj?goal_loc) (not (at?obj?goal_loc)))\n(forall (?action) (exists (?pre_loc) (at?action?pre_loc)))\n(forall (?action?pre_loc?obj) (exists (?success_loc) (and (not (at?action?pre_loc)) (at?action?success_loc)) (equals (distance?pre_loc?success_loc) 1)))\n:strips\n{strips_str}"
+
+links = "<LINKS>"
+links_obj = spanner_generator.get_links_obj(available_objects, constants)
+links_str = f":links\n(forall (?l?loc1?l_loc2) (at?l?l_loc2) (link?l_loc2?l_loc1?loc1))\n:links\n{links_str}"
+
+strips_constraints = spanner_generator.get_strips_constraints(constraints)
+strips_constraints_str = f"\n:stripsconstraints\n{strips_constraints}\n"
+
+typing_constraints = spanner_generator.get_typing_constraints(constraints)
+typing_constraints_str = f"\n:typingconstraints\n{typing_constraints}\n"
+
+links_constraints = spanner_generator.get_links_constraints(constraints)
+links_constraints_str = f"\n:linksconstraints\n{links_constraints}\n"
+
+constraints_str += f"\n:constraints\n{constraints_str}\n:stripsconstraints\n{strips_constraints_str}\n:typingconstraints\n{typing_constraints_str}\n:linksconstraints\n{links_constraints_str}\n"
+
+rules = """
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- No blank lines at the start or end; no trailing spaces; use a single space between tokens.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output.
+"""
+
+print(f"<DOMAIN>\n{domain}\n\n<PROBLEM>\n{problem}\n\n# Problem: {problem_name}\n\n## Objects\n", objects, constraints_str, "\n## Initial State\n", init_str, "\n## Goals\n", goal_str, "\n## Constraints\n", strips_constraints_str, typing_constraints_str, links_constraints_str, "\n## Rules\n", rules, "\n\n## Generation\n", spanner_generator.generate_spanner_plan(problem_name)

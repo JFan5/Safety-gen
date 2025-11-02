@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -pe smp 28
+#$ -o /users/jfan5/jfan5/Safety-gen/job_outputs/dpo/mistral_7b/grippers/pddl3_crc.o
+#$ -N dpo_mistral_grippers_pddl3
+
+set -euo pipefail
+
+conda activate llmstl
+
+BASE_MODEL="/groups/fkong/jfan5/sft_models/mistral_7b/grippers/pddl3"
+DPO_DATASET="/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/grippers/pddl3_dpo.jsonl"
+OUTPUT_DIR="/groups/fkong/jfan5/dpo_models/mistral_7b/grippers/pddl3"
+
+mkdir -p "${OUTPUT_DIR}"
+
+python3 /users/jfan5/jfan5/Safety-gen/script/train_dpo_unsloth.py \
+  --base_model "${BASE_MODEL}" \
+  --dataset "${DPO_DATASET}" \
+  --output_dir "${OUTPUT_DIR}" \
+  --num_epochs 3 \
+  --batch_size 1 \
+  --gradient_accumulation_steps 8 \
+  --learning_rate 1e-5 \
+  --save_steps 500 \
+  --eval_steps 500 \
+  --logging_steps 25 \
+  --beta 0.1 \
+  --memory_efficient \
+  --run_name "dpo-mistral-grippers-pddl3" \
+  --dataloader_num_workers 0
+

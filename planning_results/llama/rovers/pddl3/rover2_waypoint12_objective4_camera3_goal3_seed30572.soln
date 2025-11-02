@@ -1,0 +1,83 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(:goal (and
+(communicated_soil_data waypoint10)
+(communicated_soil_data waypoint3)
+(communicated_soil_data waypoint0)
+(communicated_soil_data waypoint1)
+(communicated_image_data objective2 low_res)
+(communicated_image_data objective1 high_res)
+))
+(:constraints
+ (always (not (at rover1 waypoint2))))
+</PROBLEM>
+
+<INPUT>
+(:search (plain) :domain roverprob30572 :constraints :goal)
+</INPUT>
+
+<OUTPUT>
+(:state (at_rover0 waypoint0) (at_soil_sample waypoint0) (at_rock_sample waypoint3) (available rover0) (store_of rover0store) (empty rover1store) (equipped_for_soil_analysis rover0) (equipped_for_rock_analysis rover0) (equipped_for_imaging rover0) (can_traverse rover0 waypoint0 waypoint11 waypoint7) (can_traverse rover0 waypoint11 waypoint0 waypoint2) (can_traverse rover0 waypoint0 waypoint3) (can_traverse rover0 waypoint3 waypoint0) (can_traverse rover0 waypoint7 waypoint5) (can_traverse rover0 waypoint5 waypoint7) (can_traverse rover0 waypoint7 waypoint10) (can_traverse rover0 waypoint10 waypoint7) (can_traverse rover0 waypoint0 waypoint2) (can_traverse rover0 waypoint2 waypoint0) (can_traverse rover0 waypoint0 waypoint3) (can_traverse rover0 waypoint3 waypoint0) (can_traverse rover0 waypoint7 waypoint6) (can_traverse rover0 waypoint6 waypoint7) (can_traverse rover0 waypoint9 waypoint1) (can_traverse rover0 waypoint1 waypoint9) (can_traverse rover0 waypoint9 waypoint11) (can_traverse rover0 waypoint11 waypoint9) (can_traverse rover0 waypoint5 waypoint4) (can_traverse rover0 waypoint4 waypoint5) (can_traverse rover0 waypoint5 waypoint8) (can_traverse rover0 waypoint8 waypoint5) (can_traverse rover0 waypoint2 waypoint1) (can_traverse rover0 waypoint1 waypoint2) (on_board camera0 rover0) (calibration_target camera0 objective2) (supports camera0 high_res) (supports camera1 low_res) (visible_from objective0 waypoint6) (visible_from objective1 waypoint0) (visible_from objective1 waypoint1) (visible_from objective1 waypoint2) (visible_from objective1 waypoint7) (visible_from objective1 waypoint9) (visible_from objective1 waypoint11) (visible_from objective2 waypoint1) (visible_from objective2 waypoint6) (visible_from objective2 waypoint7) (visible_from waypoint0 objective3) (visible_from waypoint1 objective3) (visible_from waypoint2 objective3) (visible_from waypoint3 objective3) (visible_from waypoint7 objective3) (visible_from waypoint8 objective3) (visible_from waypoint10 objective3) (at_soil_sample waypoint1) (at_rock_sample waypoint0) (channel_free general) (store_of rover0store rover1) (empty rover1store) (equipped_for_soil_analysis rover1) (equipped_for_rock_analysis rover1) (equipped_for_imaging rover1) (can_traverse rover1 waypoint0 waypoint2 waypoint1) (can_traverse rover1 waypoint1 waypoint0 waypoint2) (can_traverse rover1 waypoint2 waypoint0 waypoint1) (can_traverse rover1 waypoint0 waypoint2) (can_traverse rover1 waypoint2 waypoint0) (can_traverse rover1 waypoint0 waypoint3) (can_traverse rover1 waypoint3 waypoint0) (can_traverse rover1 waypoint0 waypoint9) (can_traverse rover1 waypoint9 waypoint0) (can_traverse rover1 waypoint0 waypoint11) (can_traverse rover1 waypoint11 waypoint0) (can_traverse rover1 waypoint5 waypoint4) (can_traverse rover1 waypoint4 waypoint5) (can_traverse rover1 waypoint5 waypoint8) (can_traverse rover1 waypoint8 waypoint5) (can_traverse rover1 waypoint2 waypoint1) (can_traverse rover1 waypoint1 waypoint2) (on_board camera1 rover1)) 
+)(communicated_soil_data waypoint3)
+(communicated_soil_data waypoint0)
+(communicated_soil_data waypoint1)
+(communicated_image_data objective2 low_res)
+(communicated_image_data objective1 high_res)
+)
+(:constraints
+ (always (not (at rover1 waypoint2))))
+</PROBLEM>
+
+<PLAN>
+(navigate rover0 waypoint0 waypoint11)
+(sample_soil rover0 waypoint11 waypoint0)
+(navigate rover0 waypoint11 waypoint0 waypoint2)
+(sample_soil rover0 waypoint11 waypoint2)
+(navigate rover0 waypoint11 waypoint2 waypoint7)
+(sample_rock rover0 waypoint11 waypoint7)
+(navigate rover0 waypoint11 waypoint7 waypoint10)
+(sample_rock rover0 waypoint11 waypoint10)
+(navigate rover0 waypoint11 waypoint10 waypoint0)
+(sample_soil rover0 waypoint11 waypoint0)
+(navigate rover0 waypoint11 waypoint0 waypoint2)
+(sample_soil rover0 waypoint11 waypoint2)
+(navigate rover0 waypoint11 waypoint2 waypoint3)
+(sample_rock rover0 waypoint11 waypoint3)
+(navigate rover0 waypoint11 waypoint3 waypoint0)
+(sample_soil rover0 waypoint11 waypoint0)
+(navigate rover0 waypoint11 waypoint0 waypoint9)
+(sample_rock rover0 waypoint11 waypoint9)
+(navigate rover0 waypoint11 waypoint9 waypoint11)
+(sample_rock rover0 waypoint11 waypoint11)
+(navigate rover0 waypoint11 waypoint11 waypoint0)
+(sample_soil rover0 waypoint11 waypoint0)
+(navigate rover0 waypoint11 waypoint0 waypoint2)
+(sample_soil rover0 waypoint11 waypoint2)
+(navigate rover0 waypoint11 waypoint2 waypoint3)
+(sample_rock rover0 waypoint11 waypoint3)
+(navigate rover0 waypoint11 waypoint3 waypoint0)
+(navigate rover0 waypoint11 waypoint0 waypoint7)
+(navigate rover0 waypoint11 waypoint7 waypoint5)
+(sample_rock rover0 waypoint11 waypoint5)
+(navigate rover0 waypoint11 waypoint5 waypoint6)
+(sample_rock rover0 waypoint11 waypoint6)
+(navigate rover0 waypoint11 waypoint6 waypoint7)
+(sample_rock rover0 waypoint11 waypoint7)
+(navigate rover0 waypoint11 waypoint7 waypoint10)
+(sample_rock rover0 waypoint11 waypoint10)
+(navigate rover0 waypoint11 waypoint10 waypoint0)
+(navigate rover0 waypoint11 waypoint0 waypoint3)
+(navigate rover0 waypoint11 waypoint3 waypoint0)
+(navigate rover0 waypoint0 waypoint3 waypoint11)
+(navigate rover0 waypoint3 waypoint0 waypoint11)
+(navigate rover0 waypoint0 waypoint11 waypoint7)
+(navigate rover0 waypoint11 waypoint7 waypoint0)
+(navigate rover0 waypoint0 waypoint11 waypoint10)
+(navigate rover0 waypoint11 waypoint10 waypoint0)
+(navigate rover0 waypoint0 waypoint11 waypoint9)
+(navigate rover0 waypoint11 waypoint9 waypoint0)
+(navigate rover0 waypoint0 waypoint11 waypoint11)
+(drop rover0 rover1store)
+</PLAN>

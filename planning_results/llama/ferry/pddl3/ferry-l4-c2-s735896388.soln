@@ -1,0 +1,6 @@
+(sometime-before  (at c0 l1) (at-ferry l3))
+(sometime-before  (at c1 l1) (at-ferry l2))
+(debark c0 l1)
+sail l3 l1
+board c1 l2
+debark c1 l1

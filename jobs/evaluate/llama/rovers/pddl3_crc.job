@@ -4,14 +4,14 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/evaluate_llama_rovers_pddl3_all_testing.o
+#$ -o job_outputs/evaluate/llama/rovers/pddl3_crc.o
 #$ -pe smp 28
 #$ -N evaluate_llama_rovers_pddl3_all_testing
 
 conda activate llmstl
 
 # Evaluate PDDL3 fine-tuned model
-MODEL_PATH="sft_model/llama/rovers/pddl3"
+MODEL_PATH="/groups/fkong/jfan5/sft_models/llama/rovers/pddl3"
 
 python3 script/evaluate_llm_solver.py \
   --model "$MODEL_PATH" \

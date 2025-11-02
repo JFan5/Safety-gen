@@ -4,14 +4,14 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/evaluate_mistral_blocksworld_pddl2_all_testing.o
+#$ -o job_outputs/evaluate/mistral/blocksworld/pddl2_crc.o
 #$ -pe smp 8
 #$ -N evaluate_mistral_blocksworld_pddl2_all_testing
 
 conda activate llmstl
 
 # Evaluate PDDL2 fine-tuned model
-MODEL_PATH="sft_model/mistral_7b/blocksworld/pddl2"
+MODEL_PATH="/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/pddl2"
 
 python3 script/evaluate_llm_solver.py \
   --model "$MODEL_PATH" \

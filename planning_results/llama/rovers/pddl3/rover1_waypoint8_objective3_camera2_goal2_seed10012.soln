@@ -1,0 +1,204 @@
+<DOMAIN>
+(define (domain roverprob10012) (:objects
+	general - Lander
+	colour high_res low_res - Mode
+	rover0 - Rover
+	rover0store - Store
+	waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 - Waypoint
+	camera0 camera1 - Camera
+	objective0 objective1 objective2 - Objective
+	)
+(:init
+	(visible waypoint0 waypoint2)
+	(visible waypoint2 waypoint0)
+	(visible waypoint0 waypoint5)
+	(visible waypoint5 waypoint0)
+	(visible waypoint0 waypoint7)
+	(visible waypoint7 waypoint0)
+	(visible waypoint1 waypoint0)
+	(visible waypoint0 waypoint1)
+	(visible waypoint1 waypoint2)
+	(visible waypoint2 waypoint1)
+	(visible waypoint1 waypoint5)
+	(visible waypoint5 waypoint1)
+	(visible waypoint1 waypoint7)
+	(visible waypoint7 waypoint1)
+	(visible waypoint2 waypoint5)
+	(visible waypoint5 waypoint2)
+	(visible waypoint2 waypoint7)
+	(visible waypoint7 waypoint2)
+	(visible waypoint4 waypoint0)
+	(visible waypoint0 waypoint4)
+	(visible waypoint4 waypoint1)
+	(visible waypoint4 waypoint3)
+	(visible waypoint3 waypoint4)
+	(visible waypoint4 waypoint6)
+	(visible waypoint6 waypoint4)
+	(visible waypoint5 waypoint4)
+	(visible waypoint4 waypoint5)
+	(visible waypoint5 waypoint6)
+	(visible waypoint6 waypoint5)
+	(visible waypoint6 waypoint0)
+	(visible waypoint0 waypoint6)
+	(visible waypoint6 waypoint1)
+	(visible waypoint1 waypoint6)
+	(visible waypoint6 waypoint2)
+	(visible waypoint2 waypoint6)
+	(visible waypoint6 waypoint3)
+	(visible waypoint3 waypoint6)
+	(visible waypoint7 waypoint6)
+	(visible waypoint6 waypoint7)
+	(at_rock_sample waypoint0)
+	(at_soil_sample waypoint2)
+	(at_rock_sample waypoint2)
+	(at_rock_sample waypoint3)
+	(at_soil_sample waypoint7)
+	(at_lander general waypoint7)
+	(channel_free general)
+	(at rover0 waypoint1)
+	(available rover0)
+	(store_of rover0store rover0)
+	(empty rover0store)
+	(equipped_for_soil_analysis rover0)
+	(equipped_for_rock_analysis rover0)
+	(equipped_for_imaging rover0)
+	(can_traverse rover0 waypoint1 waypoint0)
+	(can_traverse rover0 waypoint0 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint2)
+	(can_traverse rover0 waypoint2 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint1)
+	(can_traverse rover0 waypoint1 waypoint7)
+	(can_traverse rover0 waypoint7 waypoint1)
+	(can_traverse rover0 waypoint0 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint0)
+	(can_traverse rover0 waypoint0 waypoint6)
+	(can_traverse rover0 waypoint6 waypoint0)
+	(on_board camera0 rover0)
+	(calibration_target camera0 objective1)
+	(supports camera0 high_res)
+	(supports camera0 low_res)
+	(on_board camera1 rover0)
+	(calibration_target camera1 objective0)
+	(supports camera1 colour)
+	(supports camera1 high_res)
+	(supports camera1 low_res)
+	(visible_from objective0 waypoint0)
+	(visible_from objective0 waypoint4)
+	(visible_from objective0 waypoint5)
+	(visible_from objective0 waypoint7)
+	(visible_from objective1 waypoint0)
+	(visible_from objective1 waypoint1)
+	(visible_from objective1 waypoint3)
+	(visible_from objective1 waypoint4)
+	(visible_from objective1 waypoint6)
+	(visible_from objective2 waypoint0)
+	)
+(:goal (and
+	(communicated_soil_data waypoint2)
+	(communicated_rock_data waypoint2)
+	(communicated_rock_data waypoint0)
+	(communicated_image_data objective1 colour)
+	)
+)
+
+(:constraints
+  (sometime-before (at rover0 waypoint4) (at rover0 waypoint0))
+)
+
+</PROBLEM>
+
+## Step 1: Plan for communicating soil data from waypoint2 to the lander
+To communicate soil data from waypoint2 to the lander, we need to use the rover to move from waypoint2 to the lander.
+
+## Step 2: Plan for communicating rock data from waypoint0 to the lander
+To communicate rock data from waypoint0 to the lander, we need to use the rover to move from waypoint0 to the lander.
+
+## Step 3: Plan for communicating image data from objective1 to the lander
+To communicate image data from objective1 to the lander, we need to use the camera to take an image of objective1 and then communicate the image data to the lander.
+
+## Step 4: Plan for moving the rover from waypoint1 to waypoint2
+To move the rover from waypoint1 to waypoint2, we can use the navigate action.
+
+## Step 5: Plan for moving the rover from waypoint0 to waypoint1
+To move the rover from waypoint0 to waypoint1, we can use the navigate action.
+
+## Step 6: Plan for taking an image of objective1
+To take an image of objective1, we need to use the camera to calibrate it and then take the image.
+
+## Step 7: Plan for moving the rover from waypoint0 to waypoint0 (to calibrate the camera)
+To calibrate the camera, we need to move the rover from waypoint0 to waypoint0.
+
+## Step 8: Plan for moving the rover from waypoint0 to waypoint4
+To calibrate the camera, we need to move the rover from waypoint0 to waypoint4.
+
+## Step 9: Plan for moving the rover from waypoint4 to waypoint0
+To calibrate the camera, we need to move the rover from waypoint4 to waypoint0.
+
+## Step 10: Plan for moving the rover from waypoint0 to waypoint1
+To calibrate the camera, we need to move the rover from waypoint0 to waypoint1.
+
+## Step 11: Plan for taking an image of objective1
+To take an image of objective1, we need to use the camera to calibrate it and then take the image.
+
+## Step 12: Plan for moving the rover from waypoint1 to waypoint2
+To move the rover from waypoint1 to waypoint2, we can use the navigate action.
+
+## Step 13: Plan for moving the rover from waypoint2 to waypoint5
+To move the rover from waypoint2 to waypoint5, we can use the navigate action.
+
+## Step 14: Plan for moving the rover from waypoint5 to waypoint2
+To move the rover from waypoint5 to waypoint2, we can use the navigate action.
+
+## Step 15: Plan for moving the rover from waypoint2 to waypoint7
+To move the rover from waypoint2 to waypoint7, we can use the navigate action.
+
+## Step 16: Plan for moving the rover from waypoint7 to waypoint0
+To move the rover from waypoint7 to waypoint0, we can use the navigate action.
+
+## Step 17: Plan for moving the rover from waypoint0 to waypoint6
+To move the rover from waypoint0 to waypoint6, we can use the navigate action.
+
+## Step 18: Plan for moving the rover from waypoint6 to waypoint0
+To move the rover from waypoint6 to waypoint0, we can use the navigate action.
+
+## Step 19: Plan for moving the rover from waypoint0 to waypoint1
+To move the rover from waypoint0 to waypoint1, we can use the navigate action.
+
+## Step 20: Plan for moving the rover from waypoint1 to waypoint0
+To move the rover from waypoint1 to waypoint0, we can use the navigate action.
+
+## Step 21: Plan for moving the rover from waypoint0 to waypoint4
+To move the rover from waypoint0 to waypoint4, we can use the navigate action.
+
+## Step 22: Plan for moving the rover from waypoint4 to waypoint0
+To move the rover from waypoint4 to waypoint0, we can use the navigate action.
+
+## Step 23: Plan for moving the rover from waypoint0 to waypoint1
+To move the rover from waypoint0 to waypoint1, we can use the navigate action.
+
+## Step 24: Plan for taking an image of objective1
+To take an image of objective1, we need to use the camera to calibrate it and then take the image.
+
+## Step 25: Plan for moving the rover from waypoint1 to waypoint2
+To move the rover from waypoint1 to waypoint2, we can use the navigate action.
+
+## Step 26: Plan for moving the rover from waypoint2 to waypoint5
+To move the rover from waypoint2 to waypoint5, we can use the navigate action.
+
+## Step 27: Plan for moving the rover from waypoint5 to waypoint2
+To move the rover from waypoint5 to waypoint2, we can use the navigate action.
+
+## Step 28: Plan for moving the rover from waypoint2 to waypoint7
+To move the rover from waypoint2 to waypoint7, we can use the navigate action.
+
+## Step 29: Plan for moving the rover from waypoint7 to waypoint6
+To move the rover from waypoint7 to waypoint6, we can use the navigate action.
+
+## Step 30: Plan for moving the rover from waypoint6 to waypoint7
+To move the rover from waypoint6 to waypoint7, we can use the navigate action.
+
+## Step 31: Plan for moving the rover from waypoint7 to waypoint0
+To move the rover from waypoint7 to waypoint0, we can use the navigate action.
+
+## Step 32: Plan for moving the rover from waypoint0 to

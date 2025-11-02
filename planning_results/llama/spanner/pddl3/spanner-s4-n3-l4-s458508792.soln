@@ -1,0 +1,79 @@
+#:action walk 
+ :parameters (?start - location?end - location?m - man)
+ :precondition (and (at?m?start) 
+                     (link?start?end))
+ :effect (and (not (at?m?start)) (at?m?end))
+
+#:action pickup_spanner 
+ :parameters (?l - location?s - spanner?m - man)
+ :precondition (and (at?m?l) 
+                     (at?s?l))
+ :effect (and (not (at?s?l))
+               (carrying?m?s))
+
+#:action tighten_nut 
+ :parameters (?l - location?s - spanner?m - man?n - nut)
+ :precondition (and (at?m?l) 
+		      	   (at?n?l)
+			   (carrying?m?s)
+			   (useable?s)
+			   (loose?n))
+ :effect (and (not (loose?n))(not (useable?s)) (tightened?n))
+
+@target-nodes = [location1, location2, location3, location4, shed, gate, bob, spanner1, spanner2, spanner3, spanner4, nut1, nut2, nut3]
+@target-actions = [walk, pickup_spanner, tighten_nut]
+@objects = {
+  :bob => [bob], :location1 => [location1], :location2 => [location2], :location3 => [location3], :location4 => [location4], :shed => [shed], :gate => [gate], :spanner1 => [spanner1], :spanner2 => [spanner2], :spanner3 => [spanner3], :spanner4 => [spanner4], :nut1 => [nut1], :nut2 => [nut2], :nut3 => [nut3]
+}
+@constraints = [
+  (tightened nut1, tightened nut2, tightened nut3), 
+  (sometime-before [tightened nut2] [tightened nut3]), 
+  (forall [bob] (at-most-once (at bob shed)))
+]
+
+initial_state = @objects.keys.map { |o| (o, @objects[o]) }.freeze
+solution_space = []
+for (m_l, m) in @objects.values.map { |o| [o, at(o, shed)] }.freeze
+  for (l_s, l) in @objects.values.map { |o| [o, at(o, location1)] }.freeze
+    if m == l
+      continue
+    end
+    for (s_n, s) in @objects.values.map { |o| [o, at(o, shed)] }.freeze
+      if s == l
+        continue
+      end
+      for (n_l, n) in @objects.values.map { |o| [o, at(o, gate)] }.freeze
+        if n == l
+          continue
+        end
+        for (spanner_l, spanner) in @objects.values.map { |o| [o, at(o, location1)] }.freeze
+          if spanner == s
+            continue
+          end
+          for (nut_l, nut) in @objects.values.map { |o| [o, at(o, gate)] }.freeze
+            if nut == n
+              continue
+            end
+            solution_space << {m_l, l_s, s_n, n_l, spanner_l, spanner, nut_l, nut}
+          end
+        end
+      end
+    end
+  end
+end
+
+valid_solutions = solution_space.filter { |ss| @constraints.all?(ss) }
+if valid_solutions.empty?
+  puts "NO-PLAN"
+else
+  plans = valid_solutions.map do |ss|
+    [walk, pickup_spanner, tighten_nut,
+     at(ss[:m_l], ss[:l_s]),
+     at(ss[:s_n], ss[:n_l]),
+     at(ss[:spanner_l], ss[:spanner]),
+     at(ss[:nut_l], ss[:nut])]
+  end
+  for plan in plans
+    puts plan.join(" ")
+  end
+end

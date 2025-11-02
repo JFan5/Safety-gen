@@ -1,0 +1,4 @@
+(move bob spanner1)
+(pickup_spanner location4 spanner1 bob)
+(tighten_nut location4 spanner1 bob spanner1 nut1)
+(tighten_nut location4 spanner1 bob spanner1 nut3 spanner1 nut3)

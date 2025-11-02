@@ -1,0 +1,18 @@
+[(pickup_spanner 
+  location1 
+  spanner1 
+  bob)
+ (pickup_spanner 
+  location3 
+  spanner2 
+  bob)
+ (tighten_nut 
+  location1 
+  spanner1 
+  bob 
+  nut1)
+ (tighten_nut 
+  location3 
+  spanner2 
+  bob 
+  nut2)]

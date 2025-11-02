@@ -1,0 +1,12 @@
+#:action walk 
+#:parameters (location1 location2 location3 location4 shed bob gate nut1 nut2 spanner1 spanner2 spanner3)
+#:precondition (and (at bob shed) (link shed location1) (link location4 gate))
+#:effect (and (not (at bob shed)) (at bob location1) (at spanner1 location1) (at spanner2 location4) (at spanner3 location4) (at nut1 gate) (at nut2 gate) (link location1 location2) (link location4 gate))
+#:action pickup_spanner 
+#:parameters (location1 shed gate location4 bob spanner1 spanner2 spanner3 nut1 nut2)
+#:precondition (and (at bob location1) (at spanner1 location1) (at spanner2 location4) (at spanner3 location4) (at nut1 gate) (at nut2 gate) (link location1 location2) (link location4 gate))
+#:effect (and (not (at spanner1 location1)) (at spanner1 gate) (not (at spanner2 location4)) (at spanner2 gate) (not (at spanner3 location4)) (at spanner3 gate) (not (loose nut1)) (at nut1 gate) (not (loose nut2)) (at nut2 gate))
+#:action tighten_nut 
+#:parameters (location1 gate shed location4 bob spanner1 spanner2 spanner3 nut1 nut2)
+#:precondition (and (at bob gate) (at spanner1 gate) (at spanner2 gate) (at spanner3 gate) (at nut1 gate) (at nut2 gate) (link gate location1) (link location4 shed) (at spanner1 location1) (at spanner2 location4) (at spanner3 location4) (loose nut1) (useable spanner1) (loose nut2) (useable spanner2))
+#:effect (and (not (loose nut1)) (at nut1 shed) (not (useable spanner1)) (not (loose nut2)) (at nut2 shed) (not (useable spanner2)))

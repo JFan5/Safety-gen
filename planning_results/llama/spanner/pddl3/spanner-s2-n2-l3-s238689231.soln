@@ -1,0 +1,7 @@
+["(pickup_spanner location1 spanner1 bob)"
+ "(walk location1 gate bob)"
+ "(pickup_spanner gate spanner2 bob)"
+ "(walk gate shed bob)"
+ "(pickup_nut gate nut1)"
+ "(tighten_nut gate spanner1 nut1)"
+ "(tighten_nut gate spanner2 nut2)"]
