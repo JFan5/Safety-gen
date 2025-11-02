@@ -12,6 +12,6 @@ conda activate llmstl
 
 
 
-python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/rovers/base  --problems-dir rovers/all_problems3/testing --domain-file rovers/domain3.pddl --max-problems 100 --output rovers_test_results.json  --results-dir planning_results/gpt_oss_20b/rovers/baseline
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/sft_models/gpt_oss_20b/rovers/base  --problems-dir rovers/all_problems3/testing --domain-file rovers/domain3.pddl --max-problems 100 --output rovers_test_results.json  --results-dir planning_results/gpt_oss_20b/rovers/baseline
 
 

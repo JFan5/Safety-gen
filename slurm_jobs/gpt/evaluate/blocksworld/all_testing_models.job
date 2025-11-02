@@ -12,7 +12,7 @@ conda activate llmstl
 
 # PDDL2 fine-tuned model
 python3 script/evaluate_llm_solver.py \
-  --model sft_model/gpt_oss_20b/blocksworld/pddl2 \
+  --model /home/ubuntu/sft_models/gpt_oss_20b/blocksworld/pddl2 \
   --problems-dir blocksworld/all_problems3/testing \
   --domain-file blocksworld/domain3.pddl \
   --output blocksworld_all_testing_pddl2.json \
@@ -20,7 +20,7 @@ python3 script/evaluate_llm_solver.py \
 
 # PDDL3 fine-tuned model evaluated on PDDL2 testing set
 python3 script/evaluate_llm_solver.py \
-  --model sft_model/gpt_oss_20b/blocksworld/pddl3 \
+  --model /home/ubuntu/sft_models/gpt_oss_20b/blocksworld/pddl3 \
   --problems-dir blocksworld/all_problems3/testing \
   --domain-file blocksworld/domain3.pddl \
   --output blocksworld_all_testing_pddl3.json \

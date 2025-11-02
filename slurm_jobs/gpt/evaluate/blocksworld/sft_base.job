@@ -12,6 +12,6 @@ conda activate llmstl
 
 
 
-python3 script/evaluate_llm_solver.py --model sft_model/gpt_oss_20b/blocksworld/base  --problems-dir blocksworld/all_problems3/testing --domain-file blocksworld/domain3.pddl --max-problems 100 --output blocksworld_test_results.json  --results-dir planning_results/gpt_oss_20b/blocksworld/baseline
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/sft_models/gpt_oss_20b/blocksworld/base  --problems-dir blocksworld/all_problems3/testing --domain-file blocksworld/domain3.pddl --max-problems 100 --output blocksworld_test_results.json  --results-dir planning_results/gpt_oss_20b/blocksworld/baseline
 
 

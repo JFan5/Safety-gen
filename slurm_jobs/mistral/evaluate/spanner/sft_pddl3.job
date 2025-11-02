@@ -10,7 +10,7 @@
 
 conda activate llmstl
 
-python3 script/evaluate_llm_solver.py --model sft_model/mistral_7b/spanner/pddl3  --problems-dir spanner/all_problems3/testing --domain-file spanner/domain3.pddl --max-problems 100 --output spanner_test_results_pddl3.json  --results-dir planning_results/sft_mistral_7b/spanner/pddl3
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/sft_models/mistral_7b/spanner/pddl3  --problems-dir spanner/all_problems3/testing --domain-file spanner/domain3.pddl --max-problems 100 --output spanner_test_results_pddl3.json  --results-dir planning_results/sft_mistral_7b/spanner/pddl3
 
 
 

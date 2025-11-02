@@ -12,7 +12,7 @@ conda activate llmstl
 
 # PDDL2 fine-tuned model
 python3 script/evaluate_llm_solver.py \
-  --model sft_model/mistral_7b/rovers/pddl2 \
+  --model /home/ubuntu/sft_models/mistral_7b/rovers/pddl2 \
   --problems-dir rovers/all_problems3/testing \
   --domain-file rovers/domain3.pddl \
   --output rovers_all_testing_pddl2.json \
@@ -20,7 +20,7 @@ python3 script/evaluate_llm_solver.py \
 
 # PDDL3 fine-tuned model evaluated on PDDL2 testing set
 python3 script/evaluate_llm_solver.py \
-  --model sft_model/mistral_7b/rovers/pddl3 \
+  --model /home/ubuntu/sft_models/mistral_7b/rovers/pddl3 \
   --problems-dir rovers/all_problems3/testing \
   --domain-file rovers/domain3.pddl \
   --output rovers_all_testing_pddl3.json \
