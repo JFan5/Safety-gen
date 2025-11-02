@@ -1,0 +1,202 @@
+<DOMAIN>
+(:requirements :strips :typing :constraints)
+(:types rover waypoint store camera mode lander objective)
+
+(:predicates (at?x - rover?y - waypoint) 
+             (at_lander?x - lander?y - waypoint)
+             (can_traverse?r - rover?x - waypoint?y - waypoint)
+             (equipped_for_soil_analysis?r - rover)
+             (equipped_for_rock_analysis?r - rover)
+             (equipped_for_imaging?r - rover)
+             (empty?s - store)
+             (have_rock_analysis?r - rover?p - waypoint)
+             (have_soil_analysis?r - rover?p - waypoint)
+             (full?s - store)
+	     (calibrated?c - camera?r - rover) 
+	     (supports?c - camera?m - mode)
+             (available?r - rover)
+             (visible?w - waypoint?p - waypoint)
+             (have_image?r - rover?o - objective?m - mode)
+             (communicated_soil_data?w - waypoint)
+             (communicated_rock_data?w - waypoint)
+             (communicated_image_data?o - objective?m - mode)
+	     (at_soil_sample?w - waypoint)
+	     (at_rock_sample?w - waypoint)
+             (visible_from?o - objective?w - waypoint)
+	     (at_soil_sample?p - waypoint)(at_rock_sample?p-waypoint)(visible_from?o?p)(at?r?p)(at?r?p)
+	     (store_of?s - store?r - rover)(empty?s-store)(calibration_target?i - camera?o - objective)(supports?i?m - mode)(on_board?i?r)(channel_free?l - lander)(available?r)(channel_free?l))
+
+(:action navigate
+:parameters (?x - rover?y - waypoint?z - waypoint) 
+:precondition (and (can_traverse?x?y?z) (available?x) (at?x?y) 
+                (visible?y?z))
+:effect (and (not (at?x?y)) (at?x?z)))
+
+(:action sample_soil
+:parameters (?x - rover?s - store?p - waypoint)
+:precondition (and (at?x?p) (at_soil_sample?p) 
+		   (equipped_for_soil_analysis?x) (store_of?s?x) (empty?s))
+:effect (and (not (empty?s)) (full?s) (have_soil_analysis?x?p) 
+	     (not (at_soil_sample?p))))
+
+(:action sample_rock
+:parameters (?x - rover?s - store?p - waypoint)
+:precondition (and (at?x?p) (at_rock_sample?p) 
+	           (equipped_for_rock_analysis?x) (store_of?s?x)(empty?s))
+:effect (and (not (empty?s)) (full?s) (have_rock_analysis?x?p) 
+	     (not (at_rock_sample?p))))
+
+(:action drop
+:parameters (?x - rover?y - store)
+:precondition (and (store_of?y?x) (full?y))
+:effect (and (not (full?y)) (empty?y)))
+
+
+
+(:action calibrate
+ :parameters (?r - rover?i - camera?t - objective?w - waypoint)
+ :precondition (and (equipped_for_imaging?r) (calibration_target?i?t) (at?r?w)(visible_from?t?w)(on_board?i?r))
+ :effect (calibrated?i?r))
+
+(:action take_image
+ :parameters (?r - rover?p - waypoint?o - objective?i - camera?m - mode)
+ :precondition (and (calibrated?i?r) (on_board?i?r) (equipped_for_imaging?r)(supports?i?m) (visible_from?o?p)(at?r?p))
+ :effect (and (have_image?r?o?m)(not (calibrated?i?r))))
+
+(:action communicate_soil_data
+ :parameters (?r - rover?l - lander?p - waypoint?x - waypoint)
+ :precondition (and (at?r?x)(at_lander?l?y)(have_soil_analysis?r?p)(visible?x?y)(available?r)(channel_free?l))
+ :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_soil_data?p)(available?r)))
+
+(:action communicate_rock_data
+ :parameters (?r - rover?l - lander?p - waypoint?x - waypoint)
+ :precondition (and (at?r?x)(at_lander?l?y)(have_rock_analysis?r?p)(visible?x?y)(available?r)(channel_free?l))
+ :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_rock_data?p)(available?r)))
+
+(:action communicate_image_data
+ :parameters (?r - rover?l - lander?o - objective?m - mode?p - waypoint?w - waypoint)
+ :precondition (and (at?r?p)(at_lander?l?w)(have_image?r?o?m)(visible?p?w)(available?r)(channel_free?l))
+ :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_image_data?o?m?p)(available?r)))
+
+</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob20010) (:domain Rover)
+(:objects
+	general - lander
+	colour - mode
+	rover0 - rover
+	rover1 - rover
+	store0 - store
+	store1 - store
+	waypoint0 - waypoint
+	waypoint1 - waypoint
+	waypoint2 - waypoint
+	waypoint3 - waypoint
+	waypoint4 - waypoint
+	waypoint5 - waypoint
+	waypoint6 - waypoint
+	waypoint7 - waypoint
+	waypoint8 - waypoint
+	waypoint9 - waypoint
+	objective0 - objective
+	objective1 - objective
+	objective2 - objective
+	-camera0 - camera
+	-camera1 - camera
+	-camera2 - camera
+	-calibration_target0 - objective
+	-calibration_target1 - objective
+	-calibration_target2 - objective
+	-calibration_target3 - objective
+	-calibration_target4 - objective
+	-calibration_target5 - objective
+	-calibration_target6 - objective
+	-calibration_target7 - objective
+	-calibration_target8 - objective
+	-calibration_target9 - objective
+	-supports0 - mode
+	supports1 - mode
+	supports2 - mode
+	supports3 - mode
+	supports4 - mode
+	supports5 - mode
+	supports6 - mode
+	supports7 - mode
+	supports8 - mode
+	supports9 - mode
+	on_board0 - camera
+	on_board1 - camera
+	on_board2 - camera
+	on_board3 - camera
+	on_board4 - camera
+	on_board5 - camera
+	on_board6 - camera
+	on_board7 - camera
+	on_board8 - camera
+	on_board9 - camera
+	on_board10 - camera
+	on_board11 - camera
+	on_board12 - camera
+	on_board13 - camera
+	on_board14 - camera
+	on_board15 - camera
+	available0 - rover
+	available1 - rover
+	available2 - rover
+	available3 - rover
+	available4 - rover
+	available5 - rover
+	available6 - rover
+	available7 - rover
+	available8 - rover
+	available9 - rover
+	available10 - rover
+	available11 - rover
+	available12 - rover
+	available13 - rover
+	available14 - rover
+	available15 - rover
+	available16 - rover
+	available17 - rover
+	available18 - rover
+	available19 - rover
+	available20 - rover
+	available21 - rover
+	available22 - rover
+	available23 - rover
+	available24 - rover
+	available25 - rover
+	available26 - rover
+	available27 - rover
+	available28 - rover
+	available29 - rover
+	available30 - rover
+	available31 - rover
+	available32 - rover
+	available33 - rover
+	available34 - rover
+	available35 - rover
+	available36 - rover
+	available37 - rover
+	available38 - rover
+	available39 - rover
+	available40 - rover
+	available41 - rover
+	available42 - rover
+	available43 - rover
+	available44 - rover
+	available45 - rover
+	available46 - rover
+	available47 - rover
+	available48 - rover
+	available49 - rover
+	available50 - rover
+	available51 - rover
+	available52 - rover
+	available53 - rover
+	available54 - rover
+	available55 - rover
+	available56 - rover
+	available57 - rover
+	available58 - rover

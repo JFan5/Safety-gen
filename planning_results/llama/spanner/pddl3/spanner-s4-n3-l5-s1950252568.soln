@@ -1,0 +1,14 @@
+```python
+(walk shed location1)
+(pick spanner1 location1)
+(tighten_nut shed spanner1 nut1)
+(walk shed)
+(pick spanner2 location3)
+(tighten_nut shed spanner2 nut2)
+(walk shed)
+(pick spanner3 location2)
+(tighten_nut shed spanner3 nut3)
+(walk shed)
+(pick spanner4 location4)
+(tighten_nut shed spanner4 nut1)
+```

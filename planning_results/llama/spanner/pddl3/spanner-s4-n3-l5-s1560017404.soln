@@ -1,0 +1,53 @@
+from pyplanner import Planner, Symbols, Constraints
+
+# Define domain symbols
+domain_symbols = [
+    ("man", "spanner", "nut", "location", "shed", "gate"),
+    ("bob", "spanner1", "spanner2", "spanner3", "spanner4", "nut1", "nut2", "nut3", "location1", "location2", "location3", "location4", "location5"),
+    ("carryng", "useable", "loose", "tightened")
+]
+
+# Define problem symbols
+problem_symbols = [
+    ("bob", "spanner1", "spanner2", "spanner3", "spanner4", "nut1", "nut2", "nut3", "location1", "location2", "location3", "location4", "location5", "shed", "gate"),
+    ("at", "carryng", "useable", "loose", "tightened"),
+    ("link", "at", "carryng", "useable", "loose", "tightened"),
+    ("goal", "at", "tightened")
+]
+
+# Define action definitions
+actions = {
+    "walk": {
+        "parameters": ["start", "end", "m"],
+        "precondition": ["and", ["at", "m", "shed"], ["link", "shed", "start"]],
+        "effect": ["and", ["not", ["at", "m", "start"]], ["at", "m", "end"]]
+    },
+    "pickup_spanner": {
+        "parameters": ["l", "s", "m"],
+        "precondition": ["and", ["at", "m", "l"], ["at", "s", "l"]],
+        "effect": ["and", ["not", ["at", "s", "l"]], ["carryng", "m", "s"]]
+    },
+    "tighten_nut": {
+        "parameters": ["l", "s", "m", "n"],
+        "precondition": ["and", ["at", "m", "l"], ["at", "n", "l"], ["carryng", "m", "s"], ["useable", "s"], ["loose", "n"]],
+        "effect": ["and", ["not", ["loose", "n"]], ["not", ["useable", "s"]], ["tightened", "n"]]
+    }
+}
+
+# Define constraints
+constraints = [
+    # sometime-before constraint
+    {"type": "sometime-before", "p1": "tightened_nut1", "p2": "tightened_nut2"},
+    # at-most-once constraint
+    {"type": "at-most-once", "p1": "bob", "p2": "shed"}
+]
+
+# Create planner
+planner = Planner(domain_symbols, problem_symbols, actions, constraints)
+
+# Generate plan
+plan = planner.generate_plan()
+
+# Print plan
+for step in plan:
+    print(f"{step['action']} {step['objects']}")

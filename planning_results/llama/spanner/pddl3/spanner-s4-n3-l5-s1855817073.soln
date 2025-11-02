@@ -1,0 +1,141 @@
+import spanner_generator
+
+problem_name = "spanner-s4-n3-l5-s1855817073"
+spanner_generator.generate_spanner_problem(problem_name)
+
+domain = "<DOMAIN>"
+print(domain)
+
+problem = "<PROBLEM>"
+print(problem)
+
+available_objects = spanner_generator.get_available_objects(problem_name)
+constants = spanner_generator.get_constants(problem_name)
+
+objects = {}
+for obj in available_objects:
+    objects[obj] = spanner_generator.get_object_info(problem_name, obj)
+
+constraints = spanner_generator.get_constraints(problem_name)
+
+def validate_plan(state, plan):
+    for i in range(len(plan) - 1):
+        action = plan[i]
+        obj1 = action.args[0]
+        obj2 = action.args[1]
+        if not (at(obj1, state.get(obj1, [])) and at(obj2, state.get(obj2, [])) and link(state.get(obj1, [None])[0], state.get(obj2, [None])[0])):
+            return False
+        if action == pickup_spanner and (at(spanner, state.get(spanner, [])[0]) and at(m, state.get(spanner, [None])[1])):
+            return False
+        if action == tighten_nut and (at(nut, state.get(nut, [])[0]) and at(m, state.get(spanner, [None])[1]) and useable(spanner) and loose(nut)):
+            return False
+    return True
+
+def is_valid_state(state, goal):
+    for obj in objects.keys():
+        if obj!= bob and obj!= spanner and obj!= nut and obj!= location and obj!= shed and obj!= gate:
+            if at(obj, state.get(obj, [])):
+                if obj == bob and not (at(shed, state.get(location, []))):
+                    return False
+                if obj == spanner and not (at(gate, state.get(location, []))):
+                    return False
+                if obj == nut and not (at(gate, state.get(location, []))):
+                    return False
+                if obj == location and not (at(shed, state.get(location, [])) or at(gate, state.get(location, []))):
+                    return False
+                if obj == shed and not (at(bob, state.get(shed, []))):
+                    return False
+                if obj == gate and not (at(spanner, state.get(gate, [])) or at(nut, state.get(gate, []))):
+                    return False
+    for obj in constraints:
+        if not (sometime_before(obj, state.get(goal, [])) and at_most_once(at(bob, state.get(shed, [])))):
+            return False
+    return True
+
+def generate_plan(state, goal):
+    available_actions = []
+    for obj in objects.keys():
+        if obj!= bob and obj!= spanner and obj!= nut and obj!= location and obj!= shed and obj!= gate:
+            if at(obj, state.get(obj, [])):
+                if obj == bob:
+                    available_actions.append((pickup_spanner, obj, m))
+                if obj == spanner:
+                    available_actions.append((pickup_spanner, obj, m))
+                if obj == nut:
+                    available_actions.append((tighten_nut, obj, nut))
+                if obj == location:
+                    available_actions.append((walk, obj, bob))
+                if obj == shed:
+                    available_actions.append((walk, obj, bob))
+                if obj == gate:
+                    available_actions.append((walk, obj, bob))
+    if not available_actions:
+        return None
+    available_actions = [action for action in available_actions if is_valid_action(state, action)]
+    if not available_actions:
+        return None
+    best_action = random.choice(available_actions)
+    best_state = copy.deepcopy(state)
+    best_plan = [best_action]
+    while True:
+        new_state = copy.deepcopy(best_state)
+        new_action = available_actions.pop(random.randint(0, len(available_actions) - 1))
+        if not is_valid_state(new_state, goal) or not is_valid_action(new_state, new_action):
+            break
+        best_state = new_state
+        best_plan.append(new_action)
+    return best_plan
+
+def solve_problem():
+    global problem_name
+    spanner_generator.generate_spanner_problem(problem_name)
+    domain = "<DOMAIN>"
+    problem = "<PROBLEM>"
+    print(domain)
+    print(problem)
+    objects = spanner_generator.get_available_objects(problem_name)
+    constants = spanner_generator.get_constants(problem_name)
+    available_objects = [obj for obj in objects if obj not in constants]
+    objects = {obj: spanner_generator.get_object_info(problem_name, obj) for obj in objects}
+    constraints = spanner_generator.get_constraints(problem_name)
+    state = {}
+    for obj in objects.keys():
+        if obj!= bob and obj!= spanner and obj!= nut and obj!= location and obj!= shed and obj!= gate:
+            state[obj] = [spanner_generator.get_initial_location(obj)]
+        if obj == bob:
+            state[obj] = [spanner_generator.get_initial_location(obj)]
+        if obj == spanner:
+            state[obj] = [spanner_generator.get_initial_location(spanner)]
+        if obj == nut:
+            state[obj] = [spanner_generator.get_initial_location(nut)]
+        if obj == location:
+            state[obj] = [spanner_generator.get_initial_location(location)]
+        if obj == shed:
+            state[obj] = [spanner_generator.get_initial_location(shed)]
+        if obj == gate:
+            state[obj] = [spanner_generator.get_initial_location(gate)]
+    goal = spanner_generator.get_goal(problem_name)
+    if constraints:
+        goal = spanner_generator.get_goal_with_constraints(problem_name, constraints)
+    best_plan = generate_plan(state, goal)
+    if best_plan:
+        return best_plan
+    return None
+
+spanner_generator.generate_spanner_problem(problem_name)
+domain = spanner_generator.get_domain(problem_name)
+problem = spanner_generator.get_problem(problem_name)
+objects = spanner_generator.get_objects(problem_name)
+constants = spanner_generator.get_constants(problem_name)
+available_objects = [obj for obj in objects if obj not in constants]
+objects = {obj: spanner_generator.get_object_info(problem_name, obj) for obj in available_objects}
+constraints = spanner_generator.get_constraints(problem_name)
+state = spanner_generator.create_initial_state(available_objects, constants, objects, problem)
+goal = spanner_generator.get_goal(problem_name)
+if constraints:
+    goal = spanner_generator.get_goal_with_constraints(problem_name, constraints)
+best_plan = spanner_generator.generate_plan(state, goal)
+if best_plan:
+    spanner_generator.print_plan(best_plan)
+else:
+    print("NO-PLAN")

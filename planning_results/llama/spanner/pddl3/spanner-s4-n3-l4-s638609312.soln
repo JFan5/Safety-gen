@@ -1,0 +1,282 @@
+import (open)
+import (sys)
+from (range) import *
+from (re) import *
+from (datetime) import (
+    datetime,
+    timedelta
+)
+from (typing) import *
+from (math) import (
+    inf,
+    pi,
+    sqrt,
+    factorial,
+    isqrt,
+    ceil,
+    floor,
+    perm,
+    comb,
+    prod
+)
+from (collections) import (
+    (
+        defaultdict,
+        deque,
+        Counter,
+        OrderedDict,
+        namedtuple,
+        ChainMap,
+        WeakKeyDictionary
+    ),
+    (
+        list,
+        tuple,
+        set,
+        frozenset,
+        dict,
+        OrderedDict,
+        heapq
+    )
+)
+from (io) import (BytesIO, IOStr)
+from (os) import (
+    path,
+    curdir,
+    cwd,
+    getcwd,
+    mkdir,
+    exists,
+    remove,
+    system,
+    tempdir,
+    cut,
+    realpath,
+    expanduser,
+    copyfile,
+    copyfileobj,
+    link,
+    symlink,
+    renames
+)
+
+(
+    A,
+    B,
+    C,
+    directed_graph,
+    edge,
+    vertices,
+    weight
+) -> (type)
+class Edge(object):
+    def __init__(self,
+                 source: 'Vertex', dest: 'Vertex', w: int = 0) -> None:
+        self.source = source
+        self.dest = dest
+        self.w = w
+
+from (typing) import (
+    List,
+    Tuple,
+    Set,
+    Dict,
+    Optional,
+    Callable,
+    Collection,
+    Any,
+    Union,
+    Generic,
+    Iterable,
+    Iterator,
+    TypeVar,
+    GenericType,
+    Type,
+    cast,
+    ContainerEq,
+    ContainerOrd
+)
+X = TypeVar('X')
+Y = TypeVar('Y')
+C = TypeVar('C', bound=Collection[X])
+A = Tuple[Any,...]
+D = Dict[Any, Any]
+Q = Set[Any]
+V = Union[
+    int,
+    str,
+    float,
+    complex,
+    datetime,
+    timedelta,
+    None,
+    Any
+]
+AI = Iterable[Any]
+AI = Generic[AI, X]
+AO = Callable[[], X]
+AIO = Callable[[], A]
+AIo = Generic[AIO[X], Y]
+AOo = Generic[AO[X], Z], where Z = Collection[X]
+AIOo = Generic[AIOo[X], Z]
+B = int  # replace with int
+class StrEnum(RawEnum, Generic[str, int]):
+    @classmethod
+    def _generate(cls, **_kwargs) -> Dict[str, int]:
+        gen = super(StrEnum, cls)._generate(**_kwargs)
+        gen = {k: v for (k, v) in gen.items() if not k.startswith('__')}
+        gen['name'] = max(gen['name'], key=len)
+        return gen
+
+    @property
+    def name(self) -> str:
+        return self.value
+
+class Values(CollectionEq, Generic[X]):
+    def __init__(self, *args: X) -> None:
+        if len(args)!= 2:
+            raise ValueError('Values must be initialized with two values')
+        self._values = args
+
+    def __len__(self) -> int:
+        return len(self._values[0])
+
+    def __iter__(self) -> Iterator[X]:
+        return iter(self._values[0])
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Values):
+            return False
+        return self._values[0] == other._values[1]
+
+    def __hash__(self) -> int:
+        return hash((self._values[0], self._values[1]))
+
+    def __contains__(self, item: object) -> bool:
+        return item in self._values[0]
+
+    def __getitem__(self, item: object) -> X:
+        return self._values[0][self._values[1].__getitem__(item)]
+
+    def __setitem__(self, item: object, value: X) -> None:
+        self._values[0][self._values[1].__setitem__(item, value)] = value
+
+    def __delitem__(self, item: object) -> None:
+        del self._values[0][self._values[1].__delitem__(item)]
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __iter__(self) -> Iterator[X]:
+        return iter(self._values[0])
+
+    def __iter__(self) -> Iterator[X]:
+        return iter(self._values[0])
+
+    def __iter__(self) -> Iterator[X]:
+        return iter(self._values[0])
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({list(self)}, {tuple(self)})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'
+
+    def __repr__(self) -> str:
+        return f'Values({self._values[0]}, {self._values[1]})'

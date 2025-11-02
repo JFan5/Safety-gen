@@ -1,0 +1,42 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(:goal (and
+(communicated_soil_data waypoint2)
+(communicated_soil_data waypoint8)
+(communicated_soil_data waypoint3)
+(communicated_soil_data waypoint6)
+(communicated_rock_data waypoint7)
+(communicated_rock_data waypoint9)
+(communicated_rock_data waypoint1)
+(communicated_image_data objective1 high_res)
+(communicated_image_data objective2 high_res)
+))
+(:constraints
+(sometime-before (at rover0 waypoint11) (at rover0 waypoint5))
+)</PROBLEM>
+
+<OUTPUT>
+(navigate rover0 waypoint5 waypoint2)
+(navigate rover0 waypoint2 waypoint5)
+(navigate rover0 waypoint5 waypoint7)
+(navigate rover0 waypoint7 waypoint5)
+(sample_soil rover0 waypoint2)
+(sample_soil rover0 waypoint7)
+(at_soil_sample waypoint2)
+(at_soil_sample waypoint7)
+(drop rover0 waypoint7 waypoint8)
+(drop rover0 waypoint8 waypoint5)
+(sample_rock rover0 waypoint5 waypoint8)
+(sample_rock rover0 waypoint8 waypoint7)
+(at_rock_sample waypoint5)
+(at_rock_sample waypoint7)
+(calibrate camera0 rover0 waypoint5 waypoint7)
+(take_image rover0 waypoint7 objective3 low_res)
+(take_image rover0 waypoint5 objective1 high_res)
+(communicate_soil_data waypoint7)
+(communicate_rock_data waypoint5)
+(communicate_image_data objective1 high_res)
+(communicate_image_data objective2 high_res)
+)</OUTPUT>

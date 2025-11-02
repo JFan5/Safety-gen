@@ -1,0 +1,35 @@
+<DOMAIN>
+...</DOMAIN>
+<PROBLEM>
+(:goal (and
+(communicated_image_data objective3 low_res)
+(communicated_image_data objective2 colour)
+(communicated_image_data objective3 high_res)
+))
+(:constraints
+ (always (not (at rover1 waypoint8))))
+</PROBLEM>
+
+[
+ navigate
+ rover0 waypoint1 waypoint8 waypoint3
+ navigate
+ rover0 waypoint3 waypoint2 waypoint11
+
+ sample_soil
+ rover0 waypoint3 waypoint2 waypoint11 store_of rover1store empty
+ sample_rock
+ rover0 waypoint3 waypoint2 waypoint11 store_of rover1store full
+
+ drop
+ rover0 rover1store
+
+ calibrate
+ rover0 camera0 objective3 waypoint3 waypoint2
+
+ take_image
+ rover0 camera1 objective2 waypoint10 waypoint0
+
+ communicate_image_data
+ rover0 camera1 objective2 waypoint10 general
+](

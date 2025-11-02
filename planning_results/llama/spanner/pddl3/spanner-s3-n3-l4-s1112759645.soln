@@ -1,0 +1,126 @@
+[/console]
+available_objects = [
+    'bob','spanner1','spanner2','spanner3', 'nut1', 'nut2', 'nut3',
+    'location1', 'location2', 'location3', 'location4','shed', 'gate'
+]
+
+constraints = [
+    {'type':'sometime-before', 'p1': f'at({bob} shed)', 'p2': f'tightened(nut1)', 'constraint_name':'s3-n3-l4-s1112759645_s3_n3_l4_s1112759645_s3_n3_l4_s1112759645'},
+    {'type': 'at-most-once', 'p1': f'at({bob} shed)', 'constraint_name':'spanner-s3-n3-l4-s1112759645_s3_n3_l4_s1112759645'}
+]
+
+objects = [
+    {'name': bob, 'type':'man'},
+    {'name': shed, 'type': 'location'},
+    {'name': spanner1, 'type':'spanner'},
+    {'name': spanner2, 'type':'spanner'},
+    {'name': spanner3, 'type':'spanner'},
+    {'name': nut1, 'type': 'nut'},
+    {'name': nut2, 'type': 'nut'},
+    {'name': nut3, 'type': 'nut'},
+    {'name': location1, 'type': 'location'},
+    {'name': location2, 'type': 'location'},
+    {'name': location3, 'type': 'location'},
+    {'name': location4, 'type': 'location'},
+    {'name': gate, 'type': 'location'},
+    {'name': bob, 'type':'man', 'initial': True},
+    {'name': shed, 'type': 'location', 'initial': True},
+    {'name': spanner1, 'type':'spanner', 'initial': True},
+    {'name': spanner2, 'type':'spanner', 'initial': True},
+    {'name': spanner3, 'type':'spanner', 'initial': True},
+    {'name': nut1, 'type': 'nut', 'initial': True},
+    {'name': nut2, 'type': 'nut', 'initial': True},
+    {'name': nut3, 'type': 'nut', 'initial': True},
+    {'name': location1, 'type': 'location', 'initial': True},
+    {'name': location2, 'type': 'location', 'initial': True},
+    {'name': location3, 'type': 'location', 'initial': True},
+    {'name': location4, 'type': 'location', 'initial': True},
+    {'name': gate, 'type': 'location', 'initial': True},
+    {'name': nut1, 'type': 'nut', 'tightened': True},
+    {'name': nut2, 'type': 'nut', 'tightened': True},
+    {'name': nut3, 'type': 'nut', 'tightened': True},
+]
+
+actions = [
+    {'name': 'walk', 'parameters': ['start', 'end', 'obj'], 'precondition': [
+        {'type': 'and', 'ps': [
+            {'type': 'at', 'p1': f'at({obj} {start})'},
+            {'type': 'at', 'p1': f'at({obj} {end})'},
+            {'type': 'link', 'p1': f'link({start} {end})'}
+        ]},
+        {'type': 'forall', 'p1': f'forall (?obj locatable)', 
+         'p2':'sometime-before (at(?obj shed))'}
+    ]},
+    {'name': 'pickup_spanner', 'parameters': ['obj','spanner', 'obj2'], 'precondition': [
+        {'type': 'and', 'ps': [
+            {'type': 'at', 'p1': f'at({obj} {start})'},
+            {'type': 'at', 'p1': f'at({spanner} {start})'},
+            {'type': 'or', 'p1': 'not(useable(spanner))'},
+            {'type': 'or', 'p1': 'not(at(spanner {start}))'},
+            {'type': 'or', 'p1': 'not(at(spanner {end}))'},
+            {'type': 'and', 'ps': [
+                {'type': 'at', 'p1': f'at({obj2} {start})'},
+                {'type': 'or', 'p1': 'not(useable(spanner))'},
+                {'type': 'or', 'p1': 'not(at(spanner {start}))'},
+                {'type': 'or', 'p1': 'not(at(spanner {end}))'},
+                {'type': 'and', 'ps': [
+                    {'type': 'at', 'p1': f'at({obj2} {start})'},
+                    {'type': 'or', 'p1': 'not(carrying(obj))'},
+                    {'type': 'or', 'p1': 'not(at(obj {start}))'},
+                    {'type': 'or', 'p1': 'not(at(obj {end}))'}
+                ]}
+            ]}
+        ]}
+    ]},
+    {'name': 'tighten_nut', 'parameters': ['obj','spanner', 'nut', 'obj2'], 'precondition': [
+        {'type': 'and', 'ps': [
+            {'type': 'at', 'p1': f'at({obj} {start})'},
+            {'type': 'at', 'p1': f'at({nut} {start})'},
+            {'type': 'or', 'p1': 'not(useable(spanner))'},
+            {'type': 'or', 'p1': 'not(at(spanner {start}))'},
+            {'type': 'or', 'p1': 'not(at(spanner {end}))'},
+            {'type': 'and', 'ps': [
+                {'type': 'at', 'p1': f'at({obj2} {start})'},
+                {'type': 'or', 'p1': 'not(useable(spanner))'},
+                {'type': 'or', 'p1': 'not(at(spanner {start}))'},
+                {'type': 'or', 'p1': 'not(at(spanner {end}))'},
+                {'type': 'and', 'ps': [
+                    {'type': 'at', 'p1': f'at({nut} {start})'},
+                    {'type': 'or', 'p1': 'not(tightened(nut))'},
+                    {'type': 'or', 'p1': 'not(at(nut {start}))'},
+                    {'type': 'or', 'p1': 'not(at(nut {end}))'}
+                ]}
+            ]}
+        ]}
+    ]}
+]
+
+goal_constraints = []
+
+for constraint in constraints:
+    if constraint['type'] =='sometime-before':
+        p1_obj = constraint['p1']
+        p2_obj = constraint['p2']
+        if isinstance(p1_obj, str):
+            p1_obj = [obj for obj in objects if obj['name'] == p1_obj]
+            p2_obj = [obj for obj in objects if obj['name'] == p2_obj]
+        if isinstance(p1_obj[0]['type'], 'at') and isinstance(p2_obj[0]['type'], 'at'):
+            start = p1_obj[0]['p1'].split(' ')[1]
+            end = p2_obj[0]['p1'].split(' ')[1]
+            goal_constraints.append({'type':'sometime-before','start': f'at({start})', 'goal': f'at({end})'})
+        elif isinstance(p1_obj[0]['type'], 'at') and isinstance(p2_obj[0]['type'], 'or'):
+            start = p1_obj[0]['p1'].split(' ')[1]
+            goal_constraints.append({'type':'sometime-before','start': f'at({start})', 'goal': 'at(nut)'})
+        elif isinstance(p1_obj[0]['type'], 'or') and isinstance(p2_obj[0]['type'], 'at'):
+            goal_constraints.append({'type':'sometime-before','start': 'at(nut)', 'goal': f'at({p2_obj[0]["p1"].split(' ')[1]})'})
+        elif isinstance(p1_obj[0]['type'], 'or') and isinstance(p2_obj[0]['type'], 'or'):
+            goal_constraints.append({'type':'sometime-before','start': 'at(nut)', 'goal': f'at({p2_obj[0]["p1"].split(' ')[1]})'})
+    elif constraint['type'] == 'at-most-once':
+        p1_obj = constraint['p1']
+        if isinstance(p1_obj, str):
+            p1_obj = [obj for obj in objects if obj['name'] == p1_obj]
+        if isinstance(p1_obj[0]['type'], 'at'):
+            start = p1_obj[0]['p1'].split(' ')[1]
+            goal_constraints.append({'type': 'at-most-once','start': f'at({start})'})
+
+def validate_plan(obj, action, obj2, start, end, spanner, nut, obj3

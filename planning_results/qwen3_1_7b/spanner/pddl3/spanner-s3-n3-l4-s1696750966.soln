@@ -1,0 +1,5 @@
+(move bob shed spanner1)
+(pick spanner1 location1 location3)
+(tighten_nut spanner1 spanner1 bob nut1)
+(pick spanner1 location1 location3)
+(tighten_nut spanner1 spanner1 bob nut1)

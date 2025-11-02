@@ -1,0 +1,8 @@
+(<pickup_spanner "location1" "spanner1" "bob"))
+(<pickup_spanner "location1" "spanner2" "bob"))
+(<pickup_spanner "location1" "spanner3" "bob"))
+(<pickup_spanner "location1" "spanner4" "bob"))
+(<walk "location1" "location2" "bob"))
+(<tighten_nut "location2" "spanner1" "bob" "nut1"))
+(<tighten_nut "location2" "spanner2" "bob" "nut2"))
+(<tighten_nut "location2" "spanner3" "bob" "nut3"))

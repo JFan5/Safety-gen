@@ -1,0 +1,6 @@
+(move rover0 waypoint1 waypoint4)
+(sample_soil rover0 waypoint1)
+(drop rover0 rover0store)
+(move rover0 waypoint4 waypoint2)
+(sample_rock rover0 waypoint2)
+(drop rover0 rover0store)

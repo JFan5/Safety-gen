@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<output version="1.0.0">
+ <domain>roverprob31455</domain>
+ <problem>problem</problem>
+ <constraints>
+  <constraint>always (not (and (at rover0 waypoint3) (at rover1 waypoint3)))</constraint>
+  <constraint>always (not (and (at rover0 waypoint1) (at rover1 waypoint1)))</constraint>
+ </constraints>
+ <goal>
+  (and (communicated_soil_data waypoint8) (communicated_soil_data waypoint3) (communicated_soil_data waypoint6) (communicated_soil_data waypoint1) (communicated_rock_data waypoint11) (communicated_rock_data waypoint8) (communicated_image_data objective2 colour) (communicated_image_data objective0 colour))
+ </goal>
+ <plan>
+  <action_traverse rover0 waypoint3 waypoint0>
+   (at rover0 waypoint0)
+   (at rover0 waypoint3)
+  </action_traverse>
+  <action_traverse rover0 waypoint3 waypoint1>
+   (at rover0 waypoint1)
+   (at rover0 waypoint3)
+  </action_traverse>
+  <action_traverse rover0 waypoint3 waypoint11>
+   (at rover0 waypoint11)
+   (at rover0 waypoint3)
+  </action_traverse>
+  <action_sample_soil rover0 waypoint3 waypoint8>
+   (at_soil_sample waypoint8)
+   (at_soil_sample waypoint3)
+   (equipped_for_soil_analysis rover0)
+   (store_of rover0store)
+   (empty rover0store)
+  </action_sample_soil>
+  <action_drop rover0 rover0store waypoint3>
+   (at_soil_sample waypoint3)
+   (at_soil_sample waypoint8)
+   (equipped_for_soil_analysis rover0)
+   (store_of rover0)
+   (full rover0store)
+  </action_drop>
+ </plan>
+ <valid>
+  (communicated_soil_data waypoint8)
+  (communicated_soil_data waypoint3)
+  (communicated_soil_data waypoint6)
+  (communicated_soil_data waypoint1)
+  (communicated_rock_data waypoint11)
+  (communicated_rock_data waypoint8)
+  (communicated_image_data objective2 colour)
+  (communicated_image_data objective0 colour)
+ </valid>
+</output>

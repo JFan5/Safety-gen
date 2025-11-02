@@ -4,7 +4,7 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/evaluate_mistral_ferry_baseline_all_testing.o
+#$ -o job_outputs/evaluate/mistral/ferry/baseline_crc.o
 #$ -pe smp 8
 #$ -N evaluate_mistral_ferry_baseline_all_testing
 

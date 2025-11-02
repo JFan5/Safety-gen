@@ -1,0 +1,23 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(:goal...
+(communicated_soil_data waypoint9)
+(communicated_soil_data waypoint3)
+(communicated_image_data objective1 low_res)
+)
+(:constraints
+(always (not (at rover0 waypoint5)))
+)
+</PROBLEM>
+
+<PLAN>
+(navigate rover0 waypoint3 waypoint0)
+(navigate rover0 waypoint0 waypoint1)
+(sample_soil rover0 waypoint3)
+(drop rover0store waypoint3)
+(navigate rover0 waypoint0 waypoint7)
+(at_lander general waypoint7)
+ communicate_soil_data waypoint3 general)
+</PLAN>

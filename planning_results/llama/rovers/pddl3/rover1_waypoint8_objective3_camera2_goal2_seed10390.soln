@@ -1,0 +1,218 @@
+<DOMAIN>
+(define (domain roverprob10390) (:objects
+	general - Lander
+	colour high_res low_res - Mode
+	rover0 - Rover
+	rover0store - Store
+	waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 - Waypoint
+	camera0 camera1 - Camera
+	objective0 objective1 objective2 - Objective
+	)
+(:init
+	(visible waypoint0 waypoint2)
+	(visible waypoint2 waypoint0)
+	(visible waypoint0 waypoint6)
+	(visible waypoint6 waypoint0)
+	(visible waypoint1 waypoint0)
+	(visible waypoint0 waypoint1)
+	(visible waypoint1 waypoint7)
+	(visible waypoint7 waypoint1)
+	(visible waypoint2 waypoint1)
+	(visible waypoint1 waypoint2)
+	(visible waypoint2 waypoint6)
+	(visible waypoint6 waypoint2)
+	(visible waypoint3 waypoint0)
+	(visible waypoint0 waypoint3)
+	(visible waypoint3 waypoint5)
+	(visible waypoint5 waypoint3)
+	(visible waypoint4 waypoint0)
+	(visible waypoint0 waypoint4)
+	(visible waypoint4 waypoint2)
+	(visible waypoint2 waypoint4)
+	(visible waypoint4 waypoint3)
+	(visible waypoint3 waypoint4)
+	(visible waypoint4 waypoint5)
+	(visible waypoint5 waypoint4)
+	(visible waypoint4 waypoint6)
+	(visible waypoint6 waypoint4)
+	(visible waypoint4 waypoint7)
+	(visible waypoint7 waypoint4)
+	(visible waypoint5 waypoint1)
+	(visible waypoint1 waypoint5)
+	(visible waypoint5 waypoint7)
+	(visible waypoint7 waypoint5)
+	(visible waypoint7 waypoint3)
+	(visible waypoint3 waypoint7)
+	(visible waypoint7 waypoint6)
+	(visible waypoint6 waypoint7)
+	(at_soil_sample waypoint1)
+	(at_soil_sample waypoint3)
+	(at_rock_sample waypoint3)
+	(at_soil_sample waypoint4)
+	(at_soil_sample waypoint6)
+	(at_rock_sample waypoint6)
+	(at_soil_sample waypoint7)
+	(at_lander general waypoint0)
+	(channel_free general)
+	(at rover0 waypoint4)
+	(available rover0)
+	(store_of rover0store rover0)
+	(empty rover0store)
+	(equipped_for_soil_analysis rover0)
+	(equipped_for_rock_analysis rover0)
+	(equipped_for_imaging rover0)
+	(can_traverse rover0 waypoint4 waypoint0)
+	(can_traverse rover0 waypoint0 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint2)
+	(can_traverse rover0 waypoint2 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint3)
+	(can_traverse rover0 waypoint3 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint5)
+	(can_traverse rover0 waypoint5 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint6)
+	(can_traverse rover0 waypoint6 waypoint4)
+	(can_traverse rover0 waypoint4 waypoint7)
+	(can_traverse rover0 waypoint7 waypoint4)
+	(on_board camera0 rover0)
+	(calibration_target camera0 objective1)
+	(supports camera0 colour)
+	(supports camera0 high_res)
+	(visible_from objective0 waypoint2)
+	(visible_from objective0 waypoint4)
+	(visible_from objective0 waypoint5)
+	(visible_from objective0 waypoint7)
+	(visible_from objective1 waypoint0)
+	(visible_from objective1 waypoint1)
+	(visible_from objective1 waypoint5)
+	(visible_from objective1 waypoint7)
+	(visible_from objective2 waypoint4)
+	(visible_from objective2 waypoint6)
+)
+(:goal (and
+	(communicated_soil_data waypoint4)
+	(communicated_soil_data waypoint3)
+	(communicated_rock_data waypoint6)
+	(communicated_rock_data waypoint3)
+	(communicated_image_data objective2 high_res)
+	)
+)
+
+(:constraints
+	sometime-before (at rover0 waypoint4) (at rover0 waypoint7)
+)
+
+</PROBLEM>
+
+## Step 1: Plan for communicating soil data from waypoint4 to general
+We need to use the lander to communicate the soil data from waypoint4 to the general location.
+
+## Step 2: Plan for communicating rock data from waypoint6 to general
+We need to use the lander to communicate the rock data from waypoint6 to the general location.
+
+## Step 3: Plan for taking an image from objective2 at waypoint4
+We need to use the rover to take an image from objective2 at waypoint4.
+
+## Step 4: Plan for calibrating the camera
+We need to calibrate the camera to support the high_res mode.
+
+## Step 5: Plan for moving the rover from waypoint4 to waypoint0
+We need to move the rover from waypoint4 to waypoint0.
+
+## Step 6: Plan for moving the rover from waypoint0 to waypoint4
+We need to move the rover from waypoint0 to waypoint4.
+
+## Step 7: Plan for moving the rover from waypoint4 to waypoint5
+We need to move the rover from waypoint4 to waypoint5.
+
+## Step 8: Plan for moving the rover from waypoint5 to waypoint4
+We need to move the rover from waypoint5 to waypoint4.
+
+## Step 9: Plan for moving the rover from waypoint4 to waypoint6
+We need to move the rover from waypoint4 to waypoint6.
+
+## Step 10: Plan for moving the rover from waypoint6 to waypoint4
+We need to move the rover from waypoint6 to waypoint4.
+
+## Step 11: Plan for moving the rover from waypoint4 to waypoint7
+We need to move the rover from waypoint4 to waypoint7.
+
+## Step 12: Plan for moving the rover from waypoint7 to waypoint4
+We need to move the rover from waypoint7 to waypoint4.
+
+## Step 13: Plan for taking an image from objective2 at waypoint5
+We need to use the rover to take an image from objective2 at waypoint5.
+
+## Step 14: Plan for calibrating the camera
+We need to calibrate the camera to support the high_res mode.
+
+## Step 15: Plan for moving the rover from waypoint5 to waypoint4
+We need to move the rover from waypoint5 to waypoint4.
+
+## Step 16: Plan for moving the rover from waypoint4 to waypoint6
+We need to move the rover from waypoint4 to waypoint6.
+
+## Step 17: Plan for moving the rover from waypoint6 to waypoint4
+We need to move the rover from waypoint6 to waypoint4.
+
+## Step 18: Plan for moving the rover from waypoint4 to waypoint7
+We need to move the rover from waypoint4 to waypoint7.
+
+## Step 19: Plan for moving the rover from waypoint7 to waypoint4
+We need to move the rover from waypoint7 to waypoint4.
+
+## Step 20: Plan for taking an image from objective2 at waypoint6
+We need to use the rover to take an image from objective2 at waypoint6.
+
+## Step 21: Plan for calibrating the camera
+We need to calibrate the camera to support the high_res mode.
+
+## Step 22: Plan for moving the rover from waypoint6 to waypoint4
+We need to move the rover from waypoint6 to waypoint4.
+
+## Step 23: Plan for moving the rover from waypoint4 to waypoint7
+We need to move the rover from waypoint4 to waypoint7.
+
+## Step 24: Plan for moving the rover from waypoint7 to waypoint4
+We need to move the rover from waypoint7 to waypoint4.
+
+## Step 25: Plan for taking an image from objective2 at waypoint7
+We need to use the rover to take an image from objective2 at waypoint7.
+
+## Step 26: Plan for calibrating the camera
+We need to calibrate the camera to support the high_res mode.
+
+## Step 27: Plan for moving the rover from waypoint7 to waypoint4
+We need to move the rover from waypoint7 to waypoint4.
+
+## Step 28: Plan for taking an image from objective2 at waypoint4
+We need to use the rover to take an image from objective2 at waypoint4.
+
+## Step 29: Plan for calibrating the camera
+We need to calibrate the camera to support the high_res mode.
+
+## Step 30: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 31: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 32: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 33: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 34: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 35: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 36: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 37: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the general location.
+
+## Step 38: Plan for communicating the image from waypoint4 to general
+We need to use the lander to communicate the image from waypoint4 to the

@@ -1,0 +1,31 @@
+#:action walk 
+        :parameters (?start - location?end - location?m - man)
+        :precondition (and (at?m?start) 
+                           (link?start?end))
+        :effect (and (not (at?m?start)) (at?m?end)))
+
+#:action pickup_spanner 
+        :parameters (?l - location?s - spanner?m - man)
+        :precondition (and (at?m?l) 
+		      	   (at?s?l))
+        :effect (and (not (at?s?l))
+                     (carrying?m?s)))
+
+#:action tighten_nut 
+        :parameters (?l - location?s - spanner?m - man?n - nut)
+        :precondition (and (at?m?l) 
+		      	   (at?n?l)
+			   (carrying?m?s)
+			   (useable?s)
+			   (loose?n))
+        :effect (and (not (loose?n))(not (useable?s)) (tightened?n)))
+
+@available_in_location(location1, location2, location3, location4)
+@available_in_man(bob, spanner1, spanner2, spanner3, nut1, nut2)
+(defuniform
+  (once (at?m location1) (pickup spanner1 bob))
+  (once (at?m location2) (pickup spanner2 bob))
+  (once (at?m location4) (pickup spanner3 bob))
+  (once (at nut1 gate) (tighten nut1))
+  (once (at nut2 gate) (tighten nut2))
+)

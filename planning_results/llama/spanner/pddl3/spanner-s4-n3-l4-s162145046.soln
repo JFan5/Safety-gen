@@ -1,0 +1,61 @@
+import gi
+
+gi.require_version('PDDL3', '1.0')
+gi.require_version('PDDL2', '2.0')
+from PDDL3 import *
+from PDDL2 import *
+
+problem = Problem(name='spanner-s4-n3-l4-s162145046')
+problem.domain = Domain(name='spanner')
+problem.objects = ['bob','spanner1','spanner2','spanner3','spanner4', 'nut1', 'nut2', 'nut3', 'location1', 'location2', 'location3', 'location4','shed', 'gate']
+problem.constants = ['bob', 'location1', 'location2', 'location3', 'location4','shed', 'gate','spanner1','spanner2','spanner3','spanner4', 'nut1', 'nut2', 'nut3']
+problem.types = ['man','spanner', 'nut', 'location', 'gate']
+problem.preds = [
+    ('at', ['man', 'location'], 3), ('under', ['spanner', 'nut'], 2), 
+    ('carryable', ['man','spanner'], 3), ('movable', ['nut','spanner'], 2), 
+    ('at', ['nut', 'gate'], 3), ('useable', ['spanner'], 3), 
+    ('link', ['location', 'location'], 2), ('tightened', ['nut'], 2), 
+    ('under', ['spanner', 'nut'], 2), ('loose', ['nut'], 3), 
+    ('under', ['spanner','spanner'], 2), ('at', ['man','shed'], 3), 
+    ('under', [], 0), ('tightened', [], 0), ('tightened', ['nut1'], 0), 
+    ('tightened', ['nut2'], 0), ('tightened', ['nut3'], 0), 
+    ('at-most-once', ['man'], 0), ('sometime-before', ['nut1', 'nut2'], 0)
+    ]
+
+problem.action_names = ['walk', 'pickup_spanner', 'tighten_nut']
+problem.action_args = [
+    (['man', 'location','spanner'], 3, ['man', 'location','spanner'], 3),
+    (['man', 'location','spanner', 'nut','spanner'], 4, [], 0),
+    (['man', 'location','spanner', 'nut','spanner', 'nut'], 4, [], 0)
+]
+
+solution = Plan()
+
+goal = AndConstraint(
+    OrConstraint(
+        ExistsConstraint(['man'], ['at', ['man','shed'], 0]),
+        ExistsConstraint([], ['under', [], 0])
+    ),
+    ImpliesConstraint(
+        AndConstraint(
+            ExistsConstraint(['nut'], ['at', ['nut', 'gate'], 0]),
+            AndConstraint(
+                ExistsConstraint(['spanner'], ['at', ['spanner1', 'location2'], 0]),
+                ExistsConstraint(['spanner'], ['at', ['spanner2', 'location3'], 0]),
+                ExistsConstraint(['spanner'], ['at', ['spanner3', 'location4'], 0])
+            )
+        ),
+        AndConstraint(
+            ExistsConstraint(['nut'], ['tightened', ['nut1'], 0]),
+            ExistsConstraint(['nut'], ['tightened', ['nut2'], 0]),
+            ExistsConstraint(['nut'], ['tightened', ['nut3'], 0])
+        )
+    )
+)
+
+for action in problem.action_names:
+    action_obj = Action(name=action, args=problem.action_args[action])
+    action_obj.precondition = goal
+    solution.append(action_obj)
+
+print(solution)

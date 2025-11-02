@@ -1,0 +1,16 @@
+Assassinating Mary Poppins and the spanner nut 4-n3-l5
+=================================================================
+( At every spanner location 
+  (walk bob spanner1 spanner2 spanner3 spanner4)
+  (at spanner1 spanner3)
+  (pickup spanner spanner1 spanner2 spanner3 spanner4)
+)( At every nut location 
+  (tighten nut nut1 nut2 nut3)
+  (at nut1 nut3)
+  (pickup nut nut1 nut2 nut3)
+)( At every shed gate location 
+  (at shed gate)
+  (tighten nut1 nut2 nut3)
+  (at bob)
+  (walk bob shed gate)
+  (at shed gate nut1 nut2 nut3)

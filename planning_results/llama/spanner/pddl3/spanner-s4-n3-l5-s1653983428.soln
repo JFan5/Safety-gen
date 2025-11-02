@@ -1,0 +1,216 @@
+import spanner_generator
+
+problem_name = "spanner-s4-n3-l5-s1653983428"
+spanner_generator.generate_spanner_problem(problem_name)
+
+domain = "<DOMAIN>"
+print(domain)
+print()
+
+problem = "<PROBLEM>"
+print(problem)
+print()
+
+spanner_generator.generate_spanner_problem(problem_name, domain=domain, problem=problem)
+
+rules = """
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- No blank lines at the start or end; no trailing spaces; use a single space between tokens.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output. Remember: only lines matching the regex. No extra text of any kind.
+"""
+rules = """
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- No blank lines at the start or end; no trailing spaces; use a single space between tokens.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output. Remember: only lines matching the regex. No extra text of any kind.
+"""
+validation_rules = """
+1) Only use available symbols:
+   - objects declared under PROBLEM :objects, and
+   - constants declared under DOMAIN/PROBLEM :constants (if any).
+   Do not invent new objects or predicates. Respect :typing; each action argument must match its declared type.
+
+2) Constraints:
+   - If the PROBLEM includes PDDL3/PDDL 3.0 constraints (e.g., under :constraints or equivalent), EVERY such constraint MUST be satisfied.
+   - If no constraints are provided in the PROBLEM, solve as a goal-directed PDDL2 task.
+
+3) Plan form:
+   - Produce a **sequential (totally-ordered), grounded** plan: no variables, no timestamps, no durations.
+
+4) Internal validation before emitting (do not include reasoning in the output):
+   - At each step, all action preconditions hold in the current state.
+   - Never violate invariants or safety constraints implied by DOMAIN/PROBLEM.
+   - If constraints exist in PROBLEM, ensure the plan satisfies all of them.
+
+## Output Requirements
+- Return **ONLY** the plan steps, one per line.
+- Each line must be exactly: `(<action-name> <obj1> <obj2>...)`
+- Use action and object names **exactly** as written in the domain/problem (preserve original spelling/casing, including hyphens/underscores).
+- No numbering, timestamps, costs, comments, headers, code fences, or extra text.
+- No blank lines at the start or end; no trailing spaces; use a single space between tokens.
+- If the initial state already satisfies all goals and all constraints (if any), output **nothing** (i.e., zero lines).
+- If the task is unsatisfiable given the DOMAIN and PROBLEM (including any constraints), output **exactly one** line: `(NO-PLAN)`
+
+## Examples
+Bad:
+- Plan:
+- Here is the plan:
+- (move a b)  (two actions on one line)
+- (move a) extra
+
+Good:
+(move a b)
+(pick a c)
+(drop a d)
+
+Now produce the final output. Remember: only lines matching the regex. No extra text of any kind.
+"""
+
+domain_objects = [
+    "bob",
+    "spanner1",
+    "spanner2",
+    "spanner3",
+    "spanner4",
+    "nut1",
+    "nut2",
+    "nut3",
+    "location1",
+    "location2",
+    "location3",
+    "location4",
+    "location5",
+    "shed",
+    "gate"
+]
+
+problem_objects = [
+    "bob",
+    "spanner1",
+    "spanner2",
+    "spanner3",
+    "spanner4",
+    "nut1",
+    "nut2",
+    "nut3",
+    "location1",
+    "location2",
+    "location3",
+    "location4",
+    "location5",
+    "shed",
+    "gate"
+]
+
+constants = []
+constraints = None
+
+try:
+    with open("spanner-generator/spanner-generator.py", "r") as f:
+        exec(f.read(), {"problem_name": problem_name}, constants)
+    with open(f"spanner-generator/spanner-{problem_name}.pddl", "r") as f:
+        exec(f.read(), {"domain": domain, "problem": problem}, constants)
+    with open(f"spanner-generator/spanner-{problem_name}-constraints.pddl", "r") as f:
+        exec(f.read(), {"constraints": constraints}, constants)
+except FileNotFoundError:
+    print("spanner-generator/spanner-generator.py and spanner-generator/spanner-<problem-name>.pddl must exist.")
+    exit(1)
+
+available_symbols = []
+for obj in domain_objects + problem_objects:
+    if obj not in constants["objects"] and obj not in constants["constants"]:
+        available_symbols.append(obj)
+
+if constraints is None:
+    print("spanner-generator/spanner-<problem-name>.pddl must contain constraints.")
+    exit(1)
+
+if constraints is not None and len(constraints) > 0 and not isinstance(constraints, list):
+    print("spanner-generator/spanner-<problem-name>-constraints.pddl must contain a list of constraints.")
+    exit(1)
+
+for constraint in constraints:
+    if not isinstance(constraint, str):
+        print("spanner-generator/spanner-<problem-name>-constraints.pddl must contain only strings.")
+        exit(1)
+
+if constraints is not None and len(constraints) > 0:
+    for constraint in constraints:
+        try:
+            if not constraint.startswith("#"):
+                raise ValueError(f"spanner-generator/spanner-<problem-name>-constraints.pddl must start with '#' for each constraint.")
+            constraint = constraint[1:]
+        except IndexError:
+            print("spanner-generator/spanner-<problem-name>-constraints.pddl must contain at least one constraint.")
+            exit(1

@@ -1,0 +1,66 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob229) (:domain Rover)
+...
+(:goal (and
+(communicated_soil_data waypoint2)
+(communicated_soil_data waypoint5)
+(communicated_rock_data waypoint3)
+(communicated_image_data objective1 high_res)
+))
+(:constraints
+(sometime-before (at rover0 waypoint4) (at rover0 waypoint2))
+)
+
+</PROBLEM>
+
+## Planning Rules
+...
+
+## Output Requirements
+...
+
+Producing the plan for the given problem:
+
+ navigate rover0 waypoint2 waypoint4
+ sample_soil rover0 waypoint4 rover0store
+ drop rover0store rover0
+ navigate rover0 waypoint4 waypoint0
+ calibrate rover0 camera0 objective1 waypoint0
+ take_image rover0 waypoint0 camera0 high_res
+ communicate_image_data objective1 high_res waypoint0 waypoint2
+ navigate rover0 waypoint2 waypoint5
+ sample_soil rover0 waypoint5 rover0store
+ drop rover0store rover0
+ navigate rover0 waypoint5 waypoint0
+ calibrate rover0 camera0 objective1 waypoint0
+ take_image rover0 waypoint0 camera0 low_res
+ communicate_image_data objective1 low_res waypoint0 waypoint5
+ navigate rover0 waypoint5 waypoint4
+ sample_soil rover0 waypoint4 rover0store
+ drop rover0store rover0
+ communicate_soil_data waypoint4 rover0 waypoint5
+
+Final plan:
+ navigate rover0 waypoint2 waypoint4
+ sample_soil rover0 waypoint4 rover0store
+ drop rover0store rover0
+ navigate rover0 waypoint4 waypoint0
+ calibrate rover0 camera0 objective1 waypoint0
+ take_image rover0 waypoint0 camera0 high_res
+ communicate_image_data objective1 high_res waypoint0 waypoint2
+ navigate rover0 waypoint2 waypoint5
+ sample_soil rover0 waypoint5 rover0store
+ drop rover0store rover0
+ navigate rover0 waypoint5 waypoint0
+ calibrate rover0 camera0 objective1 waypoint0
+ take_image rover0 waypoint0 camera0 low_res
+ communicate_image_data objective1 low_res waypoint0 waypoint5
+ navigate rover0 waypoint5 waypoint4
+ sample_soil rover0 waypoint4 rover0store
+ drop rover0store rover0
+ communicate_soil_data waypoint4 rover0 waypoint5
+
+The final answer is:

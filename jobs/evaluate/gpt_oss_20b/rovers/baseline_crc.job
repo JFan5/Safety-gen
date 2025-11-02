@@ -4,7 +4,7 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/evaluate_gpt_oss_20b_rovers_baseline_all_testing.o
+#$ -o job_outputs/evaluate/gpt_oss_20b/rovers/baseline_crc.o
 #$ -pe smp 28
 #$ -N evaluate_gpt_oss_20b_rovers_baseline_all_testing
 

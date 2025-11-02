@@ -1,0 +1,132 @@
+[/console]
+available_objects = [
+    'bob','spanner1','spanner2','spanner3', 'nut1', 'nut2', 'nut3',
+    'location1', 'location2', 'location3', 'location4','shed', 'gate'
+]
+
+constraints = [
+    {'type':'sometime-before', 'p1': f'at({bob} shed)', 'p2': f'tightened(nut1)'},
+    {'type': 'at-most-once', 'p1': f'at({bob} shed)'}
+]
+
+available_actions = {
+    'bob': ['walk', 'pickup_spanner', 'tighten_nut'],
+   'shed': ['link', 'unlock'],
+    'location1': ['link', 'unlock'],
+    'location2': ['link', 'unlock'],
+    'location3': ['link', 'unlock'],
+    'location4': ['link', 'unlock'],
+   'spanner1': ['pickup_spanner'],
+   'spanner2': ['pickup_spanner'],
+   'spanner3': ['pickup_spanner'],
+    'nut1': ['tighten_nut'],
+    'nut2': ['tighten_nut'],
+    'nut3': ['tighten_nut'],
+    'gate': ['unlock']
+}
+
+action_requirements = {
+    'walk': {'precondition': ['at(bob)', 'link(shed', 'location1)']},
+    'pickup_spanner': {'precondition': ['at(bob)', 'at(spanner1', 'location1)', 'at(spanner2', 'location2)', 'at(spanner3', 'location2)']},
+    'tighten_nut': {'precondition': ['at(bob)', 'at(nut1', 'gate)', 'at(nut2', 'gate)', 'at(nut3', 'gate)', 'at(spanner1', 'location1)', 'useable(spanner1)']}
+}
+
+def validate_plan(plan, state):
+    for action in plan:
+        obj1, obj2 = action.split()
+        obj1 = obj1.strip()
+        obj2 = obj2.strip()
+        if obj1 in available_objects and obj2 in available_objects:
+            if obj1 == obj2:
+                raise Exception(f"Cannot perform action on object itself: {action}")
+            if obj1 in available_objects and obj2 in available_objects:
+                if (obj1 == 'bob' and obj2 in ['shed', 'gate']) or (obj2 == 'bob' and obj1 in ['shed', 'gate']):
+                    raise Exception(f"Cannot move {obj1} to {obj2}: at_most_once constraint")
+                if obj1 in ['shed', 'gate'] and obj2 in available_objects:
+                    if action == 'link':
+                        if obj1 =='shed' and obj2 == 'location1' and not state['shed_link']:
+                            raise Exception(f"Cannot link shed to location1: shed_link constraint")
+                        if obj1 == 'gate' and obj2 == 'location1' and not state['gate_link']:
+                            raise Exception(f"Cannot link gate to location1: gate_link constraint")
+                        if obj1 =='shed' and obj2 == 'gate' and not state['shed_gate_link']:
+                            raise Exception(f"Cannot link shed to gate: shed_gate_link constraint")
+                    if obj2 in ['shed', 'gate'] and obj1 in available_objects:
+                        if action == 'unlock':
+                            if obj2 =='shed' and not state['shed_unlocked']:
+                                raise Exception(f"Cannot unlock shed: shed_unlocked constraint")
+                            if obj2 == 'gate' and not state['gate_unlocked']:
+                                raise Exception(f"Cannot unlock gate: gate_unlocked constraint")
+                        if obj1 =='shed' and obj2 == 'gate':
+                            raise Exception(f"Cannot link shed to gate: at_most_once constraint")
+                if obj1 in available_objects and obj2 in available_objects:
+                    if action == 'pickup_spanner':
+                        if obj1 == obj2:
+                            raise Exception(f"Cannot pick spanner from spanner: pickup_spanner constraint")
+                    if obj1 == 'nut1' and obj2 == 'nut2' and obj1!= obj2:
+                        raise Exception(f"Cannot tighten spanner: tighten_nut_constraint")
+                    if obj1 == 'nut1' and obj2 == 'nut3' and obj1!= obj2:
+                        raise Exception(f"Cannot tighten spanner: tighten_nut_constraint")
+                    if obj1 == 'nut2' and obj2 == 'nut3' and obj1!= obj2:
+                        raise Exception(f"Cannot tighten spanner: tighten_nut_constraint")
+                    if obj1 == 'nut1' and obj2 == 'nut2' and obj1 == obj2:
+                        if not constraints:
+                            raise Exception(f"No constraints provided for tightening spanner: tighten_nut_constraint")
+                        for constraint in constraints:
+                            if'sometime-before' in constraint['type']:
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)' and constraint['p2'].split()[0] == 'at(nut2, gate)':
+                                    raise Exception(f"Cannot tighten spanner: sometime-before constraint")
+                            if constraint['type'] == 'at-most-once':
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)':
+                                    raise Exception(f"Cannot tighten spanner: at_most_once constraint")
+                    if obj1 == 'nut1' and obj2 == 'nut2' and obj1 == obj2:
+                        if not constraints:
+                            raise Exception(f"No constraints provided for tightening spanner: tighten_nut_constraint")
+                        for constraint in constraints:
+                            if'sometime-before' in constraint['type']:
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)' and constraint['p2'].split()[0] == 'at(nut2, gate)':
+                                    raise Exception(f"Cannot tighten spanner: sometime-before constraint")
+                            if constraint['type'] == 'at-most-once':
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)':
+                                    raise Exception(f"Cannot tighten spanner: at_most_once constraint")
+                    if obj1 == 'nut1' and obj2 == 'nut2' and obj1!= obj2:
+                        if not constraints:
+                            raise Exception(f"No constraints provided for tightening spanner: tighten_nut_constraint")
+                        for constraint in constraints:
+                            if'sometime-before' in constraint['type']:
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)' and constraint['p2'].split()[0] == 'at(nut2, gate)':
+                                    raise Exception(f"Cannot tighten spanner: sometime-before constraint")
+                            if constraint['type'] == 'at-most-once':
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)':
+                                    raise Exception(f"Cannot tighten spanner: at_most_once constraint")
+                    if obj1 == 'nut2' and obj2 == 'nut3' and obj1!= obj2:
+                        if not constraints:
+                            raise Exception(f"No constraints provided for tightening spanner: tighten_nut_constraint")
+                        for constraint in constraints:
+                            if'sometime-before' in constraint['type']:
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)' and constraint['p2'].split()[0] == 'at(nut2, gate)':
+                                    raise Exception(f"Cannot tighten spanner: sometime-before constraint")
+                            if constraint['type'] == 'at-most-once':
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)':
+                                    raise Exception(f"Cannot tighten spanner: at_most_once constraint")
+                    if obj1 == 'nut2' and obj2 == 'nut3' and obj1 == obj2:
+                        if not constraints:
+                            raise Exception(f"No constraints provided for tightening spanner: tighten_nut_constraint")
+                        for constraint in constraints:
+                            if'sometime-before' in constraint['type']:
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)' and constraint['p2'].split()[0] == 'at(nut2, gate)':
+                                    raise Exception(f"Cannot tighten spanner: sometime-before constraint")
+                            if constraint['type'] == 'at-most-once':
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)':
+                                    raise Exception(f"Cannot tighten spanner: at_most_once constraint")
+                    if obj1 == 'nut2' and obj2 == 'nut3' and obj1!= obj2:
+                        if not constraints:
+                            raise Exception(f"No constraints provided for tightening spanner: tighten_nut_constraint")
+                        for constraint in constraints:
+                            if'sometime-before' in constraint['type']:
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)' and constraint['p2'].split()[0] == 'at(nut2, gate)':
+                                    raise Exception(f"Cannot tighten spanner: sometime-before constraint")
+                            if constraint['type'] == 'at-most-once':
+                                if constraint['p1'].split()[0] == 'at(nut1, gate)':
+                                    raise Exception(f"Cannot tighten spanner: at_most_once constraint")
+                if obj1!= obj2:
+                    if action == 'pickup_spanner':

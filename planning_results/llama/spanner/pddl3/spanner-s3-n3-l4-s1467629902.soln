@@ -1,0 +1,24 @@
+import (open)
+import (re)
+from (range) import *
+from (pddlvis2.gen.planning.solvers.strips.reactive.reactive_solver import ReactiveSolver) import  # NOSONE
+from (pddlvis2.gen.planning.solvers.strips.reactive.reactive_planner import ReactivePlanner) import  # NOSONE
+from (pddlvis2.gen.planning.solvers.strips.reactive.reactive_producer import ReactiveProducer) import  # NOSONE
+
+# Produce the final output.
+problem_name = "spanner-s3-n3-l4-s1467629902"
+producer = ReactiveProducer(problem_name=problem_name, domain_name="spanner", constraints=None, template_file=None, seed=1467629902)
+solver = ReactiveSolver(proproblem=producer.proproblem, solver_name="spanner-s3-n3-l4-s1467629902-solver", domain_name="spanner", constraints=None, template_file=None, seed=1467629902)
+plan_generator = ReactivePlanner(proproblem=producer.proproblem, planner_name="spanner-s3-n3-l4-s1467629902-planner", domain_name="spanner", constraints=None, template_file=None, seed=1467629902)
+
+open_file = open(f"spanner-s3-n3-l4-s1467629902.input", "w+")
+producer.produce(open_file)
+open_file.close()
+
+open_file = open(f"spanner-s3-n3-l4-s1467629902.valid", "w+")
+solver.solve(open_file)
+open_file.close()
+
+open_file = open(f"spanner-s3-n3-l4-s1467629902.plan", "w+")
+plan_generator.generate(open_file)
+open_file.close()

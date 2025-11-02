@@ -1,0 +1,9 @@
+<plan>
+(unstack b1 b3)
+(unstack b3 b2)
+(putdown b3 b2)
+(unstack b1 b3)
+(putdown b1 b2)
+(pickup b1)
+(stack b1 b3)
+</plan>

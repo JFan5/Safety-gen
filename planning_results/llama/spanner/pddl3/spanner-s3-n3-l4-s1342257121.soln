@@ -1,0 +1,34 @@
+<action-pickup-spanner>
+  (at bob shed)
+  (at spanner1 location4)
+  (at bob location1)
+  (pickup spanner1 bob location1)
+</action-pickup-spanner>
+<action-pickup-nut>
+  (at bob location1)
+  (at nut1 gate)
+  (at bob location1)
+  (pickup nut1 bob location1)
+</action-pickup-nut>
+<action-walk>
+  (at bob location1)
+  (at nut1 location1)
+  (walk bob location2)
+</action-walk>
+<action-pickup-nut>
+  (at bob location2)
+  (at nut2 gate)
+  (at bob location2)
+  (pickup nut2 bob location2)
+</action-pickup-nut>
+<action-walk>
+  (at bob location2)
+  (at nut2 location2)
+  (walk bob location3)
+</action-walk>
+<action-tighten-nut>
+  (at bob location3)
+  (at spanner3 location4)
+  (at bob location3)
+  (tighten nut2 bob location3)
+</action-tighten-nut>

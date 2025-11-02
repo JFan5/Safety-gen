@@ -1,0 +1,5 @@
+(move bob shed)
+(pickup_spanner ?bob location3 spanner1)
+(tighten_nut ?bob location3 spanner1 nut1)
+(pickup_spanner ?bob location3 spanner2)
+(tighten_nut ?bob location3 spanner2 nut2)

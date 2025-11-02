@@ -1,0 +1,7 @@
+(walk bob shed spanner1)
+(walk bob spanner1 spanner2)
+(walk bob spanner2 nut1)
+(pickup_spanner spanner4 bob)
+(tighten_nut nut3 bob)
+(walk bob nut3 nut2)
+(tighten_nut nut2 bob)

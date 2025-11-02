@@ -1,0 +1,24 @@
+import spanner_generator
+
+problem_name = "spanner-s3-n3-l4-s50432004"
+
+gen = spanner_generator.spanner_generator(problem_name)
+location1, location2, location3, location4, shed, gate, bob, spanner1, spanner2, spanner3, nut1, nut2, nut3 = gen.generate_objects()
+init = gen.generate_init()
+goal = gen.generate_goal()
+constraints = gen.generate_constraints()
+
+gen.generate_plan(init, goal, constraints)
+
+# Validate each step before emitting
+valid_steps = []
+for step in gen.plan:
+    if gen.validate_step(step, gen.state, init, goal, constraints):
+        valid_steps.append(step)
+
+# Emit only valid steps
+for step in valid_steps:
+    action_name = step[0].name
+    obj1 = step[1].name
+    obj2 = step[2].name
+    print(f"{action_name} {obj1} {obj2}")

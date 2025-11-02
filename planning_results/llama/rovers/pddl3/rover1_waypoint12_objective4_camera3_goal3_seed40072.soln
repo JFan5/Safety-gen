@@ -1,0 +1,43 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob40072) (:domain Rover)
+...
+(:goal (and
+(communicated_rock_data waypoint2)
+(communicated_rock_data waypoint9)
+(communicated_rock_data waypoint5)
+(communicated_rock_data waypoint6)
+(communicated_image_data objective1 low_res)
+(communicated_image_data objective3 low_res)
+(communicated_image_data objective2 low_res)
+))
+...
+
+(:constraints
+(sometime-before (at rover0 waypoint7) (at rover0 waypoint0))
+)
+
+</PROBLEM>
+
+## Planning Rules
+...
+
+## Output Requirements
+...
+
+## Examples
+...
+
+Now, produce the final output. Remember: only lines matching the regex. No extra text of any kind.
+```url
+(navigate rover0 waypoint2 waypoint9)
+(navigate rover0 waypoint9 waypoint5)
+(navigate rover0 waypoint5 waypoint6)
+(take_image rover0 waypoint6 objective3)
+(communicate_image_data waypoint6 objective3 rover0)
+(communicate_rock_data waypoint5 rover0 waypoint2)
+(communicate_rock_data waypoint9 rover0 waypoint5)
+(communicate_rock_data waypoint2 rover0 waypoint9)
+```

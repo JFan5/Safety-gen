@@ -1,0 +1,60 @@
+<DOMAIN>
+...</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob286) (:domain Rover)
+...
+(:goal (and
+(communicated_soil_data waypoint3)
+(communicated_soil_data waypoint4)
+(communicated_rock_data waypoint4)
+(communicated_image_data objective1 high_res)
+))
+(:constraints
+(sometime-before (at rover0 waypoint5) (at rover0 waypoint4))
+)
+
+</PROBLEM>
+
+## Planning Rules
+...
+
+## Output Requirements
+...
+
+Producing the plan for the given problem:
+
+1. (sample_soil rover0 waypoint3)
+2. (sample_rock rover0 waypoint4)
+3. (drop rover0 waypoint4)
+4. (navigate rover0 waypoint4 waypoint0)
+5. (navigate rover0 waypoint0 waypoint4)
+6. (navigate rover0 waypoint4 waypoint1)
+7. (navigate rover0 waypoint1 waypoint4)
+8. (navigate rover0 waypoint4 waypoint2)
+9. (navigate rover0 waypoint2 waypoint4)
+10. (navigate rover0 waypoint4 waypoint5)
+11. (navigate rover0 waypoint5 waypoint4)
+12. (navigate rover0 waypoint2 waypoint3)
+13. (calibrate camera0 rover0)
+14. (take_image rover0 waypoint2 objective1 high_res)
+15. (communicate_image_data objective1 high_res waypoint0)
+
+Final plan:
+1. (sample_soil rover0 waypoint3)
+2. (sample_rock rover0 waypoint4)
+3. (drop rover0 waypoint4)
+4. (navigate rover0 waypoint4 waypoint0)
+5. (navigate rover0 waypoint0 waypoint4)
+6. (navigate rover0 waypoint4 waypoint1)
+7. (navigate rover0 waypoint1 waypoint4)
+8. (navigate rover0 waypoint4 waypoint2)
+9. (navigate rover0 waypoint2 waypoint4)
+10. (navigate rover0 waypoint4 waypoint5)
+11. (navigate rover0 waypoint5 waypoint4)
+12. (navigate rover0 waypoint2 waypoint3)
+13. (calibrate camera0 rover0)
+14. (take_image rover0 waypoint0 objective1 high_res)
+15. (communicate_image_data objective1 high_res waypoint0)
+
+The final answer is:

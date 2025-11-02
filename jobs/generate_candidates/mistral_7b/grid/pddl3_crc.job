@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/generate_candidates/mistral_7b/grid/pddl3_crc.o
+#$ -pe smp 28         # Request 28 CPU cores to match Slurm configuration
+#$ -N generate_candidates_mistral_7b_grid_pddl3
+
+set -euo pipefail
+
+conda activate llmstl
+
+SCENARIO="grid"
+VARIANT="pddl3"
+
+mkdir -p "/groups/fkong/jfan5/data/dpo/mistral_7b/grid/pddl3"
+
+python3 script/generate_score_candidate.py \
+  --model "/groups/fkong/jfan5/sft_models/mistral_7b/grid/pddl3" \
+  --family mistral \
+  --domain-file "grid/domain3.pddl" \
+  --problems-dir "grid/all_problems3/training" \
+  --prompt-template "prompt.txt" \
+  --out "/groups/fkong/jfan5/data/dpo/mistral_7b/grid/pddl3/scored.jsonl"
+
+echo "${SCENARIO} (${VARIANT^^}) candidate generation complete for mistral_7b."

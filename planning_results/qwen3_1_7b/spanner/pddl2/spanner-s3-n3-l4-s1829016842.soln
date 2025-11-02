@@ -1,0 +1,7 @@
+(move bob location3)
+(pick spanner2 location4 bob)
+(tighten_nut location3 bob spanner2 nut2 nut3)
+(move bob location3)
+(pick spanner3 location4 bob)
+(tighten_nut location3 bob spanner3 nut3 nut2)
+(NO-PLAN)

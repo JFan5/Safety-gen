@@ -1,0 +1,155 @@
+(#) <spanner-s4-n3-l4-s1259814300>
+(:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+(:init 
+    (at bob shed)
+    (at spanner1 location1)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (at spanner4 location1)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+(:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at?m shed)))
+  )
+)
+)
+
+(); no constraints in this problem
+
+(:action walk 
+        :parameters (?start - location?end - location?m - man)
+        :precondition (and (at?m?start) 
+                           (link?start?end))                                                          
+        :effect (and (not (at?m?start)) (at?m?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location?s - spanner?m - man)
+        :precondition (and (at?m?l) 
+                           (at?s?l))
+        :effect (and (not (at?s?l))
+                     (carrying?m?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location?s - spanner?m - man?n - nut)
+        :precondition (and (at?m?l) 
+		      	   (at?n?l)
+			   (carrying?m?s)
+			   (useable?s)
+			   (loose?n))
+        :effect (and (not (loose?n))(not (useable?s)) (tightened?n)))
+
+(available-action (at?obj location1))
+  (let ((obj (if (man?obj) 'bob (if (spanner?obj) spanner1 (if (nut?obj) nut1 nut2)))))
+    (and (at obj location1) (not (carrying obj anything)) (not (loose obj)) (useable spanner1)))
+  ) =available-near-nut-1
+  (not (at bob shed))
+  (at bob shed) =at-near-shed-1
+)(available-action (at?obj gate))
+  (let ((obj (if (man?obj) 'bob (if (spanner?obj) spanner1 (if (nut?obj) nut1 nut2)))))
+    (and (at obj gate) (not (carrying obj anything)) (not (loose obj)) (useable spanner1)))
+  ) =available-near-gate-1
+)(available-nut-nut2)
+  (not (at bob shed))
+  (at bob shed) =at-near-shed-1
+)(tighten-nut-1)
+  (at bob gate)
+  (and (at bob) (at gate) 
+       (at nut2 gate) (tightened nut1) (useable spanner1) (loose nut2))
+  ) =tighten-nut-near-nut2-1
+  (not (at nut2 gate))
+  (at nut2 gate) (tightened nut1) (useable spanner1) (loose nut2) =at-near-nut2-1
+)(tighten-nut-2)
+  (at bob gate)
+  (and (at bob) (at gate) 
+       (at nut1 gate) (tightened nut2) (useable spanner1) (loose nut1))
+  ) =tighten-nut-near-nut1-1
+  (not (at nut1 gate))
+  (at nut1 gate) (tightened nut2) (useable spanner1) (loose nut1) =at-near-nut1-1
+)(available-spanner-spanner4)
+  (at spanner4 location1)
+  (and (at spanner4 location1) (not (carrying spanner4 anything)) (useable spanner4))
+  ) =available-spanner-spanner4-1
+)(available-spanner-spanner3)
+  (at spanner3 location1)
+  (and (at spanner3 location1) (not (carrying spanner3 anything)) (useable spanner3))
+  ) =available-spanner-spanner3-1
+)(available-spanner-spanner2)
+  (at spanner2 location3)
+  (and (at spanner2 location3) (not (carrying spanner2 anything)) (useable spanner2))
+  ) =available-spanner-spanner2-1
+)(walk-near-spanner1-nut2-1)
+  (at spanner1 location1)
+  (and (at spanner1 location1) (at nut2 gate) (useable spanner1) (loose nut2))
+  ) =walk-near-spanner1-nut2-1
+  (at spanner1 location1)
+  (and (at spanner1 location1) (at nut2 gate) (useable spanner1) (loose nut2)) =at-near-spanner1-nut2-1
+)(walk-near-spanner1-nut1-1)
+  (at spanner1 location1)
+  (and (at spanner1 location1) (at nut1 gate) (useable spanner1) (loose nut1))
+  ) =walk-near-spanner1-nut1-1
+  (at spanner1 location1)
+  (and (at spanner1 location1) (at nut1 gate) (useable spanner1) (loose nut1)) =at-near-spanner1-nut1-1
+)(tighten-nut-3)
+  (at spanner1 gate)
+  (and (at spanner1 gate) (at nut3 gate) (useable spanner1) (loose nut3))
+  ) =tighten-nut-near-nut3-1
+  (not (at nut3 gate))
+  (at spanner1 gate) (at nut3 gate) (useable spanner1) (loose nut3) =at-near-nut3-1
+)(tighten-nut-3)
+  (at spanner3 gate)
+  (and (at spanner3 gate) (at nut3 gate) (useable spanner3) (loose nut3))
+  ) =tighten-nut-near-nut3-1
+  (not (at nut3 gate))
+  (at spanner3 gate) (at nut3 gate) (useable spanner3) (loose nut3) =at-near-nut3-1
+)(available-spanner-spanner1)
+  (at spanner1 gate)
+  (and (at spanner1 gate) (not (carrying spanner1 anything)) (useable spanner1))
+  ) =available-spanner-spanner1-1
+)(available-spanner-spanner3)
+  (at spanner3 gate)
+  (and (at spanner3 gate) (not (carrying spanner3 anything)) (useable spanner3))
+  ) =available-spanner-spanner3-1
+)(available-spanner-spanner2)
+  (at spanner2 gate)
+  (and (at spanner2 gate) (not (carrying spanner2 anything)) (useable spanner2))
+  ) =available-spanner-spanner2-1
+)(walk-near-spanner2-nut2-1)
+  (at spanner2 location3)
+  (and (at spanner2 location3) (at nut2 gate) (useable spanner2) (loose nut2))
+  ) =walk-near-spanner2-nut2-1
+  (at spanner2 location3)
+  (and (at spanner2 location3) (at nut2 gate) (useable spanner2) (loose nut2)) =at-near-spanner2-nut2-1
+)(walk-near-spanner2-nut1-1)
+  (at spanner2 location3)
+  (and (at spanner2 location3) (at nut1 gate) (useable spanner2) (loose nut1))
+  ) =walk-near-spanner2-nut1-1
+  (at spanner2 location3)
+  (and (at spanner2 location3) (at nut1 gate) (use

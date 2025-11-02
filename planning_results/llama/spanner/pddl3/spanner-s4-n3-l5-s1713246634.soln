@@ -1,0 +1,90 @@
+import gi
+
+gi.require_version('PDDL3', '1.0')
+gi.require_version('PDDL2', '2.0')
+from PDDL3 import *
+from PDDL2 import *
+
+problem = Problem(name='spanner-s4-n3-l5-s1713246634')
+problem.domain = Domain(name='spanner')
+problem.objects = ['bob','spanner1','spanner2','spanner3','spanner4', 'nut1', 'nut2', 'nut3', 'location1', 'location2', 'location3', 'location4', 'location5','shed', 'gate']
+problem.constants = ['bob','spanner1','spanner2','spanner3','spanner4', 'nut1', 'nut2', 'nut3', 'location1', 'location2', 'location3', 'location4', 'location5','shed', 'gate']
+problem.priors = {'bob': AtMostOnce('bob'), 'nut1': SometimeBefore('nut2'), 'nut2': SometimeBefore('nut3')}
+problem.action_names = ['walk', 'pickup_spanner', 'tighten_nut']
+problem.action_args = [
+    (Name('action:walk'), [Name('obj:m')], AtLeastOne('link:start_link')),
+    (Name('action:pickup_spanner'), [Name('obj:l')], AtLeastOne('obj:at_link')),
+    (Name('action:tighten_nut'), [Name('obj:l')], AtLeastOne('obj:at_link'))
+]
+problem.object_symbols = {
+    'bob': ['obj:m'],
+    'nut1': ['obj:nut'],
+    'nut2': ['obj:nut'],
+    'nut3': ['obj:nut'],
+   'shed': ['obj:location'],
+    'gate': ['obj:location'],
+   'spanner1': ['obj:spanner'],
+   'spanner2': ['obj:spanner'],
+   'spanner3': ['obj:spanner'],
+   'spanner4': ['obj:spanner'],
+    'location1': ['obj:location'],
+    'location2': ['obj:location'],
+    'location3': ['obj:location'],
+    'location4': ['obj:location'],
+    'location5': ['obj:location']
+}
+problem.action_types = {
+    'walk': Symbol('action:walk'),
+    'pickup_spanner': Symbol('action:pickup_spanner'),
+    'tighten_nut': Symbol('action:tighten_nut')
+}
+problem.action_requirements = {
+    'walk': ['obj:m', 'link:start_link'],
+    'pickup_spanner': ['obj:l', 'obj:at_link'],
+    'tighten_nut': ['obj:l', 'obj:at_link']
+}
+problem.goal_symbols = []
+problem.goal_objects = []
+problem.constraint_symbols = []
+problem.constraint_objects = []
+problem.constraint_predicates = []
+
+problem.init = [
+    At('bob','shed'),
+    At('spanner1', 'location3'),
+    Useable('spanner1'),
+    At('spanner2', 'location2'),
+    Useable('spanner2'),
+    At('spanner3', 'location4'),
+    Useable('spanner3'),
+    At('spanner4', 'location3'),
+    Useable('spanner4'),
+    At('nut1', 'gate'),
+    Loose('nut1'),
+    At('nut2', 'gate'),
+    Loose('nut2'),
+    At('nut3', 'gate'),
+    Loose('nut3')
+]
+problem.goal = []
+problem.invariants = []
+problem.constraints = [
+    SometimeBefore('nut2', 'nut3'),
+    AtMostOnce('bob')
+]
+
+solution = Plan()
+gi.pddl_read_problem(problem, solution)
+gi.pddl_solve_problem(problem, solution)
+
+while problem.constraints or problem.goal:
+    if problem.constraints:
+        gi.pddl_enforce_constraints(problem, solution)
+    if problem.goal:
+        gi.pddl_make_goal(solution)
+
+while solution.heads_up():
+    gi.pddl_remove_head(solution)
+    gi.pddl_add_tail(solution)
+
+print(solution.plan)

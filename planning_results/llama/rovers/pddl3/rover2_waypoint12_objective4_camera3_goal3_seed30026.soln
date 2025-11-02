@@ -1,0 +1,155 @@
+<DOMAIN>
+(:requirements :strips :typing :constraints)
+(:types rover waypoint store camera mode lander objective)
+
+(:predicates (at?x - rover?y - waypoint) 
+             (at_lander?x - lander?y - waypoint)
+             (can_traverse?r - rover?x - waypoint?y - waypoint)
+	     (equipped_for_soil_analysis?r - rover)
+             (equipped_for_rock_analysis?r - rover)
+             (equipped_for_imaging?r - rover)
+             (empty?s - store)
+             (have_rock_analysis?r - rover?w - waypoint)
+             (have_soil_analysis?r - rover?w - waypoint)
+             (full?s - store)
+	     (calibrated?i - camera?r - rover) 
+	     (supports?c - camera?m - mode)
+             (visible?w - waypoint?p - waypoint)
+             (at_soil_sample?w - waypoint)
+             (at_rock_sample?w - waypoint)
+             (visible_from?o - objective?w - waypoint)
+	     (at_soil_data?p - waypoint?x - waypoint)(at_rock_data?p - waypoint?x - waypoint)
+	     (visible_from?o - objective?p - waypoint)(at_soil_sample?x - waypoint)
+	     (at_rock_sample?x - waypoint)
+             (communicated_soil_data?p - waypoint?x - waypoint)
+	     (communicated_rock_data?p - waypoint?x - waypoint)
+	     (communicated_image_data?o - objective?m - mode)(visible_from?o - objective?x - waypoint)
+	     (on_board?i - camera?r - rover)
+	     (calibration_target?i - camera?o - objective)
+	     (store_of?s - store?r - rover)
+	     (channel_free?l - lander?p - waypoint?x - waypoint)
+	     (available?r - rover)(available?l - lander)(channel_free?l))
+
+(:action navigate
+:parameters (?x - rover?y - waypoint?z - waypoint)
+:precondition (and (can_traverse?x?y?z)(available?x)(at?x?y)(visible?y?z))
+:effect (and (not (at?x?y))(at?x?z)))
+
+(:action sample_soil
+:parameters (?x - rover?s - store?p - waypoint)
+:precondition (and (at?x?p)(at_soil_sample?p)(equipped_for_soil_analysis?x)(store_of?s?x)(empty?s))
+:effect (and (not (empty?s)) (full?s) (have_soil_analysis?x?p)(not (at_soil_sample?p))))
+
+(:action sample_rock
+:parameters (?x - rover?s - store?p - waypoint)
+:precondition (and (at?x?p)(at_rock_sample?p)(equipped_for_rock_analysis?x)(store_of?s?x)(empty?s))
+:effect (and (not (empty?s)) (full?s) (have_rock_analysis?x?p)(not (at_rock_sample?p))))
+
+(:action drop
+:parameters (?x - rover?y - store)
+:precondition (and (store_of?y?x)(full?y))
+:effect (and (not (full?y)) (empty?y)))
+
+(:action calibrate
+ :parameters (?r - rover?i - camera?t - objective?w - waypoint)
+ :precondition (and (equipped_for_imaging?r)(calibration_target?i?t)(at?r?w)(visible_from?t?w))
+ :effect (calibrated?i?r))
+
+(:action take_image
+ :parameters (?r - rover?p - waypoint?o - objective?i - camera?m - mode)
+ :precondition (and (calibrated?i?r)(on_board?i?r)(equipped_for_imaging?r)(supports?i?m)(visible_from?o?p)(at?r?p))
+ :effect (and (have_image?r?o?m)(not (calibrated?i?r))))
+
+(:action communicate_soil_data
+ :parameters (?r - rover?l - lander?p - waypoint?x - waypoint)
+ :precondition (and (at?r?x)(at_soil_sample?x)(equipped_for_soil_analysis?r)(available?r)(at_lander?l?x)(channel_free?l))
+ :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_soil_data?p)(available?r)))
+
+(:action communicate_rock_data
+ :parameters (?r - rover?l - lander?p - waypoint?x - waypoint)
+ :precondition (and (at?r?x)(at_rock_sample?x)(equipped_for_rock_analysis?r)(available?r)(at_lander?l?x)(channel_free?l))
+ :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_rock_data?p)(available?r)))
+
+(:action communicate_image_data
+ :parameters (?r - rover?l - lander?o - objective?m - mode?p - waypoint?x - waypoint)
+ :precondition (and (at?r?p)(at_soil_data?p?x)(equipped_for_soil_analysis?r)(available?r)(at_lander?l?x)(calibrated?o?r)(supports?m?o)(visible_from?o?p)(visible?p?x)(channel_free?l))
+ :effect (and (not (available?r))(not (channel_free?l))(channel_free?l)(communicated_image_data?o?m?p)(available?r)))
+
+</DOMAIN>
+
+<PROBLEM>
+(define (problem roverprob30026) (:domain Rover)(:objects
+	general - Lander
+	colour high_res - Mode
+	rover0 - Rover
+	rover1 - Rover
+	rover0store - Store
+	rover1store - Store
+	waypoint0 - Waypoint
+	waypoint1 - Waypoint
+	waypoint2 - Waypoint
+	waypoint3 - Waypoint
+	waypoint4 - Waypoint
+	waypoint5 - Waypoint
+	waypoint6 - Waypoint
+	waypoint7 - Waypoint
+	waypoint8 - Waypoint
+	waypoint9 - Waypoint
+	waypoint10 - Waypoint
+	waypoint11 - Waypoint
+	camera0 - Camera
+	camera1 - Camera
+	camera2 - Camera
+	objective0 - Objective
+	objective1 - Objective
+	objective2 - Objective
+ store_of_rover0 - Store
+	store_of_rover1 - Store
+	at_soil_sample0 - At_soil_sample
+	at_soil_sample1 - At_soil_sample
+	at_rock_sample0 - At_rock_sample
+	at_rock_sample1 - At_rock_sample
+	visible_fromObjective0 - Visible_from
+	visible_fromObjective1 - Visible_from
+	visible_fromObjective2 - Visible_from
+	communicated_soil_data0 - Communicated_soil_data
+	communicated_soil_data1 - Communicated_soil_data
+	communicated_rock_data0 - Communicated_rock_data
+	communicated_rock_data1 - Communicated_rock_data
+	communicated_image_data0 - Communicated_image_data
+	communicated_image_data1 - Communicated_image_data
+	at_soil_data0 - At_soil_data
+	at_soil_data1 - At_soil_data
+	at_rock_data0 - At_rock_data
+	at_rock_data1 - At_rock_data
+	at_soil_sample2 - At_soil_sample
+	at_soil_sample3 - At_soil_sample
+	at_soil_sample4 - At_soil_sample
+	at_soil_sample5 - At_soil_sample
+	at_soil_sample6 - At_soil_sample
+	at_soil_sample7 - At_soil_sample
+	at_soil_sample8 - At_soil_sample
+	at_soil_sample9 - At_soil_sample
+	at_soil_sample10 - At_soil_sample
+	at_soil_sample11 - At_soil_sample
+	at_rock_sample11 - At_rock_sample
+	on_boardcamera0 - On_board
+	on_boardcamera1 - On_board
+	on_boardcamera2 - On_board
+	calibration_target0 - Calibration_target
+	calibration_target1 - Calibration_target
+	calibration_target2 - Calibration_target
+ Store_of_rover0_channel_free_l - Store_of_rover0_channel_free_l
+	Store_of_rover1_channel_free_l - Store_of_rover1_channel_free_l
+	available_general - Available
+	available_lander0 - Available
+	available_lander1 - Available
+	channel_free_general - Channel_free
+ channel_free_lander - Channel_free
+	at_soil_sample_waypoint0 - At_soil_sample_waypoint
+	at_soil_sample_waypoint1 - At_soil_sample_waypoint
+	at_soil_sample_waypoint2 - At_soil_sample_waypoint
+	at_soil_sample_waypoint3 - At_soil_sample_waypoint
+	at_soil_sample_waypoint4 - At_soil_sample_waypoint
+	at_soil_sample_waypoint5 - At_soil_sample_waypoint
+	at

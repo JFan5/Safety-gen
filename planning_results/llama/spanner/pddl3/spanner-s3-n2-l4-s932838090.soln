@@ -1,0 +1,14 @@
+#:action walk 
+#:parameters (location1 location2 location3 location4 shed bob gate nut1 nut2 spanner1 spanner2 spanner3)
+#:precondition (and (at bob shed) (link shed location1) (link location4 gate))
+#:effect (and (not (at bob shed)) (at bob location1) (at spanner1 location4) (at spanner2 location3) (at spanner3 location3) (at nut1 gate) (at nut2 gate) (not (loose nut1)) (not (useable spanner1)) (not (useable spanner2)) (not (useable spanner3)) (tightened nut1)))
+
+#:action pickup_spanner 
+#:parameters (location1 shed location4 gate bob spanner1 spanner2 spanner3 nut1 nut2)
+#:precondition (and (at bob location1) (at spanner1 location4) (at spanner2 location3) (at spanner3 location3) (at nut1 gate) (at nut2 gate) (not (at spanner1 location4)) (not (at spanner2 location3)) (not (at spanner3 location3)) (not (loose nut1)) (not (useable spanner1)) (not (useable spanner2)) (not (useable spanner3)) (at spanner1 location1) (at spanner2 location2) (at spanner3 location2))
+#:effect (and (not (at spanner1 location4)) (at spanner1 location1) (not (at spanner2 location3)) (at spanner2 location2) (not (at spanner3 location3)) (at spanner3 location2) (not (loose nut1)) (not (useable spanner1)) (not (useable spanner2)) (not (useable spanner3)) (carrying bob spanner1))
+
+#:action tighten_nut 
+#:parameters (location1 gate location4 shed bob spanner1 spanner2 spanner3 nut1 nut2)
+#:precondition (and (at bob location1) (at spanner1 location4) (at spanner2 location3) (at spanner3 location2) (at nut1 gate) (at nut2 gate) (at spanner1 location1) (at spanner2 location2) (at spanner3 location2) (at nut1 gate) (not (at spanner1 location4)) (not (at spanner2 location3)) (not (at spanner3 location2)) (not (loose nut1)) (not (useable spanner1)) (not (useable spanner2)) (not (useable spanner3)) (at spanner1 location1) (at spanner2 location2) (at spanner3 location2) (loose nut1) (useable spanner1) (useable spanner2) (useable spanner3))
+#:effect (and (not (at spanner1 location4)) (at spanner1 location1) (not (at spanner2 location3)) (at spanner2 location2) (not (at spanner3 location2)) (at spanner3 location2) (not (loose nut1)) (not (useable spanner1)) (useable spanner1) (not (useable spanner2)) (useable spanner2) (not (useable spanner3)) (useable spanner3) (tightened nut1))
