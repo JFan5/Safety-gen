@@ -7,6 +7,7 @@ Generic PDDL Plan Evaluator
 import os
 import json
 import random
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -34,8 +35,10 @@ MODEL_FAMILY_MAP = {
     'gpt': 'gpt'  # GPT模型使用mistral格式
 }
 
-def template_input(prompt):
+def template_input(prompt, rich=False):
     """创建输入模板"""
+    if rich:
+        return [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
     return [{"role": "user", "content": prompt}]
 
 def extract_llm_output(output, family='mistral'):
@@ -115,6 +118,22 @@ def extract_llm_output(output, family='mistral'):
     
     return text
 
+def _resolve_validate_path():
+    """Find a usable Validate binary."""
+    candidates = [
+        Path("/users/jfan5/VAL/build/bin/Validate"),
+        Path.home() / "VAL/build/linux64/Release/bin/Validate",
+        Path.home() / "VAL/build/linux64/debug/bin/Validate",
+    ]
+    for path in candidates:
+        if path.exists():
+            return str(path)
+    found = shutil.which("Validate")
+    if found:
+        return found
+    return "Validate"
+
+
 def validate_solution(domain_file, problem_file, solution_text):
     """使用VAL验证器验证解决方案"""
     # 创建临时文件保存解决方案
@@ -124,24 +143,26 @@ def validate_solution(domain_file, problem_file, solution_text):
     
     try:
         # 运行VAL验证器
-        cmd = f"/users/jfan5/VAL/build/bin/Validate  -v {domain_file} {problem_file} {solution_file}"
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
+        val_path = _resolve_validate_path()
+        cmd_list = [val_path, "-v", domain_file, problem_file, solution_file]
+        cmd_str = ' '.join(cmd_list)
+        result = subprocess.run(cmd_list, capture_output=True, text=True, timeout=30)
         
         # 检查验证结果
         if result.returncode == 0:
             # 检查输出中是否包含成功信息
             output = result.stdout.lower()
             if "plan valid" in output or "successful plans" in output or 'plan executed successfully' in output:
-                return True, "Plan valid", result.stdout, result.stderr, cmd
+                return True, "Plan valid", result.stdout, result.stderr, cmd_str
             else:
-                return False, f"Validation failed: {result.stdout[:500]}", result.stdout, result.stderr, cmd
+                return False, f"Validation failed: {result.stdout[:500]}", result.stdout, result.stderr, cmd_str
         else:
-            return False, f"Validation error: {result.stderr[:500]}", result.stdout, result.stderr, cmd
+            return False, f"Validation error: {result.stderr[:500]}", result.stdout, result.stderr, cmd_str
     
     except subprocess.TimeoutExpired:
-        return False, "Validation timeout", "", "Validation timeout after 30 seconds", cmd
+        return False, "Validation timeout", "", "Validation timeout after 30 seconds", cmd_str
     except Exception as e:
-        return False, f"Validation exception: {str(e)}", "", str(e), cmd
+        return False, f"Validation exception: {str(e)}", "", str(e), cmd_str
     finally:
         # 清理临时文件
         try:
@@ -312,13 +333,24 @@ def test_model_on_testing_data(model_path,
         print(f"Problem: {sample['problem_name']}")
         
         # 生成解决方案
-        inputs = tokenizer.apply_chat_template(
-            template_input(sample['prompt']), 
-            tokenize=True, 
-            add_generation_prompt=True, 
-            return_tensors="pt",
-            enable_thinking=False,
-        )
+        messages = template_input(sample['prompt'])
+        try:
+            inputs = tokenizer.apply_chat_template(
+                messages, 
+                tokenize=True, 
+                add_generation_prompt=True, 
+                return_tensors="pt",
+                enable_thinking=False,
+            )
+        except TypeError:
+            messages = template_input(sample['prompt'], rich=True)
+            inputs = tokenizer.apply_chat_template(
+                messages,
+                tokenize=True,
+                add_generation_prompt=True,
+                return_tensors="pt",
+                enable_thinking=False,
+            )
         
         # 确保输入张量在正确的设备上
         if hasattr(model, 'device'):

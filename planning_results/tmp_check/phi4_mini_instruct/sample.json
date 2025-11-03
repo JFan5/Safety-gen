@@ -1,0 +1,26 @@
+{
+  "model_path": "unsloth/Phi-4-mini-instruct",
+  "problems_dir": "ferry/all_problems3/testing",
+  "domain_file": "ferry/domain3.pddl",
+  "max_problems": 1,
+  "results_directory": "planning_results/tmp_check/phi4_mini_instruct",
+  "total_tests": 1,
+  "valid_count": 0,
+  "generation_error_count": 1,
+  "success_rate": 0.0,
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "ferry-l6-c3-s1243099988",
+      "problem_file": "ferry/all_problems3/testing/ferry-l6-c3-s1243099988.pddl",
+      "solution_file": "planning_results/tmp_check/phi4_mini_instruct/ferry-l6-c3-s1243099988.soln",
+      "is_valid": false,
+      "validation_stdout": "",
+      "validation_stderr": "",
+      "validation_cmd": "",
+      "raw_solution": "",
+      "generation_error": "Runtime Error: Data-dependent branching\n  Explanation: Detected data-dependent branching (e.g. `if my_tensor.sum() > 0:`). Dynamo does not support tracing dynamic control flow.\n  Hint: This graph break is fundamental - it is unlikely that Dynamo will ever be able to trace through your code. Consider finding a workaround.\n  Hint: Use `torch.cond` to express dynamic control flow.\n\n  Developer debug context: attempted to jump with TensorVariable()\n\n\nfrom user code:\n   File \"/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/_dynamo/external_utils.py\", line 70, in inner\n    return fn(*args, **kwargs)\n  File \"/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py\", line 120, in decorate_context\n    return func(*args, **kwargs)\n  File \"/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_rope_utils.py\", line 86, in wrapper\n    longrope_frequency_update(self, position_ids, device=x.device)\n  File \"/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_rope_utils.py\", line 50, in longrope_frequency_update\n    if seq_len > original_max_position_embeddings:\n\nSet TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=\"+dynamo\"\n",
+      "ground_truth": ""
+    }
+  ]
+}
