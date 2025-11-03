@@ -76,8 +76,13 @@ def extract_llm_output(output, family='mistral'):
         parts = text.split('assistant')
         text = parts[-1].lstrip(':').strip()
 
-    # 移除特殊通道标记（如 <|channel|>final<|message|>）
-    text = re.sub(r'<\|[^>]+?\|>', '', text)
+    # 移除特殊通道标记（支持 ASCII 与全角竖线，例如 <|im_start|> 或 <｜User｜>）
+    text = re.sub(r'<[|｜][^>]+[|｜]>', '', text)
+
+    # 移除 DeepSeek 等模型输出中的思维链标签
+    text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r'</?think>', '', text, flags=re.IGNORECASE)
+
     text = text.strip()
 
     # 移除可能残留的通道前缀
@@ -89,6 +94,24 @@ def extract_llm_output(output, family='mistral'):
     # 特殊处理 qwen 模型：检测并移除 <think> 标签
     if family == 'qwen':
         text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE).strip()
+
+    # 只保留末尾连续的计划行（形如 "(action obj1 obj2)"）
+    plan_line_pattern = re.compile(r'^\([^\s()]+(?: [^\s()]+)*\)$')
+    lines = [line.strip() for line in text.splitlines()]
+    trailing_plan_lines = []
+    for line in reversed(lines):
+        if not line:
+            if trailing_plan_lines:
+                break
+            continue
+        if plan_line_pattern.match(line):
+            trailing_plan_lines.append(line)
+        elif trailing_plan_lines:
+            break
+    if trailing_plan_lines:
+        text = "\n".join(reversed(trailing_plan_lines))
+    else:
+        text = "\n".join(line for line in lines if line)
     
     return text
 
