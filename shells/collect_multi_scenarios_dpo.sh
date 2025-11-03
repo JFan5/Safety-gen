@@ -10,7 +10,7 @@ cd "${REPO_ROOT}"
 
 SCENARIOS=(blocksworld ferry grid grippers rovers spanner)
 INPUT_ROOT="data/dpo/datasets"
-OUTPUT_PATH="local_data/dpo/multi_scenarios/pddl3_dpo.jsonl"
+OUTPUT_PATH="/groups/fkong/jfan5/data/dpo/mistral_unsloth/multi_scenarios/pddl3_dpo.jsonl"
 
 echo "Collecting multi-scenario DPO data -> ${OUTPUT_PATH}"
 
