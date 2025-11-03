@@ -7,6 +7,7 @@
 
 import json
 import argparse
+import subprocess
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional, Set
 from datasets import Dataset
@@ -68,26 +69,46 @@ def resolve_domain_file(root: Path, pddl_version: str) -> Optional[Path]:
             return candidate
     return None
 
+def validate_solution(domain_file: str, problem_file: str, solution_file: str, timeout_sec: int = 30) -> Tuple[bool, str, Dict]:
+    """Run Validate to check if solution is valid for the problem and domain."""
+    execution_info = {
+        "stdout": "",
+        "stderr": "",
+        "returncode": None,
+        "timeout": False,
+        "exception": None
+    }
+
+    try:
+        cmd = f"Validate {domain_file} {problem_file} {solution_file}"
+        execution_info["command"] = cmd
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout_sec)
+
+        execution_info["returncode"] = result.returncode
+        execution_info["stdout"] = result.stdout if result.stdout else ""
+        execution_info["stderr"] = result.stderr if result.stderr else ""
+
+        if result.returncode == 0:
+            output = result.stdout.lower()
+            if "plan valid" in output or "plan successfully executed" in output:
+                return True, "Plan valid", execution_info
+            return False, (result.stdout if result.stdout else "Validation failed"), execution_info
+        return False, (result.stderr if result.stderr else "Validation error"), execution_info
+    except subprocess.TimeoutExpired:
+        execution_info["timeout"] = True
+        return False, "Validation timeout", execution_info
+    except Exception as e:
+        execution_info["exception"] = str(e)
+        return False, f"Validation exception: {e}", execution_info
+
 def build_prompt(domain_content: str, problem_content: str, pddl_version: str) -> str:
-    """根据 PDDL 版本选择合适的 prompt 模板。"""
-    version = (pddl_version or "").upper()
-    candidate_files: List[str] = []
-    if version == "PDDL2":
-        candidate_files.append('prompt_pddl2.txt')
+    """读取统一的 prompt 模板。"""
+    prompt_file = Path('prompt.txt')
+    if prompt_file.exists():
+        with open(prompt_file, 'r', encoding='utf-8') as f:
+            prompt_text = f.read()
     else:
-        candidate_files.append('prompt_pddl3.txt')
-    candidate_files.append('prompt.txt')
-
-    prompt_text: Optional[str] = None
-    for file_name in candidate_files:
-        file_path = Path(file_name)
-        if file_path.exists():
-            with open(file_path, 'r', encoding='utf-8') as f:
-                prompt_text = f.read()
-            break
-
-    if prompt_text is None:
-        print("Warning: No prompt template found. Expected one of:", ", ".join(candidate_files))
+        print("Warning: Prompt template prompt.txt not found, using fallback template.")
         prompt_text = "{domain_content}\n\n{problem_content}"
 
     return prompt_text.format(domain_content=domain_content, problem_content=problem_content)
@@ -119,7 +140,6 @@ def collect_scenario_data(
         return []
 
     dataset_entries: List[Dict] = []
-
     remaining_quota: Optional[int] = max_entries
 
     for version, problems_dir in problem_dirs:
@@ -154,6 +174,25 @@ def collect_scenario_data(
             if not problem_content or not solution_content:
                 continue
 
+            problem_name = extract_problem_name(problem_file)
+
+            if not validate_solution_format(solution_content):
+                print(f"Invalid solution format for {problem_name}")
+                continue
+
+            is_valid_plan, message, execution_info = validate_solution(
+                str(domain_file),
+                str(problem_file),
+                str(solution_file),
+            )
+
+            if not is_valid_plan:
+                print(f"Validation failed for {problem_name}: {message}")
+                stderr_output = execution_info.get("stderr") or ""
+                if stderr_output:
+                    print(f"  Validate stderr: {stderr_output.strip()}")
+                continue
+
             prompt = build_prompt(domain_content, problem_content, version)
 
             entry = {
@@ -161,7 +200,7 @@ def collect_scenario_data(
                 "path": solution_content,
                 "scenario": scenario_name,
                 "pddl": version,
-                "problem_name": extract_problem_name(problem_file),
+                "problem_name": problem_name,
                 "solution_file": str(solution_file),
                 "problem_file": str(problem_file),
                 "domain_file": str(domain_file),
@@ -171,10 +210,10 @@ def collect_scenario_data(
             if remaining_quota is not None:
                 remaining_quota -= 1
                 if remaining_quota == 0:
-                    print(f"  Reached requested maximum of {max_entries} entries for {scenario_name}.")
+                    print(f"  Reached requested maximum of {max_entries} valid entries for {scenario_name}.")
                     break
 
-    print(f"Collected {len(dataset_entries)} entries from {scenario_name}")
+    print(f"Collected {len(dataset_entries)} valid entries from {scenario_name}")
     return dataset_entries
 
 def validate_solution_format(solution_content: str) -> bool:
@@ -195,16 +234,6 @@ def validate_solution_format(solution_content: str) -> bool:
                 # 无时间戳也允许
                 return True
     return False
-
-def filter_valid_solutions(dataset_entries: List[Dict]) -> List[Dict]:
-    """过滤出格式合理的解决方案。"""
-    valid_entries = []
-    for entry in dataset_entries:
-        if validate_solution_format(entry["path"]):
-            valid_entries.append(entry)
-        else:
-            print(f"Invalid solution format for {entry['problem_name']}")
-    return valid_entries
 
 def create_dataset(
     dataset_entries: List[Dict],
@@ -392,17 +421,13 @@ def main():
         )
         all_entries.extend(entries)
 
-    print(f"\nTotal collected entries: {len(all_entries)}")
+    print(f"\nTotal collected valid entries: {len(all_entries)}")
     if not all_entries:
         print("No data collected! Please check the directory structure.")
         return
 
-    print("\nFiltering valid solutions...")
-    valid_entries = filter_valid_solutions(all_entries)
-    print(f"Valid entries: {len(valid_entries)}")
-
     print("\nCreating dataset...")
-    create_dataset(valid_entries, args.output, args.max_number)
+    create_dataset(all_entries, args.output, args.max_number)
 
     print("\nDataset collection completed!")
 

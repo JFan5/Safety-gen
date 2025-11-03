@@ -30,8 +30,8 @@ python3 pddl_finetune.py \
   --output "${OUTPUT_NOTE}" \
   --dataset "${DATASET_PATH}" \
   --family gpt \
-  --max-seq-length 2048 \
-  --per-device-train-batch-size 4 \
-  --gradient-accumulation-steps 4 \
+  --max-seq-length 1536 \
+  --per-device-train-batch-size 12 \
+  --gradient-accumulation-steps 2 \
   --load-in-4bit \
   --scenarios all

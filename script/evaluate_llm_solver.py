@@ -17,9 +17,9 @@ from datetime import datetime
 import re
 # 配置参数
 # input and output length
-max_seq_length = 8000
+max_seq_length = 1536
 # output length
-MAX_NEW_TOKENS = 2000
+MAX_NEW_TOKENS = 256
 dtype = None
 load_in_4bit = True
 

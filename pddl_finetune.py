@@ -20,12 +20,12 @@ from trl import SFTTrainer
 from unsloth import is_bfloat16_supported, FastLanguageModel
 
 # 配置参数
-max_seq_length = 4096  # 最大序列长度
+max_seq_length = 1024  # 最大序列长度
 use_bf16 = is_bfloat16_supported()  # A100: True
 
 # 选方案 A：BF16 + LoRA
 load_in_4bit = False    # 方案 A 用 False；若想走 QLoRA，设 True
-max_new_tokens = 512  # 最大生成token数
+max_new_tokens = 256  # 最大生成token数
 
 def template(prompt, path):
     """创建对话模板"""
