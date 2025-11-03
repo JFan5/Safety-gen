@@ -4,7 +4,7 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -pe smp 28
+#$ -pe smp 8
 #$ -o /users/jfan5/jfan5/Safety-gen/job_outputs/dpo/mistral_7b/rovers/pddl2_crc.o
 #$ -N dpo_mistral_rovers_pddl2
 

@@ -1,0 +1,5 @@
+(walk bob location4 location2)
+(pickup_spanner2 location2 spanner2 bob)
+(walk spanner2 location2 location5)
+(pickup_spanner4 location5 spanner4 bob)
+(tighten_nut4)

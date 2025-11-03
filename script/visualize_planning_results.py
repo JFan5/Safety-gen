@@ -52,12 +52,16 @@ def load_data(json_file: str) -> Dict:
         return json.load(f)
 
 def extract_scenario_data(data: Dict) -> Dict[str, Dict[str, Optional[Dict[str, int]]]]:
-    """提取场景 -> 运行类型 -> summary 数据。"""
+    """提取场景 -> 运行类型 -> summary 数据。
+
+    同时兼容两种结构:
+      1. {scenario: {variant: {...}}}
+      2. {model: {scenario: {variant: {...}}}}
+    """
     scenarios: Dict[str, Dict[str, Optional[Dict[str, int]]]] = {}
-    for scenario_name, runs in data.items():
+
+    def process_entry(name: str, runs: Dict) -> None:
         scenario_entry: Dict[str, Optional[Dict[str, int]]] = {}
-        if not isinstance(runs, dict):
-            continue
         for run_name, payload in runs.items():
             if not isinstance(payload, dict):
                 scenario_entry[run_name] = None
@@ -68,7 +72,22 @@ def extract_scenario_data(data: Dict) -> Dict[str, Dict[str, Optional[Dict[str, 
             else:
                 scenario_entry[run_name] = None
         if scenario_entry:
-            scenarios[scenario_name] = scenario_entry
+            scenarios[name] = scenario_entry
+
+    for top_level_name, top_level_value in data.items():
+        if not isinstance(top_level_value, dict):
+            continue
+
+        # 如果当前层已经是 variant -> summary 的结构，直接处理
+        if any(run in RUN_ORDER for run in top_level_value.keys()):
+            process_entry(top_level_name, top_level_value)
+            continue
+
+        # 否则尝试下探一层（兼容 model -> scenario -> variant 结构）
+        for scenario_name, runs in top_level_value.items():
+            if isinstance(runs, dict):
+                process_entry(scenario_name, runs)
+
     return scenarios
 
 

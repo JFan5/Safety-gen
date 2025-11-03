@@ -1,0 +1,5 @@
+(walk location1 location2)
+(walk location2 location3)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 shed)
+(tighten_nut location2 spanner1 nut1)

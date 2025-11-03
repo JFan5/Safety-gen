@@ -1,0 +1,7 @@
+(move bob location2)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location1 bob)
+(use spanner1)
+(use spanner2)
+(tighten_nut location1 bob spanner1 nut1)
+(tighten_nut location1 bob spanner2 nut2)

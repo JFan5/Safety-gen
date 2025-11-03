@@ -1,0 +1,6 @@
+(walk location4 gate shed)
+(pick bob spanner1)
+(walk location4 gate location3)
+(pick bob spanner2)
+(walk location3 spanner2 shed)
+(tighten nut2)

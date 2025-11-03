@@ -7,6 +7,37 @@ from pathlib import Path
 from typing import Dict, Iterable, Optional
 
 
+def _extract_solution_text(item: dict) -> Optional[str]:
+    """优先使用 raw_solution，若无则尝试读取 solution_file。"""
+    raw_solution = item.get("raw_solution")
+    if isinstance(raw_solution, str):
+        return raw_solution
+
+    solution_path = item.get("solution_file")
+    if not isinstance(solution_path, str) or not solution_path:
+        return None
+
+    path = Path(solution_path).expanduser()
+    if not path.is_file():
+        # 尝试相对于当前工作目录解析相对路径
+        path = Path.cwd() / solution_path
+    if not path.is_file():
+        return None
+
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+
+
+def _looks_like_valid_plan(plan_text: str) -> bool:
+    """判断文本是否符合纯计划输出格式。"""
+    lines = [line.strip() for line in plan_text.splitlines() if line.strip()]
+    if not lines:
+        return False
+    return all(line.startswith("(") and line.endswith(")") for line in lines)
+
+
 def _classify_result(item: dict) -> str:
     """根据 is_valid 和 validation_stdout 分类结果。"""
     # 首先检查 is_valid 字段
@@ -21,6 +52,10 @@ def _classify_result(item: dict) -> str:
     if bool(is_valid):
         return "success_plans"
     
+    plan_text = _extract_solution_text(item)
+    if plan_text is not None and not _looks_like_valid_plan(plan_text):
+        return "plan_format_error"
+
     # 如果 is_valid 为 False，再根据 validation_stdout / execution_info stdout 分类失败原因
     stdout_text = item.get("validation_stdout", "")
     if not stdout_text:

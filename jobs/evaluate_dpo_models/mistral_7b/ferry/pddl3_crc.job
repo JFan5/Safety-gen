@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_dpo_models/mistral_7b/ferry/pddl3_crc.o
+#$ -pe smp 8
+#$ -N evaluate_dpo_mistral_ferry_pddl3
+
+conda activate llmstl
+
+# Evaluate DPO fine-tuned model (PDDL3)
+MODEL_PATH="/groups/fkong/jfan5/dpo_models/mistral_7b/ferry/pddl3"
+RESULTS_DIR="planning_results/dpo_models/mistral_7b/ferry/pddl3"
+
+python3 script/evaluate_llm_solver.py \
+  --model "$MODEL_PATH" \
+  --problems-dir ferry/all_problems3/testing \
+  --domain-file ferry/domain3.pddl \
+  --output ferry_all_testing_dpo_pddl3.json \
+  --results-dir "$RESULTS_DIR"

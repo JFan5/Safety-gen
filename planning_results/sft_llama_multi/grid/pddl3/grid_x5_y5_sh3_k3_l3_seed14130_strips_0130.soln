@@ -1,0 +1,8 @@
+(unlock pos2-2 key2)
+(unlock pos0-4 key0)
+(pick key0 pos0-4 pos2-2)
+(pick key2 pos3-4 pos2-1)
+(move key0 pos2-2 pos3-4)
+(move key2 pos2-1 pos3-4)
+(move key0 pos3-4 pos0-4)
+(move key2 pos3-4 pos2-1)

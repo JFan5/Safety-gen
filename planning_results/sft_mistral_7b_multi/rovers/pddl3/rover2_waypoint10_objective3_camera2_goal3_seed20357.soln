@@ -1,0 +1,8 @@
+(calibrate rover0 camera0 objective1 waypoint3)
+(navigate rover0 waypoint1 waypoint4)
+(take_image rover0 waypoint4 objective2 camera2 low_res)
+(navigate rover0 waypoint4 waypoint2)
+(drop rover0store camera2)
+(navigate rover0 waypoint2 waypoint3)
+(communicate_image_data rover0 general waypoint4 objective2 high_res)
+(communicate_image_data rover0 general waypoint0 objective2 low_res)

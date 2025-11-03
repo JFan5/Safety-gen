@@ -4,102 +4,86 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-AGG_ROOT="${REPO_ROOT}/planning_results/aggregated_by_scenario"
+AGG_MODEL_ROOT="${REPO_ROOT}/planning_results/aggregated_by_model"
+LEGACY_ROOT="${REPO_ROOT}/planning_results/aggregated_by_scenario"
 PLOT_ROOT="${REPO_ROOT}/plots"
 
 cd "${REPO_ROOT}"
 
-mkdir -p "${PLOT_ROOT}/llama/blocksworld"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/llama_blocksworld_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/llama/blocksworld"
+shopt -s nullglob
+generated=false
 
-mkdir -p "${PLOT_ROOT}/llama/ferry"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/llama_ferry_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/llama/ferry"
+# 优先使用新的 aggregated_by_model 目录
+if [[ -d "${AGG_MODEL_ROOT}" ]]; then
+  for model_dir in "${AGG_MODEL_ROOT}"/*; do
+    [[ -d "${model_dir}" ]] || continue
+    model_name="$(basename "${model_dir}")"
+    for json_file in "${model_dir}"/*_planning_results.json; do
+      [[ -f "${json_file}" ]] || continue
+      scenario_name="$(basename "${json_file}" "_planning_results.json")"
+      output_dir="${PLOT_ROOT}/${model_name}/${scenario_name}"
+      mkdir -p "${output_dir}"
+      python3 script/visualize_planning_results.py \
+        --input "${json_file}" \
+        --output-dir "${output_dir}" \
+        --scenarios "${scenario_name}"
+      generated=true
+    done
+  done
+fi
 
-mkdir -p "${PLOT_ROOT}/llama/grid"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/llama_grid_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/llama/grid"
+# 兼容旧的 aggregated_by_scenario 目录（若存在，且需要额外导出）
+if [[ -d "${LEGACY_ROOT}" ]]; then
+  for json_file in "${LEGACY_ROOT}"/*_planning_results.json; do
+    [[ -f "${json_file}" ]] || continue
+    # 读取文件内部信息以确定模型和场景名称
+    readarray -t info < <(python3 - <<'PY'
+import json
+import sys
+from pathlib import Path
 
-mkdir -p "${PLOT_ROOT}/llama/rovers"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/llama_rovers_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/llama/rovers"
+path = Path(sys.argv[1])
+try:
+    data = json.load(path.open())
+except Exception:
+    sys.exit(1)
 
-mkdir -p "${PLOT_ROOT}/llama/spanner"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/llama_spanner_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/llama/spanner"
+def detect(data):
+    if not isinstance(data, dict):
+        return None
+    for key, value in data.items():
+        if isinstance(value, dict) and any(isinstance(v, dict) and 'summary' in v for v in value.values()):
+            return key, list(value.keys())
+    return None
 
-mkdir -p "${PLOT_ROOT}/mistral_7b/blocksworld"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/mistral_7b_blocksworld_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/mistral_7b/blocksworld"
+res = detect(data)
+if res:
+    model, scenarios = res
+    for s in scenarios:
+        print(model)
+        print(s)
+PY
+    "${json_file}")
 
-mkdir -p "${PLOT_ROOT}/mistral_7b/ferry"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/mistral_7b_ferry_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/mistral_7b/ferry"
+    # 解析 python 回传的模型/场景对
+    for ((idx=0; idx<${#info[@]}; idx+=2)); do
+      model_name="${info[idx]}"
+      scenario_name="${info[idx+1]}"
+      [[ -n "${model_name}" && -n "${scenario_name}" ]] || continue
+      output_dir="${PLOT_ROOT}/${model_name}/${scenario_name}"
+      mkdir -p "${output_dir}"
+      python3 script/visualize_planning_results.py \
+        --input "${json_file}" \
+        --output-dir "${output_dir}" \
+        --scenarios "${scenario_name}"
+      generated=true
+    done
+  done
+fi
 
-mkdir -p "${PLOT_ROOT}/mistral_7b/grid"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/mistral_7b_grid_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/mistral_7b/grid"
+shopt -u nullglob
 
-mkdir -p "${PLOT_ROOT}/mistral_7b/rovers"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/mistral_7b_rovers_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/mistral_7b/rovers"
-
-mkdir -p "${PLOT_ROOT}/qwen3_1_7b/blocksworld"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/qwen3_1_7b_blocksworld_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/qwen3_1_7b/blocksworld"
-
-mkdir -p "${PLOT_ROOT}/qwen3_1_7b/ferry"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/qwen3_1_7b_ferry_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/qwen3_1_7b/ferry"
-
-mkdir -p "${PLOT_ROOT}/qwen3_1_7b/grid"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/qwen3_1_7b_grid_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/qwen3_1_7b/grid"
-
-mkdir -p "${PLOT_ROOT}/qwen3_1_7b/rovers"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/qwen3_1_7b_rovers_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/qwen3_1_7b/rovers"
-
-mkdir -p "${PLOT_ROOT}/qwen3_1_7b/spanner"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/qwen3_1_7b_spanner_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/qwen3_1_7b/spanner"
-
-mkdir -p "${PLOT_ROOT}/sft_mistral_7b/blocksworld"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/sft_mistral_7b_blocksworld_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/sft_mistral_7b/blocksworld"
-
-mkdir -p "${PLOT_ROOT}/sft_mistral_7b/ferry"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/sft_mistral_7b_ferry_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/sft_mistral_7b/ferry"
-
-mkdir -p "${PLOT_ROOT}/sft_mistral_7b/grid"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/sft_mistral_7b_grid_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/sft_mistral_7b/grid"
-
-mkdir -p "${PLOT_ROOT}/sft_mistral_7b/rovers"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/sft_mistral_7b_rovers_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/sft_mistral_7b/rovers"
-
-mkdir -p "${PLOT_ROOT}/sft_mistral_7b/spanner"
-python3 script/visualize_planning_results.py \
-  --input "${AGG_ROOT}/sft_mistral_7b_spanner_planning_results.json" \
-  --output-dir "${PLOT_ROOT}/sft_mistral_7b/spanner"
+if [[ "${generated}" = false ]]; then
+  echo "⚠️  未找到可供可视化的聚合结果 JSON。" >&2
+  exit 1
+fi
