@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Submit multi-scenario evaluation jobs for llama, mistral, and qwen adapters.
+# Submit multi-scenario evaluation jobs for baseline and fine-tuned adapters.
 
 set -euo pipefail
 
@@ -12,6 +12,9 @@ JOBS=(
   "jobs/evaluate/llama/multi_scenarios/pddl3_multi_crc.job"
   "jobs/evaluate/mistral/multi_scenarios/pddl3_multi_crc.job"
   "jobs/evaluate/qwen3_1_7b/multi_scenarios/pddl3_multi_crc.job"
+  "jobs/evaluate/qwen3_4b_instruct/multi_scenarios/baseline.job"
+  "jobs/evaluate/deepseek_r1_llama8b/multi_scenarios/baseline.job"
+  "jobs/evaluate/mistral_small_24b/multi_scenarios/baseline.job"
 )
 
 missing=0

@@ -1,7 +1,5 @@
-Here is the plan that meets the requirements:
-
-(move c2 l1)
-(move c1 l2)
-(move c0 l2)
-
-This plan is grounded, totally-ordered, and satisfies all the preconditions and effects of the actions. It also satisfies the goal of having cars at locations l1, l2, and l2.
+sail l0 l1
+board c0 l1
+sail l1 l2
+board c1 l2
+debark c2 l2

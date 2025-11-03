@@ -1,0 +1,4 @@
+(move pos3-5 pos2-5)
+(pickup pos2-5 key3)
+(move pos2-5 pos3-5)
+(putdown pos3-5 key3)

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/fine_tune/deepseek_r1_llama8b/multi_scenarios/pddl2.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N fine_tune_deepseek_r1_llama8b_multi_scenarios_pddl2     # Specify job name
+
+conda activate llmstl
+
+# Aggregated multi-scenario fine-tune for DeepSeek-R1 Distill Llama 8B (PDDL2 dataset).
+# Generate the dataset via:
+#   python3 script/collect_finetuned_dataset_together.py --pddl PDDL2 --output /groups/fkong/jfan5/data/sft/multi_scenarios/pddl2.hf
+MODEL_NAME="unsloth/DeepSeek-R1-Distill-Llama-8B"
+OUTPUT_NAME="deepseek_r1_llama8b/multi_scenarios/pddl2"
+DATASET_PATH="/groups/fkong/jfan5/data/sft/multi_scenarios/pddl2.hf"
+
+python3 pddl_finetune.py \
+  --mode train \
+  --model "$MODEL_NAME" \
+  --output "$OUTPUT_NAME" \
+  --dataset "$DATASET_PATH" \
+  --scenarios all

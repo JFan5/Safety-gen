@@ -1,0 +1,137 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate/unsloth/ferry/compare_unsloth_ferry_10.o
+#$ -pe smp 8
+#$ -N evaluate_unsloth_ferry_10
+
+set -euo pipefail
+
+conda activate llmstl
+
+PROBLEMS_DIR="ferry/all_problems3/testing"
+DOMAIN_FILE="ferry/domain3.pddl"
+MAX_PROBLEMS=10
+BASE_RESULTS_DIR="planning_results/unsloth_comparison/ferry"
+SUMMARY_FILE="${BASE_RESULTS_DIR}/ferry_10_accuracy_summary.json"
+
+mkdir -p "${BASE_RESULTS_DIR}"
+
+# 清理旧的概要文件，避免混淆旧结果
+if [[ -f "${SUMMARY_FILE}" ]]; then
+  rm -f "${SUMMARY_FILE}"
+fi
+
+declare -a MODEL_CONFIGS=(
+  "unsloth/DeepSeek-R1-Distill-Llama-8B:deepseek_r1_llama8b"
+  "unsloth/gpt-oss-20b-unsloth-bnb-4bit:gpt_oss_20b_4bit"
+  "unsloth/Mistral-Small-3.2-24B-Instruct-2506:mistral_small_24b"
+  "unsloth/Qwen3-4B-Instruct-2507:qwen3_4b_instruct"
+  "unsloth/Qwen3-4B-Thinking-2507:qwen3_4b_thinking"
+  "unsloth/Phi-4-mini-instruct:phi4_mini_instruct"
+)
+
+for entry in "${MODEL_CONFIGS[@]}"; do
+  IFS=":" read -r MODEL_ID TAG <<< "${entry}"
+  RESULTS_DIR="${BASE_RESULTS_DIR}/${TAG}"
+  OUTPUT_NAME="ferry_10_${TAG}.json"
+
+  echo "=========================================="
+  echo "Evaluating model: ${MODEL_ID}"
+  echo "Tag: ${TAG}"
+  echo "Problems dir: ${PROBLEMS_DIR}"
+  echo "Domain file: ${DOMAIN_FILE}"
+  echo "Max problems: ${MAX_PROBLEMS}"
+  echo "Results dir: ${RESULTS_DIR}"
+  echo "Output file: ${OUTPUT_NAME}"
+  echo "=========================================="
+
+  python3 script/evaluate_llm_solver.py \
+    --model "${MODEL_ID}" \
+    --problems-dir "${PROBLEMS_DIR}" \
+    --domain-file "${DOMAIN_FILE}" \
+    --max-problems "${MAX_PROBLEMS}" \
+    --output "${OUTPUT_NAME}" \
+    --results-dir "${RESULTS_DIR}"
+
+  python3 - <<'PY' "${RESULTS_DIR}" "${OUTPUT_NAME}" "${MODEL_ID}" "${SUMMARY_FILE}"
+import json
+import sys
+from pathlib import Path
+
+results_dir = Path(sys.argv[1])
+output_name = sys.argv[2]
+model_id = sys.argv[3]
+summary_path = Path(sys.argv[4])
+
+result_file = results_dir / output_name
+
+if not result_file.exists():
+    raise FileNotFoundError(f"Result file not found: {result_file}")
+
+with open(result_file, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+success_rate = float(data.get("success_rate", 0.0))
+entry = {
+    "model_id": model_id,
+    "tag": results_dir.name,
+    "success_rate": success_rate,
+    "valid_count": int(data.get("valid_count", 0)),
+    "total_tests": int(data.get("total_tests", 0)),
+    "results_file": str(result_file)
+}
+
+if summary_path.exists():
+    with open(summary_path, "r", encoding="utf-8") as f:
+        summary = json.load(f)
+else:
+    summary = []
+
+# 移除已有的相同 tag，然后追加新结果
+summary = [item for item in summary if item.get("tag") != entry["tag"]]
+summary.append(entry)
+summary.sort(key=lambda item: item["success_rate"], reverse=True)
+
+with open(summary_path, "w", encoding="utf-8") as f:
+    json.dump(summary, f, indent=2, ensure_ascii=True)
+
+print(f"[SUMMARY] {model_id} success_rate={success_rate:.1f}% "
+      f"({entry['valid_count']}/{entry['total_tests']})")
+PY
+done
+
+python3 - <<'PY' "${SUMMARY_FILE}"
+import json
+import sys
+from pathlib import Path
+
+summary_path = Path(sys.argv[1])
+
+if not summary_path.exists():
+    print("No summary data found; evaluations may have failed.")
+    raise SystemExit(0)
+
+with open(summary_path, "r", encoding="utf-8") as f:
+    summary = json.load(f)
+
+if not summary:
+    print("Summary file is empty.")
+    raise SystemExit(0)
+
+print("\n==========================================")
+print("Model accuracy summary (sorted by success rate)")
+print("==========================================")
+for item in summary:
+    print(f"{item['success_rate']:5.1f}%  {item['model_id']} "
+          f"(tag={item['tag']}) [{item['valid_count']}/{item['total_tests']}]")
+
+best = summary[0]
+print(f"\nBest model: {best['model_id']} (tag={best['tag']}) "
+      f"with success rate {best['success_rate']:.1f}% "
+      f"[{best['valid_count']}/{best['total_tests']}]")
+print(f"Summary saved to: {summary_path}")
+PY

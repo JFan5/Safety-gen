@@ -1,9 +1,0 @@
-Here is the plan that satisfies the given problem:
-
-(sail l0 l1)
-(board c0 l1)
-(sail l1 l2)
-(board c1 l2)
-(debark c2 l2)
-
-This plan satisfies the goal of moving car c0 to location l1, car c1 to location l2, and car c2 to location l2, while also satisfying the constraints that the sail actions must occur before the board actions, and that the initial state already satisfies all goals and constraints.

@@ -1,7 +1,0 @@
-To solve this problem, we will use the PDDL 3.0 planning solver. Here is the plan:
-
-(debark c0 l1)
-(debark c1 l5)
-(debark c2 l0)
-
-Note that this plan satisfies all the preconditions and effects of the actions, and also satisfies the constraints provided in the problem.

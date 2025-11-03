@@ -1,0 +1,7 @@
+(pick b5 b2)
+(putdown b5 b6)
+(pick b3 b1)
+(unstack b3 b1)
+(stack b3 b4)
+(pick b2 b3)
+(stack b2 b1)

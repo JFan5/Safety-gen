@@ -17,9 +17,9 @@ from datetime import datetime
 import re
 # 配置参数
 # input and output length
-max_seq_length = 1536
+max_seq_length = 4096
 # output length
-MAX_NEW_TOKENS = 256
+MAX_NEW_TOKENS = 512
 dtype = None
 load_in_4bit = True
 
@@ -360,62 +360,57 @@ def test_model_on_testing_data(model_path,
             try:
                 device = next(model.parameters()).device
                 inputs = inputs.to(device)
-            except:
+            except StopIteration:
                 pass  # 如果无法确定设备，保持原样
+            except Exception:
+                pass
         
-        # 生成解决方案
         cfg = {
-            'top_k': random.randint(8, 512),
-            'top_p': random.random() * 0.8 + 0.2,
-            'temperature': random.random() * 0.8 + 0.2,
             'do_sample': True,
-            'penalty_alpha': random.random() * 0.8 + 0.2
+            'temperature': 0.1,
+            'top_p': 0.9,
         }
         
-        # 添加CUDA OOM错误捕获
         generation_error = None
-        output = None
+        output = ""
         try:
-            output = tokenizer.batch_decode(
-                model.generate(input_ids=inputs, max_new_tokens=MAX_NEW_TOKENS, **cfg)
-            )[0]
+            with torch.no_grad():
+                outputs = model.generate(
+                    input_ids=inputs,
+                    max_new_tokens=MAX_NEW_TOKENS,
+                    pad_token_id=tokenizer.eos_token_id,
+                    **cfg
+                )
+            output = tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]
         except torch.cuda.OutOfMemoryError as e:
             generation_error = f"CUDA Out of Memory: {str(e)}"
-            print(f"CUDA OOM Error: {generation_error}")
-            output = ""  # 设置为空输出
-            # 清理GPU内存
+            print(generation_error)
             torch.cuda.empty_cache()
         except RuntimeError as e:
             if "out of memory" in str(e).lower():
                 generation_error = f"Runtime Out of Memory: {str(e)}"
-                print(f"Runtime OOM Error: {generation_error}")
-                output = ""
+                print(generation_error)
                 torch.cuda.empty_cache()
             else:
                 generation_error = f"Runtime Error: {str(e)}"
-                print(f"Runtime Error: {generation_error}")
-                output = ""
+                print(generation_error)
         except Exception as e:
             generation_error = f"Generation Error: {str(e)}"
-            print(f"Generation Error: {generation_error}")
-            output = ""
+            print(generation_error)
         
-        # 处理输出和错误
-        if generation_error:
-            print(f"Generation failed: {generation_error}")
-            llm_output = ""
-            raw_solution = ""
-        else:
-            # 调试：打印原始输出（前500字符）
-            print(f"Raw output (first 500 chars): {output[:500]}...")
-            
-            # 提取LLM生成的输出部分
-            llm_output = extract_llm_output(output, family)
-            print(f"LLM output: {llm_output}")
-            
-            # 使用LLM输出作为解决方案
-            raw_solution = llm_output
+        raw_solution = extract_llm_output(output, family) if output else ""
+    
+        # 在终端打印LLM的完整输出
+        print(f"\n{'='*80}")
+        print("LLM FULL OUTPUT:")
+        print(f"{'='*80}")
+        print(output)
+        print(f"{'='*80}\n")
         
+        if raw_solution:
+            print("Parsed plan:")
+            print(raw_solution)
+
         # 问题文件路径
         problem_file = sample.get('problem_file')
         # 预先确定保存的方案文件名（与 problem 同名，仅改后缀）
@@ -475,6 +470,7 @@ def test_model_on_testing_data(model_path,
             'problem_file': problem_file,
             'solution_file': str(solution_file),
             'is_valid': is_valid,
+            'validation_message': validation_message,
             'validation_stdout': validation_stdout,
             'validation_stderr': validation_stderr,
             'validation_cmd': val_cmd,

@@ -20,7 +20,7 @@ from trl import SFTTrainer
 from unsloth import is_bfloat16_supported, FastLanguageModel
 
 # 配置参数
-max_seq_length = 1024  # 最大序列长度
+max_seq_length = 1536  # 最大序列长度
 use_bf16 = is_bfloat16_supported()  # A100: True
 
 # 选方案 A：BF16 + LoRA
@@ -253,6 +253,7 @@ def sft_train_pddl(
     
     # train/val 划分
     val_ratio = max(0.0, min(0.5, float(val_ratio)))
+    print(f"Validation ratio: {val_ratio}")
     if val_ratio > 0:
         split = dataset.train_test_split(test_size=val_ratio, seed=3407, shuffle=True)
         train_ds = split["train"]
