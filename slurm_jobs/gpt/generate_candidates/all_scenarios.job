@@ -23,24 +23,24 @@ SCENARIOS=(
 
 for scenario in "${SCENARIOS[@]}"; do
   echo ">>> Generating DPO candidates for ${scenario} (PDDL2)"
-  mkdir -p "data/dpo/gpt_oss_20b/${scenario}/pddl2"
+  mkdir -p "/home/ubuntu/data/dpo/gpt_oss_20b/${scenario}/pddl2"
   python3 script/generate_score_candidate.py \
     --model "sft_model/gpt_oss_20b/${scenario}/pddl2" \
     --family auto \
     --domain-file "${scenario}/domain.pddl" \
     --problems-dir "${scenario}/all_problems" \
     --prompt-template "prompt_pddl2.txt" \
-    --out "data/dpo/gpt_oss_20b/${scenario}/pddl2/scored.jsonl"
+    --out "/home/ubuntu/data/dpo/gpt_oss_20b/${scenario}/pddl2/scored.jsonl"
 
   echo ">>> Generating DPO candidates for ${scenario} (PDDL3)"
-  mkdir -p "data/dpo/gpt_oss_20b/${scenario}/pddl3"
+  mkdir -p "/home/ubuntu/data/dpo/gpt_oss_20b/${scenario}/pddl3"
   python3 script/generate_score_candidate.py \
     --model "sft_model/gpt_oss_20b/${scenario}/pddl3" \
     --family auto \
     --domain-file "${scenario}/domain3.pddl" \
     --problems-dir "${scenario}/all_problems3" \
     --prompt-template "prompt_pddl3.txt" \
-    --out "data/dpo/gpt_oss_20b/${scenario}/pddl3/scored.jsonl"
+    --out "/home/ubuntu/data/dpo/gpt_oss_20b/${scenario}/pddl3/scored.jsonl"
 done
 
 echo "All scenarios processed."

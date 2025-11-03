@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Mistral on grippers scenario
 MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 OUTPUT_NAME="sft_model/mistral_7b/grippers/base"
-DATASET_PATH="data/sft/grippers_dataset.hf"
+DATASET_PATH="/home/ubuntu/data/sft/grippers_dataset.hf"
 
 python3 pddl_finetune.py \
   --mode train \

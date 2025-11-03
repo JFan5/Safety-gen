@@ -14,7 +14,7 @@ MODEL_PATH="sft_model/gpt_oss_20b/spanner/pddl2"
 DOMAIN_FILE="spanner/domain.pddl"
 PROBLEMS_DIR="spanner/all_problems"
 PROMPT_TEMPLATE="prompt_pddl2.txt"
-OUTPUT_PATH="data/dpo/gpt_oss_20b/spanner/pddl2/scored.jsonl"
+OUTPUT_PATH="/home/ubuntu/data/dpo/gpt_oss_20b/spanner/pddl2/scored.jsonl"
 
 python3 script/generate_score_candidate.py \
   --model "$MODEL_PATH" \

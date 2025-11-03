@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for GPT-OSS-20B on spanner scenario (PDDL2)
 MODEL_NAME="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
 OUTPUT_NAME="gpt_oss_20b/spanner/pddl2"
-DATASET_PATH="data/sft/spanner/pddl2.hf"
+DATASET_PATH="/home/ubuntu/data/sft/spanner/pddl2.hf"
 
 python3 pddl_finetune.py \
   --mode train \

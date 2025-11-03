@@ -14,7 +14,7 @@ MODEL_PATH="sft_model/gpt_oss_20b/rovers/pddl3"
 DOMAIN_FILE="rovers/domain3.pddl"
 PROBLEMS_DIR="rovers/all_problems3"
 PROMPT_TEMPLATE="prompt_pddl3.txt"
-OUTPUT_PATH="data/dpo/gpt_oss_20b/rovers/pddl3/scored.jsonl"
+OUTPUT_PATH="/home/ubuntu/data/dpo/gpt_oss_20b/rovers/pddl3/scored.jsonl"
 
 python3 script/generate_score_candidate.py \
   --model "$MODEL_PATH" \

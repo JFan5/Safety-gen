@@ -14,7 +14,7 @@ MODEL_PATH="sft_model/mistral_7b/grid/pddl3"
 DOMAIN_FILE="grid/domain3.pddl"
 PROBLEMS_DIR="grid/all_problems3"
 PROMPT_TEMPLATE="prompt_pddl3.txt"
-OUTPUT_PATH="data/dpo/mistral_7b/grid/pddl3/scored.jsonl"
+OUTPUT_PATH="/home/ubuntu/data/dpo/mistral_7b/grid/pddl3/scored.jsonl"
 
 python3 script/generate_score_candidate.py \
   --model "$MODEL_PATH" \

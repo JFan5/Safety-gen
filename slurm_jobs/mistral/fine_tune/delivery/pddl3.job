@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Mistral on delivery scenario (PDDL3)
 MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 OUTPUT_NAME="sft_model/mistral_7b/delivery/pddl3"
-DATASET_PATH="data/sft/delivery/pddl3.hf"
+DATASET_PATH="/home/ubuntu/data/sft/delivery/pddl3.hf"
 
 python3 pddl_finetune.py \
   --mode train \

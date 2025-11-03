@@ -13,7 +13,7 @@ conda activate llmstl
 # Model and output configuration for Mistral on ferry scenario
 MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 OUTPUT_NAME="sft_model/mistral_7b/logistics/base"
-DATASET_PATH="data/sft/ferry_dataset.hf"
+DATASET_PATH="/home/ubuntu/data/sft/ferry_dataset.hf"
 
 
 

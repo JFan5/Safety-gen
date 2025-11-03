@@ -14,7 +14,7 @@ MODEL_PATH="sft_model/mistral_7b/blocksworld/pddl2"
 DOMAIN_FILE="blocksworld/domain.pddl"
 PROBLEMS_DIR="blocksworld/all_problems"
 PROMPT_TEMPLATE="prompt_pddl2.txt"
-OUTPUT_PATH="data/dpo/mistral_7b/blocksworld/pddl2/scored.jsonl"
+OUTPUT_PATH="/home/ubuntu/data/dpo/mistral_7b/blocksworld/pddl2/scored.jsonl"
 
 python3 script/generate_score_candidate.py \
   --model "$MODEL_PATH" \
