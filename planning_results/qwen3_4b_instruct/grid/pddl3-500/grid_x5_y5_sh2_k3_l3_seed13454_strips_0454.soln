@@ -1,0 +1,6 @@
+<TreeNode version="1.0" objective="goal" domains="grid" prob="grid-5-5-2-3-3">
+<operator name="pickup" pre-conds="(and (place pos3-0) (at key0 pos3-1) (arm-empty) (at-robot pos3-0))" effect="(and (holding key0) (not (arm-empty)) (not (at key0 pos3-1)) (at-robot pos3-0) (at key0 pos3-1))"/>
+<operator name="move" pre-conds="(and (place pos3-0) (place pos3-1) (at-robot pos3-0) (conn pos3-0 pos3-1) (open pos3-1))" effect="(and (at-robot pos3-1) (not (at-robot pos3-0)) (open pos3-1) (locked pos0-2) (locked pos0-1) (locked pos2-2) (at key0 pos3-1) (at key1 pos3-4) (at key2 pos2-3))"/>
+<operator name="pickup" pre-conds="(and (place pos3-1) (at key0 pos3-1) (arm-empty) (at-robot pos3-1))" effect="(and (holding key0) (not (arm-empty)) (not (at key0 pos3-1)) (at-robot pos3-1) (at key1 pos3-4) (at key2 pos2-3))"/>
+<operator name="move" pre-conds="(and (place pos3-1) (place pos2-1) (at-robot pos3-1) (conn pos3-1 pos2-1) (open pos2-1))" effect="(and (at-robot pos2-1) (not (at-robot pos3-1)) (open pos2-1) (arm-empty) (at key1 pos3-4) (at key2 pos2-3) (holding key0))"/>
+<operator name="move" pre-conds="(and (place pos2-1) (place pos2-0) (at-robot pos2-1) (conn pos2-1 pos2-0) (open pos2-0))" effect="(and

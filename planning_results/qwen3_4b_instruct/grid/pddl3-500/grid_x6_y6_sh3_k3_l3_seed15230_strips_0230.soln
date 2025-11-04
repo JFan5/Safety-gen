@@ -1,0 +1,43 @@
+-animate-and-loose pos1-2 pos5-3 key2 pos1-2
+-unlock pos1-2 pos4-2 key2 shape2
+-move pos1-2 pos4-2
+-move pos4-2 pos4-1
+-loose-and-pickup pos4-1 pos5-3 key2 pos4-1
+-move pos4-1 pos5-1
+-unlock pos5-1 pos5-0 key0 shape0
+-move pos5-1 pos5-0
+-unlock pos5-0 pos3-0 key0 shape0
+-move pos5-0 pos3-0
+-move pos3-0 pos3-1
+-move pos3-1 pos3-2
+-loose-and-pickup pos3-2 pos5-3 key0 pos3-2
+-move pos3-2 pos4-2
+-move pos4-2 pos4-3
+-move pos4-3 pos5-3
+-loose-and-pickup pos5-3 pos5-3 key2 pos5-3
+-move pos5-3 pos5-4
+-move pos5-4 pos5-5
+-move pos5-5 pos4-5
+-move pos4-5 pos4-4
+-move pos4-4 pos4-3
+-move pos4-3 pos4-2
+-move pos4-2 pos4-1
+-move pos4-1 pos5-1
+-unlock pos5-1 pos5-0 key0 shape0
+-move pos5-1 pos5-0
+-unlock pos5-0 pos3-0 key0 shape0
+-move pos5-0 pos3-0
+-move pos3-0 pos3-1
+-move pos3-1 pos3-2
+-loose-and-pickup pos3-2 pos5-3 key0 pos3-2
+-move pos3-2 pos4-2
+-move pos4-2 pos4-3
+-move pos4-3 pos5-3
+-loose-and-pickup pos5-3 pos5-3 key2 pos5-3
+-move pos5-3 pos5-4
+-move pos5-4 pos5-5
+-move pos5-5 pos4-5
+-move pos4-5 pos4-4
+-move pos4-4 pos4-3
+-move pos4-3 pos4-2
+-move pos4

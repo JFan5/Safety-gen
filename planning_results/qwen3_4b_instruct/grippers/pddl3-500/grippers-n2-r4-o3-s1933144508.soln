@@ -1,0 +1,36 @@
+瞭解並分析给定的PDDL3问题，其目标是让机器人robot1将ball1从room1运送到room4，同时将ball2从room4运送到room2，ball3从room4运送到room1，但必须满足约束：robot1不能出现在room4。
+### 步骤分析：
+#### 初始状态：
+- at-robby robot1 room3
+- at-robby robot2 room2
+- at ball1 room1
+- at ball2 room4
+- at ball3 room4
+- robot1的两个gripper为free
+#### 目标：
+- (at ball1 room4)
+- (at ball2 room2)
+- (at ball3 room1)
+#### 约束：
+- 不能有 (at-robby robot1 room4)
+### 规划策略：
+由于robot1不能进入room4，因此无法直接通过robot1操作ball1。ball1必须由robot2操作，但robot2初始在room2，无法直接到达room1。
+因此，必须先让robot2将ball2或ball3运送到room4，然后robot1可以操作ball3或ball2，但ball1仍需由robot2运送到room4。
+但注意：ball1必须由robot2运送到room4，因为robot1不能进入room4。
+所以，我们考虑以下路径：
+#### 步骤1：robot2从room2移动到room4
+- (move robot2 room2 room4)
+#### 步骤2：robot2在room4，pick ball2（在room4）
+- (pick robot2 ball2 room4 lgripper2)
+#### 步骤3：robot2将ball2运送到room2（因为ball2目标是room2）
+- (move robot2 room4 room2)
+- (drop robot2 ball2 room2 lgripper2)
+此时ball2在room2，满足目标。
+#### 步骤4：robot2移动到room4，pick ball3（在room4）
+- (move robot robot2 room2 room4)
+- (pick robot2 ball3 room4 lgripper2)
+#### 步骤5：robot2将ball3运送到room1
+- (move robot2 room4 room1)
+- (drop robot2 ball3 room1 lgripper2)
+此时ball3在room1，满足目标。
+#### 步骤6：robot2移动到room4

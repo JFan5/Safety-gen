@@ -1,0 +1,42 @@
+过渡到仅输出符合要求的计划步骤：
+首先分析问题需求：
+目标是将两个螺母 nut1 和 nut2 紧固，要求：
+- 必须使用 spanner1 或 spanner2；
+- 所有 spanner 必须在某个位置被拾取；
+- 每个 nut 必须在对应位置被操作；
+- 存在约束：nut1 必须在 nut2 之前被紧固；
+- 每个机器人（bob）只能进入 shed 一次。
+当前状态：
+- bob 在 shed
+- spanner1 和 spanner2 都在 location3
+- nut1 和 nut2 都在 gate
+- location3 → gate，location2 → location3，location1 → location2，location1 → location2 → location3 → gate
+步骤规划：
+Step 1: bob 从 shed 走到 location1
+- 走：(walk shed location1 bob)
+Step 2: bob 走到 location2
+- 走：(walk location1 location2 bob)
+Step 3: bob 走到 location3
+- 走：(walk location2 location3 bob)
+Step 4: 拾取 spanner1（在 location3）
+- pickup_spanner location3 spanner1 bob
+Step 5: 走到 gate 操作 nut1
+- 走：(walk location3 gate bob)
+Step 6: 紧固 nut1
+- tighten_nut gate spanner1 bob nut1
+→ 此时 nut1 变为 tightened，满足约束“nut1 在 nut2 之前”
+Step 7: 走回 location3
+- 走：(walk gate location3 bob)
+Step 8: 拾取 spanner2（在 location3）
+- pickup_spanner location3 spanner2 bob
+Step 9: 走到 gate 操作 nut2
+- 走：(walk location3 gate bob)
+- 紧固 nut2
+- tighten_nut gate spanner2 bob nut2
+验证：
+- 所有动作使用合法对象；
+- 每个 bob 只进入 shed 一次（仅在开始）；
+- nut1 在 nut2 之前被紧固；
+- 所有前件满足，无违反约束。
+最终输出：
+（注意：必须严格按格式，

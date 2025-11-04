@@ -1,0 +1,41 @@
+过渡到仅输出符合要求的计划步骤：
+首先分析问题需求：
+目标是满足两个约束：
+- 紧固 nut1 和 nut2
+- 必须满足：nut1 在 nut2 之前被紧固（sometime-before）
+- 每个机器人最多只能进入 shed 一次
+初始状态：
+- bob 在 shed
+- spanner1 在 location3，可用
+- spanner2 在 location1，可用
+- spanner3 在 location1，可用
+- nut1 在 gate，松
+- nut2 在 gate，松
+- 链接关系：
+- shed -- location1
+- location1 -- location2
+- location2 -- location3
+- location3 -- location4
+- gate == location4
+步骤规划：
+1. bob 从 shed 走到 location1（walk shed location1 bob）
+- 满足 bob 的移动，进入 location1
+2. 拾取 spanner2（pickup_spanner location1 spanner2 bob）
+- spanner2 现在被 bob 携带
+3. 拾取 spanner3（pickup_spanner location1 spanner3 bob）
+- spanner3 被携带，现在 bob 携带 spanner2 和 spanner3
+4. 走到 location2（walk location1 location2 bob）
+- 无冲突，到达 location2
+5. 走到 location3（walk location2 location3 bob）
+- 到达 location3
+6. 使用 spanner3 紧固 nut2（tighten_nut location3 spanner3 bob nut2）
+- nut2 被紧固，spanner3 不可用
+- 现在 bob 携带 spanner2，spanner3 不可用
+7. 走到 location1（walk location3 location1 bob）
+- 返回 location1
+8. 使用 spanner2 紧固 nut1（tighten_nut location1 spanner2 bob nut1）
+- nut1 被紧固，spanner2 不可用
+检查约束：
+- 所有目标达成：nut1 和 nut2 都被紧固 ✅
+- 紧固顺序：nut2 在 nut1 之前 ✅
+- bob 只进入 shed 一次（仅在开始）✅

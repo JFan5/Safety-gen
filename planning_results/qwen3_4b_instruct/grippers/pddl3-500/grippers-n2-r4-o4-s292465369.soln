@@ -1,0 +1,40 @@
+瞭解並分析给定的PDDL3问题，目标是生成一个满足所有约束和目标的**有效计划**。
+---
+PROBLEM 概要：
+- 环境：2个机器人（robot1, robot2），4个房间（room1-4），4个球（ball1-4）
+- 机器人可以移动、拾取、放下物体，使用 gripper（rgripper/lrgripper）
+- 初始状态：
+- robot1 在 room1，空手
+- robot2 在 room1，空手
+- ball1 在 room2
+- ball2 在 room1
+- ball3 在 room3
+- ball4 在 room2
+- 目标状态：
+- ball1 → room1
+- ball2 → room1（已满足）
+- ball3 → room2
+- ball4 → room1
+- 约束：
+- 机器人 robot1 不能进入 room3（always hold）
+---
+分析目标与当前状态差异：
+1. ball1：在 room2 → 需要运到 room1（需 robot1 或 robot2 搬运）
+2. ball3：在 room3 → 需要运到 room2（需 robot1 或 robot2 搬运）
+3. ball4：在 room2 → 需要运到 room1
+注意：robot1 不能进入 room3，因此任何涉及 robot1 的操作不能导致其进入 room3。
+当前 robot1 和 robot2 都在 room1。
+考虑策略：
+### 步骤规划：
+#### 步骤1：robot2 移动到 room2（可通行）
+- move robot2 room1 room2
+#### 步骤2：robot2 拾起 ball4（在 room2）
+- pick robot2 ball4 room2 lgripper2
+#### 步骤3：robot2 移动到 room1（放下 ball4）
+- move robot2 room2 room1
+- drop robot2 ball4 room1 lgripper2
+→ 现在 ball4 在 room1，目标达成
+#### 步骤4：robot2 移动到 room3（拾取 ball3）
+- move robot2 room1 room3
+→ 现在 ball3 在 room3，robot2 在 room3，空手
+#### 步骤5：robot2 拾起 ball

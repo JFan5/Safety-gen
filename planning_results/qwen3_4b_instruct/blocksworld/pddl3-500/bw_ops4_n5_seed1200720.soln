@@ -1,0 +1,44 @@
+瞭解並生成符合要求的计划：
+首先分析当前状态和目标：
+PROBLEM定义：
+- 物块：b1, b2, b3, b4, b5
+- 初始状态：
+- (on-table b1)
+- (on-table b2)
+- (on-table b3)
+- (on b4 b1)
+- (on b5 b4)
+- (clear b2)
+- (clear b3)
+- (clear b5)
+- 目标状态：
+- (on b2 b3)
+- (on b4 b2)
+- (on b5 b1)
+- 约束：
+- (sometime-before (on b4 b2) (on b2 b3)) → b4必须在b2之前被堆叠到b2上
+步骤规划：
+Step 1: 为了实现 (on b2 b3)，需要将b2从table拿起，堆叠到b3上。但当前b2是on-table，且b3是clear，因此可以pickup b2。
+- pickup b2
+此时状态：
+- (holding b2)
+- (on-table b2) → false
+- (clear b3)
+- (clear b5)
+- (on b4 b1)
+- (on b5 b4)
+Step 2: 将b2堆叠到b3上，需要确保b3是clear，当前b3是clear，满足条件。
+- stack b2 b3
+现在：
+- (on b2 b3)
+- (clear b2)
+- (holding b2) → false
+- (on b5 b4)
+- (on b4 b1)
+- (clear b5)
+目标达成 (on b2 b3)，但尚未满足 (on b4 b2) 和 (on b5 b1)
+Step 3: 为了堆叠b4到b2，需要先unstack b5，然后pickup b4，再stack b4 to b2。
+当前b5在b4上，b4在b1上，b1在table。
+先unstack b5：
+- unstack b5 b4
+→ (clear b4) 但注意：b4原在b1上，unstack b5后，b4仍需满足clear，但当前b4是on b1，所以必须先处理b4的

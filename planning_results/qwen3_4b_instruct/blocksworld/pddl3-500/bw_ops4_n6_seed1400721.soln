@@ -1,0 +1,49 @@
+瞭解並构造目标状态，我们逐步分析该Blocksworld问题。
+---
+### PROBLEM 理解：
+**对象**：b1 b2 b3 b4 b5 b6
+**初始状态**：
+- (on-table b1)
+- (on b2 b5)
+- (on b3 b4)
+- (on-table b4)
+- (on b5 b6)
+- (on-table b6)
+- (clear b1)
+- (clear b2)
+- (clear b3)
+**目标状态**：
+- (on b1 b2)
+- (on b2 b6)
+- (on b3 b4)
+- (on b5 b1)
+**约束条件**：
+- (sometime-before (on b2 b6) (on b1 b2))
+→ b2 必须在 b1 被堆叠在 b2 之前被放到 b6 上。
+---
+### 目标分析：
+我们需要：
+1. 让 b1 堆在 b2 上 → (on b1 b2)
+2. 让 b2 堆在 b6 上 → (on b2 b6)
+3. b3 保持在 b4 上 → 已满足，无需操作
+4. b5 堆在 b1 上 → (on b5 b1)
+注意：b5 最初在 b6 上，最终要变成在 b1 上。
+但 b1 最初在桌上，最终要堆在 b2 上，所以必须先处理 b1。
+---
+### 步骤推理：
+#### 步骤 1：释放 b5，以便可以移动 b6
+当前：
+- (on b5 b6)
+- (on-table b6)
+- 所以 b5 和 b6 都在桌上，但 b5 需要被取走才能移动 b6。
+但 b5 要被取走，必须满足：
+- clear b5
+- arm-empty
+- on-table b5
+目前 b5 不是 clear，因为 (on b5 b6)，所以必须先 unstack b5。
+但 unstack 需要：
+- (on b5 b6)
+- (clear b5) → 不满足
+- (arm-empty)
+所以无法 unstack b5。
+→ 必须先让 b5 变成 clear，但只有当 b6 被移开时才可能。

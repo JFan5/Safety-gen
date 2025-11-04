@@ -1,0 +1,38 @@
+瞭解並构造PDDL2规划问题，我们来逐步分析该域和问题。
+---
+**DOMAIN 简要说明**：
+- 环境是“渡船”，只能运送一辆车。
+- 有三个地点：l0, l1, l2；三个车：c0, c1, c2。
+- 动作包括：
+- `sail(from to)`：要求从 `from` 到 `to`，前提是 `from ≠ to`，且渡船在 `from`，此时渡船移动到 `to`。
+- `board(car loc)`：车在 `loc`，且渡船在 `loc`，且空，可上船。
+- `debark(car loc)`：车从 `loc` 下船，要求车在 `loc` 上且在船上。
+**PROBLEM 参数**：
+- 初始状态：
+- (at c0 l1)
+- (at c1 l1)
+- (at c2 l0)
+- (at-ferry l1)
+- 目标状态：
+- (at c0 l1) ✅（保持不变）
+- (at c1 l2)
+- (at c2 l1)
+- 约束（Constraints）：
+- (sometime-before (at c1 l2) (at-ferry l0)) → c1 必须在 l2 时，渡船必须已经去过 l0。
+- (sometime-before (at c2 l1) (at-ferry l2)) → c2 到 l1 时，渡船必须在 l2。
+---
+### 步骤分析：
+#### 当前状态（初始）：
+- (at c0 l1)
+- (at c1 l1)
+- (at c2 l0)
+- (empty-ferry)
+- (at-ferry l1)
+#### 目标：
+- c1 → l2
+- c2 → l1
+注意：c0 位置不变，所以无需操作。
+我们先处理 c2：从 l0 → l1。
+但注意约束：
+- c2 必须在 l1 时，渡船必须在 l2 → 所以必须有：(at-ferry l2) 在 (at c2 l1) 之前。
+所以 c2 必须先被运到 l1，且渡船在 l2。

@@ -1,0 +1,39 @@
+瞭解並生成符合要求的计划：
+首先分析当前状态和目标：
+PROBLEM定义：
+- 3辆车：c0, c1, c2
+- 3个地点：l0, l1, l2, l3
+- 初始状态：
+- (at c0 l2)
+- (at c1 l2)
+- (at c2 l0)
+- (at-ferry l1)
+- 目标状态：
+- (at c0 l0)
+- (at c1 l3)
+- (at c2 l3)
+- 约束条件（必须满足）：
+- (sometime-before (at c0 l0) (at-ferry l3))
+- (sometime-before (at c1 l3) (at-ferry l0))
+- (sometime-later (at c2 l3) (at-ferry l2)) → 实际是 (sometime-before (at c2 l3) (at-ferry l2))
+关键点：
+- 所有车辆必须通过码头上下船，每次只能运一辆车。
+- 每次只能有一个车上下，且必须在正确的位置。
+- 必须满足所有约束条件，特别是时间顺序。
+步骤规划：
+Step 1: 从 l2 到 l3，可以载车 c0 或 c1
+当前：l1 有船，c0 在 l2，c1 在 l2，c2 在 l0
+先考虑 c2，因为目标是 l3，且需要在 l2 之后才能去 l3。
+但注意：c2 必须在 l3，且必须在 l2 之后，所以必须先让船到 l2，然后去 l3。
+当前船在 l1，所以必须先移动。
+Step 1: sail l1 l2
+- 船从 l1 → l2，现在在 l2
+- 约束：c2 必须在 l3，且在 l2 之后，所以可以满足
+现在状态：
+- (at-ferry l2)
+- (at c0 l2)
+- (at c1 l2)
+- (at c2 l0)
+Step 2: board c2 at l0 → 但船在 l2，无法在 l0 上船
+所以必须先让船到 l0 或 l3。
+当前船

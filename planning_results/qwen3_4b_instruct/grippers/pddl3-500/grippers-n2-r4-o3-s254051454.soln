@@ -1,0 +1,37 @@
+瞭解並分析给定的PDDL3问题，目标是生成一个满足所有约束和目标的**有效计划**。
+---
+DOMAIN定义了机器人抓取任务的基本动作：
+- **move**：机器人从一个房间移动到另一个房间，要求其在起始房间，并且必须满足“at-robby”和“free”等状态。
+- **pick**：机器人在某个房间拾取物体，要求物体在该房间且机器人在该房间且某个机械臂空闲。
+- **drop**：机器人在某个房间放下物体，要求其携带该物体且在该房间。
+PROBLEM定义如下：
+- 有两个机器人（robot1, robot2），两个抓手（rgripper1/lgripper1, rgripper2/lgripper2），四个房间（room1~room4），三个球（ball1~ball3）。
+- 初始状态：
+- robot1在room2，两个抓手空闲。
+- robot2在room4，两个抓手空闲。
+- ball1、ball2、ball3都在room1。
+- 目标状态：
+- ball1 → room1（保持不变）
+- ball2 → room2
+- ball3 → room3
+- 约束：
+- 机器人robot1**永远不能进入room3**（即不能出现在room3）
+---
+### 分析与推理：
+#### 步骤目标：
+- 需要将ball2从room1运到room2。
+- 将ball3从room1运到room3。
+- ball1无需移动，保持在room1。
+#### 可用资源：
+- robot1和robot2都可以操作，但robot1不能进入room3。
+#### 策略选择：
+由于ball2和ball3都在room1，必须有一个机器人去拾取它们。
+考虑robot2的可用性：
+- robot2在room4，可以移动到room1，然后拾取ball2或ball3。
+但注意：ball2要运到room2，ball3要运到room3。
+由于robot1不能进room3，因此**不能由robot1操作ball3**，必须由robot2完成ball3的运输。
+因此，robot2必须执行：
+1. 从room4 → room1
+2. 拾取ball2或ball3
+3. 运输到目标房间并放下
+但ball2和ball3都在room1，
