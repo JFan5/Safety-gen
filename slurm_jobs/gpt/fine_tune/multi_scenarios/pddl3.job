@@ -14,7 +14,7 @@ conda activate llmstl
 # Ensure the dataset is generated via:
 #   python3 script/collect_finetuned_dataset_together.py --pddl PDDL3 --output /home/ubuntu/data/sft/multi_scenarios/pddl3.hf
 
-MODEL_NAME="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
+MODEL_NAME="sft_models/gpt_multi_pddl3_500/checkpoint-100"
 DATASET_PATH="/home/ubuntu/data/sft/multi_scenarios/pddl3.hf"
 OUTPUT_NOTE="gpt_multi_pddl3"
 
@@ -30,7 +30,6 @@ python3 pddl_finetune.py \
   --output "${OUTPUT_NOTE}" \
   --dataset "${DATASET_PATH}" \
   --family gpt \
-  --max-seq-length 1536 \
   --per-device-train-batch-size 12 \
   --gradient-accumulation-steps 2 \
   --load-in-4bit \
