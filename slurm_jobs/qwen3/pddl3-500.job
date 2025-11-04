@@ -12,7 +12,7 @@ conda activate llmstl
 
 # Model and output configuration for qwen3-14b on delivery scenario (PDDL3)
 MODEL_NAME="unsloth/Qwen3-14B-unsloth-bnb-4bit"
-OUTPUT_NAME="sft_model/Qwen3-14B/delivery/pddl3"
+OUTPUT_NAME="sft_models/qwen3_multi_pddl3_500/"
 DATASET_PATH="/home/ubuntu/data/sft/multi_scenarios500/pddl3.hf"
 
 python3 pddl_finetune.py \
