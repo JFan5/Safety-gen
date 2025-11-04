@@ -1,10 +1,42 @@
 [
   {
+    "model_id": "unsloth/gpt-oss-20b-unsloth-bnb-4bit",
+    "tag": "gpt_oss_20b_4bit",
+    "success_rate": 10.0,
+    "valid_count": 1,
+    "total_tests": 10,
+    "results_file": "planning_results/unsloth_comparison/ferry/gpt_oss_20b_4bit/ferry_10_gpt_oss_20b_4bit.json"
+  },
+  {
+    "model_id": "unsloth/Qwen3-4B-Instruct-2507",
+    "tag": "qwen3_4b_instruct",
+    "success_rate": 10.0,
+    "valid_count": 1,
+    "total_tests": 10,
+    "results_file": "planning_results/unsloth_comparison/ferry/qwen3_4b_instruct/ferry_10_qwen3_4b_instruct.json"
+  },
+  {
+    "model_id": "unsloth/Qwen3-4B-Thinking-2507",
+    "tag": "qwen3_4b_thinking",
+    "success_rate": 10.0,
+    "valid_count": 1,
+    "total_tests": 10,
+    "results_file": "planning_results/unsloth_comparison/ferry/qwen3_4b_thinking/ferry_10_qwen3_4b_thinking.json"
+  },
+  {
     "model_id": "unsloth/DeepSeek-R1-Distill-Llama-8B",
     "tag": "deepseek_r1_llama8b",
     "success_rate": 0.0,
     "valid_count": 0,
     "total_tests": 10,
     "results_file": "planning_results/unsloth_comparison/ferry/deepseek_r1_llama8b/ferry_10_deepseek_r1_llama8b.json"
+  },
+  {
+    "model_id": "unsloth/Mistral-Small-3.2-24B-Instruct-2506",
+    "tag": "mistral_small_24b",
+    "success_rate": 0.0,
+    "valid_count": 0,
+    "total_tests": 10,
+    "results_file": "planning_results/unsloth_comparison/ferry/mistral_small_24b/ferry_10_mistral_small_24b.json"
   }
 ]

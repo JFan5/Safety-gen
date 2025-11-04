@@ -1,0 +1,36 @@
+瞭解並分析给定的PDDL3问题，目标是生成一个满足所有约束和目标的**有效计划**。
+---
+DOMAIN定义了机器人抓取任务的基本动作：
+- **move**：机器人在房间间移动，要求当前在某个房间，且目标房间为空闲。
+- **pick**：机器人在某个房间拾取物体，要求物体存在、机器人在该房间、且某个机械臂空闲。
+- **drop**：机器人在当前房间放下物体，要求机器人确实携带该物体。
+PROBLEM定义如下：
+- 有两个机器人（robot1, robot2），三个房间（room1, room2, room3），三个球（ball1, ball2, ball3）。
+- 初始状态：
+- robot1 在 room2，rgripper1 和 lgripper1 都空闲。
+- robot2 在 room3，rgripper2 和 lgripper2 都空闲。
+- ball1 在 room3，ball2 在 room1，ball3 在 room3。
+- 目标状态：
+- ball1 → room1
+- ball2 → room3
+- ball3 → room3
+- 约束：
+- robot1 不能出现在 room3（always 不允许）
+---
+### 分析与推理：
+#### 当前问题：
+需要将 ball1 从 room3 移到 room1，ball2 从 room1 移到 room3。
+由于 robot1 不能进入 room3，因此 **无法由 robot1 操作 room3 中的 ball1 或 ball3**。
+因此，必须由 robot2 来处理 room3 中的 ball1 和 ball3。
+但 robot2 初始在 room3，可以操作。
+#### 步骤规划：
+**目标：**
+- ball1 → room1 → 需要 robot2 从 room3 拾起 ball1，移动到 room1，放下。
+- ball2 → room3 → 需要 robot1 从 room1 拾起 ball2，移动到 room2，然后到 room3 放下。
+但注意：ball2 在 room1，robot1 在 room2，所以 robot1 必须先移动到 room1。
+但 robot1 不能进入 room3，这不会影响它去 room1。
+所以可行路径如下：
+---
+### 步骤计划：
+1. **move robot1 room2 room1**
+→ robot1 移

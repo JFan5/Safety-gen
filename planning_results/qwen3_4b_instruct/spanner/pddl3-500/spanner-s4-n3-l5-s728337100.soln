@@ -1,0 +1,13 @@
+ritte-spanner spanner1 location5 gate
+walk location5 shed
+pickup_spanner location4 spanner3 gate
+walk location4 location5
+walk location5 gate
+pickup_spanner gate spanner2 gate
+walk gate location1
+use_spanner spanner3 spanner2 gate
+walk location1 gate
+use_spanner spanner2 spanner3 location1
+tighten_nut location1 nut1 location1
+tighten_nut location1 nut2 location1
+tighten_nut location1 nut3 location1

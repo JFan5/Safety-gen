@@ -1,0 +1,83 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate_deepseek_r1_llama8b_multi_scenarios_sft_pddl3-500.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N evaluate_deepseek_r1_llama8b_multi_scenarios_sft_pddl3-500     # Specify job name
+#$ -t 1-6               # One task per scenario
+
+conda activate llmstl
+
+if [[ -z "${SGE_TASK_ID:-}" ]]; then
+  echo "SGE_TASK_ID is not set. Please run this script via qsub with an array range." >&2
+  exit 1
+fi
+
+FINE_TUNED_MODEL="/groups/fkong/jfan5/sft_models/deepseek_r1_llama8b/multi_scenarios/pddl3-500"
+
+declare -a SCENARIOS=(
+  "blocksworld"
+  "ferry"
+  "grid"
+  "grippers"
+  "rovers"
+  "spanner"
+)
+
+scenario_name="${SCENARIOS[$((SGE_TASK_ID-1))]}"
+
+case "${scenario_name}" in
+  blocksworld)
+    PROBLEMS_DIR="blocksworld/all_problems3/testing"
+    DOMAIN_FILE="blocksworld/domain3.pddl"
+    ;;
+  ferry)
+    PROBLEMS_DIR="ferry/all_problems3/testing"
+    DOMAIN_FILE="ferry/domain3.pddl"
+    ;;
+  grid)
+    PROBLEMS_DIR="grid/all_problems3/testing"
+    DOMAIN_FILE="grid/domain3.pddl"
+    ;;
+  grippers)
+    PROBLEMS_DIR="grippers/all_problems3/testing"
+    DOMAIN_FILE="grippers/domain3.pddl"
+    ;;
+  rovers)
+    PROBLEMS_DIR="rovers/all_problems3/testing"
+    DOMAIN_FILE="rovers/domain3.pddl"
+    ;;
+  spanner)
+    PROBLEMS_DIR="spanner/all_problems3/testing"
+    DOMAIN_FILE="spanner/domain3.pddl"
+    ;;
+  *)
+    echo "Unsupported scenario: ${scenario_name}" >&2
+    exit 1
+    ;;
+esac
+
+RESULTS_DIR="planning_results/deepseek_r1_llama8b/${scenario_name}/sft_multi_scenarios_pddl3-500"
+OUTPUT_NAME="${scenario_name}_sft_multi_scenarios_pddl3-500_results.json"
+
+mkdir -p "${RESULTS_DIR}"
+
+echo "=========================================="
+echo "Evaluating fine-tuned model: ${FINE_TUNED_MODEL}"
+echo "Scenario: ${scenario_name}"
+echo "Problems dir: ${PROBLEMS_DIR}"
+echo "Domain file: ${DOMAIN_FILE}"
+echo "Results dir: ${RESULTS_DIR}"
+echo "Max problems: 30"
+echo "=========================================="
+
+python3 script/evaluate_llm_solver.py \
+  --model "${FINE_TUNED_MODEL}" \
+  --problems-dir "${PROBLEMS_DIR}" \
+  --domain-file "${DOMAIN_FILE}" \
+  --max-problems 30 \
+  --output "${OUTPUT_NAME}" \
+  --results-dir "${RESULTS_DIR}"

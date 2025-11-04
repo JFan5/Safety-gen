@@ -1,0 +1,41 @@
+瞭解並构造目标状态，我们逐步分析给定的 PDDL2 问题，生成一个满足所有约束和目标的合法计划。
+---
+**PROBLEM 概要：**
+- **领域**：blocksworld，支持抓取、放下、堆叠、卸下。
+- **对象**：b1, b2, b3, b4, b5
+- **初始状态**：
+- (on-table b1)
+- (on b2 b1)
+- (on b3 b5)
+- (on-table b4)
+- (on-table b5)
+- (clear b2)  → b2 可用
+- (clear b3)
+- (clear b4)
+- **目标状态**：
+- (on-table b1)
+- (on b2 b4)
+- (on b3 b5)
+- (on-table b4)
+- (on-table b5)
+- **约束**：
+- 必须在 b2 堆叠到 b4 之前，b1 被放在桌上（sometime-before (on b2 b4) (on-table b1)）
+---
+### 步骤分析：
+#### 当前状态：
+- b1：on-table
+- b2：on b1 → 需要卸下
+- b3：on b5 → 目标状态仍为 on b3 b5，无需动
+- b4：on-table
+- b5：on-table
+- 清空条件：b2, b3, b4
+#### 目标：
+- b1 要回到 on-table（已满足）
+- b2 要堆叠在 b4 上 → 需要先 pickup b2，然后 putdown，再 pickup b4？但 b4 在桌上，可堆叠
+- 注意：b3 保持在 b5 上，初始即满足，无需操作
+但注意：b2 当前在 b1 上，必须先卸下。
+---
+#### 步骤 1：卸下 b2
+- 当前：on b2 b1，需要卸下 b2
+- 要求：clear b1 和 arm-empty
+- 但 b1 在桌上，clear b1 成立吗？初始无 (clear b1)，但 b1 在桌上 → 所以 clear b1 成立（桌上

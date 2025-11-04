@@ -1,0 +1,42 @@
+瞭解並构造PDDL2语义，当前任务为Blocksworld领域下的一个随机问题，目标是通过合法动作序列从初始状态转移到最终状态。
+---
+PROBLEM分析：
+领域定义了标准的Blocksworld操作：
+- pickup: 将块拾起，要求该块为空闲且在桌上
+- putdown: 将块放下，要求当前持有该块
+- stack: 将块堆叠在另一块上，要求目标块空闲且手持块
+- unstack: 解除堆叠，要求目标块空闲且手持上层块
+PROBLEM状态：
+对象：b1, b2, b3
+初始状态：
+- (on b1 b3)
+- (on-table b2)
+- (on b3 b2)
+- (clear b1)
+- (arm-empty)
+目标状态：
+- (on-table b1)
+- (on-table b2)
+- (on-table b3)
+约束条件（必须满足）：
+- (sometime-before (on-table b2) (on-table b1))
+→ b2必须在b1被放回桌上之前被放下，即b1必须在b2之后放回桌上。
+注意：所有块最终必须在桌上，因此所有堆叠必须被解除。
+---
+逐步推理：
+### 步骤1：分析初始状态
+- b1在b3上，b3在b2上 → b1和b3都非空闲
+- 只有b2在桌上，空闲
+- 所以必须先处理b3，才能处理b1
+### 步骤2：解除b1和b3的堆叠
+- 要解除b1，必须先unstack b1从b3上，要求b3空闲且arm-empty，但当前b3在b2上，不空闲，无法unstack
+→ 所以必须先处理b3
+### 步骤3：让b3下放
+- b3在b2上，要放下b3，必须先unstack b3，要求b2空闲且arm-empty
+- 但b2在桌上，是空闲的 → 可以unstack b3，前提是arm-empty且b2空闲
+当前状态：
+- (on b3 b2)
+- (on-table b2)
+- (clear b1)
+- (arm-empty)
+→ 可以执行 un

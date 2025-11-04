@@ -1,0 +1,38 @@
+瞭解並生成符合要求的计划：
+首先分析当前状态和目标状态。
+PROBLEM定义：
+- 地点：l0, l1, l2, l3
+- 车辆：c0, c1, c2
+- 初始状态：
+- (at c0 l3)
+- (at c1 l2)
+- (at c2 l0)
+- (at-ferry l3)
+- 目标状态：
+- (at c0 l2)
+- (at c1 l3)
+- (at c2 l3)
+- 约束条件（PDDL3）：
+- (sometime-before (at c0 l2) (at-ferry l0))
+- (sometime-before (at c1 l3) (at-ferry l0))
+- (sometime-before (at c2 l3) (at-ferry l1))
+注意：所有约束要求某个车辆到达目标位置的时间必须早于某个渡口状态。
+步骤规划：
+Step 1: 从 l3 出发，前往 l2，空船
+- sail l3 l2
+→ (at-ferry l2), (at c0 l3), (at c1 l2), (at c2 l0)
+Step 2: c0 在 l3，无法上船；c1 在 l2，可以上船
+- board c1 l2
+→ (on c1), (empty-ferry), (at c2 l0), (at-ferry l2), (at c0 l3)
+Step 3: 航行到 l0
+- sail l2 l0
+→ (at-ferry l0), (at c2 l0), (on c1), (empty-ferry)
+Step 4: c2 在 l0，可以上船
+- board c2 l0
+→ (on c2), (empty-ferry), (at c1 l2), (at-ferry l0)
+Step 5: 航行到 l3
+- sail l0 l3
+→ (at-ferry l3), (at c1 l2), (on c2), (on c1), (at c2 l3)
+Step 6: 下船 c1 和 c2
+- debark c1 l2
+→ (at c1 l2),

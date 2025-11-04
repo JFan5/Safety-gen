@@ -1,0 +1,44 @@
+过渡到仅输出计划步骤：
+首先分析问题状态和需求：
+目标是：
+- ball1 从 room4 → room1
+- ball3 从 room1 → room4
+当前状态：
+- robot1 在 room2，有 rgripper1 和 lgripper1（空）
+- robot2 在 room3，有 rgripper2 和 lgripper2（空）
+- ball1 在 room4
+- ball2 在 room3
+- ball3 在 room1
+- ball4 在 room1
+约束：
+- robot1 不能进入 room3
+策略：
+1. 让 robot1 移动到 room4，然后拾取 ball1，再运送到 room1。
+2. 同时，robot2 可以拾取 ball3 并运送到 room4。
+但注意：ball3 在 room1，需要 robot2 或 robot1 去 pickup。
+步骤规划：
+Step 1: robot1 移动到 room4
+- (move robot1 room2 room4)
+Step 2: robot1 拾取 ball1（在 room4）
+- (pick robot1 ball1 room4 rgripper1)
+Step 3: robot1 将 ball1 运送到 room1
+- (move robot1 room4 room1)
+- 此时 ball1 在 room1，满足目标，但 ball3 还在 room1，需要被运走。
+但此时 ball3 在 room1，必须被拾起。
+但 robot1 在 room1，可以拾起 ball3。
+但注意：robot1 不能进入 room3，但 room1 和 room2、room4 是允许的。
+所以：
+Step 4: robot1 拾起 ball3（在 room1）
+- (pick robot1 ball3 room1 rgripper1)
+Step 5: robot1 运送 ball3 到 room4
+- (move robot1 room1 room4)
+此时：
+- ball1 在 room1（正确）
+- ball3 在 room4（正确）
+- ball2 在 room3（正确）
+- ball4 在 room1 → 还未处理
+ball4 也在 room1，但目标是 ball4 在 room4。
+当前 ball4 在 room1，需要被拾起并运到 room4。
+但 robot1 已经在 room4，无法拾起 ball4。
+所以必须让 robot2 拾起 ball4。
+但 robot2 在 room3，

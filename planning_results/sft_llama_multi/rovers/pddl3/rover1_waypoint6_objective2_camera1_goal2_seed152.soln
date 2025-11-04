@@ -1,17 +1,41 @@
-(navigate rover0 waypoint3 waypoint0)
-(navigate rover0 waypoint0 waypoint4)
-(navigate rover0 waypoint4 waypoint1)
-(navigate rover0 waypoint1 waypoint2)
-(sample_rock rover0 waypoint2)
-(sample_soil rover0 waypoint1)
-(drop rover0 rover0store)
-(take_image rover0 waypoint1 objective0 low_res)
-(communicate_rock_data waypoint1)
-(on_board camera0 rover0)
-(calibration_target camera0 objective1)
-(supports camera0 high_res)
-(navigate rover0 waypoint1 waypoint3)
-(navigate rover0 waypoint3 waypoint5)
-(communicate_image_data objective0 high_res)
-(at_soil_sample waypoint5)
-(at_rock_sample waypoint3)
+Navigate rover0 waypoint0 waypoint3
+Navigate rover0 waypoint3 waypoint2
+sample_rock rover0 rover0store waypoint2
+Navigate rover0 waypoint2 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint4
+Navigate rover0 waypoint4 waypoint0
+Navigate rover0 waypoint0 waypoint5
+sample_rock rover0 rover0store waypoint5
+Navigate rover0 waypoint5 waypoint0
+Navigate rover0 waypoint0 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint2
+sample_rock rover0 rover0store waypoint2
+Navigate rover0 waypoint2 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint4
+Navigate rover0 waypoint4 waypoint0
+Navigate rover0 waypoint0 waypoint5
+Navigate rover0 waypoint5 waypoint0
+Navigate rover0 waypoint0 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint2
+sample_rock rover0 rover0store waypoint2
+Navigate rover0 waypoint2 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint4
+Navigate rover0 waypoint4 waypoint0
+Navigate rover0 waypoint0 waypoint5
+Navigate rover0 waypoint5 waypoint0
+Navigate rover0 waypoint0 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint2
+sample_rock rover0 rover0store waypoint2
+Navigate rover0 waypoint2 waypoint3
+sample_soil rover0 rover0store waypoint3
+Navigate rover0 waypoint3 waypoint4
+Navigate rover0 waypoint4 waypoint0
+communicate_rock_data rover0 general waypoint2 waypoint3
+communicate_image_data objective0 low_res waypoint3
+communicate_image_data objective0 low_res waypoint2

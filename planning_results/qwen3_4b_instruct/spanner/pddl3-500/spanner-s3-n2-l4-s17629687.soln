@@ -1,0 +1,27 @@
+ritte-spanner spanner1 location3 bob
+walk location3 location2 bob
+walk location2 location1 bob
+walk location1 shed bob
+pickup_spanner location3 spanner1 bob
+walk location3 location2 bob
+walk location2 location1 bob
+walk location1 location2 bob
+walk location2 location3 bob
+pickup_spanner location3 spanner2 bob
+walk location3 location2 bob
+walk location2 location1 bob
+walk location1 location2 bob
+walk location2 location3 bob
+use_spanner spanner1 nut1 bob
+tighten_nut location3 nut1 bob spanner1
+walk location3 location2 bob
+walk location2 location1 bob
+walk location1 location2 bob
+walk location2 location3 bob
+pickup_spanner location3 spanner2 bob
+walk location3 location2 bob
+walk location2 location1 bob
+walk location1 location2 bob
+walk location2 location3 bob
+use_spanner spanner2 nut2 bob
+tighten_nut location3 nut2 bob spanner2

@@ -1,0 +1,48 @@
+瞭解並构造目标状态，我们逐步分析该Blocksworld问题。
+---
+**PROBLEM 理解：**
+- **对象**：b1, b2, b3, b4
+- **初始状态**：
+- (on b1 b4)
+- (on b2 b1)
+- (on b3 b2)
+- (on-table b4)
+- (clear b3)
+- **目标状态**：
+- (on b1 b2)
+- (on-table b2)
+- (on b3 b4)
+- (on-table b4)
+- **约束条件**：
+- 必须在 b2 被放到 table 上之前，b1 被放到 b2 上（即：sometime-before (on-table b2) (on b1 b2)）
+→ 所以 b1 必须在 b2 被放回 table 之前被放到 b2 上，意味着 b1 必须在 b2 被放下的动作之前被堆叠在 b2 上。
+---
+### 步骤分析：
+#### 当前状态：
+- on(b1, b4)
+- on(b2, b1)
+- on(b3, b2)
+- on-table(b4)
+- clear(b3)
+- arm-empty
+#### 目标：
+- b1 → b2
+- b2 → table
+- b3 → b4
+- b4 → table
+注意：b4 最终在 table，所以 b4 不能被堆叠。
+---
+### 步骤规划：
+#### Step 1: 解放 b3，因为 b3 是唯一 clear 的块，且需要被移动到 b4 上
+但 b3 当前在 b2 上，所以必须先 unstack b3。
+**unstack b3 from b2**
+- 前提：(on b3 b2), (clear b3), (arm-empty) → 满足
+- 执行 unstack 后：
+- (holding b3)
+- (clear b2) → 原来的 clear b3 被移除，b2 不再 clear
+- b3 被拿起，b2 变为不 clear
+状态更新：
+- (on b1 b4)
+- (on b2 b1)
+- (holding b3)
+- (clear b3) →

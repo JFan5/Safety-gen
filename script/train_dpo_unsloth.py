@@ -37,7 +37,12 @@ def load_dpo_dataset(dataset_path: str) -> Dataset:
                 data.append(json.loads(line))
     
     logger.info(f"Loaded {len(data)} DPO pairs")
-    return Dataset.from_list(data)
+    ds = Dataset.from_list(data)
+    required = {"prompt","chosen","rejected"}
+    missing = required - set(ds.column_names)
+    if missing:
+        raise ValueError(f"DPO dataset missing required columns: {missing}; need to include columns: {sorted(list(required))}")
+    return ds
 
 
 def main():
@@ -67,6 +72,10 @@ def main():
     parser.add_argument("--load_in_4bit", action="store_true", help="Load model in 4-bit quantization")
     parser.add_argument("--load_in_8bit", action="store_true", help="Load model in 8-bit quantization")
     parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Use gradient checkpointing")
+    parser.add_argument("--lora_r", type=int, default=16)
+    parser.add_argument("--lora_alpha", type=int, default=32)
+    parser.add_argument("--lora_dropout", type=float, default=0.05)
+    parser.add_argument("--reference_free", action="store_true",help="Use reference-free DPO to halve memory")
     parser.add_argument("--dataloader_num_workers", type=int, default=0, help="Number of workers for the PyTorch DataLoader")
     parser.add_argument(
         "--memory_efficient",
@@ -151,7 +160,16 @@ def main():
         use_gradient_checkpointing=args.use_gradient_checkpointing,
         # Flash Attention 2 is automatically enabled in Unsloth
     )
-
+    FastLanguageModel.for_training(model, use_gradient_checkpointing=args.use_gradient_checkpointing)
+    model = FastLanguageModel.get_peft_model(
+        model,
+        r=args.lora_r,
+        lora_alpha=args.lora_alpha,
+        lora_dropout=args.lora_dropout,
+        bias="none",
+        target_modules=["q_proj","k_proj","v_proj","o_proj","gate_proj","up_proj","down_proj"],
+        use_gradient_checkpointing=args.use_gradient_checkpointing,
+    )
     # Disable KV caching during training to keep memory usage predictable
     if hasattr(model, "config"):
         model.config.use_cache = False
@@ -164,10 +182,8 @@ def main():
     dataset = load_dpo_dataset(args.dataset)
     
     # Split dataset into train and eval (90/10 split)
-    train_size = int(0.9 * len(dataset))
-    train_dataset = dataset.select(range(train_size))
-    eval_dataset = dataset.select(range(train_size, len(dataset)))
-    
+    split = dataset.train_test_split(test_size=0.1, seed=42, shuffle=True)
+    train_dataset, eval_dataset = split["train"], split["test"]
     logger.info(f"Training dataset size: {len(train_dataset)}")
     logger.info(f"Evaluation dataset size: {len(eval_dataset)}")
     
@@ -205,7 +221,7 @@ def main():
         beta=args.beta,
         loss_type="sigmoid",
         label_smoothing=0.0,
-        reference_free=False,
+        reference_free=args.reference_free,
         max_length=args.max_length,
         max_prompt_length=args.max_prompt_length,
     )
@@ -217,7 +233,7 @@ def main():
         args=dpo_config,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        processing_class=tokenizer,
+        tokenizer=tokenizer,
     )
     
     # Start training

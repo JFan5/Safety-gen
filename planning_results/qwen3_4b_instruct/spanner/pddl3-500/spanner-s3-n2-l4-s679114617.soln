@@ -1,0 +1,47 @@
+过渡到仅输出符合要求的计划内容：
+首先分析问题需求：
+我们有一个 spanner 域，涉及以下元素：
+- 人类：bob
+- 锚定工具：spanner1, spanner2, spanner3
+- 螺丝：nut1, nut2
+- 地点：location1, location2, location3, location4, gate, shed
+目标是：
+- 紧固 nut1 和 nut2
+- 必须满足约束：
+- nut1 必须在 nut2 之前被紧固（sometime-before）
+- 每个人最多只能进入 shed 一次（at-most-once (at bob shed)）
+初始状态：
+- bob 在 shed
+- spanner1 在 location4
+- spanner2 在 location1
+- spanner3 在 location1
+- nut1 在 gate，松
+- nut2 在 gate，松
+- 链接关系：
+- shed → location1
+- location1 → location2
+- location2 → location3
+- location3 → location4
+- location4 → gate
+目标状态：
+- nut1 和 nut2 都被紧固
+- 且 nut1 在 nut2 之前被处理
+步骤规划：
+步骤1：bob 从 shed 走到 location1
+- (walk shed location1 bob)
+步骤2：bob 拿起 spanner2（在 location1）
+- (pickup_spanner location1 spanner2 bob)
+步骤3：bob 走到 location2
+- (walk location1 location2 bob)
+步骤4：bob 走到 location3
+- (walk location2 location3 bob)
+步骤5：bob 走到 location4
+- (walk location3 location4 bob)
+步骤6：bob 拿起 spanner1（在 location4）
+- (pickup_spanner location4 spanner1 bob)
+步骤7：bob 走到 gate
+- (walk location4 gate bob)
+步骤8：使用 spanner1 紧固 nut1（在 gate）
+- (tighten_nut gate spanner1 bob nut1)
+此时 nut1 被紧固，但 nut2 仍为松，且 spanner2 仍可使用。
+但注意：nut1 必须在 nut2 之前被紧固，所以 nut2 可以在 nut1

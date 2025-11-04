@@ -20,12 +20,12 @@ from trl import SFTTrainer
 from unsloth import is_bfloat16_supported, FastLanguageModel
 
 # 配置参数
-max_seq_length = 1536  # 最大序列长度
+max_seq_length = 4096  # 最大序列长度
 use_bf16 = is_bfloat16_supported()  # A100: True
 
 # 选方案 A：BF16 + LoRA
 load_in_4bit = False    # 方案 A 用 False；若想走 QLoRA，设 True
-max_new_tokens = 256  # 最大生成token数
+max_new_tokens = 512  # 最大生成token数
 
 def template(prompt, path):
     """创建对话模板"""
@@ -157,11 +157,7 @@ def sft_train_pddl(
     max_seq_length_local = max_seq_length_override or max_seq_length
     load_in_4bit_local = load_in_4bit if load_in_4bit_override is None else load_in_4bit_override
 
-    if family == 'gpt':
-        if load_in_4bit_override is None:
-            load_in_4bit_local = True
-        if max_seq_length_override is None and max_seq_length_local > 2048:
-            max_seq_length_local = 2048
+
     
     # 检查GPU
     print(f"GPU count: {torch.cuda.device_count()}")
@@ -416,10 +412,7 @@ def test_pddl_model(model_path, test_prompt, n=5, family='mistral', dataset_path
     dtype = "bfloat16" if use_bf16 else None
     load_in_4bit_local = load_in_4bit
     max_seq_length_local = max_seq_length
-    if family == 'gpt':
-        load_in_4bit_local = True
-        if max_seq_length_local > 2048:
-            max_seq_length_local = 2048
+
     
     # 如果没有提供test_prompt，尝试从数据集加载一个真实的prompt
     if not test_prompt or test_prompt == "Generate a PDDL solution for a simple problem.":

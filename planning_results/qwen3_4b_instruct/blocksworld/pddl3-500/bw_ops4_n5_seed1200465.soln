@@ -1,0 +1,44 @@
+瞭解並构造目标状态，我们逐步分析给定的 PDDL2 问题，并生成一个满足所有约束和目标的**有效计划**。
+---
+### 问题分析：
+**领域**：blocksworld，支持基本操作：pickup、putdown、stack、unstack。
+**对象**：b1 b2 b3 b4 b5
+**初始状态**：
+- (on-table b1)
+- (on-table b2)
+- (on-table b3)
+- (on b4 b3)
+- (on b5 b4)
+- (clear b1)
+- (clear b2)
+- (clear b5)
+**目标状态**：
+- (on b1 b3)
+- (on b3 b2)
+- (on b4 b5)
+**约束**：
+- (sometime-before (on b3 b2) (on b1 b3))
+→ b3 必须在 b1 被堆叠到 b3 之前被堆叠到 b2。
+---
+### 步骤推理：
+#### 第一步：分析依赖关系
+要实现：
+- (on b1 b3) → 需要先 pickup b1，然后 stack b1 on b3 → 但初始时 b3 在 table，且 b5 在 b4 上，b4 在 b3 上，所以必须先处理 b3 和 b4 的堆叠。
+目标堆叠顺序：
+- b5 → b4 → b3 → b2
+但当前堆叠是：
+- b4 on b3
+- b5 on b4
+所以必须先将 b5 和 b4、b3 取下，才能堆叠 b3 和 b4。
+#### 第二步：确定可行路径
+**目标**：
+- (on b1 b3)
+- (on b3 b2)
+- (on b4 b5)
+注意：b4 最终在 b5 上，所以必须先将 b5 放在 b4 下，然后 b4 放在 b5 上。
+但当前 b5 在 b4 上，所以必须先 unstack b5，然后 putdown b5，再 pickup b4，stack b4 on b5。
+但 b4 当前在 b3 上，所以必须先 unstack b4。
+---
+#### 详细步骤规划：
+**Step 1：unstack b5 from b4**
+- 前提：(on b5 b

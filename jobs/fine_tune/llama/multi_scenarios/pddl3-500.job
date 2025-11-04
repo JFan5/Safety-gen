@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/fine_tune/llama/multi_scenarios/pddl3-500.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N fine_tune_llama_multi_scenarios_pddl3-500     # Specify job name
+
+conda activate llmstl
+
+# Aggregated multi-scenario fine-tune for Llama-3-8B (PDDL3 dataset).
+# Generate the dataset via:
+#   python3 script/collect_finetuned_dataset_together.py --pddl PDDL3 --output /groups/fkong/jfan5/data/sft/multi_scenarios/pddl3.hf
+MODEL_NAME="unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
+OUTPUT_NAME="llama/multi_scenarios/pddl3-500"
+DATASET_PATH="/groups/fkong/jfan5/data/sft/multi_scenarios500/pddl3.hf"
+
+python3 pddl_finetune.py \
+  --mode train \
+  --model "$MODEL_NAME" \
+  --output "$OUTPUT_NAME" \
+  --dataset "$DATASET_PATH" \
+  --scenarios all

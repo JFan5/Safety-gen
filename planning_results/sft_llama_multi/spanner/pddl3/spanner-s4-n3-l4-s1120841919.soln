@@ -1,8 +1,0 @@
-(walk location1 location2)
-(pickup_spanner 2 shed spanner1)
-(walk shed location4)
-(pickup_spanner 4 location4)
-(tighten_nut 4 spanner1 nut4)
-(walk location4 shed)
-(pickup_spanner 4 shed spanner4)
-(tighten_nut 4 spanner4 nut4)
