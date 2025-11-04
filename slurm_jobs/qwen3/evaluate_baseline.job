@@ -4,7 +4,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --output=job_outputs/evaluate/Qwen3-14B/multi/baseline.o
+#SBATCH --output=evaluate_qwen3_multi_baseline.o
 #SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
 #SBATCH --job-name=evaluate_Qwen3-14B_multi_baseline # Specify job name
 #SBATCH --array=1-5 # Specify number of tasks in array (5 scenarios)
@@ -18,6 +18,7 @@ scenarios=(
     "ferry"
     "grippers"
     "spanner"
+    "grid"
 )
 scenario_name="${scenarios[$SLURM_ARRAY_TASK_ID-1]}"
 
