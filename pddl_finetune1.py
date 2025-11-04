@@ -8,16 +8,19 @@ import unsloth
 import os
 import random
 import re
+import warnings
+from typing import Any, Dict, List, Optional, Union
+
+import numpy as np
 import torch
 import wandb
 from pathlib import Path
 from datasets import load_from_disk, Dataset
-from transformers import TrainerCallback, TrainingArguments
+from transformers import DataCollatorForLanguageModeling, TrainerCallback, TrainingArguments
 
 # Import Unsloth components
-from unsloth import FastLanguageModel
+from unsloth import FastLanguageModel, is_bfloat16_supported
 from trl import SFTTrainer
-from unsloth import is_bfloat16_supported, FastLanguageModel
 
 # 配置参数
 max_seq_length = 4096  # 最大序列长度
@@ -89,6 +92,120 @@ def extract_llm_output(output: str, family: str = 'mistral') -> str:
         text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE).strip()
 
     return text
+
+
+class DataCollatorForCompletionOnlyLM(DataCollatorForLanguageModeling):
+    """
+    仅对 assistant 响应部分计算 loss 的 collator，来自旧版 TRL，实现了 response_template 匹配。
+    """
+
+    def __init__(
+        self,
+        response_template: Union[str, List[int]],
+        instruction_template: Optional[Union[str, List[int]]] = None,
+        *args,
+        mlm: bool = False,
+        ignore_index: int = -100,
+        **kwargs,
+    ):
+        super().__init__(*args, mlm=mlm, **kwargs)
+
+        self.instruction_template = instruction_template
+        if isinstance(instruction_template, str) and instruction_template is not None:
+            self.instruction_token_ids = self.tokenizer.encode(instruction_template, add_special_tokens=False)
+        else:
+            self.instruction_token_ids = instruction_template
+
+        self.response_template = response_template
+        if isinstance(response_template, str):
+            self.response_token_ids = self.tokenizer.encode(response_template, add_special_tokens=False)
+        else:
+            self.response_token_ids = response_template
+
+        if (
+            not self.mlm
+            and self.instruction_template
+            and self.tokenizer.pad_token_id == self.tokenizer.eos_token_id
+        ):
+            warnings.warn(
+                "pad_token_id 与 eos_token_id 相同，若进行多轮训练可能导致模型无法输出 eos。"
+                "可考虑显式设置 pad_token 以避免该问题。"
+            )
+
+        self.ignore_index = ignore_index
+
+    def torch_call(self, examples: List[Union[List[int], Any, Dict[str, Any]]]) -> Dict[str, Any]:
+        batch = super().torch_call(examples)
+
+        if self.instruction_template is None:
+            for i in range(len(examples)):
+                response_token_ids_start_idx = None
+
+                for idx in np.where(batch["labels"][i] == self.response_token_ids[0])[0]:
+                    if (
+                        self.response_token_ids
+                        == batch["labels"][i][idx : idx + len(self.response_token_ids)].tolist()
+                    ):
+                        response_token_ids_start_idx = idx
+
+                if response_token_ids_start_idx is None:
+                    warnings.warn(
+                        f"未能在样本中找到 response 标记 `{self.response_template}`，将忽略该样本的 loss："
+                        f"{self.tokenizer.decode(batch['input_ids'][i])[:200]}"
+                    )
+                    batch["labels"][i, :] = self.ignore_index
+                else:
+                    response_token_ids_end_idx = response_token_ids_start_idx + len(self.response_token_ids)
+                    batch["labels"][i, :response_token_ids_end_idx] = self.ignore_index
+        else:
+            for i in range(len(examples)):
+                response_token_ids_idxs = []
+                human_token_ids_idxs = []
+
+                for assistant_idx in np.where(batch["labels"][i] == self.response_token_ids[0])[0]:
+                    if (
+                        self.response_token_ids
+                        == batch["labels"][i][assistant_idx : assistant_idx + len(self.response_token_ids)].tolist()
+                    ):
+                        response_token_ids_idxs.append(assistant_idx + len(self.response_token_ids))
+
+                if len(response_token_ids_idxs) == 0:
+                    warnings.warn(
+                        f"未能在样本中找到 response 标记 `{self.response_template}`，将忽略该样本的 loss："
+                        f"{self.tokenizer.decode(batch['input_ids'][i])[:200]}"
+                    )
+                    batch["labels"][i, :] = self.ignore_index
+
+                human_ids = self.instruction_token_ids
+                if human_ids is not None:
+                    for human_idx in np.where(batch["labels"][i] == human_ids[0])[0]:
+                        if human_ids == batch["labels"][i][human_idx : human_idx + len(human_ids)].tolist():
+                            human_token_ids_idxs.append(human_idx)
+
+                if len(human_token_ids_idxs) == 0:
+                    warnings.warn(
+                        f"未能在样本中找到 instruction 标记 `{self.instruction_template}`，将忽略该样本的部分 loss："
+                        f"{self.tokenizer.decode(batch['input_ids'][i])[:200]}"
+                    )
+                    batch["labels"][i, :] = self.ignore_index
+
+                if (
+                    len(human_token_ids_idxs) > 0
+                    and len(response_token_ids_idxs) > 0
+                    and human_token_ids_idxs[0] > response_token_ids_idxs[0]
+                ):
+                    human_token_ids_idxs = [0] + human_token_ids_idxs
+
+                for idx, (start, end) in enumerate(zip(human_token_ids_idxs, response_token_ids_idxs)):
+                    if idx != 0:
+                        batch["labels"][i, start:end] = self.ignore_index
+                    else:
+                        batch["labels"][i, :end] = self.ignore_index
+
+                if len(response_token_ids_idxs) < len(human_token_ids_idxs):
+                    batch["labels"][i, human_token_ids_idxs[-1] :] = self.ignore_index
+
+        return batch
 
 class PDDLTestCallback(TrainerCallback):
     """PDDL测试回调，用于在训练过程中测试模型性能"""
@@ -253,7 +370,6 @@ def sft_train_pddl(
     
     # train/val 划分
     val_ratio = max(0.0, min(0.5, float(val_ratio)))
-    print(f"Validation ratio: {val_ratio}")
     if val_ratio > 0:
         split = dataset.train_test_split(test_size=val_ratio, seed=3407, shuffle=True)
         train_ds = split["train"]
@@ -379,8 +495,19 @@ def sft_train_pddl(
     
     # 创建训练器
     print("\nCreating trainer...")
+    response_template_map = {
+        "mistral": "[/INST]",
+        "llama": "[/INST]",
+        "gpt": "<|start|>assistant<|message|>",
+    }
+    response_template = response_template_map.get(family, "<|im_start|>assistant\n")
+    data_collator = DataCollatorForCompletionOnlyLM(
+        response_template=response_template,
+        tokenizer=tokenizer,
+    )
     trainer = SFTTrainer(
         model=model,
+        data_collator=data_collator,
         tokenizer=tokenizer,
         train_dataset=train_ds,
         eval_dataset=eval_ds,
