@@ -23,12 +23,12 @@ python3 /users/jfan5/jfan5/Safety-gen/script/train_dpo_unsloth.py \
   --dataset "${DPO_DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
   --num_epochs 3 \
-  --batch_size 1 \
-  --gradient_accumulation_steps 8 \
-  --learning_rate 1e-5 \
-  --save_steps 500 \
-  --eval_steps 500 \
-  --logging_steps 25 \
-  --beta 0.1 \
+  --batch_size 2 \
+  --gradient_accumulation_steps 4 \
   --run_name "dpo-mistral-multi-pddl3-500" \
-  --dataloader_num_workers 0
+  --lora_r 16 \
+  --lora_alpha 32 \
+  --lora_dropout 0.05 \
+  --reference_free \
+  --use_gradient_checkpointing \
+  --memory_efficient
