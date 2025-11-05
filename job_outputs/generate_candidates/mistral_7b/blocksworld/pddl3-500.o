@@ -1,0 +1,4029 @@
+[1/4] Generating scored candidates -> /users/jfan5/jfan5/Safety-gen/data/dpo/mistral_unsloth/blocksworld/pddl3/scored.jsonl
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+Unsloth 2025.8.6 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+[Info] Model family = mistral
+[Info] Sampling temperatures: [0.6, 0.9]
+[Info] Loaded 3805 problems from /users/jfan5/jfan5/Safety-gen/blocksworld/all_problems3/training
+[Info] Loading model ...
+==((====))==  Unsloth 2025.8.6: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
+
+=== Problem 1/3805: bw_ops3_n3_seed1 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=42
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=43
+
+=== Problem 2/3805: bw_ops3_n3_seed10 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=44
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 3/3805: bw_ops3_n3_seed100 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=46
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 4/3805: bw_ops3_n3_seed101 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=48
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 5/3805: bw_ops3_n3_seed102 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=50
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 6/3805: bw_ops3_n3_seed103 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=52
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 7/3805: bw_ops3_n3_seed104 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=54
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 8/3805: bw_ops3_n3_seed105 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=56
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 9/3805: bw_ops3_n3_seed106 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=58
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 10/3805: bw_ops3_n3_seed107 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=60
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 11/3805: bw_ops3_n3_seed108 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=62
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 12/3805: bw_ops3_n3_seed109 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=64
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 13/3805: bw_ops3_n3_seed11 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=66
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 14/3805: bw_ops3_n3_seed110 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=68
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 15/3805: bw_ops3_n3_seed111 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=70
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 16/3805: bw_ops3_n3_seed112 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=72
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 17/3805: bw_ops3_n3_seed114 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=74
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 18/3805: bw_ops3_n3_seed115 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=76
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 19/3805: bw_ops3_n3_seed116 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=78
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=79
+
+=== Problem 20/3805: bw_ops3_n3_seed119 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=80
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 21/3805: bw_ops3_n3_seed12 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=82
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 22/3805: bw_ops3_n3_seed120 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=84
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 23/3805: bw_ops3_n3_seed121 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=86
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 24/3805: bw_ops3_n3_seed1215 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=88
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 25/3805: bw_ops3_n3_seed122 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=90
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 26/3805: bw_ops3_n3_seed123 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=92
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 27/3805: bw_ops3_n3_seed124 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=94
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 28/3805: bw_ops3_n3_seed125 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=96
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 29/3805: bw_ops3_n3_seed127 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=98
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 30/3805: bw_ops3_n3_seed128 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=100
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 31/3805: bw_ops3_n3_seed129 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=102
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 32/3805: bw_ops3_n3_seed13 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=104
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 33/3805: bw_ops3_n3_seed130 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=106
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 34/3805: bw_ops3_n3_seed131 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=108
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 35/3805: bw_ops3_n3_seed133 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=110
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=111
+
+=== Problem 36/3805: bw_ops3_n3_seed134 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=112
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 37/3805: bw_ops3_n3_seed135 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=114
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 38/3805: bw_ops3_n3_seed136 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=116
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 39/3805: bw_ops3_n3_seed138 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=118
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 40/3805: bw_ops3_n3_seed139 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=120
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 41/3805: bw_ops3_n3_seed14 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=122
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 42/3805: bw_ops3_n3_seed140 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=124
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 43/3805: bw_ops3_n3_seed141 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=126
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 44/3805: bw_ops3_n3_seed142 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=128
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=129
+
+=== Problem 45/3805: bw_ops3_n3_seed143 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=130
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 46/3805: bw_ops3_n3_seed144 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=132
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 47/3805: bw_ops3_n3_seed145 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=134
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=135
+
+=== Problem 48/3805: bw_ops3_n3_seed146 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=136
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 49/3805: bw_ops3_n3_seed147 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=138
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 50/3805: bw_ops3_n3_seed148 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=140
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 51/3805: bw_ops3_n3_seed149 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=142
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 52/3805: bw_ops3_n3_seed15 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=144
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 53/3805: bw_ops3_n3_seed150 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=146
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 54/3805: bw_ops3_n3_seed152 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=148
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 55/3805: bw_ops3_n3_seed153 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=150
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 56/3805: bw_ops3_n3_seed154 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=152
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 57/3805: bw_ops3_n3_seed156 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=154
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 58/3805: bw_ops3_n3_seed157 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=156
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 59/3805: bw_ops3_n3_seed158 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=158
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 60/3805: bw_ops3_n3_seed159 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=160
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 61/3805: bw_ops3_n3_seed16 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=162
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 62/3805: bw_ops3_n3_seed160 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=164
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 63/3805: bw_ops3_n3_seed161 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=166
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=167
+
+=== Problem 64/3805: bw_ops3_n3_seed162 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=168
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 65/3805: bw_ops3_n3_seed163 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=170
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=171
+
+=== Problem 66/3805: bw_ops3_n3_seed164 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=172
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 67/3805: bw_ops3_n3_seed165 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=174
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 68/3805: bw_ops3_n3_seed166 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=176
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 69/3805: bw_ops3_n3_seed167 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=178
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=179
+
+=== Problem 70/3805: bw_ops3_n3_seed168 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=180
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 71/3805: bw_ops3_n3_seed169 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=182
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 72/3805: bw_ops3_n3_seed17 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=184
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 73/3805: bw_ops3_n3_seed170 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=186
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=187
+
+=== Problem 74/3805: bw_ops3_n3_seed171 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=188
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 75/3805: bw_ops3_n3_seed172 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=190
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=191
+
+=== Problem 76/3805: bw_ops3_n3_seed173 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=192
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 77/3805: bw_ops3_n3_seed175 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=194
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 78/3805: bw_ops3_n3_seed176 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=196
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=197
+
+=== Problem 79/3805: bw_ops3_n3_seed177 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=198
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=199
+
+=== Problem 80/3805: bw_ops3_n3_seed178 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=200
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 81/3805: bw_ops3_n3_seed179 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=202
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 82/3805: bw_ops3_n3_seed18 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=204
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 83/3805: bw_ops3_n3_seed180 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=206
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=207
+
+=== Problem 84/3805: bw_ops3_n3_seed181 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=208
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 85/3805: bw_ops3_n3_seed185 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=210
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 86/3805: bw_ops3_n3_seed187 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=212
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 87/3805: bw_ops3_n3_seed1881 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=214
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=215
+
+=== Problem 88/3805: bw_ops3_n3_seed189 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=216
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 89/3805: bw_ops3_n3_seed190 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=218
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 90/3805: bw_ops3_n3_seed196 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=220
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 91/3805: bw_ops3_n3_seed197 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=222
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 92/3805: bw_ops3_n3_seed198 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=224
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 93/3805: bw_ops3_n3_seed2 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=226
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 94/3805: bw_ops3_n3_seed20 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=228
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 95/3805: bw_ops3_n3_seed203 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=230
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 96/3805: bw_ops3_n3_seed204 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=232
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 97/3805: bw_ops3_n3_seed205 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=234
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=235
+
+=== Problem 98/3805: bw_ops3_n3_seed207 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=236
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=237
+
+=== Problem 99/3805: bw_ops3_n3_seed208 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=238
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 100/3805: bw_ops3_n3_seed21 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=240
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 101/3805: bw_ops3_n3_seed212 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=242
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=243
+
+=== Problem 102/3805: bw_ops3_n3_seed213 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=244
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 103/3805: bw_ops3_n3_seed216 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=246
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 104/3805: bw_ops3_n3_seed219 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=248
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 105/3805: bw_ops3_n3_seed22 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=250
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=251
+
+=== Problem 106/3805: bw_ops3_n3_seed220 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=252
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 107/3805: bw_ops3_n3_seed222 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=254
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 108/3805: bw_ops3_n3_seed224 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=256
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 109/3805: bw_ops3_n3_seed227 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=258
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 110/3805: bw_ops3_n3_seed228 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=260
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 111/3805: bw_ops3_n3_seed23 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=262
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=263
+
+=== Problem 112/3805: bw_ops3_n3_seed230 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=264
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 113/3805: bw_ops3_n3_seed231 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=266
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 114/3805: bw_ops3_n3_seed232 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=268
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 115/3805: bw_ops3_n3_seed235 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=270
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 116/3805: bw_ops3_n3_seed237 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=272
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 117/3805: bw_ops3_n3_seed24 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=274
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 118/3805: bw_ops3_n3_seed242 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=276
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 119/3805: bw_ops3_n3_seed244 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=278
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 120/3805: bw_ops3_n3_seed245 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=280
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 121/3805: bw_ops3_n3_seed246 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=282
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 122/3805: bw_ops3_n3_seed247 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=284
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 123/3805: bw_ops3_n3_seed25 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=286
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=287
+
+=== Problem 124/3805: bw_ops3_n3_seed250 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=288
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 125/3805: bw_ops3_n3_seed252 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=290
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 126/3805: bw_ops3_n3_seed253 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=292
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 127/3805: bw_ops3_n3_seed257 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=294
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 128/3805: bw_ops3_n3_seed26 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=296
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=297
+
+=== Problem 129/3805: bw_ops3_n3_seed262 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=298
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 130/3805: bw_ops3_n3_seed263 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=300
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 131/3805: bw_ops3_n3_seed264 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=302
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 132/3805: bw_ops3_n3_seed269 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=304
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 133/3805: bw_ops3_n3_seed27 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=306
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=307
+
+=== Problem 134/3805: bw_ops3_n3_seed270 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=308
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=309
+
+=== Problem 135/3805: bw_ops3_n3_seed274 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=310
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=311
+
+=== Problem 136/3805: bw_ops3_n3_seed275 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=312
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 137/3805: bw_ops3_n3_seed279 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=314
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 138/3805: bw_ops3_n3_seed28 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=316
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 139/3805: bw_ops3_n3_seed281 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=318
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 140/3805: bw_ops3_n3_seed286 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=320
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 141/3805: bw_ops3_n3_seed29 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=322
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 142/3805: bw_ops3_n3_seed299 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=324
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 143/3805: bw_ops3_n3_seed3 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=326
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 144/3805: bw_ops3_n3_seed30 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=328
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 145/3805: bw_ops3_n3_seed300 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=330
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=331
+
+=== Problem 146/3805: bw_ops3_n3_seed304 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=332
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=333
+
+=== Problem 147/3805: bw_ops3_n3_seed309 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=334
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 148/3805: bw_ops3_n3_seed31 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=336
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=337
+
+=== Problem 149/3805: bw_ops3_n3_seed317 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=338
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 150/3805: bw_ops3_n3_seed32 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=340
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 151/3805: bw_ops3_n3_seed322 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=342
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 152/3805: bw_ops3_n3_seed330 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=344
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 153/3805: bw_ops3_n3_seed34 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=346
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 154/3805: bw_ops3_n3_seed35 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=348
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 155/3805: bw_ops3_n3_seed350 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=350
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 156/3805: bw_ops3_n3_seed352 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=352
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 157/3805: bw_ops3_n3_seed356 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=354
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 158/3805: bw_ops3_n3_seed367 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=356
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=357
+
+=== Problem 159/3805: bw_ops3_n3_seed37 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=358
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 160/3805: bw_ops3_n3_seed38 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=360
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=361
+
+=== Problem 161/3805: bw_ops3_n3_seed381 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=362
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=363
+
+=== Problem 162/3805: bw_ops3_n3_seed4 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=364
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 163/3805: bw_ops3_n3_seed40 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=366
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 164/3805: bw_ops3_n3_seed402 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=368
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 165/3805: bw_ops3_n3_seed41 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=370
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 166/3805: bw_ops3_n3_seed416 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=372
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 167/3805: bw_ops3_n3_seed419 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=374
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 168/3805: bw_ops3_n3_seed42 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=376
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 169/3805: bw_ops3_n3_seed43 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=378
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 170/3805: bw_ops3_n3_seed433 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=380
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 171/3805: bw_ops3_n3_seed44 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=382
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 172/3805: bw_ops3_n3_seed441 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=384
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 173/3805: bw_ops3_n3_seed449 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=386
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 174/3805: bw_ops3_n3_seed45 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=388
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 175/3805: bw_ops3_n3_seed46 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=390
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 176/3805: bw_ops3_n3_seed462 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=392
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 177/3805: bw_ops3_n3_seed463 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=394
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 178/3805: bw_ops3_n3_seed47 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=396
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=397
+
+=== Problem 179/3805: bw_ops3_n3_seed49 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=398
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 180/3805: bw_ops3_n3_seed5 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=400
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 181/3805: bw_ops3_n3_seed50 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=402
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 182/3805: bw_ops3_n3_seed503 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=404
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 183/3805: bw_ops3_n3_seed507 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=406
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 184/3805: bw_ops3_n3_seed52 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=408
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 185/3805: bw_ops3_n3_seed53 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=410
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 186/3805: bw_ops3_n3_seed54 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=412
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 187/3805: bw_ops3_n3_seed55 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=414
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 188/3805: bw_ops3_n3_seed56 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=416
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 189/3805: bw_ops3_n3_seed565 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=418
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 190/3805: bw_ops3_n3_seed57 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=420
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 191/3805: bw_ops3_n3_seed58 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=422
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 192/3805: bw_ops3_n3_seed59 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=424
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 193/3805: bw_ops3_n3_seed6 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=426
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 194/3805: bw_ops3_n3_seed60 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=428
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 195/3805: bw_ops3_n3_seed61 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=430
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 196/3805: bw_ops3_n3_seed62 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=432
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 197/3805: bw_ops3_n3_seed638 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=434
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 198/3805: bw_ops3_n3_seed640 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=436
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 199/3805: bw_ops3_n3_seed65 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=438
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 200/3805: bw_ops3_n3_seed66 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=440
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 201/3805: bw_ops3_n3_seed68 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=442
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 202/3805: bw_ops3_n3_seed69 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=444
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 203/3805: bw_ops3_n3_seed691 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=446
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 204/3805: bw_ops3_n3_seed7 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=448
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 205/3805: bw_ops3_n3_seed70 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=450
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 206/3805: bw_ops3_n3_seed71 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=452
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=453
+
+=== Problem 207/3805: bw_ops3_n3_seed72 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=454
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 208/3805: bw_ops3_n3_seed725 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=456
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 209/3805: bw_ops3_n3_seed73 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=458
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 210/3805: bw_ops3_n3_seed74 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=460
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 211/3805: bw_ops3_n3_seed75 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=462
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 212/3805: bw_ops3_n3_seed76 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=464
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 213/3805: bw_ops3_n3_seed77 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=466
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 214/3805: bw_ops3_n3_seed78 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=468
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 215/3805: bw_ops3_n3_seed79 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=470
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 216/3805: bw_ops3_n3_seed80 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=472
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 217/3805: bw_ops3_n3_seed81 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=474
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 218/3805: bw_ops3_n3_seed83 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=476
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 219/3805: bw_ops3_n3_seed84 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=478
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=479
+
+=== Problem 220/3805: bw_ops3_n3_seed86 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=480
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 221/3805: bw_ops3_n3_seed862 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=482
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 222/3805: bw_ops3_n3_seed87 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=484
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 223/3805: bw_ops3_n3_seed88 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=486
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=487
+
+=== Problem 224/3805: bw_ops3_n3_seed90 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=488
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 225/3805: bw_ops3_n3_seed91 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=490
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 226/3805: bw_ops3_n3_seed96 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=492
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 227/3805: bw_ops3_n3_seed97 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=494
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 228/3805: bw_ops3_n3_seed983 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=496
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 229/3805: bw_ops3_n3_seed99 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=498
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 230/3805: bw_ops3_n4_seed200001 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=500
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 231/3805: bw_ops3_n4_seed200002 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=502
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 232/3805: bw_ops3_n4_seed200003 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=504
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=505
+
+=== Problem 233/3805: bw_ops3_n4_seed200004 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=506
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 234/3805: bw_ops3_n4_seed200005 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=508
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 235/3805: bw_ops3_n4_seed200006 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=510
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 236/3805: bw_ops3_n4_seed200007 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=512
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 237/3805: bw_ops3_n4_seed200008 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=514
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 238/3805: bw_ops3_n4_seed200009 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=516
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=517
+
+=== Problem 239/3805: bw_ops3_n4_seed200010 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=518
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 240/3805: bw_ops3_n4_seed200011 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=520
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 241/3805: bw_ops3_n4_seed200012 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=522
+  -> Attempt 2/2 using T=0.9
+    tag=goal_not_satisfied score=4 valid=False  T=0.9 top_p=0.9 top_k=50 seed=523
+
+=== Problem 242/3805: bw_ops3_n4_seed200013 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=524
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 243/3805: bw_ops3_n4_seed200014 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=526
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 244/3805: bw_ops3_n4_seed200015 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=528
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 245/3805: bw_ops3_n4_seed200016 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=530
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 246/3805: bw_ops3_n4_seed200018 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=532
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 247/3805: bw_ops3_n4_seed200019 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=534
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=535
+
+=== Problem 248/3805: bw_ops3_n4_seed200020 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=536
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 249/3805: bw_ops3_n4_seed200021 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=538
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 250/3805: bw_ops3_n4_seed200022 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=540
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=541
+
+=== Problem 251/3805: bw_ops3_n4_seed200023 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=542
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 252/3805: bw_ops3_n4_seed200024 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=544
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 253/3805: bw_ops3_n4_seed200025 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=546
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 254/3805: bw_ops3_n4_seed200026 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=548
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=549
+
+=== Problem 255/3805: bw_ops3_n4_seed200027 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=550
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 256/3805: bw_ops3_n4_seed200028 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=552
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 257/3805: bw_ops3_n4_seed200029 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=554
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 258/3805: bw_ops3_n4_seed200030 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=556
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 259/3805: bw_ops3_n4_seed200031 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=558
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 260/3805: bw_ops3_n4_seed200032 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=560
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 261/3805: bw_ops3_n4_seed200033 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=562
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=563
+
+=== Problem 262/3805: bw_ops3_n4_seed200034 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=564
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 263/3805: bw_ops3_n4_seed200035 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=566
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 264/3805: bw_ops3_n4_seed200036 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=568
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 265/3805: bw_ops3_n4_seed200037 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=570
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 266/3805: bw_ops3_n4_seed200038 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=572
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 267/3805: bw_ops3_n4_seed200039 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=574
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 268/3805: bw_ops3_n4_seed200040 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=576
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=577
+
+=== Problem 269/3805: bw_ops3_n4_seed200041 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=578
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 270/3805: bw_ops3_n4_seed200042 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=580
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 271/3805: bw_ops3_n4_seed200043 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=582
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 272/3805: bw_ops3_n4_seed200044 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=584
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 273/3805: bw_ops3_n4_seed200045 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=586
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=587
+
+=== Problem 274/3805: bw_ops3_n4_seed200046 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=588
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 275/3805: bw_ops3_n4_seed200047 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=590
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 276/3805: bw_ops3_n4_seed200048 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=592
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=593
+
+=== Problem 277/3805: bw_ops3_n4_seed200049 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=594
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 278/3805: bw_ops3_n4_seed200050 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=596
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 279/3805: bw_ops3_n4_seed200051 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=598
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 280/3805: bw_ops3_n4_seed200052 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=600
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 281/3805: bw_ops3_n4_seed200053 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=602
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 282/3805: bw_ops3_n4_seed200055 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=604
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 283/3805: bw_ops3_n4_seed200056 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=606
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=607
+
+=== Problem 284/3805: bw_ops3_n4_seed200057 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=608
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 285/3805: bw_ops3_n4_seed200058 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=610
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=611
+
+=== Problem 286/3805: bw_ops3_n4_seed200059 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=612
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 287/3805: bw_ops3_n4_seed200060 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=614
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 288/3805: bw_ops3_n4_seed200061 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=616
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 289/3805: bw_ops3_n4_seed200062 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=618
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 290/3805: bw_ops3_n4_seed200063 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=620
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 291/3805: bw_ops3_n4_seed200064 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=622
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 292/3805: bw_ops3_n4_seed200065 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=624
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 293/3805: bw_ops3_n4_seed200066 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=626
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=627
+
+=== Problem 294/3805: bw_ops3_n4_seed200067 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=628
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 295/3805: bw_ops3_n4_seed200068 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=630
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 296/3805: bw_ops3_n4_seed200069 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=632
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 297/3805: bw_ops3_n4_seed200070 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=634
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=635
+
+=== Problem 298/3805: bw_ops3_n4_seed200071 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=636
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=637
+
+=== Problem 299/3805: bw_ops3_n4_seed200072 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=638
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 300/3805: bw_ops3_n4_seed200073 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=640
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 301/3805: bw_ops3_n4_seed200074 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=642
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 302/3805: bw_ops3_n4_seed200075 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=644
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 303/3805: bw_ops3_n4_seed200076 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=646
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 304/3805: bw_ops3_n4_seed200077 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=648
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 305/3805: bw_ops3_n4_seed200078 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=650
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=651
+
+=== Problem 306/3805: bw_ops3_n4_seed200079 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=652
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 307/3805: bw_ops3_n4_seed200080 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=654
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=655
+
+=== Problem 308/3805: bw_ops3_n4_seed200081 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=656
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=657
+
+=== Problem 309/3805: bw_ops3_n4_seed200082 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=658
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 310/3805: bw_ops3_n4_seed200083 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=660
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 311/3805: bw_ops3_n4_seed200084 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=662
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 312/3805: bw_ops3_n4_seed200085 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=664
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 313/3805: bw_ops3_n4_seed200086 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=666
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 314/3805: bw_ops3_n4_seed200087 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=668
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 315/3805: bw_ops3_n4_seed200088 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=670
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 316/3805: bw_ops3_n4_seed200089 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=672
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 317/3805: bw_ops3_n4_seed200090 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=674
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 318/3805: bw_ops3_n4_seed200091 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=676
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 319/3805: bw_ops3_n4_seed200092 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=678
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 320/3805: bw_ops3_n4_seed200093 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=680
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 321/3805: bw_ops3_n4_seed200094 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=682
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 322/3805: bw_ops3_n4_seed200095 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=684
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 323/3805: bw_ops3_n4_seed200096 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=686
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 324/3805: bw_ops3_n4_seed200097 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=688
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=689
+
+=== Problem 325/3805: bw_ops3_n4_seed200098 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=690
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 326/3805: bw_ops3_n4_seed200099 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=692
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 327/3805: bw_ops3_n4_seed200100 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=694
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 328/3805: bw_ops3_n4_seed200101 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=696
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 329/3805: bw_ops3_n4_seed200103 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=698
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 330/3805: bw_ops3_n4_seed200104 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=700
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 331/3805: bw_ops3_n4_seed200105 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=702
+  -> Attempt 2/2 using T=0.9
+    tag=goal_not_satisfied score=4 valid=False  T=0.9 top_p=0.9 top_k=50 seed=703
+
+=== Problem 332/3805: bw_ops3_n4_seed200106 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=704
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=705
+
+=== Problem 333/3805: bw_ops3_n4_seed200107 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=706
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 334/3805: bw_ops3_n4_seed200108 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=708
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 335/3805: bw_ops3_n4_seed200109 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=710
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=711
+
+=== Problem 336/3805: bw_ops3_n4_seed200110 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=712
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 337/3805: bw_ops3_n4_seed200111 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=714
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 338/3805: bw_ops3_n4_seed200112 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=716
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=717
+
+=== Problem 339/3805: bw_ops3_n4_seed200113 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=718
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 340/3805: bw_ops3_n4_seed200114 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=720
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=721
+
+=== Problem 341/3805: bw_ops3_n4_seed200115 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=722
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 342/3805: bw_ops3_n4_seed200116 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=724
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 343/3805: bw_ops3_n4_seed200117 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=726
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 344/3805: bw_ops3_n4_seed200118 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=728
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=729
+
+=== Problem 345/3805: bw_ops3_n4_seed200120 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=730
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 346/3805: bw_ops3_n4_seed200122 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=732
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 347/3805: bw_ops3_n4_seed200123 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=734
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 348/3805: bw_ops3_n4_seed200124 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=736
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 349/3805: bw_ops3_n4_seed200125 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=738
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 350/3805: bw_ops3_n4_seed200126 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=740
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 351/3805: bw_ops3_n4_seed200127 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=742
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 352/3805: bw_ops3_n4_seed200128 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=744
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 353/3805: bw_ops3_n4_seed200129 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=746
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 354/3805: bw_ops3_n4_seed200131 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=748
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 355/3805: bw_ops3_n4_seed200132 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=750
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 356/3805: bw_ops3_n4_seed200133 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=752
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=753
+
+=== Problem 357/3805: bw_ops3_n4_seed200134 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=754
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 358/3805: bw_ops3_n4_seed200135 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=756
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 359/3805: bw_ops3_n4_seed200136 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=758
+  -> Attempt 2/2 using T=0.9
+    tag=goal_not_satisfied score=4 valid=False  T=0.9 top_p=0.9 top_k=50 seed=759
+
+=== Problem 360/3805: bw_ops3_n4_seed200137 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=760
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=761
+
+=== Problem 361/3805: bw_ops3_n4_seed200138 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=762
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 362/3805: bw_ops3_n4_seed200139 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=764
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 363/3805: bw_ops3_n4_seed200140 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=766
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 364/3805: bw_ops3_n4_seed200141 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=768
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=769
+
+=== Problem 365/3805: bw_ops3_n4_seed200142 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=770
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=771
+
+=== Problem 366/3805: bw_ops3_n4_seed200143 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=772
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=773
+
+=== Problem 367/3805: bw_ops3_n4_seed200144 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=774
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 368/3805: bw_ops3_n4_seed200145 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=776
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 369/3805: bw_ops3_n4_seed200146 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=778
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 370/3805: bw_ops3_n4_seed200147 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=780
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 371/3805: bw_ops3_n4_seed200148 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=782
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 372/3805: bw_ops3_n4_seed200149 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=784
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=785
+
+=== Problem 373/3805: bw_ops3_n4_seed200150 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=786
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 374/3805: bw_ops3_n4_seed200151 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=788
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=789
+
+=== Problem 375/3805: bw_ops3_n4_seed200152 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=790
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 376/3805: bw_ops3_n4_seed200153 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=792
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 377/3805: bw_ops3_n4_seed200154 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=794
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 378/3805: bw_ops3_n4_seed200155 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=796
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=797
+
+=== Problem 379/3805: bw_ops3_n4_seed200156 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=798
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 380/3805: bw_ops3_n4_seed200157 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=800
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 381/3805: bw_ops3_n4_seed200158 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=802
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 382/3805: bw_ops3_n4_seed200159 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=804
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 383/3805: bw_ops3_n4_seed200160 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=806
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=807
+
+=== Problem 384/3805: bw_ops3_n4_seed200161 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=808
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=809
+
+=== Problem 385/3805: bw_ops3_n4_seed200162 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=810
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=811
+
+=== Problem 386/3805: bw_ops3_n4_seed200163 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=812
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 387/3805: bw_ops3_n4_seed200164 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=814
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=815
+
+=== Problem 388/3805: bw_ops3_n4_seed200165 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=816
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 389/3805: bw_ops3_n4_seed200166 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=818
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 390/3805: bw_ops3_n4_seed200167 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=820
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 391/3805: bw_ops3_n4_seed200168 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=822
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 392/3805: bw_ops3_n4_seed200169 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=824
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 393/3805: bw_ops3_n4_seed200170 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=826
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=827
+
+=== Problem 394/3805: bw_ops3_n4_seed200171 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=828
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=829
+
+=== Problem 395/3805: bw_ops3_n4_seed200172 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=830
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 396/3805: bw_ops3_n4_seed200173 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=832
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 397/3805: bw_ops3_n4_seed200174 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=834
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 398/3805: bw_ops3_n4_seed200175 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=836
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=837
+
+=== Problem 399/3805: bw_ops3_n4_seed200176 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=838
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 400/3805: bw_ops3_n4_seed200177 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=840
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=841
+
+=== Problem 401/3805: bw_ops3_n4_seed200178 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=842
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=843
+
+=== Problem 402/3805: bw_ops3_n4_seed200179 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=844
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 403/3805: bw_ops3_n4_seed200180 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=846
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=847
+
+=== Problem 404/3805: bw_ops3_n4_seed200181 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=848
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 405/3805: bw_ops3_n4_seed200182 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=850
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 406/3805: bw_ops3_n4_seed200183 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=852
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 407/3805: bw_ops3_n4_seed200184 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=854
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 408/3805: bw_ops3_n4_seed200186 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=856
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 409/3805: bw_ops3_n4_seed200187 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=858
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 410/3805: bw_ops3_n4_seed200191 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=860
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=861
+
+=== Problem 411/3805: bw_ops3_n4_seed200192 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=862
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=863
+
+=== Problem 412/3805: bw_ops3_n4_seed200193 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=864
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=865
+
+=== Problem 413/3805: bw_ops3_n4_seed200194 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=866
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 414/3805: bw_ops3_n4_seed200195 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=868
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 415/3805: bw_ops3_n4_seed200196 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=870
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=871
+
+=== Problem 416/3805: bw_ops3_n4_seed200197 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=872
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=873
+
+=== Problem 417/3805: bw_ops3_n4_seed200198 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=874
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 418/3805: bw_ops3_n4_seed200199 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=876
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=877
+
+=== Problem 419/3805: bw_ops3_n4_seed200200 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=878
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 420/3805: bw_ops3_n4_seed200201 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=880
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=881
+
+=== Problem 421/3805: bw_ops3_n4_seed200202 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=882
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 422/3805: bw_ops3_n4_seed200203 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=884
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=885
+
+=== Problem 423/3805: bw_ops3_n4_seed200204 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=886
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 424/3805: bw_ops3_n4_seed200205 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=888
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=889
+
+=== Problem 425/3805: bw_ops3_n4_seed200206 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=890
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 426/3805: bw_ops3_n4_seed200207 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=892
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 427/3805: bw_ops3_n4_seed200208 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=894
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 428/3805: bw_ops3_n4_seed200209 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=896
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 429/3805: bw_ops3_n4_seed200210 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=898
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 430/3805: bw_ops3_n4_seed200212 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=900
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 431/3805: bw_ops3_n4_seed200213 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=902
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 432/3805: bw_ops3_n4_seed200214 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=904
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 433/3805: bw_ops3_n4_seed200215 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=906
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=907
+
+=== Problem 434/3805: bw_ops3_n4_seed200216 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=908
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 435/3805: bw_ops3_n4_seed200217 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=910
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=911
+
+=== Problem 436/3805: bw_ops3_n4_seed200218 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=912
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 437/3805: bw_ops3_n4_seed200219 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=914
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 438/3805: bw_ops3_n4_seed200220 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=916
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 439/3805: bw_ops3_n4_seed200221 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=918
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=919
+
+=== Problem 440/3805: bw_ops3_n4_seed200222 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=920
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 441/3805: bw_ops3_n4_seed200223 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=922
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 442/3805: bw_ops3_n4_seed200224 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=924
+  -> Attempt 2/2 using T=0.9
+    tag=goal_not_satisfied score=4 valid=False  T=0.9 top_p=0.9 top_k=50 seed=925
+
+=== Problem 443/3805: bw_ops3_n4_seed200225 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=926
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=927
+
+=== Problem 444/3805: bw_ops3_n4_seed200226 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=928
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 445/3805: bw_ops3_n4_seed200227 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=930
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 446/3805: bw_ops3_n4_seed200228 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=932
+  -> Attempt 2/2 using T=0.9
+    tag=goal_not_satisfied score=4 valid=False  T=0.9 top_p=0.9 top_k=50 seed=933
+
+=== Problem 447/3805: bw_ops3_n4_seed200229 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=934
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 448/3805: bw_ops3_n4_seed200230 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=936
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 449/3805: bw_ops3_n4_seed200231 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=938
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=939
+
+=== Problem 450/3805: bw_ops3_n4_seed200232 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=940
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 451/3805: bw_ops3_n4_seed200233 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=942
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 452/3805: bw_ops3_n4_seed200234 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=944
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 453/3805: bw_ops3_n4_seed200235 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=946
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 454/3805: bw_ops3_n4_seed200236 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=948
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 455/3805: bw_ops3_n4_seed200237 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=950
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=951
+
+=== Problem 456/3805: bw_ops3_n4_seed200238 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=952
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 457/3805: bw_ops3_n4_seed200239 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=954
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=955
+
+=== Problem 458/3805: bw_ops3_n4_seed200240 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=956
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 459/3805: bw_ops3_n4_seed200241 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=958
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 460/3805: bw_ops3_n4_seed200242 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=960
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=961
+
+=== Problem 461/3805: bw_ops3_n4_seed200243 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=962
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=963
+
+=== Problem 462/3805: bw_ops3_n4_seed200244 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=964
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 463/3805: bw_ops3_n4_seed200245 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=966
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 464/3805: bw_ops3_n4_seed200246 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=968
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 465/3805: bw_ops3_n4_seed200247 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=970
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 466/3805: bw_ops3_n4_seed200248 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=972
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 467/3805: bw_ops3_n4_seed200249 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=974
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 468/3805: bw_ops3_n4_seed200250 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=976
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 469/3805: bw_ops3_n4_seed200251 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=978
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 470/3805: bw_ops3_n4_seed200252 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=980
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 471/3805: bw_ops3_n4_seed200253 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=982
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 472/3805: bw_ops3_n4_seed200254 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=984
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=985
+
+=== Problem 473/3805: bw_ops3_n4_seed200255 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=986
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=987
+
+=== Problem 474/3805: bw_ops3_n4_seed200256 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=988
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 475/3805: bw_ops3_n4_seed200257 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=990
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=991
+
+=== Problem 476/3805: bw_ops3_n4_seed200258 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=992
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=993
+
+=== Problem 477/3805: bw_ops3_n4_seed200259 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=994
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 478/3805: bw_ops3_n4_seed200260 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=996
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 479/3805: bw_ops3_n4_seed200261 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=998
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 480/3805: bw_ops3_n4_seed200262 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1000
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1001
+
+=== Problem 481/3805: bw_ops3_n4_seed200263 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1002
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 482/3805: bw_ops3_n4_seed200264 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1004
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 483/3805: bw_ops3_n4_seed200266 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1006
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 484/3805: bw_ops3_n4_seed200267 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1008
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1009
+
+=== Problem 485/3805: bw_ops3_n4_seed200268 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1010
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 486/3805: bw_ops3_n4_seed200269 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1012
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 487/3805: bw_ops3_n4_seed200270 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1014
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1015
+
+=== Problem 488/3805: bw_ops3_n4_seed200271 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1016
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1017
+
+=== Problem 489/3805: bw_ops3_n4_seed200272 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1018
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 490/3805: bw_ops3_n4_seed200273 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1020
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 491/3805: bw_ops3_n4_seed200274 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1022
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 492/3805: bw_ops3_n4_seed200275 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1024
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 493/3805: bw_ops3_n4_seed200276 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1026
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 494/3805: bw_ops3_n4_seed200277 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1028
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 495/3805: bw_ops3_n4_seed200278 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1030
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 496/3805: bw_ops3_n4_seed200279 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1032
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 497/3805: bw_ops3_n4_seed200280 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1034
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 498/3805: bw_ops3_n4_seed200281 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1036
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 499/3805: bw_ops3_n4_seed200282 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1038
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 500/3805: bw_ops3_n4_seed200283 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1040
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 501/3805: bw_ops3_n4_seed200284 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1042
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 502/3805: bw_ops3_n4_seed200285 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1044
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 503/3805: bw_ops3_n4_seed200286 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1046
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 504/3805: bw_ops3_n4_seed200287 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1048
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 505/3805: bw_ops3_n4_seed200288 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1050
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 506/3805: bw_ops3_n4_seed200289 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1052
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1053
+
+=== Problem 507/3805: bw_ops3_n4_seed200290 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1054
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1055
+
+=== Problem 508/3805: bw_ops3_n4_seed200291 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1056
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 509/3805: bw_ops3_n4_seed200292 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1058
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 510/3805: bw_ops3_n4_seed200293 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1060
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 511/3805: bw_ops3_n4_seed200294 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1062
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 512/3805: bw_ops3_n4_seed200295 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1064
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 513/3805: bw_ops3_n4_seed200296 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1066
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 514/3805: bw_ops3_n4_seed200298 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1068
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 515/3805: bw_ops3_n4_seed200299 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1070
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 516/3805: bw_ops3_n4_seed200300 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1072
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 517/3805: bw_ops3_n4_seed200301 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1074
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 518/3805: bw_ops3_n4_seed200302 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1076
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 519/3805: bw_ops3_n4_seed200303 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1078
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 520/3805: bw_ops3_n4_seed200304 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1080
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1081
+
+=== Problem 521/3805: bw_ops3_n4_seed200306 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1082
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1083
+
+=== Problem 522/3805: bw_ops3_n4_seed200307 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1084
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1085
+
+=== Problem 523/3805: bw_ops3_n4_seed200308 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1086
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 524/3805: bw_ops3_n4_seed200309 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1088
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 525/3805: bw_ops3_n4_seed200310 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1090
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 526/3805: bw_ops3_n4_seed200311 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1092
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 527/3805: bw_ops3_n4_seed200312 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1094
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1095
+
+=== Problem 528/3805: bw_ops3_n4_seed200313 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1096
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1097
+
+=== Problem 529/3805: bw_ops3_n4_seed200314 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1098
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 530/3805: bw_ops3_n4_seed200315 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1100
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 531/3805: bw_ops3_n4_seed200316 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1102
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1103
+
+=== Problem 532/3805: bw_ops3_n4_seed200318 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1104
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1105
+
+=== Problem 533/3805: bw_ops3_n4_seed200319 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1106
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 534/3805: bw_ops3_n4_seed200320 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1108
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 535/3805: bw_ops3_n4_seed200321 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1110
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1111
+
+=== Problem 536/3805: bw_ops3_n4_seed200322 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1112
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 537/3805: bw_ops3_n4_seed200323 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1114
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1115
+
+=== Problem 538/3805: bw_ops3_n4_seed200324 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1116
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 539/3805: bw_ops3_n4_seed200325 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1118
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 540/3805: bw_ops3_n4_seed200326 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1120
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 541/3805: bw_ops3_n4_seed200327 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1122
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 542/3805: bw_ops3_n4_seed200328 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1124
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 543/3805: bw_ops3_n4_seed200329 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1126
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 544/3805: bw_ops3_n4_seed200330 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1128
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 545/3805: bw_ops3_n4_seed200331 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1130
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 546/3805: bw_ops3_n4_seed200332 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1132
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 547/3805: bw_ops3_n4_seed200333 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1134
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 548/3805: bw_ops3_n4_seed200334 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1136
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 549/3805: bw_ops3_n4_seed200335 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1138
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 550/3805: bw_ops3_n4_seed200336 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1140
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 551/3805: bw_ops3_n4_seed200337 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1142
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1143
+
+=== Problem 552/3805: bw_ops3_n4_seed200338 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1144
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 553/3805: bw_ops3_n4_seed200339 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1146
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 554/3805: bw_ops3_n4_seed200340 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1148
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 555/3805: bw_ops3_n4_seed200341 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1150
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 556/3805: bw_ops3_n4_seed200342 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1152
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 557/3805: bw_ops3_n4_seed200343 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1154
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1155
+
+=== Problem 558/3805: bw_ops3_n4_seed200344 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1156
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 559/3805: bw_ops3_n4_seed200345 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1158
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1159
+
+=== Problem 560/3805: bw_ops3_n4_seed200346 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1160
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 561/3805: bw_ops3_n4_seed200347 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1162
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 562/3805: bw_ops3_n4_seed200348 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1164
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1165
+
+=== Problem 563/3805: bw_ops3_n4_seed200349 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1166
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 564/3805: bw_ops3_n4_seed200350 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1168
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1169
+
+=== Problem 565/3805: bw_ops3_n4_seed200351 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1170
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 566/3805: bw_ops3_n4_seed200352 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1172
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 567/3805: bw_ops3_n4_seed200353 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1174
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 568/3805: bw_ops3_n4_seed200354 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1176
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 569/3805: bw_ops3_n4_seed200355 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1178
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1179
+
+=== Problem 570/3805: bw_ops3_n4_seed200356 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1180
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 571/3805: bw_ops3_n4_seed200357 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1182
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1183
+
+=== Problem 572/3805: bw_ops3_n4_seed200360 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1184
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 573/3805: bw_ops3_n4_seed200361 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1186
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 574/3805: bw_ops3_n4_seed200362 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1188
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1189
+
+=== Problem 575/3805: bw_ops3_n4_seed200363 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1190
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1191
+
+=== Problem 576/3805: bw_ops3_n4_seed200364 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1192
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 577/3805: bw_ops3_n4_seed200365 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1194
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1195
+
+=== Problem 578/3805: bw_ops3_n4_seed200366 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1196
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 579/3805: bw_ops3_n4_seed200367 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1198
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1199
+
+=== Problem 580/3805: bw_ops3_n4_seed200368 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1200
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 581/3805: bw_ops3_n4_seed200369 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1202
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 582/3805: bw_ops3_n4_seed200370 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1204
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 583/3805: bw_ops3_n4_seed200371 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1206
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 584/3805: bw_ops3_n4_seed200372 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1208
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 585/3805: bw_ops3_n4_seed200373 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1210
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 586/3805: bw_ops3_n4_seed200374 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1212
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 587/3805: bw_ops3_n4_seed200375 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1214
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 588/3805: bw_ops3_n4_seed200376 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1216
+  -> Attempt 2/2 using T=0.9
+    tag=goal_not_satisfied score=4 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1217
+
+=== Problem 589/3805: bw_ops3_n4_seed200377 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1218
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 590/3805: bw_ops3_n4_seed200378 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1220
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 591/3805: bw_ops3_n4_seed200379 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1222
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 592/3805: bw_ops3_n4_seed200380 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1224
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 593/3805: bw_ops3_n4_seed200381 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1226
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 594/3805: bw_ops3_n4_seed200382 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1228
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 595/3805: bw_ops3_n4_seed200383 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1230
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 596/3805: bw_ops3_n4_seed200384 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1232
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 597/3805: bw_ops3_n4_seed200385 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1234
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 598/3805: bw_ops3_n4_seed200386 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1236
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 599/3805: bw_ops3_n4_seed200387 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1238
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 600/3805: bw_ops3_n4_seed200388 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1240
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 601/3805: bw_ops3_n4_seed200389 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1242
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 602/3805: bw_ops3_n4_seed200390 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1244
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 603/3805: bw_ops3_n4_seed200391 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1246
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1247
+
+=== Problem 604/3805: bw_ops3_n4_seed200392 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1248
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 605/3805: bw_ops3_n4_seed200393 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1250
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 606/3805: bw_ops3_n4_seed200394 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1252
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 607/3805: bw_ops3_n4_seed200395 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1254
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 608/3805: bw_ops3_n4_seed200396 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1256
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 609/3805: bw_ops3_n4_seed200397 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1258
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 610/3805: bw_ops3_n4_seed200398 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1260
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1261
+
+=== Problem 611/3805: bw_ops3_n4_seed200400 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1262
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 612/3805: bw_ops3_n4_seed200401 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1264
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 613/3805: bw_ops3_n4_seed200402 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1266
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 614/3805: bw_ops3_n4_seed200403 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1268
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1269
+
+=== Problem 615/3805: bw_ops3_n4_seed200404 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1270
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 616/3805: bw_ops3_n4_seed200405 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1272
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 617/3805: bw_ops3_n4_seed200406 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1274
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 618/3805: bw_ops3_n4_seed200407 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1276
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 619/3805: bw_ops3_n4_seed200408 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1278
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 620/3805: bw_ops3_n4_seed200409 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1280
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1281
+
+=== Problem 621/3805: bw_ops3_n4_seed200410 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1282
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 622/3805: bw_ops3_n4_seed200411 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1284
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1285
+
+=== Problem 623/3805: bw_ops3_n4_seed200412 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1286
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 624/3805: bw_ops3_n4_seed200413 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1288
+  -> Attempt 2/2 using T=0.9
+    tag=plan_format_error score=1 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1289
+
+=== Problem 625/3805: bw_ops3_n4_seed200414 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1290
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 626/3805: bw_ops3_n4_seed200416 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1292
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 627/3805: bw_ops3_n4_seed200417 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1294
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 628/3805: bw_ops3_n4_seed200418 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1296
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1297
+
+=== Problem 629/3805: bw_ops3_n4_seed200419 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1298
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 630/3805: bw_ops3_n4_seed200420 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1300
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 631/3805: bw_ops3_n4_seed200421 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1302
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 632/3805: bw_ops3_n4_seed200422 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1304
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1305
+
+=== Problem 633/3805: bw_ops3_n4_seed200423 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1306
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1307
+
+=== Problem 634/3805: bw_ops3_n4_seed200424 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1308
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 635/3805: bw_ops3_n4_seed200425 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1310
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 636/3805: bw_ops3_n4_seed200426 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1312
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 637/3805: bw_ops3_n4_seed200427 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1314
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 638/3805: bw_ops3_n4_seed200428 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1316
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 639/3805: bw_ops3_n4_seed200429 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1318
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1319
+
+=== Problem 640/3805: bw_ops3_n4_seed200431 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1320
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 641/3805: bw_ops3_n4_seed200432 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1322
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 642/3805: bw_ops3_n4_seed200433 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1324
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 643/3805: bw_ops3_n4_seed200435 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1326
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 644/3805: bw_ops3_n4_seed200436 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1328
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 645/3805: bw_ops3_n4_seed200437 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1330
+  -> Attempt 2/2 using T=0.9
+    tag=precondition_violation score=2 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1331
+
+=== Problem 646/3805: bw_ops3_n4_seed200438 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1332
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 647/3805: bw_ops3_n4_seed200439 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1334
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 648/3805: bw_ops3_n4_seed200440 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1336
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 649/3805: bw_ops3_n4_seed200441 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1338
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 650/3805: bw_ops3_n4_seed200442 ===
+  -> Attempt 1/2 using T=0.6
+    tag=goal_not_satisfied score=4 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1340
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 651/3805: bw_ops3_n4_seed200443 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1342
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 652/3805: bw_ops3_n4_seed200444 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1344
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 653/3805: bw_ops3_n4_seed200445 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1346
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1347
+
+=== Problem 654/3805: bw_ops3_n4_seed200446 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1348
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 655/3805: bw_ops3_n4_seed200447 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1350
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 656/3805: bw_ops3_n4_seed200448 ===
+  -> Attempt 1/2 using T=0.6
+    tag=precondition_violation score=2 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1352
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 657/3805: bw_ops3_n4_seed200449 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1354
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 658/3805: bw_ops3_n4_seed200450 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1356
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 659/3805: bw_ops3_n4_seed200451 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1358
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 660/3805: bw_ops3_n4_seed200452 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1360
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 661/3805: bw_ops3_n4_seed200453 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1362
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 662/3805: bw_ops3_n4_seed200454 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1364
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 663/3805: bw_ops3_n4_seed200455 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1366
+  -> Attempt 2/2 using T=0.9
+    tag=safety_constraints_violation score=3 valid=False  T=0.9 top_p=0.9 top_k=50 seed=1367
+
+=== Problem 664/3805: bw_ops3_n4_seed200456 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1368
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 665/3805: bw_ops3_n4_seed200457 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1370
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 666/3805: bw_ops3_n4_seed200458 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1372
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 667/3805: bw_ops3_n4_seed200459 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1374
+  -> Attempt 2/2 using T=0.9
+    Skipping duplicate candidate for T=0.9.
+
+=== Problem 668/3805: bw_ops3_n4_seed200461 ===
+  -> Attempt 1/2 using T=0.6
+    tag=safety_constraints_violation score=3 valid=False  T=0.6 top_p=0.9 top_k=50 seed=1376
+  -> Attempt 2/2 using T=0.9
+    tag=success_plans score=5 valid=True  T=0.9 top_p=0.9 top_k=50 seed=1377
+
+=== Problem 669/3805: bw_ops3_n4_seed200462 ===
+  -> Attempt 1/2 using T=0.6
+    tag=success_plans score=5 valid=True  T=0.6 top_p=0.9 top_k=50 seed=1378

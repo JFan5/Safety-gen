@@ -1,0 +1,229 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: unsloth/Phi-4-mini-instruct
+Problems dir: spanner/all_problems3/testing
+Domain file: spanner/domain3.pddl
+Max problems: 0
+Output: spanner_all_testing_baseline.json
+Auto-detected model family: phi
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1144255128.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1152899300.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1275709574.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1479492158.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s15460719.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1660287226.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1860398898.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s1926165840.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s2048054551.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s238689231.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s307033235.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s329459574.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s462991901.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s688053435.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s692016533.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s2-n2-l3-s70471534.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1060343414.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1145025463.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1156698980.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1246477837.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1379135101.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1403678212.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s152552479.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s16178211.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1647581660.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1675441380.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s17629687.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1791154985.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1800780856.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1858288638.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1865177226.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s197721644.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s1989901588.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s2008173602.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s2032113295.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s2059699912.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s2119789556.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s2128302478.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s282191674.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s297388711.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s308820452.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s329162299.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s421388079.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s456537937.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s456958661.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s457261204.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s47576934.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s479444906.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s543113565.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s568157228.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s579816044.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s586689033.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s60057866.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s657958087.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s666035715.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s679114617.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s755118894.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s809578076.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s839801557.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s891780211.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s924487418.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s932838090.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s950994990.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s955956679.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s975286692.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s996466159.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n2-l4-s999827255.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1004299524.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1014352078.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1047956130.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1062212954.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1112759645.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1127478349.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1228015176.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1260724014.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1328228503.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1342257121.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1376512600.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1408015783.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1467629902.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1468146869.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1480221858.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1480402990.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1486314535.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1523611025.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1558051475.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1564361267.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1641516798.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1696750966.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1759715865.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s1829016842.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s2008090643.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s2013773030.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s2037530085.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s2065870853.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s2143859948.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s289329007.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s309631567.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s360169873.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s411595421.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s462137248.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s503961419.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s50432004.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s594208720.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s596219298.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s66307754.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s729399419.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s741455592.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s746303720.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s832689597.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s87291057.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s3-n3-l4-s901003479.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1000143947.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1036506237.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1040745252.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1042138051.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1102775277.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1120841919.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s116834475.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1224833953.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1259814300.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1370976012.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1519737071.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1583382869.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s162145046.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1622992383.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1636925766.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1684117974.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1751937887.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1780492697.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1824187062.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1841383707.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1887471672.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1919649554.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s1931076887.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s2042158317.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s2064453291.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s2141896940.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s256131712.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s315153356.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s395791879.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s424981847.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s458508792.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s476128176.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s609328837.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s638609312.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s645105511.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s728535634.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s897330818.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s903704961.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s953257103.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s969539137.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l4-s98498673.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1004667436.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1030741926.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1219511012.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1259661454.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1316772739.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1326238689.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1422168867.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1471195100.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1480631790.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1504554823.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1505956009.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1506686026.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1512220393.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1540157672.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1560017404.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1570047118.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1591424164.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1653983428.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1713246634.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1772813654.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1788191839.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1838005993.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1855817073.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1862259077.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1872740614.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1950252568.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s1973506333.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s203819550.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s2123980499.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s22057207.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s26730043.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s439249873.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s562073928.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s595893792.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s61408799.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s620441193.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s646739284.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s66042071.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s728337100.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s828270542.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s830888557.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s833024935.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s840629724.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s859608426.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s888590789.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s953059307.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner-s4-n3-l5-s95513942.soln
+Deleted existing file: planning_results/spanner_baseline_all_testing/spanner_all_testing_baseline.json
+Planning results will be saved to: planning_results/spanner_baseline_all_testing
+Loaded 200 problems for testing
+Loading model...
+Traceback (most recent call last):
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 533, in <module>
+    main()
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 522, in main
+    test_model_on_testing_data(
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 255, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 164, in from_pretrained
+    model_name = get_model_name(model_name, load_in_4bit)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/loader_utils.py", line 130, in get_model_name
+    raise NotImplementedError(
+NotImplementedError: Unsloth: unsloth/Phi-4-mini-instruct is not supported in your current Unsloth version! Please update Unsloth via:
+
+pip uninstall unsloth unsloth_zoo -y
+pip install --upgrade --no-cache-dir "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+pip install --upgrade --no-cache-dir "git+https://github.com/unslothai/unsloth-zoo.git"
+

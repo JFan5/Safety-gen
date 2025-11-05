@@ -1,0 +1,229 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: unsloth/Phi-4-mini-instruct
+Problems dir: ferry/all_problems3/testing
+Domain file: ferry/domain3.pddl
+Max problems: 0
+Output: ferry_all_testing_baseline.json
+Auto-detected model family: phi
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c2-s1300312024.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c2-s1340277683.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s102373682.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1202635802.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1233513275.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1276552257.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1460821335.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1516837702.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1629930775.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s163212191.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1717270288.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1797553451.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1833756727.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1839902668.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1889423928.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1928698749.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s1976871974.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s197847762.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s2134527331.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s2145641913.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s400332485.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s642221600.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s775920495.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s845030676.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s853050410.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s876108538.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s925040939.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l3-c3-s930630918.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s1271948264.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s1435781105.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s1657178097.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s195934009.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s2043178023.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s342207544.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s370119389.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s540898527.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s735896388.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c2-s998903921.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1047984206.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1095444589.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1181696285.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s120374661.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1229431163.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s128571571.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1316743537.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1325408646.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1326361494.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1338623121.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s134556709.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s140097145.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1417886806.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1437235717.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1458395139.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1486128154.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1498063057.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1523566805.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1531920945.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1632273640.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1649628677.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1794757489.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1796403967.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s182783116.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1830006389.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1888870453.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s1926172433.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s193683022.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s2012237683.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s2020359172.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s2020825330.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s2088411423.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s2103876536.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s218579052.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s22903549.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s271026362.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s363902091.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s380271850.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s44081022.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s447856880.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s451268736.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s469036774.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s491193476.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s575247844.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s603533821.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s621826255.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s752873261.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s77113321.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s795160942.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s817875933.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l4-c3-s888443050.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1020267203.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1060582687.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1203283041.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1486483801.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1557753488.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1648736158.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1650908106.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1722931696.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s1908900603.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s195914911.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s203901573.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s463303834.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s492364718.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s697087311.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s7332136.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c2-s929276561.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1009001171.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1213958005.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1240276008.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1287610327.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s130307103.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1311819748.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1364557448.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1389434429.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1484825736.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1556070754.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1558388357.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1588992720.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1750325568.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s179847020.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1850753277.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s192078082.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1924108547.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s1979565515.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s2038644652.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s2080091221.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s2110736279.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s2116864368.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s2121518377.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s270847142.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s311822427.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s322331524.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s342428792.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s421231356.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s521260425.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s563706163.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s65206371.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s767603211.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s775474175.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s87419971.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s925867784.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l5-c3-s955798913.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1621367577.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1665962916.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1709385613.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1777473614.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1783677009.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1923912399.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s1947438519.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s195858617.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s32154708.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s420991982.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s456712745.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s569216723.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s707042574.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s712137770.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s753191805.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s80431834.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s859412082.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s929930208.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s969944760.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c2-s982455247.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1141509723.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1216731020.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1243099988.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1256162260.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1269836873.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s13511674.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1358255671.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1365621613.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1385697097.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1473721898.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s150220896.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1515444342.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1686484123.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1754375735.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1774432961.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1860426268.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s1951082535.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s2023598964.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s2039657713.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s204274559.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s2068395061.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s2100915919.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s217027556.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s235526133.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s35114346.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s41256426.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s462146266.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s541807747.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s56310233.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s575279074.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s600117792.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s716558728.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s734478390.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s735521724.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s787514316.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s788326529.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s795580818.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s817721970.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry-l6-c3-s929461592.soln
+Deleted existing file: planning_results/ferry_baseline_all_testing/ferry_all_testing_baseline.json
+Planning results will be saved to: planning_results/ferry_baseline_all_testing
+Loaded 200 problems for testing
+Loading model...
+Traceback (most recent call last):
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 533, in <module>
+    main()
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 522, in main
+    test_model_on_testing_data(
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 255, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 164, in from_pretrained
+    model_name = get_model_name(model_name, load_in_4bit)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/loader_utils.py", line 130, in get_model_name
+    raise NotImplementedError(
+NotImplementedError: Unsloth: unsloth/Phi-4-mini-instruct is not supported in your current Unsloth version! Please update Unsloth via:
+
+pip uninstall unsloth unsloth_zoo -y
+pip install --upgrade --no-cache-dir "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+pip install --upgrade --no-cache-dir "git+https://github.com/unslothai/unsloth-zoo.git"
+

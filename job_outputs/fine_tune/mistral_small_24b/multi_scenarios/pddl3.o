@@ -1,0 +1,54 @@
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+============================================================
+PDDL Fine-tuning with unsloth/Mistral-Small-3.2-24B-Instruct-2506
+============================================================
+GPU count: 1
+GPU 0: NVIDIA A10
+
+Loading model and tokenizer...
+==((====))==  Unsloth 2025.8.6: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
+Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  10%|█         | 1/10 [00:05<00:52,  5.85s/it]Loading checkpoint shards:  20%|██        | 2/10 [00:10<00:41,  5.16s/it]Loading checkpoint shards:  30%|███       | 3/10 [00:16<00:38,  5.45s/it]Loading checkpoint shards:  40%|████      | 4/10 [00:21<00:32,  5.43s/it]Loading checkpoint shards:  50%|█████     | 5/10 [00:23<00:21,  4.26s/it]Loading checkpoint shards:  60%|██████    | 6/10 [00:24<00:11,  2.96s/it]Loading checkpoint shards:  70%|███████   | 7/10 [00:24<00:06,  2.11s/it]Loading checkpoint shards:  80%|████████  | 8/10 [00:25<00:03,  1.56s/it]Loading checkpoint shards:  90%|█████████ | 9/10 [00:25<00:01,  1.18s/it]Loading checkpoint shards: 100%|██████████| 10/10 [00:25<00:00,  1.09it/s]Loading checkpoint shards: 100%|██████████| 10/10 [00:25<00:00,  2.58s/it]
+Some parameters are on the meta device because they were offloaded to the cpu.
+Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
+Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
+Configuring LoRA...
+Unsloth: Making `model.base_model.model.model.vision_tower.transformer` require gradients
+
+Loading dataset from /groups/fkong/jfan5/data/sft/multi_scenarios/pddl3.hf...
+Loading HuggingFace dataset...
+Dataset loaded with 12000 entries
+Scenario distribution:
+  blocksworld: 2000
+  ferry: 2000
+  grid: 2000
+  grippers: 2000
+  rovers: 2000
+  spanner: 2000
+Processing dataset format (chat template)...
+Map:   0%|          | 0/11400 [00:00<?, ? examples/s]Map:   0%|          | 11/11400 [00:00<01:53, 100.60 examples/s]Map:   0%|          | 39/11400 [00:00<00:58, 195.45 examples/s]Map:   1%|          | 77/11400 [00:00<00:41, 272.71 examples/s]Map:   1%|          | 129/11400 [00:00<00:31, 358.08 examples/s]Map:   2%|▏         | 175/11400 [00:00<00:28, 390.94 examples/s]Map:   2%|▏         | 242/11400 [00:00<00:23, 480.04 examples/s]Map:   3%|▎         | 323/11400 [00:00<00:19, 577.46 examples/s]Map:   4%|▎         | 401/11400 [00:00<00:17, 635.78 examples/s]Map:   4%|▍         | 489/11400 [00:00<00:15, 709.42 examples/s]Map:   5%|▌         | 595/11400 [00:01<00:13, 807.93 examples/s]Map:   6%|▌         | 707/11400 [00:01<00:11, 895.82 examples/s]Map:   8%|▊         | 862/11400 [00:01<00:09, 1090.55 examples/s]Map:   9%|▉         | 1000/11400 [00:01<00:10, 1037.95 examples/s]Map:  10%|█         | 1175/11400 [00:01<00:08, 1229.32 examples/s]Map:  12%|█▏        | 1396/11400 [00:01<00:06, 1494.09 examples/s]Map:  14%|█▍        | 1631/11400 [00:01<00:05, 1725.33 examples/s]Map:  17%|█▋        | 1965/11400 [00:01<00:04, 2188.55 examples/s]Map:  20%|██        | 2310/11400 [00:01<00:04, 2217.77 examples/s]Map:  23%|██▎       | 2664/11400 [00:02<00:03, 2566.48 examples/s]Map:  26%|██▋       | 3000/11400 [00:02<00:03, 2557.82 examples/s]Map:  29%|██▉       | 3359/11400 [00:02<00:02, 2829.19 examples/s]Map:  33%|███▎      | 3766/11400 [00:02<00:02, 3168.05 examples/s]Map:  37%|███▋      | 4227/11400 [00:02<00:02, 3130.07 examples/s]Map:  41%|████      | 4652/11400 [00:02<00:01, 3419.63 examples/s]Map:  46%|████▌     | 5212/11400 [00:02<00:01, 3354.43 examples/s]Map:  49%|████▉     | 5641/11400 [00:02<00:01, 3581.27 examples/s]Map:  55%|█████▍    | 6215/11400 [00:03<00:01, 3487.81 examples/s]Map:  58%|█████▊    | 6653/11400 [00:03<00:01, 3696.98 examples/s]Map:  63%|██████▎   | 7212/11400 [00:03<00:01, 3570.61 examples/s]Map:  67%|██████▋   | 7651/11400 [00:03<00:00, 3762.83 examples/s]Map:  72%|███████▏  | 8211/11400 [00:03<00:00, 3610.83 examples/s]Map:  76%|███████▌  | 8633/11400 [00:03<00:00, 3750.97 examples/s]Map:  81%|████████  | 9215/11400 [00:03<00:00, 3590.23 examples/s]Map:  85%|████████▍ | 9652/11400 [00:03<00:00, 3770.02 examples/s]Map:  90%|████████▉ | 10212/11400 [00:04<00:00, 3612.96 examples/s]Map:  93%|█████████▎| 10650/11400 [00:04<00:00, 3789.63 examples/s]Map:  98%|█████████▊| 11212/11400 [00:04<00:00, 3623.76 examples/s]Map: 100%|██████████| 11400/11400 [00:04<00:00, 2458.35 examples/s]
+Map:   0%|          | 0/600 [00:00<?, ? examples/s]Map:  70%|██████▉   | 419/600 [00:00<00:00, 4152.51 examples/s]Map: 100%|██████████| 600/600 [00:00<00:00, 3333.32 examples/s]
+
+Testing initial model performance...
+Traceback (most recent call last):
+  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 653, in <module>
+    main()
+  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 638, in main
+    sft_train_pddl(
+  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 291, in sft_train_pddl
+    inputs = tokenizer.apply_chat_template(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/processing_utils.py", line 1531, in apply_chat_template
+    visuals = [content for content in message["content"] if content["type"] in ["image", "video"]]
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/processing_utils.py", line 1531, in <listcomp>
+    visuals = [content for content in message["content"] if content["type"] in ["image", "video"]]
+TypeError: string indices must be integers
