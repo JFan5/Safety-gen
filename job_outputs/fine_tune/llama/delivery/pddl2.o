@@ -1,0 +1,26 @@
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+============================================================
+PDDL Fine-tuning with unsloth/Llama-3.2-3B-Instruct-bnb-4bit
+============================================================
+GPU count: 1
+GPU 0: NVIDIA A10
+
+Loading model and tokenizer...
+==((====))==  Unsloth 2025.8.6: Fast Llama patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.12s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.24s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.37s/it]
+Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
+Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
+Unsloth 2025.8.6 patched 28 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+Configuring LoRA...
+
+Loading dataset from /groups/fkong/jfan5/data/sft/delivery/pddl2.hf...
+Dataset not found: /groups/fkong/jfan5/data/sft/delivery/pddl2.hf
+Please run collect_dataset.py first to create the dataset.

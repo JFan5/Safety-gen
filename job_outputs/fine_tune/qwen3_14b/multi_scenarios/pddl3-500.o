@@ -1,0 +1,114 @@
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+============================================================
+PDDL Fine-tuning with unsloth/Qwen3-14B-unsloth-bnb-4bit
+============================================================
+GPU count: 1
+GPU 0: NVIDIA A10
+
+Loading model and tokenizer...
+==((====))==  Unsloth 2025.8.6: Fast Qwen3 patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [02:02<10:13, 122.73s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [04:04<08:07, 121.98s/it]Loading checkpoint shards:  50%|█████     | 3/6 [06:36<06:47, 135.91s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [07:15<03:14, 97.48s/it] Loading checkpoint shards:  83%|████████▎ | 5/6 [08:03<01:19, 79.68s/it]Loading checkpoint shards: 100%|██████████| 6/6 [08:03<00:00, 52.79s/it]Loading checkpoint shards: 100%|██████████| 6/6 [08:03<00:00, 80.66s/it]
+Some parameters are on the meta device because they were offloaded to the cpu.
+Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
+Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
+Unsloth 2025.8.6 patched 40 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+Configuring LoRA...
+
+Loading dataset from /groups/fkong/jfan5/data/sft/multi_scenarios500/pddl3.hf...
+Loading HuggingFace dataset...
+Dataset loaded with 3000 entries
+Scenario distribution:
+  blocksworld: 500
+  ferry: 500
+  grid: 500
+  grippers: 500
+  rovers: 500
+  spanner: 500
+Validation ratio: 0.05
+Processing dataset format (chat template)...
+Map:   0%|          | 0/2850 [00:00<?, ? examples/s]Map:  18%|█▊        | 510/2850 [00:00<00:00, 5055.64 examples/s]Map:  45%|████▍     | 1273/2850 [00:00<00:00, 4665.55 examples/s]Map:  64%|██████▍   | 1826/2850 [00:00<00:00, 4984.57 examples/s]Map:  89%|████████▉ | 2548/2850 [00:00<00:00, 4816.54 examples/s]Map: 100%|██████████| 2850/2850 [00:00<00:00, 3985.66 examples/s]
+Map:   0%|          | 0/150 [00:00<?, ? examples/s]Map: 100%|██████████| 150/150 [00:00<00:00, 3272.18 examples/s]
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+
+Testing initial model performance...
+Traceback (most recent call last):
+  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 647, in <module>
+    main()
+  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 632, in main
+    sft_train_pddl(
+  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 296, in sft_train_pddl
+    model.generate(input_ids=inputs, max_new_tokens=max_new_tokens)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/peft/peft_model.py", line 1973, in generate
+    outputs = self.base_model.generate(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1754, in unsloth_fast_generate
+    output = self._old_generate(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/generation/utils.py", line 2629, in generate
+    result = self._sample(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/generation/utils.py", line 3610, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 1143, in _CausalLM_fast_forward
+    outputs = self.model(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 955, in LlamaModel_fast_forward
+    layer_outputs = decoder_layer(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 627, in LlamaDecoderLayer_fast_forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/qwen3.py", line 89, in Qwen3Attention_fast_forward
+    Q, K, V = self.apply_qkv(self, hidden_states)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 98, in original_apply_qkv
+    Q = self.q_proj(X)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/peft/tuners/lora/layer.py", line 757, in forward
+    result = self.base_layer(x, *args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/hooks.py", line 170, in new_forward
+    args, kwargs = module._hf_hook.pre_forward(module, *args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/hooks.py", line 360, in pre_forward
+    set_module_tensor_to_device(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/utils/modeling.py", line 343, in set_module_tensor_to_device
+    new_value = value.to(device, non_blocking=non_blocking)
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+/opt/sge/crc/spool/qa-a10-025/job_scripts/2354191: line 25: --per-device-train-batch-size: command not found

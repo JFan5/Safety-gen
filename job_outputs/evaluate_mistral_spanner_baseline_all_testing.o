@@ -1,0 +1,19 @@
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: unsloth/mistral-7b-instruct-v0.3-bnb-4bit
+Problems dir: spanner/all_problems3/testing
+Domain file: spanner/domain3.pddl
+Max problems: 0
+Output: spanner_all_testing_baseline.json
+Auto-detected model family: mistral
+Traceback (most recent call last):
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 528, in <module>
+    main()
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 517, in main
+    test_model_on_testing_data(
+  File "/scratch365/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 230, in test_model_on_testing_data
+    results_dir.mkdir(exist_ok=True)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'planning_results/mistral_7b/spanner/baseline'

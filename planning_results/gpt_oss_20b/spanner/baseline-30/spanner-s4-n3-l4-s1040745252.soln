@@ -1,0 +1,16 @@
+analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
+Domain: spanner. Types: location, locatable, man, nut, spanner. Predicates: at, carrying, useable, link, tightened, loose.
+Actions:
+- walk: from start to end location, requires at ?m ?start and link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
+- pickup_spanner: requires at ?m ?l and at ?s ?l. Effect: not at ?s ?l, carrying ?m ?s.
+- tighten_nut: requires at ?m ?l, at ?n ?l, carrying ?m ?s, useable ?s, loose ?n. Effect: not loose ?n, not useable ?s, tightened ?n.
+Goal: tightened nut1, nut2, nut3.
+Constraints:
+- sometime-before (tightened nut1) (tightened nut2). So nut1 must be tightened before nut2.
+- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Since only one man bob, he can be at shed at most once. He starts at shed. So after leaving shed, he cannot return to shed again.
+We need to produce a plan that satisfies constraints.
+We have spanners at locations: spanner1 at location2, spanner2 at location3, spanner3 at location3, spanner4 at location1. All useable.
+Nuts at gate: nut1, nut2, nut3 all loose at gate.
+Links: shed -> location1, location4 -> gate, location1 -> location2, location2 -> location3, location3 -> location4.
+So path: shed -> location1 -> location2 -> location3 -> location4 -> gate. Actually link location4 gate, so location4 to gate. So path from shed to gate: shed -> location1 -> location2 -> location3 -> location4 -> gate.
+We need to tighten nuts at gate. Bob starts at shed. He must walk to gate, pick up a spanner, tighten nuts. But spanners are at various locations. He can pick up spanner at location where spanner is. He can carry spanner to gate to tighten nuts. But spanners are at location2,3,3,1. He can walk to those locations,
