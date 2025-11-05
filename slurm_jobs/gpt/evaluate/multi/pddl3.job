@@ -18,9 +18,11 @@ scenarios=(
     "ferry"
     "grippers"
     "spanner"
+    "grid"
+    "rovers"
 )
 scenario_name="${scenarios[$SLURM_ARRAY_TASK_ID-1]}"
-MODEL_BASE_DIR="/home/ubuntu/sft_models/gpt_multi_pddl3/"
+MODEL_BASE_DIR="/home/ubuntu/sft_models/gpt_multi_pddl3_500"
 
 echo "=========================================="
 echo "Starting evaluation (PDDL3) for scenario: $scenario_name"
@@ -63,6 +65,20 @@ case "$scenario_name" in
     DOMAIN_FILE="spanner/domain3.pddl"
     RESULTS_DIR="planning_results/gpt_oss_20b/spanner/pddl3"
     OUTPUT_NAME="spanner_test_results_pddl3.json"
+    ;;
+    "grid"
+    MODEL_PATH="/home/ubuntu/sft_models/gpt_multi_pddl3_500"
+    PROBLEMS_DIR="grid/all_problems3/testing"
+    DOMAIN_FILE="grid/domain3.pddl"
+    RESULTS_DIR="planning_results/gpt_oss_20b/grid/pddl3"
+    OUTPUT_NAME="grid_test_results_pddl3.json"
+    ;;
+    "rovers"
+    MODEL_PATH="/home/ubuntu/sft_models/gpt_multi_pddl3_500"
+    PROBLEMS_DIR="rovers/all_problems3/testing"
+    DOMAIN_FILE="rovers/domain3.pddl"
+    RESULTS_DIR="planning_results/gpt_oss_20b/rovers/pddl3"
+    OUTPUT_NAME="rovers_test_results_pddl3.json"
     ;;
   *)
     echo "Unknown scenario: $scenario_name"; exit 1
