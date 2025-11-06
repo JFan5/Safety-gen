@@ -13,8 +13,8 @@ set -euo pipefail
 conda activate llmstl
 
 BASE_MODEL="/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/pddl3"
-DPO_DATASET="/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-500.jsonl"
-OUTPUT_DIR="/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/pddl3-500"
+DPO_DATASET="/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-50.jsonl"
+OUTPUT_DIR="/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/pddl3"
 
 mkdir -p "${OUTPUT_DIR}"
 
