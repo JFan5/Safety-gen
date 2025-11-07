@@ -9,7 +9,7 @@ GEN_EXTRA_ARGS=("$@")
 
 mkdir -p \
     "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_unsloth/blocksworld/pddl3" \
-    "/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld"
+    "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld"
 
 echo "[1/4] Generating scored candidates -> /users/jfan5/jfan5/Safety-gen/data/dpo/mistral_unsloth/blocksworld/pddl3/scored.jsonl"
 python "/users/jfan5/jfan5/Safety-gen/script/generate_score_candidate.py" \
@@ -31,18 +31,18 @@ python "/users/jfan5/jfan5/Safety-gen/script/create_scored_summaries.py" \
     --domain-file "/users/jfan5/jfan5/Safety-gen/blocksworld/domain3.pddl" \
     --output "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_unsloth/blocksworld/pddl3/scored_summaries.json"
 
-echo "[3/4] Constructing full DPO dataset -> /users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo.jsonl"
+echo "[3/4] Constructing full DPO dataset -> /users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld/pddl3_dpo.jsonl"
 python "/users/jfan5/jfan5/Safety-gen/script/construct_dpo_dataset.py" \
     "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_unsloth/blocksworld/pddl3/scored_summaries.json" \
-    --output "/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo.jsonl" \
+    --output "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld/pddl3_dpo.jsonl" \
     --all-pairs
 
-echo "[4/4] Sampling 500 Blocksworld pairs -> /users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-500.jsonl"
+echo "[4/4] Sampling 500 Blocksworld pairs -> /users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld/pddl3_dpo-500.jsonl"
 python "/users/jfan5/jfan5/Safety-gen/pick_dpo_data.py" \
-    --datasets-dir "/users/jfan5/jfan5/Safety-gen/data/dpo/datasets" \
+    --datasets-dir "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b" \
     --scenarios "blocksworld" \
     --per-scenario 500 \
     --allow-fewer \
-    --output "/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-500.jsonl"
+    --output "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld/pddl3_dpo-500.jsonl"
 
-echo "Done. DPO-500 dataset written to /users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-500.jsonl"
+echo "Done. DPO-500 dataset written to /users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld/pddl3_dpo-500.jsonl"
