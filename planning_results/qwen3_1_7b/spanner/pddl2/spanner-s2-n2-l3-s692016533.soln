@@ -1,8 +1,0 @@
-(move bob shed)
-(pick spanner1 location1)
-(walk location1 location1 location2)
-(pick spanner2 location2)
-(walk location2 location3 location1)
-(walk location1 location3 gate)
-(tighten_nut gate spanner2 bob nut2 nut2)
-(tighten_nut gate spanner1 bob nut1 nut1)

@@ -1,8 +1,0 @@
-(pickup_spanner bob location4 spanner3)
-(walk bob location4 gate)
-(tighten_nut bob location4 nut1 spanner3)
-(walk bob gate shed)
-(putdown_spanner bob spanner3)
-(pickup_spanner bob location4 spanner1)
-(walk bob location4 gate)
-(tighten_nut bob gate nut2 spanner1)

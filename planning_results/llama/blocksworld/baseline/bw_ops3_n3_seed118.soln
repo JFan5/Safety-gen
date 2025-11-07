@@ -1,8 +1,0 @@
-Here is the plan:
-
-(pick b1 b2)
-(stack b2 b3)
-(pick b3 b1)
-(unstack b3 b2)
-(drop b1)
-(drop b2)

@@ -1,7 +1,0 @@
-(move bob shed)
-(pickup_spanner ?bob spanner1 location3)
-(tighten_nut ?bob spanner1 spanner1 spanner1 nut1)
-(pickup_spanner ?bob spanner2 location3)
-(tighten_nut ?bob spanner2 spanner2 spanner2 nut2)
-(pickup_spanner ?bob spanner3 location3)
-(tighten_nut ?bob spanner3 spanner3 spanner3 nut3)

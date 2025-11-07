@@ -1,0 +1,35 @@
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+Unsloth 2025.10.12 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Unsloth: Input IDs of shape torch.Size([1, 4417]) with length 4417 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4134]) with length 4134 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4207]) with length 4207 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4152]) with length 4152 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4112]) with length 4112 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4445]) with length 4445 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4546]) with length 4546 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4120]) with length 4120 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4369]) with length 4369 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4176]) with length 4176 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4251]) with length 4251 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4257]) with length 4257 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4269]) with length 4269 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4352]) with length 4352 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4190]) with length 4190 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.
+Unsloth: Input IDs of shape torch.Size([1, 4208]) with length 4208 > the model's max sequence length of 4096.
+We shall truncate it ourselves. It's imperative if you correct this issue first.

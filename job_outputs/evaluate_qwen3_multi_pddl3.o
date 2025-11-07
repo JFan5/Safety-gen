@@ -1,0 +1,4453 @@
+
+CondaError: Run 'conda init' before 'conda activate'
+
+==========================================
+Starting evaluation (PDDL3) for scenario: spanner
+Task ID: 5
+==========================================
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: /home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/
+Problems dir: spanner/all_problems3/testing
+Domain file: spanner/domain3.pddl
+Max problems: 30
+Output: spanner_test_results_pddl3.json
+Auto-detected model family: qwen
+Planning results will be saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3
+Loaded 30 problems for testing
+Loading model...
+==((====))==  Unsloth 2025.10.12: Fast Qwen3 patching. Transformers: 4.56.2.
+   \\   /|    NVIDIA A100 80GB PCIe. Num GPUs = 1. Max memory: 79.151 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.0. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.08it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.10it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.63it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.44it/s]
+Unsloth 2025.10.12 patched 40 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+unsloth/qwen3-14b-unsloth-bnb-4bit does not have a padding token! Will use pad_token = <|vision_pad|>.
+
+--- Test 1/30 ---
+Problem: spanner-s4-n3-l5-s1505956009
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 1505956009 --problem-name spanner-s4-n3-l5-s1505956009
+(define (problem spanner-s4-n3-l5-s1505956009)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (at spanner4 location2)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(use_spanner gate spanner1 bob nut1)
+(tighten_nut gate spanner1 bob nut1)
+(unlock_spanner gate spanner1 bob nut1)
+(use_spanner gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut2)
+(unlock_spanner gate spanner1 bob nut2)
+(use_spanner gate spanner1 bob nut3)
+(tighten_nut gate spanner1 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(use_spanner gate spanner1 bob nut1)
+(tighten_nut gate spanner1 bob nut1)
+(unlock_spanner gate spanner1 bob nut1)
+(use_spanner gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut2)
+(unlock_spanner gate spanner1 bob nut2)
+(use_spanner gate spanner1 bob nut3)
+(tighten_nut gate spanner1 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s1505956009.soln
+✗ Invalid solution: Validation failed: Type-checking walk
+...action passes type checking.
+Type-checking pickup_spanner
+...action passes type checking.
+Type-checking tighten_nut
+...action passes type checking.
+Checking plan: /tmp/tmp628hpxhm.soln
+Bad plan description!
+
+
+Failed plans:
+ /tmp/tmp628hpxhm.soln 
+
+Current success rate: 0.0% (0/1)
+
+--- Test 2/30 ---
+Problem: spanner-s3-n2-l4-s1800780856
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 1800780856 --problem-name spanner-s3-n2-l4-s1800780856
+(define (problem spanner-s3-n2-l4-s1800780856)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s1800780856.soln
+✓ Valid solution found
+Current success rate: 50.0% (1/2)
+
+--- Test 3/30 ---
+Problem: spanner-s2-n2-l3-s1860398898
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 2 2 3 --seed 1860398898 --problem-name spanner-s2-n2-l3-s1860398898
+(define (problem spanner-s2-n2-l3-s1860398898)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location3 gate)
+    (link location1 location2)
+    (link location2 location3)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s2-n2-l3-s1860398898.soln
+✓ Valid solution found
+Current success rate: 66.7% (2/3)
+
+--- Test 4/30 ---
+Problem: spanner-s4-n3-l5-s646739284
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 646739284 --problem-name spanner-s4-n3-l5-s646739284
+(define (problem spanner-s4-n3-l5-s646739284)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location4)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (at spanner4 location4)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s646739284.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 50.0% (2/4)
+
+--- Test 5/30 ---
+Problem: spanner-s3-n3-l4-s1062212954
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 3 4 --seed 1062212954 --problem-name spanner-s3-n3-l4-s1062212954
+(define (problem spanner-s3-n3-l4-s1062212954)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner3 bob nut3)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 shed bob)
+(tighten_nut shed spanner2 bob nut2)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner3 bob nut3)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 shed bob)
+(tighten_nut shed spanner2 bob nut2)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n3-l4-s1062212954.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 40.0% (2/5)
+
+--- Test 6/30 ---
+Problem: spanner-s3-n2-l4-s950994990
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 950994990 --problem-name spanner-s3-n2-l4-s950994990
+(define (problem spanner-s3-n2-l4-s950994990)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location1)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s950994990.soln
+✓ Valid solution found
+Current success rate: 50.0% (3/6)
+
+--- Test 7/30 ---
+Problem: spanner-s3-n2-l4-s809578076
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 809578076 --problem-name spanner-s3-n2-l4-s809578076
+(define (problem spanner-s3-n2-l4-s809578076)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location3)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s809578076.soln
+✓ Valid solution found
+Current success rate: 57.1% (4/7)
+
+--- Test 8/30 ---
+Problem: spanner-s3-n2-l4-s2059699912
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 2059699912 --problem-name spanner-s3-n2-l4-s2059699912
+(define (problem spanner-s3-n2-l4-s2059699912)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s2059699912.soln
+✓ Valid solution found
+Current success rate: 62.5% (5/8)
+
+--- Test 9/30 ---
+Problem: spanner-s4-n3-l5-s620441193
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 620441193 --problem-name spanner-s4-n3-l5-s620441193
+(define (problem spanner-s4-n3-l5-s620441193)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location1)
+    (useable spanner1)
+    (at spanner2 location5)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (at spanner4 location3)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 gate bob)
+(tighten_nut gate spanner3 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 gate bob)
+(tighten_nut gate spanner3 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s620441193.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 55.6% (5/9)
+
+--- Test 10/30 ---
+Problem: spanner-s3-n2-l4-s17629687
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 17629687 --problem-name spanner-s3-n2-l4-s17629687
+(define (problem spanner-s3-n2-l4-s17629687)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner3 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner3 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s17629687.soln
+✓ Valid solution found
+Current success rate: 60.0% (6/10)
+
+--- Test 11/30 ---
+Problem: spanner-s4-n3-l5-s1788191839
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 1788191839 --problem-name spanner-s4-n3-l5-s1788191839
+(define (problem spanner-s4-n3-l5-s1788191839)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location1)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location5)
+    (useable spanner3)
+    (at spanner4 location4)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner4 bob nut3)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(tighten_nut location1 spanner1 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner4 bob nut3)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(tighten_nut location1 spanner1 bob nut1)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s1788191839.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 54.5% (6/11)
+
+--- Test 12/30 ---
+Problem: spanner-s4-n3-l4-s315153356
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 4 --seed 315153356 --problem-name spanner-s4-n3-l4-s315153356
+(define (problem spanner-s4-n3-l4-s315153356)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (at spanner4 location2)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(use_spanner gate spanner1 bob nut1)
+(tighten_nut gate spanner1 bob nut1)
+(walk gate location4 bob)
+(drop_spanner location4 spanner1 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner4 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(use_spanner gate spanner3 bob nut2)
+(tighten_nut gate spanner3 bob nut2)
+(walk gate location4 bob)
+(drop_spanner location4 spanner3 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner4 bob)
+(walk location2 gate bob)
+(use_spanner gate spanner4 bob nut3)
+(tighten_nut gate spanner4 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(use_spanner gate spanner1 bob nut1)
+(tighten_nut gate spanner1 bob nut1)
+(walk gate location4 bob)
+(drop_spanner location4 spanner1 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner4 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(use_spanner gate spanner3 bob nut2)
+(tighten_nut gate spanner3 bob nut2)
+(walk gate location4 bob)
+(drop_spanner location4 spanner3 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner4 bob)
+(walk location2 gate bob)
+(use_spanner gate spanner4 bob nut3)
+(tighten_nut gate spanner4 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l4-s315153356.soln
+✗ Invalid solution: Validation failed: Type-checking walk
+...action passes type checking.
+Type-checking pickup_spanner
+...action passes type checking.
+Type-checking tighten_nut
+...action passes type checking.
+Checking plan: /tmp/tmpqzqkvt9y.soln
+Bad plan description!
+
+
+Failed plans:
+ /tmp/tmpqzqkvt9y.soln 
+
+Current success rate: 50.0% (6/12)
+
+--- Test 13/30 ---
+Problem: spanner-s3-n2-l4-s152552479
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 152552479 --problem-name spanner-s3-n2-l4-s152552479
+(define (problem spanner-s3-n2-l4-s152552479)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s152552479.soln
+✓ Valid solution found
+Current success rate: 53.8% (7/13)
+
+--- Test 14/30 ---
+Problem: spanner-s4-n3-l4-s969539137
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 4 --seed 969539137 --problem-name spanner-s4-n3-l4-s969539137
+(define (problem spanner-s4-n3-l4-s969539137)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (at spanner4 location1)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut3)
+(tighten_nut gate spanner3 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut3)
+(tighten_nut gate spanner3 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l4-s969539137.soln
+✓ Valid solution found
+Current success rate: 57.1% (8/14)
+
+--- Test 15/30 ---
+Problem: spanner-s3-n3-l4-s746303720
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 3 4 --seed 746303720 --problem-name spanner-s3-n3-l4-s746303720
+(define (problem spanner-s3-n3-l4-s746303720)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 shed bob)
+(pickup_spanner shed spanner3 bob)
+(walk shed location2 bob)
+(tighten_nut location2 spanner3 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 shed bob)
+(pickup_spanner shed spanner3 bob)
+(walk shed location2 bob)
+(tighten_nut location2 spanner3 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n3-l4-s746303720.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 53.3% (8/15)
+
+--- Test 16/30 ---
+Problem: spanner-s2-n2-l3-s2048054551
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 2 2 3 --seed 2048054551 --problem-name spanner-s2-n2-l3-s2048054551
+(define (problem spanner-s2-n2-l3-s2048054551)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location3 gate)
+    (link location1 location2)
+    (link location2 location3)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s2-n2-l3-s2048054551.soln
+✓ Valid solution found
+Current success rate: 56.2% (9/16)
+
+--- Test 17/30 ---
+Problem: spanner-s2-n2-l3-s1926165840
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 2 2 3 --seed 1926165840 --problem-name spanner-s2-n2-l3-s1926165840
+(define (problem spanner-s2-n2-l3-s1926165840)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location1)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location3 gate)
+    (link location1 location2)
+    (link location2 location3)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s2-n2-l3-s1926165840.soln
+✓ Valid solution found
+Current success rate: 58.8% (10/17)
+
+--- Test 18/30 ---
+Problem: spanner-s3-n2-l4-s16178211
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 16178211 --problem-name spanner-s3-n2-l4-s16178211
+(define (problem spanner-s3-n2-l4-s16178211)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner3 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner3 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s16178211.soln
+✓ Valid solution found
+Current success rate: 61.1% (11/18)
+
+--- Test 19/30 ---
+Problem: spanner-s3-n2-l4-s679114617
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 679114617 --problem-name spanner-s3-n2-l4-s679114617
+(define (problem spanner-s3-n2-l4-s679114617)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s679114617.soln
+✓ Valid solution found
+Current success rate: 63.2% (12/19)
+
+--- Test 20/30 ---
+Problem: spanner-s3-n2-l4-s891780211
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 891780211 --problem-name spanner-s3-n2-l4-s891780211
+(define (problem spanner-s3-n2-l4-s891780211)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s891780211.soln
+✓ Valid solution found
+Current success rate: 65.0% (13/20)
+
+--- Test 21/30 ---
+Problem: spanner-s4-n3-l4-s1780492697
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 4 --seed 1780492697 --problem-name spanner-s4-n3-l4-s1780492697
+(define (problem spanner-s4-n3-l4-s1780492697)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (at spanner4 location4)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 shed bob)
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner4 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 shed bob)
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 gate bob)
+(tighten_nut gate spanner4 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l4-s1780492697.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 61.9% (13/21)
+
+--- Test 22/30 ---
+Problem: spanner-s4-n3-l5-s1030741926
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 1030741926 --problem-name spanner-s4-n3-l5-s1030741926
+(define (problem spanner-s4-n3-l5-s1030741926)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location3)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (at spanner4 location2)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner3 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(pickup_spanner location3 spanner4 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(tighten_nut location3 spanner2 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner1 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner3 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(pickup_spanner location3 spanner4 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(tighten_nut location3 spanner2 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s1030741926.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 59.1% (13/22)
+
+--- Test 23/30 ---
+Problem: spanner-s4-n3-l5-s888590789
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 888590789 --problem-name spanner-s4-n3-l5-s888590789
+(define (problem spanner-s4-n3-l5-s888590789)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location1)
+    (useable spanner1)
+    (at spanner2 location5)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (at spanner4 location3)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 shed bob)
+(tighten_nut shed spanner3 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(pickup_spanner location1 spanner3 bob)
+(walk location1 shed bob)
+(tighten_nut shed spanner3 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s888590789.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 56.5% (13/23)
+
+--- Test 24/30 ---
+Problem: spanner-s4-n3-l4-s476128176
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 4 --seed 476128176 --problem-name spanner-s4-n3-l4-s476128176
+(define (problem spanner-s4-n3-l4-s476128176)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location4)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (at spanner4 location2)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut2) (tightened nut3))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner4 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner4 bob nut2)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner3 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner4 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner1 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner4 bob nut2)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner3 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l4-s476128176.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 54.2% (13/24)
+
+--- Test 25/30 ---
+Problem: spanner-s3-n2-l4-s579816044
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 579816044 --problem-name spanner-s3-n2-l4-s579816044
+(define (problem spanner-s3-n2-l4-s579816044)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location4)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner2 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner2 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s579816044.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 52.0% (13/25)
+
+--- Test 26/30 ---
+Problem: spanner-s4-n3-l5-s1540157672
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 1540157672 --problem-name spanner-s4-n3-l5-s1540157672
+(define (problem spanner-s4-n3-l5-s1540157672)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (at spanner4 location2)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner3 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner3 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s1540157672.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 50.0% (13/26)
+
+--- Test 27/30 ---
+Problem: spanner-s4-n3-l5-s728337100
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 5 --seed 728337100 --problem-name spanner-s4-n3-l5-s728337100
+(define (problem spanner-s4-n3-l5-s728337100)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 location5 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location5)
+    (useable spanner1)
+    (at spanner2 location2)
+    (useable spanner2)
+    (at spanner3 location4)
+    (useable spanner3)
+    (at spanner4 location1)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location5 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+    (link location4 location5)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner2 bob nut2)
+(tighten_nut gate spanner3 bob nut3)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 shed bob)
+(pickup_spanner shed spanner1 bob)
+(tighten_nut shed spanner1 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner3 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner2 bob nut2)
+(tighten_nut gate spanner3 bob nut3)
+(walk gate location5 bob)
+(walk location5 location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(walk location2 location1 bob)
+(walk location1 shed bob)
+(pickup_spanner shed spanner1 bob)
+(tighten_nut shed spanner1 bob nut1)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l5-s728337100.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 48.1% (13/27)
+
+--- Test 28/30 ---
+Problem: spanner-s3-n3-l4-s741455592
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 3 4 --seed 741455592 --problem-name spanner-s3-n3-l4-s741455592
+(define (problem spanner-s3-n3-l4-s741455592)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location4)
+    (useable spanner2)
+    (at spanner3 location2)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut1)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(tighten_nut location4 spanner3 bob nut3)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut1)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(tighten_nut location4 spanner3 bob nut3)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n3-l4-s741455592.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 46.4% (13/28)
+
+--- Test 29/30 ---
+Problem: spanner-s3-n2-l4-s755118894
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 755118894 --problem-name spanner-s3-n2-l4-s755118894
+(define (problem spanner-s3-n2-l4-s755118894)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 - spanner
+     nut1 nut2 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location1)
+    (useable spanner2)
+    (at spanner3 location1)
+    (useable spanner3)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut1)
+✓ Valid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s3-n2-l4-s755118894.soln
+✓ Valid solution found
+Current success rate: 48.3% (14/29)
+
+--- Test 30/30 ---
+Problem: spanner-s4-n3-l4-s1040745252
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<|im_start|>user
+prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain spanner)                    
+(:requirements :typing :strips :constraints)      
+
+(:types 
+	location locatable - object
+	man nut spanner - locatable	
+)                                           
+                                                                               
+(:predicates 
+	(at ?m - locatable ?l - location)
+	(carrying ?m - man ?s - spanner)
+	(useable ?s - spanner)
+	(link ?l1 - location ?l2 - location)
+	(tightened ?n - nut)
+	(loose ?n - nut))                                                                                           
+(:action walk 
+        :parameters (?start - location ?end - location ?m - man)
+        :precondition (and (at ?m ?start) 
+                           (link ?start ?end))                                                          
+        :effect (and (not (at ?m ?start)) (at ?m ?end)))
+
+(:action pickup_spanner 
+        :parameters (?l - location ?s - spanner ?m - man)
+        :precondition (and (at ?m ?l) 
+                           (at ?s ?l))
+        :effect (and (not (at ?s ?l))
+                     (carrying ?m ?s)))
+
+(:action tighten_nut 
+        :parameters (?l - location ?s - spanner ?m - man ?n - nut)
+        :precondition (and (at ?m ?l) 
+		      	   (at ?n ?l)
+			   (carrying ?m ?s)
+			   (useable ?s)
+			   (loose ?n))
+        :effect (and (not (loose ?n))(not (useable ?s)) (tightened ?n)))
+)
+
+PROBLEM:
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 4 3 4 --seed 1040745252 --problem-name spanner-s4-n3-l4-s1040745252
+(define (problem spanner-s4-n3-l4-s1040745252)
+ (:domain spanner)
+ (:objects 
+     bob - man
+     spanner1 spanner2 spanner3 spanner4 - spanner
+     nut1 nut2 nut3 - nut
+     location1 location2 location3 location4 - location
+     shed gate - location
+    )
+ (:init 
+    (at bob shed)
+    (at spanner1 location2)
+    (useable spanner1)
+    (at spanner2 location3)
+    (useable spanner2)
+    (at spanner3 location3)
+    (useable spanner3)
+    (at spanner4 location1)
+    (useable spanner4)
+    (loose nut1)
+    (at nut1 gate)
+    (loose nut2)
+    (at nut2 gate)
+    (loose nut3)
+    (at nut3 gate)
+    (link shed location1)
+    (link location4 gate)
+    (link location1 location2)
+    (link location2 location3)
+    (link location3 location4)
+)
+ (:goal
+  (and
+   (tightened nut1)
+   (tightened nut2)
+   (tightened nut3)
+))
+(:constraints
+  (and
+    (sometime-before (tightened nut1) (tightened nut2))
+    (forall (?m - man) (at-most-once (at ?m shed)))
+  )
+)
+)
+
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut3)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(tighten_nut location3 spanner3 bob nut1)<|im_end|>
+================================================================================
+
+Parsed plan:
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(walk location2 location3 bob)
+(pickup_spanner location3 spanner2 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner2 bob nut3)
+(walk gate location4 bob)
+(walk location4 location3 bob)
+(walk location3 location2 bob)
+(pickup_spanner location2 spanner3 bob)
+(walk location2 location3 bob)
+(tighten_nut location3 spanner3 bob nut1)
+⚠ Invalid solution saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner-s4-n3-l4-s1040745252.soln
+✗ Invalid solution: Validation error: 
+Current success rate: 46.7% (14/30)
+
+============================================================
+FINAL RESULTS
+============================================================
+Total tests: 30
+Valid solutions: 14
+Success rate: 46.7%
+Results saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3/spanner_test_results_pddl3.json
+Planning results saved to: planning_results/qwen3_multi_pddl3/spanner/pddl3
+
+Total planning results saved: 30 files

@@ -1,7 +1,0 @@
-(move bob shed spanner1)
-(pick spanner1 location2 gate)
-(tighten_nut spanner1 spanner1 bob shed)
-(pick spanner1 spanner2 shed bob)
-(tighten_nut spanner1 spanner1 bob shed)
-(pick spanner1 spanner2 shed bob)
-(tighten_nut spanner1 spanner1 bob shed)

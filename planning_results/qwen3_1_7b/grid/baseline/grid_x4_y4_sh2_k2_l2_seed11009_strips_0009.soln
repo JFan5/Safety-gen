@@ -1,7 +1,0 @@
-(move pos1-2 pos0-2)
-(pickup pos1-2 key0)
-(unlock pos1-2 pos0-3 key0 shape0)
-(pickup pos1-2 key1)
-(move pos1-2 pos0-2)
-(unlock pos1-2 pos3-3 key1 shape1)
-(putdown pos1-2 key1)

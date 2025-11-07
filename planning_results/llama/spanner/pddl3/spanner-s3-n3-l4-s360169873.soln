@@ -1,6 +1,0 @@
-Assassination no problem and lock problem constraints:
- 
-“ : (sometime-before (tightened nut2) (tightened nut3))
- (and (sometime-before (tightened nut2) (tightened nut3))
-  (forall (?m - man) (at-most-once (at?m shed)))
-)

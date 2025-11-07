@@ -1,0 +1,15 @@
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 579, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 568, in main
+    test_model_on_testing_data(
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 294, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 283, in from_pretrained
+    model_types = get_transformers_model_type(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth_zoo/hf_utils.py", line 112, in get_transformers_model_type
+    raise RuntimeError(
+RuntimeError: Unsloth: No config file found - are you sure the `model_name` is correct?
+If you're using a model on your local device, confirm if the folder location exists.
+If you're using a HuggingFace online model, check if it exists.

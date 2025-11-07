@@ -5,7 +5,7 @@ DPO Training Script using Unsloth for PDDL Planning Models (FIXED)
 Usage:
     python train_dpo_unsloth.py --base_model <model_path_or_hub_id> --dataset <dpo_dataset.jsonl> --output_dir <output_path>
 """
-
+import unsloth
 import argparse
 import json
 import os
@@ -77,7 +77,7 @@ def main():
     parser.add_argument("--beta", type=float, default=0.1, help="DPO beta (temperature)")
     parser.add_argument("--gradient_accumulation_steps", type=int, default=4, help="Gradient accumulation steps")
     parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps")
-    parser.add_argument("--eval_steps", type=int, default=500, help="Evaluate every N steps")
+    parser.add_argument("--eval_steps", type=int, default=50, help="Evaluate every N steps")
     parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
     parser.add_argument("--warmup_ratio", type=float, default=0.1, help="Warmup ratio")
     parser.add_argument("--weight_decay", type=float, default=0.01, help="Weight decay")
@@ -245,6 +245,7 @@ def main():
         processing_class=tokenizer,
     )
 
+    print("eval steps: ", args.eval_steps)
     # 可选：初始化 W&B
     if args.use_wandb:
         import wandb  # type: ignore
@@ -258,24 +259,17 @@ def main():
     logger.info("Starting DPO training with Unsloth...")
     dpo_trainer.train()
 
-    # 保存模型（适配器 + 合并权重）
-    logger.info(f"Saving model to {args.output_dir}")
-    # 1) 仅保存 LoRA 适配器（轻量便于继续训练）
-    model.save_pretrained(args.output_dir, save_adapter=True)
-    tokenizer.save_pretrained(args.output_dir)
-
-    # 2) 保存合并后的 16bit 全量权重（便于推理 / 部署）
+    # 只保存一个模型（合并后的 16bit 全量权重，便于推理 / 部署）
+    logger.info(f"Saving merged model to {args.output_dir}")
     FastLanguageModel.for_inference(model)
     model.save_pretrained_merged(
-        args.output_dir + "_merged",
+        args.output_dir,
         tokenizer,
         save_method="merged_16bit",
     )
-
     logger.info("DPO training completed successfully!")
     logger.info(f"Adapter saved to: {args.output_dir}")
     logger.info(f"Merged model saved to: {args.output_dir}_merged")
-
     if args.use_wandb:
         import wandb  # type: ignore
         wandb.finish()

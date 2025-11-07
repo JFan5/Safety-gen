@@ -1,6 +1,0 @@
-(validity-check) (arm-empty) (clear b6)
-(validity-check) (on b6 b2) (on b3 b5) (on b4 b3) (on b5 b6) (on b2 b1)
-(pick b6 b3) (stack b6 b2) (clear b3) (on b6 b2) (holding b6) (arm-empty)
-(unstack b3 b4) (stack b3 b5) (clear b6) (on b6 b2) (holding b6) (arm-empty)
-(pick b6 b3) (unstack b3 b4) (stack b3 b5) (clear b6) (on b6 b2) (holding b6) (arm-empty)
-(unstack b4 b5) (stack b4 b3) (clear b6) (on b6 b2) (holding b6) (arm-empty)

@@ -1,0 +1,16 @@
+
+CondaError: Run 'conda init' before 'conda activate'
+
+错误: 输入目录 delivery/all_problems/testing 不存在
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: sft_model/gpt_oss_20b/delivery/pddl3
+Problems dir: delivery/all_problems3/testing
+Domain file: delivery/domain3.pddl
+Max problems: 100
+Output: delivery_test_results_pddl3.json
+Auto-detected model family: gpt
+Planning results will be saved to: planning_results/gpt_oss_20b/delivery/pddl3
+Problems directory not found: delivery/all_problems3/testing
+No testing data found!

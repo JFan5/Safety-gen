@@ -1,8 +1,0 @@
-The initial state already satisfies all goals:
-- (at ball1 room3) → true
-- (at ball2 room1) → true
-Additionally, the constraint:
-(always (forall (?b - object) (not (carry robot1 ?b lgripper1))))
-is satisfied because robot1 is not carrying any object with lgripper1 — it is only free and not performing any pick/drop actions.
-Therefore, no actions are needed.
-Output: nothing.

@@ -1,7 +1,0 @@
-(walk bob shed gate)
-(pickup_spanner bob spanner3 bob)
-(walk bob gate spanner1)
-(walk bob spanner1 nut1)
-(tighten_nut bob spanner1 bob nut2)
-(walk bob spanner1 nut2)
-(tighten_nut bob spanner1 bob nut3)

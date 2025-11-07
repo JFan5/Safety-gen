@@ -1,4 +1,0 @@
-#:action walk 
-#:parameters (shed location1 bob nut1 spanner1 spanner2 spanner3 nut2 gate location2 location3 location4)
-#:precondition (and (at bob shed) (link shed location1) (loose nut1) (at spanner1 location3) (useable spanner1) (at spanner2 location1) (useable spanner2) (at spanner3 location3) (loose nut2) (at nut2 gate) (link location4 gate) (link location1 location2) (link location2 location3) (link location3 location4))
-#:effect (and (not (at bob shed)) (at bob location1) (tightened nut1) (not (at spanner1 location3)) (at spanner1 location1) (not (at spanner2 location1)) (at spanner2 location3) (not (at spanner3 location3)) (at spanner3 location4) (tightened nut2) (not (at nut2 gate)) (at nut2 location4) (link gate location4) (link location1 location2) (link location2 location3) (link location3 location4))
