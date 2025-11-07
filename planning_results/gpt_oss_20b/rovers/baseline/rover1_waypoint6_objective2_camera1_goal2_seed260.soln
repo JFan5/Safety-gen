@@ -1,0 +1,11 @@
+analysisWe need to produce a valid plan that achieves the goal: communicated_soil_data waypoint1, communicated_rock_data waypoint2, communicated_image_data objective0 low_res. Also must satisfy constraint: sometime-before (at rover0 waypoint2) (at rover0 waypoint1). That means at some point, rover0 must be at waypoint2 before it is at waypoint1. So the plan must include a sequence where rover0 visits waypoint2 before waypoint1. Also must satisfy that at the end, the goal holds.
+We need to produce a plan that uses actions defined: navigate, sample_soil, sample_rock, drop, calibrate, take_image, communicate_soil_data, communicate_rock_data, communicate_image_data.
+We have initial state: rover0 at waypoint2. So at start, at waypoint2. We need to eventually communicate soil data at waypoint1, rock data at waypoint2, image data objective0 low_res.
+We need to sample soil at waypoint1 (since at_soil_sample waypoint1). We need to sample rock at waypoint2 (since at_rock_sample waypoint2). Also we need to take image at objective0 low_res. The image must be taken by rover0 at a waypoint that can see objective0. visible_from objective0 waypoint2 and waypoint5. So we need to be at waypoint2 or waypoint5 to take image. But we also need to calibrate camera0 for objective0. The camera0 is on board, calibration_target camera0 objective0. So we need to calibrate camera0 at a waypoint that can see objective0. That is waypoint2 or waypoint5. So we can calibrate at waypoint2. Then take image at waypoint2. Then communicate image data to general lander.
+Also we need to communicate soil data at waypoint1. So we need to sample soil at waypoint1, then communicate soil data to general. Similarly for rock data at waypoint2.
+We also need to satisfy constraint: at some point, rover0 at waypoint2 before at waypoint1. Since we start at waypoint2, that is satisfied.
+We need to produce a plan that uses actions in correct order.
+Let's outline plan:
+Start: rover0 at waypoint2.
+Goal: communicate soil data at waypoint1, rock data at waypoint2, image data objective0 low_res.
+We need to sample soil at waypoint1: sample_soil action requires at rover0 at waypoint1, at_soil_sample at waypoint1, equipped_for_soil_analysis, store_of rover0

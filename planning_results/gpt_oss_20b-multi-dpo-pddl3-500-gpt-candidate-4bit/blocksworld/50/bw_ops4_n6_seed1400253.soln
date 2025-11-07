@@ -1,0 +1,46 @@
+commentaryWe must parse the blocksworld domain and the problem BW-rand-6. Generate a plan that achieves the goal and satisfies the constraint: (sometime-before (on b3 b5) (on b2 b1)).
+Let's list the objects: b1 b2 b3 b4 b5 b6.
+Predicates:
+- clear(X)
+- on-table(X)
+- arm-empty()
+- holding(X)
+- on(X Y)  (X on Y)
+Domain requirements: :strips, :constraints, :negative-preconditions. So predicates can have negations in preconditions and effects.
+Actions:
+1. pickup OB
+Params: (?ob)
+Precond: clear(OB) & on-table(OB) & arm-empty
+Effect: holding(OB) & not clear(OB) & not on-table(OB) & not arm-empty
+2. putdown OB
+Precond: holding(OB)
+Effect: clear(OB) & arm-empty & on-table(OB) & not holding(OB)
+3. stack OB UNDEROB
+Precond: clear(UNDEROB) & holding(OB)
+Effect: arm-empty & clear(OB) & on(OB UNDEROB) & not clear(UNDEROB) & not holding(OB)
+4. unstack OB UNDEROB
+Precond: on(OB UNDEROB) & clear(OB) & arm-empty
+Effect: holding(OB) & clear(UNDEROB) & not on(OB UNDEROB) & not clear(OB) & not arm-empty
+Problem BW-rand-6:
+Objects: b1 b2 b3 b4 b5 b6
+Init:
+arm-empty
+on-table b1
+on b2 b1
+on b3 b4
+on b4 b5
+on b5 b2
+on b6 b3
+clear b6
+Let's derive all initial predicates:
+- arm-empty: true
+- on-table b1: true
+- on b2 b1: true
+- on b3 b4: true
+- on b4 b5: true
+- on b5 b2: true
+- on b6 b3: true
+- clear b6: true
+From these, we can infer other predicates:
+clear X: true if X is not an 'underob' in any on predicate and not arm-occupied. Let's compute clear:
+Clear b1: check if any

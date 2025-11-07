@@ -7,8 +7,8 @@ Predicates:
 - carry ?r - robot ?o - object ?g - gripper
 Actions:
 - move: robot moves from room to room. Preconditions: at-robby ?r ?from. Effect: at-robby ?r ?to, not at-robby ?r ?from.
-- pick: robot picks object in room. Preconditions: at ?obj ?room, at-robby ?r ?room, free ?r ?g. Effect: carry ?r ?obj ?g, not at ?obj ?room, not free ?r ?g.
-- drop: robot drops object in room. Preconditions: carry ?r ?obj ?g, at-robby ?r ?room. Effect: at ?obj ?room, free ?r ?g, not carry ?r ?obj ?g.
+- pick: robot picks up object. Preconditions: at ?obj ?room, at-robby ?r ?room, free ?r ?g. Effect: carry ?r ?obj ?g, not at ?obj ?room, not free ?r ?g.
+- drop: robot drops object. Preconditions: carry ?r ?obj ?g, at-robby ?r ?room. Effect: at ?obj ?room, free ?r ?g, not carry ?r ?obj ?g.
 Problem: objects: robot1, robot2; grippers: rgripper1, lgripper1, rgripper2, lgripper2; rooms: room1, room2, room3; objects: ball1, ball2, ball3.
 Initial state:
 - at-robby robot1 room3
@@ -24,4 +24,4 @@ Goal:
 - at ball1 room3
 - at ball2 room3
 - at ball3 room2
-Constraint: (always (not (at-robby robot1 gripper))) Wait: "gripper" is not defined as a room. This constraint says robot1 cannot be at "gripper" location. But "gripper" is not a room; maybe it's a typo. But we must satisfy it: robot1 cannot be at location "gripper". Since "gripper" is not a room, it's irrelevant. But we must ensure we don't violate it. Since robot1 never goes to "gripper" anyway
+Constraint: (always (not (at-robby robot1 gripper))) Wait: "gripper" is a type, not an object. The constraint says robot1 cannot be at a gripper? Actually "gripper" is a type, but the predicate at-robby expects a room. So constraint: robot1 cannot be at a gripper. But gripper is not a room. So this constraint is weird: (not (at-robby robot1 gripper)). Since gripper is a type, not a room

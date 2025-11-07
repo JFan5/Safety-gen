@@ -1,9 +1,9 @@
 analysisWe need to produce a valid plan for the given problem. Let's analyze domain and problem.
 Domain: spanner. Types: location, locatable, man, nut, spanner. Predicates: at, carrying, useable, link, tightened, loose.
 Actions:
-1. walk: parameters (?start - location ?end - location ?m - man). Preconditions: at ?m ?start AND link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
-2. pickup_spanner: parameters (?l - location ?s - spanner ?m - man). Preconditions: at ?m ?l AND at ?s ?l. Effect: not at ?s ?l, carrying ?m ?s.
-3. tighten_nut: parameters (?l - location ?s - spanner ?m - man ?n - nut). Preconditions: at ?m ?l AND at ?n ?l AND carrying ?m ?s AND useable ?s AND loose ?n. Effect: not loose ?n, not useable ?s, tightened ?n.
+1. walk: parameters (?start - location ?end - location ?m - man). Precondition: at ?m ?start and link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
+2. pickup_spanner: parameters (?l - location ?s - spanner ?m - man). Precondition: at ?m ?l and at ?s ?l. Effect: not at ?s ?l, carrying ?m ?s.
+3. tighten_nut: parameters (?l - location ?s - spanner ?m - man ?n - nut). Precondition: at ?m ?l, at ?n ?l, carrying ?m ?s, useable ?s, loose ?n. Effect: not loose ?n, not useable ?s, tightened ?n.
 Problem: objects: bob (man), spanner1, spanner2, spanner3, nut1, nut2, location1-4, shed, gate.
 Initial state:
 - at bob shed
@@ -22,9 +22,9 @@ Initial state:
 - link location1 location2
 - link location2 location3
 - link location3 location4
-Goal: tightened nut1 AND tightened nut2.
+Goal: tightened nut1 and tightened nut2.
 Constraints:
 - sometime-before (tightened nut1) (tightened nut2) meaning nut1 must be tightened before nut2.
-- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Bob starts at shed. So Bob can only be at shed once. So after leaving shed, cannot return to shed.
+- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Bob starts at shed. So Bob cannot return to shed again.
 We need to produce a plan that satisfies constraints.
-We need to pick spanners to tighten nuts. Spanners are at locations: spanner1 at location1, spanner2 at location3, spanner3 at location4. Nuts are at gate.
+We need to pick spanner(s) to tighten nuts. Spanners are at locations: spanner1 at location1, spanner2 at location3, spanner3 at location4. Nuts are at gate. Bob starts at shed. He

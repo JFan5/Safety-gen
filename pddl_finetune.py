@@ -24,7 +24,7 @@ max_seq_length = 4096  # 最大序列长度
 use_bf16 = is_bfloat16_supported()  # A100: True
 
 # 选方案 A：BF16 + LoRA
-load_in_4bit = False    # 方案 A 用 False；若想走 QLoRA，设 True
+load_in_4bit = True    # 方案 A 用 False；若想走 QLoRA，设 True
 max_new_tokens = 512  # 最大生成token数
 
 def template(prompt, path):

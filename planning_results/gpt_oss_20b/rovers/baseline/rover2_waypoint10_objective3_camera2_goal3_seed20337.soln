@@ -1,0 +1,16 @@
+analysisWe need to produce a plan that achieves the goal: communicated_soil_data waypoint6, communicated_soil_data waypoint9, communicated_rock_data waypoint9, communicated_rock_data waypoint0, communicated_rock_data waypoint7, communicated_image_data objective0 high_res, communicated_image_data objective1 low_res.
+We have two rovers: rover0 and rover1. They can traverse between waypoints. They have stores to store samples. They can sample soil and rock, drop, calibrate cameras, take images, communicate data to lander general.
+We need to plan actions for each rover to collect data and communicate.
+We must satisfy constraints: never both rovers at same waypoint 0 or 9 simultaneously.
+We need to produce a valid plan. We can choose any plan that achieves the goal. Let's design a simple plan.
+We need to communicate soil data from waypoint6 and 9. So we need to have rover at those waypoints, have soil analysis, then communicate.
+Also rock data from 9,0,7. So need rock analysis at those waypoints.
+Also image data for objective0 high_res and objective1 low_res.
+We have cameras on each rover: camera0 on rover0, camera1 on rover1. Calibration targets: camera0 -> objective1, camera1 -> objective0. So camera0 calibrates for objective1, camera1 for objective0.
+We need to take images for objective0 high_res and objective1 low_res. So camera1 must take high_res image of objective0, camera0 must take low_res image of objective1.
+We need to ensure visible_from conditions: objective0 visible_from waypoint0,5,6,7. objective1 visible_from waypoint0,2,4,5,9. So we need to be at a waypoint that can see the objective.
+Also visible_from is used in calibrate and take_image actions: calibrate requires visible_from target and at rover's current waypoint. So we need to be at a waypoint that can see the target objective.
+Also take_image requires visible_from objective to waypoint, at rover at that waypoint, and camera on board, calibrated, supports mode, etc.
+We also need to ensure that after taking image, the camera is no longer calibrated (calibrated predicate removed). So we need to calibrate before each image.
+Also we need to ensure that the camera is on board and supports the mode.
+We also need to ensure that the rover has the camera on board: on_board camera0 rover0

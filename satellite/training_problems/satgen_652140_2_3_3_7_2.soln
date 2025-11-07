@@ -1,8 +1,0 @@
-(switch_on instrument2 satellite0)
-(turn_to satellite0 planet8 groundstation4)
-(turn_to satellite0 groundstation5 planet8)
-(calibrate satellite0 instrument2 groundstation5)
-(turn_to satellite0 planet8 groundstation5)
-(take_image satellite0 planet8 instrument2 infrared0)
-(turn_to satellite0 planet7 planet8)
-(take_image satellite0 planet7 instrument2 thermograph2)

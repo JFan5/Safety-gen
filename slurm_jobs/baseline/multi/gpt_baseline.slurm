@@ -7,7 +7,7 @@
 #SBATCH --output=job_outputs/evaluate_gpt_multi.o
 #SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
 #SBATCH --job-name=evaluate_gpt_multi # Specify job name
-#SBATCH --array=1-5 # Specify number of tasks in array (5 scenarios)
+#SBATCH --array=1-7 # Specify number of tasks in array (7 scenarios)
 
 conda activate llmstl
 
@@ -18,6 +18,8 @@ scenarios=(
     "ferry"
     "grippers"
     "spanner"
+    "grid"
+    "rovers"
 )
 scenario_name="${scenarios[$SLURM_ARRAY_TASK_ID-1]}"
 
@@ -60,6 +62,18 @@ case "$scenario_name" in
     RESULTS_DIR="planning_results/gpt_oss_20b/spanner/baseline"
     OUTPUT_NAME="spanner_test_results.json"
     ;;
+  "grid")
+    PROBLEMS_DIR="grid/all_problems3/testing"
+    DOMAIN_FILE="grid/domain3.pddl"
+    RESULTS_DIR="planning_results/gpt_oss_20b/grid/baseline"
+    OUTPUT_NAME="grid_test_results.json"
+    ;;
+  "rovers")
+    PROBLEMS_DIR="rovers/all_problems3/testing"
+    DOMAIN_FILE="rovers/domain3.pddl"
+    RESULTS_DIR="planning_results/gpt_oss_20b/rovers/baseline"
+    OUTPUT_NAME="rovers_test_results.json"
+    ;;
   *)
     echo "Unknown scenario: $scenario_name"; exit 1
     ;;  
@@ -69,6 +83,6 @@ python3 script/evaluate_llm_solver.py \
   --model ${BASE_MODEL} \
   --problems-dir ${PROBLEMS_DIR} \
   --domain-file ${DOMAIN_FILE} \
-  --max-problems 100 \
+  --max-problems 50 \
   --output ${OUTPUT_NAME} \
   --results-dir ${RESULTS_DIR}

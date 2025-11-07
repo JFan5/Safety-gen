@@ -7,9 +7,9 @@ Predicates:
 - carry ?r - robot ?o - object ?g - gripper
 Actions:
 - move: robot moves from one room to another. Preconditions: at-robby ?r ?from. Effect: at-robby ?r ?to, not at-robby ?r ?from.
-- pick: robot picks up an object. Preconditions: at ?obj ?room, at-robby ?r ?room, free ?r ?g. Effect: carry ?r ?obj ?g, not at ?obj ?room, not free ?r ?g.
-- drop: robot drops an object. Preconditions: carry ?r ?obj ?g, at-robby ?r ?room. Effect: at ?obj ?room, free ?r ?g, not carry ?r ?obj ?g.
-Problem: objects: robot1, robot2; grippers: rgripper1, lgripper1, rgripper2, lgripper2; rooms: room1, room2, room3; objects: ball1, ball2, ball3.
+- pick: robot picks up object. Preconditions: at ?obj ?room, at-robby ?r ?room, free ?r ?g. Effect: carry ?r ?obj ?g, not at ?obj ?room, not free ?r ?g.
+- drop: robot drops object. Preconditions: carry ?r ?obj ?g, at-robby ?r ?room. Effect: at ?obj ?room, free ?r ?g, not carry ?r ?obj ?g.
+Problem: objects: robot1 robot2, grippers rgripper1 lgripper1 rgripper2 lgripper2, rooms room1 room2 room3, objects ball1 ball2 ball3.
 Initial state:
 - at-robby robot1 room3
 - free robot1 rgripper1
@@ -24,4 +24,4 @@ Goal:
 - at ball1 room3
 - at ball2 room3
 - at ball3 room1
-Constraint: (always (not (at-robby robot1 gripper))) Wait: "gripper" is a type, not an object. This constraint says robot1 cannot be at a gripper? Actually "gripper" is a type, not an object. The constraint says at-robby robot1 gripper is impossible. But at-robby expects a room. So this constraint is weird: (not (at-robby robot1 gripper)). Since gripper is a type, not a room.
+Constraint: (always (not (at-robby robot1 gripper))) Wait: "gripper" is a type, not an object. The constraint says robot1 cannot be at "gripper" location? But "gripper" is not a room. This constraint seems weird: (not (at-robby robot1 gripper)). Since gripper is a type, not a room. But maybe it's a mistake: maybe they mean robot1 cannot be at a location named "gripper"? But there is no such room. So constraint is trivially satisfied because at-rob

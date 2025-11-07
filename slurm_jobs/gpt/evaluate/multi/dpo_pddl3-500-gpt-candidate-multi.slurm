@@ -8,44 +8,44 @@
 #SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
 #SBATCH --job-name=evaluate_dpo_multi_pddl3-500-gpt-candidate # Specify job name
 
+# 串行执行，每个场景一条参数实例化命令
+/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
+  --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500 \
+  --problems-dir blocksworld/all_problems3/testing \
+  --domain-file blocksworld/domain3.pddl \
+  --max-problems 50 \
+  --output blocksworld_test_results.json \
+  --results-dir planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50
 
-# Map scenario to problems dir and domain file
-case "$scenario_name" in
-  "blocksworld")
-    PROBLEMS_DIR="blocksworld/all_problems3/testing"
-    DOMAIN_FILE="blocksworld/domain3.pddl"
-    RESULTS_DIR="planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate/blocksworld/baseline"
-    OUTPUT_NAME="blocksworld_test_results.json"
-    ;;
-  "delivery")
-    PROBLEMS_DIR="delivery/all_problems3/testing"
-    DOMAIN_FILE="delivery/domain3.pddl"
-    RESULTS_DIR="planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate/delivery/baseline"
-    OUTPUT_NAME="delivery_test_results.json"
-    ;;
-  "ferry")
-    PROBLEMS_DIR="ferry/all_problems3/testing"
-    DOMAIN_FILE="ferry/domain3.pddl"
-    RESULTS_DIR="planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate/ferry/baseline"
-    OUTPUT_NAME="ferry_test_results.json"
-    ;;
-  "grippers")
-    PROBLEMS_DIR="grippers/all_problems3/testing"
-    DOMAIN_FILE="grippers/domain3.pddl"
-    RESULTS_DIR="planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate/grippers/baseline"
-    OUTPUT_NAME="grippers_test_results.json"
-    ;;
-  "spanner")
-    PROBLEMS_DIR="spanner/all_problems3/testing"
-    DOMAIN_FILE="spanner/domain3.pddl"
-    RESULTS_DIR="planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate/spanner/baseline"
-    OUTPUT_NAME="spanner_test_results.json"
-    ;;
-  *)
-    echo "Unknown scenario: $scenario_name"; exit 1
-    ;;  
-esac
-/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500  --problems-dir $PROBLEMS_DIR --domain-file $DOMAIN_FILE --max-problems 50 --output $OUTPUT_NAME  --results-dir $RESULTS_DIR
+/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
+  --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500 \
+  --problems-dir delivery/all_problems3/testing \
+  --domain-file delivery/domain3.pddl \
+  --max-problems 50 \
+  --output delivery_test_results.json \
+  --results-dir planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/delivery/50
 
+/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
+  --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500 \
+  --problems-dir ferry/all_problems3/testing \
+  --domain-file ferry/domain3.pddl \
+  --max-problems 50 \
+  --output ferry_test_results.json \
+  --results-dir planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/ferry/50
 
+/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
+  --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500 \
+  --problems-dir grippers/all_problems3/testing \
+  --domain-file grippers/domain3.pddl \
+  --max-problems 50 \
+  --output grippers_test_results.json \
+  --results-dir planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/grippers/50
+
+/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
+  --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500 \
+  --problems-dir spanner/all_problems3/testing \
+  --domain-file spanner/domain3.pddl \
+  --max-problems 50 \
+  --output spanner_test_results.json \
+  --results-dir planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/spanner/50
 

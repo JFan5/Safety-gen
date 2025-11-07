@@ -1,13 +1,11 @@
 analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
 Domain: spanner. Types: location, locatable, man, nut, spanner. Predicates: at, carrying, useable, link, tightened, loose.
 Actions:
-- walk: from start to end if link exists. Preconditions: at ?m ?start, link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
-- pickup_spanner: at location l, at spanner s at l, at man m at l. Effect: not at s l, carrying m s.
-- tighten_nut: at location l, at spanner s at l, at man m at l, carrying m s, useable s, loose n. Effect: not loose n, not useable s, tightened n.
+1. walk: from start to end if link exists. Preconditions: at ?m ?start, link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
+2. pickup_spanner: at ?m ?l and at ?s ?l. Effect: not at ?s ?l, carrying ?m ?s.
+3. tighten_nut: at ?m ?l, at ?n ?l, carrying ?m ?s, useable ?s, loose ?n. Effect: not loose ?n, not useable ?s, tightened ?n.
 Goal: tightened nut1, nut2, nut3.
 Constraints:
 - sometime-before (tightened nut1) (tightened nut2). So nut1 must be tightened before nut2.
-- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Since only one man bob, he can be at shed at most once. He starts at shed. So after leaving shed, he cannot return to shed again.
-We need to produce a plan that satisfies constraints. We must ensure that bob does not return to shed after leaving. So we must start at shed, then go to location1, etc. He cannot go back to shed. So we must not include any walk back to shed.
-We need to tighten all nuts. They are at gate. Spanners are at location2, location1, location4. We need to pick up spanner(s) and tighten nuts. Useable spanner1, spanner2, spanner3. Useable spanner1 at location2, spanner2 at location1, spanner3 at location4.
-We need to tighten nut1, nut2, nut3. They are at gate. So we need to walk from shed to location1, then to location2, location3, location4, gate? Wait, link: location4 gate. So gate is connected to location4. So path: shed -> location1 -> location2 -> location3 -> location4 -> gate. But we need to tighten nuts at gate. So we need to walk to gate. But we cannot go back to shed
+- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Bob starts at shed. So Bob can only be at shed once. So after leaving shed, cannot return to shed.
+We need to produce a plan that satisfies constraints. Bob starts at shed. He must go to location1, location2, location3, location4, gate? Wait, link: shed -> location1, location4 -> gate, location1 -> location2, location2 -> location3, location3 -> location4. So path: shed -> location1 -> location2 -> location3 -> location4 -> gate. But spanner1 at location2, spanner2 at location1, spanner3 at location4. Nuts at gate. So Bob must walk to gate to tighten nuts. But he must pick up spanner at some location. He can pick up spanner at location1 (spanner2), location2 (spanner1), or location4 (spanner3). He must use a spanner to tighten nuts. Useable spanner must be useable. After tightening, useable becomes false. So each spanner can be used only once. But we need to tighten all three nuts. We have three spanners, each useable. So we can use each spanner to tighten one nut. But we must satisfy constraint: nut1

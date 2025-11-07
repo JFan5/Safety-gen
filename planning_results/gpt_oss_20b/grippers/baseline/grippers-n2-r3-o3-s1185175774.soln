@@ -1,21 +1,9 @@
-analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
-Domain: gripper-strips. Types: room, object, robot, gripper. Predicates: at-robby robot room, at object room, free robot gripper, carry robot object gripper.
+analysisWe need to produce a valid plan for the given problem. Let's analyze the problem.
+Domain: gripper-strips. Types: room, object, robot, gripper.
+Predicates: at-robby robot room; at object room; free robot gripper; carry robot object gripper.
 Actions: move, pick, drop.
-Move: precondition at-robby r from. Effect: at-robby r to, not at-robby r from.
-Pick: precondition: at obj room, at-robby r room, free r g. Effect: carry r obj g, not at obj room, not free r g.
-Drop: precondition: carry r obj g, at-robby r room. Effect: at obj room, free r g, not carry r obj g.
-Problem: objects: robot1 robot2, grippers rgripper1 lgripper1 rgripper2 lgripper2, rooms room1 room2 room3, objects ball1 ball2 ball3.
-Initial state:
-- at-robby robot1 room2
-- free robot1 rgripper1
-- free robot1 lgripper1
-- at-robby robot2 room3
-- free robot2 rgripper2
-- free robot2 lgripper2
-- at ball1 room3
-- at ball2 room1
-- at ball3 room3
-Goal: (and (at ball1 room1) (at ball2 room3) (at ball3 room3))
-Constraint: (always (not (at-robby robot1 room3))) meaning robot1 must never be in room3.
-We need to produce a plan that moves ball1 to room1, ball2 to room3, ball3 stays in room3. Initially ball1 and ball3 are in room3, ball2 in room1. We need to move ball1 to room1, ball2 to room3. Robot1 starts in room2, robot2 in room3. Robot1 cannot go to room3. So robot1 cannot be in room3 at any time. Robot2 can be in room3.
-We need to move ball1 from room3 to room1. Robot2 can pick ball1 in room3, carry to room1. But robot2 starts in room3. Robot2 can move to room1? Wait, robot2 can move to room1? There's no restriction on robot2. But robot2 must
+Goal: at ball1 room1, ball2 room3, ball3 room3.
+Initial state: robot1 at room2, robot2 at room3. Both robots free with both grippers. ball1 at room3, ball2 at room1, ball3 at room3.
+Constraint: always (not (at-robby robot1 room3)). So robot1 cannot be at room3 at any time.
+We need to move balls to goal positions. ball1 currently at room3, goal at room1. ball2 currently at room1, goal at room3. ball3 currently at room3, goal at room3 (already correct). So we need to move ball1 to room1, ball2 to room3. Robot1 cannot go to room3. Robot2 can go to room3.
+We have two robots: robot1 at room2, robot2 at room3. Robot1 cannot go to room3. So robot1 can move to room1 or room2? It starts at room2. It can move to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? Actually from room2 to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? Wait, from room2 to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? I'm repeating. Let's think: robot1 at room2. It can move to room1 or room2? It can move to room1 or room2? Actually it can move to room1 or room2? It can move to room1 or room2? I'm stuck. Let's just think: robot1 can move to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? I'm repeating. Let's break: robot1 at room2. It can move to room1 or room2? It can move to room1 or room2? Actually it can move to

@@ -7,7 +7,7 @@ Predicates:
 - carry ?r - robot ?o - object ?g - gripper
 Actions:
 - move: robot moves from one room to another. Preconditions: at-robby robot at from. Effect: at-robby robot at to, not at-robby robot at from.
-- pick: robot picks up object. Preconditions: at object at room, at-robby robot at room, free robot gripper. Effect: carry robot object gripper, not at object at room, not free robot gripper.
+- pick: robot picks up an object. Preconditions: at object at room, at-robby robot at room, free robot gripper. Effect: carry robot object gripper, not at object at room, not free robot gripper.
 - drop: robot drops object. Preconditions: carry robot object gripper, at-robby robot at room. Effect: at object at room, free robot gripper, not carry robot object gripper.
 Problem: objects: robot1, rgripper1, lgripper1, rooms 1-4, objects ball1, ball2, ball3.
 Initial state:
@@ -21,10 +21,7 @@ Goal:
 - at ball1 room1
 - at ball2 room4
 - at ball3 room3
-Constraint: always (forall (?b - object) (not (carry robot1 ?b lgripper1))) meaning robot1 cannot carry any object with lgripper1. So robot1 must never use lgripper1 to carry objects. So only rgripper1 can be used to carry objects.
-Thus we need to move ball2 from room3 to room4, ball3 from room1 to room3, ball1 stays at room1. Robot starts at room2. We need to plan moves.
-We need to ensure that robot never carries with lgripper1. So we must use rgripper1 for carrying.
-We need to plan a sequence of actions: move robot to rooms, pick up objects with rgripper1, drop them at target rooms.
-We must also ensure that at each step, preconditions hold.
-Let's plan.
-Goal
+Constraints: always (forall (?b - object) (not (carry robot1 ?b lgripper1))) meaning robot1 cannot carry any object with lgripper1. So robot1 cannot use lgripper1 to carry objects. So only rgripper1 can be used to carry objects. So we must ensure that robot1 never carries an object with lgripper1. So we can only use rgripper1 for carrying.
+We need to move ball2 from room3 to room4, ball3 from room1 to room3. ball1 stays at room1.
+Robot starts at room2. We need to plan a sequence of moves, picks, drops.
+We need to ensure that robot1 never carries with lgripper1. So we must not use lgripper1 to carry. But we can use rgripper1.

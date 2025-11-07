@@ -1,12 +1,11 @@
-analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
-Domain: spanner. Types: location, locatable, man, nut, spanner. Predicates: at, carrying, useable, link, tightened, loose.
-Actions:
-- walk: from start to end if link exists. Preconditions: at ?m ?start, link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
-- pickup_spanner: at location l, man m at l, spanner s at l. Effect: not at s l, carrying m s.
-- tighten_nut: at location l, man m at l, nut n at l, carrying spanner s, useable s, loose n. Effect: not loose n, not useable s, tightened n.
-Goal: tightened nut1 and nut2.
-Constraints:
-- sometime-before (tightened nut1) (tightened nut2). So nut1 must be tightened before nut2.
-- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Since only one man bob, he can be at shed at most once. He starts at shed. So he cannot return to shed after leaving. So plan must not have him go back to shed after leaving.
-We need to plan actions to tighten both nuts. They are at gate initially. Spanners at location3 and location4. Bob at shed. Links: shed->location1, location1->location2, location2->location3, location3->location4, location4->gate. So path from shed to gate: shed -> location1 -> location2 -> location3 -> location4 -> gate. Bob starts at shed. He can walk to location1, then location2, etc. He cannot return to shed. So he must go to gate eventually.
-We need to pick up a spanner at some location, use it to tighten nuts. Spanners are useable initially. Useable spanner can be used to tighten a nut, after which it becomes not useable. So each spanner can be used once. We have 3 spanners: spanner1 at location3, spanner2 at location3, spanner3 at location4. So we can use spanner1 or spanner2 at location3, spanner3 at location4. We need to tighten both nuts at gate. So we
+analysisWe need to produce a valid plan for the given problem. Let's analyze domain and problem.
+Domain: spanner domain with actions: walk, pickup_spanner, tighten_nut.
+Predicates: at, carrying, useable, link, tightened, loose.
+Objects: bob (man), spanner1, spanner2, spanner3, nut1, nut2, location1-4, shed, gate.
+Initial state: bob at shed. spanner1 at location3, useable spanner1. spanner2 at location3, useable spanner2. spanner3 at location4, useable spanner3. nut1 loose at gate. nut2 loose at gate. Links: shed-1, 1-2, 2-3, 3-4, 4-gate.
+Goal: tightened nut1 and tightened nut2.
+Constraints: (sometime-before (tightened nut1) (tightened nut2)) meaning nut1 must be tightened before nut2. Also forall (?m - man) (at-most-once (at ?m shed)). So bob can be at shed at most once. He starts at shed. So after leaving, cannot return to shed.
+We need to produce a plan that satisfies constraints.
+We need to consider that bob must walk to location where nuts are (gate). He must pick up a spanner at location3 or 4? Spanners are at location3 and 4. Nuts at gate. So bob must walk from shed to location1,2,3,4, gate. He can walk along links. He cannot return to shed after leaving. So he must go from shed to location1, then to location2, then to location3, then to location4, then to gate. He can pick up spanner at location3 or 4. He can use spanner to tighten nuts at gate.
+But spanner must be at same location as nut to tighten. So spanner must be at gate. But spanners are at location3 or 4. So bob must walk to location3 or 4, pick up spanner, then walk to gate, then tighten nuts.
+But spanner must be at same location as nut to tighten. So spanner must be at gate. So bob must walk to gate with spanner. But spanner is at location3 or 4. So he must walk to location3 or 4, pick up spanner, then walk to gate.

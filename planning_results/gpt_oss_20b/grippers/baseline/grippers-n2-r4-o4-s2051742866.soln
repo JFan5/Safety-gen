@@ -1,0 +1,32 @@
+analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
+Domain: gripper-strips. Types: room, object, robot, gripper.
+Predicates:
+- at-robby ?r - robot ?x - room
+- at ?o - object ?x - room
+- free ?r - robot ?g - gripper
+- carry ?r - robot ?o - object ?g - gripper
+Actions:
+- move: robot moves from room to room. Preconditions: at-robby ?r ?from. Effect: at-robby ?r ?to, not at-robby ?r ?from.
+- pick: robot picks object in room. Preconditions: at ?obj ?room, at-robby ?r ?room, free ?r ?g. Effect: carry ?r ?obj ?g, not at ?obj ?room, not free ?r ?g.
+- drop: robot drops object in room. Preconditions: carry ?r ?obj ?g, at-robby ?r ?room. Effect: at ?obj ?room, free ?r ?g, not carry ?r ?obj ?g.
+Problem: objects: robot1, robot2; grippers: rgripper1, lgripper1, rgripper2, lgripper2; rooms: room1-4; objects: ball1-4.
+Initial state:
+- at-robby robot1 room4
+- free robot1 rgripper1
+- free robot1 lgripper1
+- at-robby robot2 room1
+- free robot2 rgripper2
+- free robot2 lgripper2
+- at ball1 room1
+- at ball2 room2
+- at ball3 room2
+- at ball4 room4
+Goal:
+- at ball1 room1
+- at ball2 room2
+- at ball3 room3
+- at ball4 room1
+Constraint: always (not (at-robby robot1 room3)). So robot1 cannot be in room3 at any time.
+We need to produce a plan that moves ball3 to room3 and ball4 to room1, while keeping robot1 never in room3.
+We have two robots: robot1 and robot2. Robot1 starts at room4, robot2 at room1. Robot1 cannot go to room3. Robot2 can go anywhere.
+We need to move ball3 from

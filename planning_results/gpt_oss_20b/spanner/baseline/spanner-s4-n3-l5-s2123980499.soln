@@ -1,0 +1,23 @@
+analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
+Domain: spanner. Types: location, locatable, man, nut, spanner. Predicates: at, carrying, useable, link, tightened, loose.
+Actions:
+- walk: from start to end if link exists. Preconditions: at ?m ?start, link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
+- pickup_spanner: at location l, man m at l, spanner s at l. Effect: not at s l, carrying m s.
+- tighten_nut: at location l, man m at l, nut n at l, carrying spanner s, useable s, loose n. Effect: not loose n, not useable s, tightened n.
+Goal: tightened nut1, nut2, nut3.
+Constraints:
+- sometime-before (tightened nut1) (tightened nut2). So nut1 must be tightened before nut2.
+- forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Since only one man bob, he can only be at shed at most once. He starts at shed. So he cannot return to shed after leaving. So plan must not have him return to shed after leaving.
+We need to produce a plan that satisfies constraints. Let's analyze initial state:
+- bob at shed.
+- spanner1 at location2, useable.
+- spanner2 at location1, useable.
+- spanner3 at location1, useable.
+- spanner4 at location3, useable.
+- nut1 at gate, loose.
+- nut2 at gate, loose.
+- nut3 at gate, loose.
+- Links: shed-location1, location5-gate, location1-location2, location2-location3, location3-location4, location4-location5.
+We need to tighten all nuts. We need to use spanners. Useable spanners become not useable after tightening a nut. So each spanner can be used only once. We have 4 spanners. We need to tighten 3 nuts. So we can use 3 spanners.
+We need to satisfy constraint: nut1 tightened before nut2. No constraint on nut3 relative to others.
+Also, bob cannot return to shed after leaving. He starts at shed. So we must not have him go back

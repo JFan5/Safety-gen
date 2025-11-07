@@ -1,0 +1,20 @@
+analysisWe need to produce a valid plan that moves key1 from pos0-0 to pos2-3. The robot starts at pos3-0. There are locked positions: pos0-3, pos3-1, pos3-3. They are locked initially. The goal is to have key1 at pos2-3. We must obey constraint: never at pos1-2. So robot cannot be at pos1-2 at any time.
+We need to pick up key1 at pos0-0, then move to pos2-3. But we must avoid locked positions. Also we cannot go to pos1-2. We can move through open positions. Let's map connectivity.
+We have grid 4x4 positions pos0-0 to pos3-3. Connectivity given. Let's list connections:
+pos0-0 connected to pos1-0, pos0-1.
+pos0-1 connected to pos1-1, pos0-2, pos0-0.
+pos0-2 connected to pos1-2, pos0-3, pos0-1.
+pos0-3 connected to pos1-3, pos0-2.
+pos1-0 connected to pos2-0, pos1-1, pos0-0.
+pos1-1 connected to pos2-1, pos1-2, pos0-1, pos1-0.
+pos1-2 connected to pos2-2, pos1-3, pos0-2, pos1-1.
+pos1-3 connected to pos2-3, pos0-3, pos1-2.
+pos2-0 connected to pos3-0, pos2-1, pos1-0.
+pos2-1 connected to pos3-1, pos2-2, pos1-1, pos2-0.
+pos2-2 connected to pos3-2, pos2-3, pos1-2, pos2-1.
+pos2-3 connected to pos3-3, pos1-3, pos2-2.
+pos3-0 connected to pos3-1, pos2-0.
+pos3-1 connected to pos3-2, pos2-1, pos3-0.
+pos3-2 connected to pos3-3, pos2-2, pos3-1.
+pos3-3 connected to pos2-3, pos3-2.
+Locked positions: pos0

@@ -1,11 +1,16 @@
 analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
 Domain: spanner. Types: location, locatable, man, nut, spanner. Predicates: at, carrying, useable, link, tightened, loose.
 Actions:
-1. walk: from start to end if link exists. Preconditions: at ?m ?start, link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
-2. pickup_spanner: at ?m ?l and at ?s ?l. Effect: not at ?s ?l, carrying ?m ?s.
-3. tighten_nut: at ?m ?l, at ?n ?l, carrying ?m ?s, useable ?s, loose ?n. Effect: not loose ?n, not useable ?s, tightened ?n.
+- walk: from start to end if link exists. Preconditions: at ?m ?start, link ?start ?end. Effect: not at ?m ?start, at ?m ?end.
+- pickup_spanner: at location l, man m at l, spanner s at l. Effect: not at ?s ?l, carrying ?m ?s.
+- tighten_nut: at location l, man m at l, nut n at l, carrying spanner s, useable s, loose n. Effect: not loose n, not useable s, tightened n.
 Goal: tightened nut1, nut2, nut3.
 Constraints:
 - sometime-before (tightened nut2) (tightened nut3). So nut2 must be tightened before nut3.
 - forall (?m - man) (at-most-once (at ?m shed)). Means each man can be at shed at most once. Bob starts at shed. So Bob can only be at shed once. So after leaving shed, cannot return to shed.
-We need to produce a plan that satisfies constraints. Bob starts at shed. He must leave shed and never return. He must tighten all nuts. He can walk to locations. He must pick up spanners to tighten nuts. Spanners are at location3 or location2. Nuts are at gate. So Bob must walk from shed to gate via link path: shed -> location1 -> location2 -> location3 -> location4 -> location5 -> gate? Wait link: link shed location1, location1 location2, location2 location3, location3 location4, location4 location5, and link location5 gate. So path: shed -> location1 -> location2 -> location3 -> location4 -> location5 -> gate. So Bob must walk along that path. He can pick up spanner at location3 or location2. Spanners at location3: spanner1, spanner2. At location2: spanner3, spanner4. So he can pick up a spanner at location3 or location2. He needs to tighten nuts at gate. He must have a spanner at gate to tighten nuts. He can walk to gate, pick
+We need to produce a plan that satisfies constraints. Bob starts at shed. He must go to location where nuts are. Nuts are at gate. So Bob must walk from shed to location1? Wait link: link shed location1. So Bob can walk to location1. Then link location1 location2, location2 location3, location3 location4, location4 location5. Nuts are at gate. Link location5 gate. So path: shed -> location1 -> location2 -> location3 -> location4 -> location5 -> gate. So Bob must walk through these links.
+Spanners: spanner1 at location3, spanner2 at location3, spanner3 at location2, spanner4 at location2. All useable.
+Goal: tighten nuts. Each nut at gate. So Bob must walk to gate, pick up a spanner, tighten nuts.
+Constraints: at-most-once (at ?m shed). Bob starts at shed. He can leave and not return. So fine.
+Also, sometime-before: tightened nut2 before tightened nut3. So we must tighten nut2 before nut3.
+We need to produce a plan that satisfies all constraints. We

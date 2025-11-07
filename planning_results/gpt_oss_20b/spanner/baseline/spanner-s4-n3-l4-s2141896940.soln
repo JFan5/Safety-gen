@@ -1,0 +1,12 @@
+analysisWe need to produce a valid plan for the given problem. Let's analyze domain and problem.
+Domain: spanner. Types: location, locatable. Objects: bob (man), spanner1-4, nut1-3, location1-4, shed, gate.
+Predicates: at ?m ?l (man or spanner at location). carrying ?m ?s (man carrying spanner). useable ?s (spanner usable). link ?l1 ?l2 (connected). tightened ?n, loose ?n.
+Actions:
+walk: from start to end if link exists. Effect: bob moves.
+pickup_spanner: at location l, spanner s at l, bob at l. After pickup, spanner not at l, bob carrying s.
+tighten_nut: at location l, bob at l, nut at l, bob carrying spanner s, useable s, loose nut. After: loose false, useable false, tightened true.
+Goal: tightened nut1, nut2, nut3.
+Constraints: sometime-before (tightened nut1) (tightened nut2). So nut1 must be tightened before nut2. Also at-most-once (at bob shed). Means bob can be at shed at most once during plan.
+We need to produce a plan that satisfies constraints. Bob starts at shed. He can walk to location1 via link shed-location1. Then to location2, location3, location4, gate. Spanners at location1 and location4. Nuts at gate. So Bob must walk to gate to tighten nuts. He needs a spanner at gate. He can pick up spanner at location1 or location4 and bring to gate. But spanner must be useable. Useable spanner1,2,3,4. After use, useable becomes false. So each spanner can be used once. We need to tighten all three nuts. We have 4 spanners. So we can use spanner1,2,3,4 each once. But we need to satisfy constraint: nut1 tightened before nut2. So we must tighten nut1 first, then nut2, then nut3. Also at-most-once (at bob shed) means bob can be at shed at most once. He starts at shed. He can leave and never return. So we must not return to shed. That's fine.
+We need to produce a sequence of actions. Let's design plan:
+Start: bob at shed. Sp

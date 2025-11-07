@@ -1,8 +1,16 @@
 analysisWe need to produce a valid plan for the given problem. Let's analyze the domain and problem.
-Domain: gripper-strips. Types: room, object, robot, gripper. Predicates: at-robby robot room; at object room; free robot gripper; carry robot object gripper.
+Domain: gripper-strips. Types: room, object, robot, gripper. Predicates: at-robby robot room, at object room, free robot gripper, carry robot object gripper.
 Actions:
-move: robot moves from room to room. Preconditions: at-robby robot from. Effect: at-robby robot to, not at-robby robot from.
-pick: robot picks object in room. Preconditions: at object room, at-robby robot room, free robot gripper. Effect: carry robot object gripper, not at object room, not free robot gripper.
-drop: robot drops object in room. Preconditions: carry robot object gripper, at-robby robot room. Effect: at object room, free robot gripper, not carry robot object gripper.
-Problem: robot1 at room4 initially. free robot1 rgripper1 and lgripper1. ball1 at room3, ball2 at room2, ball3 at room3. Goal: ball1 at room4, ball2 at room2, ball3 at room4. Constraint: always (forall (?b - object) (not (carry robot1 ?b rgripper1))) meaning robot1 cannot carry any object with rgripper1. So robot1 must use lgripper1 to carry objects. So we must ensure that robot1 never carries with rgripper1. So we can only use lgripper1 for carrying.
-We need to move robot to pick up ball1 and ball3 from room3 to room4. ball2 already at room2, goal is ball2 at room2, so no action needed for ball2. So we need to move robot to room3, pick ball1 and ball3, drop them at room4. But we must ensure that robot uses lgripper1 for carrying. So we need to pick ball1 with lgripper1, drop at room4, pick ball3 with lgripper1, drop at room4. But we must also ensure that robot can pick both ball1 and ball3 from room3. But robot can only carry one object at a time. So we need to pick ball1, drop at room4, then pick ball3, drop at room4. But we must also ensure that robot can pick ball3 after dropping ball1. But we need to ensure that robot is
+- move: robot moves from one room to another. Preconditions: at-robby robot from. Effect: at-robby robot to, not at-robby robot from.
+- pick: robot picks object in same room. Preconditions: at object room, at-robby robot room, free robot gripper. Effect: carry robot object gripper, not at object room, not free robot gripper.
+- drop: robot drops object in same room. Preconditions: carry robot object gripper, at-robby robot room. Effect: at object room, free robot gripper, not carry robot object gripper.
+Problem: objects: robot1, grippers rgripper1, lgripper1, rooms room1-4, objects ball1-3.
+Init: robot1 at room4. free robot1 rgripper1, free robot1 lgripper1. ball1 at room3, ball2 at room2, ball3 at room3.
+Goal: ball1 at room4, ball2 at room2, ball3 at room4.
+Constraints: always (forall (?b - object) (not (carry robot1 ?b rgripper1))). So robot1 cannot carry any object with rgripper1. So robot1 must use lgripper1 to carry objects.
+Thus plan: robot1 must pick ball1 and ball3 from room3 to room4, and ball2 stays at room2. But goal requires ball2 at room2, so no need to move ball2. So we need to move ball1 and ball3 to room4.
+Robot starts at room4. But ball1 and ball3 are at room3. So robot must move to room3, pick ball1, drop at room4, pick ball3, drop at room4. But robot must use lgripper1 for carrying. Also cannot carry with rgripper1.
+We need to ensure that at each step, constraints hold: robot cannot carry with rgripper1. So we must use lgripper1.
+Plan steps:
+1. move robot1 from room4 to room3. (move robot1 room4 room3)
+2

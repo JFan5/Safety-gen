@@ -6,10 +6,10 @@ Predicates:
 - free ?r - robot ?g - gripper
 - carry ?r - robot ?o - object ?g - gripper
 Actions:
-- move: robot moves from room to room. Preconditions: at-robby ?r ?from. Effect: at-robby ?r ?to, not at-robby ?r ?from.
-- pick: robot picks object in room. Preconditions: at ?obj ?room, at-robby ?r ?room, free ?r ?g. Effect: carry ?r ?obj ?g, not at ?obj ?room, not free ?r ?g.
-- drop: robot drops object in room. Preconditions: carry ?r ?obj ?g, at-robby ?r ?room. Effect: at ?obj ?room, free ?r ?g, not carry ?r ?obj ?g.
-Problem: objects: robot1 robot2, grippers rgripper1 lgripper1 rgripper2 lgripper2, rooms room1 room2 room3, objects ball1 ball2 ball3.
+- move: robot moves from one room to another. Preconditions: at-robby robot at from. Effect: at-robby robot at to, not at-robby robot at from.
+- pick: robot picks up object in same room. Preconditions: at object at room, at-robby robot at room, free robot gripper. Effect: carry robot object gripper, not at object at room, not free robot gripper.
+- drop: robot drops object in same room. Preconditions: carry robot object gripper, at-robby robot at room. Effect: at object at room, free robot gripper, not carry robot object gripper.
+Problem: objects: robot1 robot2, grippers: rgripper1 lgripper1 rgripper2 lgripper2, rooms: room1 room2 room3, objects: ball1 ball2 ball3.
 Initial state:
 - at-robby robot1 room1
 - free robot1 rgripper1
@@ -25,6 +25,6 @@ Goal:
 - at ball2 room3
 - at ball3 room1
 Constraint: always (not (at-robby robot1 room3)). So robot1 cannot be at room3 at any time.
-We need to produce a plan that moves the balls to target rooms, using robots and grippers, respecting constraints.
-We have two robots, each with two grippers. They can pick up objects and drop them. They can move between rooms. The constraint prohibits robot1 from being at room3 at any time. So robot1 cannot move to room3. But robot2 can.
-Goal: ball1 to room2, ball2 to room3,
+We need to produce a plan that moves the balls to the goal positions while respecting the constraint.
+We have two robots: robot1 and robot2. They can move between rooms. They can pick up objects with grippers. Each robot has two grippers: rgripper and lgripper. They can pick up objects with either gripper. They can carry objects.
+We need to move ball1 from room1 to room2, ball2 from room1 to room3, ball3 from room

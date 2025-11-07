@@ -22,7 +22,7 @@ REPO_ROOT="${HOME}/Safety-gen"
 # Use the multi-scenario SFT (500) GPT model for all scenarios
 MODEL_PATH="/home/ubuntu/sft_models/gpt_multi_pddl3_500"
 PROBLEM_SUBPATH="dpo_training"
-UNSLOTH_ROOT="${HOME}/data/dpo/mistral_unsloth"
+UNSLOTH_ROOT="${HOME}/data/dpo/gpt_unsloth"
 DATASET_ROOT="${HOME}/data/dpo/gpt_oss_20b"
 
 mkdir -p "${UNSLOTH_ROOT}" "${DATASET_ROOT}"
