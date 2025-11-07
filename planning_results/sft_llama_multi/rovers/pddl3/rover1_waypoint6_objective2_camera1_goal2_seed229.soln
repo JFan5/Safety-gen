@@ -1,2 +1,0 @@
-Sorry, but generating a valid plan for the given problem is impossible.
-The reason is that the PROBLEM definition contains a goal that includes two objectives (soil and rock data) that must be communicated from two different waypoints (waypoint2 and waypoint3). However, the PROBLEM also includes a constraint that requires all soil data to be communicated before all rock data. This creates a contradiction, and it is impossible to generate a plan that satisfies both the goal and the constraints.

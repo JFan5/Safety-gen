@@ -16,5 +16,5 @@
 (stack b6 b5)
 (pickup b4)
 (stack b4 b6)
-(pickup b2)
+(unstack b2 from table)
 (stack b2 b4)
