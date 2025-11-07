@@ -1,0 +1,8 @@
+The domain contains the constraint rule:
+(:constraint
+(forall (?x ?y)
+(=>
+(and (place ?x) (place ?y))
+(not (lock-shape ?x ?y))))
+)
+This rule makes the domain unsatisfiable.

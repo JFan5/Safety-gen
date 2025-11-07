@@ -1,0 +1,10 @@
+commentary{"move robot1 room2 room1"}
+{"pick robot1 room1 ball1 rgripper1"}
+{"move robot1 room1 room2"}
+{"drop robot1 room2 ball1 rgripper1"}
+{"pick robot1 room2 ball3 lgripper1"}
+{"move robot1 room2 room1"}
+{"drop robot1 room1 ball3 lgripper1"}
+{"pick robot1 room1 ball2 rgripper1"}
+{"move robot1 room1 room2"}
+{"drop robot1 room2 ball2 rgripper1"}

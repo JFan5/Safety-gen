@@ -1,0 +1,43 @@
+commentary# Plan Generation for Rover Domain
+# Goal:
+# 1. communicated_soil_data(waypoint3)
+# 2. communicated_soil_data(waypoint2)
+# 3. communicated_image_data(objective2,high_res)
+# 4. communicated_image_data(objective1,high_res)
+# 5. communicated_image_data(objective3,low_res)
+# Constraints:
+# - sometime-before (at(rover0,waypoint0)) (at(rover0,waypoint1))
+#   => rover0 must reach waypoint1 AFTER it has visited waypoint0.
+# Initial State:
+# - rover0 at waypoint3
+# - store rover0store full rover0, empty rover0store
+# - equipped_for_soil_analysis rover0
+# - equipped_for_imaging rover0
+# - on_board camera0 rover0 (calibration_target camera0 objective3)
+#   supports camera0 high_res, low_res
+# - on_board camera1 rover0 (calibration_target camera1 objective0)
+#   supports camera1 high_res
+# - on_board camera2 rover0 (calibration_target camera2 objective0)
+#   supports camera2 colour, high_res, low_res
+# - soil samples at waypoint2 and waypoint3
+# - rock samples at waypoint2,5,7,8
+# - lander general at waypoint11, channel_free general
+# - visibility and can_traverse links as listed
+# - calibration targets:
+#     camera0 -> objective3
+#     camera1 -> objective0
+#     camera2 -> objective0
+# - objective visibility:
+#     objective0 visible_from waypoint6,7,8
+#     objective1 visible_from waypoint0,1,2,4,6,7,8
+#     objective2 visible_from waypoint6,7
+#     objective3 visible_from waypoint0,1,4,9,11
+# - objectives:
+#     objective0,1,2,3 (no other properties)
+# - modes:
+#     general, high_res, low_res, colour
+# Constraints check:
+# - The constraint requires that at(rover0,waypoint0) occurs sometime before at(rover0,waypoint1).
+#   Since the initial state has rover0 at waypoint3, we must plan a route that visits waypoint0 and then waypoint1.
+#   This route must be incorporated before any other actions that could interfere with the constraint.
+#

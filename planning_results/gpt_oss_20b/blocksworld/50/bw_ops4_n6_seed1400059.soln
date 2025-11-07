@@ -1,12 +1,44 @@
-(unstack b3 b5)
-(putdown b3)
-(unstack b5 b6)
-(putdown b5)
-(unstack b6 b4)
-(putdown b6)
-(pickup b1)
-(stack b1 b2)
-(pickup b4)
-(stack b4 b3)
-(pickup b6)
-(stack b6 b1)
+commentary# Let's solve the blocksworld instance BW-rand-6 with a PDDL3 constraint:
+# (sometime-before (on b4 b3) (on b1 b2))
+# Problem details:
+# Objects: b1 b2 b3 b4 b5 b6
+# Initial state:
+# - arm-empty
+# - on-table b1
+# - on-table b2
+# - on b3 b5
+# - on-table b4
+# - on b5 b6
+# - on b6 b4
+# - clear b1
+# - clear b2
+# - clear b3
+# (Note: clear b5 and clear b6 are NOT in init, so they are NOT clear initially.
+#  From the stack:
+#   b3 is on b5 -> so b5 is not clear
+#   b5 is on b6 -> so b6 is not clear
+#   b6 is on b4 -> so b4 is not clear
+#   Also b4 is on-table but not clear because b6 is on it.
+#   b2 and b1 are on-table and clear.
+#   b4 is on-table but not clear.
+# )
+# Goal:
+# - on b1 b2
+# - on b4 b3
+# - on b5 b4
+# - on b6 b1
+# PDDL3 constraint:
+# (sometime-before (on b4 b3) (on b1 b2))
+# This means: at some point before (on b4 b3) becomes true, (on b1 b2) must be true.
+# So (on b1 b2) must be achieved before we stack b4 onto b3.
+# After that, (on b1 b2) can be undone if needed, but then it would violate the constraint because (on b4 b3) has already occurred.
+# Therefore, once (on b4 b3) is achieved, (on b1 b2) must remain true forever.
+# So the final state must have both:
+#   on b1 b2
+#   on b4 b3
+# And (on b1 b2) cannot be removed at any point after that.
+# Let's plan step by step, keeping track of:
+# - arm status: empty or holding X
+# - clear status of each block
+# - on-table status
+# - goal and

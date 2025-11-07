@@ -1,0 +1,49 @@
+analysisWe need to produce a plan for the grid-6-6-3-4-4 domain. Let's restate the domain:
+- Places: pos0-0 ... pos5-5 (6x6 grid).
+- Shapes: shape0 shape1 shape2.
+- Keys: key0 key1 key2 key3.
+- Predicates:
+- conn X Y: X and Y are connected (grid adjacency).
+- key-shape K S: key K has shape S.
+- lock-shape P S: place P has lock shape S.
+- at R P: robot R is at place P. (R is a place? Actually robot is a place: place posX-Y; at-robot uses a place as param.)
+- place P: P is a place.
+- key K: K is a key.
+- shape S: S is a shape.
+- locked P: P is locked.
+- at-robot P: robot is at place P.
+- place P: P is a place.
+- key K: K is a key.
+- shape S: S is a shape.
+- locked P: P is locked.
+- holding K: robot is holding key K.
+- open P: place P is open.
+- arm-empty: robot's arm is empty.
+- Actions:
+1. unlock
+params: curpos lockpos key shape
+precond: place curpos, place lockpos, key key, shape shape,
+conn curpos lockpos,
+key-shape key shape,
+lock-shape lockpos shape,
+at-robot curpos,
+locked lockpos,
+holding key
+effect: open lockpos, not locked lockpos
+2. move
+params: curpos nextpos
+precond: place curpos, place nextpos,
+at-robot curpos,
+conn curpos nextpos,
+open nextpos
+effect: at-robot nextpos, not at-robot curpos
+3. pickup
+params: curpos key
+precond: place curpos, key key,
+at-robot curpos,
+at key curpos,
+arm-empty
+effect: holding key, not at key curpos, not arm-empty
+4. pickup-and-loose
+params: curpos newkey oldkey
+precond: place curpos,

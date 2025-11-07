@@ -1,9 +1,40 @@
-(move t1 c_1_0 c_0_0)
-(move t1 c_0_0 c_0_1)
-(move t1 c_0_1 c_1_1)
-(drop-package t1 p1 c_1_0)
-(move t1 c_1_1 c_1_0)
-(move t1 c_1_0 c_0_0)
-(move t1 c_0_0 c_0_1)
-(move t1 c_0_1 c_1_1)
-(drop-package t1 p2 c_1_0)
+commentary# Plan Generation for:
+# Domain: delivery
+# Problem: delivery-2x2-2-765127091
+# Entities:
+# Cells: c_0_0, c_0_1, c_1_0, c_1_1
+# Packages: p1, p2
+# Truck: t1
+# Initial State:
+# adjacencies:
+#   c_1_0 <-> c_0_0
+#   c_1_0 <-> c_1_1
+#   c_0_0 <-> c_0_1
+#   c_1_1 <-> c_0_1
+# (plus the symmetric relations as listed)
+# locations:
+#   t1 at c_1_0
+#   p1 at c_1_1
+#   p2 at c_1_1
+#   t1 empty
+# Goal:
+#   p1 at c_1_0
+#   p2 at c_1_0
+# PDDL3 Constraints:
+#   1. (sometime (at t1 c_0_0))
+#      => t1 must be at c_0_0 at some point during the plan.
+# Goal Analysis:
+# Both packages need to move from c_1_1 to c_1_0.
+# The truck starts at c_1_0, which is the destination for the packages.
+# Therefore, the truck must first move to c_0_0 (to satisfy the PDDL3 constraint),
+# then return to c_1_0 to pick up and deliver the packages.
+# Path Considerations:
+#   c_1_0 <-> c_0_0
+#   c_1_0 <-> c_1_1
+#   c_0_0 <-> c_0_1
+#   c_0_1 <-> c_1_1
+# Direct path from c_1_1 to c_1_0 exists: c_1_1 <-> c_1_0.
+# However, since the truck starts at c_1_0, it must first go to c_0_0
+#   (sometime constraint) and then back to c_1_0 before interacting with the packages.
+# Action Requirements:
+#   pick-package: truck, package, cell; preconditions: (at package cell)

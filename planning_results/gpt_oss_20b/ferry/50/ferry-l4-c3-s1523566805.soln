@@ -1,0 +1,36 @@
+commentary# Plan Generation for PDDL Domain "ferry" with PDDL3 Constraints
+## 1. Understand the Goal
+Goal:
+- AT(c0, l1)
+- AT(c1, l0)
+- AT(c2, l0)
+## 2. Understand the Constraints
+Constraints (PDDL3 "sometime-before"):
+1. AT(c0, l1) must occur **before** AT-ferry(l2)
+2. AT(c1, l0) must occur **before** AT-ferry(l1)
+3. AT(c2, l0) must occur **before** AT-ferry(l2)
+These constraints impose ordering on when the cars reach their goal locations relative to ferry arrivals at specific locations. They do NOT require the cars to be on the ferry at those times, nor do they require the ferry to be at the goal locations.
+## 3. Initial State
+- AT(c0, l0)
+- AT(c1, l3)
+- AT(c2, l1)
+- AT-ferry(l3)
+- EMPTY-ferry
+## 4. Strategy
+- Move each car to its goal location.
+- Ensure that the ferry arrives at l2 **after** AT(c0, l1) and AT(c2, l0).
+- Ensure that the ferry arrives at l1 **after** AT(c1, l0).
+- Ferry can visit any location any number of times; constraints only restrict its arrival times at l1 and l2.
+Because the constraints only involve ferry arrivals at l1 and l2, we can schedule those arrivals at the end of the plan (after all cars have reached their goals). This guarantees the constraints are satisfied.
+## 5. Plan Construction
+1. Move c0 from l0 to l1:
+- SAIL(l0, l3)   (ferry moves from l0 to l3)
+- BOARD(c0, l3)  (c0 is at l0, not l3 → invalid)
+=> Need ferry at l0 first:
+- SAIL(l3, l0)
+- BOARD(c0, l0)
+- SAIL(l0, l1)
+- DEBARK(c0, l1)
+2. Move c1 from l3 to l0:
+- SAIL(l1, l3)   (ferry at l1, need to go to l3)
+- BOARD(c1, l3)

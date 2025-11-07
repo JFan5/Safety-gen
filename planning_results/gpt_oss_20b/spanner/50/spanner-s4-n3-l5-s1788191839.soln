@@ -1,0 +1,14 @@
+commentary{"action_name":"walk","parameters":["shed","location1","bob"]}
+{"action_name":"walk","parameters":["location1","location2","bob"]}
+{"action_name":"walk","parameters":["location2","location3","bob"]}
+{"action_name":"walk","parameters":["location3","location4","bob"]}
+{"action_name":"pickup_spanner","parameters":["location4","spanner4","bob"]}
+{"action_name":"walk","parameters":["location4","location5","bob"]}
+{"action_name":"walk","parameters":["location5","gate","bob"]}
+{"action_name":"tighten_nut","parameters":["gate","spanner4","bob","nut1"]}
+{"action_name":"walk","parameters":["gate","location5","bob"]}
+{"action_name":"walk","parameters":["location5","location4","bob"]}
+{"action_name":"walk","parameters":["location4","location3","bob"]}
+{"action_name":"walk","parameters":["location3","location2","bob"]}
+{"action_name":"walk","parameters":["location2","location1","bob"]}
+{"action_name":"walk","parameters":["location1","shed","bob"]}

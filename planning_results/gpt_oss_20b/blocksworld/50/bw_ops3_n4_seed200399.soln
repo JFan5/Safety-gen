@@ -1,8 +1,1 @@
-(unstack b3 b2)
-(putdown b3)
-(unstack b2 b1)
-(putdown b2)
-(unstack b1 b4)
-(stack b1 b2)
-(pickup b3)
-(stack b3 b4)
+commentary{"action_name":"pickup","parameters":["b3"]}commentary{"action_name":"stack","parameters":["b3","b4"]}commentary{"action_name":"unstack","parameters":["b2","b1"]}commentary{"action_name":"putdown","parameters":["b2"]}commentary{"action_name":"unstack","parameters":["b1","b4"]}commentary{"action_name":"pickup","parameters":["b1"]}commentary{"action_name":"stack","parameters":["b1","b2"]}commentary{"action_name":"unstack","parameters":["b3","b4"]}commentary{"action_name":"pickup","parameters":["b3"]}commentary{"action_name":"stack","parameters":["b3","b4"]}commentary{"action_name":"putdown","parameters":["b1"]}commentary{"action_name":"pickup","parameters":["b2"]}commentary{"action_name":"stack","parameters":["b2","b3"]}commentary{"action_name":"unstack","parameters":["b1","b4"]}commentary{"action_name":"pickup","parameters":["b1"]}commentary{"action_name":"stack","parameters":["b1","b2"]}commentary{"action_name":"unstack","parameters":["b2","b3"]}commentary{"action_name":"pickup","parameters":["b2"]}commentary{"action_name":"stack","parameters":["b2","b1"]}commentary{"action_name":"unstack","parameters":["b1","b4"]}commentary{"action_name":"pickup","parameters":["b1"]}commentary{"action_name":"stack","parameters":["b1","b2"]}commentary{"action_name":"unstack","parameters":["b2","b1"]}commentary{"action_name":"pickup","parameters":["b2"]}commentary{"action_name":"stack","parameters":["b2","b3"]}commentary{"action_name":"unstack","parameters":["b1","b4"]}commentary{"action_name":"pickup","parameters":["b1"]}commentary{"action_name":"stack","parameters":["b1","b2"]}commentary

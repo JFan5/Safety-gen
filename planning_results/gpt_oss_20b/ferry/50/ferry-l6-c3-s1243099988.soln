@@ -1,0 +1,36 @@
+commentary# Plan Generation for Ferry Domain (PDDL3 Constraints)
+## Problem Overview
+- **Locations (l0–l5)**: 6 total.
+- **Cars (c0–c2)**: 3 total.
+- **Initial State**
+- Cars:
+- c0 at l0
+- c1 at l3
+- c2 at l0
+- Ferry: at l5, empty.
+- **Goal State**
+- c0 at l4
+- c1 at l3 (unchanged)
+- c2 at l1
+## PDDL3 Constraints
+1. **sometime-before (at c0 l4) (at-ferry l1)**
+- The ferry must be at **l1** *before* **c0** arrives at **l4**.
+- After this constraint is satisfied, it need not hold anymore.
+2. **sometime-before (at c2 l1) (at-ferry l2)**
+- The ferry must be at **l2** *before* **c2** arrives at **l1**.
+- Similarly, once satisfied, it need not hold thereafter.
+## Strategy
+- **c1** is already at its goal location (l3); it will remain untouched.
+- **c0** and **c2** must be moved to l4 and l1 respectively.
+- To satisfy the constraints, the ferry must visit **l1** *before* moving **c0** to **l4**, and **l2** *before* moving **c2** to **l1**.
+- The ferry starts at **l5**; thus, a natural route is:
+1. l5 → l1  (to satisfy constraint 1)
+2. l1 → l0  (pick up c0)
+3. l0 → l4  (deliver c0)
+4. l4 → l2  (to satisfy constraint 2)
+5. l2 → l0  (pick up c2)
+6. l0 → l1  (deliver c2)
+- No additional cars or locations interfere, so this route is feasible.
+## Detailed Action Sequence
+1. **sail l5 l1**          # Ferry reaches l1 (constraint 1 satisfied)
+2. **sail l1 l0**          # Ferry

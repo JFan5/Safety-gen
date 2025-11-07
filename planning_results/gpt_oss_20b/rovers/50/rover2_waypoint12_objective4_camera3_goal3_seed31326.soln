@@ -1,0 +1,59 @@
+analysisWe need to generate a plan for the rover domain. Let's restate the problem:
+Domain rover with actions: navigate, sample_soil, sample_rock, drop, calibrate, take_image, communicate_soil_data, communicate_rock_data, communicate_image_data.
+Objects:
+- Lander: general
+- Modes: general - Lander, colour high_res low_res - Mode
+- Rovers: rover0 rover1 - Rover
+- Stores: rover0store rover1store - Store
+- Waypoints: waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 waypoint8 waypoint9 waypoint10 waypoint11 - Waypoint
+- Cameras: camera0 camera1 camera2 camera3 - Camera
+- Objectives: objective0 objective1 objective2 objective3 - Objective
+Initial state:
+Visibility between waypoints (visible X Y). Provided list.
+Also can_traverse between waypoints for each rover separately.
+Initial samples:
+- at_soil_sample waypoint0
+- at_rock_sample waypoint0
+- at_soil_sample waypoint1
+- at_sool_sample waypoint2
+- at_rock_sample waypoint2
+- at_soil_sample waypoint3
+- at_soil_sample waypoint4
+- at_rock_sample waypoint6
+- at_soil_sample waypoint7
+- at_rock_sample waypoint7
+- at_soil_sample waypoint9
+- at_rock_sample waypoint9
+- at_rock_sample waypoint10
+- at_soil_sample waypoint11
+- at_rock_sample waypoint11
+Lander:
+- at_lander general waypoint2
+- channel_free general
+Rovers:
+- at rover0 waypoint2
+- available rover0
+- store_of rover0store rover0
+- empty rover0store
+- equipped_for_soil_analysis rover0
+- equipped_for_rock_analysis rover0
+- equipped_for_imaging rover0
+- at rover1 waypoint11
+- available rover1
+- store_of rover1store rover1
+- empty rover1store
+- equipped_for_rock_analysis rover1
+- equipped_for_imaging rover1
+On board cameras:
+- camera0 rover0
+- calibration_target camera0 objective1
+- supports camera0 high_res
+- supports camera0 low_res
+- camera1 rover0
+- calibration_target camera1 objective0
+- supports camera1 colour
+- supports camera1 low_res
+- camera2 rover0
+- calibration_target camera2 objective2
+- supports camera2 low_res
+- camera

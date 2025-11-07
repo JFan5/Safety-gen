@@ -1,0 +1,15 @@
+commentary# The user has provided a PDDL domain and a PDDL problem. They want a plan that satisfies:
+# - The goal: ball1 at room1, ball2 at room2, ball3 at room3.
+# - A PDDL3 constraint: (always (not (at-robby robot1 room3)))
+#
+# So robot1 must never be in room3 during the entire plan. That means robot1 cannot pick ball1 (which starts in room3) unless it can move ball1 to room1 without robot1 ever entering room3.
+# However, ball1 is initially at room3. The only way to get ball1 to room1 is for some robot to pick it up in room3 and move it to room1. That robot would have to be in room3 to pick it up.
+# The only robot that starts in room3 is robot2. So robot2 must go to room3 (it's already there), pick ball1, move to room1, drop ball1.
+# During that movement, robot2 will be in room1, which is fine.
+# robot1 must never go to room3. robot1 starts in room1, which is fine.
+# robot1 can handle ball2 and ball3.
+# ball2 starts in room2, goal is room2: so ball2 doesn't need to move. But robot1 might need to go to room2 to pick ball3 (which starts in room4) or to drop ball3 in room3.
+# ball3 starts in room4, goal is room3. So robot1 must go from its start (room1) to room4, pick ball3, then go to room3, drop ball3.
+# We must ensure robot1 never goes to room3. But it needs to drop ball3 in room3! That's a conflict.
+# Wait: The goal requires (at ball3 room3). That means ball3 must be in room3 at the end. If robot1 cannot be in room3 at any time, it cannot drop ball3 there.
+# Could robot2 drop ball3 in room3? Robot2 would need to pick ball3 (from room4) and move to room3. But robot2 starts in room3, but cannot be in room3 at any time due to the constraint? No, the constraint is only about robot1: (always (not (at-robby robot1 room3

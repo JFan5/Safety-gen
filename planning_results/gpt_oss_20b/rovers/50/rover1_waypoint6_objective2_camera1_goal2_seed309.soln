@@ -1,0 +1,34 @@
+commentary# Plan Generation
+# 1. Goal Analysis
+#   - communicated_rock_data waypoint5
+#   - communicated_image_data objective1 colour
+#   - communicated_image_data objective1 high_res
+# 2. Image Goals
+#   - objective1 requires waypoint4 (visible_from objective1 waypoint4)
+#   - colour and high_res require camera0 supports (colour, high_res) and calibrated for objective1
+# 3. Rock Data Goal
+#   - waypoint5 has a rock sample (at_rock_sample waypoint5)
+#   - rover must be at waypoint0 (communicated_rock_data requires have_rock_analysis rover0 waypoint5 and lander at waypoint0)
+#   - general lander is at waypoint2
+#   - waypoint0 must be visible from waypoint2 (visible waypoint0 waypoint2)
+#   - thus rover must navigate: waypoint5 -> ... -> waypoint0
+#   - then communicate_rock_data via general (lander) at waypoint2
+# 4. Constraints
+#   - PDDL3: sometime-before (at rover0 waypoint5) (at rover0 waypoint0)
+#     => rover0 must reach waypoint0 BEFORE it ever reaches waypoint5
+#   - PDDL3: (sometime (calibrated camera0 rover0))
+#     => rover0 must be calibrated at some point (satisfied by image goals)
+#   - PDDL3: (sometime (have_image rover0 objective1 colour))
+#   - PDDL3: (sometime (have_image rover0 objective1 high_res))
+#   - PDDL3: (sometime (communicated_rock_data waypoint5))
+#   - PDDL3: (sometime (communicated_image_data objective1 colour))
+#   - PDDL3: (sometime (communicated_image_data objective1 high_res))
+# 5. Resource Constraints
+#   - store rover0store: must be empty before sample, full after sample, then drop to empty
+#   - Only one store available
+#   - rover0 equipped for rock and soil analysis, and imaging
+#   - camera0 supports colour, high_res, low_res, but calibration_target is objective1
+#   - supports: camera0 colour, camera0 high_res
+# 6. Visibility & Traversal
+#   - Check graph connectivity:
+#     waypoint5 <-> waypoint0, waypoint5 <

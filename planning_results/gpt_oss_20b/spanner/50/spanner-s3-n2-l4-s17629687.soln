@@ -1,0 +1,36 @@
+commentary{"action":"pickup_spanner","parameters":["location3","spanner1","bob"]}{"action":"walk","parameters":["location3","location4","bob"]}{"action":"tighten_nut","parameters":["location4","spanner1","bob","nut2"]}{"action":"walk","parameters":["location4","gate","bob"]}{"action":"tighten_nut","parameters":["gate","spanner1","bob","nut1"]}commentaryThe user provided a PDDL domain and problem for a spanner scenario. The domain includes three action types: walk, pickup_spanner, and tighten_nut. The problem has:
+- Objects:
+- Men: bob
+- Spanners: spanner1, spanner2, spanner3
+- Nuts: nut1, nut2
+- Locations: location1, location2, location3, location4, shed, gate
+- Initial state:
+- at bob shed
+- at spanner1 location3
+useable spanner1
+- at spanner2 location3
+useable spanner2
+- at spanner3 location4
+useable spanner3
+- loose nut1
+at nut1 gate
+- loose nut2
+at nut2 gate
+- link shed location1
+- link location4 gate
+- link location1 location2
+- link location2 location3
+- link location3 location4
+- Goal:
+- tightened nut1
+- tightened nut2
+- Constraints (PDDL3):
+- (sometime-before (tightened nut1) (tightened nut2))
+- (forall (?m - man) (at-most-once (at ?m shed)))
+So nut1 must be tightened before nut2, and each man (bob) can be at shed at most once during the whole plan.
+We need to produce a plan that satisfies the goal and the constraints. The plan must use only the defined objects. The action parameters must match the types:
+- walk: (?start - location ?end - location ?m - man)
+- pickup_spanner: (?l - location ?s - spanner ?m - man)
+- tighten_nut: (?l - location ?s - spanner ?m - man ?n - nut)
+We must ensure:
+- For pickup_spanner, spanner must be

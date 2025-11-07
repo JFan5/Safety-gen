@@ -1,0 +1,35 @@
+commentary# Let's check the domain:
+# - actions: navigate, sample_soil, sample_rock, drop, calibrate, take_image,
+#   communicate_soil_data, communicate_rock_data, communicate_image_data
+# - requirements: :strips :typing :constraints
+# So constraints are allowed.
+# PROBLEM includes:
+# (:goal ...) with 10 subgoals:
+#   communicated_soil_data waypoint2
+#   communicated_soil_data waypoint8
+#   communicated_soil_data waypoint4
+#   communicated_rock_data waypoint0
+#   communicated_rock_data waypoint1
+#   communicated_rock_data waypoint11
+#   communicated_rock_data waypoint9
+#   communicated_image_data objective3 high_res
+#   communicated_image_data objective1 low_res
+# (:constraints ...) includes:
+#   (and
+#     (always (not (and (at rover0 waypoint0) (at rover1 waypoint0))))
+#     (always (not (and (at rover0 waypoint11) (at rover1 waypoint11))))
+#   )
+# So rover0 and rover1 cannot be at waypoint0 or waypoint11 simultaneously at any time.
+# INITIAL STATE facts:
+# Visibility between waypoints (list of (visible wpX wpY)):
+# waypoint0 <-> waypoint3, waypoint0<->waypoint4, waypoint0<->waypoint5,
+# waypoint0<->waypoint10, waypoint0<->waypoint7, waypoint0<->waypoint2,
+# waypoint1<->waypoint4, waypoint1<->waypoint7, waypoint1<->waypoint10,
+# waypoint1<->waypoint8, waypoint2<->waypoint0, waypoint2<->waypoint6,
+# waypoint2<->waypoint9, waypoint2<->waypoint10, waypoint2<->waypoint11,
+# waypoint3<->waypoint0, waypoint3<->waypoint2, waypoint3<->waypoint6,
+# waypoint3<->waypoint9, waypoint3<->waypoint11,
+# waypoint4<->waypoint1, waypoint4<->waypoint7, waypoint4<->waypoint5,
+# waypoint4<->waypoint8, waypoint4<->waypoint0, waypoint4<->waypoint10,
+# waypoint4<->waypoint5, waypoint5<->waypoint0, waypoint5<->waypoint2,
+# waypoint5<->waypoint4

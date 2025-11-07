@@ -1,19 +1,38 @@
-(move t1 c_2_0 c_1_0)
-(move t1 c_1_0 c_0_0)
-(pick-package t1 p1 c_0_0)
-(move t1 c_0_0 c_0_1)
-(move t1 c_0_1 c_0_2)
-(move t1 c_0_2 c_1_2)
-(move t1 c_1_2 c_2_2)
-(move t1 c_2_2 c_2_1)
-(drop-package t1 p1 c_2_1)
-(move t1 c_2_1 c_1_1)
-(move t1 c_1_1 c_0_1)
-(move t1 c_0_1 c_0_0)
-(pick-package t1 p2 c_0_0)
-(move t1 c_0_0 c_0_1)
-(move t1 c_0_1 c_0_2)
-(move t1 c_0_2 c_1_2)
-(move t1 c_1_2 c_2_2)
-(move t1 c_2_2 c_2_1)
-(drop-package t1 p2 c_2_1)
+commentary# Plan Generation
+# 1. Parse the PROBLEM section
+#    - Types: cell, locatable, package, truck
+#    - Objects:
+#        cells: c_0_0 c_0_1 c_0_2 c_1_0 c_1_1 c_1_2 c_2_0 c_2_1 c_2_2
+#        packages: p1 p2
+#        truck: t1
+# 2. Extract initial facts:
+#    - Packages:
+#        p1 at c_2_0
+#        p2 at c_2_1
+#    - Truck:
+#        t1 at c_2_0
+#        t1 empty
+#    - Adjacent relations (bidirectional):
+#        c_2_0 <-> c_2_1
+#        c_1_0 <-> c_0_0
+#        c_0_1 <-> c_1_1
+#        c_1_1 <-> c_2_1
+#        c_1_1 <-> c_0_1
+#        c_1_2 <-> c_1_1
+#        c_2_1 <-> c_1_1
+#        c_1_0 <-> c_1_1
+#        c_0_0 <-> c_0_1
+#        c_0_1 <-> c_0_2
+#        c_1_2 <-> c_0_2
+#        c_2_2 <-> c_1_2
+#        c_0_2 <-> c_1_2
+#        c_2_2 <-> c_2_1
+#        c_2_0 <-> c_1_0
+#        c_0_2 <-> c_0_1
+#        c_0_1 <-> c_0_0
+#        c_1_1 <-> c_1_2
+#        c_1_1 <-> c_1_0
+#        c_2_1 <-> c_2_0
+#        c_1_2 <-> c_2_2
+#        c_2_1 <-> c_2_2
+#        c_1_0 <-> c_2

@@ -1,0 +1,16 @@
+analysisWe need to produce a plan for the rover domain with constraints. The problem includes a constraint:
+(:constraints
+(sometime-before (at rover0 waypoint4) (at rover0 waypoint10))
+)
+So rover0 must reach waypoint4 before waypoint10. That's the only constraint.
+Goal requires communicated_rock_data for waypoint8, waypoint4, waypoint11, waypoint0, and communicated_image_data for objective0 low_res, objective2 low_res, objective1 colour, objective3 high_res.
+We need to collect rock samples at those waypoints: waypoint8, waypoint4, waypoint11, waypoint0. Let's check initial at_rock_sample facts:
+- at_rock_sample waypoint0
+- at_rock_sample waypoint4
+- at_rock_sample waypoint5
+- at_rock_sample waypoint8
+- at_rock_sample waypoint9
+- at_rock_sample waypoint11
+So we have rock samples at waypoint0,4,8,9,11. Goal requires waypoint0,4,8,11. So we need to sample at those four waypoints. waypoint9 rock sample is not needed; we could sample it but not necessary.
+Also need soil samples? Not in goal. But sample_soil action requires soil sample at waypoint and equipped_for_soil_analysis. We have at_soil_sample at waypoint0,1,2,6,9. But not needed for goal. However, sample_soil might be required to free store? Actually store_of rover0store rover0, and store can be full or empty. We need to sample rock at four waypoints. Each sample_rock uses a store and requires empty. So we need to drop after each or after collecting enough. Store is only one: rover0store. So we can sample rock at waypoint4 (full), then drop (empty), then sample at waypoint0 (full), drop, sample at waypoint8, drop, sample at waypoint11, full. After last sample, we could drop but not necessary if we don't need store empty. But we might need to communicate rock data; that action requires have_rock_analysis and visible and channel free and available rover. It doesn't require store empty. So we can keep full store until end. But we need to communicate rock data for each waypoint. That action doesn't modify store. So we can sample all four, drop twice, keep full for last. That's fine.
+We also need to communicate image data for objectives with specified modes. That requires have_image. have

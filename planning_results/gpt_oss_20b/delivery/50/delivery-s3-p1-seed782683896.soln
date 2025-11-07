@@ -1,14 +1,46 @@
-(pick-package t1 p1 c_2_1)
-(move t1 c_2_1 c_2_0)
-(pick-package t1 p1 c_2_0)
-(move t1 c_2_0 c_1_0)
-(drop-package t1 p1 c_1_0)
-(move t1 c_1_0 c_0_0)
-(move t1 c_0_0 c_0_1)
-(move t1 c_0_1 c_0_2)
-(move t1 c_0_2 c_1_2)
-(move t1 c_1_2 c_2_2)
-(move t1 c_2_2 c_1_2)
-(move t1 c_1_2 c_0_2)
-(move t1 c_0_2 c_0_1)
-(move t1 c_0_1 c_0_0)
+commentary# Plan Generation
+# 1. Parse the PDDL components
+#    - Domain: actions, types, predicates, requirements, constraints
+#    - Problem: objects, initial state, goal, constraints
+# 2. Build the internal representations
+#    - Type hierarchy:
+#        locatable > object
+#        package > locatable
+#        truck > locatable
+#        cell > object
+#    - Predicate definitions:
+#        at ?x1 - locatable ?x2 - cell
+#        carrying ?x1 - truck ?x2 - package
+#        empty ?x1 - truck
+#        adjacent ?x1 - cell ?x2 - cell
+#        last ?t - truck ?c - cell
+# 3. Initialize the state
+#    - at p1 c_2_1
+#    - at t1 c_1_1
+#    - empty t1
+#    - All adjacent relations as given
+#    - No carrying facts initially
+# 4. Understand the constraints
+#    - (:constraints (sometime (at t1 c_0_0)))
+#      This is a PDDL3 temporal constraint:
+#      * "sometime" requires that at some point during the plan execution,
+#        the condition (at t1 c_0_0) holds.
+#    - Goal: (at p1 c_0_0)
+# 5. Generate a plan that satisfies:
+#    - The goal
+#    - The PDDL3 constraint
+#    - All action preconditions
+#    - All domain constraints (typing, equality, negative-preconditions, constraints)
+# 6. Search strategy
+#    - Use a temporal planner approach:
+#      * Maintain a timeline of facts with start and end times.
+#      * Actions have durations:
+#          pick-package: 0
+#          drop-package: 0
+#          move: 1
+#    - Constraints:
+#      * empty t1 is a fact that must hold before pick-package.
+#      * carrying t1 p1 and empty t1 are mutually exclusive (due to empty t1 being negated in pick-package).
+#      * at t1 c_0_0 must hold at some time (sometime).
+#      * at p1 c_0_0 is the goal (must hold at the end).
+#    - No other invariants or

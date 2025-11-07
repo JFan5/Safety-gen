@@ -1,0 +1,63 @@
+commentaryWe need to generate a plan for the grid domain with constraints. Let's analyze the problem.
+Domain grid:
+- Places: pos0-0 ... pos4-4 (5x5 grid).
+- Shapes: shape0 shape1 shape2.
+- Keys: key0 key1 key2.
+- Predicates:
+- conn P Q: places P and Q are connected (adjacent).
+- key-shape K S: key K has shape S.
+- lock-shape P S: place P has lock shape S (if it's a lock).
+- place P: P is a place.
+- key K: K is a key.
+- shape S: S is a shape.
+- at R X: resource R is at X. R can be robot, key.
+- at-robot P: robot is at place P.
+- locked P: place P is locked.
+- open P: place P is open.
+- arm-empty: robot's arm is empty.
+- holding K: robot is holding key K.
+Actions:
+1. unlock:
+Params: curpos lockpos key shape
+Preconditions:
+- place curpos, place lockpos, key key, shape shape
+- key-shape key shape
+- lock-shape lockpos shape
+- at-robot curpos
+- locked lockpos
+- holding key
+Effect:
+- open lockpos
+- not locked lockpos
+2. move:
+Params: curpos nextpos
+Preconditions:
+- place curpos, place nextpos
+- at-robot curpos
+- conn curpos nextpos
+- open nextpos
+Effect:
+- at-robot nextpos
+- not at-robot curpos
+3. pickup:
+Params: curpos key
+Preconditions:
+- place curpos, key key
+- at-robot curpos
+- at key curpos
+- arm-empty
+Effect:
+- holding key
+- not at key curpos
+- not arm-empty
+4. pickup-and-loose:
+Params: curpos newkey oldkey
+Preconditions:
+- place curpos
+- key newkey, key oldkey
+- at-robot curpos
+- holding oldkey
+- at newkey curpos
+Effect:
+- holding newkey
+- at oldkey

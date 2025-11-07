@@ -1,0 +1,41 @@
+commentary# Plan Generation for gripper-2-4-3
+## Domain Recap
+- **Types**: room, object, robot, gripper
+- **Objects**:
+- Robots: robot1, robot2
+- Grippers: rgripper1, lgripper1, rgripper2, lgripper2
+- Rooms: room1, room2, room3, room4
+- Objects: ball1, ball2, ball3
+## Initial State
+- Robot positions:
+- robot1 at room4
+- robot2 at room2
+- Gripper statuses:
+- robot1: rgripper1 free, lgripper1 free
+- robot2: rgripper2 free, lgripper2 free
+- Object locations:
+- ball1 at room3
+- ball2 at room2
+- ball3 at room2
+## Goal State
+- ball1 at room2
+- ball2 at room1
+- ball3 at room2
+## PDDL3 Constraints
+1. **Always avoid room3 with robot1**:
+- `(always (not (at-robby robot1 room3)))`
+- This constraint forbids robot1 from ever entering room3.
+## Goal Analysis
+- **ball3**: Already at room2 → no action needed.
+- **ball2**: Needs to move from room2 to room1.
+- **ball1**: Needs to move from room3 to room2.
+## Strategy
+- Use **robot2** for both ball1 and ball2 because:
+- robot2 starts in room2, which is the target for ball1.
+- robot2 can reach room1 (target for ball2) without violating constraints.
+- robot1 will remain in room4 or move to room1/room2 as needed, but never to room3.
+- Since robot2 starts in room2, it can:
+1. Pick up **ball1** (currently in room3) → requires moving to room3.
+2. Move to room2 while carrying ball1 → drop ball1 at room2 (goal satisfied).
+3. Move to room1 while free → pick up **ball2** (room2) → move to room1 → drop ball2 (goal satisfied).
+- Ensure robot1 never enters room3; it will stay in room4 or move to room1/

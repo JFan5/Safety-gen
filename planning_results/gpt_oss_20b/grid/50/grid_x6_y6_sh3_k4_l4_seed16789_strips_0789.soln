@@ -1,0 +1,43 @@
+analysisWe need to generate a plan for the grid domain with constraints. Let's restate the problem:
+Domain: grid
+Requirements: :strips :constraints
+Predicates:
+- conn ?x ?y
+- key-shape ?k ?s
+- lock-shape ?x ?s
+- at ?r ?x
+- place ?p
+- key ?k
+- shape ?s
+- locked ?x
+- holding ?k
+- open ?x
+- arm-empty
+Actions:
+1. unlock
+Parameters: ?curpos ?lockpos ?key ?shape
+Precondition: (place ?curpos) (place ?lockpos) (key ?key) (shape ?shape)
+(conn ?curpos ?lockpos) (key-shape ?key ?shape)
+(lock-shape ?lockpos ?shape) (at-robot ?curpos)
+(locked ?lockpos) (holding ?key)
+Effect: (open ?lockpos) (not (locked ?lockpos))
+2. move
+Parameters: ?curpos ?nextpos
+Precondition: (place ?curpos) (place ?nextpos)
+(at-robot ?curpos) (conn ?curpos ?nextpos) (open ?nextpos)
+Effect: (at-robot ?nextpos) (not (at-robot ?curpos))
+3. pickup
+Parameters: ?curpos ?key
+Precondition: (place ?curpos) (key ?key)
+(at-robot ?curpos) (at ?key ?curpos) (arm-empty )
+Effect: (holding ?key) (not (at ?key ?curpos)) (not (arm-empty ))
+4. pickup-and-loose
+Parameters: ?curpos ?newkey ?oldkey
+Precondition: (place ?curpos) (key ?newkey) (key ?oldkey)
+(at-robot ?curpos) (holding ?oldkey) (at ?newkey ?curpos)
+Effect: (holding ?newkey) (at ?oldkey ?curpos)
+(not (holding ?oldkey)) (not (at ?newkey ?curpos))
+5. putdown
+Parameters: ?curpos ?key
+Precondition: (place ?curpos) (key ?key)
+(

@@ -1,0 +1,41 @@
+commentary# Plan Generation for PDDL Domain "ferry" with PDDL3 Constraints
+## 1. Understand the Goal and Constraints
+- Goal:
+- AT c0 l2
+- AT c1 l3
+- AT c2 l0
+- Constraints (PDDL3):
+1. **sometime-before** (AT c0 l2) (AT-ferry l1)
+- The ferry must be at location l1 *before* car c0 reaches l2.
+2. **sometime-before** (AT c1 l3) (AT-ferry l0)
+- The ferry must be at l0 *before* car c1 reaches l3.
+3. **sometime-before** (AT c2 l0) (AT-ferry l1)
+- The ferry must be at l1 *before* car c2 reaches l0.
+## 2. Initial State
+- AT c0 l0
+- AT c1 l1
+- AT c2 l3
+- AT-ferry l3
+- EMPTY-ferry
+## 3. Plan Skeleton
+We need to move:
+- c0: l0 -> l2
+- c1: l1 -> l3
+- c2: l3 -> l0
+Ferry starts at l3.
+Constraints force the ferry to visit l1 before c0 reaches l2, l0 before c1 reaches l3, and l1 before c2 reaches l0.
+Thus the ferry must visit l1 twice and l0 once, in that order relative to the car movements.
+## 4. Determine Car Movement Order
+To satisfy all constraints, a feasible order is:
+1. Move c1 from l1 to l3.
+- Requires ferry at l1 (to board c1) and later at l0 before c1 reaches l3.
+2. Move c0 from l0 to l2.
+- Requires ferry at l1 before c0 reaches l2.
+3. Move c2 from l3 to l0.
+- Requires ferry at l1 before c2 reaches l0.
+This order respects:
+- c1 goal (l3) after ferry visits l0.
+- c0 goal (l2) after ferry visits l1.
+- c2 goal (l0) after ferry visits l1.
+## 5. Construct Detailed Plan
+### Step 1:

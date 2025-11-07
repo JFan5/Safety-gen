@@ -1,0 +1,69 @@
+commentary# Let's parse the domain and problem.
+# Domain: rover
+# Types:
+#   rover - Rover
+#   waypoint - Waypoint
+#   store - Store
+#   lander - Lander
+#   camera - Camera
+#   mode - Mode
+#   objective - Objective
+# Objects:
+#   general - Lander
+#   colour high_res low_res - Mode
+#   rover0 rover1 - Rover
+#   rover0store rover1store - Store
+#   waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 waypoint8 waypoint9 waypoint10 waypoint11 - Waypoint
+#   camera0 camera1 camera2 camera3 - Camera
+#   objective0 objective1 objective2 objective3 - Objective
+# Initial facts:
+# visible waypoint0 waypoint4
+# visible waypoint4 waypoint0
+# visible waypoint0 waypoint5
+# visible waypoint5 waypoint0
+# visible waypoint1 waypoint2
+# visible waypoint2 waypoint1
+# visible waypoint1 waypoint7
+# visible waypoint7 waypoint1
+# visible waypoint2 waypoint0
+# visible waypoint0 waypoint2
+# visible waypoint2 waypoint3
+# visible waypoint3 waypoint2
+# visible waypoint2 waypoint7
+# visible waypoint7 waypoint2
+# visible waypoint2 waypoint8
+# visible waypoint8 waypoint2
+# visible waypoint2 waypoint11
+# visible waypoint11 waypoint2
+# visible waypoint3 waypoint7
+# visible waypoint7 waypoint3
+# visible waypoint4 waypoint2
+# visible waypoint2 waypoint4
+# visible waypoint4 waypoint5
+# visible waypoint5 waypoint4
+# visible waypoint4 waypoint9
+# visible waypoint9 waypoint4
+# visible waypoint5 waypoint3
+# visible waypoint3 waypoint5
+# visible waypoint5 waypoint10
+# visible waypoint10 waypoint5
+# visible waypoint6 waypoint1
+# visible waypoint1 waypoint6
+# visible waypoint6 waypoint3
+# visible waypoint3 waypoint6
+# visible waypoint7 waypoint0
+# visible waypoint0 waypoint7
+# visible waypoint7 waypoint6
+# visible waypoint6 waypoint7
+# visible waypoint8 waypoint1
+# visible waypoint1 waypoint8
+# visible waypoint8 waypoint4
+# visible waypoint4 waypoint8
+# visible waypoint8 waypoint9
+# visible waypoint9 waypoint8
+# visible waypoint9 waypoint0
+# visible waypoint0 waypoint9
+# visible waypoint9 waypoint1
+# visible waypoint1 waypoint9
+# visible waypoint9 waypoint2
+# visible waypoint2

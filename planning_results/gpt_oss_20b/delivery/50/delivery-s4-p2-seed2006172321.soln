@@ -1,36 +1,44 @@
-(move t1 c_0_2 c_0_3)
-(move t1 c_0_3 c_1_3)
-(move t1 c_1_3 c_2_3)
-(move t1 c_2_3 c_3_3)
-(move t1 c_3_3 c_3_2)
-(move t1 c_3_2 c_3_1)
-(move t1 c_3_1 c_2_1)
-(move t1 c_2_1 c_1_1)
-(move t1 c_1_1 c_0_1)
-(move t1 c_0_1 c_0_0)
-(move t1 c_0_0 c_1_0)
-(move t1 c_1_0 c_2_0)
-(move t1 c_2_0 c_3_0)
-(pick-package t1 p1 c_3_0)
-(move t1 c_3_0 c_3_1)
-(move t1 c_3_1 c_2_1)
-(move t1 c_2_1 c_1_1)
-(move t1 c_1_1 c_0_1)
-(move t1 c_0_1 c_0_0)
-(move t1 c_0_0 c_1_0)
-(move t1 c_1_0 c_2_0)
-(move t1 c_2_0 c_3_0)
-(drop-package t1 p1 c_3_0)
-(move t1 c_3_0 c_3_1)
-(move t1 c_3_1 c_2_1)
-(move t1 c_2_1 c_1_1)
-(move t1 c_1_1 c_0_1)
-(move t1 c_0_1 c_0_0)
-(move t1 c_0_0 c_1_0)
-(move t1 c_1_0 c_2_0)
-(move t1 c_2_0 c_3_0)
-(pick-package t1 p2 c_3_0)
-(move t1 c_3_0 c_3_1)
-(move t1 c_3_1 c_2_1)
-(move t1 c_2_1 c_1_1)
-(move t1 c_1_1 c_0_1)
+commentary# Plan Generation
+# 1. Parse the PROBLEM section
+#    - Objects:
+#        cells: c_0_0 ... c_3_3
+#        packages: p1, p2
+#        trucks: t1
+#    - Initial facts:
+#        pick up location: p2 at c_0_3
+#        delivery location: p1 at c_3_1
+#        t1 at c_0_2
+#        t1 empty
+#        adjacency facts (bidirectional)
+#    - Goal:
+#        p1 at c_3_0
+#        p2 at c_3_0
+#    - Constraints:
+#        - PDDL3: (sometime (at t1 c_0_0))
+#          => t1 must visit c_0_0 at some point before the goal is achieved.
+# 2. Domain actions:
+#    - pick-package(t, p, x):
+#        pre: at p x & at t x & empty t
+#        effect: drop empty t & carrying t p
+#    - drop-package(t, p, x):
+#        pre: at t x & carrying t p
+#        effect: empty t & at p x
+#    - move(t, from, to):
+#        pre: adjacent from to & at t from & not (= from to)
+#        effect: at t to & last t from
+# 3. Constraints & invariants:
+#    - Invariants:
+#        * package-location: (forall (?p - package) (at-most-one ?p - locatable))
+#        * truck-location:   (forall (?t - truck)   (at-most-one ?t - locatable))
+#        * package-truck:    (forall (?t - truck) (forall (?p - package)
+#                                   (at-most-one ?t ?p)))
+#    - Constraint:
+#        * sometime (at t1 c_0_0)
+# 4. Planning strategy
+#    - Goal-directed search with constraint handling.
+#    - Since there's a "sometime" constraint, we must ensure t1 visits c_0_0.
+#    - We can incorporate this visit either:
+#        a) before picking up any package,
+#        b) between pick-up and drop-off,
+#        c) after dropping both packages (but before goal check).
+#

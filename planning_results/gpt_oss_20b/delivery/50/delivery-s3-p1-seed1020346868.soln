@@ -1,6 +1,52 @@
-(pick-package t1 p1 c_2_0)
-(move t1 c_2_0 c_2_1)
-(move t1 c_2_1 c_1_1)
-(move t1 c_1_1 c_1_0)
-(move t1 c_1_0 c_0_0)
-(drop-package t1 p1 c_0_0)
+commentary# Plan Generation
+## 1. Parse the PDDL
+- Domain: `delivery`
+- Types:
+- `cell` < `locatable` < `object`
+- `package` < `locatable`
+- `truck` < `locatable`
+- Predicates:
+- `(at ?x - locatable ?y - cell)`
+- `(carrying ?t - truck ?p - package)`
+- `(empty ?t - truck)`
+- `(adjacent ?x - cell ?y - cell)`
+- `(last ?t - truck ?c - cell)`  ; constraint variable
+- Actions:
+- `pick-package`
+- `drop-package`
+- `move`
+- Requirements: `:typing`, `:equality`, `:negative-preconditions`, `:constraints`
+## 2. Extract Problem Data
+- Cells: `c_0_0, c_0_1, c_0_2, c_1_0, c_1_1, c_1_2, c_2_0, c_2_1, c_2_2`
+- Packages: `p1`
+- Trucks: `t1`
+### Initial State
+- `at p1 c_2_0`
+- `at t1 c_1_1`
+- `empty t1`
+- All `adjacent` facts as listed.
+- No `carrying` facts.
+- No `last` facts.
+### Goal
+- `at p1 c_0_0`
+### Constraints
+- `(sometime (at t1 c_0_0))`
+- The truck `t1` must be at cell `c_0_0` at **some point** during the plan (not necessarily at the end).
+## 3. Build the Search Graph
+We use the `move`, `pick-package`, and `drop-package` operators.
+### State Representation
+A state is a tuple of:
+- Locations of all packages.
+- Locations of all trucks.
+- Which packages are being carried by which trucks.
+- `last` facts for all trucks (used only for constraint satisfaction).
+### Initial State
+```
+Packages:  p1 -> c_2_0
+Trucks:    t1 -> c_1_1
+Carrying:  none
+Last:      none
+```
+### Goal Condition
+```
+p1 -> c_0_0

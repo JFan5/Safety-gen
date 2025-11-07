@@ -1,0 +1,18 @@
+commentaryWe need to produce a plan for gripper-2-3-3 domain, with 2 robots, 3 rooms, 3 balls. Goal: ball1 at room2, ball2 at room1, ball3 at room1.
+Constraints: PDDL3 constraint: always not (robot1 at room2 and robot2 at room2). So robots cannot be in room2 simultaneously at any time.
+Domain uses strips, typing, constraints. No other invariants. So we just need to plan movements, picks, drops, respecting that constraint.
+Initial state:
+robot1 at room1
+free rgripper1, lgripper1
+robot2 at room2
+free rgripper2, lgripper2
+ball1 at room1
+ball2 at room2
+ball3 at room2
+Goal:
+ball1 at room2
+ball2 at room1
+ball3 at room1
+We need to move balls accordingly. Let's analyze.
+ball1: from room1 to room2. robot1 currently at room1, robot2 at room2. So ball1 can be picked by robot1 at room1 and moved to room2. But robot2 is already at room2. Constraint prohibits both robots at room2 simultaneously. So if robot1 moves to room2, robot2 must leave room2 before that. But robot2's goal location? ball2 and ball3 need to be at room1. Currently ball2 and ball3 are at room2. So robot2 could transport them to room1. That would involve robot2 moving from room2 to room1, carrying ball2 or ball3. So robot2 will be at room1 at some point. So we need to coordinate such that robot1 moves to room2 only when robot2 is not there. So robot2 must leave room2 before robot1 arrives.
+Also ball2: from room2 to room1. So robot2 can pick ball2 at room2 and move to room1, drop. ball3: from room2 to room1. So robot2 can also pick ball3 and move to room1. But robot2 has only two grippers. So it can carry at most one ball at a time. So robot2 will need to do two trips: pick ball2, move to room1, drop; then pick ball3, move to room1, drop. Alternatively, robot1 could help with ball3 or ball2, but robot1 is at room1 initially

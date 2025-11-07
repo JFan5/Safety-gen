@@ -21,7 +21,7 @@ max_seq_length = 4096
 # output length
 MAX_NEW_TOKENS = 512
 dtype = None
-load_in_4bit = False
+load_in_4bit = True
 
 
 

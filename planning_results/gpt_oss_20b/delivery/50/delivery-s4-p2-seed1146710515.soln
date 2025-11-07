@@ -1,37 +1,37 @@
-(move t1 c_3_3 c_2_3)
-(move t1 c_2_3 c_1_3)
-(move t1 c_1_3 c_0_3)
-(move t1 c_0_3 c_0_2)
-(move t1 c_0_2 c_0_1)
-(move t1 c_0_1 c_0_0)
-(pick-package t1 p2 c_0_0)
-(move t1 c_0_0 c_1_0)
-(move t1 c_1_0 c_2_0)
-(drop-package t1 p2 c_2_0)
-(move t1 c_2_0 c_1_0)
-(move t1 c_1_0 c_0_0)
-(pick-package t1 p1 c_2_0)
-(move t1 c_0_0 c_1_0)
-(move t1 c_1_0 c_2_0)
-(move t1 c_2_0 c_1_0)
-(move t1 c_1_0 c_1_1)
-(drop-package t1 p1 c_1_1)
-(move t1 c_1_1 c_1_0)
-(move t1 c_1_0 c_2_0)
-(move t1 c_2_0 c_1_0)
-(move t1 c_1_0 c_1_1)
-(pick-package t1 p2 c_2_0)
-(move t1 c_1_1 c_1_2)
-(move t1 c_1_2 c_1_3)
-(move t1 c_1_3 c_2_3)
-(move t1 c_2_3 c_1_3)
-(move t1 c_1_3 c_0_3)
-(move t1 c_0_3 c_0_2)
-(move t1 c_0_2 c_0_1)
-(move t1 c_0_1 c_0_0)
-(drop-package t1 p2 c_0_0)
-(move t1 c_0_0 c_1_0)
-(move t1 c_1_0 c_2_0)
-(pick-package t1 p1 c_2_0)
-(move t1 c_2_0 c_1_0)
-(move t1 c_1_0 c_1_1)
+commentary# Goal:
+# (and (at p1 c_1_1) (at p2 c_1_1))
+# Initial:
+# p1 c_2_0
+# p2 c_0_0
+# t1 c_3_3
+# empty t1
+# Constraint:
+# sometim e (at t1 c_0_0)
+# So t1 must visit c_0_0 at some point before finishing.
+# Plan strategy:
+# 1. Move t1 to c_0_0 (to satisfy constraint).
+# 2. Pick p2 at c_0_0.
+# 3. Move t1 to c_1_1 carrying p2.
+# 4. Drop p2 at c_1_1.
+# 5. Move t1 to c_2_0 (empty) to pick p1.
+# 6. Pick p1 at c_2_0.
+# 7. Move t1 to c_1_1 carrying p1.
+# 8. Drop p1 at c_1_1.
+# End: p1 c_1_1, p2 c_1_1, constraint satisfied.
+# Check paths:
+# c_3_3 -> c_2_3 -> c_1_3 -> c_0_3 -> c_0_2 -> c_0_1 -> c_0_0
+# All adjacencies present.
+# c_0_0 -> c_1_0 -> c_2_0 -> c_2_1 -> c_1_1
+# All adjacencies present.
+# c_1_1 -> c_2_1 -> c_2_0 -> c_2_1 -> c_1_1
+# All adjacencies present.
+# c_2_0 -> c_2_1 -> c_1_1
+# All adjacencies present.
+# Now generate plan steps accordingly.
+# Step list:
+# 1 move t1 c_3_3 c_2_3
+# 2 move t1 c_2_3 c_1_3
+# 3 move t1 c_1_3 c_0_3
+# 4 move t1 c_0_3 c_0_2
+# 5 move t1 c_0_2 c_0_1
+# 6 move t1

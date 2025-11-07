@@ -1,8 +1,19 @@
-(unstack b3 b4)
-(putdown b3)
-(unstack b4 b3)
-(putdown b4)
-(pickup b1)
-(stack b1 b2)
-(pickup b4)
-(stack b4 b1)
+commentaryWe need to produce plan lines. Let's compute.
+Blocks: b1,b2,b3,b4.
+Initial:
+arm-empty
+on-table b1
+on-table b2
+on b3 b4
+on-table b4
+clear b1
+clear b2
+clear b3
+So clear b4? Wait: on b3 b4, so b4 is under b3, so b4 is not clear. clear b3 true. clear b4 false. clear b1 true. clear b2 true. clear b4 false.
+Goal:
+on b1 b2
+on b3 b4
+on b4 b1
+Also constraints:
+sometime-before (on b3 b4) (on b1 b2)
+So at some point before goal, (on b3 b4) must hold, and (on b1 b2) must hold. In goal, (on b3 b4) holds, (on b1 b2) holds. So constraint is satisfied if both hold at goal, but also (on b3 b4) must hold before (on b1 b2). Since goal has both, the order at goal doesn't matter. But constraint requires that at some time before (on b1 b2), (on b3 b4) holds. So we must have (on b3 b4) true at some step before we first achieve (on b1 b2). So we need to ensure that (on b3 b4) is true before we stack b1 on b2. Currently (on b3 b4) is true initially. So constraint satisfied if we don't unstack b3 from b4 before we stack b1 on b2. So we must avoid moving b3 or b4 until after we stack b1 on b2. But we might need to manipulate b4 to achieve (on b4 b1). That requires b4 to be clear and on-table, then stack onto b1. But b4 is currently under b3, so not on-table and not clear. So we need to move b3 off b4, then move b4 onto table, then stack b4 onto b1. But moving b3 off b4 would break (on b3 b4). That would violate constraint if we do it before (on b1 b2). So we must first achieve (on b1 b2), then we can unstack b3 from b4, move b4 onto table

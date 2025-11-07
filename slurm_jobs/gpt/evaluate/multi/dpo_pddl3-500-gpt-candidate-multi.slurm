@@ -8,7 +8,6 @@
 #SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
 #SBATCH --job-name=evaluate_dpo_multi_pddl3-500-gpt-candidate # Specify job name
 
-conda activate llmstl
 
 # Map scenario to problems dir and domain file
 case "$scenario_name" in
@@ -46,7 +45,7 @@ case "$scenario_name" in
     echo "Unknown scenario: $scenario_name"; exit 1
     ;;  
 esac
-python3 script/evaluate_llm_solver.py --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500  --problems-dir $PROBLEMS_DIR --domain-file $DOMAIN_FILE --max-problems 50 --output $OUTPUT_NAME  --results-dir $RESULTS_DIR
+/home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py --model /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500  --problems-dir $PROBLEMS_DIR --domain-file $DOMAIN_FILE --max-problems 50 --output $OUTPUT_NAME  --results-dir $RESULTS_DIR
 
 
 

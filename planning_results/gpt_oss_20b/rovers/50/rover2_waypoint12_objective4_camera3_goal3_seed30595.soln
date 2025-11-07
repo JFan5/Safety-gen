@@ -1,0 +1,48 @@
+commentary# Let's parse the domain and problem.
+# Domain: rover
+# Types:
+#   rover - Rover
+#   waypoint - Waypoint
+#   store - Store
+#   lander - Lander
+#   camera - Camera
+#   mode - Mode
+#   objective - Objective
+# Objects:
+#   general - Lander
+#   colour high_res low_res - Mode
+#   rover0 rover1 - Rover
+#   rover0store rover1store - Store
+#   waypoint0 waypoint1 waypoint2 waypoint3 waypoint4 waypoint5 waypoint6 waypoint7 waypoint8 waypoint9 waypoint10 waypoint11 - Waypoint
+#   camera0 camera1 camera2 - Camera
+#   objective0 objective1 objective2 objective3 - Objective
+# Predicates:
+#   at ?x - rover ?y - waypoint
+#   at_lander ?x - lander ?y - waypoint
+#   can_traverse ?r - rover ?x - waypoint ?y - waypoint
+#   equipped_for_soil_analysis ?r - rover
+#   equipped_for_rock_analysis ?r - rover
+#   equipped_for_imaging ?r - rover
+#   empty ?s - store
+#   have_rock_analysis ?r - rover ?w - waypoint
+#   full ?s - store
+#   calibrated ?c - camera ?r - rover
+#   supports ?c - camera ?m - mode
+#   available ?r - rover
+#   visible ?w - waypoint ?p - waypoint
+#   have_image ?r - rover ?o - objective ?m - mode
+#   communicated_soil_data ?w - waypoint
+#   communicated_rock_data ?w - waypoint
+#   communicated_image_data ?o - objective ?m - mode
+#   at_soil_sample ?w - waypoint
+#   at_rock_sample ?w - waypoint
+#   visible_from ?o - objective ?w - waypoint
+#   store_of ?s - store ?r - rover
+#   calibration_target ?i - camera ?o - objective
+#   on_board ?i - camera ?r - rover
+#   channel_free ?l - lander
+# Actions:
+# navigate
+#   params: ?x - rover ?y - waypoint ?z - waypoint
+#   pre: can_traverse ?x ?y ?z, available ?x, at ?x ?y, visible ?y ?z
+#   effect:

@@ -1,13 +1,33 @@
-(move t1 c_0_1 c_0_0)
-(move t1 c_0_0 c_1_0)
-(pick-package t1 p2 c_1_0)
-(move t1 c_1_0 c_2_0)
-(move t1 c_2_0 c_2_1)
-(move t1 c_2_1 c_2_2)
-(drop-package t1 p2 c_2_2)
-(move t1 c_2_2 c_1_2)
-(pick-package t1 p1 c_1_2)
-(move t1 c_1_2 c_0_2)
-(move t1 c_0_2 c_0_1)
-(move t1 c_0_1 c_0_0)
-(drop-package t1 p1 c_0_0)
+commentary# Plan Generation
+# 1. Map the domain to a formal planner representation
+#    - Types: cell, locatable, package, truck
+#    - Objects:
+#        cells: c_0_0, c_0_1, c_0_2, c_1_0, c_1_1, c_1_2, c_2_0, c_2_1, c_2_2
+#        packages: p1, p2
+#        truck: t1
+#    - Predicates:
+#        at ?x - locatable ?y - cell
+#        carrying ?t - truck ?p - package
+#        empty ?t - truck
+#        adjacent ?x - cell ?y - cell
+#        last ?t - truck ?c - cell
+# 2. Extract the initial state
+initial_state = {
+('at', 'p1', 'c_1_2'),
+('at', 't1', 'c_0_1'),
+('at', 'p2', 'c_1_0'),
+('empty', 't1'),
+('adjacent', 'c_2_0', 'c_2_1'),
+('adjacent', 'c_1_0', 'c_0_0'),
+('adjacent', 'c_0_1', 'c_1_1'),
+('adjacent', 'c_1_1', 'c_2_1'),
+('adjacent', 'c_1_1', 'c_0_1'),
+('adjacent', 'c_1_2', 'c_1_1'),
+('adjacent', 'c_2_1', 'c_1_1'),
+('adjacent', 'c_1_0', 'c_1_1'),
+('adjacent', 'c_0_0', 'c_0_1'),
+('adjacent', 'c_0_1', 'c_0_2'),
+('adjacent', 'c_1_2', 'c_0_2'),
+('adjacent', 'c_2_2', 'c_1_2'),
+('adjacent', 'c_0_2', 'c_1_2'),
+('adjacent', 'c_2_2', 'c_2_1'),

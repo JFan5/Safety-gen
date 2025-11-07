@@ -1,0 +1,29 @@
+commentary# Plan Generation for PDDL Domain "ferry" with PDDL3 Constraints
+## Problem Summary
+- **Locations**: l0, l1, l2, l3
+- **Cars**: c0, c1, c2
+- **Ferry start location**: l1
+- **Car initial locations**:
+- c0 at l2
+- c1 at l2
+- c2 at l0
+- **Goal locations**:
+- c0 at l0
+- c1 at l3
+- c2 at l3
+## PDDL3 Constraints
+1. `sometime-before (at c0 l0) (at-ferry l3)`
+- c0 must reach l0 **before** the ferry reaches l3.
+2. `sometime-before (at c1 l3) (at-ferry l0)`
+- c1 must reach l3 **before** the ferry reaches l0.
+3. `sometime-before (at c2 l3) (at-ferry l2)`
+- c2 must reach l3 **before** the ferry reaches l2.
+## Domain Notes
+- **sail**: moves ferry between locations; requires `at-ferry ?from` and `location ?to`; effect: `at-ferry ?to` & not `at-ferry ?from`.
+- **board**: loads a car onto ferry at a location; requires `car ?car`, `location ?loc`, `at ?car ?loc`, `at-ferry ?loc`, `empty-ferry`; effect: `on ?car` & not `at ?car ?loc` & not `empty-ferry`.
+- **debark**: unloads a car from ferry; requires `car ?car`, `location ?loc`, `on ?car`, `at-ferry ?loc`; effect: `at ?car ?loc` & `empty-ferry` & not `on ?car`.
+- The ferry can carry **at most one car** at a time (`empty-ferry` is a predicate that must hold to `board` and is negated by `board` and re-established by `debark`).
+## Strategy Overview
+1. **Determine final ferry location**:
+- No constraint or goal specifies the ferry’s final position.
+- Choose a location that does **not** interfere with the PDDL3 constraints.

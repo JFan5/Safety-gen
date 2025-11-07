@@ -1,0 +1,16 @@
+commentary{"action":"calibrate","params":["rover0","camera0","objective2","waypoint5"],"precond":true,"effect":true}
+{"action":"take_image","params":["rover0","waypoint5","objective3","camera0","high_res"],"precond":true,"effect":true}
+{"action":"take_image","params":["rover0","waypoint5","objective3","camera0","colour"],"precond":true,"effect":true}
+{"action":"take_image","params":["rover0","waypoint5","objective3","camera0","high_res"],"precond":true,"effect":true}
+{"action":"calibrate","params":["rover0","camera1","objective1","waypoint5"],"precond":true,"effect":true}
+{"action":"take_image","params":["rover0","waypoint5","objective3","camera1","low_res"],"precond":true,"effect":true}
+{"action":"take_image","params":["rover0","waypoint5","objective3","camera1","low_res"],"precond":true,"effect":true}
+{"action":"take_image","params":["rover0","waypoint5","objective3","camera1","low_res"],"precond":true,"effect":true}
+{"action":"navigate","params":["rover0","waypoint5","waypoint7"],"precond":true,"effect":true}
+{"action":"navigate","params":["rover0","waypoint7","waypoint9"],"precond":true,"effect":true}
+{"action":"sample_soil","params":["rover0","rover0store","waypoint9"],"precond":true,"effect":true}
+{"action":"navigate","params":["rover0","waypoint9","waypoint10"],"precond":true,"effect":true}
+{"action":"sample_soil","params":["rover0","rover0store","waypoint10"],"precond":true,"effect":true}
+{"action":"navigate","params":["rover0","waypoint10","waypoint6"],"precond":true,"effect":true}
+{"action":"sample_soil","params":["rover0","rover0store","waypoint6"],"precond":true,"effect":true}
+{"action":"navigate","params":["rover0","waypoint6","waypoint10"],"precond":

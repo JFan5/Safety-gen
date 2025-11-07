@@ -1,0 +1,12 @@
+commentaryWe must produce plan for ferry-l5-c2. Domain: ferry with 5 locations l0..l4, 2 cars c0,c1. Initial: empty-ferry, at c0 l4, at c1 l2, at-ferry l0. Goal: at c0 l0, at c1 l1. Constraints: PDDL3: (sometime-before (at c0 l0) (at-ferry l1)) and (sometime-before (at c1 l1) (at-ferry l3)). So c0 must reach l0 before ferry reaches l1. c1 must reach l1 before ferry reaches l3. So we need to schedule sail actions accordingly.
+We need to move c0 from l4 to l0, c1 from l2 to l1. Ferry starts at l0. Locations: l0,l1,l2,l3,l4. Cars: c0 at l4, c1 at l2.
+We need to plan board/debark and sail.
+Constraints:
+1) at c0 l0 must occur before at-ferry l1.
+2) at c1 l1 must occur before at-ferry l3.
+So after c0 reaches l0, ferry must not sail to l1 until then. Similarly after c1 reaches l1, ferry must not sail to l3 until then.
+We can sail to other locations before these constraints trigger. So we can sail to l2, l4, l3 etc.
+Goal: at c0 l0, at c1 l1. No constraints on ferry location at goal.
+We need to plan sequence.
+Let's think: We need to bring c0 to l0. Path: l4 -> l0 directly? Are locations connected? In ferry domain, connections are implicit: sail can go from any location to any other location (not-eq). So direct sail possible. So we can sail from l0 to l4, board c0, sail to l0, debark c0. That would bring c0 to l0. But constraint requires that this goal occurs before ferry reaches l1. In this plan, ferry would sail l0->l4, board, sail l4->l0, debark. After that, ferry is at l0. It hasn't sailed to l1 yet, so constraint satisfied. Good.
+Now we need to bring c1 to l1. Path: l2 -> l1.
