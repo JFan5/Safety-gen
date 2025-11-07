@@ -7,7 +7,7 @@
 #$ -o job_outputs/evaluate/mistral/multi_scenarios/pddl3_multi-500.o
 #$ -pe smp 8
 #$ -N eval_mistral_multi_pddl3-500
-#$ -t 1-6
+#$ -t 1-7
 
 set -euo pipefail
 
