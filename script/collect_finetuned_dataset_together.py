@@ -90,7 +90,7 @@ def validate_solution(domain_file: str, problem_file: str, solution_file: str, t
 
         if result.returncode == 0:
             output = result.stdout.lower()
-            if "plan valid" in output or "plan successfully executed" in output:
+            if "plan valid\n" in output or "successful plans" in output:
                 return True, "Plan valid", execution_info
             return False, (result.stdout if result.stdout else "Validation failed"), execution_info
         return False, (result.stderr if result.stderr else "Validation error"), execution_info

@@ -39,30 +39,14 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     return all(line.startswith("(") and line.endswith(")") for line in lines)
 
 
-def _classify_result(item: dict) -> str:
-    """根据 is_valid 和 validation_stdout 分类结果。"""
-    # 首先检查 is_valid 字段
-    is_valid = item.get("is_valid")
-    if is_valid is None:
-        is_valid = item.get("valid")
-
-    if is_valid is None:
-        status = item.get("status")
-        is_valid = isinstance(status, str) and status.lower() == "valid"
-
-    if bool(is_valid):
-        return "success_plans"
-    
-    plan_text = _extract_solution_text(item)
-    if plan_text is not None and not _looks_like_valid_plan(plan_text):
-        return "plan_format_error"
-
-    # 如果 is_valid 为 False，再根据 validation_stdout / execution_info stdout 分类失败原因
-    stdout_text = item.get("validation_stdout", "")
-    if not stdout_text:
-        stdout_text = item.get("execution_info", {}).get("stdout", "")
+def _classify_result(stdout_text: str) -> str:
+    """根据 validation_stdout 分类结果。"""
     if not stdout_text:
         return "plan_format_error"  # 空的validation_stdout归类为plan_format_error
+    
+    # 1) success plans - 首先检查 plan 是否 valid
+    if "Plan valid\n" in stdout_text or "Successful plans:" in stdout_text:
+        return "success_plans"
     
     text = stdout_text.lower()
 
@@ -71,7 +55,7 @@ def _classify_result(item: dict) -> str:
         return "plan_format_error"
 
     # 5) goal not satisfied
-    if "goal not satisfied" in text:
+    if "checking goal\nGoal not satisfied" in text:
         return "goal_not_satisfied"
 
     # 3) precondition violation
@@ -79,7 +63,7 @@ def _classify_result(item: dict) -> str:
         return "precondition_violation"
 
     # 4) safety constraints violation (排除掉前置条件不满足)
-    if "plan failed to execute" in text and "unsatisfied precondition" not in text:
+    if ("plan failed to execute" in text and "unsatisfied precondition" not in text) or "outstanding requirements unsatisfied during plan" in text:
         return "safety_constraints_violation"
 
     # 6) others
@@ -101,7 +85,18 @@ def _summarize_results(items):
 
     for it in items:
         name = it.get("problem_name") or it.get("solution_file") or "unknown"
-        cat = _classify_result(it)
+        
+        # 检查 plan_text 格式
+        plan_text = _extract_solution_text(it)
+        if plan_text is not None and not _looks_like_valid_plan(plan_text):
+            cat = "plan_format_error"
+        else:
+            # 提取 stdout_text 并分类
+            stdout_text = it.get("validation_stdout", "")
+            if not stdout_text:
+                stdout_text = it.get("execution_info", {}).get("stdout", "")
+            cat = _classify_result(stdout_text)
+        
         categories[cat].append(name)
         
         # 如果是others分类，记录详细信息
