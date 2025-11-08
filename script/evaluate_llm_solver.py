@@ -15,6 +15,7 @@ from unsloth import FastLanguageModel
 import torch
 from datetime import datetime
 import re
+from typing import Optional
 # 配置参数
 # input and output length
 max_seq_length = 4096
@@ -134,6 +135,45 @@ def _resolve_validate_path():
     return "Validate"
 
 
+def _looks_like_valid_plan(plan_text: str) -> bool:
+    """判断文本是否符合纯计划输出格式。"""
+    lines = [line.strip() for line in plan_text.splitlines() if line.strip()]
+    if not lines:
+        return False
+    return all(line.startswith("(") and line.endswith(")") for line in lines)
+
+
+def _classify_result(stdout_text: str) -> str:
+    """根据 validation_stdout 分类结果。"""
+    if not stdout_text:
+        return "plan_format_error"  # 空的validation_stdout归类为plan_format_error
+        
+    text = stdout_text.lower()
+    # 1) success plans - 首先检查 plan 是否 valid
+    if "plan valid\n" in stdout_text or "successful plans:" in stdout_text:
+        return "success_plans"
+
+
+    # 2) plan format error
+    if "bad operator in plan" in text or "bad plan description!" in text or "no matching action defined" in text or "object with unknown type" in text:
+        return "plan_format_error"
+
+    # 5) goal not satisfied
+    if "checking goal\nGoal not satisfied" in text:
+        return "goal_not_satisfied"
+
+    # 3) precondition violation
+    if "plan failed to execute" in text and "unsatisfied precondition" in text:
+        return "precondition_violation"
+
+    # 4) safety constraints violation (排除掉前置条件不满足)
+    if ("plan failed to execute" in text and "unsatisfied precondition" not in text) or "outstanding requirements unsatisfied during plan" in text:
+        return "safety_constraints_violation"
+
+    # 6) others
+    return "others"
+
+
 def validate_solution(domain_file, problem_file, solution_text):
     """使用VAL验证器验证解决方案"""
     # 创建临时文件保存解决方案
@@ -152,7 +192,7 @@ def validate_solution(domain_file, problem_file, solution_text):
         if result.returncode == 0:
             # 检查输出中是否包含成功信息
             output = result.stdout.lower()
-            if "plan valid" in output or "successful plans" in output or 'plan executed successfully' in output:
+            if "plan valid\n" in output or "successful plans:" in output or 'plan executed successfully' in output:
                 return True, "Plan valid", result.stdout, result.stderr, cmd_str
             else:
                 return False, f"Validation failed: {result.stdout[:500]}", result.stdout, result.stderr, cmd_str
@@ -325,8 +365,17 @@ def test_model_on_testing_data(model_path,
     
     # 测试结果
     results = []
-    valid_count = 0
     total_count = len(test_data)
+    # 分类统计
+    category_counts = {
+        "success_plans": 0,
+        "plan_format_error": 0,
+        "precondition_violation": 0,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "others": 0,
+        "generation_error": 0
+    }
     
     for i, sample in enumerate(test_data, 1):
         print(f"\n--- Test {i}/{total_count} ---")
@@ -418,30 +467,46 @@ def test_model_on_testing_data(model_path,
         solution_file = results_dir / solution_name
         
         # 验证解决方案（使用LLM输出）
-        is_valid = False
         validation_message = ""
         validation_stdout = ""
         validation_stderr = ""
+        category = ""
         
         if generation_error:
             # 如果生成时出现错误，跳过验证
-            is_valid = False
+            category = "generation_error"
             validation_message = f"Generation failed: {generation_error}"
             val_cmd = ""
         elif problem_file and Path(problem_file).exists():
             # 使用命令行提供的 domain_file 进行验证
             if raw_solution.strip():
                 valid, message, stdout, stderr, val_cmd = validate_solution(domain_file, problem_file, raw_solution)
-                is_valid = valid
                 validation_message = message
                 validation_stdout = stdout
                 validation_stderr = stderr
+                
+                # 检查 plan_text 格式
+                if not _looks_like_valid_plan(raw_solution):
+                    category = "plan_format_error"
+                else:
+                    # 根据 stdout 分类
+                    category = _classify_result(stdout)
             else:
+                category = "plan_format_error"
                 validation_message = "Empty solution generated"
                 val_cmd = ""
         else:
+            category = "others"
             validation_message = f"Problem file not found: {problem_file}"
             val_cmd = ""
+        
+        # 更新分类统计
+        if category in category_counts:
+            category_counts[category] += 1
+        else:
+            category_counts["others"] += 1
+        
+        is_valid = (category == "success_plans")
 
         # 将 VAL 输出与命令中的临时解文件名替换为保存到本地的 .soln 文件名
         if val_cmd:
@@ -470,6 +535,7 @@ def test_model_on_testing_data(model_path,
             'problem_file': problem_file,
             'solution_file': str(solution_file),
             'is_valid': is_valid,
+            'category': category,
             'validation_message': validation_message,
             'validation_stdout': validation_stdout,
             'validation_stderr': validation_stderr,
@@ -481,26 +547,27 @@ def test_model_on_testing_data(model_path,
         
         results.append(result)
         
-
+        # 打印分类结果
+        category_display = {
+            "success_plans": "✓ Success",
+            "plan_format_error": "✗ Plan Format Error",
+            "precondition_violation": "✗ Precondition Violation",
+            "safety_constraints_violation": "✗ Safety Constraints Violation",
+            "goal_not_satisfied": "✗ Goal Not Satisfied",
+            "others": "✗ Others",
+            "generation_error": "✗ Generation Error"
+        }
+        print(f"{category_display.get(category, '✗ Unknown')}: {category}")
         
-        if is_valid:
-            valid_count += 1
-            print(f"✓ Valid solution found")
-        else:
-            print(f"✗ Invalid solution: {validation_message}")
-        
-        # 实时显示成功率
-        current_success_rate = (valid_count / i) * 100
-        print(f"Current success rate: {current_success_rate:.1f}% ({valid_count}/{i})")
+        # 实时显示分类统计
+        success_count = category_counts["success_plans"]
+        current_success_rate = (success_count / i) * 100
+        print(f"Current success rate: {current_success_rate:.1f}% ({success_count}/{i})")
+        print(f"Category breakdown: {dict(category_counts)}")
     
     # 计算最终成功率
-    final_success_rate = (valid_count / total_count) * 100
-    
-    generation_error_count = 0
-    
-    for result in results:
-        if result.get('generation_error'):
-            generation_error_count += 1
+    success_count = category_counts["success_plans"]
+    final_success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
     
     # 自动生成输出文件名并保存到结果目录
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -519,9 +586,11 @@ def test_model_on_testing_data(model_path,
         'max_problems': max_problems,
         'results_directory': str(results_dir),
         'total_tests': total_count,
-        'valid_count': valid_count,
-        'generation_error_count': generation_error_count,
+        'success_count': success_count,
         'success_rate': final_success_rate,
+        'category_counts': category_counts,
+        'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0 
+                          for k, v in category_counts.items()},
         'results': results
     }
     
@@ -532,13 +601,14 @@ def test_model_on_testing_data(model_path,
     print(f"FINAL RESULTS")
     print(f"="*60)
     print(f"Total tests: {total_count}")
-    print(f"Valid solutions: {valid_count}")
+    print(f"Success plans: {success_count}")
     print(f"Success rate: {final_success_rate:.1f}%")
-    print(f"Results saved to: {output_file}")
+    print(f"\nCategory Breakdown:")
+    for category, count in category_counts.items():
+        rate = (count / total_count * 100) if total_count > 0 else 0
+        print(f"  {category}: {count} ({rate:.1f}%)")
+    print(f"\nResults saved to: {output_file}")
     print(f"Planning results saved to: {results_dir}")
-    
-    if generation_error_count > 0:
-        print(f"\nTotal generation errors: {generation_error_count}/{total_count} ({(generation_error_count/total_count)*100:.1f}%)")
     
     # 统计保存的文件数量
     saved_files = list(results_dir.glob("*.soln"))
