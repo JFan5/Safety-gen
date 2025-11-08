@@ -1,28 +1,37 @@
-analysisWe must produce a plan for the delivery domain with constraints. The problem includes a PDDL3 constraint:
-(:constraints
-(sometime (at t1 c_0_0))
-)
-So the plan must ensure that at some point during execution, truck t1 is at cell c_0_0. The goal is:
-(at p1 c_2_1) (at p2 c_2_1)
-So both packages must be at cell c_2_1.
-Initial positions:
-- t1 at c_2_2, empty.
-- p2 at c_3_2.
-- p1 at c_1_0.
-We need to move both packages to c_2_1. Also, at some point, t1 must be at c_0_0.
-We must consider the map adjacency. Let's list all cells and adjacencies:
-Cells: c_0_0, c_0_1, c_0_2, c_0_3,
-c_1_0, c_1_1, c_1_2, c_1_3,
-c_2_0, c_2_1, c_2_2, c_2_3,
-c_3_0, c_3_1, c_3_2, c_3_3
-Adjacencies (undirected, but listed as directed pairs):
-c_0_1 c_0_2
-c_1_1 c_0_1
-c_1_3 c_1_2
-c_2_1 c_3_1
-c_2_0 c_3_0
-c_2_1 c_2_0
-c_0_0 c_0_1
-c_2_1 c_2_2
-c_3_1 c_3_2
-c_
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(pick-package t1 p1 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_2_1)
+(drop-package t1 p1 c_2_1)
+(move t1 c_2_1 c_2_2)
+(pick-package t1 p2 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_3)
+(move t1 c_0_3 c_1_3)
+(move t1 c_1_3 c_2_3)
+(move t1 c_2_3 c_3_3)
+(move t1 c_3_3 c_3_2)
+(drop-package t1 p2 c_3_2)
+(move t1 c_3_2 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_2_1)
+(pick-package t1 p1 c_2_1)
+(move t1 c_2_1 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_3)
+(move t1 c_0_3 c_1_3)
+(move t1 c_1_3 c_2_3)
+(move t1 c_2_3 c_3_3)
+(move t1 c_3_3 c_3_2)
+(pick-package t1 p2 c_3_2)
+(move t1 c_3_2 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)

@@ -6,5 +6,5 @@
 (walk location3 location4 bob)
 (pickup_spanner location4 spanner1 bob)
 (walk location4 gate bob)
-(tighten_nut gate spanner1 bob nut2)
-(tighten_nut gate spanner2 bob nut1)
+(tighten_nut gate spanner3 bob nut2)
+(tighten_nut gate spanner1 bob nut1)

@@ -1,38 +1,18 @@
-commentary# The user has provided a PDDL domain and problem. The domain is "gripper-strips" with typing,
-# predicates: at-robby robot room, at object room, free robot gripper, carry robot object gripper.
-# Actions: move, pick, drop with their parameters, preconditions, effects.
-# The problem "gripper-2-4-3" has:
-#   - robots: robot1, robot2
-#   - grippers: rgripper1, lgripper1, rgripper2, lgripper2
-#   - rooms: room1, room2, room3, room4
-#   - objects (balls): ball1, ball2, ball3
-# Initial state:
-#   - robot1 at room3
-#   - robot1 free rgripper1
-#   - robot1 free lgripper1
-#   - robot2 at room2
-#   - robot2 free rgripper2
-#   - robot2 free lgripper2
-#   - ball1 at room1
-#   - ball2 at room4
-#   - ball3 at room4
-# Goal:
-#   - ball1 at room4
-#   - ball2 at room2
-#   - ball3 at room1
-# Constraints:
-#   - always (not (at-robby robot1 room4))
-# So robot1 must never be in room4 at any time. This is a PDDL3 constraint (always).
-#
-# The user wants a plan that satisfies the goal and the constraint. They also gave output requirements:
-# - Return ONLY the plan steps, one per line.
-# - Each line must follow the format: (<ACTION_NAME> <param1> <param2> ...)
-# - Use only objects defined in the PROBLEM.
-# - No explanations, comments, headers.
-# - Not PDDL2 or PDDL3; but they said: "If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task."
-# So we must produce a plan that satisfies the PDDL3 constraint: robot1 must never be in room4.
-#
-# Let's analyze the goal requirements for balls:
-# - ball1 must go from room1 to room4.
-# - ball2 must go from room4 to room2.
-# - ball3 must go from room
+(pick robot1 ball1 room1 rgripper1)
+(move robot1 room1 room4)
+(drop robot1 ball1 room4 rgripper1)
+(move robot1 room4 room3)
+(pick robot1 ball3 room4 rgripper1)
+(move robot1 room4 room1)
+(drop robot1 ball3 room1 rgripper1)
+(move robot1 room1 room4)
+(pick robot1 ball1 room4 rgripper1)
+(move robot1 room4 room2)
+(drop robot1 ball1 room2 rgripper1)
+(pick robot2 ball2 room4 lgripper2)
+(move robot2 room4 room1)
+(drop robot2 ball2 room1 lgripper2)
+(move robot2 room1 room4)
+(pick robot2 ball3 room4 lgripper2)
+(move robot2 room4 room1)
+(drop robot2 ball3 room1 lgripper2)

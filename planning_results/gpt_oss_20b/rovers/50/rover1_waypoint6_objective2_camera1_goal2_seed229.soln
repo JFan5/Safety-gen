@@ -1,34 +1,23 @@
-commentary# Plan Generation for Problem roverprob229
-## Domain Overview
-- **Rover** can navigate between waypoints, sample soil/rock, drop payload, calibrate cameras, take images, and communicate data to a lander.
-- **Stores** hold samples; each store can be either empty or full.
-- **Sensors**:
-- Soil analysis instrument
-- Rock analysis instrument
-- Camera (supports modes high_res, low_res) requiring calibration to a specific objective.
-- **Calibration**: `calibrate` requires the rover to be at a waypoint where the calibration target objective is visible and the camera to be on board. After calibration, the camera is calibrated for that waypoint. Calibration is lost when the rover takes an image.
-- **Image Taking**: `take_image` requires the camera to be calibrated, the rover to be at a waypoint, the objective to be visible from that waypoint, and the camera mode to be supported. After taking an image, the camera becomes uncalibrated.
-- **Communication**: Rover can communicate soil, rock, or image data to a lander if:
-- Rover and lander are both available.
-- Rover is at a waypoint visible to the lander’s waypoint.
-- The relevant data (soil at waypoint, rock at waypoint, image from objective+mode) has been collected.
-Communication actions make the rover and lander unavailable, but immediately free them again, thus preserving availability for subsequent communications.
-- **Constraints**:
-- `sometime-before (at rover0 waypoint4) (at rover0 waypoint2)`
-Rover0 must visit waypoint2 at some point after having been at waypoint4.
-## Initial State Summary
-- Rover0 starts at **waypoint4** (which is also the lander’s location).
-- Stores: `rover0store` is empty.
-- Waypoint facts:
-- Soil samples at waypoint2, waypoint4, waypoint5.
-- Rock sample at waypoint3.
-- Objectives visible:
-- `objective0` from waypoint0, waypoint2, waypoint5.
-- `objective1` from waypoint0, waypoint4.
-- Camera0 is on Rover0 and can take high_res and low_res images.
-- Calibration target for camera0 is `objective1`.
-- All instruments for soil, rock, and imaging are equipped.
-- Visibility and traversal graphs are fully symmetric as listed.
-## Goal Requirements
-1. **Communicated Data**:
--
+(calibrate rover0 camera0 objective1 waypoint4)
+(navigate rover0 waypoint4 waypoint2)
+(sample_soil rover0 rover0store waypoint2)
+(drop rover0 rover0store)
+(navigate rover0 waypoint2 waypoint4)
+(sample_soil rover0 rover0store waypoint4)
+(calibrate rover0 camera0 objective1 waypoint4)
+(navigate rover0 waypoint4 waypoint0)
+(navigate rover0 waypoint0 waypoint5)
+(sample_soil rover0 rover0store waypoint5)
+(drop rover0 rover0store)
+(navigate rover0 waypoint5 waypoint0)
+(navigate rover0 waypoint0 waypoint3)
+(calibrate rover0 camera0 objective1 waypoint3)
+(take_image rover0 waypoint3 objective1 high_res)
+(communicate_image_data rover0 general objective1 high_res waypoint3 waypoint4)
+(navigate rover0 waypoint3 waypoint1)
+(navigate rover0 waypoint1 waypoint5)
+(communicate_soil_data rover0 general waypoint5 waypoint1)
+(navigate rover0 waypoint5 waypoint0)
+(communicate_soil_data rover0 general waypoint0 waypoint5)
+(communicate_rock_data rover0 general waypoint3 waypoint0)
+(communicate_soil_data rover0 general waypoint2 waypoint1)

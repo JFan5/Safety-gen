@@ -7,7 +7,7 @@
 #SBATCH --output=evaluate_qwen3_multi_baseline.o
 #SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
 #SBATCH --job-name=evaluate_Qwen3-14B_multi_baseline # Specify job name
-#SBATCH --array=1-5 # Specify number of tasks in array (5 scenarios)
+#SBATCH --array=1-7 # Specify number of tasks in array (5 scenarios)
 
 conda activate llmstl
 
@@ -19,6 +19,7 @@ scenarios=(
     "grippers"
     "spanner"
     "grid"
+    "rovers"
 )
 scenario_name="${scenarios[$SLURM_ARRAY_TASK_ID-1]}"
 
@@ -70,6 +71,6 @@ python3 script/evaluate_llm_solver.py \
   --model ${BASE_MODEL} \
   --problems-dir ${PROBLEMS_DIR} \
   --domain-file ${DOMAIN_FILE} \
-  --max-problems 30 \
+  --max-problems 50 \
   --output ${OUTPUT_NAME} \
   --results-dir ${RESULTS_DIR}

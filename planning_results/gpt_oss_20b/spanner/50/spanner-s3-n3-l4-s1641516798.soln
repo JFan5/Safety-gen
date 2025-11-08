@@ -1,1 +1,10 @@
-commentary{"action":"pickup_spanner","params":["shed","spanner1","bob"]}commentary{"action":"walk","params":["shed","location1","bob"]}commentary{"action":"walk","params":["location1","location2","bob"]}commentary{"action":"walk","params":["location2","location3","bob"]}commentary{"action":"walk","params":["location3","location4","bob"]}commentary{"action":"walk","params":["location4","gate","bob"]}commentary{"action":"tighten_nut","params":["gate","spanner1","bob","nut1"]}commentary{"action":"walk","params":["gate","location4","bob"]}commentary{"action":"walk","params":["location4","location3","bob"]}commentary{"action":"walk","params":["location3","location2","bob"]}commentary{"action":"tighten_nut","params":["location2","spanner1","bob","nut2"]}commentary{"action":"walk","params":["location2","location3","bob"]}commentary{"action":"walk","params":["location3","location4","bob"]}commentary{"action":"walk","params":["location4","gate","bob"]}commentary{"action":"tighten_nut","params":["gate","spanner1","bob","nut3"]}commentary{"action":"walk","params":["gate","location4","bob"]}commentary{"action":"walk","params":["location4","location3","bob"]}commentary{"action":"walk","params":["location3","location2","bob"]}commentary{"action":"walk","params":["location2","location1","bob"]}commentary{"action":"walk","params":["location1","shed","bob"]}commentary{"action":"pickup_spanner","params":["shed","spanner2","bob"]}commentary{"action":"walk","params":["shed","location1","bob"]}commentary{"action":"walk","params":["location1","location2","bob"]}commentary{"action":"walk","params":["location2","location3","bob"]}commentary{"action":"walk","params":["location3","location4
+(walk shed location1 bob)
+(walk location1 location2 bob)
+(pickup_spanner location2 spanner1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(walk location4 gate bob)
+(tighten_nut gate spanner1 bob nut3)
+(tighten_nut gate spanner1 bob nut2)
+(tighten_nut gate spanner1 bob nut1)

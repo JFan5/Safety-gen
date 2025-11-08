@@ -1,34 +1,18 @@
-analysisWe need to produce a plan for the gripper domain with 2 robots, 4 rooms, 4 balls. The initial state:
-- robot1 at room3
-- robot1 grippers: rgripper1 free, lgripper1 free
-- robot2 at room2
-- robot2 grippers: rgripper2 free, lgripper2 free
-Objects:
-- balls: ball1 at room2
-- ball2 at room1
-- ball3 at room3
-- ball4 at room3
-Goal:
-- ball1 at room2 (already)
-- ball2 at room3
-- ball3 at room1
-- ball4 at room1
-Constraints (PDDL3):
-- always not (robot1 at room1 and robot2 at room1)
-- always not (robot1 at room3 and robot2 at room3)
-So robots cannot be simultaneously in room1 or room3. They can be in room2 or room4 together.
-We need to move ball2 from room1 to room3, ball3 from room3 to room1, ball4 from room3 to room1. ball1 stays at room2.
-Robots can cooperate. They have two grippers each, can carry two balls simultaneously (one per gripper). They can pick and drop.
-We must avoid constraint violations at all times.
-Let's analyze initial positions:
-- robot1: room3
-- robot2: room2
-- ball1: room2
-- ball2: room1
-- ball3: room3
-- ball4: room3
-Goal positions:
-- ball2: room3
-- ball3: room1
-- ball4: room1
-So we need to move ball2 to room3, ball3 to room1, ball4 to room1
+(pick robot1 ball3 room3 lgripper1)
+(move robot1 room3 room1)
+(drop robot1 ball3 room1)
+(move robot1 room1 room4)
+(pick robot1 ball4 room4 lgripper1)
+(move robot1 room4 room1)
+(drop robot1 ball4 room1)
+(pick robot2 ball2 room1 lgripper2)
+(move robot2 room1 room3)
+(drop robot2 ball2 room3)
+(move robot1 room1 room4)
+(pick robot1 ball4 room1 lgripper1)
+(move robot1 room4 room1)
+(drop robot1 ball4 room1)
+(move robot2 room3 room1)
+(pick robot2 ball2 room3 lgripper2)
+(move robot2 room3 room1)
+(drop robot2 ball2 room1)

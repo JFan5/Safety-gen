@@ -1,36 +1,11 @@
-commentary# The user has provided a PDDL domain and problem. The domain is "gripper-strips" with typing,
-# predicates: at-robby (?r - robot ?x - room), at (?o - object ?x - room), free (?r - robot ?g - gripper),
-# carry (?r - robot ?o - object ?g - gripper).
-# Actions:
-# move: parameters (?r - robot ?from ?to - room)
-#   precondition: (at-robby ?r ?from)
-#   effect: (at-robby ?r ?to) (not (at-robby ?r ?from))
-# pick: parameters (?r - robot ?obj - object ?room - room ?g - gripper)
-#   precondition: (at ?obj ?room) (at-robby ?r ?room) (free ?r ?g)
-#   effect: (carry ?r ?obj ?g) (not (at ?obj ?room)) (not (free ?r ?g))
-# drop: parameters (?r - robot ?obj - object ?room - room ?g - gripper)
-#   precondition: (carry ?r ?obj ?g) (at-robby ?r ?room)
-#   effect: (at ?obj ?room) (free ?r ?g) (not (carry ?r ?obj ?g))
-# Problem "gripper-2-4-3":
-# Objects:
-#   robot1 robot2 - robot
-#   rgripper1 lgripper1 rgripper2 lgripper2 - gripper
-#   room1 room2 room3 room4 - room
-#   ball1 ball2 ball3 - object
-# Init:
-#   (at-robby robot1 room2)
-#   (free robot1 rgripper1)
-#   (free robot1 lgripper1)
-#   (at-robby robot2 room4)
-#   (free robot2 rgripper2)
-#   (free robot2 lgripper2)
-#   (at ball1 room1)
-#   (at ball2 room1)
-#   (at ball3 room1)
-# Goal:
-#   (at ball1 room1)
-#   (at ball2 room2)
-#   (at ball3 room3)
-# Constraints:
-#   (:constraints
-#     (always (not (
+(pick robot1 ball2 room1 lgripper1)
+(move robot1 room1 room2)
+(drop robot1 ball2 room2 lgripper1)
+(pick robot1 ball3 room1 lgripper1)
+(move robot1 room1 room3)
+(drop robot1 ball3 room3 lgripper1)
+(pick robot2 ball1 room1 rgripper2)
+(move robot2 room1 room3)
+(move robot2 room3 room4)
+(move robot2 room4 room3)
+(drop robot2 ball1 room3 rgripper2)

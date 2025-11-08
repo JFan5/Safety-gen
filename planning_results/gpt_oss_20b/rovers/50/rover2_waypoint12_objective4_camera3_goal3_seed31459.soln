@@ -1,6 +1,24 @@
-commentaryWe must produce a plan for roverprob31459. Domain Rover with constraints: always (not (and (at rover0 waypoint10) (at rover1 waypoint10))) etc. So they cannot be simultaneously at waypoint10, waypoint9, waypoint11. Also they cannot be at waypoint10 simultaneously. Also waypoint9 and waypoint11 constraints. So we must ensure plan respects that.
-Goal: communicated_soil_data waypoint9, waypoint7, waypoint11, waypoint2. communicated_rock_data waypoint10, waypoint9, waypoint11. communicated_image_data objective2 high_res, objective3 low_res.
-So we need to collect soil samples from waypoint9, waypoint7, waypoint11, waypoint2. Also rock samples from waypoint10, waypoint9, waypoint11. Also take images: objective2 high_res, objective3 low_res.
-We have initial samples: waypoint0 rock, waypoint1 rock, waypoint2 soil, waypoint3 rock, waypoint4 soil, waypoint5 rock, waypoint7 soil, waypoint8 rock, waypoint9 soil, waypoint9 rock, waypoint10 soil, waypoint10 rock, waypoint11 soil, waypoint11 rock. So waypoint9 has both soil and rock, waypoint7 soil, waypoint11 soil and rock, waypoint2 soil. Good.
-Rover0 starts at waypoint8, equipped for soil only. Rover1 starts at waypoint10, equipped for soil, rock, imaging. Stores: rover0store, rover1store. They have store_of. Rover0store empty, rover1store empty. They can sample soil/rock into store if empty. They can drop to empty store. They can communicate data to lander general at waypoint1. Lander at waypoint1, channel_free.
-Also calibrate action: needs rover, camera, target objective, waypoint where both rover and target are, and target must be calibration_target for camera. On_board camera0, camera1, camera2 all at rover1. Calibration_target: camera0 objective3, camera1 objective1, camera2 objective2. So camera2 objective2, camera0 objective3. So to calibrate for objective3 we use camera0; for objective2 use camera2. Mode must be supported: camera0 supports high_res, low_res. camera2 supports colour, high_res. So for objective3 low_res we can use camera0 low_res. For objective2 high_res we can use camera2 high_res. Calibration requires (calibrated ?i ?r) after action; take_image requires calibrated and supports
+(navigate rover1 waypoint10 waypoint1)
+(sample_rock rover1 rover1store waypoint1)
+(drop rover1 rover1store)
+(navigate rover1 waypoint10 waypoint3)
+(sample_soil rover1 rover1store waypoint3)
+(drop rover1 rover1store)
+(navigate rover1 waypoint10 waypoint7)
+(sample_soil rover1 rover1store waypoint7)
+(drop rover1 rover1store)
+(navigate rover1 waypoint10 waypoint9)
+(sample_rock rover1 rover1store waypoint9)
+(drop rover1 rover1store)
+(navigate rover1 waypoint10 waypoint11)
+(sample_soil rover1 rover1store waypoint11)
+(drop rover1 rover1store)
+(calibrate rover1 camera0 objective3 waypoint11)
+(take_image rover1 waypoint11 camera0 high_res)
+(communicate_image_data rover1 general objective3 high_res waypoint11 waypoint1)
+(communicate_soil_data rover1 general waypoint11 waypoint9)
+(communicate_soil_data rover1 general waypoint11 waypoint7)
+(communicate_soil_data rover1 general waypoint11 waypoint2)
+(communicate_rock_data rover1 general waypoint9)
+(communicate_rock_data rover1 general waypoint11)
+(communicate_image_data rover1 general objective2 high_res waypoint9 waypoint7)

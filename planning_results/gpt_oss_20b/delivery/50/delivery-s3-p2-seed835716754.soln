@@ -1,30 +1,37 @@
-commentary# Plan Generation for Delivery Domain (3x3 grid, 2 packages)
-# Initial State:
-# - t1 at c_1_0
-# - p2 at c_0_2
-# - p1 at c_2_2
-# - t1 empty
-# Goal:
-# - p1 at c_0_0
-# - p2 at c_0_0
-# Constraint:
-# - c_0_0 must be visited by t1 at some time (sometime constraint)
-# Strategy:
-# 1. Move t1 to c_0_0 to satisfy the sometime constraint.
-# 2. Pick up p1 (currently at c_2_2) by first transporting t1 to c_2_2.
-#    Path: c_0_0 -> c_0_1 -> c_0_2 -> c_1_2 -> c_2_2
-# 3. Deliver p1 to c_0_0 while carrying it.
-#    Path: c_2_2 -> c_1_2 -> c_0_2 -> c_0_1 -> c_0_0
-# 4. Drop p1 at c_0_0.
-# 5. Pick up p2 (currently at c_0_2) while still at c_0_0.
-# 6. Transport t1 with p2 to c_0_0 (already there), so just drop p2.
-#    However, p2 is at c_0_2; we need to move to c_0_2 first, pick it up,
-#    then return to c_0_0, and drop it.
-# Detailed Sequence:
-# Step 1: Move t1 from c_1_0 to c_0_0
-#   Preconditions: adjacent c_1_0 c_0_0, at t1 c_1_0, not (= c_1_0 c_0_0)
-#   Effect: at t1 c_0_0, not at t1 c_1_0, last t1 c_1_0
-move t1 c_1_0 c_0_0
-# Step 2: Move t1 from c_0_0 to c_0_1
-move t1 c_0_0 c_0_1
-# Step 3: Move t1
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(pick-package t1 p2 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_0_1)
+(move t1 c_0_1 c_0_2)
+(drop-package t1 p2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_0_0)
+(pick-package t1 p1 c_0_0)
+(move t1 c_0_0 c_0_1)
+(move t1 c_0_1 c_0_2)
+(move t1 c_0_2 c_1_2)
+(move t1 c_1_2 c_2_2)
+(drop-package t1 p1 c_2_2)
+(move t1 c_2_2 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_0_1)
+(move t1 c_0_1 c_0_0)
+(pick-package t1 p2 c_0_0)
+(move t1 c_0_0 c_0_1)
+(move t1 c_0_1 c_0_2)
+(move t1 c_0_2 c_1_2)
+(move t1 c_1_2 c_2_2)
+(drop-package t1 p2 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_0_0)
+(pick-package t1 p1 c_0_0)
+(move t1 c_0_0 c_0_1)
+(move t1 c_0_1 c_0_2)
+(move t1 c_0_2 c_1_2)
+(move t1 c_1_2 c_2_2)
+(drop-package t1 p1 c_2_2)
+(move t1 c_2_2 c_2_1)
+(move t1 c_2_1 c_1_1)

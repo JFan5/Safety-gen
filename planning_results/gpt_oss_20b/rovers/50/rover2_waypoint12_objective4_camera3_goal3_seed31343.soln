@@ -1,41 +1,15 @@
-commentaryWe need to generate a plan for the rover domain with constraints. Let's analyze the domain, problem, and constraints.
-Domain Rover:
-Types: rover, waypoint, store, lander, objective, camera, mode, lander.
-Predicates:
-- at ?x - rover ?y - waypoint
-- at_lander ?x - lander ?y - waypoint
-- can_traverse ?r - rover ?x - waypoint ?y - waypoint
-- equipped_for_soil_analysis ?r - rover
-- equipped_for_rock_analysis ?r - rover
-- equipped_for_imaging ?r - rover
-- empty ?s - store
-- have_rock_analysis ?r - rover ?w - waypoint
-- have_soil_analysis ?r - rover ?w - waypoint
-- full ?s - store
-- calibrated ?c - camera ?r - rover
-- supports ?c - camera ?m - mode
-- available ?r - rover
-- visible ?w - waypoint ?p - waypoint
-- have_image ?r - rover ?o - objective ?m - mode
-- communicated_soil_data ?w - waypoint
-- communicated_rock_data ?w - waypoint
-- communicated_image_data ?o - objective ?m - mode
-- at_soil_sample ?w - waypoint
-- at_rock_sample ?w - waypoint
-- visible_from ?o - objective ?w - waypoint
-- store_of ?s - store ?r - rover
-- calibration_target ?i - camera ?o - objective
-- visible_from ?o - objective ?w - waypoint
-- on_board ?i - camera ?r - rover
-- channel_free ?l - lander
-Actions:
-1. navigate
-:parameters (?x - rover ?y - waypoint ?z - waypoint)
-:precondition (and (can_traverse ?x ?y ?z) (available ?x) (at ?x ?y)
-(visible ?y ?z))
-:effect (and (not (at ?x ?y)) (at ?x ?z)))
-2. sample_soil
-:parameters (?x - rover ?s - store ?p - waypoint)
-:precondition (and (at ?x ?p) (at_soil_sample ?p)
-(equipped_for_soil_analysis ?x) (store_of ?s ?x) (empty ?s))
-:effect (and (not (empty ?s)) (full ?s) (have_soil
+(calibrate camera0 objective2 rover1 waypoint6)
+(sample_rock rover1 waypoint6)
+(drop rover1 rover1store)
+(sample_soil rover1 waypoint6)
+(calibrate camera2 objective0 rover0 waypoint11)
+(take_image rover0 waypoint11 objective0 high_res)
+(communicate_image_data rover0 general objective0 high_res waypoint11 waypoint1)
+(communicate_soil_data rover1 general waypoint6 waypoint11)
+(communicate_rock_data rover1 general waypoint8 waypoint11)
+(communicate_image_data rover0 general objective3 low_res waypoint11 waypoint1)
+(communicate_image_data rover0 general objective2 high_res waypoint11 waypoint1)
+(sample_rock rover0 waypoint11)
+(sample_soil rover0 waypoint11)
+(communicate_soil_data rover0 general waypoint11 waypoint1)
+(communicate_rock_data rover0 general waypoint11 waypoint1)

@@ -1,3 +1,12 @@
-commentaryWe must produce plan for ferry-l4-c3 domain with constraints:
-1. (sometime-before  (at c1 l3) (at-ferry l0))
-=> The ferry must be at l0 at some time before c1 reaches l3. So before board c1 at l3? Wait c1 goal is at l3. So ferry must be at l0 before that goal is achieved. So at time when c1 is at l3, ferry must be at l0. That means after c1 reaches l3, ferry must still be at l0. So ferry must be at l0 at goal time. So we need to ensure that at the end, ferry is at l0. But constraints only specify before c1 at l3, ferry at l0. So at goal time, ferry could be anywhere, but must have been at l0 before c1 at l3. So we can plan: ferry starts at l3. We need to get c1 to l3. Initially c1 at l2. So we need to ferry l2 to l3 with c1. But ferry starts at l3. So we could sail l3 to l0 first, then sail l0 to l2, board c1 at l2, sail l2 to l3, debark c1 at l3. At that point, ferry is at l3 (since it sailed l2 to l3). But constraint requires ferry at l0 before c1 at l3. But c1 at l3 occurs after debark. So ferry is at l3 at that time, violating constraint. So we need to ensure ferry at l0 before c1 at l3. So we must sail to l0 before c1 reaches l3. But we also need to bring c1 from l2 to l3. So we could sail l3 to l0, then l0 to l2, board c1 at l2, sail l2 to l0, debark c1 at l0, then sail l0 to l3, board c1 at l3? Wait goal is c1 at l3, so we need to bring c1 to l3. So we could bring c1 to l0 first, then sail l0 to l3 with c1. But constraint: ferry at l0 before c1 at l3. If we bring c1 to l0, then sail l0 to l3 with c1
+(sail l3 l2)
+(board c1 l2)
+(sail l2 l1)
+(debark c1 l1)
+(sail l1 l0)
+(board c2 l0)
+(sail l0 l2)
+(debark c2 l2)
+(sail l2 l1)
+(board c1 l1)
+(sail l1 l3)
+(debark c1 l3)

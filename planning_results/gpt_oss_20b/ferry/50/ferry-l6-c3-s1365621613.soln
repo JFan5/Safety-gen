@@ -1,35 +1,73 @@
-commentary{"action":"sail","parameters":["l4","l5"]}
-{"action":"board","parameters":["c0","l5"]}
-{"action":"sail","parameters":["l5","l3"]}
-{"action":"debark","parameters":["c0","l3"]}
-{"action":"sail","parameters":["l3","l4"]}
-{"action":"sail","parameters":["l4","l0"]}
-{"action":"sail","parameters":["l0","l1"]}
-{"action":"board","parameters":["c1","l1"]}
-{"action":"sail","parameters":["l1","l5"]}
-{"action":"debark","parameters":["c1","l5"]}
-{"action":"sail","parameters":["l5","l3"]}
-{"action":"board","parameters":["c2","l3"]}
-{"action":"sail","parameters":["l3","l5"]}
-{"action":"debark","parameters":["c2","l5"]}
-{"action":"sail","parameters":["l5","l4"]}
-{"action":"sail","parameters":["l4","l5"]}
-{"action":"board","parameters":["c0","l5"]}
-{"action":"sail","parameters":["l5","l3"]}
-{"action":"debark","parameters":["c0","l3"]}
-{"action":"sail","parameters":["l3","l4"]}
-{"action":"sail","parameters":["l4","l0"]}
-{"action":"sail","parameters":["l0","l1"]}
-{"action":"board","parameters":["c1","l1"]}
-{"action":"sail","parameters":["l1","l5"]}
-{"action":"debark","parameters":["c1","l5"]}
-{"action":"sail","parameters":["l5","l3"]}
-{"action":"board","parameters":["c2","l3"]}
-{"action":"sail","parameters":["l3","l5"]}
-{"action":"debark","parameters":["c2","l5"]}
-{"action":"sail","parameters":["l5","l4"]}
-{"action":"sail","parameters":["l4","l5"]}
-{"action":"board","parameters":["c0","l5"]}
-{"action":"sail","parameters":["l5","l3"]}
-{"action":"debark","parameters":["c0","l3"]}
-{"action":"sail
+(sail l4 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)
+(board c2 l5)
+(sail l5 l0)
+(debark c2 l0)
+(sail l0 l5)
+(board c2 l5)
+(sail l5 l3)
+(debark c2 l3)
+(sail l3 l5)

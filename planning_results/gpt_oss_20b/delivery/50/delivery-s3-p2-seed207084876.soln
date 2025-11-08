@@ -1,32 +1,36 @@
-commentary# Plan Generation
-# 1. Parse the PDDL3 constraint:
-#    (:constraints (sometime (at t1 c_0_0)))
-#    -> t1 must be at c_0_0 at least once during the plan.
-# 2. Goal:
-#    (and (at p1 c_1_0) (at p2 c_1_0))
-# 3. Initial state:
-#    p1 at c_0_1
-#    p2 at c_0_2
-#    t1 at c_1_2
-#    t1 empty
-#    adjacency list as provided.
-# 4. Required actions:
-#    - move truck t1 between adjacent cells.
-#    - pick-package (truck, package, cell) when both at cell and truck empty.
-#    - drop-package (truck, package, cell) when truck at cell and carrying package.
-# 5. Strategy:
-#    a) Transport t1 to c_0_0 to satisfy the "sometime" constraint.
-#    b) From c_0_0, pick up p1 (currently at c_0_1) -> need to move to c_0_1 first.
-#    c) Drop p1 at c_1_0.
-#    d) Pick up p2 (currently at c_0_2) -> need to move to c_0_2 first.
-#    e) Drop p2 at c_1_0.
-#    f) Ensure t1 visits c_0_0 at least once (already satisfied before picking p1).
-# 6. Path calculations:
-#    - c_1_2 -> c_0_2 (adjacent)
-#    - c_0_2 -> c_0_1 (adjacent)
-#    - c_0_1 -> c_0_0 (adjacent)   # t1 visits c_0_0 here
-#    - c_0_0 -> c_0_1 (adjacent)
-#    - c_0_1 -> c_1_1 (adjacent)
-#    - c_1_1 -> c_1_0 (adjacent)   # t1 reaches c_1_0 to drop p1
-#    - c_1_0 -> c_2_0 (adjacent)
-#    - c_2_0
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(pick-package t1 p1 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(drop-package t1 p1 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(pick-package t1 p2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(drop-package t1 p2 c_1_0)
+(move t1 c_1_0 c_0_0)
+(move t1 c_0_0 c_1_0)
+(move t1 c_1_0 c_1_1)
+(move t1 c_1_1 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_1_0)
+(move t1 c_1_0 c_1_1)
+(move t1 c_1_1 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_0)

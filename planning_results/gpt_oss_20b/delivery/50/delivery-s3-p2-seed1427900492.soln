@@ -1,26 +1,36 @@
-analysisWe need to produce a plan for the delivery domain with constraints. Let's restate the problem:
-Objects:
-- cells: c_0_0, c_0_1, c_0_2, c_1_0, c_1_1, c_1_2, c_2_0, c_2_1, c_2_2
-- packages: p1, p2
-- truck: t1
-Initial state:
-- adjacencies (bidirectional) listed.
-- at p2 c_0_1
-- at p1 c_2_0
-- at t1 c_0_2
-- empty t1
-Goal:
-- at p1 c_1_0
-- at p2 c_1_0
-Constraints:
-- (:constraints (sometime (at t1 c_0_0)))
-So t1 must be at c_0_0 at some point during the plan (not necessarily at the end). That's a PDDL3 constraint.
-We need to find a sequence of actions: move, pick-package, drop-package that achieves the goal and satisfies the constraint.
-We must also consider domain constraints:
-- carrying: truck can carry at most one package? Let's check: empty predicate indicates no package. pick-package requires empty t. So yes, at most one package.
-- move: precondition: adjacent from to, at t from, not (= from to). effect: at t to, not at t from, last t from. So last predicate records the previous location. There's a constraint: (sometime (at t1 c_0_0)). So we just need to be at c_0_0 at some point. No constraint about last. So we can ignore last.
-Also domain constraints:
-- adjacency is symmetric? Provided by init. They listed both directions. So move can go either way.
-- Packages and truck must be at cells: at predicate requires locatable and cell. So fine.
-- pick-package: precondition: at p x, at t x, empty t. effect: not at p x, empty t, carrying t p. Wait they also remove empty t? Yes: (empty ?t) in precondition, and in effect: (not (empty ?t)) and (carrying ?t ?p). So after pick, t is not empty.
-- drop-package: precondition: at t x, carrying t p. effect:
+(move t1 c_0_2 c_1_2)
+(move t1 c_1_2 c_2_2)
+(pick-package t1 p2 c_0_1)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(drop-package t1 p2 c_1_0)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(pick-package t1 p1 c_2_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(drop-package t1 p1 c_1_0)
+(move t1 c_1_0 c_0_0)
+(move t1 c_0_0 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_2)
+(move t1 c_1_2 c_2_2)
+(move t1 c_2_2 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_0_1)
+(move t1 c_0_1 c_0_2)
+(move t1 c_0_2 c_1_2)
+(move t1 c_1_2 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_1_0)
+(move t1 c_1_0 c_0_0)

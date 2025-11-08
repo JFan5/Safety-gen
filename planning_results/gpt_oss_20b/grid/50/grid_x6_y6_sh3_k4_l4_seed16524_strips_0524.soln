@@ -1,52 +1,50 @@
-analysisWe need to generate a plan for the grid-6-6-3-4-4 domain. Let's restate the domain:
-- Places: pos0-0 ... pos5-5 (6x6 grid)
-- Shapes: shape0 shape1 shape2
-- Keys: key0 key1 key2 key3
-- Predicates:
-- conn X Y: X and Y are places that are connected (adjacent)
-- key-shape K S: key K has shape S
-- lock-shape P S: place P has lock shape S
-- at R P: robot R is at place P
-- at-robot P: robot is at place P (alias)
-- place P: P is a place
-- key K: K is a key
-- shape S: S is a shape
-- locked P: place P is locked
-- at K P: key K is at place P
-- holding K: robot holds key K
-- open P: place P's lock is open
-- arm-empty: robot's arm is empty
-- Actions:
-1. unlock
-params: curpos lockpos key shape
-precond: place curpos, place lockpos, key key, shape shape,
-conn curpos lockpos,
-key-shape key shape,
-lock-shape lockpos shape,
-at-robot curpos,
-locked lockpos,
-holding key
-effect: open lockpos, not locked lockpos
-2. move
-params: curpos nextpos
-precond: place curpos, place nextpos,
-at-robot curpos,
-conn curpos nextpos,
-open nextpos
-effect: at-robot nextpos, not at-robot curpos
-3. pickup
-params: curpos key
-precond: place curpos, key key,
-at-robot curpos,
-at key curpos,
-arm-empty
-effect: holding key, not at key curpos, not arm-empty
-4. pickup-and-loose
-params: curpos newkey oldkey
-precond: place curpos, key newkey, key oldkey,
-at-robot curpos,
-holding oldkey,
-at newkey curpos
-effect: holding newkey,
-at oldkey curpos,
-not holding old
+(unlock pos0-1 pos0-0 key0 shape0)
+(pickup pos2-1 key0)
+(move pos2-1 pos3-1)
+(move pos3-1 pos4-1)
+(move pos4-1 pos5-1)
+(move pos5-1 pos5-2)
+(move pos5-2 pos5-3)
+(move pos5-3 pos5-4)
+(move pos5-4 pos5-5)
+(move pos5-5 pos4-5)
+(move pos4-5 pos3-5)
+(move pos3-5 pos2-5)
+(move pos2-5 pos1-5)
+(move pos1-5 pos0-5)
+(move pos0-5 pos0-4)
+(move pos0-4 pos0-3)
+(move pos0-3 pos0-2)
+(move pos0-2 pos0-1)
+(move pos0-1 pos0-0)
+(move pos0-0 pos1-0)
+(move pos1-0 pos2-0)
+(move pos2-0 pos3-0)
+(move pos3-0 pos4-0)
+(move pos4-0 pos5-0)
+(move pos5-0 pos5-1)
+(move pos5-1 pos5-2)
+(move pos5-2 pos5-3)
+(move pos5-3 pos5-4)
+(move pos5-4 pos5-5)
+(move pos5-5 pos4-5)
+(move pos4-5 pos3-5)
+(move pos3-5 pos2-5)
+(move pos2-5 pos1-5)
+(move pos1-5 pos0-5)
+(move pos0-5 pos0-4)
+(move pos0-4 pos0-3)
+(move pos0-3 pos0-2)
+(move pos0-2 pos0-1)
+(move pos0-1 pos0-0)
+(move pos0-0 pos1-0)
+(move pos1-0 pos2-0)
+(move pos2-0 pos3-0)
+(move pos3-0 pos4-0)
+(move pos4-0 pos5-0)
+(move pos5-0 pos5-1)
+(move pos5-1 pos5-2)
+(move pos5-2 pos5-3)
+(move pos5-3 pos5-4)
+(move pos5-4 pos5-5)
+(move pos5-5 pos4-5)

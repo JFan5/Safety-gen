@@ -1,6 +1,5 @@
-commentary{"action":"board","car":"c1","loc":"l5"}
-{"action":"sail","from":"l5","to":"l1"}
-{"action":"debark","car":"c1","loc":"l1"}
-{"action":"sail","from":"l1","to":"l0"}
-{"action":"board","car":"c1","loc":"l0"}
-{"action":"debark","car":"c1","loc":"l0"}
+(sail l2 l5)
+(board c1 l5)
+(sail l5 l1)
+(sail l1 l0)
+(debark c1 l0)

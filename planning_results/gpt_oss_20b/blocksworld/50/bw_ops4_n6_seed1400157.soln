@@ -1,35 +1,14 @@
-commentary# Plan Generation for BW-rand-6
-# Initial State:
-# arm-empty
-# on b1 b6
-# on b2 b1
-# on-table b3
-# on b4 b2
-# on-table b5
-# on-table b6
-# clear b3
-# clear b4
-# clear b5
-# Goal:
-# on b1 b3
-# on b4 b2
-# on b5 b4
-# on b6 b5
-# Constraint:
-# sometime-before (on b4 b2) (on b1 b3)
-# => b4 must be on b2 BEFORE b1 is placed on b3.
-# Since (on b4 b2) is already true in the initial state, the constraint is satisfied as long as we do not place b1 on b3 before that.
-# So we can proceed to achieve the rest of the goal freely.
-# Goal components:
-# 1. on b1 b3
-# 2. on b5 b4
-# 3. on b6 b5
-# 4. on b4 b2 (already satisfied)
-# Strategy:
-# - Move b6 from table to b5 (putdown b6 -> pickup b5 -> stack b6 b5)
-# - Move b1 from b6 to b3 (unstack b1 b6 -> putdown b1 -> pickup b3 -> stack b1 b3)
-# Check interactions:
-#   After moving b6 to b5, b5 will be on-table clear? No, after stack b6 b5, b5 becomes clear?
-#   stack sets clear ob and on ob underob, clears ob, makes arm-empty. So b5 becomes clear? No, stack's effect: (clear ?ob) where ?ob is b6, (on b6 b5), (arm-empty), (not (clear b5)), (not (holding b6)). So b5 becomes NOT clear. Good.
-#   So b5 will not be clear after that, which is fine because we need (on b5 b4) and b5 will not be clear.
-#   For moving b1: we need to unstack b1 from b6. But after previous step, b6 is on b5, so b1 is on b6, and b6 is clear? Yes, because stack b6 b5 makes clear b6. So
+(unstack b4 b2)
+(putdown b4)
+(unstack b1 b6)
+(putdown b1)
+(unstack b2 b1)
+(putdown b2)
+(pickup b6)
+(stack b6 b5)
+(pickup b1)
+(stack b1 b3)
+(pickup b5)
+(stack b5 b4)
+(pickup b6)
+(stack b6 b5)

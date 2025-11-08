@@ -1,36 +1,26 @@
-commentaryWe need to generate a plan for the delivery domain with constraints. Let's analyze the problem.
-Objects:
-- cells: c_0_0, c_0_1, c_0_2, c_0_3,
-c_1_0, c_1_1, c_1_2, c_1_3,
-c_2_0, c_2_1, c_2_2, c_2_3,
-c_3_0, c_3_1, c_3_2, c_3_3
-- packages: p1, p2
-- truck: t1
-Initial facts:
-- adjacency facts: many pairs (adjacent X Y). It's a 4x4 grid. We can assume adjacency is symmetric; but they list both directions? Let's check: (adjacent c_0_1 c_0_2) and also (adjacent c_0_2 c_0_1). Yes both directions are listed. So move action requires adjacent from to, and from != to. So adjacency is symmetric but they include both directions.
-- at p2 c_0_3
-- at t1 c_1_3
-- at p1 c_2_1
-- empty t1
-Goal:
-- at p1 c_2_2
-- at p2 c_2_2
-Constraints:
-- (:constraints (sometime (at t1 c_0_0)))
-So we must have t1 at c_0_0 at some point during the plan (not necessarily at the end). That's the only constraint.
-Thus plan must:
-1. Move t1 from c_1_3 to c_0_0 at some point.
-2. Deliver p1 to c_2_2.
-3. Deliver p2 to c_2_2.
-We need to pick routes.
-Let's map grid coordinates: c_row_col.
-c_0_0: row0 col0
-c_0_1: row0 col1
-c_0_2: row0 col2
-c_0_3: row0 col3
-c_1_0: row1 col0
-c_1_1: row1 col1
-c_1_2: row1 col2
-c_1_3: row1 col3
-c_2_0: row2 col0
-c_2_
+(move t1 c_1_3 c_0_3)
+(pick-package t1 p2 c_0_3)
+(move t1 c_0_3 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_0_0)
+(move t1 c_0_0 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(move t1 c_2_1 c_2_2)
+(drop-package t1 p2 c_2_2)
+(move t1 c_2_2 c_1_2)
+(move t1 c_1_2 c_0_2)
+(move t1 c_0_2 c_0_3)
+(pick-package t1 p1 c_0_3)
+(move t1 c_0_3 c_1_3)
+(move t1 c_1_3 c_2_3)
+(move t1 c_2_3 c_1_3)
+(move t1 c_1_3 c_0_3)
+(move t1 c_0_3 c_0_2)
+(move t1 c_0_2 c_0_1)
+(move t1 c_0_1 c_0_0)
+(move t1 c_0_0 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_2_1)
+(move t1 c_2_1 c_2_2)
+(drop-package t1 p1 c_2_2)

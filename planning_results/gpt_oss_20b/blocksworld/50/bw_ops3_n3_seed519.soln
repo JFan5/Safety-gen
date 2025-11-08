@@ -1,19 +1,10 @@
-commentaryWe need to produce plan for BW-rand-3. Domain blocksworld with constraints. Problem:
-Objects: b1 b2 b3.
-Init:
-arm-empty
-on-table b1
-on b2 b3
-on-table b3
-clear b1
-clear b2
-Goal:
-on b1 b2
-on b2 b3
-on-table b3
-Constraints:
-(sometime-before (on b2 b3) (on b1 b2))
-So at some point before (on b2 b3) must hold (on b1 b2). That means b1 must be on b2 before b2 is on b3. In the goal, b2 is on b3, and b1 is on b2. So the goal itself satisfies the constraint: at goal time, (on b1 b2) and (on b2 b3) hold, so (on b1 b2) is before (on b2 b3). But PDDL3 constraints require that there exists a time where (on b1 b2) holds and after that time (on b2 b3) holds. The goal time is after all actions, so if both hold at goal, the constraint is satisfied. So we just need to reach goal. But we must ensure that at no point we violate any invariant: clear, on-table, arm-empty, holding. Also constraints: none else.
-Initial state: b1 on-table, clear; b2 clear, on b3; b3 on-table, clear? Wait clear b3? Not listed. So clear b3 is false because b2 is on b3. So clear b3 is false. So only clear b1 and clear b2.
-Goal: b1 on b2; b2 on b3; b3 on-table. So final: b3 on-table clear? Since nothing on b3, clear b3 true. b2 on b3 clear? Since nothing on b2, clear b2 true. b1 on b2 clear? Since nothing on b1, clear b1 false. arm-empty true.
-We need to move b1 onto b2, but b2 currently on b3. So we need to unstack b2 from b3, putdown b2, then pickup b1, stack b1 onto b2, then stack b2 onto b3. But we must ensure that sometime before (on b2 b3) we have (on b
+(unstack b2 b3)
+(putdown b2)
+(unstack b1 b2)
+(stack b1 b2)
+(unstack b1 b2)
+(putdown b1)
+(pickup b2)
+(stack b2 b3)
+(pickup b1)
+(stack b1 b2)

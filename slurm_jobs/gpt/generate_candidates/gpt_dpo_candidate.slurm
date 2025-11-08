@@ -14,65 +14,197 @@
 
 set -euo pipefail
 
-SCENARIOS=(blocksworld grippers ferry spanner delivery)
-PAIRS_PER_SCENARIO="${PAIRS_PER_SCENARIO:-500}"
-GEN_EXTRA_ARGS=("$@")
+mkdir -p "/home/ubuntu/data/dpo/gpt_multi_pddl3_500" "/home/ubuntu/data/dpo/gpt_oss_20b"
 
-REPO_ROOT="${HOME}/Safety-gen"
-# Use the multi-scenario SFT (500) GPT model for all scenarios
-MODEL_PATH="/home/ubuntu/sft_models/gpt_multi_pddl3_500"
-PROBLEM_SUBPATH="dpo_training"
-UNSLOTH_ROOT="${HOME}/data/dpo/gpt_unsloth"
-DATASET_ROOT="${HOME}/data/dpo/gpt_oss_20b"
+# ============================================================================
+# Step 1: Generate scored candidates for all scenarios
+# ============================================================================
+mkdir -p "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3" "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3" "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3" "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3" "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3"
 
-mkdir -p "${UNSLOTH_ROOT}" "${DATASET_ROOT}"
+echo "=== blocksworld: generating scored candidates -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3/scored.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/generate_score_candidate.py" \
+    --model "/home/ubuntu/sft_models/gpt_multi_pddl3_500" \
+    --domain-file "/home/ubuntu/Safety-gen/blocksworld/domain3.pddl" \
+    --problems-dir "/home/ubuntu/Safety-gen/blocksworld/dpo_training" \
+    --out "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3/scored.jsonl" \
+    --temperatures 0.6 0.9 \
+    --top-p 0.9 \
+    --top-k 50 \
+    "$@"
 
-for scenario in "${SCENARIOS[@]}"; do
-    model_path="${MODEL_PATH}"
-    domain_file="${REPO_ROOT}/${scenario}/domain3.pddl"
-    problems_dir="${REPO_ROOT}/${scenario}/${PROBLEM_SUBPATH}"
-    scenario_unsloth_dir="${UNSLOTH_ROOT}/${scenario}/pddl3"
-    scenario_dataset_dir="${DATASET_ROOT}/${scenario}"
-    scored_path="${scenario_unsloth_dir}/scored.jsonl"
-    scored_summary_path="${scenario_unsloth_dir}/scored_summaries.json"
-    full_dataset_path="${scenario_dataset_dir}/pddl3_dpo.jsonl"
-    sampled_dataset_path="${scenario_dataset_dir}/pddl3_dpo-${PAIRS_PER_SCENARIO}.jsonl"
+echo "=== grippers: generating scored candidates -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3/scored.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/generate_score_candidate.py" \
+    --model "/home/ubuntu/sft_models/gpt_multi_pddl3_500" \
+    --domain-file "/home/ubuntu/Safety-gen/grippers/domain3.pddl" \
+    --problems-dir "/home/ubuntu/Safety-gen/grippers/dpo_training" \
+    --out "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3/scored.jsonl" \
+    --temperatures 0.6 0.9 \
+    --top-p 0.9 \
+    --top-k 50 \
+    "$@"
 
-    mkdir -p "${scenario_unsloth_dir}" "${scenario_dataset_dir}"
+echo "=== ferry: generating scored candidates -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3/scored.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/generate_score_candidate.py" \
+    --model "/home/ubuntu/sft_models/gpt_multi_pddl3_500" \
+    --domain-file "/home/ubuntu/Safety-gen/ferry/domain3.pddl" \
+    --problems-dir "/home/ubuntu/Safety-gen/ferry/dpo_training" \
+    --out "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3/scored.jsonl" \
+    --temperatures 0.6 0.9 \
+    --top-p 0.9 \
+    --top-k 50 \
+    "$@"
 
-    echo "=== ${scenario}: generating scored candidates -> ${scored_path}"
-    python3 "${REPO_ROOT}/script/generate_score_candidate.py" \
-        --model "${model_path}" \
-        --domain-file "${domain_file}" \
-        --problems-dir "${problems_dir}" \
-        --out "${scored_path}" \
-        --temperatures 0.6 0.9 \
-        --top-p 0.9 \
-        --top-k 50 \
-        "${GEN_EXTRA_ARGS[@]}"
+echo "=== spanner: generating scored candidates -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3/scored.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/generate_score_candidate.py" \
+    --model "/home/ubuntu/sft_models/gpt_multi_pddl3_500" \
+    --domain-file "/home/ubuntu/Safety-gen/spanner/domain3.pddl" \
+    --problems-dir "/home/ubuntu/Safety-gen/spanner/dpo_training" \
+    --out "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3/scored.jsonl" \
+    --temperatures 0.6 0.9 \
+    --top-p 0.9 \
+    --top-k 50 \
+    "$@"
 
-    echo "=== ${scenario}: creating scored summaries -> ${scored_summary_path}"
-    python3 "${REPO_ROOT}/script/create_scored_summaries.py" \
-        --scenario "${scenario}" \
-        --variant "pddl3" \
-        --unsloth-jsonl "${scored_path}" \
-        --problem-dir "${problems_dir}" \
-        --domain-file "${domain_file}" \
-        --output "${scored_summary_path}"
+echo "=== delivery: generating scored candidates -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3/scored.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/generate_score_candidate.py" \
+    --model "/home/ubuntu/sft_models/gpt_multi_pddl3_500" \
+    --domain-file "/home/ubuntu/Safety-gen/delivery/domain3.pddl" \
+    --problems-dir "/home/ubuntu/Safety-gen/delivery/dpo_training" \
+    --out "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3/scored.jsonl" \
+    --temperatures 0.6 0.9 \
+    --top-p 0.9 \
+    --top-k 50 \
+    "$@"
 
-    echo "=== ${scenario}: constructing DPO dataset -> ${full_dataset_path}"
-    python3 "${REPO_ROOT}/script/construct_dpo_dataset.py" \
-        "${scored_summary_path}" \
-        --output "${full_dataset_path}" \
-        --all-pairs
+# ============================================================================
+# Step 2: Create scored summaries for all scenarios
+# ============================================================================
+echo "=== blocksworld: creating scored summaries -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3/scored_summaries.json"
+python3 "/home/ubuntu/Safety-gen/script/create_scored_summaries.py" \
+    --scenario "blocksworld" \
+    --variant "pddl3" \
+    --unsloth-jsonl "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3/scored.jsonl" \
+    --problem-dir "/home/ubuntu/Safety-gen/blocksworld/dpo_training" \
+    --domain-file "/home/ubuntu/Safety-gen/blocksworld/domain3.pddl" \
+    --pddl2-solution-dir "/home/ubuntu/Safety-gen/blocksworld/all_problems/training" \
+    --output "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3/scored_summaries.json"
 
-    echo "=== ${scenario}: sampling ${PAIRS_PER_SCENARIO} pairs -> ${sampled_dataset_path}"
-    python3 "${REPO_ROOT}/pick_dpo_data.py" \
-        --datasets-dir "${DATASET_ROOT}" \
-        --scenarios "${scenario}" \
-        --per-scenario "${PAIRS_PER_SCENARIO}" \
-        --allow-fewer \
-        --output "${sampled_dataset_path}"
-done
+echo "=== grippers: creating scored summaries -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3/scored_summaries.json"
+python3 "/home/ubuntu/Safety-gen/script/create_scored_summaries.py" \
+    --scenario "grippers" \
+    --variant "pddl3" \
+    --unsloth-jsonl "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3/scored.jsonl" \
+    --problem-dir "/home/ubuntu/Safety-gen/grippers/dpo_training" \
+    --domain-file "/home/ubuntu/Safety-gen/grippers/domain3.pddl" \
+    --pddl2-solution-dir "/home/ubuntu/Safety-gen/grippers/all_problems/training" \
+    --output "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3/scored_summaries.json"
 
-echo "Done. DPO datasets available under ${DATASET_ROOT}"
+echo "=== ferry: creating scored summaries -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3/scored_summaries.json"
+python3 "/home/ubuntu/Safety-gen/script/create_scored_summaries.py" \
+    --scenario "ferry" \
+    --variant "pddl3" \
+    --unsloth-jsonl "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3/scored.jsonl" \
+    --problem-dir "/home/ubuntu/Safety-gen/ferry/dpo_training" \
+    --domain-file "/home/ubuntu/Safety-gen/ferry/domain3.pddl" \
+    --pddl2-solution-dir "/home/ubuntu/Safety-gen/ferry/all_problems/training" \
+    --output "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3/scored_summaries.json"
+
+echo "=== spanner: creating scored summaries -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3/scored_summaries.json"
+python3 "/home/ubuntu/Safety-gen/script/create_scored_summaries.py" \
+    --scenario "spanner" \
+    --variant "pddl3" \
+    --unsloth-jsonl "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3/scored.jsonl" \
+    --problem-dir "/home/ubuntu/Safety-gen/spanner/dpo_training" \
+    --domain-file "/home/ubuntu/Safety-gen/spanner/domain3.pddl" \
+    --pddl2-solution-dir "/home/ubuntu/Safety-gen/spanner/all_problems/training" \
+    --output "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3/scored_summaries.json"
+
+echo "=== delivery: creating scored summaries -> /home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3/scored_summaries.json"
+python3 "/home/ubuntu/Safety-gen/script/create_scored_summaries.py" \
+    --scenario "delivery" \
+    --variant "pddl3" \
+    --unsloth-jsonl "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3/scored.jsonl" \
+    --problem-dir "/home/ubuntu/Safety-gen/delivery/dpo_training" \
+    --domain-file "/home/ubuntu/Safety-gen/delivery/domain3.pddl" \
+    --pddl2-solution-dir "/home/ubuntu/Safety-gen/delivery/all_problems/training" \
+    --output "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3/scored_summaries.json"
+
+# ============================================================================
+# Step 3: Construct DPO datasets for all scenarios
+# ============================================================================
+mkdir -p "/home/ubuntu/data/dpo/gpt_oss_20b/blocksworld" "/home/ubuntu/data/dpo/gpt_oss_20b/grippers" "/home/ubuntu/data/dpo/gpt_oss_20b/ferry" "/home/ubuntu/data/dpo/gpt_oss_20b/spanner" "/home/ubuntu/data/dpo/gpt_oss_20b/delivery"
+
+echo "=== blocksworld: constructing DPO dataset -> /home/ubuntu/data/dpo/gpt_oss_20b/blocksworld/pddl3_dpo.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
+    "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/blocksworld/pddl3/scored_summaries.json" \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/blocksworld/pddl3_dpo.jsonl" \
+    --all-pairs
+
+echo "=== grippers: constructing DPO dataset -> /home/ubuntu/data/dpo/gpt_oss_20b/grippers/pddl3_dpo.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
+    "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/grippers/pddl3/scored_summaries.json" \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/grippers/pddl3_dpo.jsonl" \
+    --all-pairs
+
+echo "=== ferry: constructing DPO dataset -> /home/ubuntu/data/dpo/gpt_oss_20b/ferry/pddl3_dpo.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
+    "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/ferry/pddl3/scored_summaries.json" \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/ferry/pddl3_dpo.jsonl" \
+    --all-pairs
+
+echo "=== spanner: constructing DPO dataset -> /home/ubuntu/data/dpo/gpt_oss_20b/spanner/pddl3_dpo.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
+    "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/spanner/pddl3/scored_summaries.json" \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/spanner/pddl3_dpo.jsonl" \
+    --all-pairs
+
+echo "=== delivery: constructing DPO dataset -> /home/ubuntu/data/dpo/gpt_oss_20b/delivery/pddl3_dpo.jsonl"
+python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
+    "/home/ubuntu/data/dpo/gpt_multi_pddl3_500/delivery/pddl3/scored_summaries.json" \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/delivery/pddl3_dpo.jsonl" \
+    --all-pairs
+
+# ============================================================================
+# Step 4: Sample 500 pairs for all scenarios
+# ============================================================================
+echo "=== blocksworld: sampling 500 pairs -> /home/ubuntu/data/dpo/gpt_oss_20b/blocksworld/pddl3_dpo-500.jsonl"
+python3 "/home/ubuntu/Safety-gen/pick_dpo_data.py" \
+    --datasets-dir "/home/ubuntu/data/dpo/gpt_oss_20b" \
+    --scenarios "blocksworld" \
+    --per-scenario 500 \
+    --allow-fewer \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/blocksworld/pddl3_dpo-500.jsonl"
+
+echo "=== grippers: sampling 500 pairs -> /home/ubuntu/data/dpo/gpt_oss_20b/grippers/pddl3_dpo-500.jsonl"
+python3 "/home/ubuntu/Safety-gen/pick_dpo_data.py" \
+    --datasets-dir "/home/ubuntu/data/dpo/gpt_oss_20b" \
+    --scenarios "grippers" \
+    --per-scenario 500 \
+    --allow-fewer \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/grippers/pddl3_dpo-500.jsonl"
+
+echo "=== ferry: sampling 500 pairs -> /home/ubuntu/data/dpo/gpt_oss_20b/ferry/pddl3_dpo-500.jsonl"
+python3 "/home/ubuntu/Safety-gen/pick_dpo_data.py" \
+    --datasets-dir "/home/ubuntu/data/dpo/gpt_oss_20b" \
+    --scenarios "ferry" \
+    --per-scenario 500 \
+    --allow-fewer \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/ferry/pddl3_dpo-500.jsonl"
+
+echo "=== spanner: sampling 500 pairs -> /home/ubuntu/data/dpo/gpt_oss_20b/spanner/pddl3_dpo-500.jsonl"
+python3 "/home/ubuntu/Safety-gen/pick_dpo_data.py" \
+    --datasets-dir "/home/ubuntu/data/dpo/gpt_oss_20b" \
+    --scenarios "spanner" \
+    --per-scenario 500 \
+    --allow-fewer \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/spanner/pddl3_dpo-500.jsonl"
+
+echo "=== delivery: sampling 500 pairs -> /home/ubuntu/data/dpo/gpt_oss_20b/delivery/pddl3_dpo-500.jsonl"
+python3 "/home/ubuntu/Safety-gen/pick_dpo_data.py" \
+    --datasets-dir "/home/ubuntu/data/dpo/gpt_oss_20b" \
+    --scenarios "delivery" \
+    --per-scenario 500 \
+    --allow-fewer \
+    --output "/home/ubuntu/data/dpo/gpt_oss_20b/delivery/pddl3_dpo-500.jsonl"
+
+echo "Done. DPO datasets available under /home/ubuntu/data/dpo/gpt_oss_20b"

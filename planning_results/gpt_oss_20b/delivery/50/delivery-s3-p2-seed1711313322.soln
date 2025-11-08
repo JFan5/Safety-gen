@@ -1,44 +1,17 @@
-analysisWe need to produce a plan for the delivery domain with constraints. Let's parse the problem.
-Domain: delivery
-Types:
-- cell: object
-- locatable: object
-- package: locatable
-- truck: locatable
-Predicates:
-- at ?x1 - locatable ?x2 - cell
-- carrying ?x1 - truck ?x2 - package
-- empty ?x1 - truck
-- adjacent ?x1 - cell ?x2 - cell
-- last ?t - truck ?c - cell
-Actions:
-1. pick-package
-Parameters: (?t - truck ?p - package ?x - cell)
-Precondition: (at ?p ?x) & (at ?t ?x) & (empty ?t)
-Effect: not (at ?p ?x); not (empty ?t); carrying ?t ?p
-2. drop-package
-Parameters: (?t - truck ?p - package ?x - cell)
-Precondition: (at ?t ?x) & (carrying ?t ?p)
-Effect: empty ?t; not (carrying ?t ?p); at ?p ?x
-3. move
-Parameters: (?t - truck ?from - cell ?to - cell)
-Precondition: (adjacent ?from ?to) & (at ?t ?from) & not (= ?from ?to)
-Effect: not (at ?t ?from); at ?t ?to; last ?t ?from
-Constraints:
-- (:constraints (sometime (at t1 c_0_0)))
-Goal:
-- (and (at p1 c_0_2) (at p2 c_0_2))
-Initial:
-- Packages:
-p1 at c_2_0
-p2 at c_2_1
-- Truck:
-t1 at c_0_1
-empty t1
-Adjacencies listed.
-We need to move both packages to c_0_2. Also, at some point, t1 must be at c_0_0 (sometime constraint). The goal doesn't require t1 at any location.
-We must also respect all invariants:
-- A package cannot be at two cells simultaneously.
-- A truck cannot be at two cells simultaneously.
-- A truck cannot carry two packages simultaneously (empty predicate ensures only one at a time).
-- A package cannot be at a cell and carried simultaneously
+(move t1 c_0_1 c_0_0)
+(move t1 c_0_0 c_1_0)
+(move t1 c_1_0 c_2_0)
+(pick-package t1 p1 c_2_0)
+(move t1 c_2_0 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_0_1)
+(move t1 c_0_1 c_0_2)
+(drop-package t1 p1 c_0_2)
+(move t1 c_0_2 c_1_2)
+(move t1 c_1_2 c_2_2)
+(move t1 c_2_2 c_2_1)
+(pick-package t1 p2 c_2_1)
+(move t1 c_2_1 c_1_1)
+(move t1 c_1_1 c_0_1)
+(move t1 c_0_1 c_0_2)
+(drop-package t1 p2 c_0_2)

@@ -1,14 +1,12 @@
-commentary{"action_name":"walk","parameters":["shed","location1","bob"]}
-{"action_name":"walk","parameters":["location1","location2","bob"]}
-{"action_name":"walk","parameters":["location2","location3","bob"]}
-{"action_name":"walk","parameters":["location3","location4","bob"]}
-{"action_name":"pickup_spanner","parameters":["location4","spanner4","bob"]}
-{"action_name":"walk","parameters":["location4","location5","bob"]}
-{"action_name":"walk","parameters":["location5","gate","bob"]}
-{"action_name":"tighten_nut","parameters":["gate","spanner4","bob","nut1"]}
-{"action_name":"walk","parameters":["gate","location5","bob"]}
-{"action_name":"walk","parameters":["location5","location4","bob"]}
-{"action_name":"walk","parameters":["location4","location3","bob"]}
-{"action_name":"walk","parameters":["location3","location2","bob"]}
-{"action_name":"walk","parameters":["location2","location1","bob"]}
-{"action_name":"walk","parameters":["location1","shed","bob"]}
+(walk shed location1 bob)
+(pickup_spanner location1 spanner1 bob)
+(pickup_spanner location1 spanner2 bob)
+(walk location1 location2 bob)
+(walk location2 location3 bob)
+(walk location3 location4 bob)
+(pickup_spanner location4 spanner4 bob)
+(walk location4 location5 bob)
+(walk location5 gate bob)
+(tighten_nut gate spanner1 bob nut1)
+(tighten_nut gate spanner2 bob nut2)
+(tighten_nut gate spanner4 bob nut3)

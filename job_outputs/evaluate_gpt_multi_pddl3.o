@@ -20,7 +20,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:11<00:22, 11.27s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:23<00:11, 11.64s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:33<00:00, 10.95s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:33<00:00, 11.10s/it]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:11<00:22, 11.27s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:23<00:11, 11.64s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:33<00:00, 10.95s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:33<00:00, 11.10s/it]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 
@@ -7344,7 +7349,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 
@@ -17779,7 +17789,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.20it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.20it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 
@@ -26448,7 +26463,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.00s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.00s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 
@@ -32902,7 +32922,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.05it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 
@@ -40474,7 +40499,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.01s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.21it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 
@@ -57998,7 +58028,12 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.00s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.22it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.00s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.06it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.22it/s]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
 The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
 unsloth/gpt-oss-20b does not have a padding token! Will use pad_token = <|reserved_200017|>.
 

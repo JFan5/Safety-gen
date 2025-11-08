@@ -1,42 +1,20 @@
-commentary# Plan Generation for Ferry Domain (L4, C3)
-# Initial State:
-# Locations: l0, l1, l2, l3
-# Cars: c0, c1, c2
-# Car positions:
-#   c0 at l3
-#   c1 at l1
-#   c2 at l2
-# Ferry position: l3
-# Ferry status: empty
-# Goal:
-#   c0 at l0
-#   c1 at l0
-#   c2 at l0
-# Constraints (PDDL3):
-#   1. c0 reaches l0 SOME TIME BEFORE the ferry reaches l1
-#   2. c1 reaches l0 SOME TIME BEFORE the ferry reaches l2
-#   3. c2 reaches l0 SOME TIME BEFORE the ferry reaches l1
-# Strategy:
-# - Move the ferry to l1 first (to satisfy constraints 1 & 3).
-# - Debark c1 at l1 (it is already there) -> not needed.
-# - Board c0 at l3? Ferry is at l1, so first sail to l3.
-# - Board c0 at l3.
-# - Sail to l0.
-# - Debark c0 at l0. (Constraint 1 satisfied: l0 reached before ferry l1)
-# - Sail to l1 (still before ferry l2 for c1).
-# - Debark c1 at l1. (Now ferry at l1, c1 at l1)
-# - Sail to l2 (now after ferry l1, before ferry l1 for c2 constraint).
-# - Board c2 at l2.
-# - Sail to l1 (now after ferry l2, before ferry l1 for c2).
-# - Sail to l0.
-# - Debark c1 at l0. (Constraint 2 satisfied: l0 before ferry l2)
-# - Debark c2 at l0. (Constraint 3 satisfied: l0 before ferry l1)
-# All cars at l0, ferry at l0. Constraints satisfied.
-# Plan Steps:
-# 1. sail l1 l3
-# 2. board c0 l3
-# 3. sail l3 l0
-# 4. debark c0 l0
-# 5. sail l0 l1
-# 6. sail l1 l2
-# 7. board
+(sail l3 l0)
+(board c0 l0)
+(sail l0 l1)
+(debark c0 l1)
+(board c1 l1)
+(sail l1 l2)
+(debark c1 l2)
+(sail l2 l0)
+(board c2 l0)
+(sail l0 l1)
+(debark c2 l1)
+(board c0 l1)
+(sail l1 l2)
+(debark c0 l2)
+(board c1 l2)
+(sail l2 l0)
+(debark c1 l0)
+(board c2 l0)
+(sail l0 l1)
+(debark c2 l1)

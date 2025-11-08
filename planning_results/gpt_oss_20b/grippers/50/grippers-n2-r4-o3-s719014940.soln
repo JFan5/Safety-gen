@@ -1,46 +1,12 @@
-commentaryWe need to produce a plan for gripper-2-4-3 domain. Let's analyze.
-Objects:
-robots: robot1, robot2
-grippers: rgripper1, lgripper1, rgripper2, lgripper2
-rooms: room1, room2, room3, room4
-objects (balls): ball1, ball2, ball3
-Initial state:
-- at-robby robot1 room2
-- free robot1 rgripper1
-- free robot1 lgripper1
-- at-robby robot2 room1
-- free robot2 rgripper2
-- free robot2 lgripper2
-- at ball1 room3
-- at ball2 room4
-- at ball3 room2
-Goal:
-- at ball1 room3
-- at ball2 room3
-- at ball3 room4
-Observations:
-- ball1 already at room3, matches goal. So we don't need to move ball1.
-- ball2 is at room4, needs to go to room3.
-- ball3 is at room2, needs to go to room4.
-Robots initial positions:
-- robot1 room2
-- robot2 room1
-Both robots have two grippers each, all free.
-We need to transport ball2 from room4 to room3, and ball3 from room2 to room4. Also ball1 stays at room3.
-Constraints:
-(:constraints
-(and
-(always (not (and (at-robby robot1 room4) (at-robby robot2 room4))))
-)
-)
-)
-So it's a PDDL3 constraint: always not both robot1 and robot2 at room4. So they cannot be simultaneously in room4 at any time. That's the only constraint.
-We need to ensure that at no step both robots are at room4.
-Also, we must respect that each robot can carry at most one object per gripper. So each robot can carry up to two objects simultaneously (one per gripper). But we only need to move two balls, so we could use one robot to move both, or use both robots. But we must avoid constraint violation.
-Let's consider possible plan.
-Goal positions:
-- ball2 room3
-- ball3 room4
-Ball1 remains room3.
-Robots final positions are unconstrained (not specified). So they can end anywhere as long as constraints hold.
-We need to move ball2 from room
+(move robot1 room2 room3)
+(pick robot1 ball3 room2 rgripper1)
+(move robot1 room3 room4)
+(drop robot1 ball3 room4 rgripper1)
+(move robot1 room4 room3)
+(pick robot1 ball1 room3 lgripper2)
+(move robot1 room3 room2)
+(drop robot1 ball1 room2 lgripper2)
+(move robot1 room2 room4)
+(pick robot1 ball2 room4 lgripper2)
+(move robot1 room4 room3)
+(drop robot1 ball2 room3 lgripper2)

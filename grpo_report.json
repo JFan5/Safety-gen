@@ -1,0 +1,13 @@
+{
+  "scenario": "spanner",
+  "domain_file": "/home/ubuntu/Safety-gen/spanner/domain3.pddl",
+  "problems_dir": "/home/ubuntu/Safety-gen/spanner/all_problems3/training",
+  "solutions_dir": "/home/ubuntu/Safety-gen/spanner/all_problems/training",
+  "stats": {
+    "total_problems": 4750,
+    "missing_solution": 179,
+    "validated": 4571,
+    "failed_validation": 0
+  },
+  "collected": []
+}

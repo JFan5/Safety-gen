@@ -1,42 +1,7 @@
-commentary# Plan Generation
-# 1. Parse the PDDL components
-#    - Domain: actions, types, predicates, requirements, constraints
-#    - Problem: objects, init, goal, constraints
-# 2. Build the internal representation
-#    - Type hierarchy:
-#        object
-#            locatable
-#                package
-#                truck
-#            cell
-#    - Predicate definitions:
-#        at (?x1 - locatable ?x2 - cell)
-#        carrying (?x1 - truck ?x2 - package)
-#        empty (?x1 - truck)
-#        adjacent (?x1 - cell ?x2 - cell)
-#        last (?t - truck ?c - cell)
-# 3. Initialize the state
-#    - at p1 c_2_0
-#    - at t1 c_0_0
-#    - empty t1
-#    - All adjacent relations as given
-#    - No package or truck is carrying anything initially
-#    - No 'last' facts initially
-# 4. Understand the goal and constraints
-#    - Goal: (at p1 c_1_2)
-#    - Constraint: (:constraints (sometime (at t1 c_0_0)))
-#      This means that at some point during the plan, t1 must be at c_0_0.
-#      Since t1 starts at c_0_0, the constraint is trivially satisfied at step 0.
-#      Therefore, we do NOT need to return to c_0_0 unless the goal or other constraints
-#      force us to.  The only goal is to move p1 to c_1_2.
-# 5. Generate a plan
-#    - Strategy:
-#        a) Move the truck to the package location (c_2_0).
-#        b) Pick up the package.
-#        c) Move the truck to the goal location (c_1_2).
-#        d) Drop the package.
-# 6. Compute the shortest paths
-#    - Truck from c_0_0 to c_2_0:
-#        c_0_0 -> c_1_0 -> c_2_0   (2 moves)
-#    - Package from c_2_0 to c_1_2:
-#        c_2_0 -> c_2_1 -> c_1_
+(pick-package t1 p1 c_2_0)
+(move t1 c_2_0 c_2_1)
+(drop-package t1 p1 c_2_1)
+(move t1 c_2_1 c_1_1)
+(pick-package t1 p1 c_1_1)
+(move t1 c_1_1 c_1_2)
+(drop-package t1 p1 c_1_2)

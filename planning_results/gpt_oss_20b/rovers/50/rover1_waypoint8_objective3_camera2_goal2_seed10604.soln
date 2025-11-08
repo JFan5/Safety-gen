@@ -1,4 +1,18 @@
-commentaryWe need to generate a plan for the rover domain. The problem includes PDDL3 constraint: (sometime-before (at rover0 waypoint2) (at rover0 waypoint6)). So rover0 must reach waypoint6 after waypoint2. Also the goal requires communicated_soil_data waypoint3 and waypoint1, and communicated_image_data objective2 low_res.
-We must also satisfy all constraints: channel_free general at communicate actions, available rover at communicate actions, etc. Also calibrate action requires calibrated camera, which is consumed by take_image (not calibrated after). So need to calibrate before each take_image. Calibration uses calibration_target objective and waypoint where both are true. For camera0 objective2, we need visible_from objective2 waypoint? and at rover0 waypoint? . The calibration_target is camera0 objective2. So we need to be at a waypoint where objective2 is visible. visible_from objective2 waypoint1,2,3,4,5,6. So we can calibrate at waypoint1,2,3,4,5,6. But we also need to take image of objective2 low_res. So we need camera0 supports low_res (yes). Also need visible_from objective2 waypoint? and at rover0 waypoint?. So we need to be at a waypoint where objective2 visible. So we can take image at waypoint1,2,3,4,5,6. Also we need low_res, so camera0 supports low_res (yes). So we can calibrate and take image at waypoint1, for example.
-Goal also needs communicated_soil_data waypoint3 and waypoint1. So we need sample_soil at those waypoints, then communicate_soil_data to lander at waypoint2. So we need to have soil_analysis at waypoint3 and waypoint1, then navigate to waypoint2, then communicate. Also need to ensure rover0 is at waypoint6 at some point after waypoint2. Also need to drop store after full to empty. Also need to ensure channel_free general at communicate, and rover available. Also after communicate, available and channel_free restored. So we can communicate multiple times.
-Also need to ensure (sometime-before (at rover0 waypoint2) (at rover0 waypoint6)). So waypoint6 after waypoint2. So we can do: sample at waypoint1, navigate to waypoint3, sample at waypoint3, navigate to waypoint2, communicate both soil data, then navigate to waypoint6 (after waypoint2), maybe also do other tasks like
+(navigate rover0 waypoint2 waypoint1)
+(sample_soil rover0 waypoint1 waypoint0)
+(navigate rover0 waypoint1 waypoint5)
+(navigate rover0 waypoint5 waypoint3)
+(sample_soil rover0 waypoint3 waypoint0)
+(navigate rover0 waypoint3 waypoint6)
+(sample_rock rover0 waypoint6 waypoint2)
+(calibrate rover0 camera1 objective1 waypoint2)
+(take_image rover0 waypoint2 objective1 high_res waypoint2)
+(navigate rover0 waypoint2 waypoint6)
+(sample_rock rover0 waypoint6 waypoint4)
+(sample_soil rover0 waypoint4 waypoint6)
+(communicate_soil_data rover0 general waypoint4 waypoint6)
+(communicate_rock_data rover0 general waypoint4 waypoint6)
+(take_image rover0 waypoint6 objective2 low_res waypoint6)
+(communicate_image_data rover0 general objective2 low_res waypoint6)
+(communicate_soil_data rover0 general waypoint3 waypoint0)
+(communicate_soil_data rover0 general waypoint1 waypoint0)

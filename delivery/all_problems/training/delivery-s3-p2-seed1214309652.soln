@@ -1,0 +1,4 @@
+(move t1 c_1_0 c_1_1)
+(pick-package t1 p2 c_1_1)
+(move t1 c_1_1 c_1_2)
+(drop-package t1 p2 c_1_2)

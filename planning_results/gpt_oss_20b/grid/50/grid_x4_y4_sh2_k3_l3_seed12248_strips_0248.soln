@@ -1,41 +1,27 @@
-analysisWe need to produce a plan for the grid-4-4-2-3-3 domain. Let's restate:
-Objects:
-- places: pos0-0 pos0-1 pos0-2 pos0-3 pos1-0 pos1-1 pos1-2 pos1-3 pos2-0 pos2-1 pos2-2 pos2-3 pos3-0 pos3-1 pos3-2 pos3-3
-- shapes: shape0 shape1
-- keys: key0 key1 key2
-Predicates:
-- conn ?x ?y
-- key-shape ?k ?s
-- lock-shape ?x ?s
-- place ?p
-- key ?k
-- shape ?s
-- at ?r ?x
-- at-robot ?x
-- locked ?x
-- open ?x
-- holding ?k
-- arm-empty
-Actions:
-1. unlock
-params: (?curpos ?lockpos ?key ?shape)
-precond: (place ?curpos) (place ?lockpos) (key ?key) (shape ?shape)
-(conn ?curpos ?lockpos) (key-shape ?key ?shape)
-(lock-shape ?lockpos ?shape) (at-robot ?curpos)
-(locked ?lockpos) (holding ?key)
-effect: (open ?lockpos) (not (locked ?lockpos))
-2. move
-params: (?curpos ?nextpos)
-precond: (place ?curpos) (place ?nextpos)
-(at-robot ?curpos) (conn ?curpos ?nextpos) (open ?nextpos)
-effect: (at-robot ?nextpos) (not (at-robot ?curpos))
-3. pickup
-params: (?curpos ?key)
-precond: (place ?curcur) (key ?key)
-(at-robot ?curpos) (at ?key ?curpos) (arm-empty )
-effect: (holding ?key)
-(not (at ?key ?curpos)) (not (arm-empty ))
-4. pickup-and-loose
-params: (?curpos ?newkey ?oldkey)
-precond: (place ?curpos) (key ?newkey) (key ?oldkey)
-(at-robot ?curpos) (holding ?oldkey
+(move pos2-1 pos3-1)
+(move pos3-1 pos3-2)
+(pickup pos3-2 key1)
+(move pos3-2 pos3-3)
+(unlock pos3-3 key1 shape1)
+(move pos3-3 pos2-3)
+(move pos2-3 pos2-2)
+(move pos2-2 pos1-2)
+(move pos1-2 pos1-1)
+(move pos1-1 pos2-1)
+(move pos2-1 pos3-1)
+(putdown pos3-1 key1)
+(move pos3-1 pos3-2)
+(unlock pos3-2 key2 shape1)
+(move pos3-2 pos3-1)
+(pickup pos3-1 key2)
+(move pos3-1 pos3-2)
+(move pos3-2 pos3-3)
+(unlock pos3-3 key2 shape1)
+(move pos3-3 pos2-3)
+(move pos2-3 pos2-2)
+(move pos2-2 pos1-2)
+(move pos1-2 pos1-3)
+(move pos1-3 pos2-3)
+(move pos2-3 pos3-3)
+(move pos3-3 pos3-2)
+(putdown pos3-2 key2)

@@ -1,42 +1,53 @@
-analysisWe need to produce a plan for the rover domain. The problem includes:
-- Rovers: rover0, rover1
-- Stores: rover0store, rover1store
-- Waypoints: waypoint0 to waypoint9
-- Cameras: camera0 (rover1), camera1 (rover0)
-- Objectives: objective0, objective1, objective2
-- Modes: colour, high_res, low_res
-Predicates:
-- at ?x - rover ?y - waypoint
-- at_lander ?x - lander ?y - waypoint
-- can_traverse ?r - rover ?x - waypoint ?y - waypoint
-- equipped_for_soil_analysis ?r - rover
-- equipped_for_rock_analysis ?r - rover
-- equipped_for_imaging ?r - rover
-- empty ?s - store
-- store_of ?s - store ?r - rover
-- at_soil_sample ?w - waypoint
-- at_rock_sample ?w - waypoint
-- visible ?w - waypoint ?p - waypoint
-- visible_from ?o - objective ?w - waypoint
-- calibration_target ?c - camera ?o - objective
-- on_board ?c - camera ?r - rover
-- calibrated ?c - camera ?r - rover
-- supports ?c - camera ?m - mode
-- channel_free ?l - lander
-- available ?r - rover
-- have_soil_analysis ?r - rover ?w - waypoint
-- have_rock_analysis ?r - rover ?w - waypoint
-- have_image ?r - rover ?o - objective ?m - mode
-- communicated_soil_data ?w - waypoint
-- communicated_rock_data ?w - rover
-- communicated_image_data ?o - objective ?m - mode
-- channel_free ?l - lander
-Actions:
-navigate: (?x - rover ?y - waypoint ?z - waypoint)
-pre: can_traverse x y z, available x, at x y, visible y z
-effect: not at x y, at x z
-sample_soil: (?x - rover ?s - store ?p - waypoint)
-pre: at x p, at_soil_sample p, equipped_for_soil_analysis x, store_of s x, empty s
-effect: not empty s, full s, have_soil_analysis x p, not at_soil_sample p
-sample_rock: (?x - rover ?s - store ?p - waypoint)
-pre: at x
+(navigate rover0 waypoint8 waypoint6)
+(sample_soil rover0 waypoint0 waypoint6)
+(sample_soil rover0 waypoint1 waypoint6)
+(sample_soil rover0 waypoint2 waypoint6)
+(sample_soil rover0 waypoint7 waypoint6)
+(sample_soil rover0 waypoint9 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_soil rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_soil rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_sox rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_soil rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_soil rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_sox rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_sox rover0 waypoint6 waypoint6)
+(navigate rover0 waypoint6 waypoint7)
+(sample_soil rover0 waypoint7 waypoint7)
+(navigate rover0 waypoint7 waypoint8)
+(sample_rock rover0 waypoint8 waypoint8)
+(navigate rover0 waypoint8 waypoint6)
+(sample_sox rover0 waypoint6 waypoint6)

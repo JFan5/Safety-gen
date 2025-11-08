@@ -1,21 +1,8 @@
-commentary{"action":"board","car":"c0","loc":"l0"}
-{"action":"sail","from":"l0","to":"l1"}
-{"action":"debark","car":"c0","loc":"l1"}
-{"action":"sail","from":"l1","to":"l2"}
-{"action":"board","car":"c1","loc":"l2"}
-{"action":"sail","from":"l2","to":"l3"}
-{"action":"debark","car":"c1","loc":"l3"}
-{"action":"sail","from":"l3","to":"l2"}
-{"action":"debark","car":"c0","loc":"l2"}
-{"action":"sail","from":"l2","to":"l3"}
-{"action":"board","car":"c2","loc":"l3"}
-{"action":"sail","from":"l3","to":"l2"}
-{"action":"debark","car":"c2","loc":"l2"}
-{"action":"sail","from":"l2","to":"l1"}
-{"action":"board","car":"c0","loc":"l1"}
-{"action":"sail","from":"l1","to":"l0"}
-{"action":"debark","car":"c0","loc":"l0"}
-{"action":"sail","from":"l0","to":"l1"}
-{"action":"board","car":"c1","loc":"l1"}
-{"action":"sail","from":"l1","to":"l2"}
-{"action":"debark","car":"c1","loc":"l2"}
+(board c1 l0)
+(sail l0 l1)
+(sail l1 l2)
+(debark c1 l2)
+(sail l2 l3)
+(board c2 l3)
+(sail l3 l2)
+(debark c2 l2)

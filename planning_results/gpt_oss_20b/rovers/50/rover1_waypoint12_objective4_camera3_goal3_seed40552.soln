@@ -1,31 +1,30 @@
-analysisWe need to generate a plan for the rover domain with constraints. The problem includes a PDDL3 constraint: (sometime-before (at rover0 waypoint9) (at rover0 waypoint2)). That means at some point in the plan, rover0 must be at waypoint9, and at some (possibly later) point, rover0 must be at waypoint2, with the constraint that the time when at waypoint9 must be before the time when at waypoint2. So the rover must visit waypoint9 before waypoint2. Also, the goal requires communicated_soil_data waypoint5, waypoint11, waypoint1; communicated_rock_data waypoint1, waypoint3, waypoint0; communicated_image_data objective1 low_res, objective0 colour, objective1 colour.
-We must also satisfy all constraints and invariants. Let's list domain facts:
-Predicates:
-- at ?x - rover ?y - waypoint
-- at_lander ?x - lander ?y - waypoint
-- can_traverse ?r - rover ?x - waypoint ?y - waypoint
-- equipped_for_soil_analysis ?r - rover
-- equipped_for_rock_analysis ?r - rover
-- empty ?s - store
-- full ?s - store
-- store_of ?s - store ?r - rover
-- at_soil_sample ?w - waypoint
-- at_rock_sample ?w - waypoint
-- have_soil_analysis ?r - rover ?w - waypoint
-- have_rock_analysis ?r - rover ?w - waypoint
-- calibrated ?c - camera ?r - rover
-- calibration_target ?i - camera ?o - objective
-- supports ?i - camera ?m - mode
-- available ?r - rover
-- visible ?w - waypoint ?p - waypoint
-- visible_from ?o - objective ?w - waypoint
-- on_board ?i - camera ?r - rover
-- channel_free ?l - lander
-- have_image ?r - rover ?o - objective ?m - mode
-- communicated_soil_data ?w - waypoint
-- communicated_rock_data ?w - waypoint
-- communicated_image_data ?o - objective ?m - mode
-Actions:
-navigate: params (?x - rover ?y - waypoint ?z - waypoint)
-pre: (can_traverse ?x ?y ?z) (available ?x) (at ?x ?y) (visible ?y ?z)
-effect: (not (at ?x ?y)) (at ?x ?
+(navigate rover0 waypoint1 waypoint10)
+(sample_soil rover0 waypoint10 rover0store)
+(drop rover0 rover0store)
+(navigate rover0 waypoint10 waypoint2)
+(sample_soil rover0 waypoint2 rover0store)
+(navigate rover0 waypoint2 waypoint0)
+(sample_rock rover0 waypoint0 rover0store)
+(navigate rover0 waypoint0 waypoint8)
+(calibrate rover0 camera2 objective0 waypoint8)
+(take_image rover0 waypoint8 objective0 colour high_res)
+(navigate rover0 waypoint8 waypoint3)
+(calibrate rover0 camera2 objective1 waypoint3)
+(take_image rover0 waypoint3 objective1 colour low_res)
+(navigate rover0 waypoint3 waypoint7)
+(sample_rock rover0 waypoint7 rover0store)
+(navigate rover0 waypoint7 waypoint4)
+(navigate rover0 waypoint4 waypoint5)
+(sample_soil rover0 waypoint5 rover0store)
+(navigate rover0 waypoint5 waypoint11)
+(sample_soil rover0 waypoint11 rover0store)
+(navigate rover0 waypoint11 waypoint1)
+(sample_rock rover0 waypoint1 rover0store)
+(navigate rover0 waypoint1 waypoint10)
+(communicate_soil_data rover0 general waypoint5 waypoint10)
+(communicate_rock_data rover0 general waypoint1 waypoint10)
+(communicate_soil_data rover0 general waypoint11 waypoint10)
+(communicate_rock_data rover0 general waypoint0 waypoint10)
+(communicate_image_data rover0 general objective0 colour high_res)
+(communicate_image_data rover0 general objective1 colour low_res)
+(communicate_image_data rover0 general objective1 low_res)

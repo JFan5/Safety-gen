@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""聚合 planning_results 下 baseline/pddl2/pddl3 方案验证结果的工具脚本。"""
+"""解析 baseline 目录下的 JSON 文件并生成 summary JSON，用于后续可视化。"""
 
 import argparse
 import json
+import re
 from pathlib import Path
-from typing import Dict, Iterable, Optional
+from typing import Dict, Optional
 
 
 def _extract_solution_text(item: dict) -> Optional[str]:
@@ -131,160 +132,163 @@ def _summarize_results(items):
     return result
 
 
-VALID_VARIANTS: tuple[str, ...] = ("baseline", "pddl2", "pddl3")
-
-
 def _load_json(path: Path) -> Optional[dict]:
+    """加载 JSON 文件。"""
     if not path.exists():
         return None
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def _find_json_file(variant_dir: Path, scenario: str, variant: str) -> Optional[Path]:
-    """在 variant 目录下定位主要的 JSON 结果文件。"""
-    preferred_names = [
-        f"{scenario}_all_testing_{'baseline' if variant == 'baseline' else variant}.json",
-        f"{scenario}_testing_results_{variant}.json",
-        f"{scenario}_test_results_{variant}.json",
-        f"{scenario}_testing_results.json",
-        f"{scenario}_test_results.json",
-        f"{scenario}_{variant}.json",
-    ]
-
-    for name in preferred_names:
-        candidate = variant_dir / name
-        if candidate.exists():
-            return candidate
-
-    json_files = sorted(variant_dir.glob("*.json"))
-    if json_files:
-        return json_files[0]
-    return None
-
-
-def _summarize_variant(
-    model: str,
-    scenario: str,
-    variant: str,
-    variant_dir: Path,
-) -> Dict[str, object]:
-    json_path = _find_json_file(variant_dir, scenario, variant)
-
-    if json_path is None:
-        return {"summary": {"total": 0}, "error": f"未找到JSON结果文件 (目录: {variant_dir})"}
-
     try:
-        raw = _load_json(json_path)
-    except json.JSONDecodeError as exc:
-        return {"summary": {"total": 0}, "error": f"JSON解析失败: {exc}"}
-    except Exception as exc:
-        return {"summary": {"total": 0}, "error": str(exc)}
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError) as exc:
+        print(f"警告: 无法加载 {path}: {exc}")
+        return None
 
+
+def _extract_scenario_name(json_file: Path) -> Optional[str]:
+    """从 JSON 文件名提取 scenario 名称。
+    
+    例如:
+    - ferry_test_results.json -> ferry
+    - spanner_test_results.json -> spanner
+    - blocksworld_test_results.json -> blocksworld
+    """
+    name = json_file.stem  # 去掉 .json 后缀
+    
+    # 移除常见的后缀模式
+    patterns = [
+        r'_test_results$',
+        r'_testing_results$',
+        r'_all_testing.*$',
+        r'_results$',
+    ]
+    
+    for pattern in patterns:
+        name = re.sub(pattern, '', name)
+    
+    return name if name else None
+
+
+def _parse_baseline_json(json_path: Path) -> Optional[Dict[str, object]]:
+    """解析单个 baseline JSON 文件并生成 summary。"""
+    raw = _load_json(json_path)
     if raw is None:
-        return {"summary": {"total": 0}, "error": f"结果文件缺失: {json_path.name}"}
-
+        return None
+    
     items = raw.get("results") or []
+    if not items:
+        print(f"警告: {json_path.name} 中没有 results 数据")
+        return None
+    
     summarized = _summarize_results(items)
+    
+    # 提取 metadata
     metadata = raw.get("metadata") or {}
     metadata.update({
-        "model": metadata.get("model_path") or model,
-        "scenario": metadata.get("scenario_name") or scenario,
-        "variant": variant,
-        "results_directory": metadata.get("results_directory") or str(variant_dir),
+        "model": raw.get("model_path") or metadata.get("model_path") or "unknown",
+        "scenario": metadata.get("scenario_name") or _extract_scenario_name(json_path) or "unknown",
+        "variant": "baseline",
+        "results_directory": raw.get("results_directory") or metadata.get("results_directory") or str(json_path.parent),
         "source_file": json_path.name,
+        "domain_file": raw.get("domain_file") or metadata.get("domain_file"),
+        "problems_dir": raw.get("problems_dir") or metadata.get("problems_dir"),
+        "total_tests": raw.get("total_tests") or len(items),
     })
     summarized["metadata"] = metadata
+    
     return summarized
 
 
-def aggregate_planning_results(
-    planning_results_dir: str,
-    models: Optional[Iterable[str]] = None,
-    scenarios: Optional[Iterable[str]] = None,
-    variants: Optional[Iterable[str]] = None,
-) -> Dict[str, Dict[str, Dict[str, dict]]]:
-    planning_root = Path(planning_results_dir)
-    if not planning_root.exists():
-        raise FileNotFoundError(f"planning_results目录不存在: {planning_root}")
-
-    model_filter = set(models) if models else None
-    scenario_filter = set(scenarios) if scenarios else None
-    chosen_variants = list(variants) if variants else list(VALID_VARIANTS)
-
-    for variant in chosen_variants:
-        if variant not in VALID_VARIANTS:
-            raise ValueError(f"未知variant: {variant}")
-
-    aggregated: Dict[str, Dict[str, Dict[str, dict]]] = {}
-
-    for model_dir in sorted(planning_root.iterdir()):
-        if not model_dir.is_dir():
+def parse_baseline_directory(baseline_dir: str) -> Dict[str, Dict[str, dict]]:
+    """解析 baseline 目录下的所有 JSON 文件并生成汇总结果。
+    
+    返回格式: {scenario: {baseline: {summary: {...}, metadata: {...}}}}
+    """
+    baseline_path = Path(baseline_dir)
+    if not baseline_path.exists():
+        raise FileNotFoundError(f"baseline 目录不存在: {baseline_path}")
+    
+    if not baseline_path.is_dir():
+        raise ValueError(f"路径不是目录: {baseline_path}")
+    
+    # 查找所有 JSON 文件
+    json_files = sorted(baseline_path.glob("*.json"))
+    if not json_files:
+        raise ValueError(f"在 {baseline_path} 中未找到任何 JSON 文件")
+    
+    aggregated: Dict[str, Dict[str, dict]] = {}
+    
+    for json_file in json_files:
+        scenario_name = _extract_scenario_name(json_file)
+        if not scenario_name:
+            print(f"警告: 无法从文件名提取 scenario 名称: {json_file.name}，跳过")
             continue
-        model_name = model_dir.name
-        if model_filter and model_name not in model_filter:
+        
+        print(f"正在解析: {json_file.name} (scenario: {scenario_name})")
+        result = _parse_baseline_json(json_file)
+        
+        if result is None:
+            print(f"警告: 解析 {json_file.name} 失败，跳过")
             continue
-
-        model_result: Dict[str, Dict[str, dict]] = {}
-
-        for scenario_dir in sorted(model_dir.iterdir()):
-            if not scenario_dir.is_dir():
-                continue
-            scenario_name = scenario_dir.name
-            if scenario_filter and scenario_name not in scenario_filter:
-                continue
-
-            scenario_result: Dict[str, dict] = {}
-            for variant in chosen_variants:
-                variant_dir = scenario_dir / variant
-                if not variant_dir.exists():
-                    continue
-                scenario_result[variant] = _summarize_variant(
-                    model=model_name,
-                    scenario=scenario_name,
-                    variant=variant,
-                    variant_dir=variant_dir,
-                )
-
-            if scenario_result:
-                model_result[scenario_name] = scenario_result
-
-        if model_result:
-            aggregated[model_name] = model_result
-
+        
+        # 使用提取的 scenario 名称（可能从 metadata 覆盖）
+        final_scenario = result.get("metadata", {}).get("scenario") or scenario_name
+        
+        if final_scenario not in aggregated:
+            aggregated[final_scenario] = {}
+        
+        aggregated[final_scenario]["baseline"] = result
+    
     if not aggregated:
-        raise ValueError("未在指定条件下找到任何规划结果。")
-
+        raise ValueError("未成功解析任何 JSON 文件")
+    
     return aggregated
 
 def main():
-    """主函数 - 仅支持聚合已有planning结果"""
-    parser = argparse.ArgumentParser(description="聚合 planning_results/<model>/<scenario>/<variant> 结构下的JSON结果并分类统计")
-    parser.add_argument("--planning-results-dir", default="planning_results",
-                       help="planning结果所在目录，默认 planning_results")
-    parser.add_argument("--aggregate-output", default=None,
-                       help="聚合输出JSON文件路径（默认 ./planning_results_aggregated.json）")
-    parser.add_argument("--scenarios", nargs="+", default=None,
-                       help="指定一个或多个场景名称，默认解析全部场景")
-    parser.add_argument("--models", nargs="+", default=None,
-                       help="指定一个或多个模型名称，默认解析全部模型")
-    parser.add_argument("--variants", nargs="+", choices=list(VALID_VARIANTS), default=None,
-                       help="指定需要聚合的结果类型（默认 baseline/pddl2/pddl3 全部处理）")
-    parser.add_argument("--categories", nargs="+", choices=list(VALID_VARIANTS), dest="variants", help=argparse.SUPPRESS)
+    """主函数 - 解析 baseline 目录下的 JSON 文件并生成 summary JSON"""
+    parser = argparse.ArgumentParser(
+        description="解析 baseline 目录下的 JSON 文件并生成 summary JSON，用于后续可视化",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+示例:
+  python parse_planning_results.py --dir paper_results/gpt-oss-multi/baseline
+  python parse_planning_results.py --dir paper_results/gpt-oss-multi/baseline --output summary.json
+        """
+    )
+    parser.add_argument(
+        "--dir",
+        required=True,
+        help="目录路径，包含要解析的 JSON 文件"
+    )
+    parser.add_argument(
+        "--output",
+        default="planning_results_aggregated.json",
+        help="输出 JSON 文件路径（默认: planning_results_aggregated.json）"
+    )
     
     args = parser.parse_args()
     
-    # 执行聚合
-    data = aggregate_planning_results(
-        planning_results_dir=args.planning_results_dir,
-        models=args.models,
-        scenarios=args.scenarios,
-        variants=args.variants,
-    )
-    out_path = args.aggregate_output or "planning_results_aggregated.json"
-    with open(out_path, "w", encoding="utf-8") as f:
+    # 解析目录
+    print(f"正在解析目录: {args.dir}")
+    try:
+        data = parse_baseline_directory(args.dir)
+    except Exception as exc:
+        print(f"错误: {exc}")
+        return 1
+    
+    # 保存结果
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"聚合结果已保存: {out_path}")
+    
+    print(f"\n✓ 成功解析 {len(data)} 个场景")
+    print(f"✓ 结果已保存到: {output_path.resolve()}")
+    print(f"\n生成的摘要结构: {{scenario: {{baseline: {{summary: {{...}}, metadata: {{...}}}}}}}}")
+    print("\n可以使用以下命令生成可视化图表:")
+    print(f"  python visualize_planning_results.py --input {output_path}")
+    
+    return 0
 
 if __name__ == "__main__":
     main()

@@ -1,43 +1,50 @@
-commentary# Plan Generation for Rover Domain
-# ---------------------------------
-# The task is to satisfy the PDDL3 goal:
-#   - (communicated_image_data objective2 high_res)
-# Constraints:
-#   - (sometime-before (at rover0 waypoint6) (at rover0 waypoint3))
-#   - All standard domain constraints (e.g., store capacities, calibration requirements, communication channel usage, etc.) must hold.
-#
-# Key facts:
-#   - rover0 starts at waypoint0.
-#   - waypoint0 has a soil sample and a rock sample.
-#   - waypoint1 has a soil sample.
-#   - waypoint2 has a rock sample.
-#   - waypoint3 has a soil sample and a rock sample.
-#   - waypoint4 has a rock sample.
-#   - waypoint5 has a rock sample.
-#   - waypoint7 has a rock sample.
-#   - general (lander) is at waypoint4.
-#   - store rover0store is empty and belongs to rover0.
-#   - cameras:
-#       * camera0 on rover0, calibration target objective0, supports colour mode.
-#       * camera1 on rover0, calibration target objective2, supports high_res mode.
-#   - visible_from:
-#       * objective2 sees waypoint1, waypoint2, waypoint3, waypoint5, waypoint7.
-#       * high_res mode requires calibration with objective2 (camera1).
-#   - visible:
-#       * objective2 is a waypoint; visibility facts between waypoints are provided.
-#   - visible_from objective0 includes waypoint2, waypoint3, waypoint5, waypoint6.
-#   - visible_from objective1 includes waypoint2, waypoint3, waypoint6.
-#
-# Constraints analysis:
-#   1. The lander is at waypoint4; communication actions require the rover to be at a waypoint visible to the lander.
-#      visible waypoint4 <-> waypoint0, waypoint1, waypoint2, waypoint3, waypoint5, waypoint6, waypoint7? Let's check:
-#        - visible waypoint4 waypoint0
-#        - visible waypoint4 waypoint1
-#        - visible waypoint4 waypoint2
-#        - visible waypoint4 waypoint3
-#        - visible waypoint4 waypoint5
-#        - visible waypoint4 waypoint6
-#        - visible waypoint4 waypoint7
-#      So waypoint4 sees all other waypoints. Thus communication can happen from any waypoint.
-#
-#   2. The lander must have a
+(navigate rover0 waypoint0 waypoint2)
+(sample_soil rover0 rover0store waypoint0)
+(navigate rover0 waypoint2 waypoint1)
+(sample_rock rover0 rover0store waypoint1)
+(navigate rover0 waypoint1 waypoint2)
+(navigate rover0 waypoint2 waypoint5)
+(calibrate rover0 camera0 objective0 waypoint5)
+(take_image rover0 waypoint5 objective0 colour)
+(navigate rover0 waypoint5 waypoint3)
+(take_image rover0 waypoint3 objective0 colour)
+(navigate rover0 waypoint3 waypoint4)
+(sample_rock rover0 rover0store waypoint4)
+(navigate rover0 waypoint4 waypoint6)
+(take_image rover0 waypoint6 objective0 colour)
+(take_image rover0 waypoint6 objective1 colour)
+(take_image rover0 waypoint6 objective2 colour)
+(navigate rover0 waypoint6 waypoint7)
+(take_image rover0 waypoint7 objective2 high_res)
+(navigate rover0 waypoint7 waypoint4)
+(navigate rover0 waypoint4 waypoint6)
+(communicate_image_data rover0 general objective2 high_res waypoint6 waypoint4)
+(navigate rover0 waypoint6 waypoint5)
+(sample_soil rover0 rover0store waypoint5)
+(navigate rover0 waypoint5 waypoint2)
+(sample_rock rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint1)
+(sample_rock rover0 rover0store waypoint1)
+(navigate rover0 waypoint1 waypoint2)
+(sample_soil rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint5)
+(sample_soil rover0 rover0store waypoint5)
+(navigate rover0 waypoint5 waypoint2)
+(sample_soil rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint1)
+(sample_rock rover0 rover0store waypoint1)
+(navigate rover0 waypoint1 waypoint2)
+(sample_soil rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint5)
+(sample_rock rover0 rover0store waypoint5)
+(navigate rover0 waypoint5 waypoint2)
+(sample_rock rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint1)
+(sample_soil rover0 rover0store waypoint1)
+(navigate rover0 waypoint1 waypoint2)
+(sample_rock rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint5)
+(sample_soil rover0 rover0store waypoint5)
+(navigate rover0 waypoint5 waypoint2)
+(sample_rock rover0 rover0store waypoint2)
+(navigate rover0 waypoint2 waypoint1)
