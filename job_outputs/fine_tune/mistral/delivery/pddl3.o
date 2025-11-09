@@ -1,0 +1,99 @@
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
+Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
+Unsloth 2025.8.6 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+============================================================
+PDDL Fine-tuning with unsloth/mistral-7b-instruct-v0.3-bnb-4bit
+============================================================
+GPU count: 1
+GPU 0: NVIDIA A10
+
+Loading model and tokenizer...
+==((====))==  Unsloth 2025.8.6: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Configuring LoRA...
+
+Loading dataset from /groups/fkong/jfan5/data/sft/delivery/pddl3.hf...
+Loading HuggingFace dataset...
+Dataset loaded with 499 entries
+Scenario distribution:
+  delivery: 499
+
+Filtering scenarios to: ['delivery']
+Filter:   0%|          | 0/499 [00:00<?, ? examples/s]Filter: 100%|██████████| 499/499 [00:00<00:00, 19568.03 examples/s]
+Filtered dataset size: 499
+Validation ratio: 0.05
+Processing dataset format (chat template)...
+Map:   0%|          | 0/474 [00:00<?, ? examples/s]Map: 100%|██████████| 474/474 [00:00<00:00, 4070.01 examples/s]Map: 100%|██████████| 474/474 [00:00<00:00, 3961.85 examples/s]
+Map:   0%|          | 0/25 [00:00<?, ? examples/s]Map: 100%|██████████| 25/25 [00:00<00:00, 2133.42 examples/s]
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
+wandb: Tracking run with wandb version 0.21.1
+wandb: Run data is saved locally in /scratch365/jfan5/Safety-gen/wandb/run-20251109_114337-ka84wx9p
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run pddl_sft_pddl3
+wandb: ⭐️ View project at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune
+wandb: 🚀 View run at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/ka84wx9p
+
+Testing initial model performance...
+Initial model output:
+Here is a valid plan for the given problem:
+
+```
+(move t1 c_1_2 c_1_0)
+(pick-package t1 p1 c_1_0)
+(move t1 c_1_0 c_2_0)
+(move t1 c_2_0 c_3_0)
+(drop-package t1 p1 c_3_0)
+```
+
+This plan picks up the package from its initial location, moves the truck to the goal location, and drops off the package at the goal location. The plan satisfies all the preconditions of the actions and does not violate any constraints or invariants.
+
+Resolved training arguments:
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  learning_rate: 2e-05
+  warmup_ratio: 0.1
+  weight_decay: 0.05
+  max_seq_length: 4096
+  load_in_4bit: True
+
+Creating trainer...
+Unsloth: Tokenizing ["text"]:   0%|          | 0/474 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"]: 100%|██████████| 474/474 [00:00<00:00, 1805.67 examples/s]Unsloth: Tokenizing ["text"]: 100%|██████████| 474/474 [00:00<00:00, 1681.42 examples/s]
+Unsloth: Tokenizing ["text"]:   0%|          | 0/25 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"]: 100%|██████████| 25/25 [00:00<00:00, 1249.41 examples/s]
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 474 | Num Epochs = 3 | Total steps = 180
+O^O/ \_/ \    Batch size per device = 4 | Gradient accumulation steps = 2
+\        /    Data Parallel GPUs = 1 | Total batch size (4 x 2 x 1) = 8
+ "-____-"     Trainable parameters = 83,886,080 of 7,331,909,632 (1.14% trained)
+
+Starting training...
+  0%|          | 0/180 [00:00<?, ?it/s]  1%|          | 1/180 [00:11<33:27, 11.21s/it]  1%|          | 2/180 [00:18<26:48,  9.04s/it]  2%|▏         | 3/180 [00:26<24:43,  8.38s/it]  2%|▏         | 4/180 [00:33<23:41,  8.08s/it]  3%|▎         | 5/180 [00:41<23:04,  7.91s/it]  3%|▎         | 6/180 [00:49<22:40,  7.82s/it]  4%|▍         | 7/180 [00:56<22:21,  7.76s/it]  4%|▍         | 8/180 [01:04<22:07,  7.72s/it]  5%|▌         | 9/180 [01:12<21:55,  7.69s/it]  6%|▌         | 10/180 [01:19<21:44,  7.67s/it]                                                  6%|▌         | 10/180 [01:19<21:44,  7.67s/it]  6%|▌         | 11/180 [01:27<21:33,  7.66s/it]  7%|▋         | 12/180 [01:34<21:24,  7.64s/it]  7%|▋         | 13/180 [01:42<21:15,  7.64s/it]  8%|▊         | 14/180 [01:50<21:07,  7.64s/it]  8%|▊         | 15/180 [01:57<20:59,  7.63s/it]  9%|▉         | 16/180 [02:05<20:51,  7.63s/it]  9%|▉         | 17/180 [02:13<20:43,  7.63s/it] 10%|█         | 18/180 [02:20<20:36,  7.63s/it] 11%|█         | 19/180 [02:28<20:28,  7.63s/it] 11%|█         | 20/180 [02:35<20:20,  7.63s/it]                                                 11%|█         | 20/180 [02:35<20:20,  7.63s/it] 12%|█▏        | 21/180 [02:43<20:13,  7.63s/it] 12%|█▏        | 22/180 [02:51<20:04,  7.63s/it] 13%|█▎        | 23/180 [02:58<19:57,  7.63s/it] 13%|█▎        | 24/180 [03:06<19:49,  7.62s/it] 14%|█▍        | 25/180 [03:14<19:41,  7.62s/it] 14%|█▍        | 26/180 [03:21<19:33,  7.62s/it] 15%|█▌        | 27/180 [03:29<19:26,  7.62s/it] 16%|█▌        | 28/180 [03:36<19:18,  7.62s/it] 16%|█▌        | 29/180 [03:44<19:10,  7.62s/it] 17%|█▋        | 30/180 [03:52<19:03,  7.62s/it]                                                 17%|█▋        | 30/180 [03:52<19:03,  7.62s/it] 17%|█▋        | 31/180 [03:59<18:55,  7.62s/it] 18%|█▊        | 32/180 [04:07<18:47,  7.62s/it] 18%|█▊        | 33/180 [04:15<18:40,  7.62s/it] 19%|█▉        | 34/180 [04:22<18:32,  7.62s/it] 19%|█▉        | 35/180 [04:30<18:24,  7.62s/it] 20%|██        | 36/180 [04:37<18:17,  7.62s/it] 21%|██        | 37/180 [04:45<18:09,  7.62s/it] 21%|██        | 38/180 [04:53<18:02,  7.62s/it] 22%|██▏       | 39/180 [05:00<17:54,  7.62s/it] 22%|██▏       | 40/180 [05:08<17:46,  7.62s/it]                                                 22%|██▏       | 40/180 [05:08<17:46,  7.62s/it] 23%|██▎       | 41/180 [05:16<17:39,  7.62s/it] 23%|██▎       | 42/180 [05:23<17:31,  7.62s/it] 24%|██▍       | 43/180 [05:31<17:24,  7.62s/it] 24%|██▍       | 44/180 [05:38<17:16,  7.62s/it] 25%|██▌       | 45/180 [05:46<17:08,  7.62s/it] 26%|██▌       | 46/180 [05:54<17:00,  7.62s/it] 26%|██▌       | 47/180 [06:01<16:52,  7.62s/it] 27%|██▋       | 48/180 [06:09<16:45,  7.62s/it] 27%|██▋       | 49/180 [06:16<16:38,  7.62s/it] 28%|██▊       | 50/180 [06:24<16:30,  7.62s/it]                                                 28%|██▊       | 50/180 [06:24<16:30,  7.62s/it] 28%|██▊       | 51/180 [06:32<16:23,  7.62s/it] 29%|██▉       | 52/180 [06:39<16:15,  7.62s/it] 29%|██▉       | 53/180 [06:47<16:07,  7.62s/it] 30%|███       | 54/180 [06:55<16:00,  7.62s/it] 31%|███       | 55/180 [07:02<15:52,  7.62s/it] 31%|███       | 56/180 [07:10<15:45,  7.62s/it] 32%|███▏      | 57/180 [07:17<15:37,  7.62s/it] 32%|███▏      | 58/180 [07:25<15:29,  7.62s/it] 33%|███▎      | 59/180 [07:33<15:22,  7.62s/it] 33%|███▎      | 60/180 [07:35<11:54,  5.95s/it]                                                 33%|███▎      | 60/180 [07:35<11:54,  5.95s/it]Unsloth: Not an error, but MistralForCausalLM does not accept `num_items_in_batch`.
+Using gradient accumulation will be very slightly less accurate.
+Read more on gradient accumulation issues here: https://unsloth.ai/blog/gradient
+Unsloth: Will smartly offload gradients to save VRAM!
+{'loss': 0.7777, 'grad_norm': 2.5132038593292236, 'learning_rate': 1e-05, 'epoch': 0.17}
+{'loss': 0.3235, 'grad_norm': 1.2384188175201416, 'learning_rate': 1.9998119704485016e-05, 'epoch': 0.34}
+{'loss': 0.1052, 'grad_norm': 1.175162434577942, 'learning_rate': 1.9773338582506357e-05, 'epoch': 0.5}
+{'loss': 0.0583, 'grad_norm': 0.4467027187347412, 'learning_rate': 1.9182161068802742e-05, 'epoch': 0.67}
+{'loss': 0.0531, 'grad_norm': 0.2393510490655899, 'learning_rate': 1.824675004109107e-05, 'epoch': 0.84}
+{'loss': 0.0479, 'grad_norm': 0.18532279133796692, 'learning_rate': 1.7002173477671685e-05, 'epoch': 1.0}
+
+  0%|          | 0/7 [00:00<?, ?it/s][A
+ 29%|██▊       | 2/7 [00:01<00:02,  1.74it/s][A
+ 43%|████▎     | 3/7 [00:02<00:03,  1.18it/s][A
+ 57%|█████▋    | 4/7 [00:03<00:02,  1.04it/s][A
+ 71%|███████▏  | 5/7 [00:04<00:02,  1.05s/it][A
+ 86%|████████▌ | 6/7 [00:05<00:01,  1.08s/it][A
+100%|██████████| 7/7 [00:06<00:00,  1.14it/s][A                                                
+                                             [A 33%|███▎      | 60/180 [07:42<11:54,  5.95s/it]
+100%|██████████| 7/7 [00:06<00:00,  1.14it/s][A
+                                             [A
