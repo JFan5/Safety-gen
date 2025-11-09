@@ -18,4 +18,4 @@ python3 script/evaluate_llm_solver.py \
   --problems-dir blocksworld/all_problems3/testing \
   --domain-file blocksworld/domain3.pddl \
   --output blocksworld_all_testing_baseline.json \
-  --results-dir planning_results/mistral_7b/blocksworld/baseline
+  --results-dir planning_results/mistral_7b/blocksworld/baseline --max-problems 50

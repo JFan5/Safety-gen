@@ -101,7 +101,7 @@ def validate_solution(domain_file: str, problem_file: str, solution_text: str):
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
         if result.returncode == 0:
             out = result.stdout.lower()
-            if ("plan valid" in out) or ("successful plans" in out):
+            if ("plan valid\n" in out) or ("successful plans" in out):
                 return True, "Plan valid", result.stdout, result.stderr, cmd
             else:
                 return False, f"Validation failed: {result.stdout[:500]}", result.stdout, result.stderr, cmd

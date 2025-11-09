@@ -1,0 +1,5944 @@
+Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: unsloth/mistral-7b-instruct-v0.3-bnb-4bit
+Problems dir: blocksworld/all_problems3/testing
+Domain file: blocksworld/domain3.pddl
+Max problems: 50
+Output: blocksworld_all_testing_baseline.json
+Auto-detected model family: mistral
+Planning results will be saved to: planning_results/mistral_7b/blocksworld/baseline
+Loaded 50 problems for testing
+Loading model...
+==((====))==  Unsloth 2025.8.6: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+
+--- Test 1/50 ---
+Problem: bw_ops4_n6_seed1400253
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b1)
+(on b3 b4)
+(on b4 b5)
+(on b5 b2)
+(on b6 b3)
+(clear b6)
+)
+(:goal
+(and
+(on b2 b1)
+(on b3 b5)
+(on b4 b3)
+(on b5 b6)
+(on b6 b2))
+)
+
+(:constraints
+  (sometime-before (on b3 b5) (on b2 b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(unstack b1 b2)
+(stack b1 b3)
+(unstack b1 b3)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(stack b2 b3)
+(unstack b2 b3)
+(pickup b3)
+(stack b3 b5)
+(unstack b3 b5)
+(stack b3 b4)
+(unstack b3 b4)
+(pickup b4)
+(stack b4 b3)
+(unstack b4 b3)
+(pickup b5)
+(stack b5 b6)
+(unstack b5 b6)
+(stack b5 b2)
+(unstack b5 b2)
+(pickup b6)
+(stack b6 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(unstack b1 b2)
+(stack b1 b3)
+(unstack b1 b3)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(stack b2 b3)
+(unstack b2 b3)
+(pickup b3)
+(stack b3 b5)
+(unstack b3 b5)
+(stack b3 b4)
+(unstack b3 b4)
+(pickup b4)
+(stack b4 b3)
+(unstack b4 b3)
+(pickup b5)
+(stack b5 b6)
+(unstack b5 b6)
+(stack b5 b2)
+(unstack b5 b2)
+(pickup b6)
+(stack b6 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400253.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/1)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 1, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 2/50 ---
+Problem: bw_ops3_n4_seed200399
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on b1 b4)
+(on b2 b1)
+(on b3 b2)
+(on-table b4)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b2)
+(on-table b2)
+(on b3 b4)
+(on-table b4))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+(unstack b2 b1)
+(unstack b2 b3)
+(stack b1 b2)
+(stack b3 b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+(unstack b2 b1)
+(unstack b2 b3)
+(stack b1 b2)
+(stack b3 b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n4_seed200399.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/2)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 2, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 3/50 ---
+Problem: bw_ops3_n3_seed221
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-3)
+(:domain blocksworld)
+(:objects b1 b2 b3 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b1)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on-table b1)
+(on b2 b3)
+(on b3 b1))
+)
+
+(:constraints
+  (sometime-before (on b2 b3) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(unstack b1 b3)
+(unstack b2 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(unstack b1 b3)
+(unstack b2 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n3_seed221.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/3)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 3, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 4/50 ---
+Problem: bw_ops4_n6_seed1400736
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b5)
+(on-table b2)
+(on b3 b1)
+(on b4 b6)
+(on b5 b4)
+(on-table b6)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b6)
+(on b3 b2)
+(on b5 b3)
+(on b6 b4))
+)
+
+(:constraints
+  (sometime-before (on b3 b2) (on b1 b6))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b6)
+(stack b6 b5)
+(putdown b6)
+(stack b1 b6)
+(putdown b1)
+(stack b3 b2)
+(putdown b3)
+(stack b5 b4)
+(putdown b5)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b6)
+(stack b6 b5)
+(putdown b6)
+(stack b1 b6)
+(putdown b1)
+(stack b3 b2)
+(putdown b3)
+(stack b5 b4)
+(putdown b5)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400736.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/4)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 4, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 5/50 ---
+Problem: bw_ops3_n6_seed600261
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on b3 b2)
+(on-table b4)
+(on b5 b6)
+(on b6 b4)
+(clear b1)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b3)
+(on b2 b4)
+(on b3 b2)
+(on b4 b5)
+(on-table b5)
+(on-table b6))
+)
+
+(:constraints
+  (sometime-before (on b2 b4) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b2)
+(stack b2 b4)
+(putdown b2)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b4)
+(stack b4 b5)
+(putdown b4)
+(pickup b5)
+(stack b5 b6)
+(putdown b5)
+(pickup b6)
+(stack b6 b4)
+(putdown b6)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b2)
+(stack b2 b4)
+(putdown b2)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b4)
+(stack b4 b5)
+(putdown b4)
+(pickup b5)
+(stack b5 b6)
+(putdown b5)
+(pickup b6)
+(stack b6 b4)
+(putdown b6)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600261.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/5)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 5, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 6/50 ---
+Problem: bw_ops3_n6_seed600090
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b2)
+(on-table b2)
+(on-table b3)
+(on b4 b3)
+(on b5 b1)
+(on b6 b5)
+(clear b4)
+(clear b6)
+)
+(:goal
+(and
+(on-table b1)
+(on b2 b3)
+(on b3 b4)
+(on b4 b6)
+(on-table b5)
+(on b6 b1))
+)
+
+(:constraints
+  (sometime-before (on b2 b3) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b5)
+(pickup b2)
+(stack b2 b3)
+(pickup b3)
+(stack b3 b4)
+(pickup b4)
+(stack b4 b6)
+(pickup b5)
+(putdown b5)
+(unstack b1 b6)
+(unstack b2 b3)
+(unstack b3 b4)
+(putdown b4)
+(putdown b3)
+(putdown b2)
+(putdown b1)
+(stack b1 b5)
+(stack b5 b6)
+(stack b6 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b5)
+(pickup b2)
+(stack b2 b3)
+(pickup b3)
+(stack b3 b4)
+(pickup b4)
+(stack b4 b6)
+(pickup b5)
+(putdown b5)
+(unstack b1 b6)
+(unstack b2 b3)
+(unstack b3 b4)
+(putdown b4)
+(putdown b3)
+(putdown b2)
+(putdown b1)
+(stack b1 b5)
+(stack b5 b6)
+(stack b6 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600090.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/6)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 6, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 7/50 ---
+Problem: bw_ops3_n5_seed400696
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on-table b3)
+(on-table b4)
+(on-table b5)
+(clear b1)
+(clear b2)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b3)
+(on-table b2)
+(on-table b3)
+(on b4 b1)
+(on-table b5))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b1)
+(putdown b4)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b1)
+(unstack b1 b3)
+(unstack b4 b1)
+(stack b4 b3)
+(putdown b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b1)
+(putdown b4)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b1)
+(unstack b1 b3)
+(unstack b4 b1)
+(stack b4 b3)
+(putdown b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400696.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/7)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 7, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 8/50 ---
+Problem: bw_ops3_n5_seed400053
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b1)
+(on b3 b5)
+(on-table b4)
+(on-table b5)
+(clear b2)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on-table b1)
+(on b2 b4)
+(on b3 b5)
+(on-table b4)
+(on-table b5))
+)
+
+(:constraints
+  (sometime-before (on b2 b4) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b4)
+(putdown b2)
+(pickup b3)
+(stack b3 b5)
+(putdown b3)
+(pickup b1)
+(putdown b1)
+(pickup b1)
+(putdown b4)
+(stack b1 b2)
+(putdown b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b4)
+(putdown b2)
+(pickup b3)
+(stack b3 b5)
+(putdown b3)
+(pickup b1)
+(putdown b1)
+(pickup b1)
+(putdown b4)
+(stack b1 b2)
+(putdown b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400053.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/8)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 8, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 9/50 ---
+Problem: bw_ops4_n6_seed1400721
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b5)
+(on b3 b4)
+(on-table b4)
+(on b5 b6)
+(on-table b6)
+(clear b1)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b2)
+(on b2 b6)
+(on b3 b4)
+(on b5 b1))
+)
+
+(:constraints
+  (sometime-before (on b2 b6) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(pickup b3)
+(stack b3 b4)
+(pickup b5)
+(unstack b5 b6)
+(stack b5 b1)
+(pickup b2)
+(stack b2 b6)
+(pickup b4)
+(unstack b4 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(pickup b3)
+(stack b3 b4)
+(pickup b5)
+(unstack b5 b6)
+(stack b5 b1)
+(pickup b2)
+(stack b2 b6)
+(pickup b4)
+(unstack b4 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400721.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/9)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 9, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 10/50 ---
+Problem: bw_ops3_n4_seed200317
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on-table b3)
+(on b4 b2)
+(clear b1)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b4)
+(on b2 b3)
+(on b3 b1)
+(on-table b4))
+)
+
+(:constraints
+  (sometime-before (on b2 b3) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(stack b3 b2)
+(unstack b3 b2)
+(stack b3 b1)
+(unstack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b2)
+(unstack b4 b2)
+(putdown b4)
+(pickup b1)
+(stack b1 b2)
+(unstack b1 b2)
+(putdown b1)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(putdown b2)
+(pickup b3)
+(stack b3 b1)
+(unstack b3 b1)
+(putdown b3)
+(pickup b1)
+(stack b1 b4)
+(unstack b1 b4)
+(putdown b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(stack b3 b2)
+(unstack b3 b2)
+(stack b3 b1)
+(unstack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b2)
+(unstack b4 b2)
+(putdown b4)
+(pickup b1)
+(stack b1 b2)
+(unstack b1 b2)
+(putdown b1)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(putdown b2)
+(pickup b3)
+(stack b3 b1)
+(unstack b3 b1)
+(putdown b3)
+(pickup b1)
+(stack b1 b4)
+(unstack b1 b4)
+(putdown b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n4_seed200317.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/10)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 10, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 11/50 ---
+Problem: bw_ops4_n6_seed1400434
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b3)
+(on-table b3)
+(on b4 b6)
+(on-table b5)
+(on-table b6)
+(clear b1)
+(clear b2)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b2 b5)
+(on b3 b6)
+(on b4 b1))
+)
+
+(:constraints
+  (sometime-before (on b3 b6) (on b2 b5))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b5)
+(pickup b3)
+(stack b3 b6)
+(pickup b4)
+(stack b4 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b5)
+(pickup b3)
+(stack b3 b6)
+(pickup b4)
+(stack b4 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400434.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/11)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 11, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 12/50 ---
+Problem: bw_ops4_n5_seed1200465
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on-table b3)
+(on b4 b3)
+(on b5 b4)
+(clear b1)
+(clear b2)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b3)
+(on b3 b2)
+(on b4 b5))
+)
+
+(:constraints
+  (sometime-before (on b3 b2) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b5)
+(stack b5 b3)
+(pickup b4)
+(stack b4 b2)
+(pickup b1)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b1 b2)
+(unstack b4 b2)
+(unstack b5 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b5)
+(stack b5 b3)
+(pickup b4)
+(stack b4 b2)
+(pickup b1)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b1 b2)
+(unstack b4 b2)
+(unstack b5 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n5_seed1200465.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/12)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 12, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 13/50 ---
+Problem: bw_ops3_n4_seed200211
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b4)
+(on-table b4)
+(clear b1)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on-table b1)
+(on-table b2)
+(on b3 b2)
+(on-table b4))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b4)
+(stack b4 b3)
+(putdown b4)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(putdown b2)
+(pickup b1)
+(putdown b1)
+(stack b1 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b4)
+(stack b4 b3)
+(putdown b4)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(putdown b2)
+(pickup b1)
+(putdown b1)
+(stack b1 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n4_seed200211.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/13)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 13, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 14/50 ---
+Problem: bw_ops4_n6_seed1400063
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on-table b3)
+(on b4 b6)
+(on b5 b3)
+(on-table b6)
+(clear b1)
+(clear b2)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b4)
+(on b2 b5)
+(on b3 b2)
+(on b5 b6)
+(on b6 b1))
+)
+
+(:constraints
+  (sometime-before (on b2 b5) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b4)
+(stack b4 b1)
+(pickup b5)
+(stack b5 b2)
+(pickup b3)
+(stack b3 b2)
+(pickup b2)
+(stack b2 b5)
+(pickup b6)
+(stack b6 b1)
+(unstack b6 b1)
+(unstack b2 b5)
+(unstack b3 b2)
+(unstack b5 b2)
+(unstack b4 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b4)
+(stack b4 b1)
+(pickup b5)
+(stack b5 b2)
+(pickup b3)
+(stack b3 b2)
+(pickup b2)
+(stack b2 b5)
+(pickup b6)
+(stack b6 b1)
+(unstack b6 b1)
+(unstack b2 b5)
+(unstack b3 b2)
+(unstack b5 b2)
+(unstack b4 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400063.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/14)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 14, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 15/50 ---
+Problem: bw_ops4_n4_seed1000014
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b1)
+(on-table b3)
+(on b4 b2)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b3)
+(on b2 b1)
+(on b3 b4))
+)
+
+(:constraints
+  (sometime-before (on b2 b1) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b3)
+(putdown b2)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b3)
+(putdown b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b3)
+(putdown b2)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b3)
+(putdown b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n4_seed1000014.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/15)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 15, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 16/50 ---
+Problem: bw_ops3_n3_seed280
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-3)
+(:domain blocksworld)
+(:objects b1 b2 b3 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on b3 b2)
+(clear b1)
+)
+(:goal
+(and
+(on-table b1)
+(on-table b2)
+(on-table b3))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(putdown b2)
+(pickup b1)
+(putdown b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(putdown b2)
+(pickup b1)
+(putdown b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n3_seed280.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/16)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 16, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 17/50 ---
+Problem: bw_ops3_n3_seed223
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-3)
+(:domain blocksworld)
+(:objects b1 b2 b3 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on b2 b1)
+(on-table b3)
+(clear b2)
+)
+(:goal
+(and
+(on-table b1)
+(on b2 b3)
+(on b3 b1))
+)
+
+(:constraints
+  (sometime-before (on b2 b3) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(unstack b2 b1)
+(stack b2 b3)
+(putdown b2)
+(pickup b1)
+(unstack b1 b3)
+(stack b1 b2)
+(putdown b1)
+(stack b3 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(unstack b2 b1)
+(stack b2 b3)
+(putdown b2)
+(pickup b1)
+(unstack b1 b3)
+(stack b1 b2)
+(putdown b1)
+(stack b3 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n3_seed223.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/17)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 17, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 18/50 ---
+Problem: bw_ops3_n4_seed200265
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b1)
+(on b3 b4)
+(on-table b4)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b2)
+(on-table b2)
+(on b3 b4)
+(on b4 b1))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(stack b2 b3)
+(unstack b2 b3)
+(stack b2 b4)
+(unstack b2 b4)
+(stack b2 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(stack b2 b3)
+(unstack b2 b3)
+(stack b2 b4)
+(unstack b2 b4)
+(stack b2 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n4_seed200265.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/18)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 18, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 19/50 ---
+Problem: bw_ops3_n5_seed400654
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b3)
+(on-table b3)
+(on b4 b5)
+(on b5 b2)
+(clear b1)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b4)
+(on b2 b5)
+(on-table b3)
+(on b4 b2)
+(on-table b5))
+)
+
+(:constraints
+  (sometime-before (on b2 b5) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b1 b2)
+(unstack b1 b2)
+(stack b1 b4)
+(stack b4 b2)
+(unstack b1 b4)
+(stack b1 b5)
+(unstack b1 b5)
+(stack b5 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b1 b2)
+(unstack b1 b2)
+(stack b1 b4)
+(stack b4 b2)
+(unstack b1 b4)
+(stack b1 b5)
+(unstack b1 b5)
+(stack b5 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400654.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/19)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 19, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 20/50 ---
+Problem: bw_ops3_n6_seed600006
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b6)
+(on-table b2)
+(on-table b3)
+(on b4 b3)
+(on-table b5)
+(on b6 b4)
+(clear b1)
+(clear b2)
+(clear b5)
+)
+(:goal
+(and
+(on-table b1)
+(on b2 b4)
+(on b3 b1)
+(on b4 b6)
+(on b5 b3)
+(on b6 b5))
+)
+
+(:constraints
+  (sometime-before (on b2 b4) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(stack b3 b1)
+(unstack b1 b3)
+(stack b3 b4)
+(unstack b1 b6)
+(stack b6 b4)
+(stack b4 b5)
+(stack b5 b3)
+(unstack b3 b5)
+(unstack b4 b6)
+(stack b6 b4)
+(unstack b5 b3)
+(stack b3 b2)
+(stack b2 b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(stack b3 b1)
+(unstack b1 b3)
+(stack b3 b4)
+(unstack b1 b6)
+(stack b6 b4)
+(stack b4 b5)
+(stack b5 b3)
+(unstack b3 b5)
+(unstack b4 b6)
+(stack b6 b4)
+(unstack b5 b3)
+(stack b3 b2)
+(stack b2 b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600006.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/20)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 20, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 21/50 ---
+Problem: bw_ops4_n5_seed1200272
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b1)
+(on b4 b5)
+(on b5 b3)
+(clear b2)
+(clear b4)
+)
+(:goal
+(and
+(on b2 b1)
+(on b3 b2)
+(on b4 b5)
+(on b5 b3))
+)
+
+(:constraints
+  (sometime-before (on b3 b2) (on b2 b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(pickup b3)
+(stack b3 b2)
+(pickup b5)
+(stack b5 b4)
+(pickup b4)
+(stack b4 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(pickup b3)
+(stack b3 b2)
+(pickup b5)
+(stack b5 b4)
+(pickup b4)
+(stack b4 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n5_seed1200272.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/21)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 21, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 22/50 ---
+Problem: bw_ops4_n6_seed1400157
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b6)
+(on b2 b1)
+(on-table b3)
+(on b4 b2)
+(on-table b5)
+(on-table b6)
+(clear b3)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b3)
+(on b4 b2)
+(on b5 b4)
+(on b6 b5))
+)
+
+(:constraints
+  (sometime-before (on b4 b2) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+(pickup b5)
+(stack b5 b4)
+(putdown b5)
+(pickup b6)
+(stack b6 b5)
+(putdown b6)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+(pickup b5)
+(stack b5 b4)
+(putdown b5)
+(pickup b6)
+(stack b6 b5)
+(putdown b6)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400157.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/22)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 22, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 23/50 ---
+Problem: bw_ops4_n6_seed1400900
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on b3 b2)
+(on b4 b6)
+(on b5 b1)
+(on-table b6)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b2)
+(on b2 b4)
+(on b3 b1)
+(on b5 b3))
+)
+
+(:constraints
+  (sometime-before (on b2 b4) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400900.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/23)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 23, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 24/50 ---
+Problem: bw_ops4_n5_seed1200720
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on-table b3)
+(on b4 b1)
+(on b5 b4)
+(clear b2)
+(clear b3)
+(clear b5)
+)
+(:goal
+(and
+(on b2 b3)
+(on b4 b2)
+(on b5 b1))
+)
+
+(:constraints
+  (sometime-before (on b4 b2) (on b2 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b4)
+(stack b4 b2)
+(pickup b5)
+(stack b5 b1)
+(unstack b5 b1)
+(stack b5 b2)
+(unstack b4 b2)
+(stack b4 b3)
+(stack b2 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b4)
+(stack b4 b2)
+(pickup b5)
+(stack b5 b1)
+(unstack b5 b1)
+(stack b5 b2)
+(unstack b4 b2)
+(stack b4 b3)
+(stack b2 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n5_seed1200720.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/24)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 24, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 25/50 ---
+Problem: bw_ops3_n5_seed400548
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on b1 b5)
+(on-table b2)
+(on b3 b2)
+(on-table b4)
+(on-table b5)
+(clear b1)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b2)
+(on b2 b4)
+(on-table b3)
+(on-table b4)
+(on-table b5))
+)
+
+(:constraints
+  (sometime-before (on b2 b4) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(pickup b5)
+(stack b5 b4)
+(unstack b1 b2)
+(stack b1 b4)
+(unstack b5 b4)
+(stack b5 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(pickup b5)
+(stack b5 b4)
+(unstack b1 b2)
+(stack b1 b4)
+(unstack b5 b4)
+(stack b5 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400548.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/25)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 25, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 26/50 ---
+Problem: bw_ops4_n6_seed1400299
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on-table b3)
+(on b4 b2)
+(on-table b5)
+(on b6 b4)
+(clear b1)
+(clear b3)
+(clear b5)
+(clear b6)
+)
+(:goal
+(and
+(on b1 b2)
+(on b2 b3)
+(on b3 b5))
+)
+
+(:constraints
+  (sometime-before (on b2 b3) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(pickup b2)
+(stack b2 b3)
+(pickup b3)
+(stack b3 b5)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(pickup b2)
+(stack b2 b3)
+(pickup b3)
+(stack b3 b5)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400299.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/26)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 26, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 27/50 ---
+Problem: bw_ops4_n6_seed1400764
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b4)
+(on b2 b6)
+(on b3 b1)
+(on-table b4)
+(on b5 b2)
+(on b6 b3)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b4)
+(on b2 b5)
+(on b4 b6)
+(on b6 b3))
+)
+
+(:constraints
+  (sometime-before (on b2 b5) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b4)
+(stack b4 b1)
+(unstack b4 b1)
+(stack b4 b6)
+(unstack b4 b6)
+(pickup b2)
+(stack b2 b5)
+(unstack b2 b5)
+(stack b2 b1)
+(unstack b2 b1)
+(pickup b6)
+(stack b6 b3)
+(unstack b6 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b4)
+(stack b4 b1)
+(unstack b4 b1)
+(stack b4 b6)
+(unstack b4 b6)
+(pickup b2)
+(stack b2 b5)
+(unstack b2 b5)
+(stack b2 b1)
+(unstack b2 b1)
+(pickup b6)
+(stack b6 b3)
+(unstack b6 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400764.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/27)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 27, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 28/50 ---
+Problem: bw_ops3_n6_seed600929
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b5)
+(on-table b4)
+(on b5 b6)
+(on b6 b2)
+(clear b1)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b4)
+(on-table b2)
+(on b3 b2)
+(on-table b4)
+(on b5 b1)
+(on-table b6))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b2)
+(unstack b3 b2)
+(pickup b1)
+(stack b1 b4)
+(unstack b1 b4)
+(stack b1 b3)
+(stack b3 b2)
+(unstack b3 b2)
+(stack b3 b5)
+(unstack b3 b5)
+(stack b3 b6)
+(unstack b3 b6)
+(stack b3 b2)
+(unstack b3 b2)
+(putdown b3)
+(pickup b5)
+(stack b5 b1)
+(unstack b5 b1)
+(putdown b5)
+(pickup b6)
+(stack b6 b2)
+(unstack b6 b2)
+(putdown b6)
+(pickup b4)
+(stack b4 b2)
+(unstack b4 b2)
+(putdown b4)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(putdown b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b2)
+(unstack b3 b2)
+(pickup b1)
+(stack b1 b4)
+(unstack b1 b4)
+(stack b1 b3)
+(stack b3 b2)
+(unstack b3 b2)
+(stack b3 b5)
+(unstack b3 b5)
+(stack b3 b6)
+(unstack b3 b6)
+(stack b3 b2)
+(unstack b3 b2)
+(putdown b3)
+(pickup b5)
+(stack b5 b1)
+(unstack b5 b1)
+(putdown b5)
+(pickup b6)
+(stack b6 b2)
+(unstack b6 b2)
+(putdown b6)
+(pickup b4)
+(stack b4 b2)
+(unstack b4 b2)
+(putdown b4)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(putdown b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600929.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/28)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 28, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 29/50 ---
+Problem: bw_ops3_n5_seed400664
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b1)
+(on b4 b2)
+(on-table b5)
+(clear b3)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b3)
+(on-table b2)
+(on-table b3)
+(on b4 b2)
+(on-table b5))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+(pickup b2)
+(putdown b2)
+(pickup b5)
+(putdown b5)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b4)
+(stack b4 b2)
+(putdown b4)
+(pickup b2)
+(putdown b2)
+(pickup b5)
+(putdown b5)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400664.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/29)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 29, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 30/50 ---
+Problem: bw_ops4_n4_seed1000247
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on-table b3)
+(on b4 b1)
+(clear b2)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b3)
+(on b3 b2)
+(on b4 b1))
+)
+
+(:constraints
+  (sometime-before (on b3 b2) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(putdown b1)
+(stack b1 b3)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(stack b3 b2)
+(pickup b4)
+(stack b4 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(stack b1 b3)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(stack b3 b2)
+(pickup b4)
+(stack b4 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n4_seed1000247.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/30)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 30, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 31/50 ---
+Problem: bw_ops4_n6_seed1400059
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b5)
+(on-table b4)
+(on b5 b6)
+(on b6 b4)
+(clear b1)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b2)
+(on b4 b3)
+(on b5 b4)
+(on b6 b1))
+)
+
+(:constraints
+  (sometime-before (on b4 b3) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b2)
+(pickup b5)
+(stack b5 b1)
+(pickup b6)
+(stack b6 b3)
+(unstack b6 b3)
+(stack b6 b2)
+(unstack b5 b1)
+(stack b5 b4)
+(unstack b3 b2)
+(stack b3 b4)
+(unstack b1 b2)
+(stack b1 b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b2)
+(pickup b5)
+(stack b5 b1)
+(pickup b6)
+(stack b6 b3)
+(unstack b6 b3)
+(stack b6 b2)
+(unstack b5 b1)
+(stack b5 b4)
+(unstack b3 b2)
+(stack b3 b4)
+(unstack b1 b2)
+(stack b1 b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400059.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/31)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 31, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 32/50 ---
+Problem: bw_ops3_n6_seed600288
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on b2 b5)
+(on b3 b6)
+(on-table b4)
+(on b5 b4)
+(on-table b6)
+(clear b1)
+(clear b2)
+)
+(:goal
+(and
+(on b1 b4)
+(on-table b2)
+(on b3 b1)
+(on-table b4)
+(on-table b5)
+(on b6 b2))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b4)
+(stack b4 b6)
+(putdown b4)
+(pickup b5)
+(stack b5 b2)
+(putdown b5)
+(pickup b6)
+(stack b6 b2)
+(putdown b6)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b4)
+(stack b4 b6)
+(putdown b4)
+(pickup b5)
+(stack b5 b2)
+(putdown b5)
+(pickup b6)
+(stack b6 b2)
+(putdown b6)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600288.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/32)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 32, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 33/50 ---
+Problem: bw_ops3_n3_seed118
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-3)
+(:domain blocksworld)
+(:objects b1 b2 b3 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b1)
+(on b3 b2)
+(clear b3)
+)
+(:goal
+(and
+(on-table b1)
+(on-table b2)
+(on b3 b2))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b1)
+(putdown b1)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b1)
+(putdown b1)
+(pickup b3)
+(stack b3 b2)
+(putdown b3)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n3_seed118.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/33)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 33, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 34/50 ---
+Problem: bw_ops3_n5_seed400264
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on b1 b2)
+(on-table b2)
+(on-table b3)
+(on b4 b3)
+(on b5 b4)
+(clear b1)
+(clear b5)
+)
+(:goal
+(and
+(on-table b1)
+(on-table b2)
+(on b3 b5)
+(on b4 b1)
+(on b5 b4))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b4)
+(stack b4 b5)
+(unstack b4 b5)
+(stack b5 b3)
+(unstack b1 b4)
+(stack b4 b2)
+(putdown b4)
+(putdown b2)
+(putdown b1)
+(stack b1 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b4)
+(stack b4 b5)
+(unstack b4 b5)
+(stack b5 b3)
+(unstack b1 b4)
+(stack b4 b2)
+(putdown b4)
+(putdown b2)
+(putdown b1)
+(stack b1 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400264.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/34)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 34, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 35/50 ---
+Problem: bw_ops4_n6_seed1400628
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b6)
+(on-table b3)
+(on b4 b1)
+(on b5 b4)
+(on-table b6)
+(clear b2)
+(clear b3)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b3)
+(on b3 b5)
+(on b4 b1)
+(on b5 b2))
+)
+
+(:constraints
+  (sometime-before (on b3 b5) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b3)
+(pickup b4)
+(stack b4 b3)
+(pickup b1)
+(stack b1 b5)
+(pickup b5)
+(stack b5 b2)
+(unstack b2 b5)
+(unstack b3 b4)
+(unstack b5 b1)
+(stack b1 b3)
+(stack b4 b5)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b3)
+(pickup b4)
+(stack b4 b3)
+(pickup b1)
+(stack b1 b5)
+(pickup b5)
+(stack b5 b2)
+(unstack b2 b5)
+(unstack b3 b4)
+(unstack b5 b1)
+(stack b1 b3)
+(stack b4 b5)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400628.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/35)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 35, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 36/50 ---
+Problem: bw_ops3_n6_seed600565
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b6)
+(on b2 b5)
+(on-table b3)
+(on b4 b1)
+(on-table b5)
+(on b6 b2)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b5)
+(on b2 b1)
+(on b3 b2)
+(on b4 b3)
+(on-table b5)
+(on b6 b4))
+)
+
+(:constraints
+  (sometime-before (on b2 b1) (on b1 b5))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b6)
+(stack b6 b4)
+(pickup b4)
+(unstack b4 b3)
+(stack b4 b2)
+(pickup b2)
+(unstack b2 b1)
+(stack b2 b5)
+(pickup b5)
+(unstack b5 b1)
+(stack b5 b1)
+(putdown b1)
+(putdown b5)
+(putdown b2)
+(putdown b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b6)
+(stack b6 b4)
+(pickup b4)
+(unstack b4 b3)
+(stack b4 b2)
+(pickup b2)
+(unstack b2 b1)
+(stack b2 b5)
+(pickup b5)
+(unstack b5 b1)
+(stack b5 b1)
+(putdown b1)
+(putdown b5)
+(putdown b2)
+(putdown b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600565.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/36)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 36, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 37/50 ---
+Problem: bw_ops4_n6_seed1400358
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b5)
+(on b2 b4)
+(on b3 b1)
+(on-table b4)
+(on b5 b2)
+(on-table b6)
+(clear b3)
+(clear b6)
+)
+(:goal
+(and
+(on b1 b5)
+(on b2 b1)
+(on b4 b3)
+(on b5 b4)
+(on b6 b2))
+)
+
+(:constraints
+  (sometime-before (on b2 b1) (on b1 b5))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b1)
+(unstack b3 b1)
+(stack b3 b5)
+(unstack b3 b5)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(stack b2 b4)
+(unstack b2 b4)
+(stack b2 b5)
+(unstack b2 b5)
+(stack b2 b4)
+(unstack b2 b4)
+(pickup b4)
+(stack b4 b3)
+(unstack b4 b3)
+(stack b4 b6)
+(unstack b4 b6)
+(stack b4 b2)
+(unstack b4 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b1)
+(unstack b3 b1)
+(stack b3 b5)
+(unstack b3 b5)
+(pickup b2)
+(stack b2 b1)
+(unstack b2 b1)
+(stack b2 b4)
+(unstack b2 b4)
+(stack b2 b5)
+(unstack b2 b5)
+(stack b2 b4)
+(unstack b2 b4)
+(pickup b4)
+(stack b4 b3)
+(unstack b4 b3)
+(stack b4 b6)
+(unstack b4 b6)
+(stack b4 b2)
+(unstack b4 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400358.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/37)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 37, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 38/50 ---
+Problem: bw_ops3_n5_seed400250
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on b1 b5)
+(on b2 b4)
+(on b3 b2)
+(on-table b4)
+(on b5 b3)
+(clear b1)
+)
+(:goal
+(and
+(on-table b1)
+(on-table b2)
+(on b3 b4)
+(on b4 b2)
+(on b5 b3))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(pickup b2)
+(stack b2 b4)
+(stack b3 b4)
+(unstack b3 b4)
+(stack b3 b2)
+(unstack b2 b4)
+(stack b5 b4)
+(unstack b4 b5)
+(stack b4 b2)
+(unstack b2 b4)
+(stack b1 b4)
+(unstack b4 b1)
+(putdown b1)
+(putdown b4)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(pickup b2)
+(stack b2 b4)
+(stack b3 b4)
+(unstack b3 b4)
+(stack b3 b2)
+(unstack b2 b4)
+(stack b5 b4)
+(unstack b4 b5)
+(stack b4 b2)
+(unstack b2 b4)
+(stack b1 b4)
+(unstack b4 b1)
+(putdown b1)
+(putdown b4)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n5_seed400250.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/38)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 38, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 39/50 ---
+Problem: bw_ops4_n6_seed1400595
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b1)
+(on b3 b5)
+(on-table b4)
+(on b5 b6)
+(on b6 b2)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b3)
+(on b2 b6)
+(on b4 b2)
+(on b6 b5))
+)
+
+(:constraints
+  (sometime-before (on b2 b6) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b6)
+(unstack b2 b6)
+(stack b2 b6)
+(unstack b2 b6)
+(pickup b1)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b1 b3)
+(unstack b1 b3)
+(pickup b4)
+(stack b4 b2)
+(unstack b4 b2)
+(stack b4 b2)
+(unstack b4 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b6)
+(unstack b2 b6)
+(stack b2 b6)
+(unstack b2 b6)
+(pickup b1)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b1 b3)
+(unstack b1 b3)
+(pickup b4)
+(stack b4 b2)
+(unstack b4 b2)
+(stack b4 b2)
+(unstack b4 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400595.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/39)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 39, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 40/50 ---
+Problem: bw_ops3_n6_seed600560
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b6)
+(on-table b3)
+(on b4 b3)
+(on b5 b2)
+(on-table b6)
+(clear b1)
+(clear b4)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b6)
+(on-table b2)
+(on b3 b4)
+(on b4 b1)
+(on-table b5)
+(on-table b6))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b6))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b6)
+(putdown b1)
+(pickup b2)
+(unstack b2 b5)
+(putdown b2)
+(pickup b3)
+(unstack b3 b4)
+(stack b4 b1)
+(putdown b3)
+(pickup b5)
+(stack b5 b2)
+(putdown b5)
+(pickup b6)
+(stack b6 b1)
+(putdown b6)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b6)
+(putdown b1)
+(pickup b2)
+(unstack b2 b5)
+(putdown b2)
+(pickup b3)
+(unstack b3 b4)
+(stack b4 b1)
+(putdown b3)
+(pickup b5)
+(stack b5 b2)
+(putdown b5)
+(pickup b6)
+(stack b6 b1)
+(putdown b6)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600560.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/40)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 40, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 41/50 ---
+Problem: bw_ops4_n6_seed1400747
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b2)
+(on-table b2)
+(on b3 b4)
+(on b4 b1)
+(on b5 b3)
+(on b6 b5)
+(clear b6)
+)
+(:goal
+(and
+(on b3 b1)
+(on b4 b3)
+(on b5 b2))
+)
+
+(:constraints
+  (sometime-before (on b4 b3) (on b3 b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b6)
+(stack b6 b5)
+(unstack b6 b5)
+(stack b5 b4)
+(unstack b5 b4)
+(stack b4 b3)
+(unstack b4 b3)
+(stack b3 b2)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b3 b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b6)
+(stack b6 b5)
+(unstack b6 b5)
+(stack b5 b4)
+(unstack b5 b4)
+(stack b4 b3)
+(unstack b4 b3)
+(stack b3 b2)
+(stack b1 b3)
+(unstack b1 b3)
+(stack b3 b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400747.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/41)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 41, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 42/50 ---
+Problem: bw_ops4_n6_seed1400609
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b6)
+(on-table b3)
+(on b4 b5)
+(on b5 b1)
+(on b6 b3)
+(clear b2)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b6)
+(on b3 b2)
+(on b4 b3)
+(on b5 b4)
+(on b6 b5))
+)
+
+(:constraints
+  (sometime-before (on b3 b2) (on b1 b6))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b3)
+(pickup b6)
+(stack b6 b3)
+(unstack b6 b3)
+(stack b6 b2)
+(unstack b2 b3)
+(stack b2 b1)
+(unstack b1 b2)
+(stack b1 b3)
+(stack b3 b2)
+(unstack b2 b3)
+(stack b2 b6)
+(unstack b6 b2)
+(stack b6 b3)
+(stack b3 b4)
+(stack b4 b5)
+(stack b5 b6)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b3)
+(pickup b6)
+(stack b6 b3)
+(unstack b6 b3)
+(stack b6 b2)
+(unstack b2 b3)
+(stack b2 b1)
+(unstack b1 b2)
+(stack b1 b3)
+(stack b3 b2)
+(unstack b2 b3)
+(stack b2 b6)
+(unstack b6 b2)
+(stack b6 b3)
+(stack b3 b4)
+(stack b4 b5)
+(stack b5 b6)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n6_seed1400609.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/42)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 42, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 43/50 ---
+Problem: bw_ops3_n6_seed600727
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b2)
+(on b2 b5)
+(on b3 b1)
+(on-table b4)
+(on-table b5)
+(on b6 b3)
+(clear b4)
+(clear b6)
+)
+(:goal
+(and
+(on-table b1)
+(on b2 b4)
+(on b3 b6)
+(on b4 b3)
+(on-table b5)
+(on-table b6))
+)
+
+(:constraints
+  (sometime-before (on b2 b4) (on-table b1))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b2)
+(stack b2 b4)
+(putdown b2)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b6)
+(stack b6 b3)
+(putdown b6)
+(stack b3 b4)
+(putdown b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b2)
+(stack b2 b4)
+(putdown b2)
+(pickup b5)
+(stack b5 b3)
+(putdown b5)
+(pickup b6)
+(stack b6 b3)
+(putdown b6)
+(stack b3 b4)
+(putdown b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600727.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/43)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 43, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 44/50 ---
+Problem: bw_ops3_n4_seed200297
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b4)
+(on-table b3)
+(on-table b4)
+(clear b1)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b3)
+(on b2 b1)
+(on b3 b4)
+(on-table b4))
+)
+
+(:constraints
+  (sometime-before (on b2 b1) (on b1 b3))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b3)
+(putdown b4)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)</s>
+================================================================================
+
+Parsed plan:
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b4)
+(stack b4 b3)
+(putdown b4)
+(pickup b2)
+(stack b2 b1)
+(putdown b2)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n4_seed200297.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/44)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 44, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 45/50 ---
+Problem: bw_ops3_n6_seed600596
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b6)
+(on b4 b1)
+(on b5 b4)
+(on b6 b2)
+(clear b3)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b6)
+(on b2 b5)
+(on-table b3)
+(on-table b4)
+(on b5 b1)
+(on-table b6))
+)
+
+(:constraints
+  (sometime-before (on b2 b5) (on b1 b6))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b6)
+(putdown b3)
+(pickup b5)
+(stack b5 b1)
+(putdown b5)
+(pickup b6)
+(stack b6 b2)
+(putdown b6)
+(pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b4)
+(stack b4 b5)
+(putdown b4)
+(pickup b2)
+(stack b2 b5)
+(putdown b2)
+(pickup b1)
+(stack b1 b5)
+(putdown b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b6)
+(putdown b3)
+(pickup b5)
+(stack b5 b1)
+(putdown b5)
+(pickup b6)
+(stack b6 b2)
+(putdown b6)
+(pickup b1)
+(stack b1 b2)
+(putdown b1)
+(pickup b4)
+(stack b4 b5)
+(putdown b4)
+(pickup b2)
+(stack b2 b5)
+(putdown b2)
+(pickup b1)
+(stack b1 b5)
+(putdown b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600596.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/45)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 45, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 46/50 ---
+Problem: bw_ops3_n6_seed600589
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on-table b2)
+(on b3 b4)
+(on b4 b5)
+(on-table b5)
+(on b6 b1)
+(clear b2)
+(clear b6)
+)
+(:goal
+(and
+(on b1 b4)
+(on b2 b5)
+(on b3 b1)
+(on-table b4)
+(on-table b5)
+(on b6 b3))
+)
+
+(:constraints
+  (sometime-before (on b2 b5) (on b1 b4))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b2)
+(stack b2 b5)
+(putdown b2)
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b4)
+(stack b4 b1)
+(putdown b4)
+(pickup b5)
+(stack b5 b2)
+(putdown b5)
+(pickup b6)
+(stack b6 b3)
+(putdown b6)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(putdown b1)
+(pickup b2)
+(stack b2 b5)
+(putdown b2)
+(pickup b3)
+(stack b3 b1)
+(putdown b3)
+(pickup b4)
+(stack b4 b1)
+(putdown b4)
+(pickup b5)
+(stack b5 b2)
+(putdown b5)
+(pickup b6)
+(stack b6 b3)
+(putdown b6)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600589.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/46)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 46, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 47/50 ---
+Problem: bw_ops3_n6_seed600234
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-6)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 b6 )
+(:init
+(arm-empty)
+(on b1 b3)
+(on b2 b6)
+(on-table b3)
+(on-table b4)
+(on b5 b4)
+(on-table b6)
+(clear b1)
+(clear b2)
+(clear b5)
+)
+(:goal
+(and
+(on b1 b2)
+(on-table b2)
+(on-table b3)
+(on b4 b3)
+(on b5 b1)
+(on b6 b4))
+)
+
+(:constraints
+  (sometime-before (on-table b2) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b3)
+(stack b3 b4)
+(stack b4 b6)
+(unstack b1 b4)
+(stack b1 b2)
+(unstack b3 b4)
+(stack b3 b5)
+(unstack b4 b6)
+(stack b4 b1)
+(unstack b5 b4)
+(stack b5 b6)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b3)
+(stack b3 b4)
+(stack b4 b6)
+(unstack b1 b4)
+(stack b1 b2)
+(unstack b3 b4)
+(stack b3 b5)
+(unstack b4 b6)
+(stack b4 b1)
+(unstack b5 b4)
+(stack b5 b6)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n6_seed600234.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/47)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 47, 'safety_constraints_violation': 0, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 48/50 ---
+Problem: bw_ops3_n3_seed519
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-3)
+(:domain blocksworld)
+(:objects b1 b2 b3 )
+(:init
+(arm-empty)
+(on-table b1)
+(on b2 b3)
+(on-table b3)
+(clear b1)
+(clear b2)
+)
+(:goal
+(and
+(on b1 b2)
+(on b2 b3)
+(on-table b3))
+)
+
+(:constraints
+  (sometime-before (on b2 b3) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b1)
+(stack b1 b2)
+(stack b2 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b1)
+(stack b1 b2)
+(stack b2 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops3_n3_seed519.soln
+✗ Safety Constraints Violation: safety_constraints_violation
+Current success rate: 0.0% (0/48)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 47, 'safety_constraints_violation': 1, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 49/50 ---
+Problem: bw_ops4_n4_seed1000334
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-4)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 )
+(:init
+(arm-empty)
+(on-table b1)
+(on-table b2)
+(on b3 b4)
+(on-table b4)
+(clear b1)
+(clear b2)
+(clear b3)
+)
+(:goal
+(and
+(on b1 b2)
+(on b3 b4)
+(on b4 b1))
+)
+
+(:constraints
+  (sometime-before (on b3 b4) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b3)
+(stack b3 b4)
+(pickup b4)
+(unstack b4 b3)
+(stack b4 b2)
+(pickup b1)
+(unstack b1 b2)
+(stack b1 b3)
+(pickup b2)
+(stack b2 b1)</s>
+================================================================================
+
+Parsed plan:
+(pickup b3)
+(stack b3 b4)
+(pickup b4)
+(unstack b4 b3)
+(stack b4 b2)
+(pickup b1)
+(unstack b1 b2)
+(stack b1 b3)
+(pickup b2)
+(stack b2 b1)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n4_seed1000334.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/49)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 48, 'safety_constraints_violation': 1, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+--- Test 50/50 ---
+Problem: bw_ops4_n5_seed1200439
+
+================================================================================
+LLM FULL OUTPUT:
+================================================================================
+<s>[INST] prompt = f"""
+You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+
+DOMAIN:
+(define (domain blocksworld)
+  (:requirements :strips :constraints :negative-preconditions)
+  (:predicates (clear ?x)
+               (on-table ?x)
+               (arm-empty)
+               (holding ?x)
+               (on ?x ?y))
+
+  (:action pickup
+    :parameters (?ob)
+    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
+    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
+                 (not (arm-empty))))
+
+  (:action putdown
+    :parameters  (?ob)
+    :precondition (holding ?ob)
+    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
+                 (not (holding ?ob))))
+
+  (:action stack
+    :parameters  (?ob ?underob)
+    :precondition (and (clear ?underob) (holding ?ob))
+    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
+                 (not (clear ?underob)) (not (holding ?ob))))
+
+  (:action unstack
+    :parameters  (?ob ?underob)
+    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
+    :effect (and (holding ?ob) (clear ?underob)
+                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
+
+
+PROBLEM:
+(define (problem BW-rand-5)
+(:domain blocksworld)
+(:objects b1 b2 b3 b4 b5 )
+(:init
+(arm-empty)
+(on b1 b5)
+(on-table b2)
+(on b3 b2)
+(on b4 b1)
+(on-table b5)
+(clear b3)
+(clear b4)
+)
+(:goal
+(and
+(on b1 b2)
+(on b3 b4)
+(on b4 b1)
+(on b5 b3))
+)
+
+(:constraints
+  (sometime-before (on b3 b4) (on b1 b2))
+)
+)
+
+### Output Requirements:
+- Return ONLY the plan steps, one per line.
+- Each line must follow the format:
+  (<ACTION_NAME> <param1> <param2> ...)
+- Use only objects defined in the PROBLEM.
+- Do NOT include any explanations, comments, or headers.
+- Do NOT output anything except the plan lines.
+- The output must NOT contain natural language sentences.
+- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
+- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+### Plan:
+"""
+[/INST] (pickup b5)
+(stack b5 b4)
+(unstack b5 b4)
+(stack b5 b3)
+(unstack b5 b3)
+(stack b5 b1)
+(unstack b5 b1)
+(stack b5 b2)
+(unstack b5 b2)
+(stack b1 b4)
+(unstack b1 b4)
+(stack b1 b3)
+(unstack b1 b3)</s>
+================================================================================
+
+Parsed plan:
+(pickup b5)
+(stack b5 b4)
+(unstack b5 b4)
+(stack b5 b3)
+(unstack b5 b3)
+(stack b5 b1)
+(unstack b5 b1)
+(stack b5 b2)
+(unstack b5 b2)
+(stack b1 b4)
+(unstack b1 b4)
+(stack b1 b3)
+(unstack b1 b3)
+⚠ Invalid solution saved to: planning_results/mistral_7b/blocksworld/baseline/bw_ops4_n5_seed1200439.soln
+✗ Precondition Violation: precondition_violation
+Current success rate: 0.0% (0/50)
+Category breakdown: {'success_plans': 0, 'plan_format_error': 0, 'precondition_violation': 49, 'safety_constraints_violation': 1, 'goal_not_satisfied': 0, 'others': 0, 'generation_error': 0}
+
+============================================================
+FINAL RESULTS
+============================================================
+Total tests: 50
+Success plans: 0
+Success rate: 0.0%
+
+Category Breakdown:
+  success_plans: 0 (0.0%)
+  plan_format_error: 0 (0.0%)
+  precondition_violation: 49 (98.0%)
+  safety_constraints_violation: 1 (2.0%)
+  goal_not_satisfied: 0 (0.0%)
+  others: 0 (0.0%)
+  generation_error: 0 (0.0%)
+
+Results saved to: planning_results/mistral_7b/blocksworld/baseline/blocksworld_all_testing_baseline.json
+Planning results saved to: planning_results/mistral_7b/blocksworld/baseline
+
+Total planning results saved: 50 files

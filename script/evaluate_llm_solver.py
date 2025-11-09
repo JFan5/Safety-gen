@@ -18,11 +18,10 @@ import re
 from typing import Optional
 # 配置参数
 # input and output length
-max_seq_length = 4096
+max_seq_length = 5000
 # output length
 MAX_NEW_TOKENS = 512
 dtype = None
-load_in_4bit = True
 
 
 
@@ -150,7 +149,7 @@ def _classify_result(stdout_text: str) -> str:
         
     text = stdout_text.lower()
     # 1) success plans - 首先检查 plan 是否 valid
-    if "plan valid\n" in stdout_text or "successful plans:" in stdout_text:
+    if "plan valid\n" in text or "successful plans:" in text:
         return "success_plans"
 
 
@@ -159,8 +158,9 @@ def _classify_result(stdout_text: str) -> str:
         return "plan_format_error"
 
     # 5) goal not satisfied
-    if "checking goal\nGoal not satisfied" in text:
+    if "checking goal\ngoal not satisfied" in text:
         return "goal_not_satisfied"
+        
 
     # 3) precondition violation
     if "plan failed to execute" in text and "unsatisfied precondition" in text:
@@ -171,8 +171,7 @@ def _classify_result(stdout_text: str) -> str:
         return "safety_constraints_violation"
 
     # 6) others
-    return "others"
-
+    raise ValueError(f"Unknown result: {text}")
 
 def validate_solution(domain_file, problem_file, solution_text):
     """使用VAL验证器验证解决方案"""
@@ -270,7 +269,8 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str) -> list:
 def test_model_on_testing_data(model_path,
                               output_file="test_results.json", family='mistral', 
                               max_problems: int = 0, results_dir=None,
-                              problems_dir: str = None, domain_file: str = None):
+                              problems_dir: str = None, domain_file: str = None,
+                              load_in_4bit: bool = True):
     """
     在testing数据上测试模型并计算成功率
     
@@ -571,6 +571,7 @@ def test_model_on_testing_data(model_path,
     
     # 自动生成输出文件名并保存到结果目录
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp_iso = datetime.now().isoformat()
     if output_file == "test_results.json":
         # 如果使用默认文件名，则保存到结果目录
         model_name_clean = model_path.replace('/', '_').replace('\\', '_')
@@ -580,10 +581,12 @@ def test_model_on_testing_data(model_path,
         output_file = results_dir / output_file
     
     output_data = {
+        'timestamp': timestamp_iso,
         'model_path': model_path,
         'problems_dir': str(problems_dir),
         'domain_file': str(domain_file),
         'max_problems': max_problems,
+        'load_in_4bit': load_in_4bit,
         'results_directory': str(results_dir),
         'total_tests': total_count,
         'success_count': success_count,
@@ -632,6 +635,11 @@ def main():
                        help="包含多个 problem PDDL 的目录")
     parser.add_argument("--domain-file", type=str, required=True,
                        help="对应的 domain PDDL 文件路径")
+    parser.add_argument("--load-in-4bit", dest='load_in_4bit', action='store_true',
+                       help="Load model in 4-bit quantization (default: True)")
+    parser.add_argument("--no-load-in-4bit", dest='load_in_4bit', action='store_false',
+                       help="Disable 4-bit quantization")
+    parser.set_defaults(load_in_4bit=True)
     
     args = parser.parse_args()
     
@@ -642,7 +650,8 @@ def main():
         args.max_problems,
         args.results_dir,
         problems_dir=args.problems_dir,
-        domain_file=args.domain_file
+        domain_file=args.domain_file,
+        load_in_4bit=args.load_in_4bit
     )
 
 if __name__ == "__main__":
