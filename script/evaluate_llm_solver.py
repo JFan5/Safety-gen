@@ -16,6 +16,7 @@ import torch
 from datetime import datetime
 import re
 from typing import Optional
+from utils import _classify_result  
 # 配置参数
 # input and output length
 max_seq_length = 5000
@@ -142,36 +143,7 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     return all(line.startswith("(") and line.endswith(")") for line in lines)
 
 
-def _classify_result(stdout_text: str) -> str:
-    """根据 validation_stdout 分类结果。"""
-    if not stdout_text:
-        return "plan_format_error"  # 空的validation_stdout归类为plan_format_error
-        
-    text = stdout_text.lower()
-    # 1) success plans - 首先检查 plan 是否 valid
-    if "plan valid\n" in text or "successful plans:" in text:
-        return "success_plans"
 
-
-    # 2) plan format error
-    if "bad operator in plan" in text or "bad plan description!" in text or "no matching action defined" in text or "object with unknown type" in text:
-        return "plan_format_error"
-
-    # 5) goal not satisfied
-    if "checking goal\ngoal not satisfied" in text:
-        return "goal_not_satisfied"
-        
-
-    # 3) precondition violation
-    if "plan failed to execute" in text and "unsatisfied precondition" in text:
-        return "precondition_violation"
-
-    # 4) safety constraints violation (排除掉前置条件不满足)
-    if ("plan failed to execute" in text and "unsatisfied precondition" not in text) or "outstanding requirements unsatisfied during plan" in text:
-        return "safety_constraints_violation"
-
-    # 6) others
-    raise ValueError(f"Unknown result: {text}")
 
 def validate_solution(domain_file, problem_file, solution_text):
     """使用VAL验证器验证解决方案"""
@@ -191,7 +163,7 @@ def validate_solution(domain_file, problem_file, solution_text):
         if result.returncode == 0:
             # 检查输出中是否包含成功信息
             output = result.stdout.lower()
-            if "plan valid\n" in output or "successful plans:" in output or 'plan executed successfully' in output:
+            if "plan valid" in output or "successful plans" in output:
                 return True, "Plan valid", result.stdout, result.stderr, cmd_str
             else:
                 return False, f"Validation failed: {result.stdout[:500]}", result.stdout, result.stderr, cmd_str

@@ -1,0 +1,61 @@
+mkdir: cannot create directory ‘’: No such file or directory
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+Unsloth 2025.10.12 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2025.10.12: Fast Mistral patching. Transformers: 4.56.2.
+   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
+Extracting prompt in train dataset (num_proc=32):   0%|          | 0/2421 [00:00<?, ? examples/s]Extracting prompt in train dataset (num_proc=32):   3%|▎         | 76/2421 [00:00<00:23, 99.12 examples/s]Extracting prompt in train dataset (num_proc=32):   9%|▉         | 228/2421 [00:00<00:07, 303.59 examples/s]Extracting prompt in train dataset (num_proc=32):  16%|█▌        | 380/2421 [00:01<00:04, 503.73 examples/s]Extracting prompt in train dataset (num_proc=32):  22%|██▏       | 532/2421 [00:01<00:02, 657.53 examples/s]Extracting prompt in train dataset (num_proc=32):  28%|██▊       | 684/2421 [00:01<00:02, 778.14 examples/s]Extracting prompt in train dataset (num_proc=32):  35%|███▍      | 836/2421 [00:01<00:01, 918.00 examples/s]Extracting prompt in train dataset (num_proc=32):  41%|████      | 988/2421 [00:01<00:01, 1021.70 examples/s]Extracting prompt in train dataset (num_proc=32):  47%|████▋     | 1140/2421 [00:01<00:01, 975.12 examples/s]Extracting prompt in train dataset (num_proc=32):  57%|█████▋    | 1368/2421 [00:01<00:00, 1106.52 examples/s]Extracting prompt in train dataset (num_proc=32):  63%|██████▎   | 1520/2421 [00:01<00:00, 1136.37 examples/s]Extracting prompt in train dataset (num_proc=32):  69%|██████▉   | 1671/2421 [00:02<00:00, 1194.20 examples/s]Extracting prompt in train dataset (num_proc=32):  75%|███████▌  | 1821/2421 [00:02<00:00, 1165.47 examples/s]Extracting prompt in train dataset (num_proc=32):  81%|████████▏ | 1971/2421 [00:02<00:00, 1197.99 examples/s]Extracting prompt in train dataset (num_proc=32):  88%|████████▊ | 2121/2421 [00:02<00:00, 1173.69 examples/s]Extracting prompt in train dataset (num_proc=32):  94%|█████████▍| 2271/2421 [00:02<00:00, 1160.35 examples/s]Extracting prompt in train dataset (num_proc=32): 100%|██████████| 2421/2421 [00:02<00:00, 1208.53 examples/s]Extracting prompt in train dataset (num_proc=32): 100%|██████████| 2421/2421 [00:02<00:00, 811.20 examples/s] 
+Applying chat template to train dataset (num_proc=32):   0%|          | 0/2421 [00:00<?, ? examples/s]Applying chat template to train dataset (num_proc=32):   3%|▎         | 76/2421 [00:00<00:29, 80.83 examples/s]Applying chat template to train dataset (num_proc=32):   9%|▉         | 228/2421 [00:01<00:08, 270.17 examples/s]Applying chat template to train dataset (num_proc=32):  16%|█▌        | 380/2421 [00:01<00:04, 415.80 examples/s]Applying chat template to train dataset (num_proc=32):  25%|██▌       | 608/2421 [00:01<00:02, 685.26 examples/s]Applying chat template to train dataset (num_proc=32):  35%|███▍      | 836/2421 [00:01<00:01, 912.59 examples/s]Applying chat template to train dataset (num_proc=32):  47%|████▋     | 1140/2421 [00:01<00:01, 1136.57 examples/s]Applying chat template to train dataset (num_proc=32):  57%|█████▋    | 1368/2421 [00:01<00:00, 1248.40 examples/s]Applying chat template to train dataset (num_proc=32):  66%|██████▌   | 1596/2421 [00:01<00:00, 1363.56 examples/s]Applying chat template to train dataset (num_proc=32):  75%|███████▌  | 1821/2421 [00:02<00:00, 1402.35 examples/s]Applying chat template to train dataset (num_proc=32):  85%|████████▍ | 2046/2421 [00:02<00:00, 1476.18 examples/s]Applying chat template to train dataset (num_proc=32):  97%|█████████▋| 2346/2421 [00:02<00:00, 1815.54 examples/s]Applying chat template to train dataset (num_proc=32): 100%|██████████| 2421/2421 [00:02<00:00, 909.57 examples/s] 
+Tokenizing train dataset (num_proc=32):   0%|          | 0/2421 [00:00<?, ? examples/s]Tokenizing train dataset (num_proc=32):   2%|▏         | 40/2421 [00:00<00:50, 47.57 examples/s]Tokenizing train dataset (num_proc=32):   8%|▊         | 192/2421 [00:00<00:09, 246.38 examples/s]Tokenizing train dataset (num_proc=32):  11%|█         | 265/2421 [00:01<00:06, 319.74 examples/s]Tokenizing train dataset (num_proc=32):  14%|█▍        | 344/2421 [00:01<00:05, 406.60 examples/s]Tokenizing train dataset (num_proc=32):  20%|██        | 485/2421 [00:01<00:04, 478.61 examples/s]Tokenizing train dataset (num_proc=32):  26%|██▋       | 638/2421 [00:01<00:02, 671.42 examples/s]Tokenizing train dataset (num_proc=32):  36%|███▌      | 864/2421 [00:01<00:01, 854.99 examples/s]Tokenizing train dataset (num_proc=32):  41%|████      | 988/2421 [00:01<00:01, 864.32 examples/s]Tokenizing train dataset (num_proc=32):  50%|█████     | 1216/2421 [00:02<00:01, 881.17 examples/s]Tokenizing train dataset (num_proc=32):  59%|█████▊    | 1417/2421 [00:02<00:00, 1047.12 examples/s]Tokenizing train dataset (num_proc=32):  63%|██████▎   | 1534/2421 [00:02<00:00, 1017.87 examples/s]Tokenizing train dataset (num_proc=32):  69%|██████▉   | 1674/2421 [00:02<00:00, 1094.23 examples/s]Tokenizing train dataset (num_proc=32):  77%|███████▋  | 1866/2421 [00:02<00:00, 1144.17 examples/s]Tokenizing train dataset (num_proc=32):  89%|████████▉ | 2161/2421 [00:02<00:00, 1449.83 examples/s]Tokenizing train dataset (num_proc=32):  96%|█████████▌| 2320/2421 [00:02<00:00, 1421.39 examples/s]Tokenizing train dataset (num_proc=32):  99%|█████████▉| 2395/2421 [00:03<00:00, 761.99 examples/s] 
+multiprocess.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/multiprocess/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/utils/py_utils.py", line 586, in _write_generator_to_queue
+    for i, result in enumerate(func(**kwargs)):
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3664, in _map_single
+    for i, example in iter_outputs(shard_iterable):
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3638, in iter_outputs
+    yield i, apply_function(example, i, offset=offset)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3561, in apply_function
+    processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+  File "/home/ubuntu/Safety-gen/unsloth_compiled_cache/UnslothDPOTrainer.py", line 1161, in tokenize_row
+    chosen_input_ids = tokenizer(features["chosen"], add_special_tokens=False)["input_ids"]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/tokenization_utils_base.py", line 2905, in __call__
+    raise ValueError("You need to specify either `text` or `text_target`.")
+ValueError: You need to specify either `text` or `text_target`.
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/train_dpo_unsloth.py", line 279, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/train_dpo_unsloth.py", line 201, in main
+    dpo_trainer = DPOTrainer(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/trainer.py", line 209, in new_init
+    original_init(self, *args, **kwargs)
+  File "/home/ubuntu/Safety-gen/unsloth_compiled_cache/UnslothDPOTrainer.py", line 2689, in __init__
+    super().__init__(
+  File "/home/ubuntu/Safety-gen/unsloth_compiled_cache/UnslothDPOTrainer.py", line 904, in __init__
+    train_dataset = self._prepare_dataset(train_dataset, processing_class, args, "train")
+  File "/home/ubuntu/Safety-gen/unsloth_compiled_cache/UnslothDPOTrainer.py", line 1102, in _prepare_dataset
+    dataset = dataset.map(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 562, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/arrow_dataset.py", line 3323, in map
+    for rank, done, content in iflatmap_unordered(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/utils/py_utils.py", line 626, in iflatmap_unordered
+    [async_result.get(timeout=0.05) for async_result in async_results]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/datasets/utils/py_utils.py", line 626, in <listcomp>
+    [async_result.get(timeout=0.05) for async_result in async_results]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/multiprocess/pool.py", line 774, in get
+    raise self._value
+ValueError: You need to specify either `text` or `text_target`.

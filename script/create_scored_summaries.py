@@ -15,27 +15,45 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
-
+from utils import _classify_result  
 def _load_unsloth_candidates(path: Path, scenario: str) -> Dict[str, List[dict]]:
     """Group UnsLoTH scored JSONL entries by <scenario>/<problem_name>."""
     grouped: Dict[str, List[dict]] = defaultdict(list)
     if not path.exists():
+        print(f"Warning: UnsLoTH JSONL file does not exist: {path}")
         return grouped
 
+    candidates_loaded = 0
+    
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
             line = line.strip()
             if not line:
                 continue
-            payload = json.loads(line)
+            try:
+                payload = json.loads(line)
+            except json.JSONDecodeError as e:
+                print(f"Warning: Failed to parse JSON line: {e}")
+                continue
+            
+            # Skip GRPO pairs format (has 'chosen' and 'rejected')
+            if "chosen" in payload and "rejected" in payload:
+                print(f"Warning: Skipping GRPO pairs format entry. Expected candidates format with 'problem_name' and 'candidate' fields.")
+                continue
+            
+            # Candidates format: standard UnsLoTH output
             problem_name = payload.get("problem_name") or Path(
                 payload.get("problem_file", "")
             ).stem
             if not problem_name:
+                print(f"Warning: No problem_name found in entry. Keys: {list(payload.keys())}")
                 continue
             key = f"{scenario}/{problem_name}"
             candidate_text = payload.get("candidate") or ""
             seq = [step.strip() for step in candidate_text.splitlines() if step.strip()]
+            if not seq:
+                print(f"Warning: Empty planning sequence for {problem_name}, skipping")
+                continue
             score_val = payload.get("score")
             try:
                 score = int(score_val)
@@ -55,6 +73,14 @@ def _load_unsloth_candidates(path: Path, scenario: str) -> Dict[str, List[dict]]
                 "candidate_family": payload.get("family"),
             }
             grouped[key].append(entry)
+            candidates_loaded += 1
+    
+    if candidates_loaded > 0:
+        print(f"Loaded {candidates_loaded} candidates from {path}")
+        print(f"Grouped into {len(grouped)} problems")
+    else:
+        print(f"Warning: No candidates loaded from {path}. Please ensure the file contains candidates with 'problem_name' and 'candidate' fields.")
+    
     return grouped
 
 
@@ -92,27 +118,6 @@ def validate_solution(domain_file: str, problem_file: str, solution_text: str):
             pass
 
 
-def classify_from_val(is_valid: bool, validation_stdout: str) -> str:
-    """
-    根据验证结果分类，返回六类之一：
-    success_plans / plan_format_error / precondition_violation /
-    safety_constraints_violation / goal_not_satisfied / others
-    """
-    if is_valid:
-        return "success_plans"
-    text = (validation_stdout or "").lower()
-    if not text:
-        return "plan_format_error"
-    if ("bad operator in plan" in text) or ("bad plan description!" in text) or \
-       ("no matching action defined" in text) or ("object with unknown type" in text):
-        return "plan_format_error"
-    if "goal not satisfied" in text:
-        return "goal_not_satisfied"
-    if ("plan failed to execute" in text) and ("unsatisfied precondition" in text):
-        return "precondition_violation"
-    if ("plan failed to execute" in text) and ("unsatisfied precondition" not in text):
-        return "safety_constraints_violation"
-    return "others"
 
 
 SCORE_MAP = {
@@ -126,26 +131,45 @@ SCORE_MAP = {
 
 
 def _load_and_validate_pddl2_solutions(
-    pddl2_solution_dir: Path, domain_file: Path, scenario: str
+    pddl2_solution_dir: Path, 
+    domain_file: Path, 
+    scenario: str,
+    problem_dir: Path,
+    existing_grouped: Optional[Dict[str, List[dict]]] = None,
 ) -> Dict[str, List[dict]]:
     """
-    从 PDDL2 solution 目录加载 .soln 文件，在 PDDL3 环境下使用 Validate 验证。
-    只保留不满足安全约束的解决方案（跳过满分的，即验证通过的）。
+    从 PDDL2 solution 目录加载 .soln 文件，使用这些 solution 去验证 problem_dir 中的同名问题。
+    如果验证未通过（不是 5 分），证明 PDDL2 的解无法求解该问题，添加到 scored_summaries 中。
+    跳过验证通过的（5分），也跳过已经在 existing_grouped 中存在的相同 score。
     返回按 problem_name 分组的验证过的解决方案。
     """
     grouped: Dict[str, List[dict]] = defaultdict(list)
     if not pddl2_solution_dir.exists():
         return grouped
     
+    if not problem_dir.exists():
+        print(f"Warning: problem_dir does not exist: {problem_dir}")
+        return grouped
+    
+    if existing_grouped is None:
+        existing_grouped = {}
+    
     # 遍历 PDDL2 solution 目录中的所有 .pddl 文件
-    for problem_path in sorted(pddl2_solution_dir.glob("*.pddl")):
+    for pddl2_problem_path in sorted(pddl2_solution_dir.glob("*.pddl")):
         # 跳过 domain 文件
-        if "domain" in problem_path.name.lower():
+        if "domain" in pddl2_problem_path.name.lower():
             continue
         
         # 查找对应的 .soln 文件
-        sol_path = problem_path.with_suffix(".soln")
+        sol_path = pddl2_problem_path.with_suffix(".soln")
         if not sol_path.exists():
+            continue
+        
+        # 在 problem_dir 中查找同名问题
+        problem_name = pddl2_problem_path.stem
+        problem_path = problem_dir / f"{problem_name}.pddl"
+        if not problem_path.exists():
+            # 如果 problem_dir 中没有同名问题，跳过
             continue
         
         # 读取解决方案内容
@@ -155,24 +179,39 @@ def _load_and_validate_pddl2_solutions(
             print(f"Warning: Failed to read {sol_path}: {e}")
             continue
         
-        # 在 PDDL3 环境下使用 Validate 验证（domain_file 是 PDDL3 的 domain）
+        # 使用 PDDL2 的 solution 去验证 problem_dir 中的问题
+        # domain_file 应该是 PDDL3 的 domain（用于验证）
         is_valid, msg, stdout, stderr, cmd = validate_solution(
             str(domain_file), str(problem_path), solution_text
         )
         
         # 分类验证结果
-        classification = classify_from_val(is_valid, stdout)
+        classification = _classify_result(stdout)
         
         # 获取分数（1-5，然后映射到 0-100）
         raw_score = SCORE_MAP.get(classification, 1)
         
-        # 如果 PDDL2 的解决方案在 PDDL3 环境下验证通过（满分），跳过
-        if raw_score == 5:  # success_plans
-            print(f"Skipping perfect solution: {problem_path}")
+        # 如果验证通过（5 分，success_plans），跳过
+        # 因为 PDDL2 的解能解决这个问题，不需要添加到 scored_summaries
+        if raw_score == 5:
+            print("stdout: ", stdout)
+            print("stderr: ", stderr)
+            print("cmd: ", cmd)
+            print(f"Skipping validated solution (score 5): {problem_name} - PDDL2 solution can solve this problem")
             continue
         
         # Map 1-4 to 0-100 scale: 1->20, 2->40, 3->60, 4->80
+        # 验证未通过，说明 PDDL2 的解无法求解该问题，需要添加到 scored_summaries
         scaled_score = raw_score * 20
+        
+        # 检查是否已经在 existing_grouped 中存在相同的 score
+        key = f"{scenario}/{problem_name}"
+        if key in existing_grouped:
+            # 检查是否已有相同 score 的条目
+            existing_scores = {entry.get("score", 0) for entry in existing_grouped[key]}
+            if scaled_score in existing_scores:
+                print(f"Skipping {problem_name}: score {scaled_score} already exists in scored_summaries")
+                continue
         
         # 解析计划序列
         plan_lines = [
@@ -182,19 +221,19 @@ def _load_and_validate_pddl2_solutions(
         ]
         
         # 创建条目
-        key = f"{scenario}/{problem_path.stem}"
         entry = {
             "score": scaled_score,
             "classification": classification,
             "planning_sequence": plan_lines,
             "source_file": "pddl2_solution_validated",
             "solution_file": str(sol_path),
-            "problem_file": str(problem_path),
+            "problem_file": str(problem_path),  # 使用 problem_dir 中的问题文件
             "domain_file": str(domain_file),
             "raw_score": raw_score,
             "validation_message": msg,
         }
         grouped[key].append(entry)
+        print(f"Added PDDL2 solution for {problem_name} (score {scaled_score}) - cannot solve problem in problem_dir")
     
     return grouped
 
@@ -236,11 +275,17 @@ def build_payload(
         key, entry = _build_classical_entry(problem_path, domain_file, scenario)
         grouped[key].append(entry)
     
-    # Add validated PDDL2 solutions that fail safety constraints in PDDL3 environment
-    # (skip perfect solutions that already satisfy safety constraints)
+    # Add validated PDDL2 solutions that fail to solve problems in problem_dir
+    # Use PDDL2 solutions to validate problems in problem_dir
+    # If validation fails (not score 5), it means PDDL2 solution cannot solve the problem,
+    # so add it to scored_summaries for GRPO to create solutions
     if pddl2_solution_dir is not None:
         validated_solutions = _load_and_validate_pddl2_solutions(
-            pddl2_solution_dir, domain_file, scenario
+            pddl2_solution_dir, 
+            domain_file, 
+            scenario,
+            problem_dir=problem_dir,  # 使用 problem_dir 中的问题
+            existing_grouped=grouped,  # 传入已有的 grouped 以检查重复
         )
         for key, entries in validated_solutions.items():
             grouped[key].extend(entries)
