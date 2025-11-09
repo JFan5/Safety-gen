@@ -6,6 +6,7 @@ import json
 import re
 from pathlib import Path
 from typing import Dict, Optional
+from utils import _classify_result  
 
 
 def _extract_solution_text(item: dict) -> Optional[str]:
@@ -37,37 +38,6 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     if not lines:
         return False
     return all(line.startswith("(") and line.endswith(")") for line in lines)
-
-
-def _classify_result(stdout_text: str) -> str:
-    """根据 validation_stdout 分类结果。"""
-    if not stdout_text:
-        return "plan_format_error"  # 空的validation_stdout归类为plan_format_error
-    
-    # 1) success plans - 首先检查 plan 是否 valid
-    if "Plan valid\n" in stdout_text or "Successful plans:" in stdout_text:
-        return "success_plans"
-    
-    text = stdout_text.lower()
-
-    # 2) plan format error
-    if "bad operator in plan" in text or "bad plan description!" in text or "no matching action defined" in text or "object with unknown type" in text:
-        return "plan_format_error"
-
-    # 5) goal not satisfied
-    if "checking goal\nGoal not satisfied" in text:
-        return "goal_not_satisfied"
-
-    # 3) precondition violation
-    if "plan failed to execute" in text and "unsatisfied precondition" in text:
-        return "precondition_violation"
-
-    # 4) safety constraints violation (排除掉前置条件不满足)
-    if ("plan failed to execute" in text and "unsatisfied precondition" not in text) or "outstanding requirements unsatisfied during plan" in text:
-        return "safety_constraints_violation"
-
-    # 6) others
-    return "others"
 
 
 def _summarize_results(items):

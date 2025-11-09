@@ -15,7 +15,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
-
+from utils import _classify_result  
 def _load_unsloth_candidates(path: Path, scenario: str) -> Dict[str, List[dict]]:
     """Group UnsLoTH scored JSONL entries by <scenario>/<problem_name>."""
     grouped: Dict[str, List[dict]] = defaultdict(list)
@@ -118,47 +118,6 @@ def validate_solution(domain_file: str, problem_file: str, solution_text: str):
             pass
 
 
-def classify_from_val(is_valid: bool, validation_stdout: str) -> str:
-    """
-    根据验证结果分类，返回六类之一：
-    success_plans / plan_format_error / precondition_violation /
-    safety_constraints_violation / goal_not_satisfied / others
-    
-    逻辑与 parse_planning_results.py 中的 _classify_result 保持一致。
-    """
-    if not validation_stdout:
-        return "plan_format_error"  # 空的validation_stdout归类为plan_format_error
-    
-    # 1) success plans - 首先检查 plan 是否 valid
-    # 检查原始文本（不转小写）中的 "Plan valid\n" 或 "Successful plans:"
-    if "Plan valid\n" in validation_stdout or "Successful plans:" in validation_stdout:
-        return "success_plans"
-    # 如果 is_valid 为 True，也返回 success_plans（保持兼容性）
-    if is_valid:
-        return "success_plans"
-    
-    text = validation_stdout.lower()
-    
-    # 2) plan format error
-    if ("bad operator in plan" in text) or ("bad plan description!" in text) or \
-       ("no matching action defined" in text) or ("object with unknown type" in text):
-        return "plan_format_error"
-    
-    # 5) goal not satisfied
-    if "checking goal\nGoal not satisfied" in text:
-        return "goal_not_satisfied"
-    
-    # 3) precondition violation
-    if ("plan failed to execute" in text) and ("unsatisfied precondition" in text):
-        return "precondition_violation"
-    
-    # 4) safety constraints violation (排除掉前置条件不满足)
-    if (("plan failed to execute" in text) and ("unsatisfied precondition" not in text)) or \
-       ("outstanding requirements unsatisfied during plan" in text):
-        return "safety_constraints_violation"
-    
-    # 6) others
-    return "others"
 
 
 SCORE_MAP = {
@@ -227,7 +186,7 @@ def _load_and_validate_pddl2_solutions(
         )
         
         # 分类验证结果
-        classification = classify_from_val(is_valid, stdout)
+        classification = _classify_result(stdout)
         
         # 获取分数（1-5，然后映射到 0-100）
         raw_score = SCORE_MAP.get(classification, 1)

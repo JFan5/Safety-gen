@@ -12,7 +12,7 @@
 
 /home/ubuntu/miniconda3/envs/llmstl/bin/python /home/ubuntu/Safety-gen/script/train_dpo_unsloth.py \
   --base_model "/home/ubuntu/sft_models/Qwen3-14B/multi_pddl3_500/pddl3" \
-  --dataset "/home/ubuntu/data/grpo/gpt_multi_pddl3_500/multi_scenarios/pddl3_grpo.jsonl" \
+  --dataset "/home/ubuntu/data/grpo/gpt_oss_20b/multi_scenarios/pddl3_grpo.jsonl" \
   --output_dir "/home/ubuntu/dpo_models/Qwen3-14B/multi/pddl3_500-grpo" \
   --num_epochs 2 \
   --batch_size 2 \

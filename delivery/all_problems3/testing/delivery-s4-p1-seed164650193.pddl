@@ -76,7 +76,7 @@
     
 
   (:constraints
-    (sometime (at t1 c_0_0))
+    (always (and (not (and (last t1 c_0_2) (at t1 c_0_3))) (not (and (last t1 c_0_3) (at t1 c_0_2)))))
   )
 )
 

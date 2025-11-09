@@ -9,8 +9,8 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 cd "${REPO_ROOT}"
 
 SCENARIOS=(blocksworld ferry grippers spanner delivery)
-INPUT_ROOT="data/grpo/gpt_multi_pddl3_500"
-OUTPUT_PATH="data/grpo/gpt_multi_pddl3_500/multi_scenarios/pddl3_grpo.jsonl"
+INPUT_ROOT="data/grpo/gpt_oss_20b"
+OUTPUT_PATH="data/grpo/gpt_oss_20b/multi_scenarios/pddl3_grpo.jsonl"
 CONSTRUCT_SCRIPT="${REPO_ROOT}/script/construct_grpo_dataset.py"
 
 echo "Collecting multi-scenario GRPO data -> ${OUTPUT_PATH}"

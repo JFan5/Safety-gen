@@ -17,17 +17,32 @@ from collections import defaultdict
 import argparse
 
 
-def load_grpo_training_problems(grpo_training_dir):
-    """加载 grpo_training 目录下的所有问题文件名（不含扩展名）"""
+def load_grpo_training_problems(grpo_training_dir, missing_problems_dir=None):
+    """
+    加载 grpo_training 目录下的所有问题文件名（不含扩展名）
+    如果提供了 missing_problems_dir，也会从该目录加载问题
+    """
     problems = set()
     grpo_dir = Path(grpo_training_dir)
     if not grpo_dir.exists():
         print(f"[Warn] Directory {grpo_training_dir} does not exist")
-        return problems
+    else:
+        for pddl_file in grpo_dir.glob("*.pddl"):
+            if "domain" not in pddl_file.name.lower():
+                problems.add(pddl_file.stem)
     
-    for pddl_file in grpo_dir.glob("*.pddl"):
-        if "domain" not in pddl_file.name.lower():
-            problems.add(pddl_file.stem)
+    # 如果提供了 missing_problems_dir，也从中加载问题
+    if missing_problems_dir:
+        missing_dir = Path(missing_problems_dir)
+        if missing_dir.exists():
+            missing_count = 0
+            for pddl_file in missing_dir.glob("*.pddl"):
+                if "domain" not in pddl_file.name.lower():
+                    problems.add(pddl_file.stem)
+                    missing_count += 1
+            if missing_count > 0:
+                print(f"[Info] Also found {missing_count} problems in {missing_problems_dir}")
+    
     return problems
 
 
@@ -276,8 +291,12 @@ def process_scenario(scenario, dpo_base_dir, grpo_base_dir, grpo_training_dir, d
                 print(f"[Info] Removed candidates format from grpo.jsonl (it should only contain pairs)")
     
     # 1. 加载 grpo_training 目录下的问题
-    grpo_problems = load_grpo_training_problems(grpo_training_dir)
-    print(f"[Info] Found {len(grpo_problems)} problems in {grpo_training_dir}")
+    # 同时也检查 missing_problems 目录（如果存在），以便处理之前生成但未完成的问题
+    missing_problems_dir = Path(grpo_base_dir) / scenario / "pddl3" / "missing_problems"
+    grpo_problems = load_grpo_training_problems(grpo_training_dir, 
+                                                 missing_problems_dir if missing_problems_dir.exists() else None)
+    print(f"[Info] Found {len(grpo_problems)} problems in {grpo_training_dir}" + 
+          (f" (including {missing_problems_dir})" if missing_problems_dir.exists() else ""))
     
     # 2. 检查已存在的记录（优先检查 candidates.jsonl，如果不存在则检查 grpo.jsonl）
     # 注意：这里检查的是所有问题的候选解，不仅仅是缺失问题的
@@ -350,11 +369,25 @@ def process_scenario(scenario, dpo_base_dir, grpo_base_dir, grpo_training_dir, d
             # 提取并清理 candidate
             candidate = extract_solution_from_candidate(best_record.get('candidate', ''))
             
+            # 确定问题文件的正确路径
+            # 优先检查 missing_problems 目录，如果不存在则使用 grpo_training_dir
+            problem_file_path = None
+            missing_problem_file = missing_problems_dir / f"{problem_name}.pddl" if missing_problems_dir.exists() else None
+            training_problem_file = Path(grpo_training_dir) / f"{problem_name}.pddl"
+            
+            if missing_problem_file and missing_problem_file.exists():
+                problem_file_path = str(missing_problem_file)
+            elif training_problem_file.exists():
+                problem_file_path = str(training_problem_file)
+            else:
+                # 如果两个位置都不存在，使用 grpo_training_dir 路径（可能会在后续处理中创建）
+                problem_file_path = str(training_problem_file)
+            
             # 构建新的记录（格式与 generate_score_candidate.py 输出一致）
             new_record = {
                 "timestamp": best_record.get("timestamp", ""),
                 "problem_name": problem_name,
-                "problem_file": str(Path(grpo_training_dir) / f"{problem_name}.pddl"),
+                "problem_file": problem_file_path,
                 "domain_file": domain_file,
                 "prompt": best_record.get("prompt", ""),
                 "candidate": candidate,
@@ -424,10 +457,11 @@ def process_scenario(scenario, dpo_base_dir, grpo_base_dir, grpo_training_dir, d
             print(f"[Info] Generated candidates will be saved to: {generated_jsonl}")
             
             # 在生成之前，先检查 candidates.jsonl 中是否已经有缺失问题的候选解
-            # 这很重要，因为如果之前运行过生成但中断了，可能已经有一些候选解
-            print(f"[Info] Checking {output_jsonl.name} for existing candidates of missing problems...")
+            # 同时检查 missing_problems 目录下是否有之前生成的候选解文件需要合并
+            print(f"[Info] Checking for existing candidates of missing problems...")
             existing_missing_problems = set()
             
+            # 1. 检查 output_jsonl（candidates.jsonl）中是否已有缺失问题的候选解
             if output_jsonl.exists():
                 try:
                     # 重新读取 output_jsonl，检查缺失问题的候选解
@@ -446,37 +480,161 @@ def process_scenario(scenario, dpo_base_dir, grpo_base_dir, grpo_training_dir, d
                     
                     if existing_missing_problems:
                         print(f"[Info] Found {len(existing_missing_problems)} missing problems that already have candidates in {output_jsonl.name}")
-                        print(f"[Info]   These problems will be skipped (already have candidates)")
                         if len(existing_missing_problems) <= 10:
                             print(f"[Info]   Problems with existing candidates: {sorted(list(existing_missing_problems))}")
                         else:
                             print(f"[Info]   Sample: {sorted(list(existing_missing_problems))[:5]} ... and {len(existing_missing_problems) - 5} more")
-                    else:
-                        print(f"[Info] No missing problems found with existing candidates in {output_jsonl.name}")
                 except Exception as e:
                     print(f"[Warn] Failed to check {output_jsonl.name} for existing candidates: {e}")
-                    # 如果检查失败，回退到使用 existing_problems
-                    existing_missing_problems = missing_problems & existing_problems
-            else:
-                print(f"[Info] {output_jsonl.name} does not exist, will create new file")
+            
+            # 2. 检查 missing_problems 目录下是否有候选解文件需要合并
+            # 可能的候选解文件位置：
+            # - problems_dir 目录下的 JSONL 文件（如果之前单独生成过）
+            # - problems_dir 的父目录下的候选解文件
+            # - 其他可能的临时文件
+            missing_candidates_files = []
+            
+            # 检查 problems_dir 目录下是否有 JSONL 文件
+            if problems_dir.exists():
+                for jsonl_file in problems_dir.glob("*.jsonl"):
+                    if jsonl_file.is_file():
+                        missing_candidates_files.append(jsonl_file)
+                        print(f"[Info] Found candidate file in missing_problems directory: {jsonl_file.name}")
+            
+            # 检查 problems_dir 的父目录（pddl3目录）下是否有其他候选解文件
+            pddl3_dir = problems_dir.parent
+            if pddl3_dir.exists():
+                # 检查是否有 generated_candidates.jsonl 或其他可能的候选解文件
+                for pattern in ["generated_candidates.jsonl", "missing_*.jsonl", "temp_*.jsonl"]:
+                    for jsonl_file in pddl3_dir.glob(pattern):
+                        if jsonl_file.is_file() and jsonl_file != output_jsonl:
+                            missing_candidates_files.append(jsonl_file)
+                            print(f"[Info] Found candidate file in pddl3 directory: {jsonl_file.name}")
+            
+            # 3. 从找到的候选解文件中读取缺失问题的候选解
+            if missing_candidates_files:
+                print(f"[Info] Checking {len(missing_candidates_files)} candidate file(s) for missing problems...")
+                candidates_to_merge = []
+                problems_found_in_files = set()
+                
+                for candidates_file in missing_candidates_files:
+                    try:
+                        with open(candidates_file, 'r', encoding='utf-8') as f:
+                            for line in f:
+                                line = line.strip()
+                                if line:
+                                    try:
+                                        record = json.loads(line)
+                                        problem_name = record.get('problem_name')
+                                        if problem_name and problem_name in missing_problems:
+                                            # 只处理尚未有候选解的问题
+                                            if problem_name not in existing_missing_problems:
+                                                # 更新 problem_file 路径
+                                                # 优先使用 missing_problems 目录中的文件，如果不存在则使用 grpo_training_dir
+                                                missing_problem_file = problems_dir / f"{problem_name}.pddl"
+                                                training_problem_file = Path(grpo_training_dir) / f"{problem_name}.pddl"
+                                                
+                                                if missing_problem_file.exists():
+                                                    record['problem_file'] = str(missing_problem_file)
+                                                elif training_problem_file.exists():
+                                                    record['problem_file'] = str(training_problem_file)
+                                                else:
+                                                    record['problem_file'] = str(training_problem_file)
+                                                
+                                                candidates_to_merge.append(record)
+                                                problems_found_in_files.add(problem_name)
+                                    except json.JSONDecodeError:
+                                        continue
+                    except Exception as e:
+                        print(f"[Warn] Failed to read candidate file {candidates_file}: {e}")
+                
+                # 4. 合并找到的候选解到 output_jsonl
+                if candidates_to_merge:
+                    print(f"[Info] Found {len(candidates_to_merge)} candidates for {len(problems_found_in_files)} missing problems in candidate file(s)")
+                    print(f"[Info] Merging these candidates into {output_jsonl.name}...")
+                    
+                    # 按问题名称分组，每个问题选择最佳候选解
+                    problem_records = defaultdict(list)
+                    for record in candidates_to_merge:
+                        problem_name = record.get('problem_name')
+                        if problem_name:
+                            problem_records[problem_name].append(record)
+                    
+                    # 对每个问题选择最佳候选解（与处理重合问题时相同的逻辑）
+                    best_candidates = []
+                    for problem_name, records in problem_records.items():
+                        best_record = None
+                        best_score = -1
+                        best_is_valid = False
+                        
+                        for record in records:
+                            score = record.get('score', 0)
+                            is_valid = record.get('is_valid', False)
+                            
+                            if is_valid and not best_is_valid:
+                                best_record = record
+                                best_score = score
+                                best_is_valid = True
+                            elif is_valid == best_is_valid and score > best_score:
+                                best_record = record
+                                best_score = score
+                                best_is_valid = is_valid
+                            elif not best_record:
+                                best_record = record
+                                best_score = score
+                                best_is_valid = is_valid
+                        
+                        if best_record:
+                            best_candidates.append(best_record)
+                    
+                    # 写入最佳候选解
+                    if best_candidates:
+                        written = write_grpo_jsonl(best_candidates, str(output_jsonl), existing_problems)
+                        existing_missing_problems.update(problems_found_in_files)
+                        existing_problems.update(problems_found_in_files)  # 更新 existing_problems，避免后续重复处理
+                        print(f"[Info] Merged {written} candidates from candidate file(s) into {output_jsonl.name}")
+                        print(f"[Info]   Each problem has one best candidate selected from available candidates")
+                        if len(problems_found_in_files) > 0:
+                            print(f"[Info]   Problems merged from candidate files: {len(problems_found_in_files)}")
+                            if len(problems_found_in_files) <= 10:
+                                print(f"[Info]   Merged problems: {sorted(list(problems_found_in_files))}")
+                else:
+                    print(f"[Info] No candidates found for missing problems in candidate file(s)")
+            
+            if not existing_missing_problems and not missing_candidates_files:
+                print(f"[Info] No existing candidates found for missing problems")
             
             # 找出真正需要生成的问题（不在现有候选解中的）
             problems_to_generate = missing_problems - existing_missing_problems
             
             # 只复制需要生成的问题文件到永久目录
+            # 优先从 missing_problems 目录查找，如果不存在则从 grpo_training_dir 复制
             if problems_to_generate:
                 copied_count = 0
+                already_exists_count = 0
                 for problem_name in problems_to_generate:
+                    # 首先检查 missing_problems 目录是否已有该文件
+                    existing_file = problems_dir / f"{problem_name}.pddl"
+                    if existing_file.exists():
+                        already_exists_count += 1
+                        continue
+                    
+                    # 如果 missing_problems 目录中没有，从 grpo_training_dir 复制
                     src_file = Path(grpo_training_dir) / f"{problem_name}.pddl"
                     if src_file.exists():
                         dst_file = problems_dir / f"{problem_name}.pddl"
-                        if not dst_file.exists():  # 避免重复复制
-                            shutil.copy2(src_file, dst_file)
+                        shutil.copy2(src_file, dst_file)
                         copied_count += 1
                     else:
-                        print(f"[Warn] Problem file not found: {src_file}")
+                        # 如果 grpo_training_dir 中也没有，检查是否在 missing_problems_dir 中（已经在加载时包含了）
+                        # 这种情况下，文件可能已经在 missing_problems 目录中，但路径不同
+                        # 这应该不会发生，因为我们已经检查了 existing_file
+                        print(f"[Warn] Problem file not found in {grpo_training_dir} or {problems_dir}: {problem_name}.pddl")
                 
-                print(f"[Info] Copied/prepared {copied_count} problem files in {problems_dir}")
+                if copied_count > 0:
+                    print(f"[Info] Copied {copied_count} problem files to {problems_dir}")
+                if already_exists_count > 0:
+                    print(f"[Info] {already_exists_count} problem files already exist in {problems_dir} (skipped copying)")
             else:
                 print(f"[Info] No problem files to copy - all missing problems already have candidates")
             
@@ -516,7 +674,18 @@ def process_scenario(scenario, dpo_base_dir, grpo_base_dir, grpo_training_dir, d
                                     # 只处理需要生成的问题，避免重复处理已有候选解的问题
                                     if problem_name and problem_name in problems_to_generate:
                                         # 更新 problem_file 路径
-                                        record['problem_file'] = str(Path(grpo_training_dir) / f"{record['problem_name']}.pddl")
+                                        # 优先使用 missing_problems 目录中的文件，如果不存在则使用 grpo_training_dir
+                                        missing_problem_file = problems_dir / f"{problem_name}.pddl"
+                                        training_problem_file = Path(grpo_training_dir) / f"{problem_name}.pddl"
+                                        
+                                        if missing_problem_file.exists():
+                                            record['problem_file'] = str(missing_problem_file)
+                                        elif training_problem_file.exists():
+                                            record['problem_file'] = str(training_problem_file)
+                                        else:
+                                            # 如果都不存在，使用 grpo_training_dir 路径
+                                            record['problem_file'] = str(training_problem_file)
+                                        
                                         problem_records[problem_name].append(record)
                                 except json.JSONDecodeError:
                                     continue
