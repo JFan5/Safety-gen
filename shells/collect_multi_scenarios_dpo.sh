@@ -8,9 +8,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 cd "${REPO_ROOT}"
 
-SCENARIOS=(blocksworld ferry grid grippers rovers spanner)
-INPUT_ROOT="data/dpo/datasets"
-OUTPUT_PATH="/groups/fkong/jfan5/data/dpo/mistral_unsloth/multi_scenarios/pddl3_dpo.jsonl"
+SCENARIOS=(blocksworld ferry grippers spanner delivery)
+INPUT_ROOT="data/dpo/gpt_oss_20b"
+OUTPUT_PATH="data/dpo/gpt_oss_20b/multi_scenarios/pddl3_dpo.jsonl"
 
 echo "Collecting multi-scenario DPO data -> ${OUTPUT_PATH}"
 
@@ -50,16 +50,25 @@ for path in inputs:
                 obj = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            key = (
-                obj.get("scenario"),
-                obj.get("problem_name"),
-                obj.get("chosen"),
-                obj.get("rejected"),
-            )
+            
+            # DPO format: {prompt, chosen, rejected, meta: {problem_key, ...}}
+            # Extract problem_key from meta for deduplication
+            meta = obj.get("meta", {})
+            problem_key = meta.get("problem_key", "")
+            chosen = obj.get("chosen", "")
+            rejected = obj.get("rejected", "")
+            
+            # Create unique key: (problem_key, chosen, rejected)
+            key = (problem_key, chosen, rejected)
+            
             if key in seen:
                 continue
             seen.add(key)
-            obj.setdefault("dataset", "multi_scenarios_pddl3")
+            
+            # Add dataset metadata if not present
+            if "dataset" not in obj:
+                obj["dataset"] = "multi_scenarios_pddl3"
+            
             records.append(obj)
 
 with output_path.open("w", encoding="utf-8") as out:

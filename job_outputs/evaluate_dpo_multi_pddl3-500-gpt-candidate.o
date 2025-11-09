@@ -16,780 +16,300 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
 \        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:02<00:04,  2.20s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:04<00:02,  2.19s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.73s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:05<00:00,  1.85s/it]
-The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
-
---- Test 1/50 ---
-Problem: bw_ops4_n6_seed1400253
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2024-06
-Current date: 2025-11-07
-
-Reasoning: medium
-
-# Valid channels: analysis, commentary, final. Channel must be included for every message.
-Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>user<|message|>prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
-
-DOMAIN:
-(define (domain blocksworld)
-  (:requirements :strips :constraints :negative-preconditions)
-  (:predicates (clear ?x)
-               (on-table ?x)
-               (arm-empty)
-               (holding ?x)
-               (on ?x ?y))
-
-  (:action pickup
-    :parameters (?ob)
-    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
-                 (not (arm-empty))))
-
-  (:action putdown
-    :parameters  (?ob)
-    :precondition (holding ?ob)
-    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
-                 (not (holding ?ob))))
-
-  (:action stack
-    :parameters  (?ob ?underob)
-    :precondition (and (clear ?underob) (holding ?ob))
-    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-                 (not (clear ?underob)) (not (holding ?ob))))
-
-  (:action unstack
-    :parameters  (?ob ?underob)
-    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-    :effect (and (holding ?ob) (clear ?underob)
-                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
-
-PROBLEM:
-(define (problem BW-rand-6)
-(:domain blocksworld)
-(:objects b1 b2 b3 b4 b5 b6 )
-(:init
-(arm-empty)
-(on-table b1)
-(on b2 b1)
-(on b3 b4)
-(on b4 b5)
-(on b5 b2)
-(on b6 b3)
-(clear b6)
-)
-(:goal
-(and
-(on b2 b1)
-(on b3 b5)
-(on b4 b3)
-(on b5 b6)
-(on b6 b2))
-)
-
-(:constraints
-  (sometime-before (on b3 b5) (on b2 b1))
-)
-)
-
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
-### Plan:
-"""
-<|end|><|start|>assistant<|channel|>commentary<|message|>We must parse the blocksworld domain and the problem BW-rand-6. Generate a plan that achieves the goal and satisfies the constraint: (sometime-before (on b3 b5) (on b2 b1)).
-
-Let's list the objects: b1 b2 b3 b4 b5 b6.
-
-Predicates:
-- clear(X)
-- on-table(X)
-- arm-empty()
-- holding(X)
-- on(X Y)  (X on Y)
-
-Domain requirements: :strips, :constraints, :negative-preconditions. So predicates can have negations in preconditions and effects.
-
-Actions:
-1. pickup OB
-   Params: (?ob)
-   Precond: clear(OB) & on-table(OB) & arm-empty
-   Effect: holding(OB) & not clear(OB) & not on-table(OB) & not arm-empty
-
-2. putdown OB
-   Precond: holding(OB)
-   Effect: clear(OB) & arm-empty & on-table(OB) & not holding(OB)
-
-3. stack OB UNDEROB
-   Precond: clear(UNDEROB) & holding(OB)
-   Effect: arm-empty & clear(OB) & on(OB UNDEROB) & not clear(UNDEROB) & not holding(OB)
-
-4. unstack OB UNDEROB
-   Precond: on(OB UNDEROB) & clear(OB) & arm-empty
-   Effect: holding(OB) & clear(UNDEROB) & not on(OB UNDEROB) & not clear(OB) & not arm-empty
-
-Problem BW-rand-6:
-Objects: b1 b2 b3 b4 b5 b6
-
-Init:
-arm-empty
-on-table b1
-on b2 b1
-on b3 b4
-on b4 b5
-on b5 b2
-on b6 b3
-clear b6
-
-Let's derive all initial predicates:
-
-- arm-empty: true
-- on-table b1: true
-- on b2 b1: true
-- on b3 b4: true
-- on b4 b5: true
-- on b5 b2: true
-- on b6 b3: true
-- clear b6: true
-
-From these, we can infer other predicates:
-
-clear X: true if X is not an 'underob' in any on predicate and not arm-occupied. Let's compute clear:
-
-Clear b1: check if any
-================================================================================
-
-Parsed plan:
-commentaryWe must parse the blocksworld domain and the problem BW-rand-6. Generate a plan that achieves the goal and satisfies the constraint: (sometime-before (on b3 b5) (on b2 b1)).
-Let's list the objects: b1 b2 b3 b4 b5 b6.
-Predicates:
-- clear(X)
-- on-table(X)
-- arm-empty()
-- holding(X)
-- on(X Y)  (X on Y)
-Domain requirements: :strips, :constraints, :negative-preconditions. So predicates can have negations in preconditions and effects.
-Actions:
-1. pickup OB
-Params: (?ob)
-Precond: clear(OB) & on-table(OB) & arm-empty
-Effect: holding(OB) & not clear(OB) & not on-table(OB) & not arm-empty
-2. putdown OB
-Precond: holding(OB)
-Effect: clear(OB) & arm-empty & on-table(OB) & not holding(OB)
-3. stack OB UNDEROB
-Precond: clear(UNDEROB) & holding(OB)
-Effect: arm-empty & clear(OB) & on(OB UNDEROB) & not clear(UNDEROB) & not holding(OB)
-4. unstack OB UNDEROB
-Precond: on(OB UNDEROB) & clear(OB) & arm-empty
-Effect: holding(OB) & clear(UNDEROB) & not on(OB UNDEROB) & not clear(OB) & not arm-empty
-Problem BW-rand-6:
-Objects: b1 b2 b3 b4 b5 b6
-Init:
-arm-empty
-on-table b1
-on b2 b1
-on b3 b4
-on b4 b5
-on b5 b2
-on b6 b3
-clear b6
-Let's derive all initial predicates:
-- arm-empty: true
-- on-table b1: true
-- on b2 b1: true
-- on b3 b4: true
-- on b4 b5: true
-- on b5 b2: true
-- on b6 b3: true
-- clear b6: true
-From these, we can infer other predicates:
-clear X: true if X is not an 'underob' in any on predicate and not arm-occupied. Let's compute clear:
-Clear b1: check if any
-⚠ Invalid solution saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50/bw_ops4_n6_seed1400253.soln
-✗ Invalid solution: Validation error: 
-Current success rate: 0.0% (0/1)
-
---- Test 2/50 ---
-Problem: bw_ops3_n4_seed200399
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2024-06
-Current date: 2025-11-07
-
-Reasoning: medium
-
-# Valid channels: analysis, commentary, final. Channel must be included for every message.
-Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>user<|message|>prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
-
-DOMAIN:
-(define (domain blocksworld)
-  (:requirements :strips :constraints :negative-preconditions)
-  (:predicates (clear ?x)
-               (on-table ?x)
-               (arm-empty)
-               (holding ?x)
-               (on ?x ?y))
-
-  (:action pickup
-    :parameters (?ob)
-    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
-                 (not (arm-empty))))
-
-  (:action putdown
-    :parameters  (?ob)
-    :precondition (holding ?ob)
-    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
-                 (not (holding ?ob))))
-
-  (:action stack
-    :parameters  (?ob ?underob)
-    :precondition (and (clear ?underob) (holding ?ob))
-    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-                 (not (clear ?underob)) (not (holding ?ob))))
-
-  (:action unstack
-    :parameters  (?ob ?underob)
-    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-    :effect (and (holding ?ob) (clear ?underob)
-                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
-
-PROBLEM:
-(define (problem BW-rand-4)
-(:domain blocksworld)
-(:objects b1 b2 b3 b4 )
-(:init
-(arm-empty)
-(on b1 b4)
-(on b2 b1)
-(on b3 b2)
-(on-table b4)
-(clear b3)
-)
-(:goal
-(and
-(on b1 b2)
-(on-table b2)
-(on b3 b4)
-(on-table b4))
-)
-
-(:constraints
-  (sometime-before (on-table b2) (on b1 b2))
-)
-)
-
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
-### Plan:
-"""
-<|end|><|start|>assistant<|channel|>commentary to=functions irs="{\"timeout\":5}" <|constrain|>json<|message|>{"error":"invalid model"}<|end|><|start|>assistant<|channel|>final<|message|>(pickup b3)
-(stack b3 b4)
-(unstack b2 b1)
-(putdown b2)
-(stack b1 b2)
-)<|return|>
-================================================================================
-
-Parsed plan:
-(pickup b3)
-(stack b3 b4)
-(unstack b2 b1)
-(putdown b2)
-(stack b1 b2)
-⚠ Invalid solution saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50/bw_ops3_n4_seed200399.soln
-✗ Invalid solution: Validation error: 
-Current success rate: 0.0% (0/2)
-
---- Test 3/50 ---
-Problem: bw_ops3_n3_seed221
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2024-06
-Current date: 2025-11-07
-
-Reasoning: medium
-
-# Valid channels: analysis, commentary, final. Channel must be included for every message.
-Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>user<|message|>prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
-
-DOMAIN:
-(define (domain blocksworld)
-  (:requirements :strips :constraints :negative-preconditions)
-  (:predicates (clear ?x)
-               (on-table ?x)
-               (arm-empty)
-               (holding ?x)
-               (on ?x ?y))
-
-  (:action pickup
-    :parameters (?ob)
-    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
-                 (not (arm-empty))))
-
-  (:action putdown
-    :parameters  (?ob)
-    :precondition (holding ?ob)
-    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
-                 (not (holding ?ob))))
-
-  (:action stack
-    :parameters  (?ob ?underob)
-    :precondition (and (clear ?underob) (holding ?ob))
-    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-                 (not (clear ?underob)) (not (holding ?ob))))
-
-  (:action unstack
-    :parameters  (?ob ?underob)
-    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-    :effect (and (holding ?ob) (clear ?underob)
-                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
-
-PROBLEM:
-(define (problem BW-rand-3)
-(:domain blocksworld)
-(:objects b1 b2 b3 )
-(:init
-(arm-empty)
-(on-table b1)
-(on-table b2)
-(on b3 b1)
-(clear b2)
-(clear b3)
-)
-(:goal
-(and
-(on-table b1)
-(on b2 b3)
-(on b3 b1))
-)
-
-(:constraints
-  (sometime-before (on b2 b3) (on-table b1))
-)
-)
-
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
-### Plan:
-"""
-<|end|><|start|>assistant<|channel|>commentary<|message|>{"error":"The given PDDL domain 'blocksworld' includes the feature :constraints, which is not supported by this PDDL parser."}<|call|>commentary!!!
-
-<|start|>assistant<|channel|>final<|message|>(putdown b3)
-(unstack b2 b3)
-(stack b2 b1)
-pickup b3
-(stack b3 b1)<|return|>
-================================================================================
-
-Parsed plan:
-(stack b3 b1)
-⚠ Invalid solution saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50/bw_ops3_n3_seed221.soln
-✗ Invalid solution: Validation error: 
-Current success rate: 0.0% (0/3)
-
---- Test 4/50 ---
-Problem: bw_ops4_n6_seed1400736
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2024-06
-Current date: 2025-11-07
-
-Reasoning: medium
-
-# Valid channels: analysis, commentary, final. Channel must be included for every message.
-Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>user<|message|>prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
-
-DOMAIN:
-(define (domain blocksworld)
-  (:requirements :strips :constraints :negative-preconditions)
-  (:predicates (clear ?x)
-               (on-table ?x)
-               (arm-empty)
-               (holding ?x)
-               (on ?x ?y))
-
-  (:action pickup
-    :parameters (?ob)
-    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
-                 (not (arm-empty))))
-
-  (:action putdown
-    :parameters  (?ob)
-    :precondition (holding ?ob)
-    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
-                 (not (holding ?ob))))
-
-  (:action stack
-    :parameters  (?ob ?underob)
-    :precondition (and (clear ?underob) (holding ?ob))
-    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-                 (not (clear ?underob)) (not (holding ?ob))))
-
-  (:action unstack
-    :parameters  (?ob ?underob)
-    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-    :effect (and (holding ?ob) (clear ?underob)
-                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
-
-PROBLEM:
-(define (problem BW-rand-6)
-(:domain blocksworld)
-(:objects b1 b2 b3 b4 b5 b6 )
-(:init
-(arm-empty)
-(on b1 b5)
-(on-table b2)
-(on b3 b1)
-(on b4 b6)
-(on b5 b4)
-(on-table b6)
-(clear b2)
-(clear b3)
-)
-(:goal
-(and
-(on b1 b6)
-(on b3 b2)
-(on b5 b3)
-(on b6 b4))
-)
-
-(:constraints
-  (sometime-before (on b3 b2) (on b1 b6))
-)
-)
-
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
-### Plan:
-"""
-<|end|><|start|>assistant<|channel|>commentary<|message|>{"pickup": "b3"}<|end|><|start|>assistant<|channel|>analysis<|message|>We must produce a valid plan for the blocksworld domain and the given problem BW-rand-6. The output should be only action lines, no text, no parentheses except as specified. The format: (<ACTION_NAME> <param1> <param2> ...). So we need to use PDDL action names: pickup, putdown, stack, unstack. Parameters are blocks.
-
-We must satisfy the PROBLEM goal and the constraint: (sometime-before (on b3 b2) (on b1 b6)). That means at some point before the goal state, b3 must be on b2, and at some point (also before that) b1 must be on b6. In the final goal, we have: (on b1 b6), (on b3 b2), (on b5 b3), (on b6 b4). So the goal already requires b1 on b6 and b3 on b2, and b5 on b3, and b6 on b4. The constraint is a PDDL3 requirement: b3 on b2 must occur sometime before b1 on b6. In the goal, both are true, but the constraint requires that the event of b3 on b2 happened before the event of b1 on b6. Since in the goal both are true, the constraint could be violated if in the final state b3 on b2 and b1 on b6 hold, but the last change to b1 on b6 occurred after the last change to b3 on b2. We need to ensure the temporal ordering: the timestamp when (on b3 b2) became true must be less than the timestamp when (on b1 b6) became true.
-
-Thus we need to plan such that we stack b1 on b6 before we stack b3 on b2. But the goal requires both. So we must first stack b1 on b6, then later stack b3 on b2. Also we need (on b5 b3) and (on b6 b4). Initially b6 is on-table, and b4 is on b6. Goal requires b6 on b4, so we need to put b6 under b4 (stack b6 on b4). Initially b4 is on b6, so we need to unstack b4 first, then putdown b6, then stack b6 on
-================================================================================
-
-Parsed plan:
-analysisWe must produce a valid plan for the blocksworld domain and the given problem BW-rand-6. The output should be only action lines, no text, no parentheses except as specified. The format: (<ACTION_NAME> <param1> <param2> ...). So we need to use PDDL action names: pickup, putdown, stack, unstack. Parameters are blocks.
-We must satisfy the PROBLEM goal and the constraint: (sometime-before (on b3 b2) (on b1 b6)). That means at some point before the goal state, b3 must be on b2, and at some point (also before that) b1 must be on b6. In the final goal, we have: (on b1 b6), (on b3 b2), (on b5 b3), (on b6 b4). So the goal already requires b1 on b6 and b3 on b2, and b5 on b3, and b6 on b4. The constraint is a PDDL3 requirement: b3 on b2 must occur sometime before b1 on b6. In the goal, both are true, but the constraint requires that the event of b3 on b2 happened before the event of b1 on b6. Since in the goal both are true, the constraint could be violated if in the final state b3 on b2 and b1 on b6 hold, but the last change to b1 on b6 occurred after the last change to b3 on b2. We need to ensure the temporal ordering: the timestamp when (on b3 b2) became true must be less than the timestamp when (on b1 b6) became true.
-Thus we need to plan such that we stack b1 on b6 before we stack b3 on b2. But the goal requires both. So we must first stack b1 on b6, then later stack b3 on b2. Also we need (on b5 b3) and (on b6 b4). Initially b6 is on-table, and b4 is on b6. Goal requires b6 on b4, so we need to put b6 under b4 (stack b6 on b4). Initially b4 is on b6, so we need to unstack b4 first, then putdown b6, then stack b6 on
-⚠ Invalid solution saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50/bw_ops4_n6_seed1400736.soln
-✗ Invalid solution: Validation error: 
-Current success rate: 0.0% (0/4)
-
---- Test 5/50 ---
-Problem: bw_ops3_n6_seed600261
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2024-06
-Current date: 2025-11-07
-
-Reasoning: medium
-
-# Valid channels: analysis, commentary, final. Channel must be included for every message.
-Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>user<|message|>prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
-
-DOMAIN:
-(define (domain blocksworld)
-  (:requirements :strips :constraints :negative-preconditions)
-  (:predicates (clear ?x)
-               (on-table ?x)
-               (arm-empty)
-               (holding ?x)
-               (on ?x ?y))
-
-  (:action pickup
-    :parameters (?ob)
-    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
-                 (not (arm-empty))))
-
-  (:action putdown
-    :parameters  (?ob)
-    :precondition (holding ?ob)
-    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
-                 (not (holding ?ob))))
-
-  (:action stack
-    :parameters  (?ob ?underob)
-    :precondition (and (clear ?underob) (holding ?ob))
-    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-                 (not (clear ?underob)) (not (holding ?ob))))
-
-  (:action unstack
-    :parameters  (?ob ?underob)
-    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-    :effect (and (holding ?ob) (clear ?underob)
-                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
-
-PROBLEM:
-(define (problem BW-rand-6)
-(:domain blocksworld)
-(:objects b1 b2 b3 b4 b5 b6 )
-(:init
-(arm-empty)
-(on b1 b3)
-(on-table b2)
-(on b3 b2)
-(on-table b4)
-(on b5 b6)
-(on b6 b4)
-(clear b1)
-(clear b5)
-)
-(:goal
-(and
-(on b1 b3)
-(on b2 b4)
-(on b3 b2)
-(on b4 b5)
-(on-table b5)
-(on-table b6))
-)
-
-(:constraints
-  (sometime-before (on b2 b4) (on b1 b3))
-)
-)
-
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
-### Plan:
-"""
-<|end|><|start|>assistant<|channel|>commentary to=functionsjson==="invoke";params:{
-"name":"pddl_executor",
-"arguments":{
-"domain_file":"blocksworld.dcp",
-"problem_file":"BW-rand-6.pcp",
-"plan":"('stack' 'b1' 'b3') ('putdown' 'b1') ('unstack' 'b5' 'b6') ('pickup' 'b5') ('stack' 'b5' 'b4') ('pickup' 'b2') ('stack' 'b2' 'b4')"
-}
-}
-}<|call|>commentary===
-<|start|>assistant<|channel|>analysis<|message|>The request: "Generate a valid plan for the given domain and problem." We have DOMAIN blocksworld with requirements :strips :constraints :negative-preconditions. PROBLEM BW-rand-6 with objects b1...b6, init facts, goal facts, and constraints: (sometime-before (on b2 b4) (on b1 b3)).
-
-We must output plan steps only, format (<ACTION_NAME> <param1> <param2> ...). Ensure all PDDL3 constraints satisfied. The constraints include the domain constraints too. Domain has: :predicates (clear ?x) (on-table ?x) (arm-empty) (holding ?x) (on ?x ?y). :requirements :strips :constraints :negative-preconditions. No explicit constraints in domain. PROBLEM constraints: (sometime-before (on b2 b4) (on b1 b3)).
-
-Goal: 
-(and
-(on b1 b3)
-(on b2 b4)
-(on b3 b2)
-(on b4 b5)
-(on-table b5)
-(on-table b6)
-)
-
-Initial:
-(arm-empty)
-(on b1 b3)
-(on-table b2)
-(on b3 b2)
-(clear b1)
-(clear b5)
-)
-
-Also: on b5 b6, on b6 b4.
-
-So initial stack: b1 on b3; b3 on b2; b5 on b6; b6 on b4. b2 table clear; b4 table clear; b5 clear; arm-empty.
-
-Goal requires: b1 on b3; b2 on b4; b3 on b2; b4 on b5; b5 table clear; b6 table clear. Also on-table b6.
-
-Check initial: b1 on b3 satisfied; b3 on b2 satisfied; on-table b2
-================================================================================
-
-Parsed plan:
-(arm-empty)
-(on b1 b3)
-(on-table b2)
-(on b3 b2)
-(clear b1)
-(clear b5)
-⚠ Invalid solution saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50/bw_ops3_n6_seed600261.soln
-✗ Invalid solution: Validation error: Error: Bad operator in plan!
-
-Current success rate: 0.0% (0/5)
-
---- Test 6/50 ---
-Problem: bw_ops3_n6_seed600090
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
-Knowledge cutoff: 2024-06
-Current date: 2025-11-07
-
-Reasoning: medium
-
-# Valid channels: analysis, commentary, final. Channel must be included for every message.
-Calls to these tools must go to the commentary channel: 'functions'.<|end|><|start|>user<|message|>prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
-
-DOMAIN:
-(define (domain blocksworld)
-  (:requirements :strips :constraints :negative-preconditions)
-  (:predicates (clear ?x)
-               (on-table ?x)
-               (arm-empty)
-               (holding ?x)
-               (on ?x ?y))
-
-  (:action pickup
-    :parameters (?ob)
-    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) 
-                 (not (arm-empty))))
-
-  (:action putdown
-    :parameters  (?ob)
-    :precondition (holding ?ob)
-    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) 
-                 (not (holding ?ob))))
-
-  (:action stack
-    :parameters  (?ob ?underob)
-    :precondition (and (clear ?underob) (holding ?ob))
-    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-                 (not (clear ?underob)) (not (holding ?ob))))
-
-  (:action unstack
-    :parameters  (?ob ?underob)
-    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-    :effect (and (holding ?ob) (clear ?underob)
-                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
-
-PROBLEM:
-(define (problem BW-rand-6)
-(:domain blocksworld)
-(:objects b1 b2 b3 b4 b5 b6 )
-(:init
-(arm-empty)
-(on b1 b2)
-(on-table b2)
-(on-table b3)
-(on b4 b3)
-(on b5 b1)
-(on b6 b5)
-(clear b4)
-(clear b6)
-)
-(:goal
-(and
-(on-table b1)
-(on b2 b3)
-(on b3 b4)
-(on b4 b6)
-(on-table b5)
-(on b6 b1))
-)
-
-(:constraints
-  (sometime-before (on b2 b3) (on-table b1))
-)
-)
-
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
-### Plan:
-"""
-<|end|><|start|>assistant<|channel|>commentary to=functions agent="plan-generator" max_tokens=500 prompt=prompt)=>{
-  "function_name": "plan-generator",
-  "arguments": {
-    "prompt": "You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.\n\nDOMAIN:\n(define (domain blocksworld)\n  (:requirements :strips :constraints :negative-preconditions)\n  (:predicates (clear ?x)\n               (on-table ?x)\n               (arm-empty)\n               (holding ?x)\n               (on ?x ?y))\n\n  (:action pickup\n    :parameters (?ob)\n    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))\n    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) \n                 (not (arm-empty))))\n\n  (:action putdown\n    :parameters  (?ob)\n    :precondition (holding ?ob)\n    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) \n                 (not (holding ?ob))))\n\n  (:action stack\n    :parameters  (?ob ?underob)\n    :precondition (and (clear ?underob) (holding ?ob))\n    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)\n                 (not (clear ?underob)) (not (holding ?ob))))\n\n  (:action unstack\n    :parameters  (?ob ?underob)\n    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))\n    :effect (and (holding ?ob) (clear ?underob)\n                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))\n}\n\nPROBLEM:\n(define (problem BW-rand-6)\n(:domain blocksworld)\n(:objects b1 b2 b3 b4 b5 b6 )\n(:init\n(arm-empty)\n(on b1 b2)\n(on-table b2)\n(on-table b3)\n(on b4 b3)\n(on b5 b1)\n(on b6 b5)\
-================================================================================
-
-Parsed plan:
-commentary to=functions agent="plan-generator" max_tokens=500 prompt=prompt)=>{
-"function_name": "plan-generator",
-"arguments": {
-"prompt": "You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.\n\nDOMAIN:\n(define (domain blocksworld)\n  (:requirements :strips :constraints :negative-preconditions)\n  (:predicates (clear ?x)\n               (on-table ?x)\n               (arm-empty)\n               (holding ?x)\n               (on ?x ?y))\n\n  (:action pickup\n    :parameters (?ob)\n    :precondition (and (clear ?ob) (on-table ?ob) (arm-empty))\n    :effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob)) \n                 (not (arm-empty))))\n\n  (:action putdown\n    :parameters  (?ob)\n    :precondition (holding ?ob)\n    :effect (and (clear ?ob) (arm-empty) (on-table ?ob) \n                 (not (holding ?ob))))\n\n  (:action stack\n    :parameters  (?ob ?underob)\n    :precondition (and (clear ?underob) (holding ?ob))\n    :effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)\n                 (not (clear ?underob)) (not (holding ?ob))))\n\n  (:action unstack\n    :parameters  (?ob ?underob)\n    :precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))\n    :effect (and (holding ?ob) (clear ?underob)\n                 (not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))\n}\n\nPROBLEM:\n(define (problem BW-rand-6)\n(:domain blocksworld)\n(:objects b1 b2 b3 b4 b5 b6 )\n(:init\n(arm-empty)\n(on b1 b2)\n(on-table b2)\n(on-table b3)\n(on b4 b3)\n(on b5 b1)\n(on b6 b5)\
-⚠ Invalid solution saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/blocksworld/50/bw_ops3_n6_seed600090.soln
-✗ Invalid solution: Validation error: 
-Current success rate: 0.0% (0/6)
-
---- Test 7/50 ---
-Problem: bw_ops3_n5_seed400696
-
-================================================================================
-LLM FULL OUTPUT:
-================================================================================
-slurmstepd-noble-bohr: error: *** JOB 159 ON noble-bohr CANCELLED AT 2025-11-07T18:41:17 ***
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 649, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 638, in main
+    test_model_on_testing_data(
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 334, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 433, in from_pretrained
+    return FastModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 991, in from_pretrained
+    model, tokenizer = FastBaseModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/vision.py", line 582, in from_pretrained
+    model = auto_model.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 288, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5179, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5496, in _load_pretrained_model
+    model._initialize_missing_keys(checkpoint_keys, ignore_mismatched_sizes, is_quantized)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 6068, in _initialize_missing_keys
+    self.initialize_weights()
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3105, in initialize_weights
+    self.smart_apply(self._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3096, in smart_apply
+    module.smart_apply(module._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3099, in smart_apply
+    fn(self)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3073, in _initialize_weights
+    self._init_weights(module)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 430, in _init_weights
+    module.weight.data.normal_(mean=0.0, std=std)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1962, in __getattr__
+    raise AttributeError(
+AttributeError: 'GptOssTopKRouter' object has no attribute 'weight'
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500
+Problems dir: delivery/all_problems3/testing
+Domain file: delivery/domain3.pddl
+Max problems: 50
+Output: delivery_test_results.json
+Auto-detected model family: gpt
+Planning results will be saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/delivery/50
+Loaded 50 problems for testing
+Loading model...
+==((====))==  Unsloth 2025.10.12: Fast Gpt_Oss patching. Transformers: 4.56.2.
+   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 649, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 638, in main
+    test_model_on_testing_data(
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 334, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 433, in from_pretrained
+    return FastModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 991, in from_pretrained
+    model, tokenizer = FastBaseModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/vision.py", line 582, in from_pretrained
+    model = auto_model.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 288, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5179, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5496, in _load_pretrained_model
+    model._initialize_missing_keys(checkpoint_keys, ignore_mismatched_sizes, is_quantized)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 6068, in _initialize_missing_keys
+    self.initialize_weights()
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3105, in initialize_weights
+    self.smart_apply(self._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3096, in smart_apply
+    module.smart_apply(module._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3099, in smart_apply
+    fn(self)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3073, in _initialize_weights
+    self._init_weights(module)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 430, in _init_weights
+    module.weight.data.normal_(mean=0.0, std=std)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1962, in __getattr__
+    raise AttributeError(
+AttributeError: 'GptOssTopKRouter' object has no attribute 'weight'
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500
+Problems dir: ferry/all_problems3/testing
+Domain file: ferry/domain3.pddl
+Max problems: 50
+Output: ferry_test_results.json
+Auto-detected model family: gpt
+Planning results will be saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/ferry/50
+Loaded 50 problems for testing
+Loading model...
+==((====))==  Unsloth 2025.10.12: Fast Gpt_Oss patching. Transformers: 4.56.2.
+   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 649, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 638, in main
+    test_model_on_testing_data(
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 334, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 433, in from_pretrained
+    return FastModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 991, in from_pretrained
+    model, tokenizer = FastBaseModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/vision.py", line 582, in from_pretrained
+    model = auto_model.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 288, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5179, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5496, in _load_pretrained_model
+    model._initialize_missing_keys(checkpoint_keys, ignore_mismatched_sizes, is_quantized)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 6068, in _initialize_missing_keys
+    self.initialize_weights()
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3105, in initialize_weights
+    self.smart_apply(self._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3096, in smart_apply
+    module.smart_apply(module._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3099, in smart_apply
+    fn(self)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3073, in _initialize_weights
+    self._init_weights(module)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 430, in _init_weights
+    module.weight.data.normal_(mean=0.0, std=std)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1962, in __getattr__
+    raise AttributeError(
+AttributeError: 'GptOssTopKRouter' object has no attribute 'weight'
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500
+Problems dir: grippers/all_problems3/testing
+Domain file: grippers/domain3.pddl
+Max problems: 50
+Output: grippers_test_results.json
+Auto-detected model family: gpt
+Planning results will be saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/grippers/50
+Loaded 50 problems for testing
+Loading model...
+==((====))==  Unsloth 2025.10.12: Fast Gpt_Oss patching. Transformers: 4.56.2.
+   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 649, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 638, in main
+    test_model_on_testing_data(
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 334, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 433, in from_pretrained
+    return FastModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 991, in from_pretrained
+    model, tokenizer = FastBaseModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/vision.py", line 582, in from_pretrained
+    model = auto_model.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 288, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5179, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5496, in _load_pretrained_model
+    model._initialize_missing_keys(checkpoint_keys, ignore_mismatched_sizes, is_quantized)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 6068, in _initialize_missing_keys
+    self.initialize_weights()
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3105, in initialize_weights
+    self.smart_apply(self._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3096, in smart_apply
+    module.smart_apply(module._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3099, in smart_apply
+    fn(self)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3073, in _initialize_weights
+    self._init_weights(module)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 430, in _init_weights
+    module.weight.data.normal_(mean=0.0, std=std)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1962, in __getattr__
+    raise AttributeError(
+AttributeError: 'GptOssTopKRouter' object has no attribute 'weight'
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Testing model: /home/ubuntu/dpo_models/gpt_oss_20b/multi/pddl3_500
+Problems dir: spanner/all_problems3/testing
+Domain file: spanner/domain3.pddl
+Max problems: 50
+Output: spanner_test_results.json
+Auto-detected model family: gpt
+Planning results will be saved to: planning_results/gpt_oss_20b-multi-dpo-pddl3-500-gpt-candidate-4bit/spanner/50
+Loaded 50 problems for testing
+Loading model...
+==((====))==  Unsloth 2025.10.12: Fast Gpt_Oss patching. Transformers: 4.56.2.
+   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Traceback (most recent call last):
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 649, in <module>
+    main()
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 638, in main
+    test_model_on_testing_data(
+  File "/home/ubuntu/Safety-gen/script/evaluate_llm_solver.py", line 334, in test_model_on_testing_data
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 433, in from_pretrained
+    return FastModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 991, in from_pretrained
+    model, tokenizer = FastBaseModel.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/models/vision.py", line 582, in from_pretrained
+    model = auto_model.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 288, in _wrapper
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5179, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5496, in _load_pretrained_model
+    model._initialize_missing_keys(checkpoint_keys, ignore_mismatched_sizes, is_quantized)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 6068, in _initialize_missing_keys
+    self.initialize_weights()
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3105, in initialize_weights
+    self.smart_apply(self._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3096, in smart_apply
+    module.smart_apply(module._initialize_weights)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3098, in smart_apply
+    module.smart_apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3099, in smart_apply
+    fn(self)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 3073, in _initialize_weights
+    self._init_weights(module)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 430, in _init_weights
+    module.weight.data.normal_(mean=0.0, std=std)
+  File "/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1962, in __getattr__
+    raise AttributeError(
+AttributeError: 'GptOssTopKRouter' object has no attribute 'weight'

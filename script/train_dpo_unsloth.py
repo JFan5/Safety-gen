@@ -41,12 +41,43 @@ def load_dpo_dataset(dataset_path: str) -> Dataset:
     logger.info(f"Loading DPO dataset from {dataset_path}")
 
     data = []
+    invalid_count = 0
     with open(dataset_path, "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip():
-                data.append(json.loads(line))
+        for line_num, line in enumerate(f, 1):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+                # Validate required fields and ensure they are non-empty strings
+                prompt = record.get("prompt", "")
+                chosen = record.get("chosen", "")
+                rejected = record.get("rejected", "")
+                
+                # Skip records with missing or invalid fields
+                if not prompt or not isinstance(prompt, str):
+                    invalid_count += 1
+                    logger.warning(f"Line {line_num}: Missing or invalid 'prompt' field, skipping")
+                    continue
+                if not chosen or not isinstance(chosen, str):
+                    invalid_count += 1
+                    logger.warning(f"Line {line_num}: Missing or invalid 'chosen' field, skipping")
+                    continue
+                if not rejected or not isinstance(rejected, str):
+                    invalid_count += 1
+                    logger.warning(f"Line {line_num}: Missing or invalid 'rejected' field, skipping")
+                    continue
+                
+                data.append(record)
+            except json.JSONDecodeError as e:
+                invalid_count += 1
+                logger.warning(f"Line {line_num}: JSON decode error: {e}, skipping")
+                continue
 
-    logger.info(f"Loaded {len(data)} DPO pairs")
+    logger.info(f"Loaded {len(data)} valid DPO pairs (skipped {invalid_count} invalid records)")
+    
+    if len(data) == 0:
+        raise ValueError("No valid DPO pairs found in dataset!")
+    
     ds = Dataset.from_list(data)
     required = {"prompt", "chosen", "rejected"}
     missing = required - set(ds.column_names)
