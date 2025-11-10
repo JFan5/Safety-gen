@@ -128,12 +128,26 @@ def main():
         action="store_true",
         help="Apply conservative settings to reduce GPU memory usage",
     )
+    parser.add_argument(
+        "--resume_from_checkpoint",
+        type=str,
+        default=None,
+        help="Path to a checkpoint directory to resume training from",
+    )
 
     args = parser.parse_args()
 
     # Validate paths
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
+    
+    # Validate checkpoint path if provided
+    if args.resume_from_checkpoint:
+        if not os.path.exists(args.resume_from_checkpoint):
+            raise ValueError(f"Checkpoint path does not exist: {args.resume_from_checkpoint}")
+        if not os.path.isdir(args.resume_from_checkpoint):
+            raise ValueError(f"Checkpoint path is not a directory: {args.resume_from_checkpoint}")
+        logger.info(f"Resuming training from checkpoint: {args.resume_from_checkpoint}")
 
     # Create output dir
     os.makedirs(args.output_dir, exist_ok=True)
@@ -191,15 +205,53 @@ def main():
     use_fp16 = torch.cuda.is_available() and not bf16_ok
 
     # 加载模型（注意：不要把 use_gradient_checkpointing 传到 from_pretrained）
-    logger.info(f"Loading model with Unsloth from {args.base_model}")
-    model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=args.base_model,
-        max_seq_length=args.max_length,
-        dtype=None,  # auto
-        load_in_4bit=args.load_in_4bit,
-        load_in_8bit=args.load_in_8bit,
-        # device_map="auto",  # 可按需开启
-    )
+    # 对于 DPO 训练，检查点通常只包含适配器权重和训练状态，不包含完整模型
+    # 所以通常需要从 base_model 加载基础模型，然后 Trainer 会从检查点恢复适配器权重
+    # 但如果检查点包含完整模型（比如使用了 save_pretrained），则可以从检查点加载
+    if args.resume_from_checkpoint:
+        # 检查检查点是否包含完整模型文件（而不是仅适配器权重）
+        checkpoint_files = []
+        try:
+            checkpoint_files = os.listdir(args.resume_from_checkpoint)
+        except OSError:
+            pass
+        
+        checkpoint_has_full_model = (
+            os.path.exists(os.path.join(args.resume_from_checkpoint, "pytorch_model.bin")) or
+            os.path.exists(os.path.join(args.resume_from_checkpoint, "model.safetensors")) or
+            any(f.startswith("pytorch_model") for f in checkpoint_files)
+        )
+        
+        if checkpoint_has_full_model:
+            logger.info(f"Checkpoint contains full model. Loading from checkpoint: {args.resume_from_checkpoint}")
+            model, tokenizer = FastLanguageModel.from_pretrained(
+                model_name=args.resume_from_checkpoint,
+                max_seq_length=args.max_length,
+                dtype=None,  # auto
+                load_in_4bit=args.load_in_4bit,
+                load_in_8bit=args.load_in_8bit,
+            )
+        else:
+            # 从 base_model 加载，Trainer 会从检查点恢复适配器权重和训练状态
+            logger.info(f"Loading base model from: {args.base_model}")
+            logger.info(f"Adapter weights and training state will be restored from checkpoint: {args.resume_from_checkpoint}")
+            model, tokenizer = FastLanguageModel.from_pretrained(
+                model_name=args.base_model,
+                max_seq_length=args.max_length,
+                dtype=None,  # auto
+                load_in_4bit=args.load_in_4bit,
+                load_in_8bit=args.load_in_8bit,
+            )
+    else:
+        logger.info(f"Loading model with Unsloth from {args.base_model}")
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=args.base_model,
+            max_seq_length=args.max_length,
+            dtype=None,  # auto
+            load_in_4bit=args.load_in_4bit,
+            load_in_8bit=args.load_in_8bit,
+            # device_map="auto",  # 可按需开启
+        )
 
     # 训练前设置（Unsloth 的 GC 建议用字符串 "unsloth"）
     gc_flag: Any = "unsloth" if args.use_gradient_checkpointing else False
@@ -287,8 +339,12 @@ def main():
         )
 
     # 开始训练
-    logger.info("Starting DPO training with Unsloth...")
-    dpo_trainer.train()
+    if args.resume_from_checkpoint:
+        logger.info(f"Resuming DPO training from checkpoint: {args.resume_from_checkpoint}")
+        dpo_trainer.train(resume_from_checkpoint=args.resume_from_checkpoint)
+    else:
+        logger.info("Starting DPO training with Unsloth...")
+        dpo_trainer.train()
 
     # 只保存一个模型（合并后的 16bit 全量权重，便于推理 / 部署）
     logger.info(f"Saving merged model to {args.output_dir}")

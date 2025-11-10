@@ -14,6 +14,7 @@
   --base_model "/home/ubuntu/sft_models/Qwen3-14B/multi_pddl3_500/pddl3" \
   --dataset "/home/ubuntu/data/grpo/gpt_oss_20b/multi_scenarios/pddl3_grpo.jsonl" \
   --output_dir "/home/ubuntu/dpo_models/Qwen3-14B/multi/pddl3_500-grpo" \
+  --resume_from_checkpoint "/home/ubuntu/dpo_models/Qwen3-14B/multi/pddl3_500-grpo/checkpoint-2400" \
   --num_epochs 2 \
   --batch_size 2 \
   --gradient_accumulation_steps 4 \
