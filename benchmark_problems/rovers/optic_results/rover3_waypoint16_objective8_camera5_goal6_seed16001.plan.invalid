@@ -1,0 +1,362 @@
+Number of literals: 174
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Action 135 - (take_image rover0 waypoint0 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 136 - (take_image rover0 waypoint10 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 137 - (take_image rover0 waypoint12 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 138 - (take_image rover0 waypoint14 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 139 - (take_image rover0 waypoint15 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 140 - (take_image rover0 waypoint2 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 141 - (take_image rover0 waypoint3 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 142 - (take_image rover0 waypoint4 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 143 - (take_image rover0 waypoint8 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 144 - (take_image rover0 waypoint9 objective0 camera3 colour) is uninteresting once we have fact (have_image rover0 objective0 colour)
+Action 145 - (take_image rover0 waypoint1 objective1 camera3 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 146 - (take_image rover0 waypoint14 objective1 camera3 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 147 - (take_image rover0 waypoint7 objective1 camera3 colour) is uninteresting once we have fact (have_image rover0 objective1 colour)
+Action 148 - (take_image rover0 waypoint15 objective2 camera3 colour) is uninteresting once we have fact (have_image rover0 objective2 colour)
+Action 149 - (take_image rover0 waypoint5 objective2 camera3 colour) is uninteresting once we have fact (have_image rover0 objective2 colour)
+Action 150 - (take_image rover0 waypoint6 objective2 camera3 colour) is uninteresting once we have fact (have_image rover0 objective2 colour)
+Action 151 - (take_image rover0 waypoint0 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 152 - (take_image rover0 waypoint1 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 153 - (take_image rover0 waypoint10 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 154 - (take_image rover0 waypoint11 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 155 - (take_image rover0 waypoint2 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 156 - (take_image rover0 waypoint3 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 157 - (take_image rover0 waypoint6 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 158 - (take_image rover0 waypoint9 objective3 camera3 colour) is uninteresting once we have fact (have_image rover0 objective3 colour)
+Action 159 - (take_image rover0 waypoint1 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 160 - (take_image rover0 waypoint10 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 161 - (take_image rover0 waypoint11 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 162 - (take_image rover0 waypoint12 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 163 - (take_image rover0 waypoint15 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 164 - (take_image rover0 waypoint2 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 165 - (take_image rover0 waypoint3 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 166 - (take_image rover0 waypoint4 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 167 - (take_image rover0 waypoint6 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 168 - (take_image rover0 waypoint8 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 169 - (take_image rover0 waypoint9 objective4 camera3 colour) is uninteresting once we have fact (have_image rover0 objective4 colour)
+Action 170 - (take_image rover0 waypoint2 objective5 camera3 colour) is uninteresting once we have fact (have_image rover0 objective5 colour)
+Action 171 - (take_image rover0 waypoint5 objective5 camera3 colour) is uninteresting once we have fact (have_image rover0 objective5 colour)
+Action 172 - (take_image rover0 waypoint12 objective6 camera3 colour) is uninteresting once we have fact (have_image rover0 objective6 colour)
+Action 173 - (take_image rover0 waypoint13 objective6 camera3 colour) is uninteresting once we have fact (have_image rover0 objective6 colour)
+Action 174 - (take_image rover0 waypoint14 objective6 camera3 colour) is uninteresting once we have fact (have_image rover0 objective6 colour)
+Action 175 - (take_image rover0 waypoint2 objective6 camera3 colour) is uninteresting once we have fact (have_image rover0 objective6 colour)
+Action 176 - (take_image rover0 waypoint7 objective6 camera3 colour) is uninteresting once we have fact (have_image rover0 objective6 colour)
+Action 177 - (take_image rover0 waypoint8 objective6 camera3 colour) is uninteresting once we have fact (have_image rover0 objective6 colour)
+Action 178 - (take_image rover0 waypoint10 objective7 camera3 colour) is uninteresting once we have fact (have_image rover0 objective7 colour)
+Action 179 - (take_image rover0 waypoint14 objective7 camera3 colour) is uninteresting once we have fact (have_image rover0 objective7 colour)
+Action 180 - (take_image rover0 waypoint15 objective7 camera3 colour) is uninteresting once we have fact (have_image rover0 objective7 colour)
+Action 181 - (take_image rover0 waypoint7 objective7 camera3 colour) is uninteresting once we have fact (have_image rover0 objective7 colour)
+Action 182 - (take_image rover0 waypoint9 objective7 camera3 colour) is uninteresting once we have fact (have_image rover0 objective7 colour)
+Action 183 - (take_image rover1 waypoint0 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 184 - (take_image rover1 waypoint10 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 185 - (take_image rover1 waypoint12 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 186 - (take_image rover1 waypoint14 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 187 - (take_image rover1 waypoint15 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 188 - (take_image rover1 waypoint2 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 189 - (take_image rover1 waypoint3 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 190 - (take_image rover1 waypoint4 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 191 - (take_image rover1 waypoint8 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 192 - (take_image rover1 waypoint9 objective0 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective0 high_res)
+Action 193 - (take_image rover1 waypoint1 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective1 high_res)
+Action 194 - (take_image rover1 waypoint14 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective1 high_res)
+Action 195 - (take_image rover1 waypoint7 objective1 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective1 high_res)
+Action 196 - (take_image rover1 waypoint15 objective2 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective2 high_res)
+Action 197 - (take_image rover1 waypoint5 objective2 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective2 high_res)
+Action 198 - (take_image rover1 waypoint6 objective2 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective2 high_res)
+Action 199 - (take_image rover1 waypoint0 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 200 - (take_image rover1 waypoint1 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 201 - (take_image rover1 waypoint10 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 202 - (take_image rover1 waypoint11 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 203 - (take_image rover1 waypoint2 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 204 - (take_image rover1 waypoint3 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 205 - (take_image rover1 waypoint6 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 206 - (take_image rover1 waypoint9 objective3 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective3 high_res)
+Action 207 - (take_image rover1 waypoint1 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 208 - (take_image rover1 waypoint10 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 209 - (take_image rover1 waypoint11 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 210 - (take_image rover1 waypoint12 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 211 - (take_image rover1 waypoint15 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 212 - (take_image rover1 waypoint2 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 213 - (take_image rover1 waypoint3 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 214 - (take_image rover1 waypoint4 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 215 - (take_image rover1 waypoint6 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 216 - (take_image rover1 waypoint8 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 217 - (take_image rover1 waypoint9 objective4 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective4 high_res)
+Action 218 - (take_image rover1 waypoint2 objective5 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective5 high_res)
+Action 219 - (take_image rover1 waypoint5 objective5 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective5 high_res)
+Action 220 - (take_image rover1 waypoint12 objective6 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective6 high_res)
+Action 221 - (take_image rover1 waypoint13 objective6 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective6 high_res)
+Action 222 - (take_image rover1 waypoint14 objective6 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective6 high_res)
+Action 223 - (take_image rover1 waypoint2 objective6 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective6 high_res)
+Action 224 - (take_image rover1 waypoint7 objective6 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective6 high_res)
+Action 225 - (take_image rover1 waypoint8 objective6 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective6 high_res)
+Action 226 - (take_image rover1 waypoint10 objective7 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective7 high_res)
+Action 227 - (take_image rover1 waypoint14 objective7 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective7 high_res)
+Action 228 - (take_image rover1 waypoint15 objective7 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective7 high_res)
+Action 229 - (take_image rover1 waypoint7 objective7 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective7 high_res)
+Action 230 - (take_image rover1 waypoint9 objective7 camera0 high_res) is uninteresting once we have fact (have_image rover1 objective7 high_res)
+Action 231 - (take_image rover2 waypoint0 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 232 - (take_image rover2 waypoint10 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 233 - (take_image rover2 waypoint12 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 234 - (take_image rover2 waypoint14 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 235 - (take_image rover2 waypoint15 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 236 - (take_image rover2 waypoint2 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 237 - (take_image rover2 waypoint3 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 238 - (take_image rover2 waypoint4 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 239 - (take_image rover2 waypoint8 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 240 - (take_image rover2 waypoint9 objective0 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective0 high_res)
+Action 241 - (take_image rover2 waypoint1 objective1 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective1 high_res)
+Action 242 - (take_image rover2 waypoint14 objective1 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective1 high_res)
+Action 243 - (take_image rover2 waypoint7 objective1 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective1 high_res)
+Action 244 - (take_image rover2 waypoint15 objective2 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective2 high_res)
+Action 245 - (take_image rover2 waypoint5 objective2 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective2 high_res)
+Action 246 - (take_image rover2 waypoint6 objective2 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective2 high_res)
+Action 247 - (take_image rover2 waypoint0 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 248 - (take_image rover2 waypoint1 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 249 - (take_image rover2 waypoint10 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 250 - (take_image rover2 waypoint11 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 251 - (take_image rover2 waypoint2 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 252 - (take_image rover2 waypoint3 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 253 - (take_image rover2 waypoint6 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 254 - (take_image rover2 waypoint9 objective3 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective3 high_res)
+Action 255 - (take_image rover2 waypoint1 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 256 - (take_image rover2 waypoint10 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 257 - (take_image rover2 waypoint11 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 258 - (take_image rover2 waypoint12 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 259 - (take_image rover2 waypoint15 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 260 - (take_image rover2 waypoint2 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 261 - (take_image rover2 waypoint3 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 262 - (take_image rover2 waypoint4 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 263 - (take_image rover2 waypoint6 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 264 - (take_image rover2 waypoint8 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 265 - (take_image rover2 waypoint9 objective4 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective4 high_res)
+Action 266 - (take_image rover2 waypoint2 objective5 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective5 high_res)
+Action 267 - (take_image rover2 waypoint5 objective5 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective5 high_res)
+Action 268 - (take_image rover2 waypoint12 objective6 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective6 high_res)
+Action 269 - (take_image rover2 waypoint13 objective6 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective6 high_res)
+Action 270 - (take_image rover2 waypoint14 objective6 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective6 high_res)
+Action 271 - (take_image rover2 waypoint2 objective6 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective6 high_res)
+Action 272 - (take_image rover2 waypoint7 objective6 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective6 high_res)
+Action 273 - (take_image rover2 waypoint8 objective6 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective6 high_res)
+Action 274 - (take_image rover2 waypoint10 objective7 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective7 high_res)
+Action 275 - (take_image rover2 waypoint14 objective7 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective7 high_res)
+Action 276 - (take_image rover2 waypoint15 objective7 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective7 high_res)
+Action 277 - (take_image rover2 waypoint7 objective7 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective7 high_res)
+Action 278 - (take_image rover2 waypoint9 objective7 camera2 high_res) is uninteresting once we have fact (have_image rover2 objective7 high_res)
+Action 279 - (take_image rover2 waypoint0 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 280 - (take_image rover2 waypoint10 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 281 - (take_image rover2 waypoint12 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 282 - (take_image rover2 waypoint14 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 283 - (take_image rover2 waypoint15 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 284 - (take_image rover2 waypoint2 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 285 - (take_image rover2 waypoint3 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 286 - (take_image rover2 waypoint4 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 287 - (take_image rover2 waypoint8 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 288 - (take_image rover2 waypoint9 objective0 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 289 - (take_image rover2 waypoint1 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective1 low_res)
+Action 290 - (take_image rover2 waypoint14 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective1 low_res)
+Action 291 - (take_image rover2 waypoint7 objective1 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective1 low_res)
+Action 292 - (take_image rover2 waypoint15 objective2 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective2 low_res)
+Action 293 - (take_image rover2 waypoint5 objective2 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective2 low_res)
+Action 294 - (take_image rover2 waypoint6 objective2 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective2 low_res)
+Action 295 - (take_image rover2 waypoint0 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 296 - (take_image rover2 waypoint1 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 297 - (take_image rover2 waypoint10 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 298 - (take_image rover2 waypoint11 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 299 - (take_image rover2 waypoint2 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 300 - (take_image rover2 waypoint3 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 301 - (take_image rover2 waypoint6 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 302 - (take_image rover2 waypoint9 objective3 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 303 - (take_image rover2 waypoint1 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 304 - (take_image rover2 waypoint10 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 305 - (take_image rover2 waypoint11 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 306 - (take_image rover2 waypoint12 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 307 - (take_image rover2 waypoint15 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 308 - (take_image rover2 waypoint2 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 309 - (take_image rover2 waypoint3 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 310 - (take_image rover2 waypoint4 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 311 - (take_image rover2 waypoint6 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 312 - (take_image rover2 waypoint8 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 313 - (take_image rover2 waypoint9 objective4 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 314 - (take_image rover2 waypoint2 objective5 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective5 low_res)
+Action 315 - (take_image rover2 waypoint5 objective5 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective5 low_res)
+Action 316 - (take_image rover2 waypoint12 objective6 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 317 - (take_image rover2 waypoint13 objective6 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 318 - (take_image rover2 waypoint14 objective6 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 319 - (take_image rover2 waypoint2 objective6 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 320 - (take_image rover2 waypoint7 objective6 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 321 - (take_image rover2 waypoint8 objective6 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 322 - (take_image rover2 waypoint10 objective7 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 323 - (take_image rover2 waypoint14 objective7 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 324 - (take_image rover2 waypoint15 objective7 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 325 - (take_image rover2 waypoint7 objective7 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 326 - (take_image rover2 waypoint9 objective7 camera1 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 327 - (take_image rover2 waypoint0 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 328 - (take_image rover2 waypoint10 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 329 - (take_image rover2 waypoint12 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 330 - (take_image rover2 waypoint14 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 331 - (take_image rover2 waypoint15 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 332 - (take_image rover2 waypoint2 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 333 - (take_image rover2 waypoint3 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 334 - (take_image rover2 waypoint4 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 335 - (take_image rover2 waypoint8 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 336 - (take_image rover2 waypoint9 objective0 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective0 low_res)
+Action 337 - (take_image rover2 waypoint1 objective1 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective1 low_res)
+Action 338 - (take_image rover2 waypoint14 objective1 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective1 low_res)
+Action 339 - (take_image rover2 waypoint7 objective1 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective1 low_res)
+Action 340 - (take_image rover2 waypoint15 objective2 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective2 low_res)
+Action 341 - (take_image rover2 waypoint5 objective2 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective2 low_res)
+Action 342 - (take_image rover2 waypoint6 objective2 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective2 low_res)
+Action 343 - (take_image rover2 waypoint0 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 344 - (take_image rover2 waypoint1 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 345 - (take_image rover2 waypoint10 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 346 - (take_image rover2 waypoint11 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 347 - (take_image rover2 waypoint2 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 348 - (take_image rover2 waypoint3 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 349 - (take_image rover2 waypoint6 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 350 - (take_image rover2 waypoint9 objective3 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective3 low_res)
+Action 351 - (take_image rover2 waypoint1 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 352 - (take_image rover2 waypoint10 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 353 - (take_image rover2 waypoint11 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 354 - (take_image rover2 waypoint12 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 355 - (take_image rover2 waypoint15 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 356 - (take_image rover2 waypoint2 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 357 - (take_image rover2 waypoint3 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 358 - (take_image rover2 waypoint4 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 359 - (take_image rover2 waypoint6 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 360 - (take_image rover2 waypoint8 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 361 - (take_image rover2 waypoint9 objective4 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective4 low_res)
+Action 362 - (take_image rover2 waypoint2 objective5 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective5 low_res)
+Action 363 - (take_image rover2 waypoint5 objective5 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective5 low_res)
+Action 364 - (take_image rover2 waypoint12 objective6 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 365 - (take_image rover2 waypoint13 objective6 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 366 - (take_image rover2 waypoint14 objective6 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 367 - (take_image rover2 waypoint2 objective6 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 368 - (take_image rover2 waypoint7 objective6 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 369 - (take_image rover2 waypoint8 objective6 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective6 low_res)
+Action 370 - (take_image rover2 waypoint10 objective7 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 371 - (take_image rover2 waypoint14 objective7 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 372 - (take_image rover2 waypoint15 objective7 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 373 - (take_image rover2 waypoint7 objective7 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 374 - (take_image rover2 waypoint9 objective7 camera2 low_res) is uninteresting once we have fact (have_image rover2 objective7 low_res)
+Action 375 - (take_image rover1 waypoint0 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 376 - (take_image rover1 waypoint10 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 377 - (take_image rover1 waypoint12 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 378 - (take_image rover1 waypoint14 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 379 - (take_image rover1 waypoint15 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 380 - (take_image rover1 waypoint2 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 381 - (take_image rover1 waypoint3 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 382 - (take_image rover1 waypoint4 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 383 - (take_image rover1 waypoint8 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 384 - (take_image rover1 waypoint9 objective0 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective0 low_res)
+Action 385 - (take_image rover1 waypoint1 objective1 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective1 low_res)
+Action 386 - (take_image rover1 waypoint14 objective1 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective1 low_res)
+Action 387 - (take_image rover1 waypoint7 objective1 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective1 low_res)
+Action 388 - (take_image rover1 waypoint15 objective2 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective2 low_res)
+Action 389 - (take_image rover1 waypoint5 objective2 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective2 low_res)
+Action 390 - (take_image rover1 waypoint6 objective2 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective2 low_res)
+Action 391 - (take_image rover1 waypoint0 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 392 - (take_image rover1 waypoint1 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 393 - (take_image rover1 waypoint10 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 394 - (take_image rover1 waypoint11 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 395 - (take_image rover1 waypoint2 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 396 - (take_image rover1 waypoint3 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 397 - (take_image rover1 waypoint6 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 398 - (take_image rover1 waypoint9 objective3 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective3 low_res)
+Action 399 - (take_image rover1 waypoint1 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 400 - (take_image rover1 waypoint10 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 401 - (take_image rover1 waypoint11 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 402 - (take_image rover1 waypoint12 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 403 - (take_image rover1 waypoint15 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 404 - (take_image rover1 waypoint2 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 405 - (take_image rover1 waypoint3 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 406 - (take_image rover1 waypoint4 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 407 - (take_image rover1 waypoint6 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 408 - (take_image rover1 waypoint8 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 409 - (take_image rover1 waypoint9 objective4 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective4 low_res)
+Action 410 - (take_image rover1 waypoint2 objective5 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective5 low_res)
+Action 411 - (take_image rover1 waypoint5 objective5 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective5 low_res)
+Action 412 - (take_image rover1 waypoint12 objective6 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective6 low_res)
+Action 413 - (take_image rover1 waypoint13 objective6 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective6 low_res)
+Action 414 - (take_image rover1 waypoint14 objective6 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective6 low_res)
+Action 415 - (take_image rover1 waypoint2 objective6 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective6 low_res)
+Action 416 - (take_image rover1 waypoint7 objective6 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective6 low_res)
+Action 417 - (take_image rover1 waypoint8 objective6 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective6 low_res)
+Action 418 - (take_image rover1 waypoint10 objective7 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective7 low_res)
+Action 419 - (take_image rover1 waypoint14 objective7 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective7 low_res)
+Action 420 - (take_image rover1 waypoint15 objective7 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective7 low_res)
+Action 421 - (take_image rover1 waypoint7 objective7 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective7 low_res)
+Action 422 - (take_image rover1 waypoint9 objective7 camera4 low_res) is uninteresting once we have fact (have_image rover1 objective7 low_res)
+Initial heuristic = 49.000, admissible cost estimate 0.000
+b (48.000 | 0.000)b (47.000 | 0.000)b (46.000 | 0.000)b (45.000 | 0.000)b (41.000 | 0.000)b (40.000 | 0.001)b (39.000 | 0.001)b (38.000 | 0.002)b (37.000 | 0.002)b (36.000 | 0.003)b (35.000 | 0.003)b (34.000 | 0.003)b (33.000 | 0.003)b (32.000 | 0.003)b (31.000 | 0.005)b (30.000 | 0.005)b (29.000 | 0.006)b (28.000 | 0.006)b (27.000 | 0.006)b (26.000 | 0.006)b (25.000 | 0.007)b (24.000 | 0.008)b (23.000 | 0.010)b (22.000 | 0.011)b (21.000 | 0.012)b (20.000 | 0.012)b (19.000 | 0.012)b (18.000 | 0.012)b (17.000 | 0.012)b (16.000 | 0.013)b (15.000 | 0.014)b (14.000 | 0.014)b (13.000 | 0.014)b (12.000 | 0.014)b (11.000 | 0.014)b (9.000 | 0.014)b (8.000 | 0.014)b (7.000 | 0.014)b (6.000 | 0.015)b (5.000 | 0.016)b (4.000 | 0.017)b (3.000 | 0.017)b (2.000 | 0.017)b (1.000 | 0.017)(G);;;; Solution Found
+; States evaluated: 461
+; Cost: 0.018
+; Time 0.22
+0.000: (calibrate rover0 camera3 objective6 waypoint13)  [0.001]
+0.000: (calibrate rover2 camera2 objective1 waypoint7)  [0.001]
+0.000: (calibrate rover2 camera1 objective1 waypoint7)  [0.001]
+0.000: (sample_soil rover2 rover2store waypoint7)  [0.001]
+0.000: (navigate rover1 waypoint12 waypoint8)  [0.001]
+0.001: (navigate rover2 waypoint7 waypoint1)  [0.001]
+0.001: (drop rover2 rover2store)  [0.001]
+0.001: (take_image rover0 waypoint13 objective6 camera3 colour)  [0.001]
+0.001: (sample_rock rover1 rover1store waypoint8)  [0.001]
+0.002: (take_image rover2 waypoint1 objective4 camera1 low_res)  [0.001]
+0.002: (calibrate rover0 camera3 objective6 waypoint13)  [0.001]
+0.002: (navigate rover1 waypoint8 waypoint0)  [0.001]
+0.002: (take_image rover2 waypoint1 objective3 camera2 low_res)  [0.001]
+0.002: (sample_rock rover2 rover2store waypoint1)  [0.001]
+0.003: (navigate rover0 waypoint13 waypoint1)  [0.001]
+0.003: (communicate_rock_data rover1 general waypoint8 waypoint0 waypoint15)  [0.001]
+0.003: (calibrate rover2 camera2 objective1 waypoint1)  [0.001]
+0.003: (drop rover2 rover2store)  [0.001]
+0.004: (sample_soil rover2 rover2store waypoint1)  [0.001]
+0.004: (navigate rover0 waypoint1 waypoint11)  [0.001]
+0.004: (navigate rover1 waypoint0 waypoint8)  [0.001]
+0.005: (drop rover2 rover2store)  [0.001]
+0.005: (communicate_image_data rover0 general objective6 colour waypoint11 waypoint15)  [0.001]
+0.005: (navigate rover2 waypoint1 waypoint9)  [0.001]
+0.005: (navigate rover1 waypoint8 waypoint12)  [0.001]
+0.006: (communicate_image_data rover2 general objective4 low_res waypoint9 waypoint15)  [0.001]
+0.006: (drop rover1 rover1store)  [0.001]
+0.006: (take_image rover2 waypoint9 objective3 camera2 high_res)  [0.001]
+0.006: (sample_soil rover2 rover2store waypoint9)  [0.001]
+0.006: (navigate rover0 waypoint11 waypoint1)  [0.001]
+0.006: (navigate rover1 waypoint12 waypoint5)  [0.001]
+0.007: (communicate_image_data rover2 general objective3 low_res waypoint9 waypoint15)  [0.001]
+0.007: (take_image rover0 waypoint1 objective4 camera3 colour)  [0.001]
+0.007: (sample_soil rover1 rover1store waypoint5)  [0.001]
+0.008: (communicate_image_data rover2 general objective3 high_res waypoint9 waypoint15)  [0.001]
+0.008: (navigate rover0 waypoint1 waypoint13)  [0.001]
+0.008: (navigate rover1 waypoint5 waypoint12)  [0.001]
+0.009: (communicate_rock_data rover2 general waypoint1 waypoint9 waypoint15)  [0.001]
+0.009: (calibrate rover0 camera3 objective6 waypoint13)  [0.001]
+0.009: (navigate rover1 waypoint12 waypoint2)  [0.001]
+0.009: (drop rover1 rover1store)  [0.001]
+0.010: (communicate_soil_data rover2 general waypoint9 waypoint9 waypoint15)  [0.001]
+0.010: (navigate rover0 waypoint13 waypoint1)  [0.001]
+0.010: (sample_rock rover1 rover1store waypoint2)  [0.001]
+0.011: (communicate_soil_data rover2 general waypoint7 waypoint9 waypoint15)  [0.001]
+0.011: (take_image rover0 waypoint1 objective1 camera3 colour)  [0.001]
+0.011: (navigate rover1 waypoint2 waypoint12)  [0.001]
+0.012: (communicate_soil_data rover2 general waypoint1 waypoint9 waypoint15)  [0.001]
+0.012: (navigate rover0 waypoint1 waypoint11)  [0.001]
+0.012: (navigate rover1 waypoint12 waypoint1)  [0.001]
+0.013: (communicate_image_data rover0 general objective4 colour waypoint11 waypoint15)  [0.001]
+0.013: (navigate rover1 waypoint1 waypoint4)  [0.001]
+0.013: (navigate rover2 waypoint9 waypoint1)  [0.001]
+0.013: (drop rover1 rover1store)  [0.001]
+0.014: (communicate_image_data rover0 general objective1 colour waypoint11 waypoint15)  [0.001]
+0.014: (drop rover2 rover2store)  [0.001]
+0.014: (sample_soil rover1 rover1store waypoint4)  [0.001]
+0.014: (navigate rover2 waypoint1 waypoint13)  [0.001]
+0.015: (communicate_rock_data rover1 general waypoint2 waypoint4 waypoint15)  [0.001]
+0.015: (sample_soil rover2 rover2store waypoint13)  [0.001]
+0.016: (communicate_soil_data rover1 general waypoint5 waypoint4 waypoint15)  [0.001]
+0.016: (navigate rover2 waypoint13 waypoint1)  [0.001]
+0.017: (communicate_soil_data rover1 general waypoint4 waypoint4 waypoint15)  [0.001]
+0.017: (navigate rover2 waypoint1 waypoint0)  [0.001]
+0.018: (communicate_soil_data rover2 general waypoint13 waypoint0 waypoint15)  [0.001]

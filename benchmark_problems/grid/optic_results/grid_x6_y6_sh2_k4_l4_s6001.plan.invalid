@@ -1,0 +1,89 @@
+Number of literals: 225
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Action 0 - (unlock pos0-1 pos0-0 key0 shape0) is uninteresting once we have fact (open pos0-0)
+Action 1 - (unlock pos1-0 pos0-0 key0 shape0) is uninteresting once we have fact (open pos0-0)
+Action 2 - (unlock pos2-3 pos3-3 key0 shape0) is uninteresting once we have fact (open pos3-3)
+Action 3 - (unlock pos3-2 pos3-3 key0 shape0) is uninteresting once we have fact (open pos3-3)
+Action 4 - (unlock pos3-4 pos3-3 key0 shape0) is uninteresting once we have fact (open pos3-3)
+Action 5 - (unlock pos4-3 pos3-3 key0 shape0) is uninteresting once we have fact (open pos3-3)
+Action 6 - (unlock pos0-1 pos0-0 key2 shape0) is uninteresting once we have fact (open pos0-0)
+Action 7 - (unlock pos1-0 pos0-0 key2 shape0) is uninteresting once we have fact (open pos0-0)
+Action 8 - (unlock pos2-3 pos3-3 key2 shape0) is uninteresting once we have fact (open pos3-3)
+Action 9 - (unlock pos3-2 pos3-3 key2 shape0) is uninteresting once we have fact (open pos3-3)
+Action 10 - (unlock pos3-4 pos3-3 key2 shape0) is uninteresting once we have fact (open pos3-3)
+Action 11 - (unlock pos4-3 pos3-3 key2 shape0) is uninteresting once we have fact (open pos3-3)
+Action 12 - (unlock pos0-5 pos1-5 key1 shape1) is uninteresting once we have fact (open pos1-5)
+Action 13 - (unlock pos1-4 pos1-5 key1 shape1) is uninteresting once we have fact (open pos1-5)
+Action 14 - (unlock pos2-5 pos1-5 key1 shape1) is uninteresting once we have fact (open pos1-5)
+Action 15 - (unlock pos4-5 pos5-5 key1 shape1) is uninteresting once we have fact (open pos5-5)
+Action 16 - (unlock pos5-4 pos5-5 key1 shape1) is uninteresting once we have fact (open pos5-5)
+Action 17 - (unlock pos0-5 pos1-5 key3 shape1) is uninteresting once we have fact (open pos1-5)
+Action 18 - (unlock pos1-4 pos1-5 key3 shape1) is uninteresting once we have fact (open pos1-5)
+Action 19 - (unlock pos2-5 pos1-5 key3 shape1) is uninteresting once we have fact (open pos1-5)
+Action 20 - (unlock pos4-5 pos5-5 key3 shape1) is uninteresting once we have fact (open pos5-5)
+Action 21 - (unlock pos5-4 pos5-5 key3 shape1) is uninteresting once we have fact (open pos5-5)
+Initial heuristic = 24.000, admissible cost estimate 0.000
+b (23.000 | 0.000)b (22.000 | 0.003)b (21.000 | 0.006)b (20.000 | 0.008)b (19.000 | 0.010)b (18.000 | 0.014)b (14.000 | 0.023)b (13.000 | 0.033)b (11.000 | 0.034)b (10.000 | 0.036)b (9.000 | 0.037)b (8.000 | 0.044)b (7.000 | 0.045)b (5.000 | 0.051)b (4.000 | 0.053)b (3.000 | 0.054)b (2.000 | 0.055)b (1.000 | 0.056)(G);;;; Solution Found
+; States evaluated: 1234
+; Cost: 0.057
+; Time 0.56
+0.000: (move pos5-1 pos5-2)  [0.001]
+0.001: (move pos5-2 pos4-2)  [0.001]
+0.002: (move pos4-2 pos4-1)  [0.001]
+0.003: (move pos4-1 pos4-0)  [0.001]
+0.004: (move pos4-0 pos5-0)  [0.001]
+0.005: (pickup pos5-0 key0)  [0.001]
+0.006: (move pos5-0 pos4-0)  [0.001]
+0.007: (move pos4-0 pos4-1)  [0.001]
+0.008: (move pos4-1 pos4-2)  [0.001]
+0.009: (move pos4-2 pos4-3)  [0.001]
+0.010: (move pos4-3 pos5-3)  [0.001]
+0.011: (putdown pos5-3 key0)  [0.001]
+0.012: (move pos5-3 pos5-4)  [0.001]
+0.013: (pickup pos5-4 key2)  [0.001]
+0.014: (move pos5-4 pos5-3)  [0.001]
+0.015: (pickup-and-loose pos5-3 key0 key2)  [0.001]
+0.016: (move pos5-3 pos4-3)  [0.001]
+0.017: (move pos4-3 pos4-4)  [0.001]
+0.018: (move pos4-4 pos4-5)  [0.001]
+0.019: (putdown pos4-5 key0)  [0.001]
+0.020: (move pos4-5 pos4-4)  [0.001]
+0.021: (move pos4-4 pos4-3)  [0.001]
+0.022: (move pos4-3 pos4-2)  [0.001]
+0.023: (move pos4-2 pos3-2)  [0.001]
+0.024: (move pos3-2 pos2-2)  [0.001]
+0.025: (move pos2-2 pos1-2)  [0.001]
+0.026: (move pos1-2 pos1-1)  [0.001]
+0.027: (move pos1-1 pos1-0)  [0.001]
+0.028: (pickup pos1-0 key1)  [0.001]
+0.029: (move pos1-0 pos1-1)  [0.001]
+0.030: (move pos1-1 pos1-2)  [0.001]
+0.031: (move pos1-2 pos2-2)  [0.001]
+0.032: (move pos2-2 pos3-2)  [0.001]
+0.033: (move pos3-2 pos4-2)  [0.001]
+0.034: (move pos4-2 pos4-3)  [0.001]
+0.035: (move pos4-3 pos5-3)  [0.001]
+0.036: (pickup-and-loose pos5-3 key2 key1)  [0.001]
+0.037: (move pos5-3 pos4-3)  [0.001]
+0.038: (move pos4-3 pos4-2)  [0.001]
+0.039: (move pos4-2 pos3-2)  [0.001]
+0.040: (putdown pos3-2 key2)  [0.001]
+0.041: (move pos3-2 pos4-2)  [0.001]
+0.042: (move pos4-2 pos4-3)  [0.001]
+0.043: (pickup pos4-3 key3)  [0.001]
+0.044: (move pos4-3 pos4-2)  [0.001]
+0.045: (move pos4-2 pos3-2)  [0.001]
+0.046: (move pos3-2 pos2-2)  [0.001]
+0.047: (move pos2-2 pos1-2)  [0.001]
+0.048: (move pos1-2 pos1-1)  [0.001]
+0.049: (putdown pos1-1 key3)  [0.001]
+0.050: (move pos1-1 pos1-2)  [0.001]
+0.051: (move pos1-2 pos2-2)  [0.001]
+0.052: (move pos2-2 pos3-2)  [0.001]
+0.053: (pickup pos3-2 key2)  [0.001]
+0.054: (move pos3-2 pos2-2)  [0.001]
+0.055: (move pos2-2 pos1-2)  [0.001]
+0.056: (move pos1-2 pos0-2)  [0.001]
+0.057: (putdown pos0-2 key2)  [0.001]

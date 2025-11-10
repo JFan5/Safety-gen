@@ -1,0 +1,13 @@
+Number of literals: 13
+Constructing lookup tables:
+Post filtering unreachable actions: 
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Action 5 - (take_image rover0 waypoint0 objective0 camera0 low_res) is uninteresting once we have fact (have_image rover0 objective0 low_res)
+Initial heuristic = 3.000, admissible cost estimate 0.000
+b (2.000 | 0.000)b (1.000 | 0.001)(G);;;; Solution Found
+; States evaluated: 4
+; Cost: 0.002
+; Time 0.00
+0.000: (calibrate rover0 camera0 objective0 waypoint0)  [0.001]
+0.001: (take_image rover0 waypoint0 objective0 camera0 low_res)  [0.001]
+0.002: (communicate_image_data rover0 general objective0 low_res waypoint0 waypoint1)  [0.001]

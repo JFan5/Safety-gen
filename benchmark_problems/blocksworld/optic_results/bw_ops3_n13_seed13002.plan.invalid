@@ -1,0 +1,53 @@
+Number of literals: 196
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Initial heuristic = 24.000, admissible cost estimate 0.000
+b (23.000 | 0.002)b (22.000 | 0.003)b (21.000 | 0.006)b (20.000 | 0.007)b (18.000 | 0.009)b (16.000 | 0.011)b (14.000 | 0.015)b (12.000 | 0.017)b (11.000 | 0.020)b (10.000 | 0.021)b (8.000 | 0.023)b (7.000 | 0.025)b (5.000 | 0.027)b (4.000 | 0.029)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (23.000 | 0.002)b (22.000 | 0.003)b (21.000 | 0.006)b (20.000 | 0.007)b (18.000 | 0.009)b (16.000 | 0.011)b (14.000 | 0.015)b (12.000 | 0.017)b (11.000 | 0.020)b (10.000 | 0.021)b (8.000 | 0.023)b (7.000 | 0.025)b (5.000 | 0.027)b (4.000 | 0.029)b (3.000 | 0.033)b (2.000 | 0.037)b (1.000 | 0.038)(G);;;; Solution Found
+; States evaluated: 580
+; Cost: 0.039
+; Time 0.18
+0.000: (unstack b11 b13)  [0.001]
+0.001: (putdown b11)  [0.001]
+0.002: (unstack b13 b2)  [0.001]
+0.003: (putdown b13)  [0.001]
+0.004: (unstack b2 b1)  [0.001]
+0.005: (putdown b2)  [0.001]
+0.006: (unstack b1 b10)  [0.001]
+0.007: (putdown b1)  [0.001]
+0.008: (unstack b10 b4)  [0.001]
+0.009: (stack b10 b13)  [0.001]
+0.010: (pickup b11)  [0.001]
+0.011: (stack b11 b4)  [0.001]
+0.012: (unstack b3 b7)  [0.001]
+0.013: (putdown b3)  [0.001]
+0.014: (unstack b7 b12)  [0.001]
+0.015: (stack b7 b10)  [0.001]
+0.016: (pickup b2)  [0.001]
+0.017: (stack b2 b7)  [0.001]
+0.018: (unstack b12 b9)  [0.001]
+0.019: (putdown b12)  [0.001]
+0.020: (unstack b9 b8)  [0.001]
+0.021: (putdown b9)  [0.001]
+0.022: (unstack b8 b5)  [0.001]
+0.023: (stack b8 b1)  [0.001]
+0.024: (unstack b5 b6)  [0.001]
+0.025: (stack b5 b12)  [0.001]
+0.026: (pickup b6)  [0.001]
+0.027: (stack b6 b11)  [0.001]
+0.028: (unstack b5 b12)  [0.001]
+0.029: (putdown b5)  [0.001]
+0.030: (pickup b3)  [0.001]
+0.031: (stack b3 b5)  [0.001]
+0.032: (pickup b12)  [0.001]
+0.033: (stack b12 b8)  [0.001]
+0.034: (unstack b3 b5)  [0.001]
+0.035: (putdown b3)  [0.001]
+0.036: (pickup b5)  [0.001]
+0.037: (stack b5 b12)  [0.001]
+0.038: (pickup b3)  [0.001]
+0.039: (stack b3 b5)  [0.001]
