@@ -1,0 +1,85 @@
+Number of literals: 51
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Action 0 - (walk location10 gate bob) is uninteresting once we have fact (at bob gate)
+Action 11 - (pickup_spanner location2 spanner1 bob) is uninteresting once we have fact (carrying bob spanner1)
+Action 12 - (pickup_spanner location6 spanner2 bob) is uninteresting once we have fact (carrying bob spanner2)
+Action 13 - (pickup_spanner location6 spanner3 bob) is uninteresting once we have fact (carrying bob spanner3)
+Action 14 - (pickup_spanner location3 spanner4 bob) is uninteresting once we have fact (carrying bob spanner4)
+Action 15 - (pickup_spanner location6 spanner5 bob) is uninteresting once we have fact (carrying bob spanner5)
+Action 16 - (pickup_spanner location2 spanner6 bob) is uninteresting once we have fact (carrying bob spanner6)
+Action 17 - (pickup_spanner location6 spanner7 bob) is uninteresting once we have fact (carrying bob spanner7)
+Action 18 - (tighten_nut gate spanner1 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 19 - (tighten_nut gate spanner2 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 20 - (tighten_nut gate spanner3 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 21 - (tighten_nut gate spanner4 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 22 - (tighten_nut gate spanner5 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 23 - (tighten_nut gate spanner6 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 24 - (tighten_nut gate spanner7 bob nut1) is uninteresting once we have fact (tightened nut1)
+Action 25 - (tighten_nut gate spanner1 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 26 - (tighten_nut gate spanner2 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 27 - (tighten_nut gate spanner3 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 28 - (tighten_nut gate spanner4 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 29 - (tighten_nut gate spanner5 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 30 - (tighten_nut gate spanner6 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 31 - (tighten_nut gate spanner7 bob nut2) is uninteresting once we have fact (tightened nut2)
+Action 32 - (tighten_nut gate spanner1 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 33 - (tighten_nut gate spanner2 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 34 - (tighten_nut gate spanner3 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 35 - (tighten_nut gate spanner4 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 36 - (tighten_nut gate spanner5 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 37 - (tighten_nut gate spanner6 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 38 - (tighten_nut gate spanner7 bob nut3) is uninteresting once we have fact (tightened nut3)
+Action 39 - (tighten_nut gate spanner1 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 40 - (tighten_nut gate spanner2 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 41 - (tighten_nut gate spanner3 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 42 - (tighten_nut gate spanner4 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 43 - (tighten_nut gate spanner5 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 44 - (tighten_nut gate spanner6 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 45 - (tighten_nut gate spanner7 bob nut4) is uninteresting once we have fact (tightened nut4)
+Action 46 - (tighten_nut gate spanner1 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 47 - (tighten_nut gate spanner2 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 48 - (tighten_nut gate spanner3 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 49 - (tighten_nut gate spanner4 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 50 - (tighten_nut gate spanner5 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 51 - (tighten_nut gate spanner6 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 52 - (tighten_nut gate spanner7 bob nut5) is uninteresting once we have fact (tightened nut5)
+Action 53 - (tighten_nut gate spanner1 bob nut6) is uninteresting once we have fact (tightened nut6)
+Action 54 - (tighten_nut gate spanner2 bob nut6) is uninteresting once we have fact (tightened nut6)
+Action 55 - (tighten_nut gate spanner3 bob nut6) is uninteresting once we have fact (tightened nut6)
+Action 56 - (tighten_nut gate spanner4 bob nut6) is uninteresting once we have fact (tightened nut6)
+Action 57 - (tighten_nut gate spanner5 bob nut6) is uninteresting once we have fact (tightened nut6)
+Action 58 - (tighten_nut gate spanner6 bob nut6) is uninteresting once we have fact (tightened nut6)
+Action 59 - (tighten_nut gate spanner7 bob nut6) is uninteresting once we have fact (tightened nut6)
+Initial heuristic = 18.000, admissible cost estimate 0.000
+b (17.000 | 0.000)b (16.000 | 0.001)b (15.000 | 0.002)b (14.000 | 0.003)b (13.000 | 0.004)b (12.000 | 0.005)b (11.000 | 0.006)b (10.000 | 0.007)b (9.000 | 0.008)b (8.000 | 0.009)b (7.000 | 0.010)b (6.000 | 0.011)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (17.000 | 0.000)b (16.000 | 0.001)b (15.000 | 0.002)b (14.000 | 0.003)b (13.000 | 0.004)b (12.000 | 0.005)b (11.000 | 0.006)b (10.000 | 0.007)b (9.000 | 0.008)b (8.000 | 0.009)b (7.000 | 0.010)b (6.000 | 0.011)b (5.000 | 0.013)b (4.000 | 0.013)b (3.000 | 0.013)b (2.000 | 0.013)b (1.000 | 0.014)(G);;;; Solution Found
+; States evaluated: 36834
+; Cost: 0.014
+; Time 4.55
+0.000: (walk shed location1 bob)  [0.001]
+0.001: (walk location1 location2 bob)  [0.001]
+0.002: (pickup_spanner location2 spanner1 bob)  [0.001]
+0.003: (walk location2 location3 bob)  [0.001]
+0.004: (pickup_spanner location3 spanner4 bob)  [0.001]
+0.005: (walk location3 location4 bob)  [0.001]
+0.006: (walk location4 location5 bob)  [0.001]
+0.007: (walk location5 location6 bob)  [0.001]
+0.008: (pickup_spanner location6 spanner2 bob)  [0.001]
+0.008: (pickup_spanner location6 spanner3 bob)  [0.001]
+0.008: (pickup_spanner location6 spanner5 bob)  [0.001]
+0.008: (pickup_spanner location6 spanner7 bob)  [0.001]
+0.009: (walk location6 location7 bob)  [0.001]
+0.010: (walk location7 location8 bob)  [0.001]
+0.011: (walk location8 location9 bob)  [0.001]
+0.012: (walk location9 location10 bob)  [0.001]
+0.013: (walk location10 gate bob)  [0.001]
+0.014: (tighten_nut gate spanner1 bob nut6)  [0.001]
+0.014: (tighten_nut gate spanner2 bob nut5)  [0.001]
+0.014: (tighten_nut gate spanner3 bob nut4)  [0.001]
+0.014: (tighten_nut gate spanner4 bob nut3)  [0.001]
+0.014: (tighten_nut gate spanner5 bob nut2)  [0.001]
+0.014: (tighten_nut gate spanner7 bob nut1)  [0.001]

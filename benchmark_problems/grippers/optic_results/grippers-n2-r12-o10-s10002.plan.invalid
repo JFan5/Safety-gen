@@ -1,0 +1,48 @@
+Number of literals: 232
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Initial heuristic = 29.000, admissible cost estimate 0.000
+b (28.000 | 0.000)b (27.000 | 0.001)b (26.000 | 0.002)b (25.000 | 0.002)b (24.000 | 0.003)b (23.000 | 0.003)b (22.000 | 0.004)b (21.000 | 0.005)b (20.000 | 0.005)b (19.000 | 0.006)b (18.000 | 0.007)b (17.000 | 0.007)b (16.000 | 0.008)b (15.000 | 0.009)b (14.000 | 0.009)b (13.000 | 0.010)b (12.000 | 0.011)b (11.000 | 0.012)b (10.000 | 0.013)b (9.000 | 0.013)b (7.000 | 0.013)b (6.000 | 0.013)b (5.000 | 0.013)b (4.000 | 0.014)b (3.000 | 0.015)b (2.000 | 0.015)b (1.000 | 0.016)(G);;;; Solution Found
+; States evaluated: 245
+; Cost: 0.017
+; Time 0.11
+0.000: (pick robot2 ball1 room1 lgripper2)  [0.001]
+0.000: (move robot1 room12 room8)  [0.001]
+0.001: (move robot2 room1 room6)  [0.001]
+0.001: (pick robot1 ball4 room8 lgripper1)  [0.001]
+0.001: (pick robot1 ball3 room8 rgripper1)  [0.001]
+0.002: (drop robot2 ball1 room6 lgripper2)  [0.001]
+0.002: (move robot1 room8 room9)  [0.001]
+0.003: (drop robot1 ball3 room9 rgripper1)  [0.001]
+0.003: (move robot2 room6 room8)  [0.001]
+0.004: (move robot1 room9 room5)  [0.001]
+0.004: (move robot2 room8 room7)  [0.001]
+0.005: (drop robot1 ball4 room5 lgripper1)  [0.001]
+0.005: (pick robot1 ball5 room5 rgripper1)  [0.001]
+0.005: (pick robot2 ball7 room7 lgripper2)  [0.001]
+0.006: (move robot1 room5 room2)  [0.001]
+0.006: (move robot2 room7 room8)  [0.001]
+0.007: (drop robot1 ball5 room2 rgripper1)  [0.001]
+0.007: (drop robot2 ball7 room8 lgripper2)  [0.001]
+0.008: (move robot1 room2 room8)  [0.001]
+0.008: (move robot2 room8 room3)  [0.001]
+0.009: (pick robot2 ball9 room3 lgripper2)  [0.001]
+0.009: (pick robot2 ball2 room3 rgripper2)  [0.001]
+0.009: (move robot1 room8 room11)  [0.001]
+0.010: (move robot2 room3 room7)  [0.001]
+0.010: (pick robot1 ball8 room11 lgripper1)  [0.001]
+0.010: (pick robot1 ball10 room11 rgripper1)  [0.001]
+0.011: (drop robot2 ball9 room7 lgripper2)  [0.001]
+0.011: (move robot1 room11 room8)  [0.001]
+0.012: (move robot2 room7 room5)  [0.001]
+0.012: (drop robot1 ball8 room8 lgripper1)  [0.001]
+0.013: (drop robot2 ball2 room5 rgripper2)  [0.001]
+0.013: (move robot1 room8 room5)  [0.001]
+0.014: (move robot2 room5 room10)  [0.001]
+0.014: (move robot1 room5 room12)  [0.001]
+0.015: (drop robot1 ball10 room12 rgripper1)  [0.001]
+0.015: (pick robot2 ball6 room10 lgripper2)  [0.001]
+0.016: (move robot2 room10 room5)  [0.001]
+0.017: (drop robot2 ball6 room5 lgripper2)  [0.001]
