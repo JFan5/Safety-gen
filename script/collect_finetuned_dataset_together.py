@@ -245,11 +245,25 @@ def create_dataset(
         print("No valid dataset entries found!")
         return
 
-    output_dir = Path(output_path).parent
-    output_dir.mkdir(parents=True, exist_ok=True)
+    # 展开用户目录路径 (~)
+    output_path_expanded = Path(output_path).expanduser()
+    output_path_expanded.parent.mkdir(parents=True, exist_ok=True)
 
     dataset = Dataset.from_list(dataset_entries)
-    dataset.save_to_disk(output_path)
+    dataset.save_to_disk(str(output_path_expanded))
+
+    # 确定输出目录：JSON文件应该保存在与数据集相同的目录下
+    # 如果输出路径以.hf结尾或者是目录，JSON文件保存在该目录
+    # 否则（如果是文件路径），JSON文件保存在父目录
+    # 但通常情况下，HuggingFace数据集路径是目录，所以JSON文件也保存在该目录
+    if output_path_expanded.suffix == '.hf' or not output_path_expanded.suffix:
+        # 如果以.hf结尾或没有后缀（目录），JSON文件保存在该目录
+        output_dir = output_path_expanded
+    else:
+        # 如果有其他后缀（可能是文件），JSON文件保存在父目录
+        output_dir = output_path_expanded.parent
+    
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Dataset saved to {output_path}")
     print(f"Total entries: {len(dataset)}")
@@ -281,6 +295,23 @@ def create_dataset(
     with open(output_dir / "combined_dataset_stats.json", 'w') as f:
         json.dump(stats, f, indent=2)
     print(f"Statistics saved to {output_dir / 'combined_dataset_stats.json'}")
+    
+    # 保存包含所有问题和答案的JSON文件
+    json_data = []
+    for entry in dataset_entries:
+        json_entry = {
+            "prompt": entry["prompt"],
+            "solution": entry["path"],
+            "scenario": entry["scenario"],
+            "pddl": entry["pddl"],
+            "problem_name": entry["problem_name"],
+        }
+        json_data.append(json_entry)
+    
+    json_file_path = output_dir / "dataset_qa.json"
+    with open(json_file_path, 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, indent=2, ensure_ascii=False)
+    print(f"Questions and answers saved to {json_file_path}")
 
 def parse_arguments():
     """解析命令行参数"""

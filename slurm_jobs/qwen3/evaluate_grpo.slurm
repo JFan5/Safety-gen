@@ -32,6 +32,7 @@
   --max-problems 50 \
   --output ferry_test_results_pddl3.json \
   --results-dir planning_results/qwen3_grpo/ferry/
+  --no-load-in-4bit
 
 /home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
   --model /home/ubuntu/dpo_models/Qwen3-14B/multi/pddl3_500-grpo \
@@ -40,7 +41,7 @@
   --max-problems 50 \
   --output grippers_test_results_pddl3.json \
   --results-dir planning_results/qwen3_grpo/grippers/
-
+  --no-load-in-4bit
 /home/ubuntu/miniconda3/envs/llmstl/bin/python script/evaluate_llm_solver.py \
   --model /home/ubuntu/dpo_models/Qwen3-14B/multi/pddl3_500-grpo \
   --problems-dir spanner/all_problems3/testing \
@@ -48,5 +49,5 @@
   --max-problems 50 \
   --output spanner_test_results_pddl3.json \
   --results-dir planning_results/qwen3_grpo/spanner/
-
+  --no-load-in-4bit
 

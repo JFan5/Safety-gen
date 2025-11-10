@@ -32,5 +32,4 @@ python3 pddl_finetune.py \
   --family gpt \
   --per-device-train-batch-size 8 \
   --gradient-accumulation-steps 2 \
-  --load-in-4bit \
   --scenarios all
