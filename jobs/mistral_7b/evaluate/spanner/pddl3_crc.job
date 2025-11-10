@@ -11,12 +11,12 @@
 conda activate llmstl
 
 # Evaluate PDDL3 fine-tuned model
-MODEL_PATH="/groups/fkong/jfan5/sft_models/mistral_7b/spanner/pddl3"
+MODEL_PATH="/groups/fkong/jfan5/sft_models/mistral_7b/spanner/pddl3_v2_vA_const"
 
 python3 script/evaluate_llm_solver.py \
   --model "$MODEL_PATH" \
   --problems-dir spanner/all_problems3/testing \
-  --domain-file spanner/domain3.p2ddl \
+  --domain-file spanner/domain3.pddl \
   --output spanner_all_testing_pddl3.json \
-  --results-dir planning_results/sft_mistral_7b/spanner/pddl --max-problems 50 --no-load-in-4bit
+  --results-dir planning_results/sft_mistral_7b/spanner/pddl --max-problems 50 
 
