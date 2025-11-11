@@ -20,21 +20,21 @@ sns.set_context("notebook", font_scale=1.2)
 plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Liberation Sans']
 plt.rcParams['axes.unicode_minus'] = False
 
-# Variant 颜色配置
+# Variant 颜色配置（与 compare_models.py 保持一致）
 VARIANT_COLORS = {
-    'baseline': '#4682B4',  # Steel Blue
-    'pretrained': '#4682B4',  # Steel Blue
-    'sft': '#3CB371',  # Medium Sea Green
-    'sft_quant4': '#3CB371',  # Medium Sea Green
-    'dpo': '#FF8C00',  # Dark Orange
+    'baseline': '#5dade2',      # 亮蓝
+    'pretrained': '#5dade2',    # 亮蓝
+    'sft': '#58d68d',           # 亮绿
+    'sft_quant4': '#58d68d',    # 亮绿
+    'dpo': '#f39c12',           # 亮橙
     'pddl2': '#E15759',
     'pddl3': '#76B7B2',
 }
 
 # Variant 标签
 VARIANT_LABELS = {
-    'baseline': 'Baseline',
-    'pretrained': 'Baseline',  # pretrained 显示为 Baseline
+    'baseline': 'Pretrained',
+    'pretrained': 'Pretrained',  # pretrained 显示为 Pretrained
     'sft': 'SFT',
     'sft_quant4': 'SFT',
     'dpo': 'DPO',
@@ -256,6 +256,130 @@ def parse_model_variants(model_dir: str, variants: List[str]) -> Dict[str, Dict[
     return aggregated
 
 
+def plot_success_rate_comparison_regular(
+    data: Dict[str, Dict[str, dict]],
+    variants: List[str],
+    output_path: str,
+    model_display_name: Optional[str] = None,
+) -> None:
+    """生成普通 matplotlib 风格的成功率对比图。"""
+    # 收集所有场景
+    scenario_names = sorted(data.keys())
+    if not scenario_names:
+        print("警告: 没有可用的场景数据")
+        return
+    
+    # 保持 Pretrained -> SFT -> DPO 的顺序，其它 variant 追加在末尾
+    variant_order = ['baseline', 'pretrained', 'sft', 'sft_quant4', 'dpo']
+    ordered_variants = sorted(
+        variants,
+        key=lambda v: variant_order.index(v) if v in variant_order else len(variant_order)
+    )
+
+    # 计算每个 variant 在每个 scenario 上的成功率
+    success_rates: Dict[str, List[float]] = {variant: [] for variant in ordered_variants}
+    
+    for scenario_name in scenario_names:
+        scenario_data = data[scenario_name]
+        for variant in ordered_variants:
+            if variant in scenario_data:
+                summary = scenario_data[variant].get("summary", {})
+                total = max(summary.get("total", 0), 1)
+                success_count = summary.get("success_plans", 0)
+                rate = success_count / total * 100
+            else:
+                rate = 0.0
+            success_rates[variant].append(rate)
+    
+    # 创建图表（普通 matplotlib 样式，不使用 seaborn）
+    plt.style.use('default')
+    fig, ax = plt.subplots(figsize=(max(14, len(scenario_names) * 1.8), 8))
+    
+    # 准备数据用于绘制
+    x_pos = np.arange(len(scenario_names))
+    width = min(0.8 / len(ordered_variants), 0.3) if len(ordered_variants) > 1 else 0.6
+    
+    # 使用配置的颜色
+    variant_colors_map = {
+        variant: VARIANT_COLORS.get(variant, '#5dade2')
+        for variant in ordered_variants
+    }
+    
+    for idx, variant in enumerate(ordered_variants):
+        if len(success_rates[variant]) != len(scenario_names):
+            continue
+        
+        offset = (idx - (len(ordered_variants) - 1) / 2) * width
+        rates = success_rates[variant]
+        
+        # 绘制柱状图
+        bars = ax.bar(
+            x_pos + offset,
+            rates,
+            width=width,
+            label=VARIANT_LABELS.get(variant, variant.replace('_', ' ').title()),
+            color=variant_colors_map[variant],
+            alpha=0.8,
+            edgecolor='black',
+            linewidth=1.0,
+        )
+        
+        # 在柱状图上添加数值标签
+        for bar, rate in zip(bars, rates):
+            height = bar.get_height()
+            label_y = height + 1.5 if height > 0 else 1.5
+            label_y = min(label_y, 120)
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                label_y,
+                f'{rate:.1f}%',
+                ha='center',
+                va='bottom',
+                fontsize=10,
+                fontweight='bold',
+            )
+    
+    # 设置标题和标签
+    if model_display_name:
+        title = f'{model_display_name} - Success Rate Comparison Across Scenarios'
+    else:
+        title = 'Success Rate Comparison Across Scenarios'
+    
+    ax.set_title(title, fontsize=16, fontweight='bold', pad=15)
+    ax.set_ylabel('Success Rate (%)', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Scenarios', fontsize=12, fontweight='bold')
+    
+    # 设置x轴标签
+    ax.set_xticks(x_pos)
+    ax.set_xticklabels(
+        [name.title() for name in scenario_names],
+        rotation=0,
+        ha='center',
+        fontsize=12,
+    )
+    
+    # 设置y轴
+    ax.set_ylim(0, 120)
+    ax.set_yticks(range(0, 121, 10))
+    ax.tick_params(axis='y', labelsize=10)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0f}%'))
+    
+    # 添加网格线
+    ax.grid(axis='y', alpha=0.3, linestyle='--')
+    
+    # 设置图例
+    ax.legend(
+        loc='upper right',
+        fontsize=11,
+        frameon=True,
+    )
+    
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"✓ 图表已保存: {output_path}")
+
+
 def plot_success_rate_comparison(
     data: Dict[str, Dict[str, dict]],
     variants: List[str],
@@ -269,12 +393,19 @@ def plot_success_rate_comparison(
         print("警告: 没有可用的场景数据")
         return
     
+    # 保持 Pretrained -> SFT -> DPO 的顺序，其它 variant 追加在末尾
+    variant_order = ['baseline', 'pretrained', 'sft', 'sft_quant4', 'dpo']
+    ordered_variants = sorted(
+        variants,
+        key=lambda v: variant_order.index(v) if v in variant_order else len(variant_order)
+    )
+
     # 计算每个 variant 在每个 scenario 上的成功率
-    success_rates: Dict[str, List[float]] = {variant: [] for variant in variants}
+    success_rates: Dict[str, List[float]] = {variant: [] for variant in ordered_variants}
     
     for scenario_name in scenario_names:
         scenario_data = data[scenario_name]
-        for variant in variants:
+        for variant in ordered_variants:
             if variant in scenario_data:
                 summary = scenario_data[variant].get("summary", {})
                 total = max(summary.get("total", 0), 1)
@@ -289,22 +420,24 @@ def plot_success_rate_comparison(
     
     # 设置背景色
     fig.patch.set_facecolor('white')
-    ax.set_facecolor('#FAFAFA')
+    ax.set_facecolor('white')
     
     # 准备数据用于绘制
     x_pos = np.arange(len(scenario_names))
-    width = min(0.8 / len(variants), 0.3) if len(variants) > 1 else 0.6
+    width = min(0.8 / len(ordered_variants), 0.3) if len(ordered_variants) > 1 else 0.6
     
     # 使用 Seaborn 调色板获取颜色
-    palette = sns.color_palette("husl", len(variants))
-    variant_colors_map = {variant: VARIANT_COLORS.get(variant, palette[i]) 
-                          for i, variant in enumerate(variants)}
+    palette = sns.color_palette("husl", len(ordered_variants))
+    variant_colors_map = {
+        variant: VARIANT_COLORS.get(variant, palette[i])
+        for i, variant in enumerate(ordered_variants)
+    }
     
-    for idx, variant in enumerate(variants):
+    for idx, variant in enumerate(ordered_variants):
         if len(success_rates[variant]) != len(scenario_names):
             continue
         
-        offset = (idx - (len(variants) - 1) / 2) * width
+        offset = (idx - (len(ordered_variants) - 1) / 2) * width
         rates = success_rates[variant]
         
         # 绘制柱状图，添加边缘和阴影效果
@@ -312,42 +445,28 @@ def plot_success_rate_comparison(
             x_pos + offset,
             rates,
             width=width,
-            label=VARIANT_LABELS.get(variant, variant.upper()),
+            label=VARIANT_LABELS.get(variant, variant.replace('_', ' ').title()),
             color=variant_colors_map[variant],
-            alpha=0.85,
-            edgecolor='white',
-            linewidth=2,
+            alpha=0.95,
+            edgecolor='black',
+            linewidth=1.2,
         )
         
         # 在柱状图上添加数值标签
         for bar, rate in zip(bars, rates):
-            if rate > 0:
-                # 成功率为正数时，显示在柱状图上方
-                ax.text(
-                    bar.get_x() + bar.get_width() / 2,
-                    bar.get_height() + max(1.5, 100 / len(scenario_names) * 0.03),
-                    f'{rate:.1f}%',
-                    ha='center',
-                    va='bottom',
-                    fontsize=10,
-                    fontweight='bold',
-                    color='#2C3E50',
-                )
-            else:
-                # 成功率为0时，在x轴上方显示标签
-                ax.text(
-                    bar.get_x() + bar.get_width() / 2,
-                    2.5,  # 显示在x轴上方2.5%的位置
-                    '0.0%',
-                    ha='center',
-                    va='bottom',
-                    fontsize=10,
-                    fontweight='bold',
-                    color='#E74C3C',  # 使用红色突出显示0值
-                    style='italic',  # 斜体表示特殊情况
-                    bbox=dict(boxstyle='round,pad=0.4', facecolor='white', 
-                             edgecolor='#E74C3C', linewidth=1.5, alpha=0.9),
-                )
+            height = bar.get_height()
+            label_y = height + 1.5 if height > 0 else 1.5
+            label_y = min(label_y, 120)
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                label_y,
+                f'{rate:.1f}%',
+                ha='center',
+                va='bottom',
+                fontsize=10,
+                fontweight='bold',
+                color='#2C3E50',
+            )
     
     # 设置标题和标签，使用更好的样式
     if model_display_name:
@@ -362,46 +481,50 @@ def plot_success_rate_comparison(
         pad=20,
         color='#2C3E50'
     )
-    ax.set_ylabel('Success Rate (%)', fontsize=14, fontweight='semibold', color='#34495E')
-    ax.set_xlabel('Scenarios', fontsize=14, fontweight='semibold', color='#34495E')
+    ax.set_ylabel('Success Rate (%)', fontsize=14, fontweight='bold', color='#34495E')
+    ax.set_xlabel('Scenarios', fontsize=14, fontweight='bold', color='#34495E')
     
     # 设置x轴标签（增大字体）
     ax.set_xticks(x_pos)
     ax.set_xticklabels(
         [name.title() for name in scenario_names],
-        rotation=45,
-        ha='right',
-        fontsize=14,  # 从 12 增大到 14
-        fontweight='semibold'  # 添加半粗体
+        rotation=0,
+        ha='center',
+        fontsize=14,
+        fontweight='semibold'
     )
     
     # 设置y轴
-    ax.set_ylim(0, 105)  # 留出空间显示标签
-    ax.set_yticks(range(0, 101, 10))
+    ax.set_ylim(0, 120)  # 留出更多空间显示标签和避免与图例重叠
+    ax.set_yticks(range(0, 121, 10))
     ax.tick_params(axis='y', labelsize=11)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0f}%'))
     
     # 添加网格线（Seaborn 样式）
     ax.grid(axis='y', alpha=0.3, linestyle='--', linewidth=0.8)
     ax.grid(axis='x', alpha=0.1, linestyle='--', linewidth=0.5)
     
-    # 设置图例，使用更好的样式
+    # 设置图例
     legend = ax.legend(
-        loc='upper left',
+        loc='upper right',
+        bbox_to_anchor=(0.98, 0.98),
+        borderaxespad=0.4,
         frameon=True,
         fancybox=True,
         shadow=True,
         fontsize=12,
         framealpha=0.95,
         edgecolor='gray',
-        facecolor='white'
+        facecolor='white',
+        ncol=max(1, len(ordered_variants))
     )
-    legend.get_frame().set_linewidth(1.5)
+    legend.get_frame().set_linewidth(1.2)
     
     # 添加边框
     for spine in ax.spines.values():
         spine.set_visible(True)
         spine.set_color('#BDC3C7')
-        spine.set_linewidth(1.5)
+        spine.set_linewidth(1.2)
     
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
@@ -459,13 +582,18 @@ def main():
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"✓ JSON 文件已保存: {json_path}")
     
-    # 生成图表
+    # 生成图表（普通版本）
     plot_path = output_dir / "success_rate_comparison.png"
-    plot_success_rate_comparison(data, args.variants, str(plot_path), model_display_name)
+    plot_success_rate_comparison_regular(data, args.variants, str(plot_path), model_display_name)
+    
+    # 生成图表（seaborn 版本）
+    plot_path_seaborn = output_dir / "success_rate_comparison_seaborn.png"
+    plot_success_rate_comparison(data, args.variants, str(plot_path_seaborn), model_display_name)
     
     print(f"\n✓ 成功解析 {len(data)} 个场景")
     print(f"✓ 结果已保存到: {json_path.resolve()}")
-    print(f"✓ 图表已保存到: {plot_path.resolve()}")
+    print(f"✓ 普通图表已保存到: {plot_path.resolve()}")
+    print(f"✓ Seaborn 图表已保存到: {plot_path_seaborn.resolve()}")
     
     return 0
 

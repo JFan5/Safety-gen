@@ -23,13 +23,25 @@ if [ ! -d "${DATASET_PATH}" ]; then
   echo "Please generate it before submitting this job."
   exit 1
 fi
-
 python3 pddl_finetune.py \
   --mode train \
-  --model "${MODEL_NAME}" \
-  --output "${OUTPUT_NOTE}" \
-  --dataset "${DATASET_PATH}" \
+  --model "unsloth/gpt-oss-20b-unsloth-bnb-4bit" \
+  --output "gpt_multi_pddl3_500_v1" \
+  --dataset "/home/ubuntu/data/sft/multi_scenarios500/pddl3.hf" \
   --family gpt \
   --per-device-train-batch-size 8 \
   --gradient-accumulation-steps 2 \
-  --scenarios all
+  --scenarios all \
+  --num-train-epochs 1.5 \
+  --learning-rate 1e-4 \
+  --warmup-ratio 0.05 \
+  --weight-decay 0.0 \
+  --lr-scheduler-type cosine \
+  --max-grad-norm 1.0 \
+  --val_ratio 0.1 \
+  --eval-strategy steps \
+  --eval-steps 25 \
+  --logging-steps 10 \
+  --save-strategy steps \
+  --save-total-limit 2 \
+  --no-load-in-4bit 

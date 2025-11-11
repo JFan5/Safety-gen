@@ -242,7 +242,7 @@ def test_model_on_testing_data(model_path,
                               output_file="test_results.json", family='mistral', 
                               max_problems: int = 0, results_dir=None,
                               problems_dir: str = None, domain_file: str = None,
-                              load_in_4bit: bool = True):
+                              load_in_4bit: bool = True, temperature: float = 0.1):
     """
     在testing数据上测试模型并计算成功率
     
@@ -253,6 +253,7 @@ def test_model_on_testing_data(model_path,
         family: 模型家族
         max_problems_per_scenario: 每个场景最大问题数量
         results_dir: 结果保存目录（如果为None则自动生成）
+        temperature: 文本生成的温度参数（默认: 0.1）
     """
     print(f"Testing model: {model_path}")
     print(f"Problems dir: {problems_dir}")
@@ -388,7 +389,7 @@ def test_model_on_testing_data(model_path,
         
         cfg = {
             'do_sample': True,
-            'temperature': 0.1,
+            'temperature': temperature,
             'top_p': 0.9,
         }
         
@@ -399,7 +400,7 @@ def test_model_on_testing_data(model_path,
                 outputs = model.generate(
                     input_ids=inputs,
                     max_new_tokens=MAX_NEW_TOKENS,
-                    pad_token_id=tokenizer.eos_token_id,
+                    pad_token_id=tokenizer.eosf_token_id,
                     **cfg
                 )
             output = tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]
@@ -612,6 +613,8 @@ def main():
     parser.add_argument("--no-load-in-4bit", dest='load_in_4bit', action='store_false',
                        help="Disable 4-bit quantization")
     parser.set_defaults(load_in_4bit=True)
+    parser.add_argument("--temperature", type=float, default=0.1,
+                       help="Temperature for text generation (default: 0.1)")
     
     args = parser.parse_args()
     
@@ -623,7 +626,8 @@ def main():
         args.results_dir,
         problems_dir=args.problems_dir,
         domain_file=args.domain_file,
-        load_in_4bit=args.load_in_4bit
+        load_in_4bit=args.load_in_4bit,
+        temperature=args.temperature
     )
 
 if __name__ == "__main__":

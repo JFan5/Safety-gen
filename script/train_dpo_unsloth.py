@@ -346,13 +346,13 @@ def main():
         logger.info("Starting DPO training with Unsloth...")
         dpo_trainer.train()
 
-    # 只保存一个模型（合并后的 16bit 全量权重，便于推理 / 部署）
-    logger.info(f"Saving merged model to {args.output_dir}")
+    # 只保存一个模型（合并后的 4bit 全量权重，便于推理 / 部署）
+    logger.info(f"Saving merged 4bit model to {args.output_dir}")
     FastLanguageModel.for_inference(model)
     model.save_pretrained_merged(
         args.output_dir,
         tokenizer,
-        save_method="merged_16bit",
+        save_method="merged_4bit",
     )
     logger.info("DPO training completed successfully!")
     logger.info(f"Adapter saved to: {args.output_dir}")
