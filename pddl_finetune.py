@@ -131,7 +131,6 @@ def sft_train_pddl(
     output_note,
     family='mistral',
     dataset_path="data/sft/pddl_dataset.hf",
-    scenarios=None,
     val_ratio=0.05,
     training_overrides=None,
     max_seq_length_override=None,
@@ -145,7 +144,6 @@ def sft_train_pddl(
         output_note: 输出标识
         family: 模型家族 (mistral, llama, phi)
         dataset_path: 数据集路径（collect_dataset.py 生成）
-        scenarios: 训练使用的场景列表，如 ["blocksworld","delivery","logistics"]，None/[] 表示使用全部
         val_ratio: 验证集占比（0-1）
     """
     
@@ -227,7 +225,7 @@ def sft_train_pddl(
     
     print(f"Dataset loaded with {len(dataset)} entries")
     
-    # 统计并可选过滤场景
+    # 统计场景分布
     if "scenario" in dataset.column_names:
         # 场景计数
         scen_counts = {}
@@ -236,15 +234,9 @@ def sft_train_pddl(
         print("Scenario distribution:")
         for k, v in sorted(scen_counts.items()):
             print(f"  {k}: {v}")
-        
-        if scenarios:
-            keep = set(scenarios)
-            print(f"\nFiltering scenarios to: {sorted(keep)}")
-            dataset = dataset.filter(lambda ex: ex.get("scenario") in keep)
-            print(f"Filtered dataset size: {len(dataset)}")
     
     if len(dataset) == 0:
-        print("Dataset empty after filtering.")
+        print("Dataset is empty.")
         return
     
     # train/val 划分
@@ -323,7 +315,6 @@ def sft_train_pddl(
             "family": family,
             "max_seq_length": max_seq_length_local,
             "load_in_4bit": load_in_4bit_local,
-            "scenarios": scenarios,
             "val_ratio": val_ratio,
             "output_dir": str(output_path),
             "dataset_size": len(dataset),
@@ -536,8 +527,6 @@ def main():
                        default="mistral", help="Model family")
     parser.add_argument("--dataset", type=str, default="data/sft/pddl_dataset.hf",
                        help="Dataset path (from collect_dataset.py)")
-    parser.add_argument("--scenarios", nargs="+", default=None,
-                       help="Filter scenarios for training; use 'all' to include all scenarios, or specify specific scenarios. If not specified, uses all available scenarios.")
     parser.add_argument("--val_ratio", type=float, default=0.05,
                        help="Validation split ratio (0-0.5)")
     parser.add_argument("--test_prompt", type=str, 
@@ -598,17 +587,6 @@ def main():
         os.environ["WANDB_DISABLED"] = "true"
     
     if args.mode == "train":
-        # 处理scenarios参数
-        if args.scenarios is None:
-            # 默认使用所有场景
-            use_scenarios = None
-        elif args.scenarios == ["all"]:
-            # 明确指定使用所有场景
-            use_scenarios = None
-        else:
-            # 使用指定的场景
-            use_scenarios = args.scenarios
-        
         training_overrides = {
             key: getattr(args, key)
             for key in [
@@ -634,7 +612,6 @@ def main():
             args.output,
             args.family,
             args.dataset,
-            use_scenarios,
             args.val_ratio,
             training_overrides=training_overrides,
             max_seq_length_override=args.max_seq_length,

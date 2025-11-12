@@ -396,11 +396,17 @@ def test_model_on_testing_data(model_path,
         generation_error = None
         output = ""
         try:
+            pad_token_id = getattr(tokenizer, "eosf_token_id", None)
+            if pad_token_id is None:
+                pad_token_id = getattr(tokenizer, "eos_token_id", None)
+            if pad_token_id is None:
+                pad_token_id = getattr(tokenizer, "pad_token_id", None)
+
             with torch.no_grad():
                 outputs = model.generate(
                     input_ids=inputs,
                     max_new_tokens=MAX_NEW_TOKENS,
-                    pad_token_id=tokenizer.eosf_token_id,
+                    pad_token_id=pad_token_id,
                     **cfg
                 )
             output = tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]

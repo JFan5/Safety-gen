@@ -33,6 +33,15 @@ plt.rcParams['figure.facecolor'] = 'white'
 plt.rcParams['axes.facecolor'] = 'white'
 plt.rcParams['savefig.facecolor'] = 'white'
 plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams.update({
+    # 'font.size': 28,            # Base font size
+    'axes.titlesize': 34,       # Axes title
+    'axes.labelsize': 34,       # Axes labels
+    'xtick.labelsize': 34,      # X tick labels
+    'ytick.labelsize': 34,      # Y tick labels
+    'legend.fontsize': 34,      # Legend labels
+    'legend.title_fontsize': 34 # Legend title
+})
 
 # Use modern seaborn style
 sns.set_style("whitegrid", {
@@ -46,13 +55,13 @@ sns.set_style("whitegrid", {
     'grid.linestyle': '--',
     'grid.linewidth': 0.8,
 })
-sns.set_context("paper", font_scale=1.2, rc={"lines.linewidth": 2.5})
+sns.set_context("paper", font_scale=2.0, rc={"lines.linewidth": 3.5})
 
 # Modern color palette using seaborn
 solver_palette = sns.color_palette("Set2", 2)
 SOLVER_LABELS: Mapping[str, str] = {
     "optic": "OPTIC",
-    "llm": "LLM",
+    "llm": "GPT-OSS-20B",
 }
 
 # Use seaborn color palette - more vibrant and modern
@@ -384,7 +393,7 @@ def aggregate_records(records: Sequence[SolverRecord]) -> List[AggregatedPoint]:
         else:
             key = ("index", record.order + 1)
             x_value = float(record.order + 1)
-            label = f"#{record.order + 1}"
+            label = str(record.order + 1)
 
         point = initial_grouped.get(key)
         if point is None:
@@ -423,11 +432,9 @@ def aggregate_records(records: Sequence[SolverRecord]) -> List[AggregatedPoint]:
             min_param = min(param_values)
             max_param = max(param_values)
             
-            # Create label showing the range
-            if len(batch) == 3:
-                label = f"{int(min_param)}-{int(max_param)}"
-            else:
-                label = f"{int(min_param)}-{int(max_param)}" if min_param != max_param else str(int(avg_param))
+            # Use a single representative value for the label
+            label_value = int(round(avg_param))
+            label = str(label_value)
             
             # Merge all records from this batch
             batch_point = AggregatedPoint(
@@ -462,11 +469,9 @@ def aggregate_records(records: Sequence[SolverRecord]) -> List[AggregatedPoint]:
             min_index = min(indices)
             max_index = max(indices)
             
-            # Create label
-            if len(batch) == 3:
-                label = f"#{int(min_index)}-#{int(max_index)}"
-            else:
-                label = f"#{int(min_index)}-#{int(max_index)}" if min_index != max_index else f"#{int(avg_index)}"
+            # Use a single representative value for the label
+            label_value = int(round(avg_index))
+            label = str(label_value)
             
             batch_point = AggregatedPoint(
                 solver=batch[0].solver,
@@ -539,10 +544,10 @@ def draw_scenario_plot(
             x_values,
             avg_times,
             color=base_color,
-            linewidth=3.0,
+            linewidth=3.6,
             marker=marker,
-            markersize=8,
-            markeredgewidth=1.5,
+            markersize=14,
+            markeredgewidth=2.0,
             markeredgecolor='white',
             alpha=0.9,
             label=label,
@@ -555,88 +560,105 @@ def draw_scenario_plot(
 
     # Set x-axis ticks and labels (show fewer labels to shorten x-axis)
     sorted_ticks = sorted(tick_labels.items(), key=lambda item: item[0])
-    tick_positions = [item[0] for item in sorted_ticks]
-    tick_labels_list = [item[1] for item in sorted_ticks]
+    # Restrict ticks to the desired x-axis range if available
+    filtered_ticks = [
+        (position, label) for position, label in sorted_ticks if 3 <= position <= 50
+    ]
+    if filtered_ticks:
+        tick_positions = [item[0] for item in filtered_ticks]
+        tick_labels_list = [item[1] for item in filtered_ticks]
+    else:
+        tick_positions = [item[0] for item in sorted_ticks]
+        tick_labels_list = [item[1] for item in sorted_ticks]
     
     # Show fewer labels to shorten x-axis (about 8-12 labels max)
-    if len(tick_positions) > 12:
-        step = max(1, len(tick_positions) // 10)
-        ax.set_xticks(tick_positions[::step])
-        ax.set_xticklabels(tick_labels_list[::step], fontsize=11, rotation=45, ha='right')
-    else:
-        # If we have few points, show all labels
-        ax.set_xticks(tick_positions)
-        ax.set_xticklabels(tick_labels_list, fontsize=11, rotation=45, ha='right')
+    if tick_positions:
+        if len(tick_positions) > 12:
+            step = max(1, len(tick_positions) // 10)
+            ax.set_xticks(tick_positions[::step])
+            ax.set_xticklabels(
+                tick_labels_list[::step],
+                fontsize=38,
+                rotation=0,
+                ha='center',
+            )
+        else:
+            # If we have few points, show all labels
+            ax.set_xticks(tick_positions)
+            ax.set_xticklabels(
+                tick_labels_list,
+                fontsize=38,
+                rotation=0,
+                ha='center',
+            )
+
+    ax.set_xlim(3, 50)
 
     # Beautiful labels and title
     ax.set_xlabel("Parameter Value / Problem Index", 
-                  fontsize=14, fontweight="bold", color='#333333', labelpad=10)
+                  fontsize=36, fontweight="bold", color='#333333', labelpad=22)
     ax.set_ylabel("Runtime (seconds)", 
-                  fontsize=14, fontweight="bold", color='#333333', labelpad=10)
+                  fontsize=38, color='#333333', labelpad=22)
     ax.set_title(
         f"{scenario.title()} - Solver Runtime Comparison",
-        fontsize=18,
+        fontsize=40,
         fontweight="bold",
-        pad=20,
+        pad=26,
         color='#2c3e50',
     )
 
     if log_scale:
         ax.set_yscale("log")
         ax.set_ylabel("Runtime (seconds, log scale)", 
-                      fontsize=14, fontweight="bold", color='#333333', labelpad=10)
+                      fontsize=40, color='#333333', labelpad=22, fontweight="bold")
 
     # Improved grid
     ax.grid(True, alpha=0.3, linestyle='--', linewidth=0.8, color='#CCCCCC')
     ax.set_axisbelow(True)
 
-    # Create beautiful legend
-    solver_handles = []
+    # Create legend showing solver names
+    legend_handles: List[Line2D] = []
     marker_idx = 0
     for solver in aggregated_by_solver.keys():
         marker = markers[marker_idx % len(markers)]
         marker_idx += 1
-        solver_handles.append(
+        legend_handles.append(
             Line2D(
                 [0],
                 [0],
                 color=SOLVER_COLORS.get(solver, "#34495e"),
                 marker=marker,
-                markersize=10,
-                markeredgewidth=1.5,
+                markersize=18,
+                markeredgewidth=2.2,
                 markeredgecolor='white',
-                lw=3.0,
+                lw=4.0,
                 label=SOLVER_LABELS.get(solver, solver.upper()),
             )
         )
 
-    if show_legends:
-        solver_legend = ax.legend(
-            handles=solver_handles,
+    if show_legends and legend_handles:
+        ax.legend(
+            handles=legend_handles,
             loc="upper left",
             frameon=True,
             framealpha=0.95,
             edgecolor='#CCCCCC',
             facecolor='white',
-            title="Solver",
-            title_fontsize=13,
-            fontsize=12,
+            fontsize=32,
             shadow=True,
             fancybox=True,
         )
-        solver_legend.get_title().set_fontweight('bold')
-        solver_legend.get_title().set_color('#2c3e50')
 
     # Improved tick parameters
-    ax.tick_params(axis="y", labelsize=12, colors='#555555')
-    ax.tick_params(axis="x", labelsize=11, colors='#555555')
+    ax.tick_params(axis="y", labelsize=34, colors='#555555', width=1.8)
+    ax.tick_params(axis="x", labelsize=38, colors='#555555', width=2.0)
     
     # Set spine colors
     for spine in ax.spines.values():
         spine.set_edgecolor('#CCCCCC')
         spine.set_linewidth(0.8)
 
-    return solver_handles, []
+    return legend_handles, []
 
 
 def plot_scenario_time(
@@ -651,7 +673,7 @@ def plot_scenario_time(
         return None
 
     # Larger figure for better visibility
-    fig, ax = plt.subplots(figsize=(14, 8))
+    fig, ax = plt.subplots(figsize=(18, 12))
     fig.patch.set_facecolor('white')
 
     draw_scenario_plot(
@@ -695,7 +717,7 @@ def plot_combined_time(
     scenario_items = sorted(aggregated_per_scenario.items())
     
     # Larger figure for combined plot
-    fig, ax = plt.subplots(figsize=(16, 10))
+    fig, ax = plt.subplots(figsize=(22, 14))
     fig.patch.set_facecolor('white')
     
     # Plot each scenario-solver combination
@@ -735,9 +757,9 @@ def plot_combined_time(
                 color=base_color,
                 linestyle=linestyle,
                 marker=marker,
-                linewidth=2.8,
-                markersize=7,
-                markeredgewidth=1.2,
+                linewidth=3.8,
+                markersize=14,
+                markeredgewidth=2.2,
                 markeredgecolor='white',
                 alpha=0.9,
                 label=label,
@@ -749,21 +771,21 @@ def plot_combined_time(
     
     # Beautiful labels and title
     ax.set_xlabel("Parameter Value / Problem Index", 
-                  fontsize=15, fontweight="bold", color='#333333', labelpad=12)
+                  fontsize=38, fontweight="bold", color='#333333', labelpad=24)
     ax.set_ylabel("Runtime (seconds)", 
-                  fontsize=15, fontweight="bold", color='#333333', labelpad=12)
+                  fontsize=38, color='#333333', labelpad=24)
     ax.set_title(
         "Solver Runtime Comparison Across All Scenarios",
-        fontsize=20,
+        fontsize=42,
         fontweight="bold",
-        pad=25,
+        pad=32,
         color='#2c3e50',
     )
     
     if log_scale:
         ax.set_yscale("log")
         ax.set_ylabel("Runtime (seconds, log scale)", 
-                      fontsize=15, fontweight="bold", color='#333333', labelpad=12)
+                      fontsize=38, color='#333333', labelpad=24, fontweight="bold")
     
     # Improved grid
     ax.grid(True, alpha=0.3, linestyle='--', linewidth=0.8, color='#CCCCCC')
@@ -778,18 +800,19 @@ def plot_combined_time(
         edgecolor='#CCCCCC',
         facecolor='white',
         title="Scenario - Solver",
-        title_fontsize=14,
-        fontsize=11,
+        title_fontsize=36,
+        fontsize=32,
         shadow=True,
         fancybox=True,
         ncol=1,
     )
-    scenario_solver_legend.get_title().set_fontweight('bold')
     scenario_solver_legend.get_title().set_color('#2c3e50')
     
     # Improved tick parameters
-    ax.tick_params(axis="y", labelsize=12, colors='#555555')
-    ax.tick_params(axis="x", labelsize=11, colors='#555555', rotation=45)
+    ax.set_xlim(3, 50)
+
+    ax.tick_params(axis="y", labelsize=28, colors='#555555', width=2.0)
+    ax.tick_params(axis="x", labelsize=38, colors='#555555', rotation=0, width=2.2)
     
     # Set spine colors
     for spine in ax.spines.values():

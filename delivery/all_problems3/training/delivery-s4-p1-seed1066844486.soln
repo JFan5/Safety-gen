@@ -1,7 +1,0 @@
-(move t1 c_2_0 c_2_1)
-(move t1 c_2_1 c_1_1)
-(pick-package t1 p1 c_1_1)
-(move t1 c_1_1 c_2_1)
-(move t1 c_2_1 c_3_1)
-(move t1 c_3_1 c_3_2)
-(drop-package t1 p1 c_3_2)

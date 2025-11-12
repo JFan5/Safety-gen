@@ -7,83 +7,26 @@
 #SBATCH --output=job_outputs/evaluate_qwen3_multi_pddl3.o
 #SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
 #SBATCH --job-name=evaluate_qwen3_multi_pddl3 # Specify job name
-#SBATCH --array=1-7 # Specify number of tasks in array (5 scenarios)
+
 
 conda activate llmstl
 
-# Define scenario configurations for evaluation (PDDL3)
-scenarios=( 
-    "blocksworld"
-    "delivery" 
-    "ferry"
-    "grippers"
-    "spanner"
-    "grid"
-    "rovers"
-)
-scenario_name="${scenarios[$SLURM_ARRAY_TASK_ID-1]}"
-
-echo "=========================================="
-echo "Starting evaluation (PDDL3) for scenario: $scenario_name"
-echo "Task ID: $SLURM_ARRAY_TASK_ID"
-echo "=========================================="
-
 BASE_MODEL="/home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/"
 
-# Map scenario to problems dir and domain file for PDDL3
-case "$scenario_name" in
-  "blocksworld")
-    PROBLEMS_DIR="blocksworld/all_problems3/testing"
-    DOMAIN_FILE="blocksworld/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/blocksworld/pddl3"
-    OUTPUT_NAME="blocksworld_test_results_pddl3.json"
-    ;;
-  "delivery")
-    PROBLEMS_DIR="delivery/all_problems3/testing"
-    DOMAIN_FILE="delivery/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/delivery/pddl3"
-    OUTPUT_NAME="delivery_test_results_pddl3.json"
-    ;;
-  "ferry")
-    PROBLEMS_DIR="ferry/all_problems3/testing"
-    DOMAIN_FILE="ferry/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/ferry/pddl3"
-    OUTPUT_NAME="ferry_test_results_pddl3.json"
-    ;;
-  "grippers")
-    PROBLEMS_DIR="grippers/all_problems3/testing"
-    DOMAIN_FILE="grippers/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/grippers/pddl3"
-    OUTPUT_NAME="grippers_test_results_pddl3.json"
-    ;;
-  "spanner")
-    PROBLEMS_DIR="spanner/all_problems3/testing"
-    DOMAIN_FILE="spanner/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/spanner/pddl3"
-    OUTPUT_NAME="spanner_test_results_pddl3.json"
-    ;;
-    "grid")
-    PROBLEMS_DIR="grid/all_problems3/testing"
-    DOMAIN_FILE="grid/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/grid/pddl3"
-    OUTPUT_NAME="grid_test_results_pddl3.json"
-    ;;
-  "rovers")
-    PROBLEMS_DIR="rovers/all_problems3/testing"
-    DOMAIN_FILE="rovers/domain3.pddl"
-    RESULTS_DIR="planning_results/qwen3_multi_pddl3/rovers/pddl3"
-    OUTPUT_NAME="rovers_test_results_pddl3.json"
-    ;;
-  *)
-    echo "Unknown scenario: $scenario_name"; exit 1
-    ;;  
-esac
+# blocksworld
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/ --problems-dir blocksworld/all_problems3/testing --domain-file blocksworld/domain3.pddl --max-problems 50 --output blocksworld_test_results_pddl3.json --results-dir planning_results/sft-qwen3-multi-pddl3/blocksworld/pddl3 
 
-python3 script/evaluate_llm_solver.py \
-  --model ${BASE_MODEL} \
-  --problems-dir ${PROBLEMS_DIR} \
-  --domain-file ${DOMAIN_FILE} \
-  --max-problems 50 \
-  --output ${OUTPUT_NAME} \
-  --results-dir ${RESULTS_DIR}
+
+# delivery
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/ --problems-dir delivery/all_problems3/testing --domain-file delivery/domain3.pddl --max-problems 50 --output delivery_test_results_pddl3.json --results-dir planning_results/sft-qwen3-multi-pddl3/delivery/pddl3 
+
+# ferry
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/ --problems-dir ferry/all_problems3/testing --domain-file ferry/domain3.pddl --max-problems 50 --output ferry_test_results_pddl3.json --results-dir planning_results/sft-qwen3-multi-pddl3/ferry/pddl3
+
+# grippers
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/ --problems-dir grippers/all_problems3/testing --domain-file grippers/domain3.pddl --max-problems 50 --output grippers_test_results_pddl3.json --results-dir planning_results/sft-qwen3-multi-pddl3/grippers/pddl3
+
+# spanner
+python3 script/evaluate_llm_solver.py --model /home/ubuntu/Safety-gen/sft_models/Qwen3-14B/multi_pddl3_500/pddl3/ --problems-dir spanner/all_problems3/testing --domain-file spanner/domain3.pddl --max-problems 50 --output spanner_test_results_pddl3.json --results-dir planning_results/sft-qwen3-multi-pddl3/spanner/pddl3 
+
 
