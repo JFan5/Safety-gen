@@ -17,8 +17,8 @@ python3 /home/ubuntu/Safety-gen/script/train_dpo_unsloth.py \
   --dataset "/home/ubuntu/Safety-gen/data/dpo/new_four/multi_pddl3_dpo.jsonl" \
   --output_dir "${OUTPUT_DIR}" \
   --num_epochs 4 \
-  --batch_size 2 \
-  --gradient_accumulation_steps 4 \
+  --batch_size 4 \
+  --gradient_accumulation_steps 2 \
   --learning_rate 5e-6 \
   --save_steps 60 \
   --eval_steps 60 \
