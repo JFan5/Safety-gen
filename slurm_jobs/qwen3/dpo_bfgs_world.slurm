@@ -13,8 +13,8 @@ OUTPUT_DIR="/jfan5/dpo_qwen3/bfgs-variant-500-blocksworld"
 mkdir -p "${OUTPUT_DIR}"
 
 python3 /home/ubuntu/Safety-gen/script/train_dpo_unsloth.py \
-  --base_model "/jfan5/sft_qwen3/bfgs-variant-500" \
-  --dataset "/home/ubuntu/Safety-gen/data/dpo/new_four/blocksworld_pddl3_dpo.jsonl" \
+  --base_model "/jfan5/sft_qwen3/blocksworld-variant-500" \
+  --dataset "/jfan5/data/dpo/pddl3_dpo-500.jsonl" \
   --output_dir "${OUTPUT_DIR}" \
   --num_epochs 1 \
   --batch_size 8 \

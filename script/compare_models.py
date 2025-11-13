@@ -308,11 +308,11 @@ def render_matplotlib_chart(
 ) -> Path:
     """渲染 matplotlib 风格的图表"""
     models = ["Pretrained", "SFT", "DPO"]
-    fig, ax = plt.subplots(figsize=(13, 7.5))
+    fig, ax = plt.subplots(figsize=(16, 9))
 
     x = np.arange(len(CATEGORY_ORDER))
-    width = 0.4  # 柱子宽度
-    category_spacing = 1.5  # 类别之间的间距（每个类别组之间的间隔）
+    width = 1.2  # 柱子宽度
+    category_spacing = 4  # 类别之间的间距（每个类别组之间的间隔）
 
     bars = []
     all_rectangles = []  # 存储所有矩形对象
@@ -377,10 +377,10 @@ def render_matplotlib_chart(
                     ax.text(
                         rect.get_x() + rect.get_width() / 2,
                         label_y,
-                        f"{pct:.1f}%",
+                        f"{int(round(pct))}%",
                         ha="center",
                         va="bottom",
-                        fontsize=11,
+                        fontsize=18,    
                         fontweight="bold",
                     )
                 rect_idx += 1
@@ -492,12 +492,12 @@ def render_seaborn_chart(
     )
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0f}%"))
     ax.set_ylim(0, 105)
-    ax.tick_params(axis="y", labelsize=17)
+    ax.tick_params(axis="y", labelsize=18)
     ax.grid(axis="y", alpha=0.3, linestyle="--")
 
-    for container, model in zip(ax.containers, models):
-        labels = [f"{pct:.1f}%" for pct in percentages[model]]
-        ax.bar_label(container, labels=labels, fontsize=11, fontweight="bold", padding=3)
+    for container, model in zip(ax.containers, models): # type: ignore
+        labels = [f"{int(round(pct))}%" for pct in percentages[model]]
+        ax.bar_label(container, labels=labels, fontsize=18, fontweight="bold", padding=5)
 
     plt.tight_layout()
     output_path = output_dir / f"{scenario}_model_comparison_seaborn.png"

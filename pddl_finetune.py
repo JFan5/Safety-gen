@@ -11,6 +11,7 @@ import re
 import torch
 import wandb
 from pathlib import Path
+from typing import List, Optional
 from datasets import load_from_disk, Dataset
 from transformers import TrainerCallback, TrainingArguments
 
@@ -135,6 +136,10 @@ def sft_train_pddl(
     training_overrides=None,
     max_seq_length_override=None,
     load_in_4bit_override=None,
+    lora_r: int = 32,
+    lora_alpha: int = 64,
+    lora_dropout: float = 0.05,
+    lora_target_modules: Optional[List[str]] = None,
 ):
     """
     使用unsloth进行PDDL fine-tune训练（多场景）
@@ -145,6 +150,10 @@ def sft_train_pddl(
         family: 模型家族 (mistral, llama, phi)
         dataset_path: 数据集路径（collect_dataset.py 生成）
         val_ratio: 验证集占比（0-1）
+        lora_r: LoRA rank (default 32)
+        lora_alpha: LoRA alpha scaling factor (default 64)
+        lora_dropout: LoRA dropout 概率 (default 0.05)
+        lora_target_modules: 需要注入 LoRA 的模块列表
     """
     
     print("="*60)
@@ -188,13 +197,22 @@ def sft_train_pddl(
     
     # 配置LoRA
     print("Configuring LoRA...")
+    if lora_target_modules is None:
+        lora_target_modules = [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj",
+        ]
     model = FastLanguageModel.get_peft_model(
         model,
-        r=32,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                       "gate_proj", "up_proj", "down_proj"],
-        lora_alpha=64,
-        lora_dropout=0.05,
+        r=lora_r,
+        target_modules=lora_target_modules,
+        lora_alpha=lora_alpha,
+        lora_dropout=lora_dropout,
         bias="none",
         use_gradient_checkpointing="unsloth",
         random_state=3407,
@@ -569,6 +587,15 @@ def main():
     parser.add_argument("--no-load-in-4bit", dest="load_in_4bit", action="store_false",
                        help="Disable 4-bit loading even for large GPT models.")
     parser.set_defaults(load_in_4bit=None)
+    parser.add_argument("--lora-r", type=int, default=32, help="LoRA rank (default 32).")
+    parser.add_argument("--lora-alpha", type=int, default=64, help="LoRA alpha scaling factor (default 64).")
+    parser.add_argument("--lora-dropout", type=float, default=0.05, help="LoRA dropout probability (default 0.05).")
+    parser.add_argument(
+        "--lora-target-modules",
+        type=str,
+        default="q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj",
+        help="Comma-separated list of LoRA target modules.",
+    )
     
     args = parser.parse_args()
     
@@ -607,6 +634,12 @@ def main():
             if getattr(args, key) is not None
         }
 
+        lora_target_modules = [
+            module.strip()
+            for module in args.lora_target_modules.split(",")
+            if module.strip()
+        ] or None
+
         sft_train_pddl(
             args.model,
             args.output,
@@ -616,6 +649,10 @@ def main():
             training_overrides=training_overrides,
             max_seq_length_override=args.max_seq_length,
             load_in_4bit_override=args.load_in_4bit,
+            lora_r=args.lora_r,
+            lora_alpha=args.lora_alpha,
+            lora_dropout=args.lora_dropout,
+            lora_target_modules=lora_target_modules,
         )
     elif args.mode == "test":
         test_pddl_model(args.model, args.test_prompt, args.test_count, args.family, args.dataset)

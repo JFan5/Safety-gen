@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#SBATCH --mail-user=jfan5@nd.edu
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --output=job_outputs/dpo_mistral_pddl3_500.o
+#SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
+#SBATCH --job-name=dpo_mistral_pddl3_500 # Specify job name
+
+set -euo pipefail
+
+conda activate llmstl
+
+BASE_MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
+DPO_DATASET="/home/ubuntu/Safety-gen/data/dpo/new_four/blocksworld_pddl3_dpo.jsonl"
+OUTPUT_DIR="/jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant-unsloth"
+
+python3 script/train_dpo_pure.py \
+  --base_model $BASE_MODEL \
+  --dataset $DPO_DATASET \
+  --output_dir $OUTPUT_DIR \
+  --num_epochs 2 \
+  --batch_size 12 \
+  --lora_r 4 \
+  --lora_alpha 8 \
+  --lora_dropout 0.1 \
+  --gradient_accumulation_steps 2 \
+  --learning_rate 2e-6 \
+  --save_steps 10 \
+  --eval_steps 10 \
+  --logging_steps 10 \
+  --beta 0.02 \
+  --run_name "dpo-mistral-blocksworld-dpo-variant-unsloth" \
+  --dataloader_num_workers 8
