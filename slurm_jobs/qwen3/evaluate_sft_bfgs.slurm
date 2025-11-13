@@ -24,7 +24,7 @@ python3 script/evaluate_llm_solver.py --model /jfan5/sft_models/qwen3_14b/four_s
 python3 script/evaluate_llm_solver.py --model /jfan5/sft_qwen3/bfgs-variant-500 --problems-dir spanner/all_problems3/testing --domain-file spanner/domain3.pddl --max-problems 50 --output spanner_test_results_pddl3.json --results-dir planning_results/qwen3_sft_bfgs/spanner/ --no-load-in-4bit
 
 # # delivery
-python3 script/evaluate_llm_solver.py --model /jfan5/sft_qwen3/bfgs-variant-500 --problems-dir delivery/all_problems3/testing --domain-file delivery/domain3.pddl --max-problems 50 --output delivery_test_results_pddl3.json --results-dir planning_results/qwen3_sft_four_scenarios500/delivery/pddl3
+python3 script/evaluate_llm_solver.py --model /jfan5/sft_qwen3/bfgs-variant-500 --problems-dir delivery/testing_problems3 --domain-file delivery/domain3.pddl --max-problems 50 --output delivery_test_results_pddl3.json --results-dir planning_results/qwen3_sft_four_scenarios500/delivery/pddl3
 
 
 # # rovers

@@ -19,9 +19,24 @@ Pairing strategy:
 import argparse
 import json
 import os
+import random
+import sys
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
+# 尝试导入 prompt_variants，支持从不同位置运行
+try:
+    from prompt_variants import build_prompt_multi
+except ImportError:
+    try:
+        from script.prompt_variants import build_prompt_multi
+    except ImportError:
+        # 如果都失败，尝试添加 script 目录到路径
+        script_dir = Path(__file__).parent
+        if str(script_dir) not in sys.path:
+            sys.path.insert(0, str(script_dir))
+        from prompt_variants import build_prompt_multi
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -147,6 +162,16 @@ def _resolve_pddl_paths(
     return df, pf
 
 
+def _infer_pddl_version(domain_file: str) -> str:
+    """从 domain 文件名推断 PDDL 版本"""
+    if not domain_file:
+        return "PDDL3"  # 默认使用 PDDL3
+    domain_path = Path(domain_file)
+    if "domain3" in domain_path.name.lower():
+        return "PDDL3"
+    return "PDDL2"
+
+
 def _index_raw_results(raw_paths: List[str]) -> Dict[str, Dict[str, str]]:
     """
     Build mapping: problem_key -> {problem_file, domain_file}
@@ -199,6 +224,57 @@ def _build_prompt(
     return template.format(domain_content=domain_content, problem_content=problem_content)
 
 
+def _build_prompt_variants(
+    problem_key: str,
+    index: Dict[str, Dict[str, str]],
+    include_pddl: bool,
+    num_variants: int,
+    rng: random.Random,
+    resolved_paths: Optional[Tuple[str, str]] = None,
+) -> List[str]:
+    """生成多个 prompt 变体"""
+    df = pf = ""
+    if include_pddl:
+        if resolved_paths is None:
+            resolved_paths = _resolve_pddl_paths(problem_key, index)
+        df, pf = resolved_paths
+    domain_content = _read_text_file(df)
+    problem_content = _read_text_file(pf)
+    
+    if not domain_content or not problem_content:
+        # 如果没有 PDDL 内容，回退到单个 prompt
+        return [_build_prompt(problem_key, index, include_pddl, resolved_paths)]
+    
+    # 推断 PDDL 版本
+    pddl_version = _infer_pddl_version(df)
+    
+    # 确定要使用的变体编号
+    num_templates = 10  # prompt_variants.py 中有 10 个模板
+    if num_variants >= num_templates:
+        # 如果需要的变体数 >= 模板数，使用所有模板，然后随机重复
+        variants_to_use = list(range(1, num_templates + 1))
+        while len(variants_to_use) < num_variants:
+            variants_to_use.append(rng.randint(1, num_templates))
+        rng.shuffle(variants_to_use)
+    else:
+        # 随机选择 num_variants 个不同的变体
+        variants_to_use = rng.sample(range(1, num_templates + 1), num_variants)
+    
+    # 为每个变体生成 prompt
+    prompts = []
+    for variant_num in variants_to_use:
+        prompt = build_prompt_multi(
+            domain_content,
+            problem_content,
+            pddl_version,
+            variant=variant_num,
+            rng=rng
+        )
+        prompts.append(prompt)
+    
+    return prompts
+
+
 def _seq_text(entry: Dict[str, Any]) -> str:
     seq: List[str] = entry.get("planning_sequence") or []
     if isinstance(seq, list):
@@ -240,39 +316,70 @@ def _pairs_for_problem(entries: List[Dict[str, Any]], all_pairs: bool) -> List[T
     return pairs
 
 
-def construct_dpo(scored_path: str, output_path: str, raw_jsons: List[str], include_pddl: bool, all_pairs: bool) -> int:
+def construct_dpo(
+    scored_path: str,
+    output_path: str,
+    raw_jsons: List[str],
+    include_pddl: bool,
+    all_pairs: bool,
+    num_prompt_variants: Optional[int] = None,
+    seed: Optional[int] = None,
+) -> int:
     scored, _payload = _load_scored(scored_path)
     index = _index_raw_results(raw_jsons) if raw_jsons else {}
+    
+    # 设置随机数生成器
+    rng = random.Random(seed) if seed is not None else random.Random()
+    
+    # 确定是否使用多 prompt 变体
+    use_variants = num_prompt_variants is not None and num_prompt_variants > 1
+    
     written = 0
     with open(output_path, "w") as out:
         for problem_key, entries in scored.items():
             resolved_paths = _resolve_pddl_paths(problem_key, index) if include_pddl else ("", "")
-            prompt = _build_prompt(problem_key, index, include_pddl, resolved_paths)
+            
+            # 生成 prompt(s)
+            if use_variants:
+                prompts = _build_prompt_variants(
+                    problem_key, index, include_pddl, num_prompt_variants, rng, resolved_paths
+                )
+            else:
+                prompts = [_build_prompt(problem_key, index, include_pddl, resolved_paths)]
+            
             for chosen, rejected in _pairs_for_problem(entries, all_pairs):
                 chosen_text = _seq_text(chosen)
                 rejected_text = _seq_text(rejected)
                 if not chosen_text or not rejected_text:
                     continue
-                record = {
-                    "prompt": prompt,
-                    "chosen": chosen_text,
-                    "rejected": rejected_text,
-                    "meta": {
-                        "problem_key": problem_key,
-                        "chosen_score": int(chosen.get("score", 0)),
-                        "rejected_score": int(rejected.get("score", 0)),
-                        "chosen_classification": chosen.get("classification"),
-                        "rejected_classification": rejected.get("classification"),
-                        "chosen_source": chosen.get("source_file"),
-                        "rejected_source": rejected.get("source_file"),
-                        "chosen_solution_file": chosen.get("solution_file"),
-                        "rejected_solution_file": rejected.get("solution_file"),
-                        "domain_file": resolved_paths[0] if include_pddl else "",
-                        "problem_file": resolved_paths[1] if include_pddl else "",
-                    },
-                }
-                out.write(json.dumps(record, ensure_ascii=False) + "\n")
-                written += 1
+                
+                # 为每个 prompt 变体创建一个 DPO pair
+                for variant_idx, prompt in enumerate(prompts):
+                    record = {
+                        "prompt": prompt,
+                        "chosen": chosen_text,
+                        "rejected": rejected_text,
+                        "meta": {
+                            "problem_key": problem_key,
+                            "chosen_score": int(chosen.get("score", 0)),
+                            "rejected_score": int(rejected.get("score", 0)),
+                            "chosen_classification": chosen.get("classification"),
+                            "rejected_classification": rejected.get("classification"),
+                            "chosen_source": chosen.get("source_file"),
+                            "rejected_source": rejected.get("source_file"),
+                            "chosen_solution_file": chosen.get("solution_file"),
+                            "rejected_solution_file": rejected.get("solution_file"),
+                            "domain_file": resolved_paths[0] if include_pddl else "",
+                            "problem_file": resolved_paths[1] if include_pddl else "",
+                        },
+                    }
+                    # 如果使用了变体，添加变体信息到 meta
+                    if use_variants:
+                        record["meta"]["prompt_variant_index"] = variant_idx
+                        record["meta"]["num_prompt_variants"] = num_prompt_variants
+                    
+                    out.write(json.dumps(record, ensure_ascii=False) + "\n")
+                    written += 1
     return written
 
 
@@ -286,7 +393,36 @@ def main():
     pddl_group.add_argument("--no-pddl", dest="include_pddl", action="store_false", help="Skip inserting domain/problem PDDL text")
     parser.set_defaults(include_pddl=None)
     parser.add_argument("--all-pairs", action="store_true", help="Generate all higher-vs-lower pairs per problem")
+    parser.add_argument(
+        "--prompt-variants",
+        type=int,
+        default=None,
+        help="Number of prompt variants to generate per problem (default: 1, uses single prompt). If set to 5, each problem will generate 5 entries with different prompt templates.",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Random seed for prompt variant selection (for reproducibility)",
+    )
     args = parser.parse_args()
+
+    if args.prompt_variants is not None and args.prompt_variants <= 0:
+        print("Error: --prompt-variants must be a positive integer.")
+        return
+
+    print("="*60)
+    print("DPO Dataset Construction")
+    print("="*60)
+    print(f"Scored summaries: {args.scored_summaries}")
+    print(f"Output path: {args.output}")
+    if args.prompt_variants is not None and args.prompt_variants > 1:
+        print(f"Prompt variants per problem: {args.prompt_variants}")
+        if args.seed is not None:
+            print(f"Random seed: {args.seed}")
+    else:
+        print("Prompt variants per problem: 1 (single prompt)")
+    print("="*60)
 
     num = construct_dpo(
         scored_path=args.scored_summaries,
@@ -294,6 +430,8 @@ def main():
         raw_jsons=args.raw_json,
         include_pddl=True if args.include_pddl is None else args.include_pddl,
         all_pairs=args.all_pairs,
+        num_prompt_variants=args.prompt_variants,
+        seed=args.seed,
     )
     print(f"Wrote {num} DPO pairs to {args.output}")
 

@@ -62,29 +62,35 @@ python3 "/home/ubuntu/Safety-gen/script/create_scored_summaries.py" \
 # ============================================================================
 # Step 2: Construct single-scenario DPO datasets (all pairs, no sampling)
 # ============================================================================
+
+
 echo "=== Step 2: Constructing single-scenario DPO datasets (all pairs)"
 
 echo "=== blocksworld: constructing DPO dataset -> /home/ubuntu/Safety-gen/data/dpo/new_four/blocksworld_pddl3_dpo.jsonl"
 python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
     "/home/ubuntu/Safety-gen/data/dpo/new_four/scored_summaries_blocksworld.json" \
+    --prompt-variants 5 --seed 42 \
     --output "/home/ubuntu/Safety-gen/data/dpo/new_four/blocksworld_pddl3_dpo.jsonl" \
     --all-pairs
 
 echo "=== ferry: constructing DPO dataset -> /home/ubuntu/Safety-gen/data/dpo/new_four/ferry_pddl3_dpo.jsonl"
 python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
     "/home/ubuntu/Safety-gen/data/dpo/new_four/scored_summaries_ferry.json" \
+    --prompt-variants 5 --seed 42 \
     --output "/home/ubuntu/Safety-gen/data/dpo/new_four/ferry_pddl3_dpo.jsonl" \
     --all-pairs
 
 echo "=== grippers: constructing DPO dataset -> /home/ubuntu/Safety-gen/data/dpo/new_four/grippers_pddl3_dpo.jsonl"
 python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
     "/home/ubuntu/Safety-gen/data/dpo/new_four/scored_summaries_grippers.json" \
+    --prompt-variants 5 --seed 42 \
     --output "/home/ubuntu/Safety-gen/data/dpo/new_four/grippers_pddl3_dpo.jsonl" \
     --all-pairs
 
 echo "=== spanner: constructing DPO dataset -> /home/ubuntu/Safety-gen/data/dpo/new_four/spanner_pddl3_dpo.jsonl"
 python3 "/home/ubuntu/Safety-gen/script/construct_dpo_dataset.py" \
     "/home/ubuntu/Safety-gen/data/dpo/new_four/scored_summaries_spanner.json" \
+    --prompt-variants 5 --seed 42 \
     --output "/home/ubuntu/Safety-gen/data/dpo/new_four/spanner_pddl3_dpo.jsonl" \
     --all-pairs
 

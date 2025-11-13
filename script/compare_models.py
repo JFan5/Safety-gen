@@ -311,7 +311,8 @@ def render_matplotlib_chart(
     fig, ax = plt.subplots(figsize=(13, 7.5))
 
     x = np.arange(len(CATEGORY_ORDER))
-    width = 0.25
+    width = 0.4  # 柱子宽度
+    category_spacing = 1.5  # 类别之间的间距（每个类别组之间的间隔）
 
     bars = []
     all_rectangles = []  # 存储所有矩形对象
@@ -323,8 +324,12 @@ def render_matplotlib_chart(
             # 使用模型颜色（不是类别颜色）
             model_color = MODEL_COLORS[model]
             
+            # 计算每个类别组的中心位置，然后在该组内放置模型
+            category_center = cat_idx * category_spacing
+            model_offset = (idx - 1) * width  # 模型在组内的偏移
+            
             bar_container = ax.bar(
-                x[cat_idx] + (idx - 1) * width,
+                category_center + model_offset,
                 pct,
                 width,
                 label=model if cat_idx == 0 else "",  # 只在第一个类别显示图例
@@ -339,24 +344,24 @@ def render_matplotlib_chart(
         
         bars.extend(bars_per_category)
 
-    ax.set_xlabel("Categories", fontsize=14, fontweight="bold")
-    ax.set_ylabel("Percentage (%)", fontsize=14, fontweight="bold")
+    ax.set_xlabel("Categories", fontsize=18, fontweight="bold")
+    ax.set_ylabel("Percentage (%)", fontsize=20, fontweight="bold")
     ax.set_title(
         f"Error Type Distribution Comparison: {scenario.title()}",
-        fontsize=16,
+        fontsize=22,
         fontweight="bold",
         pad=15,
     )
-    ax.set_xticks(x)
+    ax.set_xticks([i * category_spacing for i in range(len(CATEGORY_ORDER))])
     wrapped_labels = wrap_labels([cat.replace("_", " ").title() for cat in CATEGORY_ORDER])
     # 设置 x 轴标签颜色为渐变色（从红色到绿色）
-    xtick_labels = ax.set_xticklabels(wrapped_labels, rotation=0, ha="center", fontsize=12, fontweight="bold")
+    xtick_labels = ax.set_xticklabels(wrapped_labels, rotation=0, ha="center", fontsize=16, fontweight="bold")
     for label, cat in zip(xtick_labels, CATEGORY_ORDER):
         label.set_color(CATEGORY_COLORS[cat])
 
     ax.set_ylim(0, 105)
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0f}%"))
-    ax.tick_params(axis="y", labelsize=11)
+    ax.tick_params(axis="y", labelsize=17)
 
     ax.grid(axis="y", alpha=0.3, linestyle="--")
 
@@ -375,7 +380,7 @@ def render_matplotlib_chart(
                         f"{pct:.1f}%",
                         ha="center",
                         va="bottom",
-                        fontsize=9,
+                        fontsize=11,
                         fontweight="bold",
                     )
                 rect_idx += 1
@@ -389,7 +394,7 @@ def render_matplotlib_chart(
             Rectangle((0, 0), 1, 1, facecolor=model_color, edgecolor="black", 
                      linewidth=1.2, alpha=MODEL_ALPHA[model], label=model)
         )
-    ax.legend(handles=legend_elements, fontsize=12, frameon=True, fancybox=True, 
+    ax.legend(handles=legend_elements, fontsize=18, frameon=True, fancybox=True, 
               shadow=True, ncol=3, loc="upper right")
 
     plt.tight_layout()
@@ -424,14 +429,17 @@ def render_seaborn_chart(
 
     fig, ax = plt.subplots(figsize=(13, 7.5))
     
-    # 使用 seaborn barplot，但之后手动设置颜色
+    # 使用 seaborn barplot，但之后手动设置颜色和宽度
     sns.barplot(data=df, x="Category", y="Percentage", hue="Model", ax=ax, 
-                palette=["#808080", "#808080", "#808080"])  # 临时灰色，后面会替换
+                palette=["#808080", "#808080", "#808080"], dodge=True)  # 临时灰色，后面会替换
     
-    # 为每个柱状图设置对应的模型颜色
+    # 为每个柱状图设置对应的模型颜色和宽度
     # seaborn barplot 的顺序是：对于每个类别，先显示所有模型，然后下一个类别
+    bar_width = 0.35  # 柱子宽度
+    category_spacing = 0.5  # 类别之间的额外间距
+    
     patch_idx = 0
-    for cat in CATEGORY_ORDER:
+    for cat_idx, cat in enumerate(CATEGORY_ORDER):
         for model_idx, model in enumerate(models):
             if patch_idx < len(ax.patches):
                 patch = ax.patches[patch_idx]
@@ -442,6 +450,15 @@ def render_seaborn_chart(
                 patch.set_alpha(MODEL_ALPHA[model])
                 patch.set_edgecolor("black")
                 patch.set_linewidth(1.2)
+                
+                # 调整柱子宽度和位置
+                current_x = patch.get_x()
+                current_width = patch.get_width()
+                # 计算新的x位置（增加类别间距）
+                new_x = cat_idx * (1 + category_spacing) + model_idx * bar_width - (len(models) - 1) * bar_width / 2
+                patch.set_x(new_x)
+                patch.set_width(bar_width)
+                
                 patch_idx += 1
     
     # 更新图例以使用模型颜色
@@ -454,33 +471,33 @@ def render_seaborn_chart(
             Rectangle((0, 0), 1, 1, facecolor=model_color, edgecolor="black", 
                      linewidth=1.2, alpha=MODEL_ALPHA[model], label=model)
         )
-    ax.legend(handles=legend_elements, fontsize=12, frameon=True, fancybox=True, 
+    ax.legend(handles=legend_elements, fontsize=18, frameon=True, fancybox=True, 
               shadow=True, ncol=3, loc="upper right")
 
     wrapped_labels = wrap_labels(df["Category"].unique())
-    ax.set_xticks(range(len(CATEGORY_ORDER)))
+    # 调整x轴刻度位置以匹配新的柱子位置
+    ax.set_xticks([i * (1 + category_spacing) for i in range(len(CATEGORY_ORDER))])
     # 设置 x 轴标签颜色为渐变色（从红色到绿色）
-    xtick_labels = ax.set_xticklabels(wrapped_labels, rotation=0, ha="center", fontsize=12, fontweight="bold")
+    xtick_labels = ax.set_xticklabels(wrapped_labels, rotation=0, ha="center", fontsize=16, fontweight="bold")
     for label, cat in zip(xtick_labels, CATEGORY_ORDER):
         label.set_color(CATEGORY_COLORS[cat])
 
-    ax.set_xlabel("Categories", fontsize=14, fontweight="bold")
-    ax.set_ylabel("Percentage (%)", fontsize=14, fontweight="bold")
+    ax.set_xlabel("Categories", fontsize=18, fontweight="bold")
+    ax.set_ylabel("Percentage (%)", fontsize=20, fontweight="bold")
     ax.set_title(
         f"Error Types Distribution Comparison for {scenario.title()}",
-        fontsize=16,
+        fontsize=22,
         fontweight="bold",
         pad=15,
     )
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0f}%"))
     ax.set_ylim(0, 105)
-    ax.tick_params(axis="y", labelsize=11)
-    ax.legend(fontsize=12, frameon=True, fancybox=True, shadow=True, ncol=3, loc="upper right")
+    ax.tick_params(axis="y", labelsize=17)
     ax.grid(axis="y", alpha=0.3, linestyle="--")
 
     for container, model in zip(ax.containers, models):
         labels = [f"{pct:.1f}%" for pct in percentages[model]]
-        ax.bar_label(container, labels=labels, fontsize=9, fontweight="bold", padding=3)
+        ax.bar_label(container, labels=labels, fontsize=11, fontweight="bold", padding=3)
 
     plt.tight_layout()
     output_path = output_dir / f"{scenario}_model_comparison_seaborn.png"

@@ -112,22 +112,16 @@ def main():
     parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
     parser.add_argument("--warmup_ratio", type=float, default=0.1, help="Warmup ratio")
     parser.add_argument("--weight_decay", type=float, default=0.01, help="Weight decay")
-    parser.add_argument("--use_wandb", action="store_true", help="Use Weights & Biases for logging")
+    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging (enabled by default)")
     parser.add_argument("--wandb_project", default="pddl-dpo-training", help="W&B project name")
     parser.add_argument("--run_name", help="Run name for logging")
-    parser.add_argument("--load_in_4bit", action="store_true", help="Load model in 4-bit quantization")
-    parser.add_argument("--load_in_8bit", action="store_true", help="Load model in 8-bit quantization")
+    parser.add_argument("--no_4bit", action="store_true", help="Disable 4-bit quantization (load in full precision, not recommended)")
     parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable Unsloth gradient checkpointing")
     parser.add_argument("--lora_r", type=int, default=16)
     parser.add_argument("--lora_alpha", type=int, default=32)
     parser.add_argument("--lora_dropout", type=float, default=0.05)
     parser.add_argument("--reference_free", action="store_true", help="Use reference-free DPO to save memory")
     parser.add_argument("--dataloader_num_workers", type=int, default=0, help="PyTorch DataLoader workers")
-    parser.add_argument(
-        "--memory_efficient",
-        action="store_true",
-        help="Apply conservative settings to reduce GPU memory usage",
-    )
     parser.add_argument(
         "--resume_from_checkpoint",
         type=str,
@@ -152,41 +146,25 @@ def main():
     # Create output dir
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # Memory-efficient bundle (conservative)
-    if args.memory_efficient:
-        logger.info("Applying memory efficient settings")
-        if args.batch_size > 1:
-            logger.info(f"- Reducing per-device batch size {args.batch_size} -> 1")
-            args.batch_size = 1
-        if not (args.load_in_4bit or args.load_in_8bit):
-            logger.info("- Enabling 4-bit quantization")
-            args.load_in_4bit = True
-        if not args.use_gradient_checkpointing:
-            logger.info("- Enabling Unsloth gradient checkpointing")
-            args.use_gradient_checkpointing = True
-        if args.max_length > 1536:
-            logger.info(f"- Reducing max_length {args.max_length} -> 1536")
-            args.max_length = 1536
-        if args.max_prompt_length > args.max_length:
-            logger.info(f"- Capping max_prompt_length to {args.max_length}")
-            args.max_prompt_length = args.max_length
-        if args.dataloader_num_workers != 0:
-            logger.info("- Using single-process dataloader")
-            args.dataloader_num_workers = 0
+    # 默认使用 4-bit 量化（除非明确禁用）
+    load_in_4bit = not args.no_4bit
+    if load_in_4bit:
+        logger.info("Loading model in 4-bit quantization (default)")
+    else:
+        logger.warning("Loading model in full precision (4-bit quantization disabled)")
 
-    # Guard: 4bit/8bit不可同时
-    if args.load_in_4bit and args.load_in_8bit:
-        raise ValueError("Choose only one: --load_in_4bit OR --load_in_8bit (not both).")
-
-    # W&B（延迟导入，避免未安装时报错）
-    if args.use_wandb:
+    # W&B（默认启用，延迟导入，避免未安装时报错）
+    use_wandb = not args.no_wandb
+    if use_wandb:
         try:
             import wandb  # type: ignore
-        except Exception as e:
-            raise RuntimeError(
-                "You passed --use_wandb but the 'wandb' package is not installed. "
-                "pip install wandb 或去掉该参数。"
-            ) from e
+        except ImportError:
+            logger.warning(
+                "Wandb logging is enabled by default but 'wandb' package is not installed. "
+                "Install with: pip install wandb, or use --no_wandb to disable. "
+                "Continuing without wandb logging."
+            )
+            use_wandb = False
 
     # 模型类型（用于日志提示；Unsloth已能自动识别常见结构）
     model_name = args.base_model
@@ -228,8 +206,8 @@ def main():
                 model_name=args.resume_from_checkpoint,
                 max_seq_length=args.max_length,
                 dtype=None,  # auto
-                load_in_4bit=args.load_in_4bit,
-                load_in_8bit=args.load_in_8bit,
+                load_in_4bit=True,
+                load_in_8bit=False,
             )
         else:
             # 从 base_model 加载，Trainer 会从检查点恢复适配器权重和训练状态
@@ -239,8 +217,8 @@ def main():
                 model_name=args.base_model,
                 max_seq_length=args.max_length,
                 dtype=None,  # auto
-                load_in_4bit=args.load_in_4bit,
-                load_in_8bit=args.load_in_8bit,
+                load_in_4bit=True,
+                load_in_8bit=False,
             )
     else:
         logger.info(f"Loading model with Unsloth from {args.base_model}")
@@ -248,8 +226,8 @@ def main():
             model_name=args.base_model,
             max_seq_length=args.max_length,
             dtype=None,  # auto
-            load_in_4bit=args.load_in_4bit,
-            load_in_8bit=args.load_in_8bit,
+            load_in_4bit=True,
+            load_in_8bit=False,
             # device_map="auto",  # 可按需开启
         )
 
@@ -283,7 +261,6 @@ def main():
     # 若 reference_free=True，则不会用参考模型（更省显存）。
     dpo_trainer = DPOTrainer(
         model=model,
-        ref_model=None,
         args=DPOConfig(
         output_dir=args.output_dir,
         num_train_epochs=args.num_epochs,
@@ -303,7 +280,7 @@ def main():
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
         greater_is_better=False,
-        report_to=["wandb"] if args.use_wandb else [],
+        report_to=["wandb"] if use_wandb else [],
         run_name=args.run_name or f"dpo-unsloth-{os.path.basename(args.base_model)}",
         remove_unused_columns=False,
         dataloader_pin_memory=False,
@@ -318,7 +295,7 @@ def main():
         beta=args.beta,
         loss_type="sigmoid",
         label_smoothing=0.0,
-        reference_free=args.reference_free,
+        reference_free=False,
         max_length=args.max_length,
         max_prompt_length=min(args.max_prompt_length, args.max_length),
         # 也可按需设置 max_completion_length
@@ -329,8 +306,8 @@ def main():
     )
 
     print("eval steps: ", args.eval_steps)
-    # 可选：初始化 W&B
-    if args.use_wandb:
+    # 初始化 W&B（默认启用）
+    if use_wandb:
         import wandb  # type: ignore
         wandb.init(
             project=args.wandb_project,
@@ -346,18 +323,46 @@ def main():
         logger.info("Starting DPO training with Unsloth...")
         dpo_trainer.train()
 
-    # 只保存一个模型（合并后的 4bit 全量权重，便于推理 / 部署）
-    logger.info(f"Saving merged 4bit model to {args.output_dir}")
+    # 只保存一个模型（合并后的全量权重，便于推理 / 部署）
+    logger.info(f"Saving merged model to {args.output_dir}")
     FastLanguageModel.for_inference(model)
-    model.save_pretrained_merged(
-        args.output_dir,
-        tokenizer,
-        save_method="merged_4bit",
-    )
-    logger.info("DPO training completed successfully!")
-    logger.info(f"Adapter saved to: {args.output_dir}")
-    logger.info(f"Merged model saved to: {args.output_dir}_merged")
-    if args.use_wandb:
+    
+    # 根据加载方式选择保存方法
+    if load_in_4bit:
+        # 使用 merged_4bit_forced 来避免 Unsloth 的警告
+        save_method = "merged_4bit_forced"
+        logger.info("Using merged_4bit_forced save method (model was loaded in 4bit)")
+    else:
+        # 如果没有量化，保存为 16bit
+        save_method = "merged_16bit"
+        logger.info("Using merged_16bit save method (model was not quantized)")
+    
+    try:
+        model.save_pretrained_merged(
+            args.output_dir,
+            tokenizer,
+            save_method=save_method,
+        )
+        logger.info("DPO training completed successfully!")
+        logger.info(f"Adapter saved to: {args.output_dir}")
+        logger.info(f"Merged model saved to: {args.output_dir}_merged")
+    except Exception as e:
+        logger.error(f"Failed to save merged model: {e}")
+        logger.warning("Attempting to save as merged_16bit instead...")
+        try:
+            model.save_pretrained_merged(
+                args.output_dir,
+                tokenizer,
+                save_method="merged_16bit",
+            )
+            logger.info("Successfully saved as merged_16bit")
+        except Exception as e2:
+            logger.error(f"Failed to save as merged_16bit: {e2}")
+            logger.warning("Saving adapter only (without merging)...")
+            model.save_pretrained(args.output_dir)
+            tokenizer.save_pretrained(args.output_dir)
+            logger.info(f"Adapter saved to: {args.output_dir} (not merged)")
+    if use_wandb:
         import wandb  # type: ignore
         wandb.finish()
 
