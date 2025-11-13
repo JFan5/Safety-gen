@@ -1,0 +1,14 @@
+# blocksworld
+python script/collect_single_scenario.py blocksworld --prompt_variants 5 --max_number 500 --seed 42 --output /groups/fkong/jfan5/data/sft/blocksworld-variant-500 --root blocksworld
+
+# ferry
+python script/collect_single_scenario.py ferry --prompt_variants 5 --max_number 500 --seed 42 --output /groups/fkong/jfan5/data/sft/ferry-variant-500 --root ferry
+
+# spanner
+python script/collect_single_scenario.py spanner --prompt_variants 5 --max_number 500 --seed 42 --output /groups/fkong/jfan5/data/sft/spanner-variant-500 --root spanner
+
+
+#grippers
+python script/collect_single_scenario.py grippers --prompt_variants 5 --max_number 500 --seed 42 --output /groups/fkong/jfan5/data/sft/grippers-variant-500 --root grippers
+
+python3 script/collect_finetuned_dataset_together.py --scenarios blocksworld ferry grippers spanner --base-dir /groups/fkong/jfan5/data/sft/ --output ~/data/sft/bfgs-variant-500
