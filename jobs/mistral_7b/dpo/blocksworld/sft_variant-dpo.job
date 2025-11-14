@@ -37,16 +37,15 @@ conda activate llmstl
 
 python3 script/train_dpo_unsloth.py \
   --base_model "/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/sft-variant" \
-  --dataset "/users/jfan5/jfan5/Safety-gen/data/dpo/gpt_oss_20b/blocksworld/pddl3_dpo-500.jsonl" \
-  --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant" \
-  --num_epochs 2 \
-  --batch_size 2 \
-  --gradient_accumulation_steps 4 \
+  --dataset "/users/jfan5/jfan5/Safety-gen/data/dpo/classical/blocksworld_500-variant-5.jsonl" \
+  --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant-V2" \
+  --num_epochs 1 \
+  --batch_size 4 \
+  --gradient_accumulation_steps 8 \
   --learning_rate 5e-6 \
-  --save_steps 60 \
-  --eval_steps 60 \
+  --save_steps 30  \
+  --eval_steps 30 \
   --logging_steps 10 \
-  --beta 0.2 \
-  --memory_efficient \
-  --run_name "dpo-mistral-blocksworld-dpo-variant" \
+  --beta 0.1 \
+  --run_name "dpo-mistral-blocksworld-dpo-variant-V2" \
   --dataloader_num_workers 4

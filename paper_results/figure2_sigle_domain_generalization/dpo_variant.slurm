@@ -10,7 +10,4 @@
 
 conda activate llmstl
 
-python3 script/evaluate_llm_solver.py --model /jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant  --problems-dir blocksworld/all_problems3/testing --domain-file blocksworld/domain3.pddl --max-problems 50 --output blocksworld_dpo_test_results_pddl3.json  --results-dir planning_results/mistral-7b-dpo-blocksworld-dpo-variant/
-
-
-
+python3 script/evaluate_llm_solver.py --model /jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant_v3  --problems-dir blocksworld/all_problems3/testing --domain-file blocksworld/domain3.pddl --max-problems 50 --output blocksworld_dpo_test_results_pddl3.json  --results-dir planning_results/mistral-7b-dpo-blocksworld-dpo-variant/

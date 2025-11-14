@@ -13,9 +13,9 @@ conda activate llmstl
 # Evaluate PDDL3 fine-tuned model
 
 python3 script/evaluate_llm_solver.py \
-  --model "/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/sft-variant" \
+  --model "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant-V1" \
   --problems-dir blocksworld/all_problems3/testing \
   --domain-file blocksworld/domain3.pddl \
-  --output blocksworld_all_testing_sft-variant.json \
-  --results-dir planning_results/mistral-7b-sft-variant-blocksworld/  --max-problems 50
+  --output blocksworld_all_testing_dpo-variant.json \
+  --results-dir planning_results/mistral-7b-dpo-variant-blocksworld/  --max-problems 50
 
