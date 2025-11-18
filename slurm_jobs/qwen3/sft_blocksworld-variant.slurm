@@ -9,4 +9,4 @@
 
 conda activate llmstl
 
-python3 pddl_finetune.py --mode train --model unsloth/Qwen3-14B-unsloth-bnb-4bit --output /jfan5/sft_qwen3/blocksworld-variant-500 --dataset /home/ubuntu/data/sft/blocksworld-variant-500/pddl3.hf --per-device-train-batch-size 8 --gradient-accumulation-steps 16  --num-train-epochs 4
+python3 pddl_finetune.py --mode train --model unsloth/Qwen3-14B-unsloth-bnb-4bit --output /jfan5/sft_qwen3/blocksworld-variant-500 --dataset /home/ubuntu/data/sft/blocksworld-variant-500/pddl3.hf --per-device-train-batch-size 16 --gradient-accumulation-steps 2  --num-train-epochs 2

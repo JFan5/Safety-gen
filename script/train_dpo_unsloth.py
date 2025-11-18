@@ -100,7 +100,7 @@ def main():
     parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
 
     # Optional
-    parser.add_argument("--num_epochs", type=int, default=3, help="Number of training epochs")
+    parser.add_argument("--num_epochs", type=float, default=3, help="Number of training epochs (supports fractional epochs, e.g., 0.3)")
     parser.add_argument("--batch_size", type=int, default=2, help="Per-device train/eval batch size")
     parser.add_argument("--learning_rate", type=float, default=5e-6, help="Learning rate")
     parser.add_argument("--max_length", type=int, default=2048, help="Maximum sequence length (prompt+completion)")

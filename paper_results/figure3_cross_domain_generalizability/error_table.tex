@@ -1,0 +1,33 @@
+% Simple table, vertical lines between error categories
+\begin{table*}[h]
+\centering
+\caption{Error Type Percentages by Scenario}
+\label{tab:error_percentages}
+\resizebox{0.85\textwidth}{!}{%
+\begin{tabular}{l|cc|cc|cc|cc||cc}
+\hline
+\textbf{Scenario} 
+  & \multicolumn{2}{c}{Plan Format Error} 
+  & \multicolumn{2}{c}{Precondition Violation} 
+  & \multicolumn{2}{c}{Safety Constraints Violation} 
+  & \multicolumn{2}{c}{Goal Not Satisfied} 
+  & \multicolumn{2}{c}{Success Plans} \\
+\hline
+  
+   & \textbf{Pretrained} & \textbf{SFT} 
+   & \textbf{Pretrained} & \textbf{SFT} 
+   & \textbf{Pretrained} & \textbf{SFT} 
+   & \textbf{Pretrained} & \textbf{SFT} 
+   & \textbf{Pretrained} & \textbf{SFT} \\
+\hline
+\textbf{Blocksworld} & 0.0\% & 0.0\% & 70.0\% & 58.0\% & 24.0\% & 24.0\% & 2.0\% & 6.0\% & 4.0\% & \textbf{12.0\%} \\
+\textbf{Ferry      } & 0.0\% & 2.0\% & 98.0\% & 44.0\% & 2.0\% & 36.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{18.0\%} \\
+\textbf{Grippers   } & 8.0\% & 6.0\% & 42.0\% & 42.0\% & 46.0\% & 30.0\% & 4.0\% & 8.0\% & 0.0\% & \textbf{14.0\%} \\
+\textbf{Spanner    } & 6.0\% & 2.0\% & 94.0\% & 48.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{50.0\%} \\
+\hline
+  \multicolumn{11}{c}{\textbf{Generalized Domain}} \\
+\hline
+\textbf{Delivery   } & 0.0\% & 0.0\% & 44.0\% & 22.0\% & 48.0\% & 64.0\% & 2.0\% & 2.0\% & 6.0\% & \textbf{12.0\%} \\
+\end{tabular}
+}% end resizebox
+\end{table*}

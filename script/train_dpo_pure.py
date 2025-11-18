@@ -100,7 +100,7 @@ def main():
     parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
 
     # Optional
-    parser.add_argument("--num_epochs", type=int, default=3, help="Number of training epochs")
+    parser.add_argument("--num_epochs", type=float, default=3, help="Number of training epochs (supports fractional epochs, e.g., 0.3)")
     parser.add_argument("--batch_size", type=int, default=2, help="Per-device train/eval batch size")
     parser.add_argument("--learning_rate", type=float, default=5e-6, help="Learning rate")
     parser.add_argument("--max_length", type=int, default=2048, help="Maximum sequence length (prompt+completion)")
@@ -335,45 +335,13 @@ def main():
         logger.info("Starting DPO training with Unsloth...")
         dpo_trainer.train()
 
-    # 只保存一个模型（合并后的全量权重，便于推理 / 部署）
-    logger.info(f"Saving merged model to {args.output_dir}")
-    FastLanguageModel.for_inference(model)
-    
-    # 根据加载方式选择保存方法
-    if load_in_4bit:
-        # 使用 merged_4bit_forced 来避免 Unsloth 的警告
-        save_method = "merged_4bit_forced"
-        logger.info("Using merged_4bit_forced save method (model was loaded in 4bit)")
-    else:
-        # 如果没有量化，保存为 16bit
-        save_method = "merged_16bit"
-        logger.info("Using merged_16bit save method (model was not quantized)")
-    
-    try:
-        model.save_pretrained_merged(
-            args.output_dir,
-            tokenizer,
-            save_method=save_method,
-        )
-        logger.info("DPO training completed successfully!")
-        logger.info(f"Adapter saved to: {args.output_dir}")
-        logger.info(f"Merged model saved to: {args.output_dir}_merged")
-    except Exception as e:
-        logger.error(f"Failed to save merged model: {e}")
-        logger.warning("Attempting to save as merged_16bit instead...")
-        try:
-            model.save_pretrained_merged(
-                args.output_dir,
-                tokenizer,
-                save_method="merged_16bit",
-            )
-            logger.info("Successfully saved as merged_16bit")
-        except Exception as e2:
-            logger.error(f"Failed to save as merged_16bit: {e2}")
-            logger.warning("Saving adapter only (without merging)...")
-            model.save_pretrained(args.output_dir)
-            tokenizer.save_pretrained(args.output_dir)
-            logger.info(f"Adapter saved to: {args.output_dir} (not merged)")
+    # 保存 LoRA 适配器
+    dpo_lora_dir = args.output_dir
+    logger.info(f"Saving DPO LoRA adapter to {dpo_lora_dir}")
+    model.save_pretrained(dpo_lora_dir)
+    tokenizer.save_pretrained(dpo_lora_dir)
+    logger.info("DPO training completed successfully!")
+    logger.info(f"LoRA adapter saved to: {dpo_lora_dir}")
     if use_wandb:
         import wandb  # type: ignore
         wandb.finish()
