@@ -1,0 +1,15 @@
+Scenario: miconic
+Generated at: 2025-01-27 12:00:00
+
+Testing problems: 100 (duplicates removed: 100)
+
+Parameter samples (first 5):
+- miconic -f 8 -p 6 -r 248790204
+- miconic -f 4 -p 6 -r 231536258
+- miconic -f 2 -p 3 -r 267954635
+- miconic -f 5 -p 5 -r 264011573
+- miconic -f 4 -p 6 -r 256473675
+
+Notes:
+- Each .pddl begins with a '; params: ...' comment capturing generator arguments.
+- Testing problems are kept simple with 2-8 floors and 1-6 passengers.
