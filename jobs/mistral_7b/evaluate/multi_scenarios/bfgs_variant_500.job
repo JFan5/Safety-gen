@@ -1,0 +1,70 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate/mistral/multi_scenarios/pddl3_variant_500.o
+#$ -pe smp 8
+#$ -N eval_mistral_variant_pddl3-500
+#
+
+set -euo pipefail
+
+conda activate llmstl
+
+python3 script/evaluate_llm_solver.py \
+  --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "blocksworld/all_problems3/testing" \
+  --domain-file "blocksworld/domain3.pddl" \
+  --max-problems 50 \
+  --output "blocksworld_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/blocksworld/"
+
+python3 script/evaluate_llm_solver.py \
+  --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "ferry/all_problems3/testing" \
+  --domain-file "ferry/domain3.pddl" \
+  --max-problems 50 \
+  --output "ferry_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/ferry/"
+
+python3 script/evaluate_llm_solver.py \
+  --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "delivery/all_problems3/testing" \
+  --domain-file "delivery/domain3.pddl" \
+  --max-problems 50 \
+  --output "delivery_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/delivery/"
+
+python3 script/evaluate_llm_solver.py \
+  --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "grid/all_problems3/testing" \
+  --domain-file "grid/domain3.pddl" \
+  --max-problems 50 \
+  --output "grid_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/grid/"
+
+python3 script/evaluate_llm_solver.py \
+  --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "grippers/all_problems3/testing" \
+  --domain-file "grippers/domain3.pddl" \
+  --max-problems 50 \
+  --output "grippers_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/grippers/"
+
+python3 script/evaluate_llm_solver.py \
+  --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "rovers/all_problems3/testing" \
+  --domain-file "rovers/domain3.pddl" \
+  --max-problems 50 \
+  --output "rovers_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/rovers/"
+
+python3 script/evaluate_llm_solver.py \
+    --model "/users/jfan5/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "spanner/all_problems3/testing" \
+  --domain-file "spanner/domain3.pddl" \
+  --max-problems 50 \
+  --output "spanner_multi_pddl3_50-500.json" \
+  --results-dir "planning_results/mistral-7b-variant-bfgs-500/spanner/"

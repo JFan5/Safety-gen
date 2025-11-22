@@ -1,0 +1,172 @@
+import pycsp3
+from pycsp3 import *
+from pycsp3 import pddl
+import random
+# Define the domain
+domain = pddl.Domain(
+predicates=[
+pddl.Predicate('clear', 1),
+pddl.Predicate('on-table', 1),
+pddl.Predicate('arm-empty'),
+pddl.Predicate('holding', 1),
+pddl.Predicate('on', 2),
+],
+actions=[
+pddl.Action(
+name='pickup',
+parameters=['?ob'],
+preconditions=[
+pddl.Conjunction(
+pddl.Atom('clear', '?ob'),
+pddl.Atom('on-table', '?ob'),
+pddl.Atom('arm-empty')
+)
+],
+effects=[
+pddl.Conjunction(
+pddl.Atom('holding', '?ob'),
+pddl.Not(pddl.Atom('clear', '?ob')),
+pddl.Not(pddl.Atom('on-table', '?ob')),
+pddl.Not(pddl.Atom('arm-empty'))
+)
+]
+),
+pddl.Action(
+name='putdown',
+parameters=['?ob'],
+preconditions=[
+pddl.Atom('holding', '?ob')
+],
+effects=[
+pddl.Conjunction(
+pddl.Atom('clear', '?ob'),
+pddl.Atom('arm-empty'),
+pddl.Atom('on-table', '?ob'),
+pddl.Not(pddl.Atom('holding', '?ob'))
+)
+]
+),
+pddl.Action(
+name='stack',
+parameters=['?ob', '?underob'],
+preconditions=[
+pddl.Conjunction(
+pddl.Atom('clear', '?underob'),
+pddl.Atom('holding', '?ob')
+)
+],
+effects=[
+pddl.Conjunction(
+pddl.Atom('arm-empty'),
+pddl.Atom('clear', '?ob'),
+pddl.Atom('on', '?ob', '?underob'),
+pddl.Not(pddl.Atom('clear', '?underob')),
+pddl.Not(pddl.Atom('holding', '?ob'))
+)
+]
+),
+pddl.Action(
+name='unstack',
+parameters=['?ob', '?underob'],
+preconditions=[
+pddl.Conjunction(
+pddl.Atom('on', '?ob', '?underob'),
+pddl.Atom('clear', '?ob'),
+pddl.Atom('arm-empty')
+)
+],
+effects=[
+pddl.Conjunction(
+pddl.Atom('holding', '?ob'),
+pddl.Atom('clear', '?underob'),
+pddl.Not(pddl.Atom('on', '?ob', '?underob')),
+pddl.Not(pddl.Atom('clear', '?ob')),
+pddl.Not(pddl.Atom('arm-empty'))
+)
+]
+)
+]
+)
+# Define the problem
+problem = pddl.Problem(
+domain=domain,
+objects=['b1', 'b2', 'b3'],
+initial_state=[
+pddl.Atom('arm-empty'),
+pddl.Atom('on', 'b1', 'b3'),
+pddl.Atom('on-table', 'b2'),
+pddl.Atom('on', 'b3', 'b2'),
+pddl.Atom('clear', 'b1')
+],
+goal_state=[
+pddl.Atom('on-table', 'b1'),
+pddl.Atom('on-table', 'b2'),
+pddl.Atom('on-table', 'b3')
+],
+constraints=[
+pddl.Constraint(
+name='sometime-before',
+arguments=['on-table', 'b2', 'on-table', 'b1']
+)
+]
+)
+# Solve the problem
+solver = pddl.Solver()
+solution = solver.solve(problem)
+# Extract the plan
+plan = []
+for action in solution:
+plan.append(action.name + '(' + ', '.join(action.parameters) + ')')
+# Print the plan
+print('\n'.join(plan))
+```
+```output
+ModuleNotFoundError: No module named 'pycsp3'
+```
+It seems that the `pycsp3` library is not available in the current environment. Let's use a different approach to solve the problem using a more straightforward method. We'll manually construct the plan based on the given domain and problem.
+Here's the step-by-step plan:
+1. **Initial State:**
+- `arm-empty`
+- `on b1 b3`
+- `on-table b2`
+- `on b3 b2`
+- `clear b1`
+2. **Goal State:**
+- `on-table b1`
+- `on-table b2`
+- `on-table b3`
+3. **Constraints:**
+- `sometime-before (on-table b2) (on-table b1)`
+### Plan:
+1. **Pick up b1:**
+- `pickup(b1)`
+- `clear b1`
+- `arm-empty`
+- `holding b1`
+- `on-table b2`
+- `on b3 b2`
+2. **Put down b1:**
+- `putdown(b1)`
+- `clear b1`
+- `arm-empty`
+- `on-table b1`
+- `on-table b2`
+- `on b3 b2`
+3. **Pick up b3:**
+- `pickup(b3)`
+- `clear b3`
+- `arm-empty`
+- `holding b3`
+- `on-table b1`
+- `on-table b2`
+4. **Put down b3:**
+- `putdown(b3)`
+- `clear b3`
+- `arm-empty`
+- `on-table b1`
+- `on-table b2`
+- `on-table b3`
+The plan satisfies all the constraints and achieves the goal state. Here is the final plan in the required format:
+\[
+\boxed{\text{pickup(b1) putdown(b1) pickup(b3) putdown(b3)}}
+\]

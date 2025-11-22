@@ -1,55 +1,0 @@
-Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
-wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-🦥 Unsloth Zoo will now patch everything to make training faster!
-============================================================
-PDDL Fine-tuning with unsloth/Mistral-Small-3.2-24B-Instruct-2506
-============================================================
-GPU count: 1
-GPU 0: NVIDIA A10
-
-Loading model and tokenizer...
-==((====))==  Unsloth 2025.8.6: Fast Mistral patching. Transformers: 4.55.2.
-   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
-\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Unsloth: QLoRA and full finetuning all not selected. Switching to 16bit LoRA.
-Loading checkpoint shards:   0%|          | 0/10 [00:00<?, ?it/s]Loading checkpoint shards:  10%|█         | 1/10 [00:09<01:24,  9.41s/it]Loading checkpoint shards:  20%|██        | 2/10 [00:15<01:00,  7.51s/it]Loading checkpoint shards:  30%|███       | 3/10 [00:22<00:49,  7.07s/it]Loading checkpoint shards:  40%|████      | 4/10 [00:27<00:37,  6.28s/it]Loading checkpoint shards:  50%|█████     | 5/10 [00:30<00:26,  5.26s/it]Loading checkpoint shards:  70%|███████   | 7/10 [00:30<00:07,  2.64s/it]Loading checkpoint shards:  90%|█████████ | 9/10 [00:31<00:01,  1.56s/it]Loading checkpoint shards: 100%|██████████| 10/10 [00:31<00:00,  3.11s/it]
-Some parameters are on the meta device because they were offloaded to the cpu.
-Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
-Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
-Configuring LoRA...
-Unsloth: Making `model.base_model.model.model.vision_tower.transformer` require gradients
-
-Loading dataset from /groups/fkong/jfan5/data/sft/multi_scenarios500/pddl3.hf...
-Loading HuggingFace dataset...
-Dataset loaded with 3000 entries
-Scenario distribution:
-  blocksworld: 500
-  ferry: 500
-  grid: 500
-  grippers: 500
-  rovers: 500
-  spanner: 500
-Validation ratio: 0.05
-Processing dataset format (chat template)...
-Map:   0%|          | 0/2850 [00:00<?, ? examples/s]Map:   1%|          | 19/2850 [00:00<00:15, 179.83 examples/s]Map:   3%|▎         | 86/2850 [00:00<00:06, 459.27 examples/s]Map:   8%|▊         | 228/2850 [00:00<00:03, 872.63 examples/s]Map:  18%|█▊        | 513/2850 [00:00<00:01, 1635.79 examples/s]Map:  31%|███       | 879/2850 [00:00<00:00, 2352.18 examples/s]Map:  43%|████▎     | 1215/2850 [00:00<00:00, 2566.99 examples/s]Map:  59%|█████▊    | 1673/2850 [00:00<00:00, 3197.63 examples/s]Map:  70%|███████   | 2000/2850 [00:00<00:00, 3205.02 examples/s]Map:  86%|████████▌ | 2453/2850 [00:00<00:00, 3608.24 examples/s]Map: 100%|██████████| 2850/2850 [00:01<00:00, 3301.53 examples/s]Map: 100%|██████████| 2850/2850 [00:01<00:00, 2642.94 examples/s]
-Map:   0%|          | 0/150 [00:00<?, ? examples/s]Map: 100%|██████████| 150/150 [00:00<00:00, 2924.75 examples/s]
-
-Testing initial model performance...
-Traceback (most recent call last):
-  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 647, in <module>
-    main()
-  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 632, in main
-    sft_train_pddl(
-  File "/scratch365/jfan5/Safety-gen/pddl_finetune.py", line 288, in sft_train_pddl
-    inputs = tokenizer.apply_chat_template(
-  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
-    return func(*args, **kwargs)
-  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/processing_utils.py", line 1531, in apply_chat_template
-    visuals = [content for content in message["content"] if content["type"] in ["image", "video"]]
-  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/processing_utils.py", line 1531, in <listcomp>
-    visuals = [content for content in message["content"] if content["type"] in ["image", "video"]]
-TypeError: string indices must be integers

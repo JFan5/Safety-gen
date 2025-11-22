@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/grpo/mistral/spanner/grpo.o
+#$ -pe smp 8
+#$ -N grpo_mistral_spanner
+
+conda activate llmstl
+
+python script/train_grpo_unsloth.py \
+  --base_model "/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500" \
+  --dataset "/groups/fkong/jfan5/ppo_data/spanner.jsonl" \
+  --output_dir "outputs/grpo_spanner" \
+  --num_epochs 3 \
+  --batch_size 2 \
+  --gradient_accumulation_steps 8 \
+  --learning_rate 5e-6 \
+  --max_new_tokens 512 \
+  --num_generations 4 \
+  --temperature 0.8 \
+  --top_p 0.9 \
+  --logging_steps 10 \
+  --save_steps 500
+
+

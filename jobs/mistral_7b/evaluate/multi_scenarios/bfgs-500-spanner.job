@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m ae
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate/mistral/multi_scenarios/bfgs-500-spanner.o
+#$ -pe smp 8
+#$ -N eval_mistral_bfgs-500-spanner
+
+
+
+conda activate llmstl
+
+echo "=========================================="
+echo "Model path: /groups/fkong/jfan5/sft_models/mistral_7b/variant-bfgs-500"
+echo "Scenario: spanner"
+echo "Problems dir: spanner/all_problems3/testing"
+echo "Domain file: spanner/domain3.pddl"
+echo "Results dir: planning_results/sft_mistral_7b_multi/bfgs-500-spanner"
+echo "=========================================="
+
+python3 script/evaluate_llm_solver.py \
+  --model "/groups/fkong/jfan5/sft_models/mistral_7b/variant-bfgs-500" \
+  --problems-dir "spanner/all_problems3/testing" \
+  --domain-file "spanner/domain3.pddl" \
+  --max-problems 50 \
+  --output "spanner_multi_bfgs-500_50-500.json" \
+  --results-dir "planning_results/sft_mistral_7b_multi/bfgs-500-spanner"

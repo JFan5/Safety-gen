@@ -1,0 +1,106 @@
+[W1122 00:04:04.163486609 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29500 (errno: 97 - Address family not supported by protocol).
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+🦥 Unsloth Zoo will now patch everything to make training faster!
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2025.11.3: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 4. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+==((====))==  Unsloth 2025.11.3: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 4. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+==((====))==  Unsloth 2025.11.3: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 4. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
+unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
+unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
+Unsloth 2025.11.3 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+Unsloth 2025.11.3 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+Unsloth 2025.11.3 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+[W1122 00:04:42.222182467 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29500 (errno: 97 - Address family not supported by protocol).
+[W1122 00:04:42.255206229 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29500 (errno: 97 - Address family not supported by protocol).
+[W1122 00:04:42.275088549 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29500 (errno: 97 - Address family not supported by protocol).
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 347, in <module>
+[rank2]:     main()
+[rank2]:   File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 337, in main
+[rank2]:     trainer.train()
+[rank2]:   File "/users/jfan5/Safety-gen/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 54, in wrapper
+[rank2]:     output = f(self, *args, **kwargs)
+[rank2]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/trainer.py", line 2238, in train
+[rank2]:     return inner_training_loop(
+[rank2]:   File "<string>", line 128, in _fast_inner_training_loop
+[rank2]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1555, in prepare
+[rank2]:     result = tuple(
+[rank2]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1556, in <genexpr>
+[rank2]:     self._prepare_one(obj, first_pass=True, device_placement=d) for obj, d in zip(args, device_placement)
+[rank2]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1398, in _prepare_one
+[rank2]:     return self.prepare_model(obj, device_placement=device_placement)
+[rank2]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1786, in prepare_model
+[rank2]:     raise ValueError(
+[rank2]: ValueError: You can't train a model that has been loaded in 8-bit or 4-bit precision on a different device than the one you're training on. Make sure you loaded the model on the correct device using for example `device_map={'':torch.cuda.current_device()}` or `device_map={'':torch.xpu.current_device()}`
+[rank1]: Traceback (most recent call last):
+[rank1]:   File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 347, in <module>
+[rank1]:     main()
+[rank1]:   File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 337, in main
+[rank1]:     trainer.train()
+[rank1]:   File "/users/jfan5/Safety-gen/unsloth_compiled_cache/UnslothGRPOTrainer.py", line 54, in wrapper
+[rank1]:     output = f(self, *args, **kwargs)
+[rank1]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/trainer.py", line 2238, in train
+[rank1]:     return inner_training_loop(
+[rank1]:   File "<string>", line 128, in _fast_inner_training_loop
+[rank1]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1555, in prepare
+[rank1]:     result = tuple(
+[rank1]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1556, in <genexpr>
+[rank1]:     self._prepare_one(obj, first_pass=True, device_placement=d) for obj, d in zip(args, device_placement)
+[rank1]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1398, in _prepare_one
+[rank1]:     return self.prepare_model(obj, device_placement=device_placement)
+[rank1]:   File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/accelerator.py", line 1786, in prepare_model
+[rank1]:     raise ValueError(
+[rank1]: ValueError: You can't train a model that has been loaded in 8-bit or 4-bit precision on a different device than the one you're training on. Make sure you loaded the model on the correct device using for example `device_map={'':torch.cuda.current_device()}` or `device_map={'':torch.xpu.current_device()}`
+W1122 00:04:48.730000 3920809 site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 3920818 closing signal SIGTERM
+W1122 00:04:48.731000 3920809 site-packages/torch/distributed/elastic/multiprocessing/api.py:900] Sending process 3920820 closing signal SIGTERM
+E1122 00:04:49.350000 3920809 site-packages/torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 1 (pid: 3920819) of binary: /scratch365/jfan5/.conda/llmstl/bin/python3.10
+Traceback (most recent call last):
+  File "/scratch365/jfan5/.conda/llmstl/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 50, in main
+    args.func(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1226, in launch_command
+    multi_gpu_launcher(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/launch.py", line 853, in multi_gpu_launcher
+    distrib_run.run(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+script/train_grpo_unsloth.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-11-22_00:04:48
+  host      : qa-a10-034.crc.nd.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 1 (pid: 3920819)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

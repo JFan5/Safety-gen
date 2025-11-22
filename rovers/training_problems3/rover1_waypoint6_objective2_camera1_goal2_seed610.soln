@@ -1,3 +1,0 @@
-(calibrate rover0 camera0 objective0 waypoint3)
-(take_image rover0 waypoint3 objective1 camera0 low_res)
-(communicate_image_data rover0 general objective1 low_res waypoint3 waypoint0)

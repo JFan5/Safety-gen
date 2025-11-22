@@ -1,58 +1,190 @@
 #!/usr/bin/env python3
 """
-DPO Training Script using Unsloth for PDDL Planning Models (FIXED)
+GRPO Training Script using Unsloth for PDDL-style planning models.
+
+Dataset format (JSONL per line):
+- prompt (str)               : required
+- response (str, optional)   : UNUSED for GRPO (model在线生成)
+- class_label (str, optional): one of compute_reward keys; 作为备份标签
+- meta (dict, optional)      : 包含 domain_file / problem_file 等，用于 VAL 校验
 
 Usage:
-    python train_dpo_unsloth.py --base_model <model_path_or_hub_id> --dataset <dpo_dataset.jsonl> --output_dir <output_path>
+    python train_grpo_unsloth.py --base_model <model_path_or_hub_id> --dataset <ppo_dataset.jsonl> --output_dir <output_path>
 """
 import unsloth
 import argparse
 import json
-import os
 import logging
-
-from typing import Any
+import os
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 import torch
 from datasets import Dataset
-from transformers import TrainingArguments
-from trl import DPOTrainer, DPOConfig
+from trl import GRPOConfig, GRPOTrainer
 
-# Unsloth
 from unsloth import FastLanguageModel
+from utils import _classify_result, validate_solution
+
 try:
     # Prefer Unsloth's helper if available
     from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
 except Exception:
     _unsloth_bf16_ok = None
 
-# -----------------------------------------------------------------------------
-# Logging
-# -----------------------------------------------------------------------------
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("dpo_unsloth")
+logger = logging.getLogger("grpo_unsloth")
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+# -----------------------------------------------------------------------------
+# Reward
+# -----------------------------------------------------------------------------
+def compute_reward(class_label: str) -> float:
+    reward_table = {
+        "success_plans": 1.0,
+        "goal_not_satisfied": -0.2,
+        "precondition_violation": -0.5,
+        "plan_format_error": -0.7,
+        "safety_constraints_violation": -1.0,
+    }
+    if class_label not in reward_table:
+        raise ValueError(f"Unknown class_label='{class_label}'. Expected one of {list(reward_table)}")
+    return reward_table[class_label]
+
+
+def classify_with_validator(meta: Any, response_text: str) -> Optional[str]:
+    """Run VAL validation and classify using utils._classify_result."""
+    if not isinstance(meta, dict):
+        return None
+    domain_rel = meta.get("domain_file")
+    problem_rel = meta.get("problem_file")
+    if not domain_rel or not problem_rel:
+        return None
+    domain_path = REPO_ROOT / domain_rel
+    problem_path = REPO_ROOT / problem_rel
+    if not domain_path.exists() or not problem_path.exists():
+        return None
+    try:
+        _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), response_text)
+        return _classify_result(stdout)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning(f"Validation failed for {problem_rel}: {exc}")
+        return None
+
+
+def grpo_reward_func(
+    prompts: List[str],
+    completions: List[str],
+    meta: Optional[List[Any]] = None,
+    class_label: Optional[List[Optional[str]]] = None,
+    trainer_state=None,
+    **kwargs,
+) -> List[float]:
+    """
+    GRPO 自定义 reward 函数。
+
+    TRL 会把：
+      - prompts        : 当前 batch 的 prompt 列表
+      - completions    : 当前 batch 每个生成的 completion（已经 decode 好的 str）
+      - meta           : 来自 dataset 的 'meta' 列
+      - class_label    : 来自 dataset 的 'class_label' 列
+    作为 kwargs 传进来。
+    返回值必须是 len(completions) 个 float。
+    """
+    n = len(completions)
+    if meta is None:
+        meta = [None] * n
+    if class_label is None:
+        class_label = [None] * n
+
+    rewards: List[float] = []
+
+    for i, (prompt, completion, m, label) in enumerate(
+        zip(prompts, completions, meta, class_label)
+    ):
+        # 1. 优先用 VAL 校验得到 label
+        inferred_label = classify_with_validator(m, completion)
+
+        # 2. 如果 VAL 没给出结果，退回到数据集原来的 class_label
+        if not inferred_label and isinstance(label, str):
+            inferred_label = label
+
+        # 3. 转成 reward
+        if inferred_label:
+            r = compute_reward(inferred_label)
+        else:
+            # 完全无法分类时给 0 分（你可以按需改成小负数）
+            r = 0.0
+
+        rewards.append(float(r))
+
+        if i == 0:  # 偶尔打印一个样本，避免太多日志
+            logger.debug(
+                f"[GRPO reward] label={inferred_label!r}, reward={r:.3f}, "
+                f"completion_snippet={completion[:80]!r}"
+            )
+
+    return rewards
 
 
 # -----------------------------------------------------------------------------
 # Data loader
 # -----------------------------------------------------------------------------
-def load_dpo_dataset(dataset_path: str) -> Dataset:
-    """Load DPO dataset from JSONL file."""
-    logger.info(f"Loading DPO dataset from {dataset_path}")
+def load_grpo_dataset(
+    dataset_path: str,
+    prompt_field: str,
+    response_field: Optional[str],
+    class_label_field: str,
+) -> Dataset:
+    """Load GRPO dataset from JSONL file."""
+    logger.info(f"Loading GRPO dataset from {dataset_path}")
 
-    data = []
+    data: List[Dict[str, Any]] = []
+    invalid_count = 0
     with open(dataset_path, "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip():
-                data.append(json.loads(line))
+        for line_num, line in enumerate(f, 1):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError as e:
+                invalid_count += 1
+                logger.warning(f"Line {line_num}: JSON decode error: {e}, skipping")
+                continue
 
-    logger.info(f"Loaded {len(data)} DPO pairs")
+            prompt = record.get(prompt_field, "")
+            if not prompt or not isinstance(prompt, str):
+                invalid_count += 1
+                logger.warning(f"Line {line_num}: Missing or invalid '{prompt_field}' field, skipping")
+                continue
+
+            entry: Dict[str, Any] = {"prompt": prompt}
+
+            # 可选：预存的 response（GRPO 实际不会用，但你可以将来用在 reward 里）
+            if response_field and isinstance(record.get(response_field), str):
+                entry["response"] = record[response_field]
+
+            # 可选：已有的 class_label（作为 fallback）
+            if isinstance(record.get(class_label_field), str):
+                entry["class_label"] = record[class_label_field]
+
+            # PDDL 校验用 meta
+            if isinstance(record.get("meta"), dict):
+                entry["meta"] = record["meta"]
+
+            data.append(entry)
+
+    logger.info(f"Loaded {len(data)} GRPO samples (skipped {invalid_count} invalid records)")
+    if len(data) == 0:
+        raise ValueError("No valid GRPO samples found in dataset!")
+
     ds = Dataset.from_list(data)
-    required = {"prompt", "chosen", "rejected"}
+    required = {"prompt"}
     missing = required - set(ds.column_names)
     if missing:
         raise ValueError(
-            f"DPO dataset missing required columns: {missing}; need: {sorted(list(required))}"
+            f"GRPO dataset missing required columns: {missing}; need: {sorted(list(required))}"
         )
     return ds
 
@@ -61,89 +193,63 @@ def load_dpo_dataset(dataset_path: str) -> Dataset:
 # Main
 # -----------------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(description="Train a model using DPO with Unsloth on PDDL planning data")
+    parser = argparse.ArgumentParser(description="Train a model using GRPO with Unsloth on PDDL planning data")
 
     # Required
     parser.add_argument("--base_model", required=True, help="Path or HF Hub ID of the base (SFT) model")
-    parser.add_argument("--dataset", required=True, help="Path to DPO dataset JSONL file")
+    parser.add_argument("--dataset", required=True, help="Path to dataset JSONL file (prompts + meta etc.)")
     parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
 
-    # Optional
-    parser.add_argument("--num_epochs", type=int, default=3, help="Number of training epochs")
-    parser.add_argument("--batch_size", type=int, default=2, help="Per-device train/eval batch size")
-    parser.add_argument("--learning_rate", type=float, default=5e-6, help="Learning rate")
-    parser.add_argument("--max_length", type=int, default=2048, help="Maximum sequence length (prompt+completion)")
-    parser.add_argument("--max_prompt_length", type=int, default=1024, help="Maximum prompt length")
-    parser.add_argument("--beta", type=float, default=0.1, help="DPO beta (temperature)")
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=4, help="Gradient accumulation steps")
-    parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps")
-    parser.add_argument("--eval_steps", type=int, default=50, help="Evaluate every N steps")
+    # Training / GRPO 基本参数
+    parser.add_argument("--num_epochs", type=float, default=1.0, help="Number of GRPO training epochs")
+    parser.add_argument("--batch_size", type=int, default=4, help="per_device_train_batch_size for GRPO")
+    parser.add_argument("--learning_rate", type=float, default=1e-5, help="Learning rate")
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Gradient accumulation steps")
+    parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
+    parser.add_argument("--num_generations", type=int, default=4, help="G: number of completions per prompt")
+
+    # Generation
+    parser.add_argument("--max_prompt_length", type=int, default=4096, help="Maximum prompt length")
+    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
+    parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
+    parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
+    parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
+
+    # Logging / saving
+    parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps (0 to disable)")
     parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
-    parser.add_argument("--warmup_ratio", type=float, default=0.1, help="Warmup ratio")
-    parser.add_argument("--weight_decay", type=float, default=0.01, help="Weight decay")
-    parser.add_argument("--use_wandb", action="store_true", help="Use Weights & Biases for logging")
-    parser.add_argument("--wandb_project", default="pddl-dpo-training", help="W&B project name")
-    parser.add_argument("--run_name", help="Run name for logging")
-    parser.add_argument("--load_in_4bit", action="store_true", help="Load model in 4-bit quantization")
-    parser.add_argument("--load_in_8bit", action="store_true", help="Load model in 8-bit quantization")
+    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
+    parser.add_argument("--wandb_project", default="pddl-grpo-training", help="W&B project name")
+    parser.add_argument("--run_name", default=None, help="Run name for logging")
+
+    # Dataset field names
+    parser.add_argument("--prompt_field", default="prompt", help="Field name for prompts")
+    parser.add_argument("--response_field", default="response", help="Field name for optional stored responses")
+    parser.add_argument("--class_label_field", default="class_label", help="Field name for reward class labels")
+
+    # Model options
+    parser.add_argument("--no_4bit", action="store_true", help="Disable 4-bit quantization (default is 4-bit on)")
     parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable Unsloth gradient checkpointing")
-    parser.add_argument("--lora_r", type=int, default=16)
-    parser.add_argument("--lora_alpha", type=int, default=32)
-    parser.add_argument("--lora_dropout", type=float, default=0.05)
-    parser.add_argument("--reference_free", action="store_true", help="Use reference-free DPO to save memory")
-    parser.add_argument("--dataloader_num_workers", type=int, default=0, help="PyTorch DataLoader workers")
-    parser.add_argument(
-        "--memory_efficient",
-        action="store_true",
-        help="Apply conservative settings to reduce GPU memory usage",
-    )
+    parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer, kept for compat)")
 
     args = parser.parse_args()
 
-    # Validate paths
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
 
-    # Create output dir
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # Memory-efficient bundle (conservative)
-    if args.memory_efficient:
-        logger.info("Applying memory efficient settings")
-        if args.batch_size > 1:
-            logger.info(f"- Reducing per-device batch size {args.batch_size} -> 1")
-            args.batch_size = 1
-        if not (args.load_in_4bit or args.load_in_8bit):
-            logger.info("- Enabling 4-bit quantization")
-            args.load_in_4bit = True
-        if not args.use_gradient_checkpointing:
-            logger.info("- Enabling Unsloth gradient checkpointing")
-            args.use_gradient_checkpointing = True
-        if args.max_length > 1536:
-            logger.info(f"- Reducing max_length {args.max_length} -> 1536")
-            args.max_length = 1536
-        if args.max_prompt_length > args.max_length:
-            logger.info(f"- Capping max_prompt_length to {args.max_length}")
-            args.max_prompt_length = args.max_length
-        if args.dataloader_num_workers != 0:
-            logger.info("- Using single-process dataloader")
-            args.dataloader_num_workers = 0
+    # 默认使用 4-bit 量化（除非明确禁用）
+    load_in_4bit = not args.no_4bit
+    if load_in_4bit:
+        logger.info("Loading model in 4-bit quantization (default)")
+    else:
+        logger.warning("Loading model in full precision (4-bit quantization disabled)")
 
-    # Guard: 4bit/8bit不可同时
-    if args.load_in_4bit and args.load_in_8bit:
-        raise ValueError("Choose only one: --load_in_4bit OR --load_in_8bit (not both).")
+    # W&B（默认启用，通过 GRPOConfig.report_to 集成，不手动 wandb.init）
+    use_wandb = not args.no_wandb
 
-    # W&B（延迟导入，避免未安装时报错）
-    if args.use_wandb:
-        try:
-            import wandb  # type: ignore
-        except Exception as e:
-            raise RuntimeError(
-                "You passed --use_wandb but the 'wandb' package is not installed. "
-                "pip install wandb 或去掉该参数。"
-            ) from e
-
-    # 模型类型（用于日志提示；Unsloth已能自动识别常见结构）
+    # 模型类型（用于日志提示）
     model_name = args.base_model
     if "llama" in model_name.lower():
         model_type = "llama"
@@ -163,116 +269,78 @@ def main():
     logger.info(f"Loading model with Unsloth from {args.base_model}")
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=args.base_model,
-        max_seq_length=args.max_length,
+        max_seq_length=args.max_prompt_length + args.max_new_tokens,
         dtype=None,  # auto
-        load_in_4bit=args.load_in_4bit,
-        load_in_8bit=args.load_in_8bit,
-        # device_map="auto",  # 可按需开启
+        load_in_4bit=load_in_4bit,
+        load_in_8bit=False,
     )
 
     # 训练前设置（Unsloth 的 GC 建议用字符串 "unsloth"）
     gc_flag: Any = "unsloth" if args.use_gradient_checkpointing else False
+    FastLanguageModel.for_training(model, use_gradient_checkpointing=gc_flag)
 
-    FastLanguageModel.for_training(model,use_gradient_checkpointing=gc_flag)
-
-
-
-    # 训练时禁用 KV cache，避免不可预期显存波动
+    # 禁用 KV cache，避免显存波动
     if hasattr(model, "config"):
         model.config.use_cache = False
 
-    # tokenizer pad token
+    # tokenizer pad token + **GRPO 要求左侧 padding**
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
 
-    # 加载数据
-    dataset = load_dpo_dataset(args.dataset)
-    split = dataset.train_test_split(test_size=0.1, seed=42, shuffle=True)
-    train_dataset, eval_dataset = split["train"], split["test"]
-    logger.info(f"Training dataset size: {len(train_dataset)}")
-    logger.info(f"Evaluation dataset size: {len(eval_dataset)}")
+    # 加载数据（只保留 prompt / response / class_label / meta）
+    dataset = load_grpo_dataset(
+        args.dataset,
+        prompt_field=args.prompt_field,
+        response_field=args.response_field,
+        class_label_field=args.class_label_field,
+    )
+    logger.info(f"Training dataset size: {len(dataset)}; columns: {dataset.column_names}")
 
-    # 训练配置（注意 evaluation_strategy 字段名）
-
-
-    # 初始化 DPOTrainer
-    # ref_model=None: 若 reference_free=False，则会自动复制一份参考模型（占显存）；
-    # 若 reference_free=True，则不会用参考模型（更省显存）。
-    dpo_trainer = DPOTrainer(
-        model=model,
-        ref_model=None,
-        args=DPOConfig(
+    # GRPOConfig：对应原来 PPOConfig 的超参
+    grpo_config = GRPOConfig(
         output_dir=args.output_dir,
         num_train_epochs=args.num_epochs,
         per_device_train_batch_size=args.batch_size,
-        per_device_eval_batch_size=args.batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         learning_rate=args.learning_rate,
-        lr_scheduler_type="linear",
-        warmup_ratio=args.warmup_ratio,
-        weight_decay=args.weight_decay,
-        logging_steps=args.logging_steps,
-        save_steps=args.save_steps,
-        eval_steps=args.eval_steps,
-        eval_strategy="steps",    # <-- 修复字段名
-        save_strategy="steps",
-        save_total_limit=2,
-        load_best_model_at_end=True,
-        metric_for_best_model="eval_loss",
-        greater_is_better=False,
-        report_to=["wandb"] if args.use_wandb else [],
-        run_name=args.run_name or f"dpo-unsloth-{os.path.basename(args.base_model)}",
-        remove_unused_columns=False,
-        dataloader_pin_memory=False,
-        dataloader_num_workers=args.dataloader_num_workers,
-        # 混精度
+        max_grad_norm=args.max_grad_norm,
         bf16=bf16_ok,
         fp16=use_fp16,
-        # 优化器（8-bit / paged）
-        optim="paged_adamw_8bit",      # <-- 修复支持的优化器名
-        max_grad_norm=1.0,
-        # DPO 特有
-        beta=args.beta,
-        loss_type="sigmoid",
-        label_smoothing=0.0,
-        reference_free=args.reference_free,
-        max_length=args.max_length,
-        max_prompt_length=min(args.max_prompt_length, args.max_length),
-        # 也可按需设置 max_completion_length
-    ),
-        train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
+        logging_steps=args.logging_steps,
+        save_steps=args.save_steps if args.save_steps > 0 else 0,
+        save_strategy="steps" if args.save_steps > 0 else "no",
+        report_to=["wandb"] if use_wandb else [],
+        run_name=args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}",
+        # Data / generation related
+        remove_unused_columns=False,  # 需要把 meta / class_label 传进 reward_func
+        max_prompt_length=args.max_prompt_length,
+        max_completion_length=args.max_new_tokens,
+        num_generations=args.num_generations,  # G
+        temperature=args.temperature,
+        top_p=args.top_p,
+        top_k=args.top_k,
+        # KL 相关：默认为 beta=0，即无 KL 惩罚；需要的话你可以改成 >0
+        beta=0.0,
+    )
+
+    # 构建 GRPOTrainer
+    trainer = GRPOTrainer(
+        model=model,
+        args=grpo_config,
+        reward_funcs=grpo_reward_func,
+        train_dataset=dataset,
         processing_class=tokenizer,
     )
 
-    print("eval steps: ", args.eval_steps)
-    # 可选：初始化 W&B
-    if args.use_wandb:
-        import wandb  # type: ignore
-        wandb.init(
-            project=args.wandb_project,
-            name=args.run_name or f"dpo-unsloth-{os.path.basename(args.base_model)}",
-            config=vars(args),
-        )
+    logger.info("Starting GRPO training...")
+    trainer.train()
 
-    # 开始训练
-    logger.info("Starting DPO training with Unsloth...")
-    dpo_trainer.train()
+    logger.info(f"Saving final model to {args.output_dir}")
+    trainer.save_model(args.output_dir)
+    tokenizer.save_pretrained(args.output_dir)
 
-    # 只保存一个模型（合并后的 16bit 全量权重，便于推理 / 部署）
-    logger.info(f"Saving merged model to {args.output_dir}")
-    FastLanguageModel.for_inference(model)
-    model.save_pretrained_merged(
-        args.output_dir,
-        tokenizer,
-        save_method="merged_16bit",
-    )
-    logger.info("DPO training completed successfully!")
-    logger.info(f"Adapter saved to: {args.output_dir}")
-    logger.info(f"Merged model saved to: {args.output_dir}_merged")
-    if args.use_wandb:
-        import wandb  # type: ignore
-        wandb.finish()
+    logger.info("GRPO training completed successfully!")
 
 
 if __name__ == "__main__":

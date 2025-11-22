@@ -1,0 +1,143 @@
+[W1122 00:23:54.139374871 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29500 (errno: 97 - Address family not supported by protocol).
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2025.11.3: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 4. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 347, in <module>
+    main()
+  File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 270, in main
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 499, in from_pretrained
+    model, tokenizer = dispatch_model.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/mistral.py", line 467, in from_pretrained
+    return FastLlamaModel.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 2335, in from_pretrained
+    model = AutoModelForCausalLM.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 600, in from_pretrained
+    return model_class.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 317, in _wrapper
+    return func(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5069, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5532, in _load_pretrained_model
+    _error_msgs, disk_offload_index, cpu_offload_index = load_shard_file(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 975, in load_shard_file
+    disk_offload_index, cpu_offload_index = _load_state_dict_into_meta_model(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 883, in _load_state_dict_into_meta_model
+    hf_quantizer.create_quantized_param(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/quantizers/quantizer_bnb_4bit.py", line 234, in create_quantized_param
+    new_value = bnb.nn.Params4bit.from_prequantized(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/bitsandbytes/nn/modules.py", line 282, in from_prequantized
+    self = torch.Tensor._make_subclass(cls, data.to(device))
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 28.00 MiB. GPU 1 has a total capacity of 22.07 GiB of which 17.12 MiB is free. Process 1585904 has 21.44 GiB memory in use. Including non-PyTorch memory, this process has 606.00 MiB memory in use. Of the allocated memory 331.79 MiB is allocated by PyTorch, and 10.21 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+E1122 00:24:14.298000 1771577 site-packages/torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 1771585) of binary: /scratch365/jfan5/.conda/llmstl/bin/python3.10
+Traceback (most recent call last):
+  File "/scratch365/jfan5/.conda/llmstl/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 50, in main
+    args.func(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1226, in launch_command
+    multi_gpu_launcher(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/launch.py", line 853, in multi_gpu_launcher
+    distrib_run.run(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+script/train_grpo_unsloth.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-11-22_00:24:14
+  host      : qa-a10-027.crc.nd.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1771585)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
+/opt/sge/crc/spool/qa-a10-027/job_scripts/2559385: line 41: --no_4bit: command not found
+[W1122 00:24:45.897599750 socket.cpp:755] [c10d] The client socket cannot be initialized to connect to [localhost]:29500 (errno: 97 - Address family not supported by protocol).
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2025.11.3: Fast Mistral patching. Transformers: 4.55.2.
+   \\   /|    NVIDIA A10. Num GPUs = 4. Max memory: 22.069 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 347, in <module>
+    main()
+  File "/users/jfan5/Safety-gen/script/train_grpo_unsloth.py", line 270, in main
+    model, tokenizer = FastLanguageModel.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/loader.py", line 499, in from_pretrained
+    model, tokenizer = dispatch_model.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/mistral.py", line 467, in from_pretrained
+    return FastLlamaModel.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/models/llama.py", line 2335, in from_pretrained
+    model = AutoModelForCausalLM.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 600, in from_pretrained
+    return model_class.from_pretrained(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 317, in _wrapper
+    return func(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5069, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 5532, in _load_pretrained_model
+    _error_msgs, disk_offload_index, cpu_offload_index = load_shard_file(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 975, in load_shard_file
+    disk_offload_index, cpu_offload_index = _load_state_dict_into_meta_model(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/modeling_utils.py", line 883, in _load_state_dict_into_meta_model
+    hf_quantizer.create_quantized_param(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/transformers/quantizers/quantizer_bnb_4bit.py", line 234, in create_quantized_param
+    new_value = bnb.nn.Params4bit.from_prequantized(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/bitsandbytes/nn/modules.py", line 282, in from_prequantized
+    self = torch.Tensor._make_subclass(cls, data.to(device))
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 28.00 MiB. GPU 1 has a total capacity of 22.07 GiB of which 17.12 MiB is free. Process 1585904 has 21.44 GiB memory in use. Including non-PyTorch memory, this process has 606.00 MiB memory in use. Of the allocated memory 331.79 MiB is allocated by PyTorch, and 10.21 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+E1122 00:25:04.521000 1772141 site-packages/torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 1772149) of binary: /scratch365/jfan5/.conda/llmstl/bin/python3.10
+Traceback (most recent call last):
+  File "/scratch365/jfan5/.conda/llmstl/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/accelerate_cli.py", line 50, in main
+    args.func(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/launch.py", line 1226, in launch_command
+    multi_gpu_launcher(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/accelerate/commands/launch.py", line 853, in multi_gpu_launcher
+    distrib_run.run(args)
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+script/train_grpo_unsloth.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-11-22_00:25:04
+  host      : qa-a10-027.crc.nd.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 1772149)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

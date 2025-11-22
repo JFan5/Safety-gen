@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/evaluate/mistral/spanner/pddl3-500.o
+#$ -pe smp 8
+#$ -N evaluate_mistral_spanner_pddl3-500_all_testing
+
+conda activate llmstl
+
+# Evaluate PDDL3 fine-tuned model
+
+python3 script/evaluate_llm_solver.py \
+  --model "/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500_merged_16bit" \
+  --problems-dir pddl3/spanner/all_problems3/testing \
+  --domain-file pddl3/spanner/domain3.pddl \
+  --output spanner_all_testing_sft-variant-merged-16bit.json \
+  --results-dir planning_results/mistral-7b-sft-variant-spanner-merged-16bit/  --max-problems 50
+

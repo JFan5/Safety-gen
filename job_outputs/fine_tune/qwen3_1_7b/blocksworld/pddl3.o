@@ -1,77 +1,0 @@
-Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
-wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-Unsloth: Dropout = 0 is supported for fast patching. You are using dropout = 0.05.
-Unsloth will patch all other layers, except LoRA matrices, causing a performance hit.
-Unsloth 2025.8.6 patched 28 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-🦥 Unsloth Zoo will now patch everything to make training faster!
-============================================================
-PDDL Fine-tuning with unsloth/Qwen3-1.7B-unsloth-bnb-4bit
-============================================================
-GPU count: 1
-GPU 0: NVIDIA A10
-
-Loading model and tokenizer...
-==((====))==  Unsloth 2025.8.6: Fast Qwen3 patching. Transformers: 4.55.2.
-   \\   /|    NVIDIA A10. Num GPUs = 1. Max memory: 22.069 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 8.6. CUDA Toolkit: 12.8. Triton: 3.4.0
-\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.32.post2. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-Configuring LoRA...
-
-Loading dataset from /groups/fkong/jfan5/data/sft/blocksworld/pddl3.hf...
-Loading HuggingFace dataset...
-Dataset loaded with 2000 entries
-Scenario distribution:
-  blocksworld: 2000
-
-Filtering scenarios to: ['blocksworld']
-Filtered dataset size: 2000
-Processing dataset format (chat template)...
-Map:   0%|          | 0/1900 [00:00<?, ? examples/s]Map:   3%|▎         | 50/1900 [00:00<00:03, 487.20 examples/s]Map:  16%|█▌        | 308/1900 [00:00<00:00, 1687.19 examples/s]Map:  44%|████▎     | 829/1900 [00:00<00:00, 3275.92 examples/s]Map:  67%|██████▋   | 1269/1900 [00:00<00:00, 3568.40 examples/s]Map:  95%|█████████▌| 1814/1900 [00:00<00:00, 4225.23 examples/s]Map: 100%|██████████| 1900/1900 [00:00<00:00, 3311.84 examples/s]
-Map:   0%|          | 0/100 [00:00<?, ? examples/s]Map: 100%|██████████| 100/100 [00:00<00:00, 3195.71 examples/s]
-The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
-wandb: WARNING Changes to your `wandb` environment variables will be ignored because your `wandb` session has already started. For more information on how to modify your settings with `wandb.init()` arguments, please refer to https://wandb.me/wandb-init.
-wandb: Tracking run with wandb version 0.21.1
-wandb: Run data is saved locally in /scratch365/jfan5/Safety-gen/wandb/run-20251102_161130-04kga674
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run pddl_sft_pddl3
-wandb: ⭐️ View project at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune
-wandb: 🚀 View run at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/04kga674
-
-Testing initial model performance...
-Initial model output:
-<think>
-
-</think>
-
-(pickup b1)
-(stack b1 b2)
-(pickup b2)
-(stack b2 b3)
-(pickup b3)
-(stack b3 b4)
-(putdown b4)
-
-Resolved training arguments:
-  num_train_epochs: 3
-  per_device_train_batch_size: 4
-  gradient_accumulation_steps: 2
-  learning_rate: 2e-05
-  warmup_ratio: 0.1
-  weight_decay: 0.05
-  max_seq_length: 4096
-  load_in_4bit: False
-
-Creating trainer...
-Unsloth: Tokenizing ["text"]:   0%|          | 0/1900 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"]:  53%|█████▎    | 1000/1900 [00:00<00:00, 1821.13 examples/s]Unsloth: Tokenizing ["text"]: 100%|██████████| 1900/1900 [00:01<00:00, 1836.56 examples/s]Unsloth: Tokenizing ["text"]: 100%|██████████| 1900/1900 [00:01<00:00, 1768.85 examples/s]
-Unsloth: Tokenizing ["text"]:   0%|          | 0/100 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"]: 100%|██████████| 100/100 [00:00<00:00, 1491.81 examples/s]
-==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
-   \\   /|    Num examples = 1,900 | Num Epochs = 3 | Total steps = 714
-O^O/ \_/ \    Batch size per device = 4 | Gradient accumulation steps = 2
-\        /    Data Parallel GPUs = 1 | Total batch size (4 x 2 x 1) = 8
- "-____-"     Trainable parameters = 34,865,152 of 1,755,440,128 (1.99% trained)
-
-Starting training...
-  0%|          | 0/714 [00:00<?, ?it/s]  0%|          | 1/714 [00:05<1:06:45,  5.62s/it]  0%|          | 2/714 [00:08<44:51,  3.78s/it]    0%|          | 3/714 [00:10<37:55,  3.20s/it]  1%|          | 4/714 [00:13<34:41,  2.93s/it]  1%|          | 5/714 [00:15<32:52,  2.78s/it]  1%|          | 6/714 [00:18<31:45,  2.69s/it]  1%|          | 7/714 [00:20<31:03,  2.64s/it]  1%|          | 8/714 [00:23<30:35,  2.60s/it]  1%|▏         | 9/714 [00:25<30:16,  2.58s/it]  1%|▏         | 10/714 [00:28<30:02,  2.56s/it]                                                  1%|▏         | 10/714 [00:28<30:02,  2.56s/it]  2%|▏         | 11/714 [00:30<29:53,  2.55s/it]  2%|▏         | 12/714 [00:33<29:46,  2.55s/it]  2%|▏         | 13/714 [00:35<29:41,  2.54s/it]  2%|▏         | 14/714 [00:38<29:35,  2.54s/it]  2%|▏         | 15/714 [00:40<29:29,  2.53s/it]  2%|▏         | 16/714 [00:43<29:24,  2.53s/it]  2%|▏         | 17/714 [00:45<29:20,  2.53s/it]  3%|▎         | 18/714 [00:48<29:16,  2.52s/it]  3%|▎         | 19/714 [00:50<29:13,  2.52s/it]  3%|▎         | 20/714 [00:53<29:10,  2.52s/it]                                                  3%|▎         | 20/714 [00:53<29:10,  2.52s/it]  3%|▎         | 21/714 [00:56<29:08,  2.52s/it]  3%|▎         | 22/714 [00:58<29:06,  2.52s/it]  3%|▎         | 23/714 [01:01<29:04,  2.53s/it]  3%|▎         | 24/714 [01:03<29:02,  2.53s/it]  4%|▎         | 25/714 [01:06<29:01,  2.53s/it]  4%|▎         | 26/714 [01:08<28:59,  2.53s/it]  4%|▍         | 27/714 [01:11<28:57,  2.53s/it]  4%|▍         | 28/714 [01:13<28:55,  2.53s/it]  4%|▍         | 29/714 [01:16<28:53,  2.53s/it]  4%|▍         | 30/714 [01:18<28:51,  2.53s/it]                                                  4%|▍         | 30/714 [01:18<28:51,  2.53s/it]  4%|▍         | 31/714 [01:21<28:50,  2.53s/it]  4%|▍         | 32/714 [01:23<28:49,  2.54s/it]  5%|▍         | 33/714 [01:26<28:47,  2.54s/it]  5%|▍         | 34/714 [01:28<28:46,  2.54s/it]  5%|▍         | 35/714 [01:31<28:44,  2.54s/it]  5%|▌         | 36/714 [01:34<28:43,  2.54s/it]  5%|▌         | 37/714 [01:36<28:41,  2.54s/it]  5%|▌         | 38/714 [01:39<28:40,  2.54s/it]  5%|▌         | 39/714 [01:41<28:37,  2.54s/it]  6%|▌         | 40/714 [01:44<28:35,  2.55s/it]                                                  6%|▌         | 40/714 [01:44<28:35,  2.55s/it]  6%|▌         | 41/714 [01:46<28:34,  2.55s/it]  6%|▌         | 42/714 [01:49<28:31,  2.55s/it]  6%|▌         | 43/714 [01:51<28:31,  2.55s/it]  6%|▌         | 44/714 [01:54<28:27,  2.55s/it]  6%|▋         | 45/714 [01:56<28:23,  2.55s/it]  6%|▋         | 46/714 [01:59<28:20,  2.55s/it]  7%|▋         | 47/714 [02:02<28:16,  2.54s/it]  7%|▋         | 48/714 [02:04<28:13,  2.54s/it]  7%|▋         | 49/714 [02:07<28:11,  2.54s/it]  7%|▋         | 50/714 [02:09<28:09,  2.54s/it]                                                  7%|▋         | 50/714 [02:09<28:09,  2.54s/it]  7%|▋         | 51/714 [02:12<28:07,  2.55s/it]  7%|▋         | 52/714 [02:14<28:05,  2.55s/it]  7%|▋         | 53/714 [02:17<28:03,  2.55s/it]  8%|▊         | 54/714 [02:19<28:01,  2.55s/it]  8%|▊         | 55/714 [02:22<27:58,  2.55s/it]  8%|▊         | 56/714 [02:24<27:57,  2.55s/it]  8%|▊         | 57/714 [02:27<27:55,  2.55s/it]  8%|▊         | 58/714 [02:30<27:52,  2.55s/it]  8%|▊         | 59/714 [02:32<27:50,  2.55s/it]  8%|▊         | 60/714 [02:35<27:48,  2.55s/it]                                                  8%|▊         | 60/714 [02:35<27:48,  2.55s/it]  9%|▊         | 61/714 [02:37<27:47,  2.55s/it]

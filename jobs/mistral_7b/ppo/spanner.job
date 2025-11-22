@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -o job_outputs/ppo/mistral/spanner/ppo.o
+#$ -pe smp 8          # Specify parallel environment and legal core size
+#$ -N ppo_mistral_spanner     # Specify job name
+
+conda activate llmstl
+
+
+python script/train_ppo_unsloth.py \
+  --base_model "/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500" \
+  --dataset "/groups/fkong/jfan5/ppo_data/spanner.jsonl" \
+  --output_dir "outputs/ppo_spanner" \
+  --num_epochs 1 \
+  --ppo_epochs 4 \
+  --batch_size 4 \
+  --mini_batch_size 2 \
+  --max_new_tokens 256
+
