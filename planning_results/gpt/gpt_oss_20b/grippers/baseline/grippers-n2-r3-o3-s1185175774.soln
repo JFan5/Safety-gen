@@ -1,9 +1,0 @@
-analysisWe need to produce a valid plan for the given problem. Let's analyze the problem.
-Domain: gripper-strips. Types: room, object, robot, gripper.
-Predicates: at-robby robot room; at object room; free robot gripper; carry robot object gripper.
-Actions: move, pick, drop.
-Goal: at ball1 room1, ball2 room3, ball3 room3.
-Initial state: robot1 at room2, robot2 at room3. Both robots free with both grippers. ball1 at room3, ball2 at room1, ball3 at room3.
-Constraint: always (not (at-robby robot1 room3)). So robot1 cannot be at room3 at any time.
-We need to move balls to goal positions. ball1 currently at room3, goal at room1. ball2 currently at room1, goal at room3. ball3 currently at room3, goal at room3 (already correct). So we need to move ball1 to room1, ball2 to room3. Robot1 cannot go to room3. Robot2 can go to room3.
-We have two robots: robot1 at room2, robot2 at room3. Robot1 cannot go to room3. So robot1 can move to room1 or room2? It starts at room2. It can move to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? Actually from room2 to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? Wait, from room2 to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? I'm repeating. Let's think: robot1 at room2. It can move to room1 or room2? It can move to room1 or room2? Actually it can move to room1 or room2? It can move to room1 or room2? I'm stuck. Let's just think: robot1 can move to room1 or room2? It can move to room1 or room2? It can move to room1 or room2? I'm repeating. Let's break: robot1 at room2. It can move to room1 or room2? It can move to room1 or room2? Actually it can move to

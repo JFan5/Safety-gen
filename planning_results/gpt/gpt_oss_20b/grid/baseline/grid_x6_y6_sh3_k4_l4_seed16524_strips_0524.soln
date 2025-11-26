@@ -1,9 +1,0 @@
-analysisWe need to produce a valid plan that achieves goal: key2 at pos1-5 and key3 at pos1-3. Initially key2 at pos4-5, key3 at pos2-0. Robot at pos0-1. Locked positions: pos5-4, pos1-0, pos2-5, pos0-0. We need to move robot to unlock locks and move keys.
-We have actions: unlock, move, pickup, pickup-and-loose, putdown. We need to pick up keys and move them to target positions.
-We must obey constraint: always (not (at-robot pos1-2)). So robot cannot be at pos1-2 at any time.
-Also, we need to consider locked positions: locked pos1-0, pos2-5, pos0-0, pos5-4. Those are locked initially. We can unlock them by unlocking action if we have key matching shape and lock-shape matches shape. We have keys shapes: key0 shape0, key1 shape1, key2 shape2, key3 shape2. Lock shapes: pos5-4 shape0, pos1-0 shape1, pos2-5 shape2, pos0-0 shape0.
-So to unlock pos1-0 we need key1 shape1. To unlock pos2-5 we need key2 shape2. To unlock pos0-0 we need key0 shape0. To unlock pos5-4 we need key? shape0? Actually lock-shape pos5-4 shape0. So need key0 shape0.
-We have key0 at pos2-1, key1 at pos5-0, key2 at pos4-5, key3 at pos2-0.
-Goal: key2 at pos1-5, key3 at pos1-3.
-We need to move key2 from pos4-5 to pos1-5. Key3 from pos2-0 to pos1-3.
-We need to consider that key2 shape2, key3 shape2. So to unlock locks that require shape2 we need key2 or key3? Actually lock-shape pos2-5 shape2, pos0-0 shape0, pos1-0 shape1, pos5-4 shape0. So only pos2-5 requires shape2. So we need key2 to unlock pos2-5. But key2 is at pos4-5 initially. So we

@@ -5,9 +5,13 @@
 #$ -q gpu
 #$ -l gpu_card=1
 #$ -o job_outputs/ppo/mistral/spanner/ppo.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N ppo_mistral_spanner     # Specify job name
+#$ -pe smp 8
+#$ -N job_mistral_spanner
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 
@@ -20,4 +24,3 @@ python script/train_ppo_unsloth.py \
   --batch_size 4 \
   --mini_batch_size 2 \
   --max_new_tokens 256
-

@@ -296,11 +296,19 @@ def construct_grpo(
     include_pddl: bool, 
     all_pairs: bool,
     min_score_diff: int = 1
-) -> int:
+) -> Tuple[int, str]:
+    """
+    Construct GRPO dataset and return (num_pairs, json_output_path).
+    
+    Returns:
+        Tuple of (number of pairs written, path to JSON file)
+    """
     scored, _payload = _load_scored(scored_path)
     index = _index_raw_results(raw_jsons) if raw_jsons else {}
     written = 0
-    with open(output_path, "w") as out:
+    all_records = []  # Collect all records for JSON output
+    
+    with open(output_path, "w", encoding="utf-8") as out:
         for problem_key, entries in scored.items():
             resolved_paths = _resolve_pddl_paths(problem_key, index) if include_pddl else ("", "")
             prompt = _build_prompt(problem_key, index, include_pddl, resolved_paths)
@@ -328,8 +336,19 @@ def construct_grpo(
                     },
                 }
                 out.write(json.dumps(record, ensure_ascii=False) + "\n")
+                all_records.append(record)
                 written += 1
-    return written
+    
+    # Generate JSON file (replace .jsonl with .json or append .json)
+    if output_path.endswith(".jsonl"):
+        json_output_path = output_path[:-5] + ".json"
+    else:
+        json_output_path = output_path + ".json"
+    
+    with open(json_output_path, "w", encoding="utf-8") as json_out:
+        json.dump(all_records, json_out, ensure_ascii=False, indent=2)
+    
+    return written, json_output_path
 
 
 def main():
@@ -345,7 +364,7 @@ def main():
     parser.add_argument("--min-score-diff", type=int, default=1, help="Minimum score difference to create a pair (default: 1)")
     args = parser.parse_args()
 
-    num = construct_grpo(
+    num, json_path = construct_grpo(
         scored_path=args.grpo_summaries,
         output_path=args.output,
         raw_jsons=args.raw_json,
@@ -354,6 +373,7 @@ def main():
         min_score_diff=args.min_score_diff,
     )
     print(f"Wrote {num} GRPO pairs to {args.output}")
+    print(f"Wrote {num} GRPO pairs to {json_path} (JSON format)")
 
 
 if __name__ == "__main__":

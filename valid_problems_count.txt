@@ -1,0 +1,134 @@
+======================================================================
+Counting Valid Problems by Requirements
+======================================================================
+
+Requirements:
+  1. Have solutions that validate successfully
+  2. Cannot be solved by PDDL2 solutions
+  3. Solutions are not empty
+
+
+======================================================================
+Processing domain: blocksworld
+======================================================================
+Finding problems with solutions...
+Found 2905 problems with solutions
+
+Filtering problems...
+  Processed 500/2905 problems, found 161 valid so far...
+  Processed 1000/2905 problems, found 378 valid so far...
+  Processed 1500/2905 problems, found 586 valid so far...
+  Processed 2000/2905 problems, found 827 valid so far...
+  Processed 2500/2905 problems, found 1089 valid so far...
+
+======================================================================
+Results for blocksworld:
+======================================================================
+Total problems with solutions:        2905
+Valid solution format:                2905
+Validates successfully:                2905
+PDDL2 solution fails:                1282
+✓ Meets ALL requirements:            1282
+
+Breakdown of failures:
+  Invalid solution format:            0
+  Validation failed:                 0
+  PDDL2 solution works:              1623
+
+======================================================================
+Processing domain: ferry
+======================================================================
+Finding problems with solutions...
+Found 4800 problems with solutions
+
+Filtering problems...
+  Processed 500/4800 problems, found 327 valid so far...
+  Processed 1000/4800 problems, found 744 valid so far...
+  Processed 1500/4800 problems, found 1210 valid so far...
+  Processed 2000/4800 problems, found 1678 valid so far...
+  Processed 2500/4800 problems, found 2166 valid so far...
+  Processed 3000/4800 problems, found 2651 valid so far...
+  Processed 3500/4800 problems, found 3139 valid so far...
+  Processed 4000/4800 problems, found 3633 valid so far...
+  Processed 4500/4800 problems, found 4128 valid so far...
+
+======================================================================
+Results for ferry:
+======================================================================
+Total problems with solutions:        4800
+Valid solution format:                4711
+Validates successfully:                4711
+PDDL2 solution fails:                4423
+✓ Meets ALL requirements:            4423
+
+Breakdown of failures:
+  Invalid solution format:            89
+  Validation failed:                 0
+  PDDL2 solution works:              288
+
+======================================================================
+Processing domain: spanner
+======================================================================
+Finding problems with solutions...
+Found 1497 problems with solutions
+
+Filtering problems...
+  Processed 500/1497 problems, found 499 valid so far...
+  Processed 1000/1497 problems, found 999 valid so far...
+
+======================================================================
+Results for spanner:
+======================================================================
+Total problems with solutions:        1497
+Valid solution format:                1497
+Validates successfully:                1497
+PDDL2 solution fails:                1497
+✓ Meets ALL requirements:            1497
+
+Breakdown of failures:
+  Invalid solution format:            0
+  Validation failed:                 0
+  PDDL2 solution works:              0
+
+======================================================================
+Processing domain: grippers
+======================================================================
+Finding problems with solutions...
+Found 4430 problems with solutions
+
+Filtering problems...
+  Processed 500/4430 problems, found 491 valid so far...
+  Processed 1000/4430 problems, found 898 valid so far...
+  Processed 1500/4430 problems, found 1239 valid so far...
+  Processed 2000/4430 problems, found 1549 valid so far...
+  Processed 2500/4430 problems, found 1870 valid so far...
+  Processed 3000/4430 problems, found 2189 valid so far...
+  Processed 3500/4430 problems, found 2525 valid so far...
+  Processed 4000/4430 problems, found 2856 valid so far...
+
+======================================================================
+Results for grippers:
+======================================================================
+Total problems with solutions:        4430
+Valid solution format:                4362
+Validates successfully:                4362
+PDDL2 solution fails:                3145
+✓ Meets ALL requirements:            3145
+
+Breakdown of failures:
+  Invalid solution format:            68
+  Validation failed:                 0
+  PDDL2 solution works:              1217
+
+======================================================================
+SUMMARY
+======================================================================
+Domain          Total      Valid Format    Validates    PDDL2 Fails     Meets All   
+----------------------------------------------------------------------
+blocksworld     2905       2905            2905         1282            1282        
+ferry           4800       4711            4711         4423            4423        
+spanner         1497       1497            1497         1497            1497        
+grippers        4430       4362            4362         3145            3145        
+----------------------------------------------------------------------
+TOTAL                                                                   10347       
+

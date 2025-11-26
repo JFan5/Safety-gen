@@ -7,10 +7,11 @@
 #$ -o job_outputs/evaluate/mistral/multi_scenarios/pddl3_variant_500.o
 #$ -pe smp 8
 #$ -N eval_mistral_variant_pddl3-500
-#
 
 set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 python3 script/evaluate_llm_solver.py \

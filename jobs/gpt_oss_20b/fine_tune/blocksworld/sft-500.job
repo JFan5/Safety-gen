@@ -5,9 +5,13 @@
 #$ -q gpu
 #$ -l gpu_card=1
 #$ -o job_outputs/fine_tune/gpt_oss_20b/blocksworld/pddl3.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N fine_tune_gpt_oss_20b_blocksworld_pddl3     # Specify job name
+#$ -pe smp 8
+#$ -N fine_tune_gpt_oss_20b_sft_500
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 # Model and output configuration for GPT-OSS-20B on blocksworld scenario (PDDL3)
@@ -17,11 +21,10 @@ DATASET_PATH="/groups/fkong/jfan5/data/sft/blocksworld-500"
 
 python3 pddl_finetune.py \
   --mode train \
-  --model "$MODEL_NAME" \
-  --output "$OUTPUT_NAME" \
+  --model "unsloth/mistral-7b-instruct-v0.3-bnb-4bit" \
+  --output ""mistral_7b/blocksworld/pddl2"" \
   --dataset "$DATASET_PATH" \
   --family gpt \
   --per-device-train-batch-size 4 \
   --gradient-accumulation-steps 4 \
   --scenarios blocksworld
-

@@ -199,10 +199,10 @@ def test_model_on_testing_data(model_path,
     Args:
         model_path: 模型路径
         scenarios: 要测试的场景列表
-        output_file: 输出JSON文件路径
+        output_file: 输出JSON文件路径（会自动添加时间戳）
         family: 模型家族
         max_problems_per_scenario: 每个场景最大问题数量
-        results_dir: 结果保存目录（如果为None则自动生成）
+        results_dir: 结果保存目录（已废弃，不再使用）
         temperature: 文本生成的温度参数（默认: 0.1）
     """
     print(f"Testing model: {model_path}")
@@ -222,20 +222,7 @@ def test_model_on_testing_data(model_path,
             family = 'mistral'  # 默认使用mistral格式
         print(f"Auto-detected model family: {family}")
     
-    # 创建结果保存目录
-    if results_dir:
-        results_dir = Path(results_dir)
-    else:
-        model_name = model_path.replace('/', '_')
-        # 按目录命名
-        dir_tag = Path(problems_dir).name if problems_dir else "problems"
-        results_dir = Path(f"{model_name}_planning_results_{dir_tag}")
-    # 如果目录存在就删除目录然后重新创建
-    if results_dir.exists():
-        import shutil
-        shutil.rmtree(results_dir)
-    results_dir.mkdir(parents=True, exist_ok=True)
-    print(f"Planning results will be saved to: {results_dir}")
+    # 不再创建结果保存目录，直接保存JSON文件
     # 加载测试数据（需要显式提供 problems_dir 与 domain_file）
     if not problems_dir or not domain_file:
         print("--problems-dir 和 --domain-file 都是必需参数。")
@@ -389,9 +376,6 @@ def test_model_on_testing_data(model_path,
 
         # 问题文件路径
         problem_file = sample.get('problem_file')
-        # 预先确定保存的方案文件名（与 problem 同名，仅改后缀）
-        solution_name = Path(problem_file).with_suffix('.soln').name if problem_file else f"{sample['problem_name']}.soln"
-        solution_file = results_dir / solution_name
         
         # 验证解决方案（使用LLM输出）
         validation_message = ""
@@ -435,32 +419,13 @@ def test_model_on_testing_data(model_path,
         
         is_valid = (category == "success_plans")
 
-        # 将 VAL 输出与命令中的临时解文件名替换为保存到本地的 .soln 文件名
-        if val_cmd:
-            try:
-                temp_soln_path = val_cmd.split()[-1]
-                if temp_soln_path:
-                    validation_stdout = validation_stdout.replace(temp_soln_path, str(solution_file))
-                    validation_stderr = validation_stderr.replace(temp_soln_path, str(solution_file))
-                    val_cmd = val_cmd.replace(temp_soln_path, str(solution_file))
-            except Exception:
-                pass
-        
-        # 保存规划结果到文件（保存原始LLM输出），与 problem 文件同名仅后缀改为 .soln
-        with open(solution_file, 'w', encoding='utf-8') as f:
-            f.write(raw_solution)
-        
-        if is_valid:
-            print(f"✓ Valid solution saved to: {solution_file}")
-        else:
-            print(f"⚠ Invalid solution saved to: {solution_file}")
+        # 不再保存单独的solution文件
         
         # 记录结果
         result = {
             'index': i,
             'problem_name': sample['problem_name'],
             'problem_file': problem_file,
-            'solution_file': str(solution_file),
             'is_valid': is_valid,
             'category': category,
             'validation_message': validation_message,
@@ -496,16 +461,26 @@ def test_model_on_testing_data(model_path,
     success_count = category_counts["success_plans"]
     final_success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
     
-    # 自动生成输出文件名并保存到结果目录
+    # 自动生成输出文件名并加上时间戳
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     timestamp_iso = datetime.now().isoformat()
+    
+    # 处理输出文件名，添加时间戳
+    output_file_path = Path(output_file)
     if output_file == "test_results.json":
-        # 如果使用默认文件名，则保存到结果目录
+        # 如果使用默认文件名，生成带时间戳的文件名
         model_name_clean = model_path.replace('/', '_').replace('\\', '_')
-        output_file = results_dir / f"evaluation_summary_{model_name_clean}_{timestamp}.json"
+        output_file_path = Path(f"evaluation_summary_{model_name_clean}_{timestamp}.json")
     else:
-        # 如果指定了自定义文件名，也保存到结果目录
-        output_file = results_dir / output_file
+        # 如果指定了自定义文件名，在文件名中插入时间戳
+        # 保留原始路径（如果有）
+        parent_dir = output_file_path.parent
+        stem = output_file_path.stem
+        suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+        if parent_dir and str(parent_dir) != ".":
+            output_file_path = parent_dir / f"{stem}_{timestamp}{suffix}"
+        else:
+            output_file_path = Path(f"{stem}_{timestamp}{suffix}")
     
     output_data = {
         'timestamp': timestamp_iso,
@@ -514,7 +489,6 @@ def test_model_on_testing_data(model_path,
         'domain_file': str(domain_file),
         'max_problems': max_problems,
         'load_in_4bit': load_in_4bit,
-        'results_directory': str(results_dir),
         'total_tests': total_count,
         'success_count': success_count,
         'success_rate': final_success_rate,
@@ -524,7 +498,7 @@ def test_model_on_testing_data(model_path,
         'results': results
     }
     
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
     
     print(f"\n" + "="*60)
@@ -537,12 +511,7 @@ def test_model_on_testing_data(model_path,
     for category, count in category_counts.items():
         rate = (count / total_count * 100) if total_count > 0 else 0
         print(f"  {category}: {count} ({rate:.1f}%)")
-    print(f"\nResults saved to: {output_file}")
-    print(f"Planning results saved to: {results_dir}")
-    
-    # 统计保存的文件数量
-    saved_files = list(results_dir.glob("*.soln"))
-    print(f"\nTotal planning results saved: {len(saved_files)} files")
+    print(f"\nResults saved to: {output_file_path}")
 
 def main():
     """主函数"""
@@ -553,11 +522,11 @@ def main():
                        help="Path to model (e.g., unsloth fine-tuned)")
     parser.add_argument("--output", type=str, default="test_results.json",
                        help="Output JSON file name (saved in results directory)")
-    parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gemma", "auto"], 
+    parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gemma", "gpt", "auto"], 
                        default="auto", help="Model family (auto for automatic detection)")
     parser.add_argument("--max-problems", type=int, default=0,
                        help="Maximum number of problems to test (0 for all)")
-    parser.add_argument("--results-dir", help="结果保存目录（如果未指定则自动生成）")
+    parser.add_argument("--results-dir", help="结果保存目录（已废弃，不再使用）")
     parser.add_argument("--problems-dir", type=str, required=True,
                        help="包含多个 problem PDDL 的目录")
     parser.add_argument("--domain-file", type=str, required=True,

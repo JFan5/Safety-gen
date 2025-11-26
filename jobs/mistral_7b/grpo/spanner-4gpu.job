@@ -1,27 +1,24 @@
 #!/bin/bash
-#
+
 #$ -M jfan5@nd.edu
 #$ -m abe
 #$ -q gpu
-#$ -l gpu_card=4               # ✅ 使用 4 张 GPU（原来是 1）
-#$ -pe smp 32                    # ✅ 多卡多核，按需调整
-#$ -o job_outputs/grpo/mistral/spanner/grpo_${date}.o
-#$ -N grpo_mistral_spanner_4gpu_${date}
-date=$(date +%Y%m%d%H%M%S)
+#$ -l gpu_card=4
+#$ -o job_outputs/grpo/mistral/spanner/grpo-4gpu.o
+#$ -pe smp 32
+#$ -N grpo_mistral_spanner_4gpu
 
+set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 
 conda activate llmstl
 
-# 可选：限制只用前 4 块卡（如果节点 GPU>4）
+# Multi-GPU configuration (4 GPUs)
 export CUDA_VISIBLE_DEVICES=0,1,2,3
-export NCCL_P2P_DISABLE=1
-export NCCL_IB_DISABLE=1
 
-# 如果你之前没跑过 accelerate config，可以先在交互节点跑一次：
-# accelerate config
-# 这里直接在命令里指定 num_processes=4，比默认配置更稳
-
+# GRPO training for Mistral-7B on spanner scenario (4 GPUs)
 accelerate launch --num_processes 4 --num_machines 1 script/train_grpo_unsloth.py \
   --base_model "/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500" \
   --dataset "/groups/fkong/jfan5/ppo_data/spanner.jsonl" \
@@ -39,4 +36,4 @@ accelerate launch --num_processes 4 --num_machines 1 script/train_grpo_unsloth.p
   --save_steps 500 \
   --wandb_project "pddl-grpo-mistral7b" \
   --run_name "grpo_mistral_spanner_4gpu" \
-  --no_4bit        # ⭐⭐ 这一行是关键
+  --no_4bit

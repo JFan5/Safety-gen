@@ -8,6 +8,10 @@
 #$ -pe smp 8
 #$ -N grpo_mistral_spanner
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 python script/train_grpo_unsloth.py \
@@ -24,5 +28,3 @@ python script/train_grpo_unsloth.py \
   --top_p 0.9 \
   --logging_steps 10 \
   --save_steps 500
-
-

@@ -5,16 +5,17 @@
 #$ -q gpu
 #$ -l gpu_card=1
 #$ -o job_outputs/generate_candidates/mistral_7b/blocksworld/pddl2_crc.o
-#$ -pe smp 28         # Request 28 CPU cores to match Slurm configuration
+#$ -pe smp 8
 #$ -N generate_candidates_mistral_7b_blocksworld_pddl2
 
 set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
+
 conda activate llmstl
 
-SCENARIO="blocksworld"
-VARIANT="pddl2"
-
+# Generate candidates for Mistral-7B on blocksworld scenario (PDDL2)
 mkdir -p "/groups/fkong/jfan5/data/dpo/mistral_7b/blocksworld/pddl2"
 
 python3 script/generate_score_candidate.py \
@@ -25,4 +26,4 @@ python3 script/generate_score_candidate.py \
   --prompt-template "prompt.txt" \
   --out "/groups/fkong/jfan5/data/dpo/mistral_7b/blocksworld/pddl2/scored.jsonl"
 
-echo "${SCENARIO} (${VARIANT^^}) candidate generation complete for mistral_7b."
+echo "blocksworld (PDDL2) candidate generation complete for mistral_7b."

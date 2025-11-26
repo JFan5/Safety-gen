@@ -38,6 +38,8 @@ def find_scenario_data_dir(scenario_name: str, base_dir: Path = None) -> Optiona
     candidates = [
         base_dir / f"{scenario_name}-variant-500",
         base_dir / f"{scenario_name}-variant-500" / "pddl3.hf",
+        base_dir / f"{scenario_name}-sft500-variant-5",  # New pattern from collect_sft500.sh
+        base_dir / f"{scenario_name}-sft500-variant-5" / "pddl3.hf",
         base_dir / scenario_name,
     ]
     
@@ -124,6 +126,7 @@ def collect_scenario_entries(scenario_name: str, base_dir: Path = None) -> List[
             data_dir / "pddl3.hf",
             data_dir / "pddl2.hf",
             data_dir / f"{scenario_name}.hf",
+            data_dir / "combined.hf",  # Also check for combined.hf
         ]
         
         for hf_path in hf_candidates:

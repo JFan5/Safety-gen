@@ -4,49 +4,32 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/fine_tune/mistral/spanner/pddl3.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N fine_tune_mistral_spanner_pddl3     # Specify job name
+#$ -o job_outputs/dpo/mistral_7b/spanner/pddl3.o
+#$ -pe smp 28
+#$ -N dpo_mistral_spanner_pddl3
+
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 
 conda activate llmstl
 
+# DPO training for Mistral-7B on spanner scenario (PDDL3)
+mkdir -p "/groups/fkong/jfan5/dpo_models/mistral_7b/spanner/pddl3"
 
-
-MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-OUTPUT_NAME="/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500"
-DATASET_PATH="/groups/fkong/jfan5/sft_data/spanner-variant-500/pddl3.hf"
-
-python3 pddl_finetune.py \
-  --mode train \
-  --model "$MODEL_NAME" \
-  --output "${OUTPUT_NAME}" \
-  --dataset "$DATASET_PATH" \
-  --family mistral \
-  --num-train-epochs 3 \
-  --per-device-train-batch-size 2 \
-  --gradient-accumulation-steps 16
-# python3 pddl_finetune.py \
-  # --mode train \
-  # --model "$MODEL_NAME" \
-  # --output "${OUTPUT_NAME}_vA_const" \
-  # --dataset "$DATASET_PATH" \
-  # --family mistral \
-  # --scenarios spanner \
-  # --num-train-epochs 1.0 \
-  # --learning-rate 2e-4 \
-  # --warmup-ratio 0.1 \
-  # --weight-decay 0.0 \
-  # --per-device-train-batch-size 4 \
-  # --gradient-accumulation-steps 4 \
-  # --max-seq-length 4096 \
-  # --lr-scheduler-type constant_with_warmup \
-  # --max-grad-norm 1.0 \
-  # --val_ratio 0.15 \
-  # --eval-strategy steps \
-  # --eval-steps 20 \
-  # --logging-steps 10 \
-  # --save-strategy steps \
-  # --save-total-limit 2 \
-  # --load-in-4bit
-
-  # 
+python3 script/train_dpo_unsloth.py \
+  --base_model "/groups/fkong/jfan5/sft_models/mistral_7b/spanner/pddl3" \
+  --dataset "/home/ubuntu/Safety-gen/data/dpo/datasets/spanner/pddl3_dpo.jsonl" \
+  --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/spanner/pddl3" \
+  --num_epochs 3 \
+  --batch_size 1 \
+  --gradient_accumulation_steps 8 \
+  --learning_rate 1e-5 \
+  --save_steps 500 \
+  --eval_steps 500 \
+  --logging_steps 25 \
+  --beta 0.1 \
+  --memory_efficient \
+  --run_name "dpo-mistral-spanner-pddl3" \
+  --dataloader_num_workers 0

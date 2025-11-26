@@ -8,14 +8,17 @@
 #$ -pe smp 8
 #$ -N evaluate_gpt_oss_20b_blocksworld_baseline_all_testing
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
-# Evaluate baseline unsloth model
-BASE_MODEL="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
-
+# Evaluate baseline GPT-OSS-20B model on blocksworld scenario
 python3 script/evaluate_llm_solver.py \
-  --model "$BASE_MODEL" \
-  --problems-dir blocksworld/all_problems3/testing \
-  --domain-file blocksworld/domain3.pddl \
-  --output blocksworld_all_testing_baseline.json \
-  --results-dir planning_results/gpt_oss_20b/blocksworld/baseline
+  --model "unsloth/gpt-oss-20b-unsloth-bnb-4bit" \
+  --problems-dir "blocksworld/all_problems3/testing" \
+  --domain-file "blocksworld/domain3.pddl" \
+  --max-problems 50 \
+  --output "blocksworld_all_testing_baseline.json" \
+  --results-dir "planning_results/gpt_oss_20b/blocksworld/baseline"

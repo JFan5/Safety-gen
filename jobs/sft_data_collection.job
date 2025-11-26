@@ -1,4 +1,17 @@
-# blocksworld
+#!/bin/bash
+
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -pe smp 8
+
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
+conda activate llmstl
+
 python script/collect_single_scenario.py blocksworld --prompt_variants 5 --max_number 500 --seed 42 --output /groups/fkong/jfan5/data/sft/blocksworld-variant-500 --root blocksworld
 
 # ferry

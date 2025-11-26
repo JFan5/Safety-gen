@@ -5,10 +5,14 @@
 #$ -q gpu
 #$ -l gpu_card=1
 #$ -o job_outputs/evaluate/gpt_oss_20b/multi/baseline-30.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N evaluate_gpt_oss_20b_multi_baseline-30     # Specify job name
-#$ -t 1-5               # Specify number of tasks in array (5 scenarios)
+#$ -pe smp 8
+#$ -N evaluate_gpt_oss_20b_multi
+#$ -t scenarios)
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 # Define scenario configurations for evaluation
@@ -66,7 +70,7 @@ case "$scenario_name" in
 esac
 
 python3 script/evaluate_llm_solver.py \
-  --model ${BASE_MODEL} \
+  --model "unsloth/mistral-7b-instruct-v0.3-bnb-4bit" \
   --problems-dir ${PROBLEMS_DIR} \
   --domain-file ${DOMAIN_FILE} \
   --max-problems 30 \

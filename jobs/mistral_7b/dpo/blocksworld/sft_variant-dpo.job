@@ -4,46 +4,29 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
+#$ -o job_outputs/dpo/mistral_7b/blocksworld/sft_variant-dpo.o
 #$ -pe smp 28
-#$ -o /users/jfan5/jfan5/Safety-gen/job_outputs/dpo/mistral_7b/blocksworld/pddl3_crc.o
-#$ -N dpo_mistral_blocksworld_pddl3
+#$ -N dpo_mistral_blocksworld_sft_variant
 
 set -euo pipefail
 
-conda activate llmstl
-
-BASE_MODEL="/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/sft-variant"
-DPO_DATASET="/groups/fkong/jfan5/data/sft/blocksworld-variant-500/pddl3.hf"
-OUTPUT_DIR="/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/sft-variant"
-
-mkdir -p "${OUTPUT_DIR}"
-
-#!/bin/bash
-
-#SBATCH --mail-user=jfan5@nd.edu
-#SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
-#SBATCH --output=job_outputs/dpo_mistral_pddl3_500.o
-#SBATCH --cpus-per-task=28 # Specify parallel environment and legal core size
-#SBATCH --job-name=dpo_mistral_pddl3_500 # Specify job name
-
-set -euo pipefail
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 
 conda activate llmstl
 
-
-
+# DPO training for Mistral-7B on blocksworld scenario (SFT variant)
+mkdir -p "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant-V2"
 
 python3 script/train_dpo_unsloth.py \
   --base_model "/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/sft-variant" \
-  --dataset "/users/jfan5/jfan5/Safety-gen/data/dpo/classical/blocksworld_500-variant-5.jsonl" \
+  --dataset "/home/ubuntu/Safety-gen/data/dpo/classical/blocksworld_500-variant-5.jsonl" \
   --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/dpo-variant-V2" \
   --num_epochs 1 \
   --batch_size 4 \
   --gradient_accumulation_steps 8 \
   --learning_rate 5e-6 \
-  --save_steps 30  \
+  --save_steps 30 \
   --eval_steps 30 \
   --logging_steps 10 \
   --beta 0.1 \

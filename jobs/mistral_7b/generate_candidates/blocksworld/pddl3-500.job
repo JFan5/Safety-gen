@@ -5,11 +5,13 @@
 #$ -q gpu
 #$ -l gpu_card=1
 #$ -o job_outputs/generate_candidates/mistral_7b/blocksworld/pddl3-500.o
-#$ -pe smp 28         # Request 28 CPU cores to match Slurm configuration
+#$ -pe smp configuration
 #$ -N generate_candidates_mistral_7b_blocksworld_pddl3-500
 
 set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 /users/jfan5/jfan5/Safety-gen/shells/collect_blocksworld_dpo500.sh

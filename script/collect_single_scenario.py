@@ -3,7 +3,6 @@
 收集单个PDDL场景的数据集用于fine-tune
 从指定场景的 training_problems3 目录中收集 problem/solution 对
 """
-
 import os
 import json
 import argparse
@@ -79,11 +78,15 @@ def collect_scenario_data(
     max_entries: Optional[int] = None,
     num_prompt_variants: Optional[int] = None,
     seed: Optional[int] = None,
+    source: str = "training",
 ) -> List[Dict]:
-    """收集单个场景中的 problem/solution 对，问题目录由 PDDL 版本决定。
+    """收集单个场景中的 problem/solution 对，问题目录由 PDDL 版本和 source 决定。
 
-    - PDDL2: <root>/all_problems/training
-    - PDDL3: <root>/all_problems3/training
+    - source="training": 
+      - PDDL2: <root>/all_problems/training
+      - PDDL3: <root>/all_problems3/training
+    - source="sft_500":
+      - <root>/sft_500
     
     Args:
         scenario_name: 场景名称
@@ -92,14 +95,21 @@ def collect_scenario_data(
         max_entries: 最大 problem 数量（None 表示使用所有）
         num_prompt_variants: 每个 problem 生成的 prompt 变体数量（None 或 1 表示使用单个 prompt）
         seed: 随机数种子（用于可复现性）
+        source: 数据源目录 ("training" 或 "sft_500")
     """
     print(f"Collecting data from {scenario_name}...")
 
     version = (pddl_version or "").upper()
-    if version == "PDDL2":
-        problems_dir = root_dir / "all_problems" / "training"
+    
+    # Determine problems directory based on source
+    if source == "sft_500":
+        problems_dir = root_dir / "sft_500"
     else:
-        problems_dir = root_dir / "all_problems3" / "training"
+        if version == "PDDL2":
+            problems_dir = root_dir / "all_problems" / "training"
+        else:
+            problems_dir = root_dir / "all_problems3" / "training"
+    
     if not problems_dir.exists():
         print(f"Problems directory not found: {problems_dir}")
         return []
@@ -311,6 +321,17 @@ def main():
         ),
     )
     parser.add_argument(
+        "--source",
+        type=str,
+        choices=["training", "sft_500"],
+        default="training",
+        help=(
+            "Source directory to collect problems from. "
+            "training: use all_problems3/training (default); "
+            "sft_500: use sft_500 directory"
+        ),
+    )
+    parser.add_argument(
         "--max_number",
         type=int,
         default=None,
@@ -360,6 +381,7 @@ def main():
     print(f"Root directory: {root_dir}")
     print(f"Output path: {output_path}")
     print(f"PDDL: {args.pddl}")
+    print(f"Source: {getattr(args, 'source', 'training')}")
     if args.max_number is not None:
         print(f"Max problems: {args.max_number}")
     else:
@@ -386,7 +408,8 @@ def main():
         args.pddl, 
         args.max_number,
         num_prompt_variants=args.prompt_variants,
-        seed=args.seed
+        seed=args.seed,
+        source=getattr(args, 'source', 'training')
     )
     print(f"\nTotal collected entries: {len(entries)}")
     unique_problems = len(set(e['problem_name'] for e in entries))

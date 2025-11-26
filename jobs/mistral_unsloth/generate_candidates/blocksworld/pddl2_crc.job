@@ -10,11 +10,11 @@
 
 set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
-SCENARIO="blocksworld"
-VARIANT="pddl2"
-
+# Generate candidates for Mistral-Unsloth on blocksworld scenario (PDDL2)
 mkdir -p "/groups/fkong/jfan5/data/dpo/mistral_unsloth/blocksworld/pddl2"
 
 python3 script/generate_score_candidate.py \
@@ -30,4 +30,4 @@ python3 script/generate_score_candidate.py \
   --max-new-tokens 2000 \
   --out "/groups/fkong/jfan5/data/dpo/mistral_unsloth/blocksworld/pddl2/scored.jsonl"
 
-echo "${SCENARIO} (${VARIANT^^}) candidate generation complete for mistral_unsloth."
+echo "blocksworld (PDDL2) candidate generation complete for mistral_unsloth."

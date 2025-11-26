@@ -4,21 +4,32 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/fine_tune/mistral/blocksworld/pddl2.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N fine_tune_mistral_blocksworld_pddl2     # Specify job name
+#$ -o job_outputs/dpo/mistral_7b/spanner/pddl2.o
+#$ -pe smp 28
+#$ -N dpo_mistral_spanner_pddl2
+
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 
 conda activate llmstl
 
-# Model and output configuration for Mistral on blocksworld scenario (PDDL2)
-MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-OUTPUT_NAME="mistral_7b/blocksworld/pddl2"
-DATASET_PATH="/groups/fkong/jfan5/data/sft/blocksworld/pddl2.hf"
+# DPO training for Mistral-7B on spanner scenario (PDDL2)
+mkdir -p "/groups/fkong/jfan5/dpo_models/mistral_7b/spanner/pddl2"
 
-python3 pddl_finetune.py \
-  --mode train \
-  --model "$MODEL_NAME" \
-  --output "$OUTPUT_NAME" \
-  --dataset "$DATASET_PATH" \
-  --scenarios blocksworld
-
+python3 script/train_dpo_unsloth.py \
+  --base_model "/groups/fkong/jfan5/sft_models/mistral_7b/spanner/pddl2" \
+  --dataset "/home/ubuntu/Safety-gen/data/dpo/datasets/spanner/pddl2_dpo.jsonl" \
+  --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/spanner/pddl2" \
+  --num_epochs 3 \
+  --batch_size 1 \
+  --gradient_accumulation_steps 8 \
+  --learning_rate 1e-5 \
+  --save_steps 500 \
+  --eval_steps 500 \
+  --logging_steps 25 \
+  --beta 0.1 \
+  --memory_efficient \
+  --run_name "dpo-mistral-spanner-pddl2" \
+  --dataloader_num_workers 0

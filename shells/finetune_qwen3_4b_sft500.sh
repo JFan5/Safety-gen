@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Fine-tune unsloth/Qwen3-4B-Thinking-2507 on combined SFT dataset
+# Dataset: /jfan5/sft_data/four_scenarios500/combined.hf
+# Contains: 4 scenarios × 500 problems × 5 variants = 10,000 entries
+
+conda activate llmstl
+
+# Set working directory
+cd /home/ubuntu/Safety-gen
+
+# Configuration
+MODEL="unsloth/Qwen3-4B-Thinking-2507"
+DATASET="/jfan5/sft_data/four_scenarios500/combined.hf"
+OUTPUT_DIR="/jfan5/sft_models/qwen3-4b-thinking/four_scenarios500"
+
+# Training parameters
+NUM_EPOCHS=3
+BATCH_SIZE=16
+GRADIENT_ACCUMULATION_STEPS=2
+LEARNING_RATE=2e-4
+MAX_SEQ_LENGTH=4096
+
+echo "=========================================="
+echo "Fine-tuning Qwen3-4B-Thinking-2507"
+echo "=========================================="
+echo "Model: ${MODEL}"
+echo "Dataset: ${DATASET}"
+echo "Output: ${OUTPUT_DIR}"
+echo ""
+echo "Training parameters:"
+echo "  Epochs: ${NUM_EPOCHS}"
+echo "  Batch size: ${BATCH_SIZE}"
+echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
+echo "  Learning rate: ${LEARNING_RATE}"
+echo "  Max sequence length: ${MAX_SEQ_LENGTH}"
+echo "=========================================="
+echo ""
+
+# Run fine-tuning
+python3 pddl_finetune.py \
+    --mode train \
+    --model "${MODEL}" \
+    --family qwen \
+    --dataset "${DATASET}" \
+    --output "${OUTPUT_DIR}" \
+    --num-train-epochs ${NUM_EPOCHS} \
+    --per-device-train-batch-size ${BATCH_SIZE} \
+    --gradient-accumulation-steps ${GRADIENT_ACCUMULATION_STEPS} \
+    --learning-rate ${LEARNING_RATE} \
+    --max-seq-length ${MAX_SEQ_LENGTH} \
+    --load-in-4bit \
+    --eval-strategy steps \
+    --save-strategy steps \
+    --logging-steps 10 \
+    --eval-steps 10 \
+    --save-steps 30 \
+    --save-total-limit 2
+
+echo ""
+echo "=========================================="
+echo "Fine-tuning completed!"
+echo "=========================================="
+echo "Model saved to: ${OUTPUT_DIR}"
+

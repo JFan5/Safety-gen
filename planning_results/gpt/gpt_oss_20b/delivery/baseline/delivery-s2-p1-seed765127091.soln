@@ -1,8 +1,0 @@
-analysisWe need to produce a valid plan for the given problem. Let's analyze domain and problem.
-Domain: delivery. Types: cell, locatable, package, truck. Predicates: at ?x1 - locatable ?x2 - cell; carrying ?t - truck ?p - package; empty ?t - truck; adjacent ?x1 - cell ?x2 - cell; last ?t - truck ?c - cell.
-Actions:
-pick-package: parameters (?t - truck ?p - package ?x - cell). Preconditions: (and (at ?p ?x) (at ?t ?x) (empty ?t)). Effect: (not (at ?p ?x)), (not (empty ?t)), (carrying ?t ?p).
-drop-package: parameters (?t - truck ?p - package ?x - cell). Preconditions: (and (at ?t ?x) (carrying ?t ?p)). Effect: (empty ?t), (not (carrying ?t ?p)), (at ?p ?x).
-move: parameters (?t - truck ?from - cell ?to - cell). Preconditions: (and (adjacent ?from ?to) (at ?t ?from) (not (= ?from ?to))). Effect: (not (at ?t ?from)), (at ?t ?to), (last ?t ?from).
-Goal: (at p1 c_1_0). Constraint: (sometime (at t1 c_0_0)). Means at some point during plan, t1 must be at c_0_0.
-We need to produce a plan that satisfies goal and constraint. The initial state: at p1 c_1_1, at t1 c_1_1, empty t1. So truck at same cell as package. We need to move truck to c_1_0 and drop package there. But constraint requires that at some point, t1 must be at c_0_0. So we need to include a move to c_0_0 somewhere before dropping package at c_1_0. But we also need to end with package at c_1_0. So we can move truck to c_0_0, then back to c_1_0, then drop package. But we must ensure that at the time of dropping, truck is at c_1_0 and carrying package. Also we need to satisfy that at some point, t1

@@ -10,7 +10,8 @@
 
 set -euo pipefail
 
-
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 echo "=========================================="

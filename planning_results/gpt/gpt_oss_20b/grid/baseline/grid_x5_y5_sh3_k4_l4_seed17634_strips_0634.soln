@@ -1,7 +1,0 @@
-analysisWe need to produce a plan that moves keys to target positions. We have a grid 5x5 positions pos0-0 to pos4-4. The robot starts at pos1-1. Keys: key0 at pos1-3, key1 at pos1-0, key2 at pos4-1, key3 at pos2-1. Goal: key0 at pos3-4, key1 at pos3-2, key3 at pos4-3. Key2 not in goal. We need to move keys accordingly.
-We have actions: unlock, move, pickup, pickup-and-loose, putdown. We need to move robot to positions, pick up keys, move them to target positions. We must obey constraints: always (not (at-robot pos1-2)). So robot cannot be at pos1-2 at any time.
-Also, we have locked positions: pos2-0, pos0-1, pos4-0, pos1-4. These are locked initially. We can unlock them by unlocking action if we have the key that matches shape and lock-shape matches shape. We have keys shapes: key0 shape0, key1 shape1, key2 shape2, key3 shape2. Lock shapes: pos2-0 shape0, pos0-1 shape1, pos4-0 shape2, pos1-4 shape2. So we can unlock pos2-0 with key0, pos0-1 with key1, pos4-0 with key2 or key3? Wait key2 shape2, key3 shape2. So either key2 or key3 can unlock pos4-0. pos1-4 locked shape2, so key2 or key3 can unlock pos1-4.
-We need to move keys to target positions. Let's plan.
-We need key0 at pos3-4. Currently key0 at pos1-3. We need to move robot to pos1-3, pick up key0, move to pos3-4. But we must avoid robot at pos1-2. That's fine.
-We need key1 at pos3-2. Currently key1 at pos1-0. Move robot to pos1-0, pick up key1, move to pos3-2.
-We need key3 at pos4-3. Currently key3 at pos2-1. Move robot to pos2-1, pick up key3, move to pos

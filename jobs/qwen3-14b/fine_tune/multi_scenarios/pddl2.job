@@ -5,9 +5,13 @@
 #$ -q gpu
 #$ -l gpu_card=1
 #$ -o job_outputs/fine_tune/qwen3_4b_instruct/multi_scenarios/pddl2.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N fine_tune_qwen3_4b_instruct_multi_scenarios_pddl2     # Specify job name
+#$ -pe smp 8
+#$ -N fine_tune_model_multi
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 # Aggregated multi-scenario fine-tune for Qwen3-4B (PDDL2 dataset).
@@ -19,7 +23,7 @@ DATASET_PATH="/groups/fkong/jfan5/data/sft/multi_scenarios/pddl2.hf"
 
 python3 pddl_finetune.py \
   --mode train \
-  --model "$MODEL_NAME" \
-  --output "$OUTPUT_NAME" \
+  --model "unsloth/mistral-7b-instruct-v0.3-bnb-4bit" \
+  --output ""mistral_7b/multi_scenarios/pddl2"" \
   --dataset "$DATASET_PATH" \
   --scenarios all

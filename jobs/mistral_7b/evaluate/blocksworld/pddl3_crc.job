@@ -8,6 +8,10 @@
 #$ -pe smp 8
 #$ -N evaluate_mistral_blocksworld_pddl3_all_testing
 
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
 # Evaluate PDDL3 fine-tuned model
@@ -19,4 +23,3 @@ python3 script/evaluate_llm_solver.py \
   --domain-file blocksworld/domain3.pddl \
   --output blocksworld_all_testing_pddl3.json \
   --results-dir planning_results/sft_mistral_7b/blocksworld/pddl3  --max-problems 50
-

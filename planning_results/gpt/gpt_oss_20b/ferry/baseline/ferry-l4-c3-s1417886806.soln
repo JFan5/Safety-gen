@@ -1,8 +1,0 @@
-analysisWe need to produce a plan that satisfies goal: at c0 l3, at c1 l1, at c2 l1. Initially: c0 at l0, c1 at l1, c2 at l2. Ferry at l1. Constraints: sometime-before (at c0 l3) (at-ferry l2). So at some point before c0 reaches l3, ferry must be at l2. Also sometime-before (at c2 l1) (at-ferry l0). So before c2 reaches l1, ferry must be at l0.
-We need to move ferry to ferry locations to transport cars. Ferry can sail between locations if at-ferry at from. Initially at l1. We can sail to l2? But need to satisfy constraints: before c0 at l3, ferry must be at l2. So we need to sail to l2 before moving c0 to l3. Also before c2 at l1, ferry must be at l0. So we need to sail to l0 before moving c2 to l1.
-Goal: c0 at l3, c1 at l1 (already), c2 at l1. So we need to move c0 from l0 to l3, c2 from l2 to l1. c1 stays at l1.
-We need to plan ferry movements and board/debark actions.
-We must ensure constraints: at some point before c0 at l3, ferry at l2. So we need to sail to l2 before moving c0 to l3. Also before c2 at l1, ferry at l0. So we need to sail to l0 before moving c2 to l1.
-We can plan:
-1. Sail from l1 to l2. (ferry at l2)
-2. Board c0 at l0? Wait ferry at l2, but c0 at l0. Ferry cannot board c0 at l0 because ferry not at l0. So we need to sail to l0 first? But constraint requires ferry at l2 before c0 at l3. So we can sail to l0, board c0, sail to l2, then debark at l3? Wait we need to get c0 to l3. So we need to sail to l2, then board c0 at l0? Actually board requires ferry at same location as car. So we need ferry at l0 to board c0

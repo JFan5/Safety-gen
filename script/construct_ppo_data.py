@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Construct PPO prompt-only dataset from problems already copied into ppo_500/.
+Construct PPO prompt-only dataset from problems already copied into grpo_500/.
 
 Flow:
-- For each scenario directory under ppo_500/<scenario>/, gather .pddl problems (non-domain files).
+- For each scenario directory under pddl3/<scenario>/grpo_500/, gather .pddl problems.
 - Resolve domain file from the scenario root (domain3.pddl preferred, else domain.pddl, else first domain*.pddl).
 - Render prompt variants via prompt_variants.build_prompt_multi.
-- Write prompt-only JSONL to /groups/fkong/jfan5/ppo_data/<scenario>.jsonl (output dir configurable).
+- Write prompt-only JSONL to /jfan5/ppo_data/<scenario>.jsonl (output dir configurable).
 
 Records contain:
 {
@@ -28,8 +28,8 @@ from typing import Dict, List, Sequence, Tuple
 from prompt_variants import build_prompt_multi
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-PPO_500_ROOT = REPO_ROOT / "ppo_500"
-DEFAULT_OUTPUT_DIR = Path("/groups/fkong/jfan5/ppo_data")
+PDDL3_ROOT = REPO_ROOT / "pddl3"
+DEFAULT_OUTPUT_DIR = Path("/jfan5/ppo_data")
 
 
 def read_text(path: Path) -> str:
@@ -38,7 +38,7 @@ def read_text(path: Path) -> str:
 
 def detect_domain_file(scenario: str) -> Tuple[Path, str]:
     """Pick domain3.pddl if available, else domain.pddl, else first domain*.pddl under scenario root."""
-    domain_dir = REPO_ROOT / scenario
+    domain_dir = REPO_ROOT/ "pddl3" / scenario
     for name in ("domain3.pddl", "domain.pddl"):
         candidate = domain_dir / name
         if candidate.exists():
@@ -51,8 +51,8 @@ def detect_domain_file(scenario: str) -> Tuple[Path, str]:
     return matches[0], version
 
 
-def collect_problem_files_from_ppo(scenario_dir: Path, limit: int | None) -> List[Path]:
-    files = [p for p in sorted(scenario_dir.glob("*.pddl")) if "domain" not in p.name.lower()]
+def collect_problem_files(scenario_dir: Path, limit: int | None) -> List[Path]:
+    files = sorted(scenario_dir.glob("*.pddl"))
     if limit is not None:
         files = files[:limit]
     if not files:
@@ -83,13 +83,13 @@ def process_scenario(
     problems_per_domain: int | None,
     prompt_variants: int,
 ) -> List[Dict]:
-    scenario_dir = PPO_500_ROOT / scenario
+    scenario_dir = PDDL3_ROOT / scenario / "grpo_500"
     if not scenario_dir.exists():
         raise FileNotFoundError(f"Scenario directory not found: {scenario_dir}")
 
     domain_file, pddl_version = detect_domain_file(scenario)
     domain_text = read_text(domain_file)
-    problem_files = collect_problem_files_from_ppo(scenario_dir, problems_per_domain)
+    problem_files = collect_problem_files(scenario_dir, problems_per_domain)
 
     records: List[Dict] = []
     for prob_path in problem_files:
@@ -117,7 +117,7 @@ def main():
         "--domains",
         nargs="+",
         default=None,
-        help="Scenario directories to include (default: all subdirs under ppo_500)",
+        help="Scenario directories to include (default: all subdirs under pddl3/*/grpo_500)",
     )
     parser.add_argument(
         "--problems-per-domain",
@@ -139,12 +139,14 @@ def main():
         raise ValueError("--problems-per-domain must be positive when provided.")
 
     if args.domains is None:
-        scenarios = [p.name for p in sorted(PPO_500_ROOT.iterdir()) if p.is_dir()]
+        scenarios = [p.name for p in sorted(PDDL3_ROOT.iterdir()) if (p / "grpo_500").is_dir()]
     else:
         scenarios = args.domains
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    all_records = []  # Collect all records from all scenarios
 
     for scenario in scenarios:
         print(f"[+] Building prompts for scenario: {scenario}")
@@ -153,11 +155,23 @@ def main():
             problems_per_domain=args.problems_per_domain,
             prompt_variants=args.prompt_variants,
         )
+        # Write JSONL file
         out_path = out_dir / f"{scenario}.jsonl"
         with out_path.open("w", encoding="utf-8") as f:
             for rec in records:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
         print(f"    prompts generated: {len(records)} -> {out_path}")
+        
+        # Add to combined records
+        all_records.extend(records)
+
+    # Write combined JSONL file with all scenarios
+    if all_records:
+        combined_jsonl_path = out_dir / "all_scenarios.jsonl"
+        with combined_jsonl_path.open("w", encoding="utf-8") as f:
+            for rec in all_records:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        print(f"\n[+] Combined file: {len(all_records)} total prompts -> {combined_jsonl_path}")
 
     print("Done.")
 

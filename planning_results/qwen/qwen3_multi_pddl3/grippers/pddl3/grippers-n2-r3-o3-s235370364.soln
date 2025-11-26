@@ -1,8 +1,0 @@
-(move robot2 room1 room2)
-(pick robot2 ball2 room2 rgripper2)
-(move robot2 room2 room3)
-(drop robot2 ball2 room3 rgripper2)
-(move robot2 room3 room2)
-(pick robot2 ball3 room2 lgripper2)
-(move robot2 room2 room3)
-(drop robot2 ball3 room3 lgripper2)

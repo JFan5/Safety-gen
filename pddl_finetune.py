@@ -13,7 +13,7 @@ import wandb
 from pathlib import Path
 from typing import List, Optional
 from datasets import load_from_disk, Dataset
-from transformers import TrainerCallback, TrainingArguments
+from transformers import TrainerCallback, TrainingArguments, EarlyStoppingCallback
 
 # Import Unsloth components
 from unsloth import FastLanguageModel
@@ -364,6 +364,7 @@ def sft_train_pddl(
         "bf16": use_bf16,
         "optim": "adamw_torch",
         "seed": 3407,
+        "save_steps": 30,
     }
 
     if family == 'gpt':
@@ -381,7 +382,10 @@ def sft_train_pddl(
     print(f"  load_in_4bit: {load_in_4bit_local}")
 
     training_args = TrainingArguments(**effective_training_args)
-    
+    early_stopping_callback = EarlyStoppingCallback(
+            early_stopping_patience=2,     # 连续 2 次 eval 没有明显提升就停
+            early_stopping_threshold=0.001 # 提升 < 0.001 视为“没有提升”
+        )
     # 创建训练器
     print("\nCreating trainer...")
     trainer = SFTTrainer(
@@ -391,10 +395,10 @@ def sft_train_pddl(
         eval_dataset=eval_ds,
         dataset_text_field="text",
         max_seq_length=max_seq_length_local,
-        dataset_num_proc=2,
+        dataset_num_proc=8,
         packing=True,
         args=training_args,
-        callbacks=[test_callback]
+        callbacks=[test_callback,  early_stopping_callback]
     )
     
     # 开始训练
@@ -580,6 +584,8 @@ def main():
                        help="Evaluation strategy (default epoch).")
     parser.add_argument("--save-strategy", type=str, choices=["no", "steps", "epoch"], default=None,
                        help="Checkpoint save strategy (default epoch).")
+    parser.add_argument("--save-steps", type=int, default=None,
+                       help="Checkpoint save frequency in steps (default 30).")
     parser.add_argument("--max-seq-length", type=int, default=None,
                        help="Override maximum sequence length (default 4096).")
     parser.add_argument("--load-in-4bit", dest="load_in_4bit", action="store_true",

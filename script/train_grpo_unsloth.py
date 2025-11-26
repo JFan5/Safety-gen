@@ -26,6 +26,15 @@ from trl import GRPOConfig, GRPOTrainer
 from unsloth import FastLanguageModel
 from utils import _classify_result, validate_solution
 
+# Fix for torch._dynamo recompile limit error
+# Increase cache size limit to handle dynamic shapes in GRPO training
+try:
+    import torch._dynamo
+    torch._dynamo.config.cache_size_limit = 128  # Increase from default (usually 64)
+    torch._dynamo.config.accumulated_cache_size_limit = 512  # Increase accumulated cache
+except Exception:
+    pass  # If dynamo is not available, continue without modification
+
 try:
     # Prefer Unsloth's helper if available
     from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
@@ -42,11 +51,11 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # -----------------------------------------------------------------------------
 def compute_reward(class_label: str) -> float:
     reward_table = {
-        "success_plans": 1.0,
-        "goal_not_satisfied": -0.2,
-        "precondition_violation": -0.5,
-        "plan_format_error": -0.7,
-        "safety_constraints_violation": -1.0,
+        "success_plans": 2,
+        "goal_not_satisfied": -0.5,
+        "precondition_violation": -1,
+        "plan_format_error": -0.5,
+        "safety_constraints_violation": -2,
     }
     if class_label not in reward_table:
         raise ValueError(f"Unknown class_label='{class_label}'. Expected one of {list(reward_table)}")
@@ -207,6 +216,8 @@ def main():
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Gradient accumulation steps")
     parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
     parser.add_argument("--num_generations", type=int, default=4, help="G: number of completions per prompt")
+    parser.add_argument("--eval_steps", type=int, default=200, help="Evaluate every N steps (0 to disable)")
+    parser.add_argument("--eval_strategy", type=str, default="steps", help="Evaluation strategy")
 
     # Generation
     parser.add_argument("--max_prompt_length", type=int, default=4096, help="Maximum prompt length")
@@ -219,6 +230,7 @@ def main():
     parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps (0 to disable)")
     parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
     parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
+    parser.add_argument("--max_steps", type=int, default=3000, help="Maximum number of training steps")
     parser.add_argument("--wandb_project", default="pddl-grpo-training", help="W&B project name")
     parser.add_argument("--run_name", default=None, help="Run name for logging")
 
@@ -296,32 +308,42 @@ def main():
         class_label_field=args.class_label_field,
     )
     logger.info(f"Training dataset size: {len(dataset)}; columns: {dataset.column_names}")
+    split = dataset.train_test_split(test_size=0.1, seed=42, shuffle=True)
+    train_dataset, eval_dataset = split["train"], split["test"]
+    logger.info(f"Training dataset size: {len(train_dataset)}")
+    logger.info(f"Evaluation dataset size: {len(eval_dataset)}")
 
     # GRPOConfig：对应原来 PPOConfig 的超参
     grpo_config = GRPOConfig(
         output_dir=args.output_dir,
-        num_train_epochs=args.num_epochs,
+
+        # 用 max_steps 控制总训练量
+        max_steps=args.max_steps,        # 比如 5000
+
         per_device_train_batch_size=args.batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         learning_rate=args.learning_rate,
         max_grad_norm=args.max_grad_norm,
         bf16=bf16_ok,
         fp16=use_fp16,
+
         logging_steps=args.logging_steps,
         save_steps=args.save_steps if args.save_steps > 0 else 0,
         save_strategy="steps" if args.save_steps > 0 else "no",
+
         report_to=["wandb"] if use_wandb else [],
         run_name=args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}",
-        # Data / generation related
-        remove_unused_columns=False,  # 需要把 meta / class_label 传进 reward_func
+
+        # Data / generation 相关
+        remove_unused_columns=False,
         max_prompt_length=args.max_prompt_length,
         max_completion_length=args.max_new_tokens,
-        num_generations=args.num_generations,  # G
+        num_generations=args.num_generations,
         temperature=args.temperature,
         top_p=args.top_p,
         top_k=args.top_k,
-        # KL 相关：默认为 beta=0，即无 KL 惩罚；需要的话你可以改成 >0
-        beta=0.0,
+        beta=0.02,
+        save_total_limit=2,
     )
 
     # 构建 GRPOTrainer
@@ -329,8 +351,11 @@ def main():
         model=model,
         args=grpo_config,
         reward_funcs=grpo_reward_func,
-        train_dataset=dataset,
+        train_dataset=train_dataset,
         processing_class=tokenizer,
+        eval_dataset=eval_dataset,
+        eval_strategy=args.eval_strategy,
+        eval_steps=args.eval_steps,
     )
 
     logger.info("Starting GRPO training...")

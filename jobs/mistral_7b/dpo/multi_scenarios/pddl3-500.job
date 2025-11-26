@@ -4,24 +4,23 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
+#$ -o job_outputs/dpo/mistral_7b/multi_scenarios/pddl3-500.o
 #$ -pe smp 8
-#$ -o /users/jfan5/jfan5/Safety-gen/job_outputs/dpo/mistral_7b/multi_scenarios/pddl3_crc-500.o
 #$ -N dpo_mistral_multi_pddl3-500
 
 set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
-BASE_MODEL="/groups/fkong/jfan5/sft_models/mistral_7b/multi_scenarios500/pddl3"
-DPO_DATASET="/groups/fkong/jfan5/data/dpo/mistral_unsloth/multi_scenarios/pddl3_dpo.jsonl"
-OUTPUT_DIR="/groups/fkong/jfan5/dpo_models/mistral_7b/multi_scenarios500/pddl3"
+# DPO training for Mistral-7B on multiple scenarios (PDDL3-500)
+mkdir -p "/groups/fkong/jfan5/dpo_models/mistral_7b/multi_scenarios500/pddl3"
 
-mkdir -p "${OUTPUT_DIR}"
-
-python3 /users/jfan5/jfan5/Safety-gen/script/train_dpo_unsloth.py \
-  --base_model "${BASE_MODEL}" \
-  --dataset "${DPO_DATASET}" \
-  --output_dir "${OUTPUT_DIR}" \
+python3 script/train_dpo_unsloth.py \
+  --base_model "/groups/fkong/jfan5/sft_models/mistral_7b/multi_scenarios500/pddl3" \
+  --dataset "/groups/fkong/jfan5/data/dpo/mistral_unsloth/multi_scenarios/pddl3_dpo.jsonl" \
+  --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/multi_scenarios500/pddl3" \
   --num_epochs 3 \
   --batch_size 2 \
   --gradient_accumulation_steps 4 \

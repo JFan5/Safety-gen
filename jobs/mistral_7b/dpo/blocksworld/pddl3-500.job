@@ -4,24 +4,23 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
+#$ -o job_outputs/dpo/mistral_7b/blocksworld/pddl3-500.o
 #$ -pe smp 28
-#$ -o /users/jfan5/jfan5/Safety-gen/job_outputs/dpo/mistral_7b/blocksworld/pddl3_crc.o
-#$ -N dpo_mistral_blocksworld_pddl3
+#$ -N dpo_mistral_blocksworld_pddl3-500
 
 set -euo pipefail
 
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 conda activate llmstl
 
-BASE_MODEL="/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/pddl3"
-DPO_DATASET="/users/jfan5/jfan5/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-500.jsonl"
-OUTPUT_DIR="/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/pddl3-500"
+# DPO training for Mistral-7B on blocksworld scenario (PDDL3-500)
+mkdir -p "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/pddl3-500"
 
-mkdir -p "${OUTPUT_DIR}"
-
-python3 /users/jfan5/jfan5/Safety-gen/script/train_dpo_unsloth.py \
-  --base_model "${BASE_MODEL}" \
-  --dataset "${DPO_DATASET}" \
-  --output_dir "${OUTPUT_DIR}" \
+python3 script/train_dpo_unsloth.py \
+  --base_model "/groups/fkong/jfan5/sft_models/mistral_7b/blocksworld/pddl3" \
+  --dataset "/home/ubuntu/Safety-gen/data/dpo/datasets/blocksworld/pddl3_dpo-500.jsonl" \
+  --output_dir "/groups/fkong/jfan5/dpo_models/mistral_7b/blocksworld/pddl3-500" \
   --num_epochs 3 \
   --batch_size 1 \
   --gradient_accumulation_steps 8 \
@@ -31,6 +30,5 @@ python3 /users/jfan5/jfan5/Safety-gen/script/train_dpo_unsloth.py \
   --logging_steps 25 \
   --beta 0.1 \
   --memory_efficient \
-  --run_name "dpo-mistral-blocksworld-pddl3" \
+  --run_name "dpo-mistral-blocksworld-pddl3-500" \
   --dataloader_num_workers 0
-

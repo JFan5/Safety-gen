@@ -4,24 +4,24 @@
 #$ -m abe
 #$ -q gpu
 #$ -l gpu_card=1
-#$ -o job_outputs/fine_tune/mistral_7b/blocksworld/pddl3-500.o
-#$ -pe smp 8          # Specify parallel environment and legal core size
-#$ -N fine_tune_mistral_7b_blocksworld_pddl3-500     # Specify job name
+#$ -o job_outputs/fine_tune/mistral/blocksworld/sft-500.o
+#$ -pe smp 8
+#$ -N fine_tune_mistral_blocksworld_sft-500
+
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+cd /home/ubuntu/Safety-gen
 
 conda activate llmstl
 
-# Model and output configuration for Mistral on blocksworld scenario (PDDL3)
-MODEL_NAME="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-OUTPUT_NAME="mistral_7b/blocksworld/pddl3-500"
-DATASET_PATH="/groups/fkong/jfan5/data/sft/blocksworld-500"
-
+# Fine-tune Mistral-7B on blocksworld scenario (SFT-500)
 python3 pddl_finetune.py \
   --mode train \
-  --model "$MODEL_NAME" \
-  --output "$OUTPUT_NAME" \
-  --dataset "$DATASET_PATH" \
+  --model "unsloth/mistral-7b-instruct-v0.3-bnb-4bit" \
+  --output "mistral_7b/blocksworld/pddl3-500" \
+  --dataset "/groups/fkong/jfan5/data/sft/blocksworld-500" \
   --family mistral \
   --per-device-train-batch-size 4 \
   --gradient-accumulation-steps 4 \
   --scenarios blocksworld
-
