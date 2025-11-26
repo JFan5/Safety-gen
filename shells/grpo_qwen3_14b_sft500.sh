@@ -16,7 +16,7 @@ BASE_MODEL="/jfan5/sft_qwen3/bfgs-variant-500"
 # 
 DATASET="/jfan5/ppo_data/all_scenarios.jsonl"
 OUTPUT_DIR="/jfan5/grpo_models/qwen3_14b_sft500"
-
+# /jfan5/sft_models/qwen3_14b/four_scenarios500/pddl3
 # Training parameters
 MAX_STEPS=500
 BATCH_SIZE=16
