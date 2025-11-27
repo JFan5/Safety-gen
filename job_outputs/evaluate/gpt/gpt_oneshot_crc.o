@@ -1,0 +1,22 @@
+==========================================
+CRC job: gpt_oneshot_crc
+Working dir: /users/jfan5/Safety-gen
+Running shells/temp_test_gpt_oss_20b_oneshot.sh
+==========================================
+==========================================
+Testing GPT-oss-20b One-Shot Pretrained Model
+==========================================
+Model: unsloth/gpt-oss-20b-unsloth-bnb-4bit
+Family: gpt
+Max problems per scenario: 50
+Mode: One-shot
+==========================================
+
+
+==========================================
+Testing scenario: blocksworld
+==========================================
+Problems dir: pddl3/blocksworld/all_problems3/testing
+Domain file: pddl3/blocksworld/domain3.pddl
+Output file: planning_results/baseline_gpt_oss_20b/blocksworld_oneshot.json
+

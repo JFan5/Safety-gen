@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# CRC GPT-OSS-20B one-shot evaluation job
+# This submits the temporary shell script shells/temp_test_gpt_oss_20b_oneshot.sh
+#
+#$ -M jfan5@nd.edu
+#$ -m abe
+#$ -q gpu
+#$ -l gpu_card=1
+#$ -pe smp 8
+#$ -o job_outputs/evaluate/gpt/gpt_oneshot_crc.o
+#$ -N gpt_oneshot_crc
+
+set -euo pipefail
+
+# Ensure we are at the repo root so relative paths below work
+
+cd ~/Safety-gen
+# Activate conda env
+conda activate llmstl
+
+echo "=========================================="
+echo "CRC job: gpt_oneshot_crc"
+echo "Working dir: $(pwd)"
+echo "Running shells/temp_test_gpt_oss_20b_oneshot.sh"
+echo "=========================================="
+
+bash ./shells/temp_test_gpt_oss_20b_oneshot.sh
+
+
