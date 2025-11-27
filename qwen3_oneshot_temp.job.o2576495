@@ -1,0 +1,133 @@
+==========================================
+Launching temp_test_qwen3_14b_oneshot.sh via Slurm
+Working dir: /users/jfan5/Safety-gen
+==========================================
+==========================================
+Testing Qwen3-14b One-Shot Pretrained Model
+==========================================
+Model: unsloth/Qwen3-14B-unsloth-bnb-4bit
+Family: qwen
+Max problems per scenario: 50
+Mode: One-shot
+==========================================
+
+
+==========================================
+Testing scenario: blocksworld
+==========================================
+Problems dir: pddl3/blocksworld/all_problems3/testing
+Domain file: pddl3/blocksworld/domain3.pddl
+Output file: planning_results/baseline_qwen_14b/blocksworld_oneshot.json
+
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 14, in <module>
+    from unsloth import FastLanguageModel
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/__init__.py", line 80, in <module>
+    import unsloth_zoo
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/__init__.py", line 136, in <module>
+    from .device_type import (
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 56, in <module>
+    DEVICE_TYPE : str = get_device_type()
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 46, in get_device_type
+    raise NotImplementedError("Unsloth cannot find any torch accelerator? You need a GPU.")
+NotImplementedError: Unsloth cannot find any torch accelerator? You need a GPU.
+
+Completed: blocksworld
+
+
+==========================================
+Testing scenario: delivery
+==========================================
+Problems dir: pddl3/delivery/all_problems3/testing
+Domain file: pddl3/delivery/domain3.pddl
+Output file: planning_results/baseline_qwen_14b/delivery_oneshot.json
+
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 14, in <module>
+    from unsloth import FastLanguageModel
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/__init__.py", line 80, in <module>
+    import unsloth_zoo
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/__init__.py", line 136, in <module>
+    from .device_type import (
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 56, in <module>
+    DEVICE_TYPE : str = get_device_type()
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 46, in get_device_type
+    raise NotImplementedError("Unsloth cannot find any torch accelerator? You need a GPU.")
+NotImplementedError: Unsloth cannot find any torch accelerator? You need a GPU.
+
+Completed: delivery
+
+
+==========================================
+Testing scenario: ferry
+==========================================
+Problems dir: pddl3/ferry/all_problems3/testing
+Domain file: pddl3/ferry/domain3.pddl
+Output file: planning_results/baseline_qwen_14b/ferry_oneshot.json
+
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 14, in <module>
+    from unsloth import FastLanguageModel
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/__init__.py", line 80, in <module>
+    import unsloth_zoo
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/__init__.py", line 136, in <module>
+    from .device_type import (
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 56, in <module>
+    DEVICE_TYPE : str = get_device_type()
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 46, in get_device_type
+    raise NotImplementedError("Unsloth cannot find any torch accelerator? You need a GPU.")
+NotImplementedError: Unsloth cannot find any torch accelerator? You need a GPU.
+
+Completed: ferry
+
+
+==========================================
+Testing scenario: grippers
+==========================================
+Problems dir: pddl3/grippers/all_problems3/testing
+Domain file: pddl3/grippers/domain3.pddl
+Output file: planning_results/baseline_qwen_14b/grippers_oneshot.json
+
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 14, in <module>
+    from unsloth import FastLanguageModel
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/__init__.py", line 80, in <module>
+    import unsloth_zoo
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/__init__.py", line 136, in <module>
+    from .device_type import (
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 56, in <module>
+    DEVICE_TYPE : str = get_device_type()
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 46, in get_device_type
+    raise NotImplementedError("Unsloth cannot find any torch accelerator? You need a GPU.")
+NotImplementedError: Unsloth cannot find any torch accelerator? You need a GPU.
+
+Completed: grippers
+
+
+==========================================
+Testing scenario: spanner
+==========================================
+Problems dir: pddl3/spanner/all_problems3/testing
+Domain file: pddl3/spanner/domain3.pddl
+Output file: planning_results/baseline_qwen_14b/spanner_oneshot.json
+
+Traceback (most recent call last):
+  File "/users/jfan5/Safety-gen/script/evaluate_llm_solver.py", line 14, in <module>
+    from unsloth import FastLanguageModel
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth/__init__.py", line 80, in <module>
+    import unsloth_zoo
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/__init__.py", line 136, in <module>
+    from .device_type import (
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 56, in <module>
+    DEVICE_TYPE : str = get_device_type()
+  File "/scratch365/jfan5/.conda/llmstl/lib/python3.10/site-packages/unsloth_zoo/device_type.py", line 46, in get_device_type
+    raise NotImplementedError("Unsloth cannot find any torch accelerator? You need a GPU.")
+NotImplementedError: Unsloth cannot find any torch accelerator? You need a GPU.
+
+Completed: spanner
+
+==========================================
+All scenarios completed!
+==========================================
+Results saved to: planning_results/baseline_qwen_14b/
+

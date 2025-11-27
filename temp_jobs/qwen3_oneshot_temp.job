@@ -10,10 +10,10 @@
 #SBATCH --output=job_outputs/evaluate/qwen3/temp_qwen3_oneshot_%j.out
 #SBATCH --error=job_outputs/evaluate/qwen3/temp_qwen3_oneshot_%j.err
 
-set -euo pipefail
+
 
 # Ensure we are at the repo root so relative paths below work
-cd /home/ubuntu/Safety-gen
+cd ~/Safety-gen
 
 echo "=========================================="
 echo "Launching temp_test_qwen3_14b_oneshot.sh via Slurm"
