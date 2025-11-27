@@ -5,44 +5,21 @@
 # Example: ./evaluate_llm_spanner.sh /jfan5/sft_models/mistral_7b/four_scenarios500 mistral 50
 # Note: spanner scenario requires --no-load-in-4bit flag
 
-set -e
-
+# Initialize conda for bash shell
+eval "$(conda shell.bash hook)"
 conda activate llmstl
 
-# Set working directory
-cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-MODEL_FAMILY="${2:-auto}"  # Default to auto detection
-MAX_PROBLEMS="${3:-50}"    # Default to 50
-
-if [ -z "${MODEL_PATH}" ]; then
-    echo "Error: Model path is required"
-    echo "Usage: $0 <model_path> [model_family] [max_problems]"
-    exit 1
-fi
-
-# Scenario configuration
-SCENARIO="spanner"
+MODEL_FAMILY="auto"
+MAX_PROBLEMS=50
 PROBLEMS_DIR="pddl3/spanner/all_problems3/testing"
 DOMAIN_FILE="pddl3/spanner/domain3.pddl"
 
-# Extract model name from path
-MODEL_NAME=$(basename "${MODEL_PATH}" | sed 's/[\/\\]/_/g')
-# Generate output filename: model_name_scenario_test_results.json (timestamp will be added by Python script)
-OUTPUT_FILE="${MODEL_NAME}_${SCENARIO}_test_results.json"
-
-echo "=========================================="
-echo "Evaluating ${SCENARIO} scenario"
-echo "=========================================="
-echo "Model: ${MODEL_PATH}"
-echo "Family: ${MODEL_FAMILY}"
-echo "Max problems: ${MAX_PROBLEMS}"
-echo "Output file: ${OUTPUT_FILE} (timestamp will be added)"
-echo "Note: Using --no-load-in-4bit for spanner"
-echo "=========================================="
-echo ""
+# Sanitize model path for filename (replace / and other special chars with -)
+MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
+OUTPUT_FILE="planning_results/spanner_${MODEL_NAME}_50.json"
 
 python3 script/evaluate_llm_solver.py \
     --model "${MODEL_PATH}" \
@@ -51,7 +28,8 @@ python3 script/evaluate_llm_solver.py \
     --domain-file "${DOMAIN_FILE}" \
     --max-problems ${MAX_PROBLEMS} \
     --output "${OUTPUT_FILE}" \
-    --no-load-in-4bit
+    --no-load-in-4bit \
+    --one-shot
 
 echo ""
 echo "=========================================="

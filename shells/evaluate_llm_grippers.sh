@@ -6,34 +6,22 @@
 
 set -e
 
+# Initialize conda for bash shell
+eval "$(conda shell.bash hook)"
 conda activate llmstl
-
-# Set working directory
-cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-MODEL_FAMILY="${2:-auto}"  # Default to auto detection
-MAX_PROBLEMS="${3:-50}"    # Default to 50
+MODEL_FAMILY="auto"
+MAX_PROBLEMS=50
 
-if [ -z "${MODEL_PATH}" ]; then
-    echo "Error: Model path is required"
-    echo "Usage: $0 <model_path> [model_family] [max_problems]"
-    exit 1
-fi
-
-# Scenario configuration
-SCENARIO="grippers"
+MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
 PROBLEMS_DIR="pddl3/grippers/all_problems3/testing"
 DOMAIN_FILE="pddl3/grippers/domain3.pddl"
-
-# Extract model name from path
-MODEL_NAME=$(basename "${MODEL_PATH}" | sed 's/[\/\\]/_/g')
-# Generate output filename: model_name_scenario_test_results.json (timestamp will be added by Python script)
-OUTPUT_FILE="${MODEL_NAME}_${SCENARIO}_test_results.json"
+OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_50.json"
 
 echo "=========================================="
-echo "Evaluating ${SCENARIO} scenario"
+echo "Evaluating ${MODEL_PATH} model"
 echo "=========================================="
 echo "Model: ${MODEL_PATH}"
 echo "Family: ${MODEL_FAMILY}"
@@ -48,7 +36,8 @@ python3 script/evaluate_llm_solver.py \
     --problems-dir "${PROBLEMS_DIR}" \
     --domain-file "${DOMAIN_FILE}" \
     --max-problems ${MAX_PROBLEMS} \
-    --output "${OUTPUT_FILE}"
+    --output "${OUTPUT_FILE}" \
+    --one-shot
 
 echo ""
 echo "=========================================="

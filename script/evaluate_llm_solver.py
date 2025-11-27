@@ -130,15 +130,61 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     return all(line.startswith("(") and line.endswith(")") for line in lines)
 
 
+def _infer_scenario_name(problems_dir: str, domain_file: str) -> Optional[str]:
+    """从路径推断 scenario 名称"""
+    path_str = (problems_dir + " " + domain_file).lower()
+    scenarios = ["blocksworld", "spanner", "ferry", "grippers", "grid", "delivery", "logistics", "rovers", "miconic"]
+    for scenario in scenarios:
+        if scenario in path_str:
+            return scenario
+    return None
+
+
+def _load_one_shot_example(scenario: str, repo_root: Path = None) -> Optional[dict]:
+    """加载 one-shot example 文件"""
+    if repo_root is None:
+        repo_root = Path(__file__).parent.parent
+    
+    example_dir = repo_root / "one_shot_example" / scenario
+    if not example_dir.exists():
+        print(f"Warning: One-shot example directory not found: {example_dir}")
+        return None
+    
+    example_files = {
+        'domain': example_dir / "domain.pddl",
+        'problem': example_dir / "problem.pddl",
+        'solution': example_dir / "solution.soln"
+    }
+    
+    example_content = {}
+    for key, file_path in example_files.items():
+        if not file_path.exists():
+            print(f"Warning: One-shot example file not found: {file_path}")
+            return None
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                example_content[key] = f.read()
+        except Exception as e:
+            print(f"Error reading one-shot example file {file_path}: {e}")
+            return None
+    
+    return example_content
+
+
 
 
 
 # 场景相关逻辑已移除
 
-def _load_problems_from_dir(problems_dir: str, domain_file: str) -> list:
+def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False) -> list:
     """
     从指定目录加载所有 problem PDDL 文件，并使用提供的 domain 文件构建测试样本。
     会跳过名称包含 "domain" 的文件。
+    
+    Args:
+        problems_dir: 包含 problem 文件的目录
+        domain_file: domain 文件路径
+        one_shot: 是否使用 one-shot 模式
     """
     problems_path = Path(problems_dir)
     if not problems_path.exists():
@@ -164,12 +210,34 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str) -> list:
         return []
 
     # 加载 prompt 模板
+    prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
     try:
-        with open('prompt.txt', 'r', encoding='utf-8') as f:
+        with open(prompt_template_file, 'r', encoding='utf-8') as f:
             prompt_template = f.read()
+        # 如果文件是 Python f-string 格式（以 prompt = f""" 开头），需要提取模板内容
+        if prompt_template.startswith('prompt = f"""'):
+            # 移除开头的 prompt = f""" 和结尾的 """
+            prompt_template = prompt_template.replace('prompt = f"""', '', 1)
+            if prompt_template.endswith('"""'):
+                prompt_template = prompt_template[:-3]
+            prompt_template = prompt_template.strip()
     except Exception as e:
-        print(f"Error reading prompt.txt: {e}")
+        print(f"Error reading {prompt_template_file}: {e}")
         prompt_template = "{problem_content}"
+
+    # 如果使用 one-shot 模式，加载 example
+    example_content = None
+    if one_shot:
+        scenario = _infer_scenario_name(problems_dir, domain_file)
+        if scenario:
+            print(f"Inferred scenario: {scenario}")
+            example_content = _load_one_shot_example(scenario)
+            if example_content:
+                print(f"Loaded one-shot example for scenario: {scenario}")
+            else:
+                print(f"Warning: Failed to load one-shot example for scenario: {scenario}")
+        else:
+            print(f"Warning: Could not infer scenario name from paths, one-shot example will not be included")
 
     for pddl_file in pddl_files:
         problem_name = pddl_file.stem
@@ -179,7 +247,30 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str) -> list:
         except Exception as e:
             print(f"Error reading {pddl_file}: {e}")
             continue
-        prompt = prompt_template.format(domain_content=domain_content, problem_content=problem_content)
+        
+        # 构建 prompt
+        if one_shot and example_content:
+            # 构建包含 example 的 prompt
+            example_text = f"""
+DOMAIN:
+{example_content['domain']}
+
+PROBLEM:
+{example_content['problem']}
+
+### Plan:
+{example_content['solution']}
+"""
+            # 使用 format 替换 {example_content}, {domain_content} 和 {problem_content}
+            prompt = prompt_template.format(
+                domain_content=domain_content,
+                problem_content=problem_content,
+                example_content=example_text
+            )
+        else:
+            # 普通模式
+            prompt = prompt_template.format(domain_content=domain_content, problem_content=problem_content)
+        
         test_data.append({
             'problem_name': problem_name,
             'problem_file': str(pddl_file),
@@ -192,7 +283,8 @@ def test_model_on_testing_data(model_path,
                               output_file="test_results.json", family='mistral', 
                               max_problems: int = 0, results_dir=None,
                               problems_dir: str = None, domain_file: str = None,
-                              load_in_4bit: bool = True, temperature: float = 0.1):
+                              load_in_4bit: bool = True, temperature: float = 0.1,
+                              one_shot: bool = False):
     """
     在testing数据上测试模型并计算成功率
     
@@ -227,7 +319,11 @@ def test_model_on_testing_data(model_path,
     if not problems_dir or not domain_file:
         print("--problems-dir 和 --domain-file 都是必需参数。")
         return
-    test_data = _load_problems_from_dir(problems_dir, domain_file)
+    
+    if one_shot:
+        print("Using one-shot mode with examples")
+    
+    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot)
     if max_problems and max_problems > 0 and len(test_data) > max_problems:
         random.seed(42)
         test_data = random.sample(test_data, max_problems)
@@ -465,22 +561,24 @@ def test_model_on_testing_data(model_path,
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     timestamp_iso = datetime.now().isoformat()
     
-    # 处理输出文件名，添加时间戳
+    # 处理输出文件名，添加时间戳和 oneshot 后缀（如果使用 one-shot 模式）
     output_file_path = Path(output_file)
     if output_file == "test_results.json":
         # 如果使用默认文件名，生成带时间戳的文件名
         model_name_clean = model_path.replace('/', '_').replace('\\', '_')
-        output_file_path = Path(f"evaluation_summary_{model_name_clean}_{timestamp}.json")
+        suffix = "_oneshot" if one_shot else ""
+        output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
     else:
-        # 如果指定了自定义文件名，在文件名中插入时间戳
+        # 如果指定了自定义文件名，在文件名中插入时间戳和 oneshot 后缀
         # 保留原始路径（如果有）
         parent_dir = output_file_path.parent
         stem = output_file_path.stem
         suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+        oneshot_suffix = "_oneshot" if one_shot else ""
         if parent_dir and str(parent_dir) != ".":
-            output_file_path = parent_dir / f"{stem}_{timestamp}{suffix}"
+            output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
         else:
-            output_file_path = Path(f"{stem}_{timestamp}{suffix}")
+            output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
     
     output_data = {
         'timestamp': timestamp_iso,
@@ -489,6 +587,7 @@ def test_model_on_testing_data(model_path,
         'domain_file': str(domain_file),
         'max_problems': max_problems,
         'load_in_4bit': load_in_4bit,
+        'one_shot': one_shot,
         'total_tests': total_count,
         'success_count': success_count,
         'success_rate': final_success_rate,
@@ -538,6 +637,11 @@ def main():
     parser.set_defaults(load_in_4bit=True)
     parser.add_argument("--temperature", type=float, default=0.1,
                        help="Temperature for text generation (default: 0.1)")
+    parser.add_argument("--one-shot", dest='one_shot', action='store_true',
+                       help="Use one-shot mode with examples from one_shot_example folder (default: False)")
+    parser.add_argument("--no-one-shot", dest='one_shot', action='store_false',
+                       help="Disable one-shot mode (default)")
+    parser.set_defaults(one_shot=False)
     
     args = parser.parse_args()
     
@@ -550,7 +654,8 @@ def main():
         problems_dir=args.problems_dir,
         domain_file=args.domain_file,
         load_in_4bit=args.load_in_4bit,
-        temperature=args.temperature
+        temperature=args.temperature,
+        one_shot=args.one_shot
     )
 
 if __name__ == "__main__":
