@@ -1,17 +1,21 @@
 #!/bin/zsh
 
 # Evaluate LLM model on delivery scenario
-# Usage: ./evaluate_llm_delivery.sh <model_path> [model_family] [max_problems]
-# Example: ./evaluate_llm_delivery.sh /jfan5/sft_models/mistral_7b/four_scenarios500 mistral 50
+# Usage: ./evaluate_llm_delivery.sh <model_path> [one_shot]
+# Example: ./evaluate_llm_delivery.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
 
 # Initialize conda for zsh shell
 eval "$(conda shell.zsh hook)"
 conda activate llmstl
-# Set working directory
 
+# Set working directory
+cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
+ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
+
+# Fixed parameters
 MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
 
@@ -21,14 +25,25 @@ PROBLEMS_DIR="pddl3/delivery/all_problems3/testing"
 DOMAIN_FILE="pddl3/delivery/domain3.pddl"
 OUTPUT_FILE="planning_results/delivery_${MODEL_NAME}_50.json"
 
-python3 script/evaluate_llm_solver.py \
-    --model "${MODEL_PATH}" \
-    --family "${MODEL_FAMILY}" \
-    --problems-dir "${PROBLEMS_DIR}" \
-    --domain-file "${DOMAIN_FILE}" \
-    --max-problems ${MAX_PROBLEMS} \
-    --output "${OUTPUT_FILE}" \
-    --one-shot
+# Run evaluation
+if [ "${ONE_SHOT}" = "1" ]; then
+    python3 script/evaluate_llm_solver.py \
+        --model "${MODEL_PATH}" \
+        --family "${MODEL_FAMILY}" \
+        --problems-dir "${PROBLEMS_DIR}" \
+        --domain-file "${DOMAIN_FILE}" \
+        --max-problems ${MAX_PROBLEMS} \
+        --output "${OUTPUT_FILE}" \
+        --one-shot
+else
+    python3 script/evaluate_llm_solver.py \
+        --model "${MODEL_PATH}" \
+        --family "${MODEL_FAMILY}" \
+        --problems-dir "${PROBLEMS_DIR}" \
+        --domain-file "${DOMAIN_FILE}" \
+        --max-problems ${MAX_PROBLEMS} \
+        --output "${OUTPUT_FILE}"
+fi
 
 echo ""
 echo "=========================================="

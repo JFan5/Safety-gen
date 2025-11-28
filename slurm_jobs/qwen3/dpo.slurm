@@ -13,7 +13,7 @@ OUTPUT_DIR="/home/ubuntu/dpo_models/qwen3_14b/multi/pddl3_500-gpt-candidate-2"
 mkdir -p "${OUTPUT_DIR}"
 
 python3 /home/ubuntu/Safety-gen/script/train_dpo_unsloth.py \
-  --base_model "/home/ubuntu/sft_models/Qwen3-14B/multi_pddl3_500/pddl3" \
+  --base_model "/jfan5/sft_models/qwen3-14b-1127" \
   --dataset "/home/ubuntu/Safety-gen/data/dpo/gpt_oss_20b/multi/qwen3-dpo-success.jsonl" \
   --output_dir "${OUTPUT_DIR}" \
   --num_epochs 2 \

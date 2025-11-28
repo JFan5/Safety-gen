@@ -20,11 +20,17 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import torch
+from collections import Counter
 from datasets import Dataset
 from trl import GRPOConfig, GRPOTrainer
 
 from unsloth import FastLanguageModel
 from utils import _classify_result, validate_solution
+
+try:
+    import wandb
+except ImportError:
+    wandb = None
 
 # Fix for torch._dynamo recompile limit error
 # Increase cache size limit to handle dynamic shapes in GRPO training
@@ -51,11 +57,18 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # -----------------------------------------------------------------------------
 def compute_reward(class_label: str) -> float:
     reward_table = {
-        "success_plans": 2,
-        "goal_not_satisfied": -0.5,
-        "precondition_violation": -1,
-        "plan_format_error": -0.5,
-        "safety_constraints_violation": -2,
+    "success_plans": 1.0,                 # 完整达成目标，最高奖励
+
+    "goal_not_satisfied": -0.2,          # 计划是合法的，但没达到目标
+                                         # -> 至少语法 & precondition & 安全都过了，算“差一点”
+
+    "plan_format_error": -0.4,          # 语法格式错误（括号、关键字等）
+                                         # -> 比 goal_not_satisfied 更糟，因为连 parser 都过不了
+
+    "precondition_violation": -0.7,      # 动作在当前 state 下不可执行
+                                         # -> 逻辑错误更严重
+
+    "safety_constraints_violation": -1.0 # 违反安全约束，最严重
     }
     if class_label not in reward_table:
         raise ValueError(f"Unknown class_label='{class_label}'. Expected one of {list(reward_table)}")
@@ -82,6 +95,11 @@ def classify_with_validator(meta: Any, response_text: str) -> Optional[str]:
         return None
 
 
+import os
+from collections import Counter
+
+DEBUG_FILE = "reward_debug.log"
+
 def grpo_reward_func(
     prompts: List[str],
     completions: List[str],
@@ -90,17 +108,7 @@ def grpo_reward_func(
     trainer_state=None,
     **kwargs,
 ) -> List[float]:
-    """
-    GRPO 自定义 reward 函数。
 
-    TRL 会把：
-      - prompts        : 当前 batch 的 prompt 列表
-      - completions    : 当前 batch 每个生成的 completion（已经 decode 好的 str）
-      - meta           : 来自 dataset 的 'meta' 列
-      - class_label    : 来自 dataset 的 'class_label' 列
-    作为 kwargs 传进来。
-    返回值必须是 len(completions) 个 float。
-    """
     n = len(completions)
     if meta is None:
         meta = [None] * n
@@ -108,33 +116,93 @@ def grpo_reward_func(
         class_label = [None] * n
 
     rewards: List[float] = []
+    all_labels: List[str] = []
+
+
+    # ---------- debug: 打开文件，只 append ----------
+    # 如果文件不存在，创建并写 header
+    if not os.path.exists(DEBUG_FILE):
+        with open(DEBUG_FILE, "w") as f:
+            f.write("=== GRPO REWARD DEBUG LOG ===\n")
 
     for i, (prompt, completion, m, label) in enumerate(
         zip(prompts, completions, meta, class_label)
     ):
-        # 1. 优先用 VAL 校验得到 label
+
+        # 1. validator 推断 label
         inferred_label = classify_with_validator(m, completion)
 
-        # 2. 如果 VAL 没给出结果，退回到数据集原来的 class_label
-        if not inferred_label and isinstance(label, str):
+        # 2. fallback：使用数据集原始 label
+        if inferred_label is None and isinstance(label, str):
             inferred_label = label
 
-        # 3. 转成 reward
-        if inferred_label:
-            r = compute_reward(inferred_label)
+        # 3. 保存 label
+        if inferred_label is not None:
+            all_labels.append(inferred_label)
         else:
-            # 完全无法分类时给 0 分（你可以按需改成小负数）
+            inferred_label = "unknown"
+            all_labels.append("unknown")
+
+        # 4. 转 reward
+        if inferred_label != "unknown":
+            try:
+                r = compute_reward(inferred_label)
+            except:
+                r = 0.0
+                inferred_label = "unknown"
+        else:
             r = 0.0
 
         rewards.append(float(r))
 
-        if i == 0:  # 偶尔打印一个样本，避免太多日志
-            logger.debug(
-                f"[GRPO reward] label={inferred_label!r}, reward={r:.3f}, "
-                f"completion_snippet={completion[:80]!r}"
+
+        # ============ 强制打印（stdout + 文件） ============
+        if i == 0:  # 每 batch 打 1 条，避免太多
+            msg = (
+                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
+                f"label={inferred_label}, reward={r}, "
+                f"completion={completion[:80]!r}\n"
             )
 
+            # stdout：绝对能看到
+            print(msg)
+
+            # 写到文件：永远有效
+            with open(DEBUG_FILE, "a") as f:
+                f.write(msg)
+
+
+    # ============ 统计并 wandb.log ============
+    if all_labels and wandb is not None:
+        counts = Counter(all_labels)
+        total = len(all_labels)
+
+        log_dict = {"stats/total_samples": total}
+
+        for category in [
+            "success_plans",
+            "goal_not_satisfied",
+            "plan_format_error",
+            "precondition_violation",
+            "safety_constraints_violation",
+            "unknown",
+        ]:
+            c = counts.get(category, 0)
+            log_dict[f"stats/count_{category}"] = c
+            log_dict[f"stats/rate_{category}"] = c / total
+
+        # wandb 强制 log（确保打印）
+        try:
+            wandb.log(log_dict)
+        except Exception as e:
+            print("[wandb.log ERROR]", e)
+
+        # 同步写到 debug 文件
+        with open(DEBUG_FILE, "a") as f:
+            f.write(f"stats={log_dict}\n")
+
     return rewards
+
 
 
 # -----------------------------------------------------------------------------

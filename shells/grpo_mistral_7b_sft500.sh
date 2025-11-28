@@ -18,7 +18,7 @@ export CUDA_VISIBLE_DEVICES=0
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_7b/four_scenarios500-1124"
 DATASET="/jfan5/ppo_data/all_scenarios.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b_sft500-1125"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-1127"
 
 # Training parameters
 NUM_EPOCHS=1.0
@@ -26,13 +26,13 @@ BATCH_SIZE=8
 GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=2e-6
 NUM_GENERATIONS=8
-TEMPERATURE=0.6
-MAX_STEPS=1500
+TEMPERATURE=0.9
+MAX_STEPS=500
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=100
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b_sft500"
+RUN_NAME="grpo_mistral_7b-1127"
 
 echo "=========================================="
 echo "GRPO Training for Mistral-7B"

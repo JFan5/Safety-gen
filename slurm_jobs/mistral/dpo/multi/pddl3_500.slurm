@@ -13,7 +13,7 @@ conda activate llmstl
 mkdir -p "${OUTPUT_DIR}"
 
 python3 /home/ubuntu/Safety-gen/script/train_dpo_unsloth.py \
-  --base_model "/home/ubuntu/sft_models/mistral_7b/multi_scenarios500/pddl3" \
+  --base_model "/jfan5/sft_models/mistral_7b/four_scenarios500-1124" \
   --dataset "/home/ubuntu/data/dpo/gpt_oss_20b/multi/pddl3_dpo_multi-500.jsonl" \
   --output_dir "/home/ubuntu/dpo_models/mistral_7b/multi/pddl3_500-gpt-candidate" \
   --num_epochs 2 \
