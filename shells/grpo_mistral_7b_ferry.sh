@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_blocksworld.o
-#SBATCH --job-name=grpo_mistral_7b_blocksworld
+#SBATCH --output=job_outputs/grpo_mistral_7b_ferry.o
+#SBATCH --job-name=grpo_mistral_7b_ferry
 
 
 
@@ -17,27 +17,27 @@ export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_7b/four_scenarios500-1124"
-DATASET="/jfan5/ppo_data/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-1129"
+DATASET="/jfan5/ppo_data/ferry.jsonl"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-ferry-1129"
 
 # Training parameters
 NUM_EPOCHS=1.0
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=8
-LEARNING_RATE=5e-6
-NUM_GENERATIONS=8
-TEMPERATURE=0.6
-MAX_STEPS=300
+LEARNING_RATE=5e-7
+NUM_GENERATIONS=4
+TEMPERATURE=0.7
+MAX_STEPS=150
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=20
 EVAL_STEPS=20
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-blocksworld-1129"
-BETA=0.01
+RUN_NAME="grpo_mistral_7b-ferry-1129"
+BETA=0.1
 MAX_GRAD_NORM=1
 echo "=========================================="
-echo "GRPO Training for Mistral-7B - Blocksworld"
+echo "GRPO Training for Mistral-7B - Ferry"
 echo "=========================================="
 echo "Base model: ${BASE_MODEL}"
 echo "Dataset: ${DATASET}"
@@ -78,4 +78,5 @@ echo "GRPO training completed!"
 echo "=========================================="
 echo "Model saved to: ${OUTPUT_DIR}"
 echo ""
+
 

@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_blocksworld.o
-#SBATCH --job-name=grpo_mistral_7b_blocksworld
+#SBATCH --output=job_outputs/dpo_mistral_7b_sft500.o
+#SBATCH --job-name=dpo_mistral_7b_sft500
 
 
 
@@ -17,27 +17,26 @@ export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_7b/four_scenarios500-1124"
-DATASET="/jfan5/ppo_data/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-1129"
+DATASET="/home/ubuntu/Safety-gen/data/dpo/new_four/multi_pddl3_dpo.jsonl"
+OUTPUT_DIR="/jfan5/dpo_models/mistral_7b-1129"
 
 # Training parameters
-NUM_EPOCHS=1.0
-BATCH_SIZE=4
-GRADIENT_ACCUMULATION_STEPS=8
+NUM_EPOCHS=2
+BATCH_SIZE=8
+GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=5e-6
-NUM_GENERATIONS=8
-TEMPERATURE=0.6
-MAX_STEPS=300
-TOP_P=0.9
-LOGGING_STEPS=20
-SAVE_STEPS=20
-EVAL_STEPS=20
-WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-blocksworld-1129"
-BETA=0.01
-MAX_GRAD_NORM=1
+MAX_LENGTH=4096
+MAX_PROMPT_LENGTH=512
+BETA=0.2
+WARMUP_RATIO=0.1
+WEIGHT_DECAY=0.01
+LOGGING_STEPS=10
+SAVE_STEPS=60
+EVAL_STEPS=60
+WANDB_PROJECT="pddl-dpo-mistral7b"
+RUN_NAME="dpo_mistral_7b-1129"
 echo "=========================================="
-echo "GRPO Training for Mistral-7B - Blocksworld"
+echo "DPO Training for Mistral-7B"
 echo "=========================================="
 echo "Base model: ${BASE_MODEL}"
 echo "Dataset: ${DATASET}"
@@ -48,25 +47,24 @@ echo "  Epochs: ${NUM_EPOCHS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
-echo "  Generations per prompt: ${NUM_GENERATIONS}"
+echo "  Beta: ${BETA}"
 echo "=========================================="
 echo ""
-# Run GRPO training
-python3 script/train_grpo_unsloth.py \
+# Run DPO training
+python3 script/train_dpo_unsloth.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
   --num_epochs ${NUM_EPOCHS} \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
-  --max_grad_norm ${MAX_GRAD_NORM} \
   --gradient_accumulation_steps ${GRADIENT_ACCUMULATION_STEPS} \
   --learning_rate ${LEARNING_RATE} \
+  --max_length ${MAX_LENGTH} \
+  --max_prompt_length ${MAX_PROMPT_LENGTH} \
+  --warmup_ratio ${WARMUP_RATIO} \
+  --weight_decay ${WEIGHT_DECAY} \
   --eval_steps ${EVAL_STEPS} \
-  --num_generations ${NUM_GENERATIONS} \
-  --temperature ${TEMPERATURE} \
-  --top_p ${TOP_P} \
-  --max_steps ${MAX_STEPS} \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
@@ -74,8 +72,9 @@ python3 script/train_grpo_unsloth.py \
 
 echo ""
 echo "=========================================="
-echo "GRPO training completed!"
+echo "DPO training completed!"
 echo "=========================================="
 echo "Model saved to: ${OUTPUT_DIR}"
 echo ""
+
 

@@ -35,7 +35,7 @@ echo "=========================================="
 echo ""
 
 # Define scenarios array
-declare -a SCENARIOS=("delivery" "blocksworld" "ferry" "spanner" "grippers")
+declare -a SCENARIOS=( "blocksworld" "ferry" "spanner" "grippers" "delivery")
 
 # Loop through each scenario
 for SCENARIO in "${SCENARIOS[@]}"; do

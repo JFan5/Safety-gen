@@ -42,4 +42,193 @@ O^O/ \_/ \    Torch: 2.8.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.4.0
  "-____-"     Free license: http://github.com/unslothai/unsloth
 Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
 unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
-  0%|          | 0/500 [00:00<?, ?it/s]  0%|          | 1/500 [00:47<6:31:01, 47.02s/it]  0%|          | 2/500 [01:01<3:51:26, 27.88s/it]  1%|          | 3/500 [01:22<3:26:06, 24.88s/it]  1%|          | 4/500 [01:45<3:18:22, 24.00s/it]  1%|          | 5/500 [02:08<3:14:46, 23.61s/it]  1%|          | 6/500 [02:30<3:11:36, 23.27s/it]  1%|▏         | 7/500 [02:52<3:05:10, 22.54s/it]  2%|▏         | 8/500 [03:08<2:48:47, 20.58s/it]  2%|▏         | 9/500 [03:25<2:38:18, 19.34s/it]  2%|▏         | 10/500 [03:43<2:34:53, 18.97s/it]  2%|▏         | 11/500 [03:58<2:26:15, 17.95s/it]  2%|▏         | 12/500 [04:13<2:19:05, 17.10s/it]  3%|▎         | 13/500 [04:28<2:11:41, 16.22s/it]  3%|▎         | 14/500 [04:50<2:27:08, 18.17s/it]
+  0%|          | 0/500 [00:00<?, ?it/s]  0%|          | 1/500 [00:47<6:31:01, 47.02s/it]  0%|          | 2/500 [01:01<3:51:26, 27.88s/it]  1%|          | 3/500 [01:22<3:26:06, 24.88s/it]  1%|          | 4/500 [01:45<3:18:22, 24.00s/it]  1%|          | 5/500 [02:08<3:14:46, 23.61s/it]  1%|          | 6/500 [02:30<3:11:36, 23.27s/it]  1%|▏         | 7/500 [02:52<3:05:10, 22.54s/it]  2%|▏         | 8/500 [03:08<2:48:47, 20.58s/it]  2%|▏         | 9/500 [03:25<2:38:18, 19.34s/it]  2%|▏         | 10/500 [03:43<2:34:53, 18.97s/it]  2%|▏         | 11/500 [03:58<2:26:15, 17.95s/it]  2%|▏         | 12/500 [04:13<2:19:05, 17.10s/it]  3%|▎         | 13/500 [04:28<2:11:41, 16.22s/it]  3%|▎         | 14/500 [04:50<2:27:08, 18.17s/it]  3%|▎         | 15/500 [05:13<2:38:49, 19.65s/it]  3%|▎         | 16/500 [05:28<2:25:53, 18.08s/it]  3%|▎         | 17/500 [05:51<2:37:42, 19.59s/it]  4%|▎         | 18/500 [06:14<2:45:10, 20.56s/it]  4%|▍         | 19/500 [06:35<2:47:10, 20.85s/it]  4%|▍         | 20/500 [06:51<2:34:13, 19.28s/it]                                                    4%|▍         | 20/500 [06:51<2:34:13, 19.28s/it]  4%|▍         | 21/500 [07:08<2:28:30, 18.60s/it]  4%|▍         | 22/500 [07:31<2:38:03, 19.84s/it]  5%|▍         | 23/500 [07:46<2:26:56, 18.48s/it]  5%|▍         | 24/500 [08:04<2:26:26, 18.46s/it]  5%|▌         | 25/500 [08:19<2:16:14, 17.21s/it]  5%|▌         | 26/500 [08:40<2:24:40, 18.31s/it]  5%|▌         | 27/500 [09:02<2:34:49, 19.64s/it]  6%|▌         | 28/500 [09:25<2:41:43, 20.56s/it]  6%|▌         | 29/500 [09:47<2:44:37, 20.97s/it]  6%|▌         | 30/500 [10:09<2:45:51, 21.17s/it]  6%|▌         | 31/500 [10:32<2:49:59, 21.75s/it]  6%|▋         | 32/500 [10:53<2:49:00, 21.67s/it]  7%|▋         | 33/500 [11:16<2:51:27, 22.03s/it]  7%|▋         | 34/500 [11:39<2:53:30, 22.34s/it]  7%|▋         | 35/500 [12:02<2:53:49, 22.43s/it]  7%|▋         | 36/500 [12:25<2:55:00, 22.63s/it]  7%|▋         | 37/500 [12:48<2:55:07, 22.69s/it]  8%|▊         | 38/500 [13:10<2:53:34, 22.54s/it]  8%|▊         | 39/500 [13:33<2:53:31, 22.58s/it]  8%|▊         | 40/500 [13:55<2:53:41, 22.66s/it]                                                    8%|▊         | 40/500 [13:55<2:53:41, 22.66s/it]  8%|▊         | 41/500 [14:18<2:53:19, 22.66s/it]  8%|▊         | 42/500 [14:36<2:42:25, 21.28s/it]  9%|▊         | 43/500 [14:52<2:30:22, 19.74s/it]  9%|▉         | 44/500 [15:15<2:36:49, 20.63s/it]  9%|▉         | 45/500 [15:38<2:41:41, 21.32s/it]  9%|▉         | 46/500 [16:01<2:45:14, 21.84s/it][STEP 0] label=plan_format_error, reward=-0.4, completion='(unstack b4 b2)\n(unstack b4 b3)\n(ununstack b3 b1)\n(ununstack b1 b3)\n(ununun b4 b'
+
+Unsloth: Will smartly offload gradients to save VRAM!
+[STEP 1] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball1'
+
+[STEP 2] label=success_plans, reward=1.0, completion='� (pick robot1 ball2 room1 lgripper1)\n(move robot1 room1 room4)\n(drop robot1 bal'
+
+[STEP 3] label=success_plans, reward=1.0, completion='(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l0'
+
+[STEP 4] label=plan_format_error, reward=-0.4, completion='| (unstack b2 b3)\n(unstack b1 b2)\n(unstack b5 b4)\n(unstack b6 b1)\n(ununstack b3 '
+
+[STEP 5] label=goal_not_satisfied, reward=-0.2, completion='m (walk shed location1 bob)\n(pickup_spanner location1 spanner2 bob)\n(walk locati'
+
+[STEP 6] label=precondition_violation, reward=-0.7, completion='(unstack b4 b5)\n(putdown b4)\n(unstack b5 b3)\n(putdown b5)\n(pickup b4)\n(stack b4 '
+
+[STEP 7] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 8] label=safety_constraints_violation, reward=-1.0, completion='(sail l0 l3)\n(board c2 l3)\n(sail l3 l2)\n(debark c2 l2)'
+
+[STEP 9] label=success_plans, reward=1.0, completion='(sail l1 l3)\n(board c2 l3)\n(sail l3 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0'
+
+[STEP 10] label=success_plans, reward=1.0, completion='(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball1'
+
+[STEP 11] label=success_plans, reward=1.0, completion='(board c2 l2)\n(sail l2 l3)\n(sail l3 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l1'
+
+[STEP 12] label=success_plans, reward=1.0, completion='(sail l0 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)\n(sail l1 l3)\n(board c0 l3'
+
+[STEP 13] label=plan_format_error, reward=-0.4, completion='(unstack b3 b6)\n(unstack b6 b4)\n(unununstack b3 b2)\n(unputdown b2 b3)\n(ununputdo'
+
+[STEP 14] label=plan_format_error, reward=-0.4, completion='(pick robot1 ball2 room1 lgripper2 ball2 room1 lgripper2 ball2 room1 lmove robot'
+
+[STEP 15] label=success_plans, reward=1.0, completion='(sail l1 l3)\n(board c0 l3)\n(sail l3 l2)\n(debark c0 l2)\n(board c1 l2)\n(sail l2 l0'
+
+[STEP 16] label=success_plans, reward=1.0, completion='(sail l2 l1)\n(board c0 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c0 l0)\n(board c2 l0'
+
+[STEP 17] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner locatio'
+
+[STEP 18] label=precondition_violation, reward=-0.7, completion='(unstack b6 b4)\n(putdown b6)\n(unstack b4 b2)\n(putdown b4)\n(unstack b2 b1)\n(stack'
+
+[STEP 19] label=success_plans, reward=1.0, completion='(pick robot1 ball2 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball2'
+
+{'loss': 378602.15, 'grad_norm': 425.2489929199219, 'learning_rate': 7.599999999999999e-07, 'num_tokens': 616946.0, 'completions/mean_length': 123.028125, 'completions/min_length': 73.7, 'completions/max_length': 202.65, 'completions/clipped_ratio': 0.0828125, 'completions/mean_terminated_length': 111.77901039123535, 'completions/min_terminated_length': 73.7, 'completions/max_terminated_length': 162.0, 'rewards/grpo_reward_func/mean': 0.005468755587935447, 'rewards/grpo_reward_func/std': 0.7355562567710876, 'reward': 0.005468755587935447, 'reward_std': 0.2686233758926392, 'frac_reward_zero_std': 0.3375, 'completion_length': 202.6484375, 'kl': 18930107.1504053, 'epoch': 0.01}
+[STEP 20] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(pickup_spanner location1 spanner1 bob)\n(walk location'
+
+[STEP 21] label=precondition_violation, reward=-0.7, completion='(move robot1 room2 room1)\n(pick robot1 ball3 room1 rgripper1)\n(move robot1 room1'
+
+[STEP 22] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 23] label=success_plans, reward=1.0, completion='(board c0 l1)\n(sail l1 l2)\n(debark c0 l2)\n(sail l2 l3)\n(board c2 l3)\n(sail l3 l2'
+
+[STEP 24] label=success_plans, reward=1.0, completion='(sail l0 l1)\n(board c1 l1)\n(sail l1 l2)\n(debark c1 l2)\n(sail l2 l3)\n(board c0 l3'
+
+[STEP 25] label=plan_format_error, reward=-0.4, completion='(unstack b3 b4)\n(putdown b3)\n(unstack b4 b2)\n(putdown b4)\n(pickup b3)\n(stack b3 '
+
+[STEP 26] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball3 room2 lgripper2)\n(move robot1 room2 room3)\n(drop robot1 ball3'
+
+[STEP 27] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 28] label=success_plans, reward=1.0, completion='� (sail l0 l1)\n(board c1 l1)\n(sail l1 l2)\n(debark c1 l2)\n(sail l2 l3)\n(board c0 '
+
+[STEP 29] label=precondition_violation, reward=-0.7, completion='(move robot1 room2 room1)\n(pick robot1 ball3 room1 lgripper2)\n(move robot1 room1'
+
+[STEP 30] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball1 room3 rgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball1'
+
+[STEP 31] label=plan_format_error, reward=-0.4, completion='(unstack b4 b3)\n(putdown b4)\n(unstack b3 b5)\n(stack b3 b4)\n(unstack b1 b6)\n(putd'
+
+[STEP 32] label=success_plans, reward=1.0, completion='(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(sail l0 l3)\n(board c0 l3)\n(sail l3 l2'
+
+[STEP 33] label=plan_format_error, reward=-0.4, completion='\x11 (unstack b3 b4)\n(pickup b1 b2)\n(putdown b1 b5)\n(unstack b3 b1)\n(pickup b4 b2)\n'
+
+[STEP 34] label=plan_format_error, reward=-0.4, completion='(unstack b3 b5)\n(unstack b1 b3)\n(pickup b5)\n(unun b1 b5)\n(unun b3 b2)\n(putdown b'
+
+[STEP 35] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(pickup_spanner location1 spanner2 bob)\n(walk location'
+
+[STEP 36] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 37] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball1'
+
+[STEP 38] label=precondition_violation, reward=-0.7, completion='(board c0 l1)\n(sail l1 l0)\n(debark l0 l2)\n(sail l2 l3)\n(board c1 l3)\n(sail l3 l1'
+
+[STEP 39] label=goal_not_satisfied, reward=-0.2, completion=': (unstack b5 b3)\n(unstack b6 b2)\n(unununstack b5 b1)\n(unputdown b5 b6)\n(unununp'
+
+{'loss': 4392.0672, 'grad_norm': 1935534.875, 'learning_rate': 1.5599999999999999e-06, 'num_tokens': 1250908.0, 'completions/mean_length': 138.003125, 'completions/min_length': 75.65, 'completions/max_length': 233.6, 'completions/clipped_ratio': 0.165625, 'completions/mean_terminated_length': 115.0920566558838, 'completions/min_terminated_length': 75.65, 'completions/max_terminated_length': 182.75, 'rewards/grpo_reward_func/mean': 0.11296875551342964, 'rewards/grpo_reward_func/std': 0.7136946603655815, 'reward': 0.11296875551342964, 'reward_std': 0.22376567572355271, 'frac_reward_zero_std': 0.375, 'completion_length': 233.6, 'kl': 219603.30256599636, 'epoch': 0.02}
+[STEP 40] label=goal_not_satisfied, reward=-0.2, completion='z (unstack b1 b4)\n(unstack b2 b1)\n(ununputdown b2 b3)\n(unununputdown b1 b2)\n(unu'
+
+[STEP 41] label=safety_constraints_violation, reward=-1.0, completion='(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(board c2 l2)\n(sail l2 l3)\n(debark c2 '
+
+[STEP 42] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 43] label=plan_format_error, reward=-0.4, completion='(unstack b2 b5)\n(unstack b2 b3)\n(unputdown b3 b5)\n(ununstack b2 b1)\n(unputdown b'
+
+[STEP 44] label=success_plans, reward=1.0, completion='(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0'
+
+[STEP 45] label=precondition_violation, reward=-0.7, completion='(sail l2 l3)\n(board c0 l3)\n(sail l3 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l1'
+
+  9%|▉         | 47/500 [16:17<2:32:22, 20.18s/it] 10%|▉         | 48/500 [16:40<2:37:40, 20.93s/it] 10%|▉         | 49/500 [17:02<2:41:00, 21.42s/it] 10%|█         | 50/500 [17:24<2:41:53, 21.59s/it] 10%|█         | 51/500 [17:47<2:44:07, 21.93s/it] 10%|█         | 52/500 [18:02<2:28:00, 19.82s/it] 11%|█         | 53/500 [18:23<2:29:49, 20.11s/it] 11%|█         | 54/500 [18:45<2:33:39, 20.67s/it] 11%|█         | 55/500 [19:08<2:37:41, 21.26s/it] 11%|█         | 56/500 [19:30<2:39:08, 21.51s/it] 11%|█▏        | 57/500 [19:48<2:31:17, 20.49s/it] 12%|█▏        | 58/500 [20:03<2:20:05, 19.02s/it] 12%|█▏        | 59/500 [20:26<2:27:45, 20.10s/it] 12%|█▏        | 60/500 [20:43<2:19:44, 19.06s/it]                                                   12%|█▏        | 60/500 [20:43<2:19:44, 19.06s/it] 12%|█▏        | 61/500 [21:06<2:28:18, 20.27s/it] 12%|█▏        | 62/500 [21:21<2:16:56, 18.76s/it] 13%|█▎        | 63/500 [21:36<2:09:21, 17.76s/it] 13%|█▎        | 64/500 [21:59<2:19:41, 19.22s/it] 13%|█▎        | 65/500 [22:15<2:12:59, 18.34s/it] 13%|█▎        | 66/500 [22:38<2:22:37, 19.72s/it] 13%|█▎        | 67/500 [23:01<2:28:29, 20.58s/it] 14%|█▎        | 68/500 [23:20<2:25:04, 20.15s/it] 14%|█▍        | 69/500 [23:43<2:30:37, 20.97s/it] 14%|█▍        | 70/500 [24:06<2:35:18, 21.67s/it] 14%|█▍        | 71/500 [24:29<2:37:55, 22.09s/it] 14%|█▍        | 72/500 [24:52<2:38:46, 22.26s/it] 15%|█▍        | 73/500 [25:15<2:40:07, 22.50s/it] 15%|█▍        | 74/500 [25:37<2:38:18, 22.30s/it] 15%|█▌        | 75/500 [26:00<2:39:36, 22.53s/it] 15%|█▌        | 76/500 [26:23<2:40:30, 22.71s/it] 15%|█▌        | 77/500 [26:46<2:40:32, 22.77s/it] 16%|█▌        | 78/500 [27:09<2:41:31, 22.97s/it] 16%|█▌        | 79/500 [27:32<2:41:30, 23.02s/it] 16%|█▌        | 80/500 [27:49<2:27:39, 21.10s/it]                                                   16%|█▌        | 80/500 [27:49<2:27:39, 21.10s/it] 16%|█▌        | 81/500 [28:11<2:28:52, 21.32s/it] 16%|█▋        | 82/500 [28:33<2:31:16, 21.71s/it] 17%|█▋        | 83/500 [28:56<2:32:47, 21.98s/it] 17%|█▋        | 84/500 [29:19<2:33:37, 22.16s/it] 17%|█▋        | 85/500 [29:40<2:32:33, 22.06s/it] 17%|█▋        | 86/500 [30:02<2:30:59, 21.88s/it] 17%|█▋        | 87/500 [30:24<2:32:03, 22.09s/it] 18%|█▊        | 88/500 [30:48<2:33:54, 22.41s/it] 18%|█▊        | 89/500 [31:08<2:30:14, 21.93s/it] 18%|█▊        | 90/500 [31:32<2:32:20, 22.29s/it] 18%|█▊        | 91/500 [31:54<2:31:22, 22.21s/it] 18%|█▊        | 92/500 [32:14<2:27:45, 21.73s/it][STEP 46] label=success_plans, reward=1.0, completion='(move robot1 room3 room1)\n(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1'
+
+[STEP 47] label=plan_format_error, reward=-0.4, completion='(unstack b2 b5)\n(unstack b2 b1)\n(unputdown b2 b5)\n(ununstack b5 b3)\n(ununununsta'
+
+[STEP 48] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 49] label=success_plans, reward=1.0, completion='(board c1 l3)\n(sail l3 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c0 l1)\n(sail l1 l0'
+
+[STEP 50] label=precondition_violation, reward=-0.7, completion='(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(sail l2 l1)\n(debark c1 l1)'
+
+[STEP 51] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball1 room1 lgripper1)\n(move robot1 room1 room3)\n(drop robot1 ball1'
+
+[STEP 52] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(pickup_spanner location1 spanner1 bob)\n(walk location'
+
+[STEP 53] label=plan_format_error, reward=-0.4, completion='(unstack b4 b2)\n(unputdown b4 b3)\n(ununstack b3 b1)\n(unputdown b3 b5)\n(ununstack'
+
+[STEP 54] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner locatio'
+
+[STEP 55] label=success_plans, reward=1.0, completion='(sail l2 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)\n(sail l1 l3)\n(board c1 l3'
+
+[STEP 56] label=success_plans, reward=1.0, completion='\x14 (sail l0 l3)\n(board c1 l3)\n(sail l3 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c2 '
+
+[STEP 57] label=safety_constraints_violation, reward=-1.0, completion='(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 '
+
+[STEP 58] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball2 room1 lgripper2)\n(move robot1 room1 room2)\n(drop robot1 ball2'
+
+[STEP 59] label=success_plans, reward=1.0, completion='(board c0 l2)\n(sail l2 l3)\n(sail l3 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c1 l0'
+
+{'loss': 14359.8312, 'grad_norm': 0.3963501751422882, 'learning_rate': 1.96e-06, 'num_tokens': 1889736.0, 'completions/mean_length': 125.25625, 'completions/min_length': 66.25, 'completions/max_length': 215.1, 'completions/clipped_ratio': 0.0875, 'completions/mean_terminated_length': 112.82707290649414, 'completions/min_terminated_length': 66.25, 'completions/max_terminated_length': 175.35, 'rewards/grpo_reward_func/mean': 0.14984374940395356, 'rewards/grpo_reward_func/std': 0.7744686931371689, 'reward': 0.14984374940395356, 'reward_std': 0.26248155515640975, 'frac_reward_zero_std': 0.3125, 'completion_length': 215.0984375, 'kl': 717991.5260381822, 'epoch': 0.03}
+[STEP 60] label=plan_format_error, reward=-0.4, completion='\r (unstack b3 b4)\n(unstack b1 b5)\n(ununstack b3 b4)\n(unununstack b5 b4)\n(unununu'
+
+[STEP 61] label=safety_constraints_violation, reward=-1.0, completion='(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l2'
+
+[STEP 62] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball3 room2 lgripper2)\n(move robot1 room2 room3)\n(drop robot1 ball3'
+
+[STEP 63] label=plan_format_error, reward=-0.4, completion='(pickup b5)\n(stack b5 b4)\n(unstack b4 b1)\n(pickup b2 b5)\n(unstack b5 b3)\n(unun b'
+
+[STEP 64] label=goal_not_satisfied, reward=-0.2, completion='/ (move robot1 room1 room2)\n(pick robot1 ball3 room2 rgripper1)\n(move robot1 roo'
+
+[STEP 65] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball3 room3 lgripper2)\n(move robot1 room3 room2)\n(drop robot1 ball3'
+
+[STEP 66] label=safety_constraints_violation, reward=-1.0, completion='(sail l2 l1)\n(board c2 l1)\n(sail l1 l3)\n(debark c2 l3)\n(board c1 l3)\n(sail l3 l2'
+
+[STEP 67] label=success_plans, reward=1.0, completion='(move robot1 room3 room2)\n(pick robot1 ball2 room2 rgripper1)\n(move robot1 room2'
+
+[STEP 68] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(pickup_spanner location1 spanner2 bob)\n(walk location'
+
+[STEP 69] label=precondition_violation, reward=-0.7, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 70] label=precondition_violation, reward=-0.7, completion='(sail l1 l2)\n(board c1 l2)\n(sail l2 l3)\n(debark l3 l0)\n(sail l0 l2)\n(board c0 l2'
+
+[STEP 71] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball1 room3 lgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball1'
+
+[STEP 72] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(pickup_spanner location1 spanner1 bob)\n(walk location'
+
+[STEP 73] label=goal_not_satisfied, reward=-0.2, completion='M (sail l2 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l0)\n(board c1 '
+
+[STEP 74] label=success_plans, reward=1.0, completion='(sail l2 l0)\n(board c0 l0)\n(sail l0 l3)\n(debark c0 l3)\n(board c1 l3)\n(sail l3 l1'
+
+[STEP 75] label=precondition_violation, reward=-0.7, completion='(board c0 l1)\n(sail l1 l0)\n(debark l0 l3)\n(sail l3 l2)\n(debark l2 l1)\n(board c0 '
+
+[STEP 76] label=plan_format_error, reward=-0.4, completion='(pick robot1 ball3 room3 rgripper1 ball1 room3 rgripper1 ball1 room3 rgripper1 b'
+
+[STEP 77] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 78] label=plan_format_error, reward=-0.4, completion='(unstack b1 b4)\n(unstack b2 b1)\n(unstack b3 b2)\n(unputdown b1 b4)\n(unputdown b3 '
+
+[STEP 79] label=success_plans, reward=1.0, completion='(board c2 l1)\n(sail l1 l3)\n(sail l3 l2)\n(sail l2 l0)\n(debark c2 l0)\n(sail l0 l2)'
+
+{'loss': 1256.6446, 'grad_norm': 0.5726688504219055, 'learning_rate': 1.8711111111111112e-06, 'num_tokens': 2516019.0, 'completions/mean_length': 134.4671875, 'completions/min_length': 68.4, 'completions/max_length': 230.5, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 113.90602645874023, 'completions/min_terminated_length': 68.4, 'completions/max_terminated_length': 189.05, 'rewards/grpo_reward_func/mean': -0.0071875017136335375, 'rewards/grpo_reward_func/std': 0.6517898239195347, 'reward': -0.0071875017136335375, 'reward_std': 0.2279897525906563, 'frac_reward_zero_std': 0.35, 'completion_length': 230.496875, 'kl': 62832.22323670797, 'epoch': 0.04}
+[STEP 80] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball2 room1 lgripper2)\n(move robot1 room1 room3)\n(drop robot1 ball2'
+
+[STEP 81] label=precondition_violation, reward=-0.7, completion='(pick robot1 ball3 room3 lgripper2)\n(move robot1 room3 room2)\n(drop robot1 ball3'
+
+[STEP 82] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 locatio'
+
+[STEP 83] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(pickup_spanner location1 spanner3 bob)\n(walk location'
+
+[STEP 84] label=precondition_violation, reward=-0.7, completion='� (sail l2 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 '
+
+[STEP 85] label=precondition_violation, reward=-0.7, completion='� (board c0 l2)\n(sail l2 l0)\n(debark l0 l3)\n(sail l3 l1)\n(board c1 l1)\n(sail l1 '
+
+[STEP 86] label=success_plans, reward=1.0, completion='(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner locatio'
+
+[STEP 87] label=plan_format_error, reward=-0.4, completion='(pick robot1 ball2 room2)\n(pick robot1 ball2 room2)\n(move robot1 room2 room1)\n(p'
+
+[STEP 88] label=precondition_violation, reward=-0.7, completion='(unstack b2 b3)\n(putdown b2)\n(unstack b3 b5)\n(putdown b3)\n(unstack b1 b4)\n(stack'
+
+[STEP 89] label=safety_constraints_violation, reward=-1.0, completion='(board c1 l2)\n(sail l2 l3)\n(sail l3 l1)\n(debark c1 l1)\n(board c2 l1)\n(sail l1 l3'
+
+[STEP 90] label=success_plans, reward=1.0, completion='(board c1 l0)\n(sail l0 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c0 l1)\n(sail l1 l0'
+
+[STEP 91] label=goal_not_satisfied, reward=-0.2, completion='(unstack b6 b4)\n(putdown b6)\n(unstack b4 b2)\n(putdown b4)\n(unstack b2 b1)\n(stack'
+
+ 19%|█▊        | 93/500 [32:37<2:29:41, 22.07s/it] 19%|█▉        | 94/500 [33:00<2:31:03, 22.32s/it] 19%|█▉        | 95/500 [33:23<2:31:56, 22.51s/it] 19%|█▉        | 96/500 [33:46<2:31:54, 22.56s/it] 19%|█▉        | 97/500 [34:09<2:32:30, 22.71s/it] 20%|█▉        | 98/500 [34:30<2:29:46, 22.35s/it] 20%|█▉        | 99/500 [34:45<2:14:51, 20.18s/it] 20%|██        | 100/500 [35:08<2:20:13, 21.03s/it]                                                    20%|██        | 100/500 [35:08<2:20:13, 21.03s/it] 20%|██        | 101/500 [35:32<2:25:17, 21.85s/it] 20%|██        | 102/500 [35:49<2:15:48, 20.47s/it] 21%|██        | 103/500 [36:12<2:19:45, 21.12s/it] 21%|██        | 104/500 [36:35<2:22:19, 21.56s/it] 21%|██        | 105/500 [36:51<2:10:59, 19.90s/it] 21%|██        | 106/500 [37:13<2:16:14, 20.75s/it] 21%|██▏       | 107/500 [37:35<2:17:01, 20.92s/it] 22%|██▏       | 108/500 [37:57<2:20:07, 21.45s/it] 22%|██▏       | 109/500 [38:13<2:08:16, 19.69s/it] 22%|██▏       | 110/500 [38:35<2:13:35, 20.55s/it] 22%|██▏       | 111/500 [38:59<2:18:15, 21.33s/it] 22%|██▏       | 112/500 [39:22<2:21:11, 21.83s/it] 23%|██▎       | 113/500 [39:41<2:15:28, 21.00s/it] 23%|██▎       | 114/500 [40:04<2:18:53, 21.59s/it]slurmstepd-hyperstack-h100: error: *** JOB 216 ON hyperstack-h100 CANCELLED AT 2025-11-28T16:27:47 ***

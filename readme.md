@@ -22,6 +22,31 @@
 | DPO | `/groups/fkong/jfan5/dpo_models/mistral_7b/multi/pddl3_500-gpt-candidate` | - | - | 28.0%<br/>`paper_results_iccps2025/mistral-multi/dpo/grippers_test_results_pddl3.json` | 32.0%<br/>`paper_results_iccps2025/mistral-multi/dpo/ferry_test_results_pddl3.json` | - | 28.0%<br/>`paper_results_iccps2025/mistral-multi/dpo/blocksworld_test_results_pddl3.json` | - | 29.3% |
 | GRPO | - | - | - | - | - | - | - | - | - |
 
+### cross-domain sft, GRPO single domain
+
+| 场景 | 训练方法 | 模型路径 | 日期 | Ferry | 成功率 | 详细结果 |
+|------|---------|---------|------|-------|--------|----------|
+| Ferry | GRPO | `/jfan5/grpo_models/mistral_7b-ferry-1129` | 2025-11-29 | 72.0% | 36/50 | `planning_results/ferry_-jfan5-grpo_models-mistral_7b-ferry-1129_50_20251129_172521.json` |
+| Grippers | GRPO | `/jfan5/grpo_models/mistral_7b-grippers-1129` | 2025-11-29 | 26.0% | 13/50 | `planning_results/grippers_-jfan5-grpo_models-mistral_7b-grippers-1129_50_20251129_210428.json` |
+
+**Ferry 错误分类统计：**
+- success_plans: 36 (72.0%)
+- plan_format_error: 0 (0.0%)
+- precondition_violation: 1 (2.0%)
+- safety_constraints_violation: 13 (26.0%)
+- goal_not_satisfied: 0 (0.0%)
+
+**Grippers 错误分类统计：**
+- success_plans: 13 (26.0%)
+- plan_format_error: 6 (12.0%)
+- precondition_violation: 21 (42.0%)
+- safety_constraints_violation: 10 (20.0%)
+- goal_not_satisfied: 0 (0.0%)
+
+
+
+
+
 ### Single-Domain
 
 | 场景 | 训练方法 | 模型路径 | 日期 | Spanner | Grippers | Ferry | Delivery | Blocksworld | Grid | 平均成功率 |

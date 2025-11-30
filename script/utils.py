@@ -103,3 +103,10 @@ def compute_reward(class_label):
         "safety_constraints_violation": -1.0,
     }
     return reward_table[class_label]
+
+
+
+
+
+def blocksworld_reward(class_label, planning_sqences,initial_state,goal_state):
+    pass

@@ -13,7 +13,7 @@ conda activate llmstl
 # 单GPU配置
 export CUDA_VISIBLE_DEVICES=0
 
-# 直接运行训练脚本，不使用 accelerate
+
 
 # 直接运行训练脚本，不使用 accelerate
 python /home/ubuntu/Safety-gen/script/train_grpo_unsloth.py \

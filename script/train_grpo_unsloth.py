@@ -20,26 +20,14 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import torch
+import statistics
 from collections import Counter
 from datasets import Dataset
 from trl import GRPOConfig, GRPOTrainer
 
 from unsloth import FastLanguageModel
 from utils import _classify_result, validate_solution
-
-try:
-    import wandb
-except ImportError:
-    wandb = None
-
-# Fix for torch._dynamo recompile limit error
-# Increase cache size limit to handle dynamic shapes in GRPO training
-try:
-    import torch._dynamo
-    torch._dynamo.config.cache_size_limit = 128  # Increase from default (usually 64)
-    torch._dynamo.config.accumulated_cache_size_limit = 512  # Increase accumulated cache
-except Exception:
-    pass  # If dynamo is not available, continue without modification
+import wandb
 
 try:
     # Prefer Unsloth's helper if available
@@ -57,18 +45,18 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # -----------------------------------------------------------------------------
 def compute_reward(class_label: str) -> float:
     reward_table = {
-    "success_plans": 1.0,                 # 完整达成目标，最高奖励
+    "success_plans": 1,                 # 完整达成目标，最高奖励
 
-    "goal_not_satisfied": -0.2,          # 计划是合法的，但没达到目标
+    "goal_not_satisfied": 0,          # 计划是合法的，但没达到目标
                                          # -> 至少语法 & precondition & 安全都过了，算“差一点”
 
-    "plan_format_error": -0.4,          # 语法格式错误（括号、关键字等）
+    "plan_format_error": -0.3,          # 语法格式错误（括号、关键字等）
                                          # -> 比 goal_not_satisfied 更糟，因为连 parser 都过不了
 
-    "precondition_violation": -0.7,      # 动作在当前 state 下不可执行
+    "precondition_violation": -0.6,      # 动作在当前 state 下不可执行
                                          # -> 逻辑错误更严重
 
-    "safety_constraints_violation": -1.0 # 违反安全约束，最严重
+    "safety_constraints_violation": -1 # 违反安全约束，最严重
     }
     if class_label not in reward_table:
         raise ValueError(f"Unknown class_label='{class_label}'. Expected one of {list(reward_table)}")
@@ -117,7 +105,7 @@ def grpo_reward_func(
 
     rewards: List[float] = []
     all_labels: List[str] = []
-
+    all_scenarios: List[str] = []  # 收集场景信息
 
     # ---------- debug: 打开文件，只 append ----------
     # 如果文件不存在，创建并写 header
@@ -128,6 +116,14 @@ def grpo_reward_func(
     for i, (prompt, completion, m, label) in enumerate(
         zip(prompts, completions, meta, class_label)
     ):
+        
+        # 提取场景信息
+        scenario = "unknown"
+        if isinstance(m, dict):
+            scenario = m.get("scenario", "unknown")
+            if not isinstance(scenario, str):
+                scenario = "unknown"
+        all_scenarios.append(scenario)
 
         # 1. validator 推断 label
         inferred_label = classify_with_validator(m, completion)
@@ -156,24 +152,8 @@ def grpo_reward_func(
         rewards.append(float(r))
 
 
-        # ============ 强制打印（stdout + 文件） ============
-        if i == 0:  # 每 batch 打 1 条，避免太多
-            msg = (
-                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
-                f"label={inferred_label}, reward={r}, "
-                f"completion={completion[:80]!r}\n"
-            )
-
-            # stdout：绝对能看到
-            print(msg)
-
-            # 写到文件：永远有效
-            with open(DEBUG_FILE, "a") as f:
-                f.write(msg)
-
-
     # ============ 统计并 wandb.log ============
-    if all_labels and wandb is not None:
+    if all_labels:
         counts = Counter(all_labels)
         total = len(all_labels)
 
@@ -191,11 +171,42 @@ def grpo_reward_func(
             log_dict[f"stats/count_{category}"] = c
             log_dict[f"stats/rate_{category}"] = c / total
 
+        # 统计场景分布
+        if all_scenarios:
+            scenario_counts = Counter(all_scenarios)
+            # 记录主要场景（出现最多的场景）
+            main_scenario = scenario_counts.most_common(1)[0][0] if scenario_counts else "unknown"
+            log_dict["batch/main_scenario"] = main_scenario
+            
+            # 记录场景分布（每个场景的数量和比例）
+            for scenario_name, count in scenario_counts.items():
+                log_dict[f"batch/scenario_count_{scenario_name}"] = count
+                log_dict[f"batch/scenario_rate_{scenario_name}"] = count / total
+
+        # 计算整个 batch 的 reward 的 mean 和 std
+        if rewards:
+            reward_mean = statistics.mean(rewards)
+            reward_std = statistics.stdev(rewards) if len(rewards) > 1 else 0.0
+            log_dict["stats/reward_mean"] = reward_mean
+            log_dict["stats/reward_std"] = reward_std
+
+            # ============ 强制打印（stdout + 文件）- 整个 batch 的统计 ============
+            main_scenario_str = log_dict.get("batch/main_scenario", "unknown")
+            msg = (
+                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
+                f"scenario={main_scenario_str}, "
+                f"batch_reward_mean={reward_mean:.4f}, batch_reward_std={reward_std:.4f}\n"
+            )
+            # 写到文件：永远有效
+            with open(DEBUG_FILE, "a") as f:
+                f.write(msg)
+
         # wandb 强制 log（确保打印）
-        try:
-            wandb.log(log_dict)
-        except Exception as e:
-            print("[wandb.log ERROR]", e)
+        if wandb is not None:
+            try:
+                wandb.log(log_dict)
+            except Exception as e:
+                print("[wandb.log ERROR]", e)
 
         # 同步写到 debug 文件
         with open(DEBUG_FILE, "a") as f:
@@ -204,10 +215,6 @@ def grpo_reward_func(
     return rewards
 
 
-
-# -----------------------------------------------------------------------------
-# Data loader
-# -----------------------------------------------------------------------------
 def load_grpo_dataset(
     dataset_path: str,
     prompt_field: str,
@@ -256,7 +263,28 @@ def load_grpo_dataset(
     if len(data) == 0:
         raise ValueError("No valid GRPO samples found in dataset!")
 
-    ds = Dataset.from_list(data)
+    # 按照 meta 中的 scenario 排序，确保每个 batch 都是单一场景
+    def get_scenario(entry: Dict[str, Any]) -> str:
+        """从 entry 的 meta 中提取 scenario，如果没有则返回 'unknown'"""
+        meta = entry.get("meta")
+        if isinstance(meta, dict):
+            scenario = meta.get("scenario", "unknown")
+            if isinstance(scenario, str):
+                return scenario
+        return "unknown"
+
+    # 按 scenario 排序
+    data_sorted = sorted(data, key=get_scenario)
+    
+    # 统计各场景的数量
+    scenario_counts = {}
+    for entry in data_sorted:
+        scenario = get_scenario(entry)
+        scenario_counts[scenario] = scenario_counts.get(scenario, 0) + 1
+    
+    logger.info(f"Dataset sorted by scenario. Scenario distribution: {scenario_counts}")
+
+    ds = Dataset.from_list(data_sorted)
     required = {"prompt"}
     missing = required - set(ds.column_names)
     if missing:
@@ -284,8 +312,9 @@ def main():
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Gradient accumulation steps")
     parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
     parser.add_argument("--num_generations", type=int, default=4, help="G: number of completions per prompt")
-    parser.add_argument("--eval_steps", type=int, default=200, help="Evaluate every N steps (0 to disable)")
+    parser.add_argument("--eval_steps", type=int, default=30, help="Evaluate every N steps (0 to disable)")
     parser.add_argument("--eval_strategy", type=str, default="steps", help="Evaluation strategy")
+    parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta). Lower values reduce KL penalty in loss. If loss is too high due to large KL divergence, try reducing this (e.g., 0.001, 0.01)")
 
     # Generation
     parser.add_argument("--max_prompt_length", type=int, default=4096, help="Maximum prompt length")
@@ -295,10 +324,10 @@ def main():
     parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
 
     # Logging / saving
-    parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps (0 to disable)")
+    parser.add_argument("--save_steps", type=int, default=50, help="Save checkpoint every N steps (0 to disable)")
     parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
     parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
-    parser.add_argument("--max_steps", type=int, default=3000, help="Maximum number of training steps")
+    parser.add_argument("--max_steps", type=int, default=1000, help="Maximum number of training steps")
     parser.add_argument("--wandb_project", default="pddl-grpo-training", help="W&B project name")
     parser.add_argument("--run_name", default=None, help="Run name for logging")
 
@@ -376,12 +405,76 @@ def main():
         class_label_field=args.class_label_field,
     )
     logger.info(f"Training dataset size: {len(dataset)}; columns: {dataset.column_names}")
-    split = dataset.train_test_split(test_size=0.1, seed=42, shuffle=True)
+    
+    # Split 时保持顺序（不 shuffle），因为我们已经在 load_grpo_dataset 中按 scenario 排序了
+    split = dataset.train_test_split(test_size=0.1, seed=42, shuffle=False)
     train_dataset, eval_dataset = split["train"], split["test"]
+    
+    # 对 train 和 eval 数据集分别按 scenario 重新排序，确保每个 batch 都是单一场景
+    def get_scenario_from_row(row):
+        """从 dataset row 中提取 scenario"""
+        meta = row.get("meta")
+        if isinstance(meta, dict):
+            scenario = meta.get("scenario", "unknown")
+            if isinstance(scenario, str):
+                return scenario
+        return "unknown"
+    
+    # 将 Dataset 转为 list，排序后再转回 Dataset
+    train_data = [train_dataset[i] for i in range(len(train_dataset))]
+    eval_data = [eval_dataset[i] for i in range(len(eval_dataset))]
+    
+    train_data_sorted = sorted(train_data, key=get_scenario_from_row)
+    eval_data_sorted = sorted(eval_data, key=get_scenario_from_row)
+    
+    train_dataset = Dataset.from_list(train_data_sorted)
+    eval_dataset = Dataset.from_list(eval_data_sorted)
+    
     logger.info(f"Training dataset size: {len(train_dataset)}")
     logger.info(f"Evaluation dataset size: {len(eval_dataset)}")
+    
+    # 验证排序后的场景分布
+    train_scenarios = [get_scenario_from_row(train_dataset[i]) for i in range(min(100, len(train_dataset)))]
+    eval_scenarios = [get_scenario_from_row(eval_dataset[i]) for i in range(min(100, len(eval_dataset)))]
+    logger.info(f"First 100 train samples scenarios: {Counter(train_scenarios)}")
+    logger.info(f"First 100 eval samples scenarios: {Counter(eval_scenarios)}")
+
+    # 手动初始化 wandb（参考 pddl_finetune.py）
+    if use_wandb:
+        wandb_run_name = args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}"
+        wandb.init(
+            project=args.wandb_project,
+            name=wandb_run_name,
+            config={
+                "model_name": args.base_model,
+                "model_type": model_type,
+                "dataset": args.dataset,
+                "output_dir": args.output_dir,
+                "max_seq_length": args.max_prompt_length + args.max_new_tokens,
+                "load_in_4bit": load_in_4bit,
+                "dataset_size": len(dataset),
+                "train_size": len(train_dataset),
+                "eval_size": len(eval_dataset),
+                "batch_size": args.batch_size,
+                "gradient_accumulation_steps": args.gradient_accumulation_steps,
+                "learning_rate": args.learning_rate,
+                "max_grad_norm": args.max_grad_norm,
+                "num_generations": args.num_generations,
+                "temperature": args.temperature,
+                "top_p": args.top_p,
+                "top_k": args.top_k,
+                "beta": args.beta,
+                "max_steps": args.max_steps,
+                "eval_steps": args.eval_steps,
+                "eval_strategy": args.eval_strategy,
+            }
+        )
 
     # GRPOConfig：对应原来 PPOConfig 的超参
+    # 注意：如果 loss 过大（通常由 KL 散度过大导致），可以尝试：
+    # 1. 降低 beta（减小 KL 惩罚，如 --beta 0.001 或 0.01）
+    # 2. 降低学习率（让模型更新更温和，减少 KL 散度）
+    # 3. 增加 max_grad_norm（允许更大的梯度，但需谨慎）
     grpo_config = GRPOConfig(
         output_dir=args.output_dir,
 
@@ -390,8 +483,8 @@ def main():
 
         per_device_train_batch_size=args.batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
-        learning_rate=args.learning_rate,
-        max_grad_norm=args.max_grad_norm,
+        learning_rate=args.learning_rate,  # 如果 loss 过大，可以降低学习率（如 5e-6）
+        max_grad_norm=args.max_grad_norm,  # 梯度裁剪，防止梯度爆炸
         bf16=bf16_ok,
         fp16=use_fp16,
 
@@ -410,7 +503,7 @@ def main():
         temperature=args.temperature,
         top_p=args.top_p,
         top_k=args.top_k,
-        beta=0.02,
+        beta=args.beta,  # KL penalty coefficient. Lower if loss is too high due to large KL divergence
         save_total_limit=2,
     )
 

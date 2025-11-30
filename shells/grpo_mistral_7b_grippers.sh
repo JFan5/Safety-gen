@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_blocksworld.o
-#SBATCH --job-name=grpo_mistral_7b_blocksworld
+#SBATCH --output=job_outputs/grpo_mistral_7b_grippers.o
+#SBATCH --job-name=grpo_mistral_7b_grippers
 
 
 
@@ -17,8 +17,8 @@ export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_7b/four_scenarios500-1124"
-DATASET="/jfan5/ppo_data/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-1129"
+DATASET="/jfan5/ppo_data/grippers.jsonl"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-grippers-1129"
 
 # Training parameters
 NUM_EPOCHS=1.0
@@ -33,22 +33,29 @@ LOGGING_STEPS=20
 SAVE_STEPS=20
 EVAL_STEPS=20
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-blocksworld-1129"
-BETA=0.01
+RUN_NAME="grpo_mistral_7b-grippers-1129"
+BETA=0.02
 MAX_GRAD_NORM=1
 echo "=========================================="
-echo "GRPO Training for Mistral-7B - Blocksworld"
+echo "GRPO Training for Mistral-7B - Grippers"
 echo "=========================================="
 echo "Base model: ${BASE_MODEL}"
 echo "Dataset: ${DATASET}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
+echo "  Max steps: ${MAX_STEPS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
 echo "  Generations per prompt: ${NUM_GENERATIONS}"
+echo "  Temperature: ${TEMPERATURE}"
+echo "  Top P: ${TOP_P}"
+echo "  Logging steps: ${LOGGING_STEPS}"
+echo "  Save steps: ${SAVE_STEPS}"
+echo "  Eval steps: ${EVAL_STEPS}"
+echo "  Wandb project: ${WANDB_PROJECT}"
+echo "  Run name: ${RUN_NAME}"
 echo "=========================================="
 echo ""
 # Run GRPO training
@@ -78,4 +85,5 @@ echo "GRPO training completed!"
 echo "=========================================="
 echo "Model saved to: ${OUTPUT_DIR}"
 echo ""
+
 
