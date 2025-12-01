@@ -505,6 +505,9 @@ def main():
         top_k=args.top_k,
         beta=args.beta,  # KL penalty coefficient. Lower if loss is too high due to large KL divergence
         save_total_limit=2,
+        do_eval=True,
+        eval_strategy=args.eval_strategy,
+        eval_steps=args.eval_steps,
     )
 
     # 构建 GRPOTrainer
@@ -515,8 +518,6 @@ def main():
         train_dataset=train_dataset,
         processing_class=tokenizer,
         eval_dataset=eval_dataset,
-        eval_strategy=args.eval_strategy,
-        eval_steps=args.eval_steps,
     )
 
     logger.info("Starting GRPO training...")

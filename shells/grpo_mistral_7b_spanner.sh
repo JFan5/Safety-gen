@@ -16,7 +16,7 @@ cd /home/ubuntu/Safety-gen
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/sft_models/mistral_variant-spanner"
+BASE_MODEL="/jfan5/sft_models/mistral_7b/four_scenarios500-1124"
 DATASET="/jfan5/ppo_data/spanner.jsonl"
 OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-spanner-1129"
 
@@ -24,13 +24,13 @@ OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-spanner-1129"
 NUM_EPOCHS=1.0
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=8
-LEARNING_RATE=5e-7
+LEARNING_RATE=5e-6
 NUM_GENERATIONS=4
 TEMPERATURE=0.7
-MAX_STEPS=150
+MAX_STEPS=300
 TOP_P=0.9
 LOGGING_STEPS=20
-SAVE_STEPS=20
+SAVE_STEPS=50
 EVAL_STEPS=20
 WANDB_PROJECT="pddl-grpo-mistral7b"
 RUN_NAME="grpo_mistral_7b-spanner-1129"

@@ -107,3 +107,4 @@ python3 test_blocksworld_utils.py
 
 3. **奖励计算**: 奖励函数结合了离散标签奖励和密集轨迹奖励，最终奖励 = base_reward + alpha * dense_reward。
 
+

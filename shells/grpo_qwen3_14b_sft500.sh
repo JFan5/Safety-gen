@@ -6,23 +6,21 @@
 conda activate llmstl
 
 # Set working directory
-cd /home/ubuntu/Safety-gen
 
 # 单GPU配置
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/sft_qwen3/bfgs-variant-500"
+BASE_MODEL="/jfan5/sft_models/qwen3-14b-1127"
 # 
 DATASET="/jfan5/ppo_data/all_scenarios.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/qwen3_14b_sft500"
-# /jfan5/sft_models/qwen3_14b/four_scenarios500/pddl3
+OUTPUT_DIR="/jfan5/grpo_modpels/qwen3_14b_1130"
 # Training parameters
-MAX_STEPS=500
-BATCH_SIZE=16
+MAX_STEPS=1000
+BATCH_SIZE=8
 GRADIENT_ACCUMULATION_STEPS=2
-LEARNING_RATE=1e-5
-NUM_GENERATIONS=2
+LEARNING_RATE=5e-6
+NUM_GENERATIONS=4
 TEMPERATURE=0.8
 TOP_P=0.9
 LOGGING_STEPS=20

@@ -7,7 +7,7 @@
 """
 
 import sys
-from typing import Set, List
+from typing import Set, List, Optional
 from script.utils_blocksworld import (
     normalize_atom,
     parse_action,
@@ -337,7 +337,15 @@ def test_case_6_safety_constraints_violation_seed280():
     print()
     
     # 测试奖励计算 - 详细分解
-    reward_result = calculate_detailed_reward("safety_constraints_violation", planning_sequences, initial_state, goal_state)
+    # 约束: (sometime-before (on-table b2) (on-table b1))
+    reward_result = calculate_detailed_reward(
+        "safety_constraints_violation", 
+        planning_sequences, 
+        initial_state, 
+        goal_state,
+        constraint_first="(on-table b2)",
+        constraint_second="(on-table b1)"
+    )
     reward = reward_result["final_reward"]
     
     print(f"预期: 安全约束违反，奖励应该 < 0")
@@ -401,7 +409,15 @@ def test_case_7_safety_constraints_violation_seed600929():
     print()
     
     # 测试奖励计算 - 详细分解
-    reward_result = calculate_detailed_reward("safety_constraints_violation", planning_sequences, initial_state, goal_state)
+    # 约束: (sometime-before (on-table b2) (on b1 b4))
+    reward_result = calculate_detailed_reward(
+        "safety_constraints_violation", 
+        planning_sequences, 
+        initial_state, 
+        goal_state,
+        constraint_first="(on-table b2)",
+        constraint_second="(on b1 b4)"
+    )
     reward = reward_result["final_reward"]
     
     print(f"预期: 安全约束违反，奖励应该 < 0")
@@ -457,7 +473,15 @@ def test_case_8_safety_constraints_violation_seed519():
     print()
     
     # 测试奖励计算 - 详细分解
-    reward_result = calculate_detailed_reward("safety_constraints_violation", planning_sequences, initial_state, goal_state)
+    # 约束: (sometime-before (on b2 b3) (on b1 b2))
+    reward_result = calculate_detailed_reward(
+        "safety_constraints_violation", 
+        planning_sequences, 
+        initial_state, 
+        goal_state,
+        constraint_first="(on b2 b3)",
+        constraint_second="(on b1 b2)"
+    )
     reward = reward_result["final_reward"]
     
     print(f"预期: 安全约束违反，奖励应该 < 0")
@@ -519,6 +543,8 @@ def calculate_detailed_reward(
     planning_sequences: List[ActionStr],
     initial_state: State,
     goal_state: State,
+    constraint_first: Optional[str] = None,
+    constraint_second: Optional[str] = None,
     verbose: bool = True
 ) -> dict:
     """
@@ -576,7 +602,7 @@ def calculate_detailed_reward(
     last_state = traj[-1]
     
     # 计算安全分数
-    s_score = safety_score_sometime_before(traj)
+    s_score = safety_score_sometime_before(traj, constraint_first, constraint_second)
     result["safety_score"] = s_score
     
     # 计算目标分数
@@ -603,7 +629,11 @@ def calculate_detailed_reward(
         print(f"1. Base Reward (class_label='{class_label}'): {base_r:.4f}")
         print(f"2. Safety Score: {s_score:.4f}")
         print(f"   - 轨迹长度 T: {len(traj) - 1}")
-        print(f"   - 检查约束: (sometime-before (on b2 b3) (on b1 b2))")
+        if constraint_first and constraint_second:
+            constraint_str = f"(sometime-before {constraint_first} {constraint_second})"
+        else:
+            constraint_str = "(sometime-before (on b2 b3) (on b1 b2)) [默认硬编码约束]"
+        print(f"   - 检查约束: {constraint_str}")
         print(f"   - 是否违反: {'否' if s_score == 1.0 else '是'}")
         print(f"3. Goal Score: {g_score:.4f}")
         goal_atoms = [a for a in goal_state if a.startswith("(on ") or a.startswith("(on-table ")]

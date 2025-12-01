@@ -1,0 +1,55 @@
+
+CondaError: Run 'conda init' before 'conda activate'
+
+==========================================
+GRPO Training for Mistral-7B - Blocksworld
+==========================================
+Base model: /jfan5/grpo_models/mistral_7b-blocksworld-stl-121
+Dataset: /jfan5/ppo_data/blocksworld.jsonl
+Output: /jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1
+
+Training parameters:
+  Batch size: 4
+  Gradient accumulation: 8
+  Learning rate: 5e-6
+  Generations per prompt: 4
+==========================================
+
+[torchao|WARNING]Skipping import of cpp extensions due to incompatible torch version 2.8.0+cu128 for torchao version 0.14.1             Please see https://github.com/pytorch/ao/issues/2919 for more info
+usage: train_grpo_unsloth_blocksworld_stl.py [-h] --base_model BASE_MODEL
+                                             --dataset DATASET --output_dir
+                                             OUTPUT_DIR
+                                             [--num_epochs NUM_EPOCHS]
+                                             [--batch_size BATCH_SIZE]
+                                             [--learning_rate LEARNING_RATE]
+                                             [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS]
+                                             [--max_grad_norm MAX_GRAD_NORM]
+                                             [--num_generations NUM_GENERATIONS]
+                                             [--eval_steps EVAL_STEPS]
+                                             [--eval_strategy EVAL_STRATEGY]
+                                             [--beta BETA]
+                                             [--max_prompt_length MAX_PROMPT_LENGTH]
+                                             [--max_new_tokens MAX_NEW_TOKENS]
+                                             [--temperature TEMPERATURE]
+                                             [--top_p TOP_P] [--top_k TOP_K]
+                                             [--save_steps SAVE_STEPS]
+                                             [--logging_steps LOGGING_STEPS]
+                                             [--no_wandb]
+                                             [--max_steps MAX_STEPS]
+                                             [--wandb_project WANDB_PROJECT]
+                                             [--run_name RUN_NAME]
+                                             [--prompt_field PROMPT_FIELD]
+                                             [--response_field RESPONSE_FIELD]
+                                             [--class_label_field CLASS_LABEL_FIELD]
+                                             [--no_4bit]
+                                             [--use_gradient_checkpointing]
+                                             [--dataloader_num_workers DATALOADER_NUM_WORKERS]
+train_grpo_unsloth_blocksworld_stl.py: error: argument --num_epochs: expected one argument
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+
+==========================================
+GRPO training completed!
+==========================================
+Model saved to: /jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1
+

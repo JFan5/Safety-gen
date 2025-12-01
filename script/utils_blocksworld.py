@@ -200,30 +200,109 @@ def is_on_table(state: State, x: str) -> bool:
     return normalize_atom(f"(on-table {x})") in state
 
 
-def safety_score_sometime_before(traj: Trajectory) -> float:
+def check_sometime_before_constraint(
+    traj: Trajectory,
+    first_atom: str,
+    second_atom: str
+) -> Tuple[bool, Optional[int]]:
     """
-    针对你这个 constraint:
-      (sometime-before (on b2 b3) (on b1 b2))
+    检查 sometime-before 约束: (sometime-before first_atom second_atom)
+    
+    语义：在 second_atom 成立之前，first_atom 必须先成立过。
+    
+    返回:
+        - (True, None): 约束满足
+        - (False, violation_step): 约束违反，violation_step 是违反发生的步骤
+    
+    重要：根据 PDDL3 验证器的行为，如果初始状态中 first_atom 已经满足，
+    而 second_atom 还没有满足，这应该是违反的，因为 first_atom 没有在轨迹中"发生"，
+    而是在初始状态就已经存在了。约束要求的是 first_atom 必须在轨迹中发生，
+    而不是在初始状态就已经存在。
+    """
+    if not traj:
+        return True, None
+    
+    initial_state = traj[0]
+    first_seen_in_trajectory = False  # 在轨迹中（不包括初始状态）是否见过 first_atom
+    violation_step = None
+    
+    # 检查初始状态
+    first_in_initial = first_atom in initial_state
+    second_in_initial = second_atom in initial_state
+    
+    # 如果初始状态中 first_atom 已经满足，而 second_atom 还没有满足，这是违反的
+    # 因为 first_atom 没有在轨迹中发生，而是在初始状态就已经存在了
+    if first_in_initial and not second_in_initial:
+        # 但是，如果后来 second_atom 成立了，这应该是满足的（因为 first_atom 已经在 second_atom 之前了）
+        # 所以我们需要检查整个轨迹
+        pass
+    elif second_in_initial and not first_in_initial:
+        # 如果初始状态中 second_atom 已经满足，而 first_atom 还没有满足，这是违反的
+        return False, 0
+    
+    # 从第二个状态开始检查（跳过初始状态）
+    for t in range(1, len(traj)):
+        s = traj[t]
+        prev_s = traj[t-1]
+        
+        # 检查 first_atom 是否在当前状态中（且不在前一个状态中，表示"发生"）
+        if first_atom in s and first_atom not in prev_s:
+            first_seen_in_trajectory = True
+        
+        # 检查 second_atom 是否在当前状态中（且不在前一个状态中，表示"发生"）
+        if second_atom in s and second_atom not in prev_s:
+            if not first_seen_in_trajectory and not first_in_initial:
+                # second_atom 在轨迹中发生，但 first_atom 还没有在轨迹中发生，且初始状态中也没有 -> 违反
+                violation_step = t
+                return False, violation_step
+    
+    # 特殊情况：如果初始状态中 first_atom 已经满足，而 second_atom 还没有满足
+    # 且在整个轨迹中 second_atom 从未成立，这应该是违反的
+    # 因为约束要求的是 first_atom 必须在轨迹中发生，而不是在初始状态就已经存在
+    if first_in_initial and not second_in_initial:
+        # 检查 second_atom 是否在轨迹中成立过
+        second_ever_seen = any(second_atom in s for s in traj)
+        if not second_ever_seen:
+            # second_atom 从未成立，但 first_atom 在初始状态就已经存在 -> 违反
+            return False, 0
+    
+    # 没有违反
+    return True, None
 
-    语义：必须先出现过 (on b2 b3)，才能出现 (on b1 b2)。
+
+def safety_score_sometime_before(
+    traj: Trajectory,
+    constraint_first: Optional[str] = None,
+    constraint_second: Optional[str] = None
+) -> float:
+    """
+    检查 sometime-before 约束并返回分数。
+    
+    如果提供了 constraint_first 和 constraint_second，使用它们；
+    否则使用默认的硬编码约束 (sometime-before (on b2 b3) (on b1 b2))。
+    
     返回 [-1, 1] 分数：1 = 完全没违反；越早违反，越接近 -1。
     """
-    seen_on_b2_b3 = False
-    T = max(len(traj) - 1, 1)
-    violation_step = None
-
-    for t, s in enumerate(traj):
-        if is_on(s, "b2", "b3"):
-            seen_on_b2_b3 = True
-        if is_on(s, "b1", "b2") and not seen_on_b2_b3:
-            violation_step = t
-            break
-
-    if violation_step is None:
+    # 如果没有提供约束，使用默认的硬编码约束
+    if constraint_first is None or constraint_second is None:
+        constraint_first = "(on b2 b3)"
+        constraint_second = "(on b1 b2)"
+    
+    # 规范化原子字符串
+    constraint_first = normalize_atom(constraint_first)
+    constraint_second = normalize_atom(constraint_second)
+    
+    # 检查约束
+    satisfied, violation_step = check_sometime_before_constraint(
+        traj, constraint_first, constraint_second
+    )
+    
+    if satisfied:
         return 1.0
     else:
         # 越早违反，frac 越小；惩罚越大
-        frac = (T - violation_step) / T  # 0~1
+        T = max(len(traj) - 1, 1)
+        frac = (T - violation_step) / T if violation_step is not None else 0.0  # 0~1
         return -(0.5 + 0.5 * frac)       # [-1, -0.5] 左右
 
 
@@ -251,6 +330,8 @@ def blocksworld_reward(
     planning_sequences: List[ActionStr],
     initial_state: State,
     goal_state: State,
+    constraint_first: Optional[str] = None,
+    constraint_second: Optional[str] = None,
 ) -> float:
     """
     综合：
@@ -289,7 +370,7 @@ def blocksworld_reward(
     last_state = traj[-1]
 
     # 3. 计算 dense 部分：安全 + 目标距离
-    s_score = safety_score_sometime_before(traj)
+    s_score = safety_score_sometime_before(traj, constraint_first, constraint_second)
     g_score = goal_score(last_state, goal_state)
     dense = 0.7 * s_score + 0.3 * g_score   # [-1,1] 左右
 
