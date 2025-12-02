@@ -17,7 +17,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 import torch
 import statistics
@@ -38,6 +38,52 @@ except Exception:
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("grpo_unsloth")
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+# -----------------------------------------------------------------------------
+# Scenario-Specific Reward Functions Interface
+# -----------------------------------------------------------------------------
+# 场景特定的 reward 计算函数注册表
+# 函数签名: (class_label: str, completion: str, meta: Dict[str, Any]) -> float
+SCENARIO_REWARD_FUNCTIONS: Dict[str, Callable[[str, str, Dict[str, Any]], float]] = {}
+
+
+def register_scenario_reward(scenario: str, reward_func: Callable[[str, str, Dict[str, Any]], float]):
+    """
+    注册场景特定的 reward 计算函数
+    
+    Args:
+        scenario: 场景名称（如 "blocksworld"）
+        reward_func: reward 计算函数，签名 (class_label, completion, meta) -> float
+    """
+    SCENARIO_REWARD_FUNCTIONS[scenario] = reward_func
+    logger.info(f"Registered reward function for scenario: {scenario}")
+
+
+def compute_blocksworld_reward(
+    class_label: str,
+    completion: str,
+    meta: Dict[str, Any]
+) -> float:
+    """
+    Blocksworld 场景的详细 reward 计算函数（包装函数）
+    
+    Args:
+        class_label: 分类标签
+        completion: 模型生成的计划文本
+        meta: 包含 problem_file 等信息的字典
+    
+    Returns:
+        计算得到的 reward 值
+    """
+    from utils_blocksworld import compute_blocksworld_reward_from_meta
+    return compute_blocksworld_reward_from_meta(
+        class_label, completion, meta, REPO_ROOT, compute_reward
+    )
+
+
+# 注册 blocksworld 的 reward 函数
+register_scenario_reward("blocksworld", compute_blocksworld_reward)
 
 
 # -----------------------------------------------------------------------------
@@ -106,6 +152,7 @@ def grpo_reward_func(
     rewards: List[float] = []
     all_labels: List[str] = []
     all_scenarios: List[str] = []  # 收集场景信息
+    reward_methods: List[str] = []  # 收集 reward 计算方法
 
     # ---------- debug: 打开文件，只 append ----------
     # 如果文件不存在，创建并写 header
@@ -139,17 +186,33 @@ def grpo_reward_func(
             inferred_label = "unknown"
             all_labels.append("unknown")
 
-        # 4. 转 reward
-        if inferred_label != "unknown":
+        # 4. 计算 reward - 使用场景特定的 reward 函数（如果已注册）
+        r = 0.0
+        reward_method = "default"
+        
+        # 检查是否有场景特定的 reward 函数
+        if scenario in SCENARIO_REWARD_FUNCTIONS and isinstance(m, dict):
             try:
-                r = compute_reward(inferred_label)
-            except:
+                reward_func = SCENARIO_REWARD_FUNCTIONS[scenario]
+                r = reward_func(inferred_label, completion, m)
+                reward_method = f"scenario_{scenario}"
+            except Exception as e:
+                logger.debug(f"Scenario-specific reward calculation failed for {scenario}: {e}, falling back to default")
+                reward_method = "default_fallback"
+        
+        # 如果没有场景特定的函数或调用失败，使用默认的 compute_reward
+        if reward_method == "default" or reward_method == "default_fallback":
+            if inferred_label != "unknown":
+                try:
+                    r = compute_reward(inferred_label)
+                except:
+                    r = 0.0
+                    inferred_label = "unknown"
+            else:
                 r = 0.0
-                inferred_label = "unknown"
-        else:
-            r = 0.0
 
         rewards.append(float(r))
+        reward_methods.append(reward_method)
 
 
     # ============ 统计并 wandb.log ============
@@ -190,11 +253,20 @@ def grpo_reward_func(
             log_dict["stats/reward_mean"] = reward_mean
             log_dict["stats/reward_std"] = reward_std
 
+            # 统计 reward 方法使用情况
+            if reward_methods:
+                method_counts = Counter(reward_methods)
+                for method, count in method_counts.items():
+                    log_dict[f"reward_method/count_{method}"] = count
+                    log_dict[f"reward_method/rate_{method}"] = count / total
+
             # ============ 强制打印（stdout + 文件）- 整个 batch 的统计 ============
             main_scenario_str = log_dict.get("batch/main_scenario", "unknown")
+            main_reward_method = Counter(reward_methods).most_common(1)[0][0] if reward_methods else "default"
             msg = (
                 f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
                 f"scenario={main_scenario_str}, "
+                f"reward_method={main_reward_method}, "
                 f"batch_reward_mean={reward_mean:.4f}, batch_reward_std={reward_std:.4f}\n"
             )
             # 写到文件：永远有效
@@ -312,8 +384,6 @@ def main():
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Gradient accumulation steps")
     parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
     parser.add_argument("--num_generations", type=int, default=4, help="G: number of completions per prompt")
-    parser.add_argument("--eval_steps", type=int, default=30, help="Evaluate every N steps (0 to disable)")
-    parser.add_argument("--eval_strategy", type=str, default="steps", help="Evaluation strategy")
     parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta). Lower values reduce KL penalty in loss. If loss is too high due to large KL divergence, try reducing this (e.g., 0.001, 0.01)")
 
     # Generation
@@ -406,11 +476,11 @@ def main():
     )
     logger.info(f"Training dataset size: {len(dataset)}; columns: {dataset.column_names}")
     
-    # Split 时保持顺序（不 shuffle），因为我们已经在 load_grpo_dataset 中按 scenario 排序了
-    split = dataset.train_test_split(test_size=0.1, seed=42, shuffle=False)
-    train_dataset, eval_dataset = split["train"], split["test"]
+    # 使用整个数据集作为训练集（不进行 train/test split）
+    # 数据集已经在 load_grpo_dataset 中按 scenario 排序，确保每个 batch 都是单一场景
+    train_dataset = dataset
     
-    # 对 train 和 eval 数据集分别按 scenario 重新排序，确保每个 batch 都是单一场景
+    # 验证排序后的场景分布
     def get_scenario_from_row(row):
         """从 dataset row 中提取 scenario"""
         meta = row.get("meta")
@@ -420,24 +490,8 @@ def main():
                 return scenario
         return "unknown"
     
-    # 将 Dataset 转为 list，排序后再转回 Dataset
-    train_data = [train_dataset[i] for i in range(len(train_dataset))]
-    eval_data = [eval_dataset[i] for i in range(len(eval_dataset))]
-    
-    train_data_sorted = sorted(train_data, key=get_scenario_from_row)
-    eval_data_sorted = sorted(eval_data, key=get_scenario_from_row)
-    
-    train_dataset = Dataset.from_list(train_data_sorted)
-    eval_dataset = Dataset.from_list(eval_data_sorted)
-    
-    logger.info(f"Training dataset size: {len(train_dataset)}")
-    logger.info(f"Evaluation dataset size: {len(eval_dataset)}")
-    
-    # 验证排序后的场景分布
     train_scenarios = [get_scenario_from_row(train_dataset[i]) for i in range(min(100, len(train_dataset)))]
-    eval_scenarios = [get_scenario_from_row(eval_dataset[i]) for i in range(min(100, len(eval_dataset)))]
     logger.info(f"First 100 train samples scenarios: {Counter(train_scenarios)}")
-    logger.info(f"First 100 eval samples scenarios: {Counter(eval_scenarios)}")
 
     # 手动初始化 wandb（参考 pddl_finetune.py）
     if use_wandb:
@@ -454,7 +508,6 @@ def main():
                 "load_in_4bit": load_in_4bit,
                 "dataset_size": len(dataset),
                 "train_size": len(train_dataset),
-                "eval_size": len(eval_dataset),
                 "batch_size": args.batch_size,
                 "gradient_accumulation_steps": args.gradient_accumulation_steps,
                 "learning_rate": args.learning_rate,
@@ -465,8 +518,6 @@ def main():
                 "top_k": args.top_k,
                 "beta": args.beta,
                 "max_steps": args.max_steps,
-                "eval_steps": args.eval_steps,
-                "eval_strategy": args.eval_strategy,
             }
         )
 
@@ -505,9 +556,7 @@ def main():
         top_k=args.top_k,
         beta=args.beta,  # KL penalty coefficient. Lower if loss is too high due to large KL divergence
         save_total_limit=2,
-        do_eval=True,
-        eval_strategy=args.eval_strategy,
-        eval_steps=args.eval_steps,
+        do_eval=False,
     )
 
     # 构建 GRPOTrainer
@@ -517,7 +566,6 @@ def main():
         reward_funcs=grpo_reward_func,
         train_dataset=train_dataset,
         processing_class=tokenizer,
-        eval_dataset=eval_dataset,
     )
 
     logger.info("Starting GRPO training...")

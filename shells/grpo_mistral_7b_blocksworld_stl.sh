@@ -16,9 +16,9 @@ cd /home/ubuntu/Safety-gen
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/grpo_models/mistral_7b-blocksworld-stl-121"
+BASE_MODEL="/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1"
 DATASET="/jfan5/ppo_data/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-2"
 
 # Training parameters
 
@@ -31,9 +31,9 @@ MAX_STEPS=500
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=200
-EVAL_STEPS=20
+EVAL_STEPS=100
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-blocksworld-stl-1130"
+RUN_NAME="grpo_mistral_7b-blocksworld-stl-121"
 BETA=0.01
 MAX_GRAD_NORM=1
 echo "=========================================="
@@ -51,17 +51,15 @@ echo "  Generations per prompt: ${NUM_GENERATIONS}"
 echo "=========================================="
 echo ""
 # Run GRPO training
-python3 script/train_grpo_unsloth_blocksworld_stl.py \
+python3 script/train_grpo_unsloth.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
-  --num_epochs ${NUM_EPOCHS} \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \
   --gradient_accumulation_steps ${GRADIENT_ACCUMULATION_STEPS} \
   --learning_rate ${LEARNING_RATE} \
-  --eval_steps ${EVAL_STEPS} \
   --num_generations ${NUM_GENERATIONS} \
   --temperature ${TEMPERATURE} \
   --top_p ${TOP_P} \

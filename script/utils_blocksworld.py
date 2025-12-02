@@ -1,4 +1,6 @@
-from typing import List, Set, Tuple, Optional, Any, Dict
+from typing import List, Set, Tuple, Optional, Any, Dict, Callable
+import re
+from pathlib import Path
 
 State = Set[str]          # 一个状态：很多原子命题的集合
 ActionStr = str           # "(stack b1 b2)" 这种
@@ -382,3 +384,157 @@ def blocksworld_reward(
     final_r = max(-1.5, min(1.5, final_r))
 
     return float(final_r)
+
+
+# -----------------------------------------------------------------------------
+# PDDL Parsing for Blocksworld
+# -----------------------------------------------------------------------------
+def parse_blocksworld_pddl(problem_file: str) -> Optional[Dict[str, Any]]:
+    """
+    解析 blocksworld PDDL 文件，提取初始状态、目标状态和约束
+    
+    返回: {
+        "initial_state": Set[str],
+        "goal_state": Set[str],
+        "constraint_first": Optional[str],
+        "constraint_second": Optional[str]
+    }
+    """
+    try:
+        with open(problem_file, 'r') as f:
+            content = f.read()
+    except Exception as e:
+        return None
+    
+    result = {
+        "initial_state": set(),
+        "goal_state": set(),
+        "constraint_first": None,
+        "constraint_second": None
+    }
+    
+    # 提取初始状态 (:init ...)
+    init_match = re.search(r'\(:init\s+(.*?)\)\s*\(:goal', content, re.DOTALL)
+    if init_match:
+        init_content = init_match.group(1)
+        # 提取所有原子命题
+        atoms = re.findall(r'\([^)]+\)', init_content)
+        result["initial_state"] = {atom.strip() for atom in atoms}
+    
+    # 提取目标状态 (:goal ...)
+    goal_match = re.search(r'\(:goal\s+\(and\s+(.*?)\)\s*\)', content, re.DOTALL)
+    if goal_match:
+        goal_content = goal_match.group(1)
+        atoms = re.findall(r'\([^)]+\)', goal_content)
+        result["goal_state"] = {atom.strip() for atom in atoms}
+    else:
+        # 尝试匹配单个目标（没有 and）
+        goal_match_single = re.search(r'\(:goal\s+\(([^)]+)\)\s*\)', content, re.DOTALL)
+        if goal_match_single:
+            goal_atom = f"({goal_match_single.group(1).strip()})"
+            result["goal_state"] = {goal_atom}
+    
+    # 提取约束 (:constraints ...)
+    # 匹配 sometime-before 约束
+    constraint_match = re.search(
+        r'\(:constraints\s+\(sometime-before\s+\(([^)]+)\)\s+\(([^)]+)\)\s*\)\s*\)',
+        content, re.DOTALL
+    )
+    if constraint_match:
+        result["constraint_first"] = f"({constraint_match.group(1).strip()})"
+        result["constraint_second"] = f"({constraint_match.group(2).strip()})"
+    
+    return result
+
+
+def parse_plan_from_completion(completion: str) -> List[ActionStr]:
+    """
+    从 completion 文本中解析出计划序列
+    
+    返回: List[ActionStr] 例如 ["(pickup b1)", "(stack b1 b2)"]
+    """
+    # 提取所有动作（格式: (action_name ...)）
+    actions = re.findall(r'\([^)]+\)', completion)
+    # 过滤掉明显不是动作的行（比如注释、说明等）
+    valid_actions = []
+    for action in actions:
+        action = action.strip()
+        # blocksworld 的动作: pickup, putdown, stack, unstack
+        if any(action.startswith(f"({op}") for op in ["pickup", "putdown", "stack", "unstack"]):
+            valid_actions.append(action)
+    return valid_actions
+
+
+def compute_blocksworld_reward_from_meta(
+    class_label: str,
+    completion: str,
+    meta: Dict[str, Any],
+    repo_root: Path,
+    default_reward_func: Callable[[str], float],
+) -> float:
+    """
+    Blocksworld 场景的详细 reward 计算函数
+    
+    Args:
+        class_label: 分类标签
+        completion: 模型生成的计划文本
+        meta: 包含 problem_file 等信息的字典
+        repo_root: 项目根目录路径
+        default_reward_func: 默认的 reward 计算函数，签名 (class_label: str) -> float
+    
+    Returns:
+        计算得到的 reward 值
+    """
+    try:
+        problem_file = meta.get("problem_file")
+        if not problem_file:
+            # 没有 problem_file，回退到简单奖励
+            return default_reward_func(class_label) if class_label != "unknown" else 0.0
+        
+        problem_path = repo_root / problem_file
+        if not problem_path.exists():
+            # 文件不存在，回退到简单奖励
+            return default_reward_func(class_label) if class_label != "unknown" else 0.0
+        
+        # 解析 PDDL 文件
+        pddl_info = parse_blocksworld_pddl(str(problem_path))
+        if not pddl_info:
+            # PDDL 解析失败，回退到简单奖励
+            return default_reward_func(class_label) if class_label != "unknown" else 0.0
+        
+        # 解析计划
+        planning_sequences = parse_plan_from_completion(completion)
+        if not planning_sequences:
+            # 无法解析计划，回退到简单奖励
+            return default_reward_func(class_label) if class_label != "unknown" else 0.0
+        
+        # 规范化状态原子
+        initial_state: State = {normalize_atom(atom) for atom in pddl_info["initial_state"]}
+        goal_state: State = {normalize_atom(atom) for atom in pddl_info["goal_state"]}
+        
+        constraint_first = pddl_info.get("constraint_first")
+        constraint_second = pddl_info.get("constraint_second")
+        
+        if constraint_first and constraint_second:
+            constraint_first = normalize_atom(constraint_first)
+            constraint_second = normalize_atom(constraint_second)
+        
+        # 使用 blocksworld_reward 计算奖励
+        class_label_for_reward = class_label if class_label != "unknown" else "goal_not_satisfied"
+        
+        r = blocksworld_reward(
+            class_label_for_reward,
+            planning_sequences,
+            initial_state,
+            goal_state,
+            constraint_first=constraint_first,
+            constraint_second=constraint_second,
+        )
+        
+        return float(r)
+    except Exception as e:
+        # 任何错误都回退到简单奖励
+        try:
+            return default_reward_func(class_label) if class_label != "unknown" else 0.0
+        except:
+            return 0.0
