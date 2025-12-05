@@ -1,0 +1,8 @@
+(pickup pos2-2 key1)
+(move pos2-2 pos1-2)
+(move pos1-2 pos0-2)
+(pickup-and-loose pos0-2 key0 key1)
+(move pos0-2 pos1-2)
+(move pos1-2 pos2-2)
+(move pos2-2 pos2-3)
+(putdown pos2-3 key0)

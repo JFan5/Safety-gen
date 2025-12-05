@@ -1,0 +1,71 @@
+[
+  {
+    "scenario": "blocksworld",
+    "target_count": 500,
+    "actual_count": 500,
+    "copied_problems": 500,
+    "copied_solutions": 258,
+    "total_invalid": 2030,
+    "configs_count": 7,
+    "sampled_distribution": {
+      "(3, 4)": 72,
+      "(4, 5)": 72,
+      "(4, 6)": 72,
+      "(3, 3)": 71,
+      "(4, 4)": 71,
+      "(3, 6)": 71,
+      "(3, 5)": 71
+    }
+  },
+  {
+    "scenario": "ferry",
+    "target_count": 500,
+    "actual_count": 500,
+    "copied_problems": 500,
+    "copied_solutions": 500,
+    "total_invalid": 4423,
+    "configs_count": 8,
+    "sampled_distribution": {
+      "(5, 3)": 67,
+      "(5, 2)": 64,
+      "(4, 3)": 68,
+      "(4, 2)": 63,
+      "(3, 3)": 62,
+      "(3, 2)": 48,
+      "(6, 2)": 65,
+      "(6, 3)": 63
+    }
+  },
+  {
+    "scenario": "spanner",
+    "target_count": 500,
+    "actual_count": 377,
+    "copied_problems": 377,
+    "copied_solutions": 377,
+    "total_invalid": 377,
+    "configs_count": 4,
+    "sampled_distribution": {
+      "(2, 2, 3)": 13,
+      "(3, 3, 4)": 237,
+      "(3, 2, 4)": 28,
+      "(4, 3, 4)": 99
+    }
+  },
+  {
+    "scenario": "grippers",
+    "target_count": 500,
+    "actual_count": 500,
+    "copied_problems": 500,
+    "copied_solutions": 470,
+    "total_invalid": 3318,
+    "configs_count": 6,
+    "sampled_distribution": {
+      "(1, 3, 3)": 85,
+      "(1, 4, 3)": 92,
+      "(2, 4, 3)": 100,
+      "(2, 3, 2)": 29,
+      "(2, 4, 4)": 108,
+      "(2, 3, 3)": 86
+    }
+  }
+]

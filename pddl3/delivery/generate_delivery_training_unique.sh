@@ -6,8 +6,8 @@ set -euo pipefail
 # Note: Adjusted counts to match actual unique problem limits
 
 # Start clean
-rm -rf "/home/ubuntu/Safety-gen/delivery/all_problems"
-mkdir -p "/home/ubuntu/Safety-gen/delivery/all_problems"
+rm -rf "all_problems"
+mkdir -p "all_problems"
 
 echo "Generating Delivery problems (target ~2000)"
 
@@ -19,13 +19,13 @@ echo "Generating Delivery problems (target ~2000)"
 # - size=3, pkgs=2: many unique available
 # - size=4, pkgs=1: many unique available
 # - size=4, pkgs=2: many unique available
-python3 /home/ubuntu/Safety-gen/delivery/gen_unique_delivery.py --count 48  --target-dir /home/ubuntu/Safety-gen/delivery/all_problems --size 2 --packages 1 --seed 10001 --domain /home/ubuntu/Safety-gen/delivery/domain.pddl
-python3 /home/ubuntu/Safety-gen/delivery/gen_unique_delivery.py --count 144 --target-dir /home/ubuntu/Safety-gen/delivery/all_problems --size 2 --packages 2 --seed 11001 --domain /home/ubuntu/Safety-gen/delivery/domain.pddl
-python3 /home/ubuntu/Safety-gen/delivery/gen_unique_delivery.py --count 300 --target-dir /home/ubuntu/Safety-gen/delivery/all_problems --size 3 --packages 1 --seed 12001 --domain /home/ubuntu/Safety-gen/delivery/domain.pddl
-python3 /home/ubuntu/Safety-gen/delivery/gen_unique_delivery.py --count 600 --target-dir /home/ubuntu/Safety-gen/delivery/all_problems --size 3 --packages 2 --seed 13001 --domain /home/ubuntu/Safety-gen/delivery/domain.pddl
-python3 /home/ubuntu/Safety-gen/delivery/gen_unique_delivery.py --count 400 --target-dir /home/ubuntu/Safety-gen/delivery/all_problems --size 4 --packages 1 --seed 14001 --domain /home/ubuntu/Safety-gen/delivery/domain.pddl
-python3 /home/ubuntu/Safety-gen/delivery/gen_unique_delivery.py --count 508 --target-dir /home/ubuntu/Safety-gen/delivery/all_problems --size 4 --packages 2 --seed 15001 --domain /home/ubuntu/Safety-gen/delivery/domain.pddl
+python3 gen_unique_delivery.py --count 48  --target-dir all_problems --size 2 --packages 1 --seed 10001 --domain domain.pddl
+python3 gen_unique_delivery.py --count 144 --target-dir all_problems --size 2 --packages 2 --seed 11001 --domain domain.pddl
+python3 gen_unique_delivery.py --count 300 --target-dir all_problems --size 3 --packages 1 --seed 12001 --domain domain.pddl
+python3 gen_unique_delivery.py --count 600 --target-dir all_problems --size 3 --packages 2 --seed 13001 --domain domain.pddl
+python3 gen_unique_delivery.py --count 400 --target-dir all_problems --size 4 --packages 1 --seed 14001 --domain domain.pddl
+python3 gen_unique_delivery.py --count 508 --target-dir all_problems --size 4 --packages 2 --seed 15001 --domain domain.pddl
 
 # Report
-TOTAL=$(ls -1 /home/ubuntu/Safety-gen/delivery/all_problems/*.pddl 2>/dev/null | wc -l || true)
-echo "Generated $TOTAL problems in /home/ubuntu/Safety-gen/delivery/all_problems."
+TOTAL=$(ls -1 all_problems/*.pddl 2>/dev/null | wc -l || true)
+echo "Generated $TOTAL problems in all_problems."

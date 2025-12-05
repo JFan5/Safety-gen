@@ -1,0 +1,79 @@
+{
+  "scenario": "grippers",
+  "split": "testing_problem50",
+  "total_problems": 50,
+  "difficulty_stats": {
+    "total": 50,
+    "by_n": {
+      "1": 25,
+      "2": 25
+    },
+    "by_r": {
+      "3": 25,
+      "4": 25
+    },
+    "by_o": {
+      "2": 2,
+      "3": 48
+    },
+    "by_config": {
+      "n=1,r=4,o=3": 22,
+      "n=2,r=3,o=3": 20,
+      "n=1,r=3,o=3": 3,
+      "n=2,r=4,o=3": 3,
+      "n=2,r=3,o=2": 2
+    }
+  },
+  "problems": [
+    "grippers-n1-r3-o3-s1221792278.pddl",
+    "grippers-n1-r3-o3-s1252456773.pddl",
+    "grippers-n1-r3-o3-s2084957908.pddl",
+    "grippers-n1-r4-o3-s1022927068.pddl",
+    "grippers-n1-r4-o3-s1057770687.pddl",
+    "grippers-n1-r4-o3-s136367703.pddl",
+    "grippers-n1-r4-o3-s1488819945.pddl",
+    "grippers-n1-r4-o3-s1497857246.pddl",
+    "grippers-n1-r4-o3-s159345425.pddl",
+    "grippers-n1-r4-o3-s1662697139.pddl",
+    "grippers-n1-r4-o3-s1717705964.pddl",
+    "grippers-n1-r4-o3-s1733309123.pddl",
+    "grippers-n1-r4-o3-s1778896040.pddl",
+    "grippers-n1-r4-o3-s1811869323.pddl",
+    "grippers-n1-r4-o3-s1899086852.pddl",
+    "grippers-n1-r4-o3-s1900228426.pddl",
+    "grippers-n1-r4-o3-s2099476676.pddl",
+    "grippers-n1-r4-o3-s211856952.pddl",
+    "grippers-n1-r4-o3-s380821212.pddl",
+    "grippers-n1-r4-o3-s649006019.pddl",
+    "grippers-n1-r4-o3-s751429623.pddl",
+    "grippers-n1-r4-o3-s822055517.pddl",
+    "grippers-n1-r4-o3-s839780497.pddl",
+    "grippers-n1-r4-o3-s895376760.pddl",
+    "grippers-n1-r4-o3-s908405235.pddl",
+    "grippers-n2-r3-o2-s1918311056.pddl",
+    "grippers-n2-r3-o2-s808087104.pddl",
+    "grippers-n2-r3-o3-s1057770687.pddl",
+    "grippers-n2-r3-o3-s1131035916.pddl",
+    "grippers-n2-r3-o3-s1297036785.pddl",
+    "grippers-n2-r3-o3-s1330494389.pddl",
+    "grippers-n2-r3-o3-s1446958690.pddl",
+    "grippers-n2-r3-o3-s1517599610.pddl",
+    "grippers-n2-r3-o3-s1637528212.pddl",
+    "grippers-n2-r3-o3-s1643431373.pddl",
+    "grippers-n2-r3-o3-s1711313322.pddl",
+    "grippers-n2-r3-o3-s1766112433.pddl",
+    "grippers-n2-r3-o3-s1793534370.pddl",
+    "grippers-n2-r3-o3-s1812969061.pddl",
+    "grippers-n2-r3-o3-s1828172190.pddl",
+    "grippers-n2-r3-o3-s484801279.pddl",
+    "grippers-n2-r3-o3-s57572298.pddl",
+    "grippers-n2-r3-o3-s658342220.pddl",
+    "grippers-n2-r3-o3-s689232796.pddl",
+    "grippers-n2-r3-o3-s815517783.pddl",
+    "grippers-n2-r3-o3-s908405235.pddl",
+    "grippers-n2-r3-o3-s933037160.pddl",
+    "grippers-n2-r4-o3-s1528658263.pddl",
+    "grippers-n2-r4-o3-s423089722.pddl",
+    "grippers-n2-r4-o3-s911520678.pddl"
+  ]
+}
