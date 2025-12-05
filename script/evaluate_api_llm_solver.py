@@ -38,6 +38,11 @@ MODEL_FAMILY_MAP = {
 
 # API模型配置
 API_MODEL_CONFIG = {
+    'gpt-5': {
+        'provider': 'openai',
+        'model_name': 'gpt-5',
+        'family': 'gpt'
+    },
     'gpt-4': {
         'provider': 'openai',
         'model_name': 'gpt-4',
@@ -55,7 +60,7 @@ API_MODEL_CONFIG = {
     },
     'chatgpt': {
         'provider': 'openai',
-        'model_name': 'gpt-4',  # 默认使用gpt-4
+        'model_name': 'gpt-5',  # 默认使用gpt-5
         'family': 'gpt'
     },
 }
@@ -581,9 +586,10 @@ def main():
     """主函数"""
     import argparse
     
-    parser = argparse.ArgumentParser(description="Evaluate API-based LLM model (e.g., ChatGPT) with explicit domain and problems directory")
-    parser.add_argument("--model", type=str, required=True,
-                       help="API model name (e.g., 'gpt-4', 'gpt-3.5-turbo', 'chatgpt')")
+    # 固定使用gpt-5模型
+    DEFAULT_MODEL = "gpt-5"
+    
+    parser = argparse.ArgumentParser(description="Evaluate API-based LLM model (GPT-5) with explicit domain and problems directory")
     parser.add_argument("--api-key", type=str, default=None,
                        help="API key (if not provided, will use OPENAI_API_KEY environment variable)")
     parser.add_argument("--provider", type=str, default="openai",
@@ -609,8 +615,8 @@ def main():
     
     args = parser.parse_args()
     
-    # 检查模型配置
-    model_name = args.model.lower()
+    # 使用固定的gpt-4模型配置
+    model_name = DEFAULT_MODEL.lower()
     if model_name in API_MODEL_CONFIG:
         config = API_MODEL_CONFIG[model_name]
         actual_model_name = config['model_name']
@@ -619,7 +625,7 @@ def main():
         if args.provider == 'openai':
             args.provider = config['provider']
     else:
-        actual_model_name = args.model
+        actual_model_name = DEFAULT_MODEL
     
     test_api_model_on_testing_data(
         actual_model_name,
