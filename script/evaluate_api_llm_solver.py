@@ -16,6 +16,7 @@ import re
 from typing import Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
+from collections import defaultdict
 from utils import _classify_result, validate_solution
 import argparse
 
@@ -162,6 +163,87 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     if not lines:
         return False
     return all(line.startswith("(") and line.endswith(")") for line in lines)
+
+
+def _extract_size_key(problem_name: str, scenario: Optional[str] = None) -> Optional[str]:
+    """
+    从问题名称中提取规模标识，按场景解析关键参数。
+    例如：delivery_size10_packages1 -> s10-p1；c2_s3_p4 -> c2-s3-p4。
+    如无法解析则返回 None。
+    """
+    name = problem_name.lower()
+
+    # Delivery: sizeX packagesY
+    if scenario == "delivery":
+        m = re.search(r"size(\d+)[-_]?packages?(\d+)", name)
+        if m:
+            size_part, pkg_part = m.groups()
+            return f"s{int(size_part)}-p{int(pkg_part)}"
+        m = re.search(r"s(\d+)[-_]?p(\d+)", name)
+        if m:
+            return f"s{m.group(1)}-p{m.group(2)}"
+
+    # Logistics: cX_sY_pZ
+    if scenario == "logistics":
+        m = re.search(r"c(\d+)[-_]?s(\d+)[-_]?p(\d+)", name)
+        if m:
+            c_part, s_part, p_part = m.groups()
+            return f"c{int(c_part)}-s{int(s_part)}-p{int(p_part)}"
+        m = re.search(r"s(\d+)[-_]?p(\d+)", name)
+        if m:
+            return f"s{m.group(1)}-p{m.group(2)}"
+
+    # Grid: xY_yZ_shK_kM_lN
+    if scenario == "grid":
+        m = re.search(r"x(\d+).*y(\d+).*sh(\d+).*k(\d+).*l(\d+)", name)
+        if m:
+            x, y, sh, k, l_val = m.groups()
+            return f"x{x}-y{y}-sh{sh}-k{k}-l{l_val}"
+
+    # Blocksworld: opsX_nY
+    if scenario == "blocksworld":
+        m = re.search(r"ops(\d+).*n0*([0-9]+)", name)
+        if m:
+            ops_part, n_part = m.groups()
+            return f"ops{int(ops_part)}-n{int(n_part)}"
+
+    # Ferry: lX-cY
+    if scenario == "ferry":
+        m = re.search(r"l0*([0-9]+).*c0*([0-9]+)", name)
+        if m:
+            l_part, c_part = m.groups()
+            return f"l{int(l_part)}-c{int(c_part)}"
+
+    # Spanner: sX-nY-lZ
+    if scenario == "spanner":
+        m = re.search(r"s0*([0-9]+).*n0*([0-9]+).*l0*([0-9]+)", name)
+        if m:
+            s_part, n_part, l_part = m.groups()
+            return f"s{int(s_part)}-n{int(n_part)}-l{int(l_part)}"
+
+    # Grippers: nX-rY-oZ
+    if scenario == "grippers":
+        m = re.search(r"n0*([0-9]+).*r0*([0-9]+).*o0*([0-9]+)", name)
+        if m:
+            n_part, r_part, o_part = m.groups()
+            return f"n{int(n_part)}-r{int(r_part)}-o{int(o_part)}"
+
+    # Rovers: roverX_waypointY_objectiveZ_cameraK_goalG
+    if scenario == "rovers":
+        m = re.search(
+            r"rover0*([0-9]+).*waypoint0*([0-9]+).*objective0*([0-9]+).*camera0*([0-9]+).*goal0*([0-9]+)",
+            name,
+        )
+        if m:
+            r_part, wp_part, obj_part, cam_part, goal_part = m.groups()
+            return f"r{int(r_part)}-wp{int(wp_part)}-obj{int(obj_part)}-cam{int(cam_part)}-goal{int(goal_part)}"
+
+    # 通用 sX-pY 兜底
+    match = re.search(r"s(\d+)[_-]?p(\d+)", name, flags=re.IGNORECASE)
+    if match:
+        size_part, prob_part = match.groups()
+        return f"s{size_part}-p{prob_part}"
+    return None
 
 
 def _infer_scenario_name(problems_dir: str, domain_file: str) -> Optional[str]:
@@ -333,7 +415,7 @@ def _call_openai_api(
     temperature: float = 0.6,
     max_tokens: int = MAX_NEW_TOKENS,
     timeout: float = OPENAI_TIMEOUT,
-) -> str:
+) -> tuple[str, Optional[dict]]:
     """调用OpenAI API，兼容新旧参数名，并在需要时移除 temperature"""
     def _make_call(max_tokens_key: str, include_temperature: bool):
         kwargs = {
@@ -372,6 +454,7 @@ def _call_openai_api(
         return response
 
     errors = []
+    usage_info = None
     # 依次尝试新旧 tokens 参数，并在必要时去掉 temperature，以适配不同模型限制
     for attempt_idx, (max_key, include_temp) in enumerate([
         ("max_completion_tokens", True),
@@ -395,6 +478,19 @@ def _call_openai_api(
                     details = usage.completion_tokens_details
                     if hasattr(details, 'reasoning_tokens'):
                         print(f"  [OpenAI] Reasoning tokens: {details.reasoning_tokens}", flush=True)
+                    usage_info = {
+                        "completion_tokens": getattr(usage, "completion_tokens", None),
+                        "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                        "total_tokens": getattr(usage, "total_tokens", None),
+                        "reasoning_tokens": getattr(details, "reasoning_tokens", None)
+                    }
+                else:
+                    usage_info = {
+                        "completion_tokens": getattr(usage, "completion_tokens", None),
+                        "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                        "total_tokens": getattr(usage, "total_tokens", None),
+                        "reasoning_tokens": None
+                    }
             
             content = choice.message.content
             if content is None:
@@ -408,7 +504,7 @@ def _call_openai_api(
             else:
                 print(f"  [OpenAI] Response preview (first 200 chars): {content[:200]}", flush=True)
             
-            return content
+            return content, usage_info
         except Exception as e:
             error_msg = str(e)
             errors.append(error_msg)
@@ -420,7 +516,7 @@ def _call_openai_api(
             continue
 
     print(f"  [OpenAI] ✗ All API call attempts failed: {' | '.join(errors)}", flush=True)
-    return ""
+    return "", usage_info
 
 
 def test_api_model_on_testing_data(
@@ -457,6 +553,11 @@ def test_api_model_on_testing_data(
     print(f"Domain file: {domain_file}", flush=True)
     print(f"Max problems: {max_problems}", flush=True)
     print(f"Output: {output_file}", flush=True)
+    scenario_name = _infer_scenario_name(problems_dir, domain_file)
+    if scenario_name:
+        print(f"Detected scenario: {scenario_name}", flush=True)
+    else:
+        print(f"Detected scenario: Unknown (size统计将使用通用规则)", flush=True)
     
     # 自动检测模型家族
     if family == 'auto':
@@ -534,6 +635,8 @@ def test_api_model_on_testing_data(
         "safety_constraints_violation": 0,
         "goal_not_satisfied": 0,
     }
+    # 规模统计：按 sX-pY 记录成功/总数
+    size_stats = defaultdict(lambda: {"total": 0, "success": 0})
     
     # 线程安全的锁和计数器
     print_lock = Lock()
@@ -544,10 +647,12 @@ def test_api_model_on_testing_data(
         """处理单个问题的函数，用于多线程执行"""
         problem_name = sample['problem_name']
         problem_file = sample.get('problem_file')
+        size_key = _extract_size_key(problem_name, scenario_name)
         
         # 调用API生成解决方案
         generation_error = None
         output = ""
+        usage_info = None
         raw_solution = ""
         
         with print_lock:
@@ -562,7 +667,7 @@ def test_api_model_on_testing_data(
             if provider == 'openai':
                 with print_lock:
                     print(f"  [Thread] Making API request for {problem_name}...", flush=True)
-                output = _call_openai_api(
+                output, usage_info = _call_openai_api(
                     client,
                     model_name,
                     sample['prompt'],
@@ -643,6 +748,8 @@ def test_api_model_on_testing_data(
         result = {
             'index': index,
             'problem_name': problem_name,
+            'size_key': size_key,
+            'scenario': scenario_name,
             'problem_file': problem_file,
             'is_valid': is_valid,
             'category': category,
@@ -651,7 +758,8 @@ def test_api_model_on_testing_data(
             'validation_stderr': validation_stderr,
             'validation_cmd': val_cmd,
             'raw_solution': raw_solution,
-            'generation_error': generation_error
+            'generation_error': generation_error,
+            'usage': usage_info
         }
         
         # 更新统计（线程安全）
@@ -681,6 +789,12 @@ def test_api_model_on_testing_data(
             print(f"[Thread] Progress: {current_completed}/{total_count} ({current_completed/total_count*100:.1f}%)", flush=True)
             print(f"[Thread] Current success rate: {current_success_rate:.1f}% ({success_count}/{current_completed})", flush=True)
             print(f"[Thread] Category breakdown: {dict(category_counts)}", flush=True)
+            
+            # 更新规模统计
+            if size_key:
+                size_stats[size_key]["total"] += 1
+                if is_valid:
+                    size_stats[size_key]["success"] += 1
             print(f"{'='*80}\n", flush=True)
         
         return result
@@ -732,6 +846,15 @@ def test_api_model_on_testing_data(
     # 计算最终成功率
     success_count = category_counts.get("success_plans", 0)
     final_success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
+    size_success_rates = {}
+    for key, stats in size_stats.items():
+        total = stats["total"]
+        succ = stats["success"]
+        size_success_rates[key] = {
+            "total": total,
+            "success": succ,
+            "success_rate": (succ / total * 100) if total > 0 else 0
+        }
     
     print(f"\n{'='*80}", flush=True)
     print(f"[Stage 4/4] Evaluation completed, preparing to save results...", flush=True)
@@ -765,6 +888,7 @@ def test_api_model_on_testing_data(
         'timestamp': timestamp_iso,
         'model_name': model_name,
         'provider': provider,
+        'scenario': scenario_name,
         'problems_dir': str(problems_dir),
         'domain_file': str(domain_file),
         'max_problems': max_problems,
@@ -777,6 +901,7 @@ def test_api_model_on_testing_data(
         'category_counts': category_counts,
         'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0 
                           for k, v in category_counts.items()},
+        'size_success_rates': size_success_rates,
         'results': results
     }
     
@@ -796,6 +921,11 @@ def test_api_model_on_testing_data(
     for category, count in category_counts.items():
         rate = (count / total_count * 100) if total_count > 0 else 0
         print(f"  {category}: {count} ({rate:.1f}%)", flush=True)
+    if size_success_rates:
+        print(f"\nSuccess by Problem Size:", flush=True)
+        for size_key in sorted(size_success_rates.keys()):
+            stats = size_success_rates[size_key]
+            print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%)", flush=True)
     print(f"\nResults saved to: {output_file_path}", flush=True)
     print(f"{'='*60}\n", flush=True)
 

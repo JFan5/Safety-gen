@@ -16,6 +16,7 @@ import torch
 from datetime import datetime
 import re
 from typing import Optional
+from collections import defaultdict
 from utils import _classify_result, validate_solution
 # 配置参数
 # input and output length
@@ -128,6 +129,87 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     if not lines:
         return False
     return all(line.startswith("(") and line.endswith(")") for line in lines)
+
+
+def _extract_size_key(problem_name: str, scenario: Optional[str] = None) -> Optional[str]:
+    """
+    从问题名称中提取规模标识，按场景解析关键参数。
+    例如：delivery_size10_packages1 -> s10-p1；c2_s3_p4 -> c2-s3-p4。
+    如无法解析则返回 None。
+    """
+    name = problem_name.lower()
+
+    # Delivery: sizeX packagesY
+    if scenario == "delivery":
+        m = re.search(r"size(\d+)[-_]?packages?(\d+)", name)
+        if m:
+            size_part, pkg_part = m.groups()
+            return f"s{int(size_part)}-p{int(pkg_part)}"
+        m = re.search(r"s(\d+)[-_]?p(\d+)", name)
+        if m:
+            return f"s{m.group(1)}-p{m.group(2)}"
+
+    # Logistics: cX_sY_pZ
+    if scenario == "logistics":
+        m = re.search(r"c(\d+)[-_]?s(\d+)[-_]?p(\d+)", name)
+        if m:
+            c_part, s_part, p_part = m.groups()
+            return f"c{int(c_part)}-s{int(s_part)}-p{int(p_part)}"
+        m = re.search(r"s(\d+)[-_]?p(\d+)", name)
+        if m:
+            return f"s{m.group(1)}-p{m.group(2)}"
+
+    # Grid: xY_yZ_shK_kM_lN
+    if scenario == "grid":
+        m = re.search(r"x(\d+).*y(\d+).*sh(\d+).*k(\d+).*l(\d+)", name)
+        if m:
+            x, y, sh, k, l_val = m.groups()
+            return f"x{x}-y{y}-sh{sh}-k{k}-l{l_val}"
+
+    # Blocksworld: opsX_nY
+    if scenario == "blocksworld":
+        m = re.search(r"ops(\d+).*n0*([0-9]+)", name)
+        if m:
+            ops_part, n_part = m.groups()
+            return f"ops{int(ops_part)}-n{int(n_part)}"
+
+    # Ferry: lX-cY
+    if scenario == "ferry":
+        m = re.search(r"l0*([0-9]+).*c0*([0-9]+)", name)
+        if m:
+            l_part, c_part = m.groups()
+            return f"l{int(l_part)}-c{int(c_part)}"
+
+    # Spanner: sX-nY-lZ
+    if scenario == "spanner":
+        m = re.search(r"s0*([0-9]+).*n0*([0-9]+).*l0*([0-9]+)", name)
+        if m:
+            s_part, n_part, l_part = m.groups()
+            return f"s{int(s_part)}-n{int(n_part)}-l{int(l_part)}"
+
+    # Grippers: nX-rY-oZ
+    if scenario == "grippers":
+        m = re.search(r"n0*([0-9]+).*r0*([0-9]+).*o0*([0-9]+)", name)
+        if m:
+            n_part, r_part, o_part = m.groups()
+            return f"n{int(n_part)}-r{int(r_part)}-o{int(o_part)}"
+
+    # Rovers: roverX_waypointY_objectiveZ_cameraK_goalG
+    if scenario == "rovers":
+        m = re.search(
+            r"rover0*([0-9]+).*waypoint0*([0-9]+).*objective0*([0-9]+).*camera0*([0-9]+).*goal0*([0-9]+)",
+            name,
+        )
+        if m:
+            r_part, wp_part, obj_part, cam_part, goal_part = m.groups()
+            return f"r{int(r_part)}-wp{int(wp_part)}-obj{int(obj_part)}-cam{int(cam_part)}-goal{int(goal_part)}"
+
+    # 通用 sX-pY 兜底
+    match = re.search(r"s(\d+)[_-]?p(\d+)", name, flags=re.IGNORECASE)
+    if match:
+        size_part, prob_part = match.groups()
+        return f"s{size_part}-p{prob_part}"
+    return None
 
 
 def _infer_scenario_name(problems_dir: str, domain_file: str) -> Optional[str]:
@@ -302,6 +384,11 @@ def test_model_on_testing_data(model_path,
     print(f"Domain file: {domain_file}")
     print(f"Max problems: {max_problems}")
     print(f"Output: {output_file}")
+    scenario_name = _infer_scenario_name(problems_dir, domain_file)
+    if scenario_name:
+        print(f"Detected scenario: {scenario_name}")
+    else:
+        print("Detected scenario: Unknown (size stats will use generic parser)")
     
     # 自动检测模型家族
     if family == 'auto':
@@ -380,10 +467,12 @@ def test_model_on_testing_data(model_path,
         "safety_constraints_violation": 0,
         "goal_not_satisfied": 0,
     }
+    size_stats = defaultdict(lambda: {"total": 0, "success": 0})
     
     for i, sample in enumerate(test_data, 1):
         print(f"\n--- Test {i}/{total_count} ---")
         print(f"Problem: {sample['problem_name']}")
+        size_key = _extract_size_key(sample['problem_name'], scenario_name)
         
         # 生成解决方案
         messages = template_input(sample['prompt'])
@@ -512,6 +601,10 @@ def test_model_on_testing_data(model_path,
             category_counts[category] += 1
         else:
             category_counts["others"] += 1
+        if size_key:
+            size_stats[size_key]["total"] += 1
+            if category == "success_plans":
+                size_stats[size_key]["success"] += 1
         
         is_valid = (category == "success_plans")
 
@@ -521,6 +614,8 @@ def test_model_on_testing_data(model_path,
         result = {
             'index': i,
             'problem_name': sample['problem_name'],
+            'size_key': size_key,
+            'scenario': scenario_name,
             'problem_file': problem_file,
             'is_valid': is_valid,
             'category': category,
@@ -556,6 +651,15 @@ def test_model_on_testing_data(model_path,
     # 计算最终成功率
     success_count = category_counts["success_plans"]
     final_success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
+    size_success_rates = {}
+    for key, stats in size_stats.items():
+        total = stats["total"]
+        succ = stats["success"]
+        size_success_rates[key] = {
+            "total": total,
+            "success": succ,
+            "success_rate": (succ / total * 100) if total > 0 else 0
+        }
     
     # 自动生成输出文件名并加上时间戳
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -583,6 +687,7 @@ def test_model_on_testing_data(model_path,
     output_data = {
         'timestamp': timestamp_iso,
         'model_path': model_path,
+        'scenario': scenario_name,
         'problems_dir': str(problems_dir),
         'domain_file': str(domain_file),
         'max_problems': max_problems,
@@ -596,6 +701,7 @@ def test_model_on_testing_data(model_path,
         'category_counts': category_counts,
         'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0 
                           for k, v in category_counts.items()},
+        'size_success_rates': size_success_rates,
         'results': results
     }
     
@@ -612,6 +718,11 @@ def test_model_on_testing_data(model_path,
     for category, count in category_counts.items():
         rate = (count / total_count * 100) if total_count > 0 else 0
         print(f"  {category}: {count} ({rate:.1f}%)")
+    if size_success_rates:
+        print(f"\nSuccess by Problem Size:")
+        for size_key in sorted(size_success_rates.keys()):
+            stats = size_success_rates[size_key]
+            print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%)")
     print(f"\nResults saved to: {output_file_path}")
 
 def main():
