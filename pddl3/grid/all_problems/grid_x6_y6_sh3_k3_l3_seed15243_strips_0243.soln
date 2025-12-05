@@ -1,8 +1,0 @@
-(move pos0-5 pos1-5)
-(move pos1-5 pos2-5)
-(move pos2-5 pos3-5)
-(move pos3-5 pos4-5)
-(pickup pos4-5 key1)
-(move pos4-5 pos3-5)
-(move pos3-5 pos2-5)
-(putdown pos2-5 key1)

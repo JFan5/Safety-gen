@@ -6,13 +6,18 @@ API-based PDDL Plan Evaluator
 输出结果保存为JSON。
 """
 import os
+import sys
 import json
 import random
+import time
 from pathlib import Path
 from datetime import datetime
 import re
 from typing import Optional
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
 from utils import _classify_result, validate_solution
+import argparse
 
 try:
     from openai import OpenAI
@@ -21,7 +26,15 @@ except ImportError:
     OpenAI = None
 
 # 配置参数
-MAX_NEW_TOKENS = 512
+# 默认不限制 completion tokens，上限可通过环境变量 MAX_NEW_TOKENS 设置
+# 注意：None 表示不传 max_tokens/max_completion_tokens，让服务端自行决定
+_max_new_tokens_env = os.getenv("MAX_NEW_TOKENS")
+MAX_NEW_TOKENS = int(_max_new_tokens_env) if _max_new_tokens_env else None
+# OpenAI 请求超时（秒），可通过环境变量覆盖
+# gpt-5 推理模型需要更长的超时时间
+OPENAI_TIMEOUT = float(os.getenv("OPENAI_TIMEOUT", "300"))  # 增加到300秒（5分钟）
+# 并发线程数（可通过环境变量覆盖）
+MAX_WORKERS = int(os.getenv("MAX_WORKERS", "5"))  # 默认5个并发线程
 
 # 模型家族映射
 MODEL_FAMILY_MAP = {
@@ -40,7 +53,7 @@ MODEL_FAMILY_MAP = {
 API_MODEL_CONFIG = {
     'gpt-5': {
         'provider': 'openai',
-        'model_name': 'gpt-5',
+        'model_name': 'gpt-5-nano-2025-08-07',
         'family': 'gpt'
     },
     'gpt-4': {
@@ -60,7 +73,7 @@ API_MODEL_CONFIG = {
     },
     'chatgpt': {
         'provider': 'openai',
-        'model_name': 'gpt-5',  # 默认使用gpt-5
+        'model_name': 'gpt-5-nano-2025-08-07',  # 默认使用gpt-5-nano-2025-08-07
         'family': 'gpt'
     },
 }
@@ -204,29 +217,37 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
     """
     problems_path = Path(problems_dir)
     if not problems_path.exists():
-        print(f"Problems directory not found: {problems_dir}")
+        print(f"Problems directory not found: {problems_dir}", flush=True)
         return []
 
     # 读取 domain 内容
+    print(f"Reading domain file: {domain_file}...", flush=True)
     domain_content = ""
     if domain_file and Path(domain_file).exists():
         try:
             with open(domain_file, 'r', encoding='utf-8') as f:
                 domain_content = f.read()
+            print(f"Domain file loaded successfully", flush=True)
         except Exception as e:
-            print(f"Error reading domain file {domain_file}: {e}")
+            print(f"Error reading domain file {domain_file}: {e}", flush=True)
+    else:
+        print(f"Warning: Domain file not found: {domain_file}", flush=True)
 
     test_data = []
+    print(f"Scanning for problem files in {problems_dir}...", flush=True)
     pddl_files = sorted(problems_path.glob('*.pddl'))
     # 过滤掉 domain 文件
     pddl_files = [f for f in pddl_files if 'domain' not in f.name.lower()]
 
     if not pddl_files:
-        print(f"No problem files found in {problems_dir}")
+        print(f"No problem files found in {problems_dir}", flush=True)
         return []
+    
+    print(f"Found {len(pddl_files)} problem files", flush=True)
 
     # 加载 prompt 模板
     prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
+    print(f"Loading prompt template: {prompt_template_file}...", flush=True)
     try:
         with open(prompt_template_file, 'r', encoding='utf-8') as f:
             prompt_template = f.read()
@@ -237,8 +258,9 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
             if prompt_template.endswith('"""'):
                 prompt_template = prompt_template[:-3]
             prompt_template = prompt_template.strip()
+        print(f"Prompt template loaded successfully", flush=True)
     except Exception as e:
-        print(f"Error reading {prompt_template_file}: {e}")
+        print(f"Error reading {prompt_template_file}: {e}", flush=True)
         prompt_template = "{problem_content}"
 
     # 如果使用 one-shot 模式，加载 example
@@ -246,22 +268,29 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
     if one_shot:
         scenario = _infer_scenario_name(problems_dir, domain_file)
         if scenario:
-            print(f"Inferred scenario: {scenario}")
+            print(f"Inferred scenario: {scenario}", flush=True)
             example_content = _load_one_shot_example(scenario)
             if example_content:
-                print(f"Loaded one-shot example for scenario: {scenario}")
+                print(f"Loaded one-shot example for scenario: {scenario}", flush=True)
             else:
-                print(f"Warning: Failed to load one-shot example for scenario: {scenario}")
+                print(f"Warning: Failed to load one-shot example for scenario: {scenario}", flush=True)
         else:
-            print(f"Warning: Could not infer scenario name from paths, one-shot example will not be included")
+            print(f"Warning: Could not infer scenario name from paths, one-shot example will not be included", flush=True)
 
-    for pddl_file in pddl_files:
+    print(f"Processing {len(pddl_files)} problem files...", flush=True)
+    for idx, pddl_file in enumerate(pddl_files, 1):
+        if idx % 10 == 0 or idx == len(pddl_files) or idx == 1:
+            print(f"  Processing file {idx}/{len(pddl_files)}: {pddl_file.name}", flush=True)
         problem_name = pddl_file.stem
         try:
             with open(pddl_file, 'r', encoding='utf-8') as f:
                 problem_content = f.read()
+            if idx == 1:
+                print(f"  ✓ Successfully read first file (size: {len(problem_content)} chars)", flush=True)
+            if idx == len(pddl_files):
+                print(f"  ✓ Successfully read last file (size: {len(problem_content)} chars)", flush=True)
         except Exception as e:
-            print(f"Error reading {pddl_file}: {e}")
+            print(f"  ✗ Error reading {pddl_file}: {e}", flush=True)
             continue
         
         # 构建 prompt
@@ -293,24 +322,105 @@ PROBLEM:
             'prompt': prompt,
             'problem_content': problem_content
         })
+    print(f"All {len(test_data)} problems loaded and processed", flush=True)
     return test_data
 
 
-def _call_openai_api(client, model_name: str, prompt: str, temperature: float = 0.6, max_tokens: int = MAX_NEW_TOKENS) -> str:
-    """调用OpenAI API"""
-    try:
-        response = client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
-            temperature=temperature,
-            max_tokens=max_tokens
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"API call error: {e}")
-        return ""
+def _call_openai_api(
+    client,
+    model_name: str,
+    prompt: str,
+    temperature: float = 0.6,
+    max_tokens: int = MAX_NEW_TOKENS,
+    timeout: float = OPENAI_TIMEOUT,
+) -> str:
+    """调用OpenAI API，兼容新旧参数名，并在需要时移除 temperature"""
+    def _make_call(max_tokens_key: str, include_temperature: bool):
+        kwargs = {
+            "model": model_name,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        if include_temperature and temperature is not None:
+            kwargs["temperature"] = temperature
+        if max_tokens is not None:
+            kwargs[max_tokens_key] = max_tokens
+        if timeout is not None:
+            kwargs["timeout"] = timeout
+        print(f"    [OpenAI] Making API request with timeout={timeout}s...", flush=True)
+        call_start = time.time()
+        # 添加进度提示（每10秒输出一次）
+        import threading
+        progress_stop = threading.Event()
+        def progress_indicator():
+            elapsed = 0
+            while not progress_stop.is_set() and elapsed < timeout:
+                time.sleep(10)
+                if not progress_stop.is_set():
+                    elapsed = time.time() - call_start
+                    print(f"    [OpenAI] Still waiting... ({elapsed:.1f}s elapsed)", flush=True)
+        
+        progress_thread = threading.Thread(target=progress_indicator, daemon=True)
+        progress_thread.start()
+        
+        try:
+            response = client.chat.completions.create(**kwargs)
+        finally:
+            progress_stop.set()
+        
+        call_elapsed = time.time() - call_start
+        print(f"    [OpenAI] API request completed in {call_elapsed:.2f}s", flush=True)
+        return response
+
+    errors = []
+    # 依次尝试新旧 tokens 参数，并在必要时去掉 temperature，以适配不同模型限制
+    for attempt_idx, (max_key, include_temp) in enumerate([
+        ("max_completion_tokens", True),
+        ("max_completion_tokens", False),
+        ("max_tokens", True),
+        ("max_tokens", False),
+    ], 1):
+        try_desc = f"model={model_name}, tokens_key={max_key}, temp={'on' if include_temp else 'off'}, timeout={timeout}"
+        print(f"  [OpenAI] Attempt {attempt_idx}/4: {try_desc}", flush=True)
+        try:
+            response = _make_call(max_key, include_temp)
+            print(f"  [OpenAI] ✓ API call completed successfully", flush=True)
+            
+            # 检查响应对象详情
+            choice = response.choices[0]
+            print(f"  [OpenAI] Finish reason: {choice.finish_reason}", flush=True)
+            if hasattr(response, 'usage') and response.usage:
+                usage = response.usage
+                print(f"  [OpenAI] Usage - completion: {usage.completion_tokens}, prompt: {usage.prompt_tokens}, total: {usage.total_tokens}", flush=True)
+                if hasattr(usage, 'completion_tokens_details') and usage.completion_tokens_details:
+                    details = usage.completion_tokens_details
+                    if hasattr(details, 'reasoning_tokens'):
+                        print(f"  [OpenAI] Reasoning tokens: {details.reasoning_tokens}", flush=True)
+            
+            content = choice.message.content
+            if content is None:
+                print(f"  [OpenAI] ⚠️  Warning: Response content is None", flush=True)
+                content = ""
+            print(f"  [OpenAI] Response length: {len(content)} chars", flush=True)
+            
+            if len(content) == 0:
+                print(f"  [OpenAI] ⚠️  WARNING: Empty response! This may be due to insufficient max_completion_tokens.", flush=True)
+                print(f"  [OpenAI] Current max_completion_tokens: {max_tokens}, try increasing it.", flush=True)
+            else:
+                print(f"  [OpenAI] Response preview (first 200 chars): {content[:200]}", flush=True)
+            
+            return content
+        except Exception as e:
+            error_msg = str(e)
+            errors.append(error_msg)
+            print(f"  [OpenAI] ✗ API call failed: {error_msg}", flush=True)
+            # 如果是超时错误，直接返回，不再尝试
+            if "timeout" in error_msg.lower() or "timed out" in error_msg.lower():
+                print(f"  [OpenAI] Timeout error detected, stopping attempts", flush=True)
+                break
+            continue
+
+    print(f"  [OpenAI] ✗ All API call attempts failed: {' | '.join(errors)}", flush=True)
+    return ""
 
 
 def test_api_model_on_testing_data(
@@ -323,7 +433,8 @@ def test_api_model_on_testing_data(
     domain_file: str = None,
     temperature: float = 0.6,
     one_shot: bool = False,
-    provider: str = 'openai'
+    provider: str = 'openai',
+    max_workers: int = None
 ):
     """
     在testing数据上测试API模型并计算成功率
@@ -340,12 +451,12 @@ def test_api_model_on_testing_data(
         one_shot: 是否使用one-shot模式
         provider: API提供商（'openai'等）
     """
-    print(f"Testing API model: {model_name}")
-    print(f"Provider: {provider}")
-    print(f"Problems dir: {problems_dir}")
-    print(f"Domain file: {domain_file}")
-    print(f"Max problems: {max_problems}")
-    print(f"Output: {output_file}")
+    print(f"Testing API model: {model_name}", flush=True)
+    print(f"Provider: {provider}", flush=True)
+    print(f"Problems dir: {problems_dir}", flush=True)
+    print(f"Domain file: {domain_file}", flush=True)
+    print(f"Max problems: {max_problems}", flush=True)
+    print(f"Output: {output_file}", flush=True)
     
     # 自动检测模型家族
     if family == 'auto':
@@ -356,45 +467,63 @@ def test_api_model_on_testing_data(
                 break
         else:
             family = 'gpt'  # 默认使用gpt格式
-        print(f"Auto-detected model family: {family}")
+        print(f"Auto-detected model family: {family}", flush=True)
     
     # 加载测试数据
     if not problems_dir or not domain_file:
-        print("--problems-dir 和 --domain-file 都是必需参数。")
+        print("--problems-dir 和 --domain-file 都是必需参数。", flush=True)
         return
     
     if one_shot:
-        print("Using one-shot mode with examples")
+        print("Using one-shot mode with examples", flush=True)
     
+    print(f"[Stage 1/4] Loading problems from directory...", flush=True)
+    print(f"  Problems directory: {problems_dir}", flush=True)
+    print(f"  Domain file: {domain_file}", flush=True)
     test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot)
+    print(f"[Stage 1/4] Loaded {len(test_data)} problems", flush=True)
+    
     if max_problems and max_problems > 0 and len(test_data) > max_problems:
+        print(f"[Stage 1/4] Sampling {max_problems} problems from {len(test_data)} total problems...", flush=True)
         random.seed(42)
         test_data = random.sample(test_data, max_problems)
+        print(f"[Stage 1/4] Sampled {len(test_data)} problems", flush=True)
     
     if not test_data:
-        print("No testing data found!")
+        print("[Stage 1/4] ERROR: No testing data found!", flush=True)
         return
     
-    print(f"Loaded {len(test_data)} problems for testing")
+    print(f"[Stage 1/4] ✓ Completed: {len(test_data)} problems ready for testing", flush=True)
+    print(f"\n{'='*80}", flush=True)
+    print(f"Starting evaluation: {len(test_data)} problems to test", flush=True)
+    print(f"{'='*80}\n", flush=True)
     
     # 初始化API客户端
+    print(f"[Stage 2/4] Initializing API client...", flush=True)
+    print(f"  Provider: {provider}", flush=True)
+    print(f"  Model: {model_name}", flush=True)
+    print(f"  Family: {family}", flush=True)
     if provider == 'openai':
         if OpenAI is None:
-            print("Error: openai package not installed. Please install it with: pip install openai")
+            print("Error: openai package not installed. Please install it with: pip install openai", flush=True)
             return
         
         if api_key is None:
-            api_key = os.getenv('OPENAI_API_KEY')
+            # 优先使用 OPENAI_API_KEY，其次兼容本地 CPSL_OPENAI_KEY
+            api_key = os.getenv('OPENAI_API_KEY') or os.getenv('CPSL_OPENAI_KEY')
             if not api_key:
-                print("Error: OpenAI API key not provided. Set OPENAI_API_KEY environment variable or use --api-key")
+                print("Error: OpenAI API key not provided. Set OPENAI_API_KEY or CPSL_OPENAI_KEY environment variable, or use --api-key", flush=True)
                 return
         
         client = OpenAI(api_key=api_key)
+        print(f"[Stage 2/4] ✓ API client initialized successfully", flush=True)
     else:
-        print(f"Error: Unsupported provider: {provider}")
+        print(f"[Stage 2/4] ERROR: Unsupported provider: {provider}", flush=True)
         return
     
     # 测试结果
+    print(f"[Stage 3/4] Starting evaluation loop...", flush=True)
+    print(f"  Total problems to evaluate: {len(test_data)}", flush=True)
     results = []
     total_count = len(test_data)
     # 分类统计
@@ -406,91 +535,114 @@ def test_api_model_on_testing_data(
         "goal_not_satisfied": 0,
     }
     
-    for i, sample in enumerate(test_data, 1):
-        print(f"\n--- Test {i}/{total_count} ---")
-        print(f"Problem: {sample['problem_name']}")
+    # 线程安全的锁和计数器
+    print_lock = Lock()
+    results_lock = Lock()
+    completed_count = [0]  # 使用列表以便在闭包中修改
+    
+    def process_single_problem(sample, index):
+        """处理单个问题的函数，用于多线程执行"""
+        problem_name = sample['problem_name']
+        problem_file = sample.get('problem_file')
         
         # 调用API生成解决方案
         generation_error = None
         output = ""
         raw_solution = ""
         
+        with print_lock:
+            print(f"\n{'='*80}", flush=True)
+            print(f"Test {index}/{total_count} - Problem: {problem_name}", flush=True)
+            print(f"{'='*80}", flush=True)
+            print(f"[Step 1/3] Calling API to generate solution...", flush=True)
+            print(f"  Model: {model_name}, Temperature: {temperature}, Max tokens: {MAX_NEW_TOKENS}", flush=True)
+        
+        api_start_time = time.time()
         try:
             if provider == 'openai':
-                output = _call_openai_api(client, model_name, sample['prompt'], temperature, MAX_NEW_TOKENS)
+                with print_lock:
+                    print(f"  [Thread] Making API request for {problem_name}...", flush=True)
+                output = _call_openai_api(
+                    client,
+                    model_name,
+                    sample['prompt'],
+                    temperature,
+                    MAX_NEW_TOKENS,
+                    OPENAI_TIMEOUT,
+                )
+                api_elapsed = time.time() - api_start_time
+                with print_lock:
+                    print(f"  [Thread] ✓ API call completed for {problem_name} in {api_elapsed:.2f} seconds", flush=True)
             else:
                 generation_error = f"Unsupported provider: {provider}"
             
             if output:
+                with print_lock:
+                    print(f"[Step 2/3] Extracting solution from API response for {problem_name}...", flush=True)
+                    print(f"  Response length: {len(output)} chars", flush=True)
                 raw_solution = extract_llm_output(output, family)
+                with print_lock:
+                    print(f"  ✓ Solution extracted for {problem_name} (length: {len(raw_solution)} chars)", flush=True)
             else:
                 generation_error = "Empty response from API"
+                with print_lock:
+                    print(f"[Step 2/3] ✗ Warning: Empty response from API for {problem_name}", flush=True)
         except Exception as e:
             generation_error = f"API Error: {str(e)}"
-            print(generation_error)
+            with print_lock:
+                print(f"[Step 1/3] ✗ Error for {problem_name}: {generation_error}", flush=True)
+                import traceback
+                print(f"  Traceback: {traceback.format_exc()}", flush=True)
         
-        # 在终端打印LLM的完整输出
-        print(f"\n{'='*80}")
-        print("LLM FULL OUTPUT:")
-        print(f"{'='*80}")
-        print(output)
-        print(f"{'='*80}\n")
-        
-        if raw_solution:
-            print("Parsed plan:")
-            print(raw_solution)
-
-        # 问题文件路径
-        problem_file = sample.get('problem_file')
-        
-        # 验证解决方案（使用LLM输出）
+        # 验证解决方案
         validation_message = ""
         validation_stdout = ""
         validation_stderr = ""
         category = ""
         
+        with print_lock:
+            print(f"[Step 3/3] Validating solution for {problem_name}...", flush=True)
+        
         if generation_error:
-            # 如果生成时出现错误，跳过验证
             category = "generation_error"
             validation_message = f"Generation failed: {generation_error}"
             val_cmd = ""
+            with print_lock:
+                print(f"[Step 3/3] Skipping validation for {problem_name} due to generation error", flush=True)
         elif problem_file and Path(problem_file).exists():
-            # 使用命令行提供的 domain_file 进行验证
             if raw_solution.strip():
                 _, message, stdout, stderr, val_cmd = validate_solution(domain_file, problem_file, raw_solution)
                 validation_message = message
                 validation_stdout = stdout
                 validation_stderr = stderr
                 
-                # 检查 plan_text 格式
                 if not _looks_like_valid_plan(raw_solution):
                     category = "plan_format_error"
+                    with print_lock:
+                        print(f"[Step 3/3] Validation result for {problem_name}: Plan format error", flush=True)
                 else:
-                    # 根据 stdout 分类
                     category = _classify_result(stdout)
+                    with print_lock:
+                        print(f"[Step 3/3] Validation result for {problem_name}: {category}", flush=True)
             else:
                 category = "plan_format_error"
                 validation_message = "Empty solution generated"
                 val_cmd = ""
+                with print_lock:
+                    print(f"[Step 3/3] Validation result for {problem_name}: Empty solution", flush=True)
         else:
             category = "others"
             validation_message = f"Problem file not found: {problem_file}"
             val_cmd = ""
-        
-        # 更新分类统计
-        if category in category_counts:
-            category_counts[category] += 1
-        else:
-            if "others" not in category_counts:
-                category_counts["others"] = 0
-            category_counts["others"] += 1
+            with print_lock:
+                print(f"[Step 3/3] Validation result for {problem_name}: Problem file not found", flush=True)
         
         is_valid = (category == "success_plans")
-
+        
         # 记录结果
         result = {
-            'index': i,
-            'problem_name': sample['problem_name'],
+            'index': index,
+            'problem_name': problem_name,
             'problem_file': problem_file,
             'is_valid': is_valid,
             'category': category,
@@ -502,28 +654,90 @@ def test_api_model_on_testing_data(
             'generation_error': generation_error
         }
         
-        results.append(result)
+        # 更新统计（线程安全）
+        with results_lock:
+            if category in category_counts:
+                category_counts[category] += 1
+            else:
+                if "others" not in category_counts:
+                    category_counts["others"] = 0
+                category_counts["others"] += 1
+            
+            completed_count[0] += 1
+            current_completed = completed_count[0]
+            success_count = category_counts.get("success_plans", 0)
+            current_success_rate = (success_count / current_completed) * 100 if current_completed > 0 else 0
+            
+            category_display = {
+                "success_plans": "✓ Success",
+                "plan_format_error": "✗ Plan Format Error",
+                "precondition_violation": "✗ Precondition Violation",
+                "safety_constraints_violation": "✗ Safety Constraints Violation",
+                "goal_not_satisfied": "✗ Goal Not Satisfied",
+                "others": "✗ Others",
+            }
+            
+            print(f"\n[Thread] Result for {problem_name}: {category_display.get(category, '✗ Unknown')} ({category})", flush=True)
+            print(f"[Thread] Progress: {current_completed}/{total_count} ({current_completed/total_count*100:.1f}%)", flush=True)
+            print(f"[Thread] Current success rate: {current_success_rate:.1f}% ({success_count}/{current_completed})", flush=True)
+            print(f"[Thread] Category breakdown: {dict(category_counts)}", flush=True)
+            print(f"{'='*80}\n", flush=True)
         
-        # 打印分类结果
-        category_display = {
-            "success_plans": "✓ Success",
-            "plan_format_error": "✗ Plan Format Error",
-            "precondition_violation": "✗ Precondition Violation",
-            "safety_constraints_violation": "✗ Safety Constraints Violation",
-            "goal_not_satisfied": "✗ Goal Not Satisfied",
-            "others": "✗ Others",
-        }
-        print(f"{category_display.get(category, '✗ Unknown')}: {category}")
+        return result
+    
+    # 确定使用的并发数
+    workers = max_workers if max_workers is not None else MAX_WORKERS
+    # 使用线程池并行处理
+    print(f"[Stage 3/4] Starting parallel evaluation with {workers} workers...", flush=True)
+    print(f"  Total problems to evaluate: {total_count}", flush=True)
+    print(f"  Concurrent threads: {workers}", flush=True)
+    
+    # 为每个问题创建任务
+    futures = {}
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        for i, sample in enumerate(test_data, 1):
+            future = executor.submit(process_single_problem, sample, i)
+            futures[future] = (i, sample['problem_name'])
         
-        # 实时显示分类统计
-        success_count = category_counts.get("success_plans", 0)
-        current_success_rate = (success_count / i) * 100
-        print(f"Current success rate: {current_success_rate:.1f}% ({success_count}/{i})")
-        print(f"Category breakdown: {dict(category_counts)}")
+        # 收集结果（按完成顺序）
+        for future in as_completed(futures):
+            index, problem_name = futures[future]
+            try:
+                result = future.result()
+                results.append(result)
+            except Exception as e:
+                with print_lock:
+                    print(f"✗ Error processing {problem_name}: {e}", flush=True)
+                import traceback
+                with print_lock:
+                    print(f"  Traceback: {traceback.format_exc()}", flush=True)
+                # 创建错误结果
+                results.append({
+                    'index': index,
+                    'problem_name': problem_name,
+                    'problem_file': None,
+                    'is_valid': False,
+                    'category': 'others',
+                    'validation_message': f"Processing error: {str(e)}",
+                    'validation_stdout': '',
+                    'validation_stderr': '',
+                    'validation_cmd': '',
+                    'raw_solution': '',
+                    'generation_error': f"Processing error: {str(e)}"
+                })
+    
+    # 按索引排序结果
+    results.sort(key=lambda x: x['index'])
     
     # 计算最终成功率
     success_count = category_counts.get("success_plans", 0)
     final_success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
+    
+    print(f"\n{'='*80}", flush=True)
+    print(f"[Stage 4/4] Evaluation completed, preparing to save results...", flush=True)
+    print(f"  Success rate: {final_success_rate:.2f}% ({success_count}/{total_count})", flush=True)
+    print(f"  Total tests: {total_count}", flush=True)
+    print(f"{'='*80}\n", flush=True)
     
     # 自动生成输出文件名并加上时间戳
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -566,20 +780,24 @@ def test_api_model_on_testing_data(
         'results': results
     }
     
+    print(f"\n{'='*80}", flush=True)
+    print(f"Saving results to file...", flush=True)
     with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
+    print(f"Results saved successfully!", flush=True)
     
-    print(f"\n" + "="*60)
-    print(f"FINAL RESULTS")
-    print(f"="*60)
-    print(f"Total tests: {total_count}")
-    print(f"Success plans: {success_count}")
-    print(f"Success rate: {final_success_rate:.1f}%")
-    print(f"\nCategory Breakdown:")
+    print(f"\n" + "="*60, flush=True)
+    print(f"FINAL RESULTS", flush=True)
+    print(f"="*60, flush=True)
+    print(f"Total tests: {total_count}", flush=True)
+    print(f"Success plans: {success_count}", flush=True)
+    print(f"Success rate: {final_success_rate:.1f}%", flush=True)
+    print(f"\nCategory Breakdown:", flush=True)
     for category, count in category_counts.items():
         rate = (count / total_count * 100) if total_count > 0 else 0
-        print(f"  {category}: {count} ({rate:.1f}%)")
-    print(f"\nResults saved to: {output_file_path}")
+        print(f"  {category}: {count} ({rate:.1f}%)", flush=True)
+    print(f"\nResults saved to: {output_file_path}", flush=True)
+    print(f"{'='*60}\n", flush=True)
 
 
 def main():
@@ -612,10 +830,12 @@ def main():
     parser.add_argument("--no-one-shot", dest='one_shot', action='store_false',
                        help="Disable one-shot mode (default)")
     parser.set_defaults(one_shot=False)
+    parser.add_argument("--max-workers", type=int, default=None,
+                       help=f"Maximum number of concurrent threads (default: {MAX_WORKERS}, or set MAX_WORKERS env var)")
     
     args = parser.parse_args()
     
-    # 使用固定的gpt-4模型配置
+    # 使用固定的gpt-5模型配置
     model_name = DEFAULT_MODEL.lower()
     if model_name in API_MODEL_CONFIG:
         config = API_MODEL_CONFIG[model_name]
@@ -627,6 +847,10 @@ def main():
     else:
         actual_model_name = DEFAULT_MODEL
     
+    # 某些 OpenAI 模型（如 gpt-5-nano-2025-08-07）只支持默认 temperature=1
+    if args.provider == "openai" and "gpt-5-nano" in actual_model_name:
+        args.temperature = 1.0
+    
     test_api_model_on_testing_data(
         actual_model_name,
         args.api_key,
@@ -637,10 +861,10 @@ def main():
         domain_file=args.domain_file,
         temperature=args.temperature,
         one_shot=args.one_shot,
-        provider=args.provider
+        provider=args.provider,
+        max_workers=args.max_workers
     )
 
 
 if __name__ == "__main__":
     main()
-

@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-12-05T10:36:58.317011",
+  "model_name": "gpt-5",
+  "provider": "openai",
+  "problems_dir": "pddl3/blocksworld/testing_problem50",
+  "domain_file": "pddl3/blocksworld/domain3.pddl",
+  "max_problems": 1,
+  "one_shot": false,
+  "temperature": 0.6,
+  "max_new_tokens": 512,
+  "total_tests": 1,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "category_counts": {
+    "success_plans": 0,
+    "plan_format_error": 0,
+    "precondition_violation": 0,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0,
+    "others": 1
+  },
+  "category_rates": {
+    "success_plans": 0.0,
+    "plan_format_error": 0.0,
+    "precondition_violation": 0.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0,
+    "others": 100.0
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "bw_ops4_n5_seed1200762",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200762.pddl",
+      "is_valid": false,
+      "category": "generation_error",
+      "validation_message": "Generation failed: Empty response from API",
+      "validation_stdout": "",
+      "validation_stderr": "",
+      "validation_cmd": "",
+      "raw_solution": "",
+      "generation_error": "Empty response from API"
+    }
+  ]
+}

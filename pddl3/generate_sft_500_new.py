@@ -177,6 +177,7 @@ def generate_sft_500_new(scenario: str, base_dir: Path, target_count: int = 500)
         return None
     
     # 从 training 目录中找出所有问题，并按难度分组
+    # 只选择有解决方案的问题
     problems_by_config = defaultdict(list)
     all_training_problems = {}
     
@@ -185,6 +186,11 @@ def generate_sft_500_new(scenario: str, base_dir: Path, target_count: int = 500)
         
         # 只考虑不能被旧解求解的问题
         if problem_name not in invalid_problems:
+            continue
+        
+        # 只考虑有解决方案的问题
+        soln_file = training_dir / f"{problem_name[:-5]}.soln"
+        if not soln_file.exists():
             continue
         
         params = parser_func(problem_name)
@@ -208,21 +214,56 @@ def generate_sft_500_new(scenario: str, base_dir: Path, target_count: int = 500)
     selected_problems = sample_uniformly(problems_by_config, actual_target)
     
     print(f"\n  目标采样数: {target_count}")
-    print(f"  实际采样数: {len(selected_problems)}")
+    print(f"  初步采样数: {len(selected_problems)}")
+    
+    # 验证所有选中的问题都有解决方案，如果没有则替换
+    final_selected = []
+    for problem_name in selected_problems:
+        soln_file = training_dir / f"{problem_name[:-5]}.soln"
+        if soln_file.exists():
+            final_selected.append(problem_name)
+    
+    # 如果有些问题没有解决方案，从剩余的问题中补充
+    if len(final_selected) < target_count:
+        remaining = [p for p in all_training_problems.keys() if p not in final_selected]
+        # 再次过滤，只选择有解决方案的
+        remaining_with_soln = []
+        for p in remaining:
+            soln_file = training_dir / f"{p[:-5]}.soln"
+            if soln_file.exists():
+                remaining_with_soln.append(p)
+        
+        needed = min(target_count - len(final_selected), len(remaining_with_soln))
+        if needed > 0:
+            additional = random.sample(remaining_with_soln, needed)
+            final_selected.extend(additional)
+    
+    selected_problems = final_selected[:target_count]
+    print(f"  最终采样数（有解决方案）: {len(selected_problems)}")
     
     if len(selected_problems) < target_count:
         print(f"  警告: 无法达到目标数量 {target_count}，实际采样 {len(selected_problems)} 个")
     
-    # 创建输出目录
+    # 删除已存在的输出目录并重新创建
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # 复制选中的问题和对应的解
+    # 再次过滤，确保只复制有解决方案的问题
     copied_count = 0
     copied_solutions = 0
+    skipped_no_solution = 0
     
     for problem_name in selected_problems:
         src_pddl = all_training_problems.get(problem_name)
         if not src_pddl or not src_pddl.exists():
+            continue
+        
+        # 检查解决方案是否存在
+        src_soln = training_dir / f"{problem_name[:-5]}.soln"
+        if not src_soln.exists():
+            skipped_no_solution += 1
             continue
         
         # 复制 .pddl 文件
@@ -230,12 +271,13 @@ def generate_sft_500_new(scenario: str, base_dir: Path, target_count: int = 500)
         shutil.copy2(src_pddl, dst_pddl)
         copied_count += 1
         
-        # 复制对应的 .soln 文件（如果存在）
-        src_soln = training_dir / f"{problem_name[:-5]}.soln"
-        if src_soln.exists():
-            dst_soln = output_dir / src_soln.name
-            shutil.copy2(src_soln, dst_soln)
-            copied_solutions += 1
+        # 复制对应的 .soln 文件
+        dst_soln = output_dir / src_soln.name
+        shutil.copy2(src_soln, dst_soln)
+        copied_solutions += 1
+    
+    if skipped_no_solution > 0:
+        print(f"  警告: 跳过了 {skipped_no_solution} 个没有解决方案的问题")
     
     print(f"\n  已复制: {copied_count} 个问题文件, {copied_solutions} 个解文件")
     

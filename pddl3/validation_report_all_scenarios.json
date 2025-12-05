@@ -1,0 +1,545 @@
+{
+  "timestamp": "2025-12-05T00:33:35.044397",
+  "scenarios": [
+    {
+      "scenario": "blocksworld",
+      "total": 6119,
+      "valid": 6119,
+      "invalid": 0,
+      "valid_percentage": 100.0,
+      "by_directory": {
+        "root": {
+          "total": 3061,
+          "valid": 3061,
+          "invalid": 0
+        },
+        "training": {
+          "total": 2907,
+          "valid": 2907,
+          "invalid": 0
+        },
+        "testing": {
+          "total": 151,
+          "valid": 151,
+          "invalid": 0
+        }
+      },
+      "invalid_files": []
+    },
+    {
+      "scenario": "ferry",
+      "total": 5890,
+      "valid": 5890,
+      "invalid": 0,
+      "valid_percentage": 100.0,
+      "by_directory": {
+        "root": {
+          "total": 890,
+          "valid": 890,
+          "invalid": 0
+        },
+        "training": {
+          "total": 4800,
+          "valid": 4800,
+          "invalid": 0
+        },
+        "testing": {
+          "total": 200,
+          "valid": 200,
+          "invalid": 0
+        }
+      },
+      "invalid_files": []
+    },
+    {
+      "scenario": "spanner",
+      "total": 1780,
+      "valid": 1693,
+      "invalid": 87,
+      "valid_percentage": 95.11235955056179,
+      "by_directory": {
+        "root": {
+          "total": 88,
+          "valid": 88,
+          "invalid": 0
+        },
+        "training": {
+          "total": 1497,
+          "valid": 1497,
+          "invalid": 0
+        },
+        "testing": {
+          "total": 195,
+          "valid": 108,
+          "invalid": 87
+        }
+      },
+      "invalid_files": [
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1369814036.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1641566893.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s687630115.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s940079912.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1614069994.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1799355212.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s764163613.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s814317121.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s568157228.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1484461120.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s996126133.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1157532698.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1380672732.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1040128148.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s228522575.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1414521989.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1170845480.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s575064416.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1963617236.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s377901189.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s843321203.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s169458712.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s689567152.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s213763144.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s902639955.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s94883964.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s248055973.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1425518418.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1108554783.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s994737505.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s439858146.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s151206690.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s382337100.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1025979019.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1187605912.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1599798963.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1824187062.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s492774995.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1386996727.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1887275733.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s456537937.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1480221858.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s988263078.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1852626619.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1116568052.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s2087729184.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1263911266.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1817699194.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s172167015.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1404644302.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s558169606.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1089261877.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1641446387.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s964635158.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s63152970.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1970346877.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1159660481.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s726433267.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1375996437.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1478019682.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1411582236.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s779592320.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s757257088.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s2035297705.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1363903132.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s449032004.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s610919350.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s535157946.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1660803341.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1523970233.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s267393145.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1878795816.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s898693690.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s693772343.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s2088552040.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s483204808.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1463575216.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s4-n3-l4-s1988802712.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1870772539.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1297611500.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1424417547.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s257738810.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1580478871.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1537200373.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1397002195.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n2-l4-s1675441380.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/spanner-s3-n3-l4-s1723906415.pddl",
+          "error": "Validation error"
+        }
+      ]
+    },
+    {
+      "scenario": "grippers",
+      "total": 6438,
+      "valid": 6417,
+      "invalid": 21,
+      "valid_percentage": 99.67381174277726,
+      "by_directory": {
+        "root": {
+          "total": 1821,
+          "valid": 1804,
+          "invalid": 17
+        },
+        "training": {
+          "total": 4430,
+          "valid": 4430,
+          "invalid": 0
+        },
+        "testing": {
+          "total": 187,
+          "valid": 183,
+          "invalid": 4
+        }
+      },
+      "invalid_files": [
+        {
+          "problem": "testing/grippers-n2-r4-o4-s1022927068.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/grippers-n2-r4-o4-s1518038966.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/grippers-n2-r4-o3-s172839545.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "testing/grippers-n2-r4-o4-s489326416.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o3-s1866227812.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s674006149.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s2145670031.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o3-s1740163469.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s1908688316.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s718988233.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o3-s1159176580.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o3-s1673759431.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s1821431833.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o3-s214656486.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s1899046173.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s938540119.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s233544321.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r3-o3-s170377939.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s856381239.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s254051454.pddl",
+          "error": "Validation error"
+        },
+        {
+          "problem": "dpo_training/grippers-n2-r4-o4-s1112560648.pddl",
+          "error": "Validation error"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_problems": 20227,
+    "total_valid": 20119,
+    "total_invalid": 108,
+    "overall_valid_percentage": 99.46606021654225
+  }
+}

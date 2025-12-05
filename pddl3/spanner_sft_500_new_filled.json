@@ -1,0 +1,16 @@
+{
+  "scenario": "spanner",
+  "target_count": 500,
+  "actual_count": 500,
+  "copied_problems": 500,
+  "copied_solutions": 500,
+  "invalid_count": 377,
+  "total_invalid": 377,
+  "configs_count": 4,
+  "sampled_distribution": {
+    "(2, 2, 3)": 52,
+    "(4, 3, 4)": 102,
+    "(3, 3, 4)": 273,
+    "(3, 2, 4)": 73
+  }
+}

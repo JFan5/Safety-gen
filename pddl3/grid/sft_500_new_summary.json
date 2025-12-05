@@ -1,0 +1,14 @@
+{
+  "scenario": "grid",
+  "target_count": 500,
+  "actual_count": 500,
+  "copied_problems": 500,
+  "copied_solutions": 500,
+  "total_invalid": 2810,
+  "configs_count": 6,
+  "sampled_distribution": {
+    "(4, 4, 2, 2, 2)": 235,
+    "(4, 4, 2, 3, 3)": 225,
+    "(5, 5, 2, 3, 3)": 40
+  }
+}

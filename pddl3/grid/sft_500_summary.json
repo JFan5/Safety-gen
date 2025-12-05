@@ -1,0 +1,18 @@
+{
+  "scenario": "grid",
+  "target_count": 500,
+  "actual_count": 500,
+  "copied_problems": 500,
+  "copied_solutions": 500,
+  "configs_count": 8,
+  "sampled_distribution": {
+    "(2, 2, 1, 1, 1)": 5,
+    "(3, 3, 2, 2, 2)": 41,
+    "(4, 4, 2, 2, 2)": 94,
+    "(4, 4, 2, 3, 3)": 74,
+    "(4, 4, 3, 3, 3)": 64,
+    "(5, 5, 2, 3, 3)": 72,
+    "(5, 5, 3, 3, 3)": 86,
+    "(5, 5, 3, 4, 4)": 64
+  }
+}

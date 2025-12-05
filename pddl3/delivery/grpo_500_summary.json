@@ -1,0 +1,16 @@
+{
+  "scenario": "delivery",
+  "target_count": 500,
+  "actual_count": 500,
+  "copied_problems": 500,
+  "copied_solutions": 500,
+  "overlap_with_testing_problem50": 0,
+  "overlap_with_sft_500_new": 0,
+  "configs_count": 4,
+  "sampled_distribution": {
+    "(3, 1)": 81,
+    "(4, 2)": 141,
+    "(4, 1)": 135,
+    "(3, 2)": 143
+  }
+}

@@ -1,0 +1,4 @@
+(move pos0-0 pos0-1)
+(pickup pos0-1 key0)
+(move pos0-1 pos0-0)
+(putdown pos0-0 key0)
