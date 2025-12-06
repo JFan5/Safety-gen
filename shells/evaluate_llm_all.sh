@@ -48,29 +48,34 @@ for SCENARIO in "${SCENARIOS[@]}"; do
     # Set scenario-specific paths
     case "${SCENARIO}" in
         delivery)
-            PROBLEMS_DIR="pddl3/delivery/all_problems3/testing"
+            PROBLEMS_DIR="pddl3/delivery/testing_problem50"
             DOMAIN_FILE="pddl3/delivery/domain3.pddl"
             OUTPUT_FILE="planning_results/delivery_${MODEL_NAME}_${MAX_PROBLEMS}.json"
             ;;
         blocksworld)
-            PROBLEMS_DIR="pddl3/blocksworld/all_problems3/testing"
+            PROBLEMS_DIR="pddl3/blocksworld/testing_problem50"
             DOMAIN_FILE="pddl3/blocksworld/domain3.pddl"
             OUTPUT_FILE="planning_results/blocksworld_${MODEL_NAME}_${MAX_PROBLEMS}.json"
             ;;
         ferry)
-            PROBLEMS_DIR="pddl3/ferry/all_problems3/testing"
+            PROBLEMS_DIR="pddl3/ferry/testing_problem50"
             DOMAIN_FILE="pddl3/ferry/domain3.pddl"
             OUTPUT_FILE="planning_results/ferry_${MODEL_NAME}_${MAX_PROBLEMS}.json"
             ;;
         spanner)
-            PROBLEMS_DIR="pddl3/spanner/all_problems3/testing"
+            PROBLEMS_DIR="pddl3/spanner/testing_problem50"
             DOMAIN_FILE="pddl3/spanner/domain3.pddl"
             OUTPUT_FILE="planning_results/spanner_${MODEL_NAME}_${MAX_PROBLEMS}.json"
             ;;
         grippers)
-            PROBLEMS_DIR="pddl3/grippers/all_problems3/testing"
+            PROBLEMS_DIR="pddl3/grippers/testing_problem50"
             DOMAIN_FILE="pddl3/grippers/domain3.pddl"
             OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_${MAX_PROBLEMS}.json"
+            ;;
+        grid)
+            PROBLEMS_DIR="pddl3/grid/testing_problem50"
+            DOMAIN_FILE="pddl3/grid/domain3.pddl"
+            OUTPUT_FILE="planning_results/grid_${MODEL_NAME}_${MAX_PROBLEMS}.json"
             ;;
     esac
     

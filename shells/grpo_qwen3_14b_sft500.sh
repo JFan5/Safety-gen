@@ -11,17 +11,17 @@ conda activate llmstl
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/sft_models/qwen3-14b-1127"
+BASE_MODEL="/jfan5/grpo_models/qwen3_14b_1130"
 # 
 DATASET="/jfan5/ppo_data/all_scenarios.jsonl"
-OUTPUT_DIR="/jfan5/grpo_modpels/qwen3_14b_1130"
+OUTPUT_DIR="/jfan5/grpo_modpels/qwen3_14b_12_02"
 # Training parameters
-MAX_STEPS=1000
-BATCH_SIZE=8
-GRADIENT_ACCUMULATION_STEPS=2
+MAX_STEPS=500
+BATCH_SIZE=4
+GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=5e-6
 NUM_GENERATIONS=4
-TEMPERATURE=0.8
+TEMPERATURE=0.6
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=100

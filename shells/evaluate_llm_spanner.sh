@@ -19,7 +19,7 @@ ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
 # Fixed parameters
 MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
-PROBLEMS_DIR="pddl3/spanner/all_problems3/testing"
+PROBLEMS_DIR="pddl3/spanner/testing_problem50"
 DOMAIN_FILE="pddl3/spanner/domain3.pddl"
 
 # Sanitize model path for filename (replace / and other special chars with -)

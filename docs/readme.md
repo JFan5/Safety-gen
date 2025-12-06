@@ -52,10 +52,12 @@
 | 场景 | 训练方法 | 模型路径 | 日期 | Spanner | Grippers | Ferry | Delivery | Blocksworld | Grid | 平均成功率 |
 |------|---------|---------|------|---------|----------|-------|----------|-------------|------|-----------|
 | Blocksworld | SFT | `/jfan5/sft_models/mistral_variant-blocksworld` | 2025-11-27 | - | - | - | - | 46.0%<br/>`planning_results/blocksworld_-jfan5-sft_models-mistral_variant-blocksworld_50_20251127_213753.json` | - | 46.0% |
+| Blocksworld | SFT | `/jfan5/sft_models/mistral_variant-blocksworld` | 2025-12-05 | - | - | - | - | 66.0%<br/>`planning_results/blocksworld_-jfan5-sft_models-mistral_variant-blocksworld_50_20251205_204335.json` | - | 66.0% |
 | Blocksworld | DPO | `/jfan5/dpo_models/mistral_7b-blocksworld-1127` | 2025-11-28 | - | - | - | - | 50.0%<br/>`planning_results/blocksworld_-jfan5-dpo_models-mistral_7b-blocksworld-1127_50_20251128_000436.json` | - | 50.0% |
 | Blocksworld | GRPO | `/jfan5/grpo_models/mistral_variant-blocksworld` | 2025-11-25 | - | - | - | - | 60.0%<br/>`planning_results/grpo-mistral_variant-blocksworld_blocksworld_blocksworld_test_results.json` | - | 60.0% |
 | Blocksworld | GRPO | `/jfan5/grpo_models/mistral_variant-blocksworld` | 2025-11-28 | - | - | - | - | 58.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_variant-blocksworld_50_20251128_001213.json` | - | 58.0% |
 | Blocksworld | GRPO (grpo-stl) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121` | 2025-12-01 | - | - | - | - | 66.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121_50_20251201_165546.json` | - | 66.0% |
+| Blocksworld | GRPO (grpo-stl-121-1) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1` | 2025-12-05 | - | - | - | - | 86.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121-1_50_20251205_204703.json` | - | 86.0% |
 
 **Blocksworld GRPO (grpo-stl) 错误分类统计：**
 - success_plans: 33 (66.0%)
@@ -63,6 +65,13 @@
 - precondition_violation: 5 (10.0%)
 - safety_constraints_violation: 11 (22.0%)
 - goal_not_satisfied: 1 (2.0%)
+
+**Blocksworld GRPO (grpo-stl-121-1) 错误分类统计：**
+- success_plans: 43 (86.0%)
+- plan_format_error: 1 (2.0%)
+- precondition_violation: 3 (6.0%)
+- safety_constraints_violation: 3 (6.0%)
+- goal_not_satisfied: 0 (0.0%)
 
 
 ---

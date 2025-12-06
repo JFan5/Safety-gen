@@ -495,6 +495,9 @@ def main():
 
     # 手动初始化 wandb（参考 pddl_finetune.py）
     if use_wandb:
+        # 从数据集路径中提取数据集名称（文件名，不含扩展名）
+        dataset_name = Path(args.dataset).stem if args.dataset else "unknown"
+        
         wandb_run_name = args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}"
         wandb.init(
             project=args.wandb_project,
@@ -503,6 +506,7 @@ def main():
                 "model_name": args.base_model,
                 "model_type": model_type,
                 "dataset": args.dataset,
+                "dataset_name": dataset_name,
                 "output_dir": args.output_dir,
                 "max_seq_length": args.max_prompt_length + args.max_new_tokens,
                 "load_in_4bit": load_in_4bit,

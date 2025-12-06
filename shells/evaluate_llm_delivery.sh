@@ -21,7 +21,7 @@ MAX_PROBLEMS=50
 
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
 
-PROBLEMS_DIR="pddl3/delivery/all_problems3/testing"
+PROBLEMS_DIR="pddl3/delivery/testing_problem50"
 DOMAIN_FILE="pddl3/delivery/domain3.pddl"
 OUTPUT_FILE="planning_results/delivery_${MODEL_NAME}_50.json"
 

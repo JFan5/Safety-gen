@@ -38,19 +38,19 @@ for SCENARIO in "${SCENARIOS[@]}"; do
     
     # Set scenario-specific paths
     if [ "$SCENARIO" = "blocksworld" ]; then
-        PROBLEMS_DIR="pddl3/blocksworld/all_problems3/testing"
+        PROBLEMS_DIR="pddl3/blocksworld/testing_problem50"
         DOMAIN_FILE="pddl3/blocksworld/domain3.pddl"
     elif [ "$SCENARIO" = "delivery" ]; then
-        PROBLEMS_DIR="pddl3/delivery/all_problems3/testing"
+        PROBLEMS_DIR="pddl3/delivery/testing_problem50"
         DOMAIN_FILE="pddl3/delivery/domain3.pddl"
     elif [ "$SCENARIO" = "ferry" ]; then
-        PROBLEMS_DIR="pddl3/ferry/all_problems3/testing"
+        PROBLEMS_DIR="pddl3/ferry/testing_problem50"
         DOMAIN_FILE="pddl3/ferry/domain3.pddl"
     elif [ "$SCENARIO" = "grippers" ]; then
-        PROBLEMS_DIR="pddl3/grippers/all_problems3/testing"
+        PROBLEMS_DIR="pddl3/grippers/testing_problem50"
         DOMAIN_FILE="pddl3/grippers/domain3.pddl"
     elif [ "$SCENARIO" = "spanner" ]; then
-        PROBLEMS_DIR="pddl3/spanner/all_problems3/testing"
+        PROBLEMS_DIR="pddl3/spanner/testing_problem50"
         DOMAIN_FILE="pddl3/spanner/domain3.pddl"
     fi
     

@@ -21,7 +21,7 @@ MAX_PROBLEMS=50
 
 # Scenario configuration
 SCENARIO="ferry"
-PROBLEMS_DIR="pddl3/ferry/all_problems3/testing"
+PROBLEMS_DIR="pddl3/ferry/testing_problem50"
 DOMAIN_FILE="pddl3/ferry/domain3.pddl"
 
 # Sanitize model path for filename (replace / and other special chars with -)

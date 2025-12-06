@@ -22,7 +22,7 @@ MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
 
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
-PROBLEMS_DIR="pddl3/grippers/all_problems3/testing"
+PROBLEMS_DIR="pddl3/grippers/testing_problem50"
 DOMAIN_FILE="pddl3/grippers/domain3.pddl"
 OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_50.json"
 

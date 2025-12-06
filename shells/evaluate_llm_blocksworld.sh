@@ -23,7 +23,7 @@ MAX_PROBLEMS=50
 
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
 SCENARIO="blocksworld"
-PROBLEMS_DIR="pddl3/blocksworld/all_problems3/testing"
+PROBLEMS_DIR="pddl3/blocksworld/testing_problem50"
 DOMAIN_FILE="pddl3/blocksworld/domain3.pddl"
 OUTPUT_FILE="planning_results/blocksworld_${MODEL_NAME}_50.json"
 

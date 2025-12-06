@@ -49,14 +49,14 @@ for model_path in "${PLANNING_ROOT}"/*; do
             "all_problems"
             "all_problems_test"
             "testing_problems_all"
-            "all_problems3/testing"
+            "testing_problem50"
             "testing_problems3"
             "testing_problems"
           )
           ;;
         *)
           candidates=(
-            "all_problems3/testing"
+            "testing_problem50"
             "testing_problems3"
             "testing_problems_all"
             "all_problems"
