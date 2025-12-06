@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-12-05T18:21:12.584740",
+  "model_name": "gpt-5.1",
+  "provider": "openai",
+  "scenario": "delivery",
+  "problems_dir": "pddl3/delivery/testing_problem50",
+  "domain_file": "pddl3/delivery/domain3.pddl",
+  "max_problems": 2,
+  "one_shot": false,
+  "temperature": 0.6,
+  "max_new_tokens": null,
+  "total_tests": 2,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "category_counts": {
+    "success_plans": 0,
+    "plan_format_error": 2,
+    "precondition_violation": 0,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0
+  },
+  "category_rates": {
+    "success_plans": 0.0,
+    "plan_format_error": 100.0,
+    "precondition_violation": 0.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0
+  },
+  "size_success_rates": {
+    "s2-p1": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s4-p1": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    }
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "delivery-s4-p1-seed382458855",
+      "size_key": "s4-p1",
+      "scenario": "delivery",
+      "problem_file": "pddl3/delivery/testing_problem50/delivery-s4-p1-seed382458855.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /tmp/tmp3pgfsbc6.soln\n',Plan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Set (at p1 c_0_0) to true)\n\n\nFailed plans:\n /tmp/tmp3pgfsbc6.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/delivery/domain3.pddl pddl3/delivery/testing_problem50/delivery-s4-p1-seed382458855.pddl /tmp/tmp3pgfsbc6.soln",
+      "raw_solution": "', status='completed', type='message')",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 5775,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 2,
+      "problem_name": "delivery-s2-p1-seed947218077",
+      "size_key": "s2-p1",
+      "scenario": "delivery",
+      "problem_file": "pddl3/delivery/testing_problem50/delivery-s2-p1-seed947218077.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /tmp/tmpn36l6aot.soln\n',Plan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Set (at p1 c_1_0) to true)\n\n\nFailed plans:\n /tmp/tmpn36l6aot.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/delivery/domain3.pddl pddl3/delivery/testing_problem50/delivery-s2-p1-seed947218077.pddl /tmp/tmpn36l6aot.soln",
+      "raw_solution": "', status='completed', type='message')",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 3269,
+        "reasoning_tokens": null
+      }
+    }
+  ]
+}

@@ -99,6 +99,29 @@ dpo:
 | SFT | `/jfan5/sft_models/gpt_oss_20b/four_scenarios500` | 2025-11-24 | 60.0%<br/>`planning_results/gpt_oss_20b-sft500_spanner_spanner_test_results.json` | 10.0%<br/>`planning_results/gpt_oss_20b-sft500_grippers_grippers_test_results.json` | 4.0%<br/>`planning_results/gpt_oss_20b-sft500_ferry_ferry_test_results.json` | 2.0%<br/>`planning_results/gpt_oss_20b-sft500_delivery_delivery_test_results.json` | 2.0%<br/>`planning_results/gpt_oss_20b-sft500_blocksworld_blocksworld_test_results.json` | - | 15.6% |
 | GRPO | - | - | - | - | - | - | - | - | - |
 
+### OpenAI API - gpt-5-nano (PDDL3 testing_problem50, 50 problems, zero-shot)
+
+说明：直接调用 gpt-5-nano-2025-08-07，temperature=1.0，未限制 completion tokens（max_new_tokens=None），并在结果文件中记录了每题的 token 用量。
+
+| 场景 | 成功率 | 成功数/总数 | 平均 total tokens/题 | 结果文件 |
+|------|--------|-------------|----------------------|----------|
+| Blocksworld | 18.0% | 9/50 | ~16,845 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_163156.json` |
+| Ferry | 20.0% | 10/50 | ~6,685 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_163622.json` |
+| Spanner | 66.0% | 33/50 | ~7,469 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_164014.json` |
+| Grippers | 94.0% | 47/50 | ~3,733 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_164222.json` |
+| Delivery | 84.0% | 42/50 | ~7,601 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_164648.json` |
+
+错误分类（数量/50）：
+
+| 场景 | 成功率  | success | plan_format_err | precond_err | safety_violation | goal_not | others |
+|------|--------|---------|-----------------|-------------|------------------|----------|--------|
+| Blocksworld | 18.0% | 9 | 1 | 3 | 34 | 2 | 1 |
+| Ferry       | 20.0% | 10 | 0 | 0 | 40 | 0 | 0 |
+| Spanner     | 66.0% | 33 | 2 | 15 | 0 | 0 | 0 |
+| Grippers    | 94.0% | 47 | 0 | 3 | 0 | 0 | 0 |
+| Delivery    | 84.0% | 42 | 0 | 1 | 7 | 0 | 0 |
+
+
 ---
 
 ## 说明
