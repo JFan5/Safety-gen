@@ -1,0 +1,1108 @@
+{
+  "timestamp": "2025-12-05T16:42:22.211104",
+  "model_name": "gpt-5-nano-2025-08-07",
+  "provider": "openai",
+  "scenario": "grippers",
+  "problems_dir": "pddl3/grippers/testing_problem50",
+  "domain_file": "pddl3/grippers/domain3.pddl",
+  "max_problems": 50,
+  "one_shot": false,
+  "temperature": 1.0,
+  "max_new_tokens": null,
+  "total_tests": 50,
+  "success_count": 47,
+  "success_rate": 94.0,
+  "category_counts": {
+    "success_plans": 47,
+    "plan_format_error": 0,
+    "precondition_violation": 3,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0
+  },
+  "category_rates": {
+    "success_plans": 94.0,
+    "plan_format_error": 0.0,
+    "precondition_violation": 6.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0
+  },
+  "size_success_rates": {
+    "n1-r4-o3": {
+      "total": 22,
+      "success": 20,
+      "success_rate": 90.9090909090909
+    },
+    "n1-r3-o3": {
+      "total": 3,
+      "success": 3,
+      "success_rate": 100.0
+    },
+    "n2-r3-o2": {
+      "total": 2,
+      "success": 2,
+      "success_rate": 100.0
+    },
+    "n2-r3-o3": {
+      "total": 20,
+      "success": 19,
+      "success_rate": 95.0
+    },
+    "n2-r4-o3": {
+      "total": 3,
+      "success": 3,
+      "success_rate": 100.0
+    }
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "grippers-n1-r3-o3-s1221792278",
+      "size_key": "n1-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1221792278.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp_ztlkgkr.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball3 room1 lgripper1)\n \n2:\n(move robot1 room1 room2)\n \n3:\n(drop robot1 ball3 room2 lgripper1)\n \n4:\n(pick robot1 ball2 room2 lgripper1)\n \n5:\n(move robot1 room2 room3)\n \n6:\n(drop robot1 ball2 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball3 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball2 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmp_ztlkgkr.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1221792278.pddl /tmp/tmp_ztlkgkr.soln",
+      "raw_solution": "(pick robot1 ball3 room1 lgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball3 room2 lgripper1)\n(pick robot1 ball2 room2 lgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball2 room3 lgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3147,
+        "prompt_tokens": 662,
+        "total_tokens": 3809,
+        "reasoning_tokens": 3072
+      }
+    },
+    {
+      "index": 2,
+      "problem_name": "grippers-n1-r3-o3-s1252456773",
+      "size_key": "n1-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1252456773.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmprgpt0mfz.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball2 room3 rgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmprgpt0mfz.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1252456773.pddl /tmp/tmprgpt0mfz.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot1 ball2 room3 rgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball2 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2482,
+        "prompt_tokens": 662,
+        "total_tokens": 3144,
+        "reasoning_tokens": 2432
+      }
+    },
+    {
+      "index": 3,
+      "problem_name": "grippers-n1-r3-o3-s2084957908",
+      "size_key": "n1-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s2084957908.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp_5d9xsu9.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball1 room3 lgripper1)\n \n3:\n(move robot1 room3 room1)\n \n4:\n(drop robot1 ball1 room1 lgripper1)\n \n5:\n(move robot1 room1 room2)\n \n6:\n(pick robot1 ball2 room2 lgripper1)\n \n7:\n(move robot1 room2 room3)\n \n8:\n(drop robot1 ball2 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 lgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball2 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp_5d9xsu9.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s2084957908.pddl /tmp/tmp_5d9xsu9.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot1 ball1 room3 lgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball1 room1 lgripper1)\n(move robot1 room1 room2)\n(pick robot1 ball2 room2 lgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball2 room3 lgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2651,
+        "prompt_tokens": 662,
+        "total_tokens": 3313,
+        "reasoning_tokens": 2560
+      }
+    },
+    {
+      "index": 4,
+      "problem_name": "grippers-n1-r4-o3-s1022927068",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1022927068.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpne9svcoa.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room1 room2)\n \n2:\n(pick robot1 ball1 room2 rgripper1)\n \n3:\n(move robot1 room2 room4)\n \n4:\n(drop robot1 ball1 room4 rgripper1)\n \n5:\n(move robot1 room4 room3)\n \n6:\n(pick robot1 ball3 room3 rgripper1)\n \n7:\n(move robot1 room3 room2)\n \n8:\n(drop robot1 ball3 room2 rgripper1)\n \n9:\n(move robot1 room2 room4)\n \n10:\n(pick robot1 ball2 room4 rgripper1)\n \n11:\n(move robot1 room4 room2)\n \n12:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (at ball2 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 11)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 11\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 12)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpne9svcoa.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1022927068.pddl /tmp/tmpne9svcoa.soln",
+      "raw_solution": "(move robot1 room1 room2)\n(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room4)\n(drop robot1 ball1 room4 rgripper1)\n(move robot1 room4 room3)\n(pick robot1 ball3 room3 rgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball3 room2 rgripper1)\n(move robot1 room2 room4)\n(pick robot1 ball2 room4 rgripper1)\n(move robot1 room4 room2)\n(drop robot1 ball2 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3524,
+        "prompt_tokens": 664,
+        "total_tokens": 4188,
+        "reasoning_tokens": 3392
+      }
+    },
+    {
+      "index": 5,
+      "problem_name": "grippers-n1-r4-o3-s1057770687",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1057770687.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpgpc4umz2.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room3 room2)\n \n2:\n(pick robot1 ball1 room2 rgripper1)\n \n3:\n(move robot1 room2 room3)\n \n4:\n(drop robot1 ball1 room3 rgripper1)\n \n5:\n(move robot1 room3 room4)\n \n6:\n(pick robot1 ball3 room4 rgripper1)\n \n7:\n(move robot1 room4 room3)\n \n8:\n(drop robot1 ball3 room3 rgripper1)\n \n9:\n(move robot1 room3 room2)\n \n10:\n(pick robot1 ball2 room2 rgripper1)\n \n11:\n(move robot1 room2 room1)\n \n12:\n(drop robot1 ball2 room1 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball3 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (at ball2 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 11)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 11\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 12)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room1)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpgpc4umz2.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1057770687.pddl /tmp/tmpgpc4umz2.soln",
+      "raw_solution": "(move robot1 room3 room2)\n(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball1 room3 rgripper1)\n(move robot1 room3 room4)\n(pick robot1 ball3 room4 rgripper1)\n(move robot1 room4 room3)\n(drop robot1 ball3 room3 rgripper1)\n(move robot1 room3 room2)\n(pick robot1 ball2 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball2 room1 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3140,
+        "prompt_tokens": 664,
+        "total_tokens": 3804,
+        "reasoning_tokens": 3008
+      }
+    },
+    {
+      "index": 6,
+      "problem_name": "grippers-n1-r4-o3-s136367703",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s136367703.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpnolnuh77.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball2 room1 lgripper1)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(drop robot1 ball2 room3 lgripper1)\n \n4:\n(pick robot1 ball3 room3 lgripper1)\n \n5:\n(move robot1 room3 room2)\n \n6:\n(drop robot1 ball3 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball3 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 lgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmpnolnuh77.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s136367703.pddl /tmp/tmpnolnuh77.soln",
+      "raw_solution": "(pick robot1 ball2 room1 lgripper1)\n(move robot1 room1 room3)\n(drop robot1 ball2 room3 lgripper1)\n(pick robot1 ball3 room3 lgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball3 room2 lgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3147,
+        "prompt_tokens": 664,
+        "total_tokens": 3811,
+        "reasoning_tokens": 3072
+      }
+    },
+    {
+      "index": 7,
+      "problem_name": "grippers-n1-r4-o3-s1488819945",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1488819945.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpeyk3jgvw.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move robot1 room2 room1)\n \n2:\n(pick robot1 ball1 room1 rgripper1)\n \n3:\n(drop robot1 ball1 room1 rgripper1)\n \n4:\n(pick robot1 ball3 room1 rgripper1)\n \n5:\n(move robot1 room1 room3)\n \n6:\n(drop robot1 ball3 room3 rgripper1)\n \n7:\n(pick robot1 ball2 room3 rgripper1)\n \n8:\n(move robot1 room3 room4)\n \n9:\n(drop robot1 ball2 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball3 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at ball2 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room4)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 9 \n\nSuccessful plans:\nValue: 9\n /tmp/tmpeyk3jgvw.soln 9 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1488819945.pddl /tmp/tmpeyk3jgvw.soln",
+      "raw_solution": "(move robot1 room2 room1)\n(pick robot1 ball1 room1 rgripper1)\n(drop robot1 ball1 room1 rgripper1)\n(pick robot1 ball3 room1 rgripper1)\n(move robot1 room1 room3)\n(drop robot1 ball3 room3 rgripper1)\n(pick robot1 ball2 room3 rgripper1)\n(move robot1 room3 room4)\n(drop robot1 ball2 room4 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2860,
+        "prompt_tokens": 664,
+        "total_tokens": 3524,
+        "reasoning_tokens": 2752
+      }
+    },
+    {
+      "index": 8,
+      "problem_name": "grippers-n1-r4-o3-s1497857246",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1497857246.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp1oipbo2y.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room2 room3)\n \n2:\n(pick robot1 ball1 room3 lgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball1 room2 lgripper1)\n \n5:\n(move robot1 room2 room4)\n \n6:\n(pick robot1 ball3 room4 lgripper1)\n \n7:\n(move robot1 room4 room1)\n \n8:\n(drop robot1 ball3 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 lgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball3 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 lgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp1oipbo2y.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1497857246.pddl /tmp/tmp1oipbo2y.soln",
+      "raw_solution": "(move robot1 room2 room3)\n(pick robot1 ball1 room3 lgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball1 room2 lgripper1)\n(move robot1 room2 room4)\n(pick robot1 ball3 room4 lgripper1)\n(move robot1 room4 room1)\n(drop robot1 ball3 room1 lgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2523,
+        "prompt_tokens": 664,
+        "total_tokens": 3187,
+        "reasoning_tokens": 2432
+      }
+    },
+    {
+      "index": 9,
+      "problem_name": "grippers-n1-r4-o3-s159345425",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s159345425.pddl",
+      "is_valid": false,
+      "category": "precondition_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpd3gm_39o.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot1 room2 room1)\n \n2:\n(pick robot1 ball2 room1 rgripper1)\n \n3:\n(move robot1 room1 room4)\n \n4:\n(drop robot1 ball2 room4 rgripper1)\n \n5:\n(pick robot1 ball1 room4 rgripper1)\n \n6:\n(drop robot1 ball1 room3 rgripper1)\n \n7:\n(move robot1 room3 room2)\n \n8:\n(move robot1 room2 room1)\n \n9:\n(pick robot1 ball3 room1 rgripper1)\n \n10:\n(move robot1 room1 room4)\n \n11:\n(drop robot1 ball3 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball1 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nPlan failed because of unsatisfied precondition in:\n(drop robot1 ball1 room3 rgripper1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(drop robot1 ball1 room3 rgripper1) has an unsatisfied precondition at time 6\n(Set (at-robby robot1 room3) to true)\n\n\nFailed plans:\n /tmp/tmpd3gm_39o.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s159345425.pddl /tmp/tmpd3gm_39o.soln",
+      "raw_solution": "(move robot1 room2 room1)\n(pick robot1 ball2 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball2 room4 rgripper1)\n(pick robot1 ball1 room4 rgripper1)\n(drop robot1 ball1 room3 rgripper1)\n(move robot1 room3 room2)\n(move robot1 room2 room1)\n(pick robot1 ball3 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball3 room4 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3068,
+        "prompt_tokens": 664,
+        "total_tokens": 3732,
+        "reasoning_tokens": 2944
+      }
+    },
+    {
+      "index": 10,
+      "problem_name": "grippers-n1-r4-o3-s1662697139",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1662697139.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp0mpqsswb.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room3 room1)\n \n2:\n(pick robot1 ball1 room1 rgripper1)\n \n3:\n(move robot1 room1 room3)\n \n4:\n(drop robot1 ball1 room3 rgripper1)\n \n5:\n(move robot1 room3 room4)\n \n6:\n(pick robot1 ball2 room4 rgripper1)\n \n7:\n(move robot1 room4 room2)\n \n8:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball2 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp0mpqsswb.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1662697139.pddl /tmp/tmp0mpqsswb.soln",
+      "raw_solution": "(move robot1 room3 room1)\n(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1 room3)\n(drop robot1 ball1 room3 rgripper1)\n(move robot1 room3 room4)\n(pick robot1 ball2 room4 rgripper1)\n(move robot1 room4 room2)\n(drop robot1 ball2 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2843,
+        "prompt_tokens": 664,
+        "total_tokens": 3507,
+        "reasoning_tokens": 2752
+      }
+    },
+    {
+      "index": 11,
+      "problem_name": "grippers-n1-r4-o3-s1717705964",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1717705964.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpuiks2b98.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room2 room3)\n \n2:\n(pick robot1 ball3 room3 rgripper1)\n \n3:\n(move robot1 room3 room1)\n \n4:\n(drop robot1 ball3 room1 rgripper1)\n \n5:\n(move robot1 room1 room4)\n \n6:\n(pick robot1 ball2 room4 rgripper1)\n \n7:\n(move robot1 room4 room2)\n \n8:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball2 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmpuiks2b98.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1717705964.pddl /tmp/tmpuiks2b98.soln",
+      "raw_solution": "(move robot1 room2 room3)\n(pick robot1 ball3 room3 rgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball3 room1 rgripper1)\n(move robot1 room1 room4)\n(pick robot1 ball2 room4 rgripper1)\n(move robot1 room4 room2)\n(drop robot1 ball2 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2587,
+        "prompt_tokens": 664,
+        "total_tokens": 3251,
+        "reasoning_tokens": 2496
+      }
+    },
+    {
+      "index": 12,
+      "problem_name": "grippers-n1-r4-o3-s1733309123",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1733309123.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpac8eoiqt.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball3 room4 rgripper1)\n \n3:\n(move robot1 room4 room1)\n \n4:\n(drop robot1 ball3 room1 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmpac8eoiqt.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1733309123.pddl /tmp/tmpac8eoiqt.soln",
+      "raw_solution": "(move robot1 room1 room4)\n(pick robot1 ball3 room4 rgripper1)\n(move robot1 room4 room1)\n(drop robot1 ball3 room1 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2162,
+        "prompt_tokens": 664,
+        "total_tokens": 2826,
+        "reasoning_tokens": 2112
+      }
+    },
+    {
+      "index": 13,
+      "problem_name": "grippers-n1-r4-o3-s1778896040",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1778896040.pddl",
+      "is_valid": false,
+      "category": "precondition_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpkkkn4p2o.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball1 room3 rgripper1)\n \n3:\n(drop robot1 ball1 room1 rgripper1)\n \n4:\n(move robot1 room1 room3)\n \n5:\n(pick robot1 ball2 room3 rgripper1)\n \n6:\n(drop robot1 ball2 room1 rgripper1)\n \n7:\n(move robot1 room1 room3)\n \n8:\n(pick robot1 ball3 room3 rgripper1)\n \n9:\n(drop robot1 ball3 room1 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nPlan failed because of unsatisfied precondition in:\n(drop robot1 ball1 room1 rgripper1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(drop robot1 ball1 room1 rgripper1) has an unsatisfied precondition at time 3\n(Set (at-robby robot1 room1) to true)\n\n\nFailed plans:\n /tmp/tmpkkkn4p2o.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1778896040.pddl /tmp/tmpkkkn4p2o.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot1 ball1 room3 rgripper1)\n(drop robot1 ball1 room1 rgripper1)\n(move robot1 room1 room3)\n(pick robot1 ball2 room3 rgripper1)\n(drop robot1 ball2 room1 rgripper1)\n(move robot1 room1 room3)\n(pick robot1 ball3 room3 rgripper1)\n(drop robot1 ball3 room1 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3180,
+        "prompt_tokens": 664,
+        "total_tokens": 3844,
+        "reasoning_tokens": 3072
+      }
+    },
+    {
+      "index": 14,
+      "problem_name": "grippers-n1-r4-o3-s1811869323",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1811869323.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpez_drtgc.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(pick robot1 ball2 room4 rgripper1)\n \n2:\n(move robot1 room4 room3)\n \n3:\n(drop robot1 ball2 room3 rgripper1)\n \n4:\n(move robot1 room3 room1)\n \n5:\n(pick robot1 ball1 room1 rgripper1)\n \n6:\n(move robot1 room1 room2)\n \n7:\n(drop robot1 ball1 room2 rgripper1)\n \n8:\n(move robot1 room2 room1)\n \n9:\n(pick robot1 ball3 room1 rgripper1)\n \n10:\n(move robot1 room1 room2)\n \n11:\n(drop robot1 ball3 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball2 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at ball3 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 11)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpez_drtgc.soln 11 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1811869323.pddl /tmp/tmpez_drtgc.soln",
+      "raw_solution": "(pick robot1 ball2 room4 rgripper1)\n(move robot1 room4 room3)\n(drop robot1 ball2 room3 rgripper1)\n(move robot1 room3 room1)\n(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball1 room2 rgripper1)\n(move robot1 room2 room1)\n(pick robot1 ball3 room1 rgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball3 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3388,
+        "prompt_tokens": 664,
+        "total_tokens": 4052,
+        "reasoning_tokens": 3264
+      }
+    },
+    {
+      "index": 15,
+      "problem_name": "grippers-n1-r4-o3-s1899086852",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1899086852.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpe8l9n0bu.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room3 room2)\n \n2:\n(pick robot1 ball3 room2 rgripper1)\n \n3:\n(move robot1 room2 room3)\n \n4:\n(drop robot1 ball3 room3 rgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(pick robot1 ball2 room1 rgripper1)\n \n7:\n(move robot1 room1 room4)\n \n8:\n(drop robot1 ball2 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball2 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room4)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmpe8l9n0bu.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1899086852.pddl /tmp/tmpe8l9n0bu.soln",
+      "raw_solution": "(move robot1 room3 room2)\n(pick robot1 ball3 room2 rgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball3 room3 rgripper1)\n(move robot1 room3 room1)\n(pick robot1 ball2 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball2 room4 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2651,
+        "prompt_tokens": 664,
+        "total_tokens": 3315,
+        "reasoning_tokens": 2560
+      }
+    },
+    {
+      "index": 16,
+      "problem_name": "grippers-n1-r4-o3-s1900228426",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1900228426.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpkspdh13l.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move robot1 room3 room2)\n \n2:\n(pick robot1 ball3 room2 rgripper1)\n \n3:\n(move robot1 room2 room1)\n \n4:\n(drop robot1 ball3 room1 rgripper1)\n \n5:\n(pick robot1 ball2 room1 rgripper1)\n \n6:\n(move robot1 room1 room3)\n \n7:\n(drop robot1 ball2 room3 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball2 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmpkspdh13l.soln 7 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1900228426.pddl /tmp/tmpkspdh13l.soln",
+      "raw_solution": "(move robot1 room3 room2)\n(pick robot1 ball3 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball3 room1 rgripper1)\n(pick robot1 ball2 room1 rgripper1)\n(move robot1 room1 room3)\n(drop robot1 ball2 room3 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3155,
+        "prompt_tokens": 664,
+        "total_tokens": 3819,
+        "reasoning_tokens": 3072
+      }
+    },
+    {
+      "index": 17,
+      "problem_name": "grippers-n1-r4-o3-s2099476676",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s2099476676.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmphbpg9qmf.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball1 room4 rgripper1)\n \n3:\n(move robot1 room4 room1)\n \n4:\n(drop robot1 ball1 room1 rgripper1)\n \n5:\n(move robot1 room1 room3)\n \n6:\n(pick robot1 ball2 room3 rgripper1)\n \n7:\n(move robot1 room3 room4)\n \n8:\n(drop robot1 ball2 room4 rgripper1)\n \n9:\n(move robot1 room4 room3)\n \n10:\n(pick robot1 ball3 room3 rgripper1)\n \n11:\n(move robot1 room3 room2)\n \n12:\n(drop robot1 ball3 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball2 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 11)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 11\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 12)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmphbpg9qmf.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s2099476676.pddl /tmp/tmphbpg9qmf.soln",
+      "raw_solution": "(move robot1 room1 room4)\n(pick robot1 ball1 room4 rgripper1)\n(move robot1 room4 room1)\n(drop robot1 ball1 room1 rgripper1)\n(move robot1 room1 room3)\n(pick robot1 ball2 room3 rgripper1)\n(move robot1 room3 room4)\n(drop robot1 ball2 room4 rgripper1)\n(move robot1 room4 room3)\n(pick robot1 ball3 room3 rgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball3 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2756,
+        "prompt_tokens": 664,
+        "total_tokens": 3420,
+        "reasoning_tokens": 2624
+      }
+    },
+    {
+      "index": 18,
+      "problem_name": "grippers-n1-r4-o3-s211856952",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s211856952.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpd3qm3tfz.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(pick robot1 ball2 room4 rgripper1)\n \n2:\n(move robot1 room4 room1)\n \n3:\n(drop robot1 ball2 room1 rgripper1)\n \n4:\n(move robot1 room1 room2)\n \n5:\n(pick robot1 ball3 room2 rgripper1)\n \n6:\n(move robot1 room2 room1)\n \n7:\n(drop robot1 ball3 room1 rgripper1)\n \n8:\n(move robot1 room1 room2)\n \n9:\n(pick robot1 ball1 room2 rgripper1)\n \n10:\n(move robot1 room2 room4)\n \n11:\n(drop robot1 ball1 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball2 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball3 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 11)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room4)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpd3qm3tfz.soln 11 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s211856952.pddl /tmp/tmpd3qm3tfz.soln",
+      "raw_solution": "(pick robot1 ball2 room4 rgripper1)\n(move robot1 room4 room1)\n(drop robot1 ball2 room1 rgripper1)\n(move robot1 room1 room2)\n(pick robot1 ball3 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball3 room1 rgripper1)\n(move robot1 room1 room2)\n(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room4)\n(drop robot1 ball1 room4 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2492,
+        "prompt_tokens": 664,
+        "total_tokens": 3156,
+        "reasoning_tokens": 2368
+      }
+    },
+    {
+      "index": 19,
+      "problem_name": "grippers-n1-r4-o3-s380821212",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s380821212.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpphr6krhh.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball1 room3 rgripper1)\n \n2:\n(move robot1 room3 room1)\n \n3:\n(drop robot1 ball1 room1 rgripper1)\n \n4:\n(pick robot1 ball2 room1 rgripper1)\n \n5:\n(move robot1 room1 room2)\n \n6:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball1 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball2 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmpphr6krhh.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s380821212.pddl /tmp/tmpphr6krhh.soln",
+      "raw_solution": "(pick robot1 ball1 room3 rgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball1 room1 rgripper1)\n(pick robot1 ball2 room1 rgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball2 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3083,
+        "prompt_tokens": 664,
+        "total_tokens": 3747,
+        "reasoning_tokens": 3008
+      }
+    },
+    {
+      "index": 20,
+      "problem_name": "grippers-n1-r4-o3-s649006019",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s649006019.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp1gmvprm0.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room2 room3)\n \n2:\n(pick robot1 ball1 room3 rgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball1 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmp1gmvprm0.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s649006019.pddl /tmp/tmp1gmvprm0.soln",
+      "raw_solution": "(move robot1 room2 room3)\n(pick robot1 ball1 room3 rgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball1 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 1970,
+        "prompt_tokens": 664,
+        "total_tokens": 2634,
+        "reasoning_tokens": 1920
+      }
+    },
+    {
+      "index": 21,
+      "problem_name": "grippers-n1-r4-o3-s751429623",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s751429623.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpbw99nwys.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball1 room3 lgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball1 room2 lgripper1)\n \n5:\n(pick robot1 ball3 room2 lgripper1)\n \n6:\n(move robot1 room2 room4)\n \n7:\n(drop robot1 ball3 room4 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 lgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball3 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 7)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room4)\nAdding (free robot1 lgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmpbw99nwys.soln 7 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s751429623.pddl /tmp/tmpbw99nwys.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot1 ball1 room3 lgripper1)\n(move robot1 room3 room2)\n(drop robot1 ball1 room2 lgripper1)\n(pick robot1 ball3 room2 lgripper1)\n(move robot1 room2 room4)\n(drop robot1 ball3 room4 lgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2643,
+        "prompt_tokens": 664,
+        "total_tokens": 3307,
+        "reasoning_tokens": 2560
+      }
+    },
+    {
+      "index": 22,
+      "problem_name": "grippers-n1-r4-o3-s822055517",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s822055517.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpnr6dx3vo.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball1 room4 rgripper1)\n \n3:\n(move robot1 room4 room2)\n \n4:\n(drop robot1 ball1 room2 rgripper1)\n \n5:\n(move robot1 room2 room3)\n \n6:\n(pick robot1 ball2 room3 rgripper1)\n \n7:\n(move robot1 room3 room1)\n \n8:\n(drop robot1 ball2 room1 rgripper1)\n \n9:\n(move robot1 room1 room3)\n \n10:\n(pick robot1 ball3 room3 rgripper1)\n \n11:\n(move robot1 room3 room4)\n \n12:\n(drop robot1 ball3 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at ball2 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 11)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 11\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 12)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room4)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpnr6dx3vo.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s822055517.pddl /tmp/tmpnr6dx3vo.soln",
+      "raw_solution": "(move robot1 room1 room4)\n(pick robot1 ball1 room4 rgripper1)\n(move robot1 room4 room2)\n(drop robot1 ball1 room2 rgripper1)\n(move robot1 room2 room3)\n(pick robot1 ball2 room3 rgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball2 room1 rgripper1)\n(move robot1 room1 room3)\n(pick robot1 ball3 room3 rgripper1)\n(move robot1 room3 room4)\n(drop robot1 ball3 room4 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2948,
+        "prompt_tokens": 664,
+        "total_tokens": 3612,
+        "reasoning_tokens": 2816
+      }
+    },
+    {
+      "index": 23,
+      "problem_name": "grippers-n1-r4-o3-s839780497",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s839780497.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpz5ek6v90.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball1 room4 rgripper1)\n \n2:\n(move robot1 room4 room3)\n \n3:\n(drop robot1 ball1 room3 rgripper1)\n \n4:\n(pick robot1 ball2 room3 rgripper1)\n \n5:\n(move robot1 room3 room4)\n \n6:\n(drop robot1 ball2 room4 rgripper1)\n \n7:\n(move robot1 room4 room1)\n \n8:\n(pick robot1 ball3 room1 rgripper1)\n \n9:\n(move robot1 room1 room3)\n \n10:\n(drop robot1 ball3 room3 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball1 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball2 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (at ball3 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room3)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 10 \n\nSuccessful plans:\nValue: 10\n /tmp/tmpz5ek6v90.soln 10 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s839780497.pddl /tmp/tmpz5ek6v90.soln",
+      "raw_solution": "(pick robot1 ball1 room4 rgripper1)\n(move robot1 room4 room3)\n(drop robot1 ball1 room3 rgripper1)\n(pick robot1 ball2 room3 rgripper1)\n(move robot1 room3 room4)\n(drop robot1 ball2 room4 rgripper1)\n(move robot1 room4 room1)\n(pick robot1 ball3 room1 rgripper1)\n(move robot1 room1 room3)\n(drop robot1 ball3 room3 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3700,
+        "prompt_tokens": 664,
+        "total_tokens": 4364,
+        "reasoning_tokens": 3584
+      }
+    },
+    {
+      "index": 24,
+      "problem_name": "grippers-n1-r4-o3-s895376760",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s895376760.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmppr5ddbnv.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball1 room2 rgripper1)\n \n2:\n(move robot1 room2 room1)\n \n3:\n(drop robot1 ball1 room1 rgripper1)\n \n4:\n(pick robot1 ball3 room1 rgripper1)\n \n5:\n(move robot1 room1 room4)\n \n6:\n(drop robot1 ball3 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball3 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room4)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmppr5ddbnv.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s895376760.pddl /tmp/tmppr5ddbnv.soln",
+      "raw_solution": "(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball1 room1 rgripper1)\n(pick robot1 ball3 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball3 room4 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2571,
+        "prompt_tokens": 664,
+        "total_tokens": 3235,
+        "reasoning_tokens": 2496
+      }
+    },
+    {
+      "index": 25,
+      "problem_name": "grippers-n1-r4-o3-s908405235",
+      "size_key": "n1-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s908405235.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp0_nfcqym.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball1 room3 rgripper1)\n \n3:\n(move robot1 room3 room4)\n \n4:\n(drop robot1 ball1 room4 rgripper1)\n \n5:\n(pick robot1 ball2 room4 rgripper1)\n \n6:\n(move robot1 room4 room2)\n \n7:\n(drop robot1 ball2 room2 rgripper1)\n \n8:\n(pick robot1 ball3 room2 rgripper1)\n \n9:\n(move robot1 room2 room3)\n \n10:\n(drop robot1 ball3 room3 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball2 room4)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 6)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 7)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 8)\nDeleting (at ball3 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 8\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 9)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 9\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 10)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room3)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 10\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 10 \n\nSuccessful plans:\nValue: 10\n /tmp/tmp0_nfcqym.soln 10 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s908405235.pddl /tmp/tmp0_nfcqym.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot1 ball1 room3 rgripper1)\n(move robot1 room3 room4)\n(drop robot1 ball1 room4 rgripper1)\n(pick robot1 ball2 room4 rgripper1)\n(move robot1 room4 room2)\n(drop robot1 ball2 room2 rgripper1)\n(pick robot1 ball3 room2 rgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball3 room3 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2868,
+        "prompt_tokens": 664,
+        "total_tokens": 3532,
+        "reasoning_tokens": 2752
+      }
+    },
+    {
+      "index": 26,
+      "problem_name": "grippers-n2-r3-o2-s1918311056",
+      "size_key": "n2-r3-o2",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s1918311056.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpr1dt77x_.soln\nPlan to validate:\n\nPlan size: 2\n1:\n(move robot1 room3 room2)\n \n2:\n(move robot1 room2 room3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 2 \n\nSuccessful plans:\nValue: 2\n /tmp/tmpr1dt77x_.soln 2 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s1918311056.pddl /tmp/tmpr1dt77x_.soln",
+      "raw_solution": "(move robot1 room3 room2)\n(move robot1 room2 room3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2521,
+        "prompt_tokens": 685,
+        "total_tokens": 3206,
+        "reasoning_tokens": 2496
+      }
+    },
+    {
+      "index": 27,
+      "problem_name": "grippers-n2-r3-o2-s808087104",
+      "size_key": "n2-r3-o2",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s808087104.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmph18ctrcz.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot2 ball2 room2 rgripper2)\n \n3:\n(move robot2 room2 room1)\n \n4:\n(drop robot2 ball2 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 2)\nDeleting (at ball2 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 4)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmph18ctrcz.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s808087104.pddl /tmp/tmph18ctrcz.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot2 ball2 room2 rgripper2)\n(move robot2 room2 room1)\n(drop robot2 ball2 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2802,
+        "prompt_tokens": 694,
+        "total_tokens": 3496,
+        "reasoning_tokens": 2752
+      }
+    },
+    {
+      "index": 28,
+      "problem_name": "grippers-n2-r3-o3-s1057770687",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1057770687.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpnezv79s8.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move robot2 room2 room1)\n \n2:\n(move robot1 room3 room2)\n \n3:\n(pick robot1 ball1 room2 rgripper1)\n \n4:\n(move robot1 room2 room1)\n \n5:\n(drop robot1 ball1 room1 rgripper1)\n \n6:\n(move robot2 room1 room3)\n \n7:\n(pick robot2 ball2 room3 rgripper2)\n \n8:\n(move robot2 room3 room2)\n \n9:\n(drop robot2 ball2 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 3)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 4)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 5)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 7)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 8)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 8\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 9)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 9\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nPlan valid\nFinal value: 9 \n\nSuccessful plans:\nValue: 9\n /tmp/tmpnezv79s8.soln 9 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1057770687.pddl /tmp/tmpnezv79s8.soln",
+      "raw_solution": "(move robot2 room2 room1)\n(move robot1 room3 room2)\n(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball1 room1 rgripper1)\n(move robot2 room1 room3)\n(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball2 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3684,
+        "prompt_tokens": 708,
+        "total_tokens": 4392,
+        "reasoning_tokens": 3584
+      }
+    },
+    {
+      "index": 29,
+      "problem_name": "grippers-n2-r3-o3-s1131035916",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1131035916.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp_1hu1dhp.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot2 ball2 room3 rgripper2)\n \n2:\n(move robot2 room3 room1)\n \n3:\n(drop robot2 ball2 room1 rgripper2)\n \n4:\n(pick robot2 ball3 room1 rgripper2)\n \n5:\n(move robot2 room1 room3)\n \n6:\n(drop robot2 ball3 room3 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at ball3 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room3)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmp_1hu1dhp.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1131035916.pddl /tmp/tmp_1hu1dhp.soln",
+      "raw_solution": "(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room1)\n(drop robot2 ball2 room1 rgripper2)\n(pick robot2 ball3 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball3 room3 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3339,
+        "prompt_tokens": 690,
+        "total_tokens": 4029,
+        "reasoning_tokens": 3264
+      }
+    },
+    {
+      "index": 30,
+      "problem_name": "grippers-n2-r3-o3-s1297036785",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1297036785.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp5ldv054m.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot2 room1 room3)\n \n2:\n(pick robot1 ball1 room2 rgripper1)\n \n3:\n(move robot1 room2 room1)\n \n4:\n(drop robot1 ball1 room1 rgripper1)\n \n5:\n(move robot2 room3 room2)\n \n6:\n(pick robot2 ball2 room2 rgripper2)\n \n7:\n(move robot2 room2 room3)\n \n8:\n(drop robot2 ball2 room3 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 6)\nDeleting (at ball2 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 7)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 8)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room3)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp5ldv054m.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1297036785.pddl /tmp/tmp5ldv054m.soln",
+      "raw_solution": "(move robot2 room1 room3)\n(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room1)\n(drop robot1 ball1 room1 rgripper1)\n(move robot2 room3 room2)\n(pick robot2 ball2 room2 rgripper2)\n(move robot2 room2 room3)\n(drop robot2 ball2 room3 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3483,
+        "prompt_tokens": 708,
+        "total_tokens": 4191,
+        "reasoning_tokens": 3392
+      }
+    },
+    {
+      "index": 31,
+      "problem_name": "grippers-n2-r3-o3-s1330494389",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1330494389.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp10kqxcud.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot1 ball1 room2 rgripper1)\n \n2:\n(move robot1 room2 room3)\n \n3:\n(drop robot1 ball1 room3 rgripper1)\n \n4:\n(move robot2 room1 room2)\n \n5:\n(pick robot2 ball3 room2 rgripper2)\n \n6:\n(move robot2 room2 room1)\n \n7:\n(drop robot2 ball3 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 1)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 5)\nDeleting (at ball3 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 7)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmp10kqxcud.soln 7 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1330494389.pddl /tmp/tmp10kqxcud.soln",
+      "raw_solution": "(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball1 room3 rgripper1)\n(move robot2 room1 room2)\n(pick robot2 ball3 room2 rgripper2)\n(move robot2 room2 room1)\n(drop robot2 ball3 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 4308,
+        "prompt_tokens": 708,
+        "total_tokens": 5016,
+        "reasoning_tokens": 4224
+      }
+    },
+    {
+      "index": 32,
+      "problem_name": "grippers-n2-r3-o3-s1446958690",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1446958690.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp1t_1cqiy.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot2 room3 room2)\n \n2:\n(pick robot2 ball1 room2 rgripper2)\n \n3:\n(move robot2 room2 room3)\n \n4:\n(drop robot2 ball1 room3 rgripper2)\n \n5:\n(move robot2 room3 room1)\n \n6:\n(pick robot2 ball3 room1 rgripper2)\n \n7:\n(move robot2 room1 room2)\n \n8:\n(drop robot2 ball3 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 4)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room3)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 6)\nDeleting (at ball3 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 7)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 8)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room2))\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp1t_1cqiy.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1446958690.pddl /tmp/tmp1t_1cqiy.soln",
+      "raw_solution": "(move robot2 room3 room2)\n(pick robot2 ball1 room2 rgripper2)\n(move robot2 room2 room3)\n(drop robot2 ball1 room3 rgripper2)\n(move robot2 room3 room1)\n(pick robot2 ball3 room1 rgripper2)\n(move robot2 room1 room2)\n(drop robot2 ball3 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3163,
+        "prompt_tokens": 690,
+        "total_tokens": 3853,
+        "reasoning_tokens": 3072
+      }
+    },
+    {
+      "index": 33,
+      "problem_name": "grippers-n2-r3-o3-s1517599610",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1517599610.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpc79pod52.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot2 room3 room2)\n \n2:\n(pick robot2 ball2 room2 rgripper2)\n \n3:\n(move robot2 room2 room1)\n \n4:\n(drop robot2 ball2 room1 rgripper2)\n \n5:\n(pick robot2 ball3 room1 rgripper2)\n \n6:\n(move robot2 room1 room2)\n \n7:\n(drop robot2 ball3 room2 rgripper2)\n \n8:\n(move robot2 room2 room3)\n \n9:\n(pick robot2 ball1 room3 rgripper2)\n \n10:\n(move robot2 room3 room2)\n \n11:\n(drop robot2 ball1 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at ball2 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 4)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 5)\nDeleting (at ball3 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 7)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room2)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 8)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 9)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 9\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 10)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 10\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 11)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nChecking (NOT (at-robby robot1 room2))\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpc79pod52.soln 11 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1517599610.pddl /tmp/tmpc79pod52.soln",
+      "raw_solution": "(move robot2 room3 room2)\n(pick robot2 ball2 room2 rgripper2)\n(move robot2 room2 room1)\n(drop robot2 ball2 room1 rgripper2)\n(pick robot2 ball3 room1 rgripper2)\n(move robot2 room1 room2)\n(drop robot2 ball3 room2 rgripper2)\n(move robot2 room2 room3)\n(pick robot2 ball1 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball1 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 4860,
+        "prompt_tokens": 690,
+        "total_tokens": 5550,
+        "reasoning_tokens": 4736
+      }
+    },
+    {
+      "index": 34,
+      "problem_name": "grippers-n2-r3-o3-s1637528212",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1637528212.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp62mix42v.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(pick robot2 ball1 room3 rgripper2)\n \n2:\n(move robot2 room3 room2)\n \n3:\n(drop robot2 ball1 room2 rgripper2)\n \n4:\n(move robot2 room2 room3)\n \n5:\n(pick robot2 ball2 room3 rgripper2)\n \n6:\n(move robot2 room3 room2)\n \n7:\n(drop robot2 ball2 room2 rgripper2)\n \n8:\n(move robot2 room2 room3)\n \n9:\n(pick robot2 ball3 room3 rgripper2)\n \n10:\n(move robot2 room3 room2)\n \n11:\n(drop robot2 ball3 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 3)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room2)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 5)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 7)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room2)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 8)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 9)\nDeleting (at ball3 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 9\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 10)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 10\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 11)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nChecking (NOT (at-robby robot1 room2))\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmp62mix42v.soln 11 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1637528212.pddl /tmp/tmp62mix42v.soln",
+      "raw_solution": "(pick robot2 ball1 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball1 room2 rgripper2)\n(move robot2 room2 room3)\n(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball2 room2 rgripper2)\n(move robot2 room2 room3)\n(pick robot2 ball3 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball3 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3324,
+        "prompt_tokens": 690,
+        "total_tokens": 4014,
+        "reasoning_tokens": 3200
+      }
+    },
+    {
+      "index": 35,
+      "problem_name": "grippers-n2-r3-o3-s1643431373",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1643431373.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpl2tilamz.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room2 room1)\n \n2:\n(pick robot1 ball2 room1 rgripper1)\n \n3:\n(move robot1 room1 room2)\n \n4:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball2 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (carry robot1 ball2 rgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 rgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmpl2tilamz.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1643431373.pddl /tmp/tmpl2tilamz.soln",
+      "raw_solution": "(move robot1 room2 room1)\n(pick robot1 ball2 room1 rgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball2 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 1650,
+        "prompt_tokens": 690,
+        "total_tokens": 2340,
+        "reasoning_tokens": 1600
+      }
+    },
+    {
+      "index": 36,
+      "problem_name": "grippers-n2-r3-o3-s1711313322",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1711313322.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpjbn5xayn.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot2 room3 room1)\n \n2:\n(pick robot2 ball3 room1 rgripper2)\n \n3:\n(move robot2 room1 room3)\n \n4:\n(drop robot2 ball3 room3 rgripper2)\n \n5:\n(pick robot2 ball1 room3 rgripper2)\n \n6:\n(move robot2 room3 room2)\n \n7:\n(drop robot2 ball1 room2 rgripper2)\n \n8:\n(move robot2 room2 room3)\n \n9:\n(pick robot2 ball2 room3 rgripper2)\n \n10:\n(move robot2 room3 room2)\n \n11:\n(drop robot2 ball2 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball3 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room3)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room2)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 8)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 9)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 9\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 10)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 10\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 11)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpjbn5xayn.soln 11 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1711313322.pddl /tmp/tmpjbn5xayn.soln",
+      "raw_solution": "(move robot2 room3 room1)\n(pick robot2 ball3 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball3 room3 rgripper2)\n(pick robot2 ball1 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball1 room2 rgripper2)\n(move robot2 room2 room3)\n(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball2 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 4412,
+        "prompt_tokens": 690,
+        "total_tokens": 5102,
+        "reasoning_tokens": 4288
+      }
+    },
+    {
+      "index": 37,
+      "problem_name": "grippers-n2-r3-o3-s1766112433",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1766112433.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpj29xso09.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room3 room2)\n \n2:\n(pick robot1 ball1 room2 rgripper1)\n \n3:\n(move robot1 room2 room3)\n \n4:\n(drop robot1 ball1 room3 rgripper1)\n \n5:\n(move robot2 room1 room2)\n \n6:\n(pick robot2 ball2 room2 rgripper2)\n \n7:\n(move robot2 room2 room1)\n \n8:\n(drop robot2 ball2 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 6)\nDeleting (at ball2 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 7)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 8)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmpj29xso09.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1766112433.pddl /tmp/tmpj29xso09.soln",
+      "raw_solution": "(move robot1 room3 room2)\n(pick robot1 ball1 room2 rgripper1)\n(move robot1 room2 room3)\n(drop robot1 ball1 room3 rgripper1)\n(move robot2 room1 room2)\n(pick robot2 ball2 room2 rgripper2)\n(move robot2 room2 room1)\n(drop robot2 ball2 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2395,
+        "prompt_tokens": 708,
+        "total_tokens": 3103,
+        "reasoning_tokens": 2304
+      }
+    },
+    {
+      "index": 38,
+      "problem_name": "grippers-n2-r3-o3-s1793534370",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1793534370.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp7ymoufd3.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball1 room1 rgripper1)\n \n2:\n(move robot1 room1 room2)\n \n3:\n(drop robot1 ball1 room2 rgripper1)\n \n4:\n(pick robot2 ball2 room3 rgripper2)\n \n5:\n(move robot2 room3 room1)\n \n6:\n(drop robot2 ball2 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmp7ymoufd3.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1793534370.pddl /tmp/tmp7ymoufd3.soln",
+      "raw_solution": "(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball1 room2 rgripper1)\n(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room1)\n(drop robot2 ball2 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2571,
+        "prompt_tokens": 690,
+        "total_tokens": 3261,
+        "reasoning_tokens": 2496
+      }
+    },
+    {
+      "index": 39,
+      "problem_name": "grippers-n2-r3-o3-s1812969061",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1812969061.pddl",
+      "is_valid": false,
+      "category": "precondition_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpx6os1yma.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot2 room3 room1)\n \n2:\n(pick robot2 ball1 room1 rgripper2)\n \n3:\n(move robot2 room1 room3)\n \n4:\n(drop robot2 ball1 room3 rgripper2)\n \n5:\n(pick robot2 ball2 room3 rgripper1)\n \n6:\n(move robot2 room3 room2)\n \n7:\n(drop robot2 ball2 room2 rgripper1)\n \n8:\n(move robot2 room2 room3)\n \n9:\n(pick robot2 ball3 room3 rgripper1)\n \n10:\n(move robot2 room3 room2)\n \n11:\n(drop robot2 ball3 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball1 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room3)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(pick robot2 ball2 room3 rgripper1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(pick robot2 ball2 room3 rgripper1) has an unsatisfied precondition at time 5\n(Set (free robot2 rgripper1) to true)\n\n\nFailed plans:\n /tmp/tmpx6os1yma.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1812969061.pddl /tmp/tmpx6os1yma.soln",
+      "raw_solution": "(move robot2 room3 room1)\n(pick robot2 ball1 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball1 room3 rgripper2)\n(pick robot2 ball2 room3 rgripper1)\n(move robot2 room3 room2)\n(drop robot2 ball2 room2 rgripper1)\n(move robot2 room2 room3)\n(pick robot2 ball3 room3 rgripper1)\n(move robot2 room3 room2)\n(drop robot2 ball3 room2 rgripper1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 4604,
+        "prompt_tokens": 690,
+        "total_tokens": 5294,
+        "reasoning_tokens": 4480
+      }
+    },
+    {
+      "index": 40,
+      "problem_name": "grippers-n2-r3-o3-s1828172190",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1828172190.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpplmduxod.soln\nPlan to validate:\n\nPlan size: 3\n1:\n(pick robot2 ball2 room1 rgripper2)\n \n2:\n(move robot2 room1 room3)\n \n3:\n(drop robot2 ball2 room3 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room3)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 3 \n\nSuccessful plans:\nValue: 3\n /tmp/tmpplmduxod.soln 3 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1828172190.pddl /tmp/tmpplmduxod.soln",
+      "raw_solution": "(pick robot2 ball2 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball2 room3 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2986,
+        "prompt_tokens": 690,
+        "total_tokens": 3676,
+        "reasoning_tokens": 2944
+      }
+    },
+    {
+      "index": 41,
+      "problem_name": "grippers-n2-r3-o3-s484801279",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s484801279.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp1lisqpxe.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot2 ball3 room2 rgripper2)\n \n2:\n(move robot2 room2 room1)\n \n3:\n(drop robot2 ball3 room1 rgripper2)\n \n4:\n(move robot2 room1 room3)\n \n5:\n(pick robot2 ball2 room3 rgripper2)\n \n6:\n(move robot2 room3 room1)\n \n7:\n(drop robot2 ball2 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball3 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room1)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmp1lisqpxe.soln 7 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s484801279.pddl /tmp/tmp1lisqpxe.soln",
+      "raw_solution": "(pick robot2 ball3 room2 rgripper2)\n(move robot2 room2 room1)\n(drop robot2 ball3 room1 rgripper2)\n(move robot2 room1 room3)\n(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room1)\n(drop robot2 ball2 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3219,
+        "prompt_tokens": 690,
+        "total_tokens": 3909,
+        "reasoning_tokens": 3136
+      }
+    },
+    {
+      "index": 42,
+      "problem_name": "grippers-n2-r3-o3-s57572298",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s57572298.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp_x7uej87.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot2 room2 room3)\n \n2:\n(pick robot2 ball2 room3 rgripper2)\n \n3:\n(move robot2 room3 room1)\n \n4:\n(drop robot2 ball2 room1 rgripper2)\n \n5:\n(pick robot1 ball1 room1 rgripper1)\n \n6:\n(move robot1 room1 room2)\n \n7:\n(drop robot1 ball1 room2 rgripper1)\n \n8:\n(move robot2 room1 room2)\n \n9:\n(pick robot2 ball3 room2 rgripper2)\n \n10:\n(move robot2 room2 room1)\n \n11:\n(drop robot2 ball3 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 8)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 9)\nDeleting (at ball3 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 9\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 10)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 10\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 11)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmp_x7uej87.soln 11 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s57572298.pddl /tmp/tmp_x7uej87.soln",
+      "raw_solution": "(move robot2 room2 room3)\n(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room1)\n(drop robot2 ball2 room1 rgripper2)\n(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1 room2)\n(drop robot1 ball1 room2 rgripper1)\n(move robot2 room1 room2)\n(pick robot2 ball3 room2 rgripper2)\n(move robot2 room2 room1)\n(drop robot2 ball3 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3388,
+        "prompt_tokens": 690,
+        "total_tokens": 4078,
+        "reasoning_tokens": 3264
+      }
+    },
+    {
+      "index": 43,
+      "problem_name": "grippers-n2-r3-o3-s658342220",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s658342220.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmptm2k4aic.soln\nPlan to validate:\n\nPlan size: 3\n1:\n(pick robot2 ball2 room3 rgripper2)\n \n2:\n(move robot2 room3 room1)\n \n3:\n(drop robot2 ball2 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 3 \n\nSuccessful plans:\nValue: 3\n /tmp/tmptm2k4aic.soln 3 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s658342220.pddl /tmp/tmptm2k4aic.soln",
+      "raw_solution": "(pick robot2 ball2 room3 rgripper2)\n(move robot2 room3 room1)\n(drop robot2 ball2 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2282,
+        "prompt_tokens": 690,
+        "total_tokens": 2972,
+        "reasoning_tokens": 2240
+      }
+    },
+    {
+      "index": 44,
+      "problem_name": "grippers-n2-r3-o3-s689232796",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s689232796.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpzzog7qra.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot2 ball2 room2 rgripper2)\n \n2:\n(move robot2 room2 room3)\n \n3:\n(drop robot2 ball2 room3 rgripper2)\n \n4:\n(pick robot2 ball1 room3 rgripper2)\n \n5:\n(move robot2 room3 room2)\n \n6:\n(drop robot2 ball1 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at ball2 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room3)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 6)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmpzzog7qra.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s689232796.pddl /tmp/tmpzzog7qra.soln",
+      "raw_solution": "(pick robot2 ball2 room2 rgripper2)\n(move robot2 room2 room3)\n(drop robot2 ball2 room3 rgripper2)\n(pick robot2 ball1 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball1 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3787,
+        "prompt_tokens": 708,
+        "total_tokens": 4495,
+        "reasoning_tokens": 3712
+      }
+    },
+    {
+      "index": 45,
+      "problem_name": "grippers-n2-r3-o3-s815517783",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s815517783.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmplpbl0h1r.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot2 room3 room2)\n \n2:\n(pick robot2 ball1 room2 rgripper2)\n \n3:\n(move robot2 room2 room3)\n \n4:\n(drop robot2 ball1 room3 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 4)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room3)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room2))\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmplpbl0h1r.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s815517783.pddl /tmp/tmplpbl0h1r.soln",
+      "raw_solution": "(move robot2 room3 room2)\n(pick robot2 ball1 room2 rgripper2)\n(move robot2 room2 room3)\n(drop robot2 ball1 room3 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2227,
+        "prompt_tokens": 690,
+        "total_tokens": 2917,
+        "reasoning_tokens": 2176
+      }
+    },
+    {
+      "index": 46,
+      "problem_name": "grippers-n2-r3-o3-s908405235",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s908405235.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp_0v0yyg9.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball3 room3 rgripper1)\n \n3:\n(move robot1 room3 room1)\n \n4:\n(drop robot1 ball3 room1 rgripper1)\n \n5:\n(move robot2 room2 room3)\n \n6:\n(pick robot2 ball1 room3 rgripper2)\n \n7:\n(move robot2 room3 room2)\n \n8:\n(drop robot2 ball1 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 6)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 7)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 8)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp_0v0yyg9.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s908405235.pddl /tmp/tmp_0v0yyg9.soln",
+      "raw_solution": "(move robot1 room1 room3)\n(pick robot1 ball3 room3 rgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball3 room1 rgripper1)\n(move robot2 room2 room3)\n(pick robot2 ball1 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball1 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3227,
+        "prompt_tokens": 708,
+        "total_tokens": 3935,
+        "reasoning_tokens": 3136
+      }
+    },
+    {
+      "index": 47,
+      "problem_name": "grippers-n2-r3-o3-s933037160",
+      "size_key": "n2-r3-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s933037160.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpwvlsr3_p.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot2 room1 room3)\n \n2:\n(pick robot2 ball1 room3 rgripper2)\n \n3:\n(move robot2 room3 room2)\n \n4:\n(drop robot2 ball1 room2 rgripper2)\n \n5:\n(move robot2 room2 room3)\n \n6:\n(pick robot2 ball3 room3 rgripper2)\n \n7:\n(move robot2 room3 room1)\n \n8:\n(drop robot2 ball3 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (carry robot2 ball1 rgripper2)\nAdding (at ball1 room2)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at ball3 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 8)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmpwvlsr3_p.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s933037160.pddl /tmp/tmpwvlsr3_p.soln",
+      "raw_solution": "(move robot2 room1 room3)\n(pick robot2 ball1 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball1 room2 rgripper2)\n(move robot2 room2 room3)\n(pick robot2 ball3 room3 rgripper2)\n(move robot2 room3 room1)\n(drop robot2 ball3 room1 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3548,
+        "prompt_tokens": 690,
+        "total_tokens": 4238,
+        "reasoning_tokens": 3456
+      }
+    },
+    {
+      "index": 48,
+      "problem_name": "grippers-n2-r4-o3-s1528658263",
+      "size_key": "n2-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s1528658263.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmp6zeqk011.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move robot1 room2 room3)\n \n2:\n(pick robot1 ball3 room3 rgripper1)\n \n3:\n(move robot1 room3 room1)\n \n4:\n(drop robot1 ball3 room1 rgripper1)\n \n5:\n(pick robot2 ball2 room1 rgripper2)\n \n6:\n(move robot2 room1 room3)\n \n7:\n(drop robot2 ball2 room3 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 rgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 5)\nDeleting (at ball2 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 7)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room3)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmp6zeqk011.soln 7 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s1528658263.pddl /tmp/tmp6zeqk011.soln",
+      "raw_solution": "(move robot1 room2 room3)\n(pick robot1 ball3 room3 rgripper1)\n(move robot1 room3 room1)\n(drop robot1 ball3 room1 rgripper1)\n(pick robot2 ball2 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball2 room3 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3027,
+        "prompt_tokens": 710,
+        "total_tokens": 3737,
+        "reasoning_tokens": 2944
+      }
+    },
+    {
+      "index": 49,
+      "problem_name": "grippers-n2-r4-o3-s423089722",
+      "size_key": "n2-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s423089722.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpqbcc7t8n.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball1 room1 rgripper1)\n \n2:\n(move robot1 room1 room4)\n \n3:\n(drop robot1 ball1 room4 rgripper1)\n \n4:\n(move robot2 room4 room1)\n \n5:\n(pick robot2 ball2 room1 rgripper2)\n \n6:\n(move robot2 room1 room3)\n \n7:\n(drop robot2 ball2 room3 rgripper2)\n \n8:\n(pick robot2 ball3 room3 rgripper2)\n \n9:\n(move robot2 room3 room2)\n \n10:\n(drop robot2 ball3 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room4)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at ball2 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room3)\nAdding (free robot2 rgripper2)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 8)\nDeleting (at ball3 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball3 rgripper2)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 9)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 9\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 10)\nDeleting (carry robot2 ball3 rgripper2)\nAdding (at ball3 room2)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 10\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 10 \n\nSuccessful plans:\nValue: 10\n /tmp/tmpqbcc7t8n.soln 10 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s423089722.pddl /tmp/tmpqbcc7t8n.soln",
+      "raw_solution": "(pick robot1 ball1 room1 rgripper1)\n(move robot1 room1 room4)\n(drop robot1 ball1 room4 rgripper1)\n(move robot2 room4 room1)\n(pick robot2 ball2 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball2 room3 rgripper2)\n(pick robot2 ball3 room3 rgripper2)\n(move robot2 room3 room2)\n(drop robot2 ball3 room2 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 3828,
+        "prompt_tokens": 692,
+        "total_tokens": 4520,
+        "reasoning_tokens": 3712
+      }
+    },
+    {
+      "index": 50,
+      "problem_name": "grippers-n2-r4-o3-s911520678",
+      "size_key": "n2-r4-o3",
+      "scenario": "grippers",
+      "problem_file": "pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s911520678.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /tmp/tmpinhi563k.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot2 room2 room1)\n \n2:\n(pick robot2 ball2 room1 rgripper2)\n \n3:\n(move robot2 room1 room3)\n \n4:\n(drop robot2 ball2 room3 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball2 room1)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room3)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmpinhi563k.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/grippers/domain3.pddl pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s911520678.pddl /tmp/tmpinhi563k.soln",
+      "raw_solution": "(move robot2 room2 room1)\n(pick robot2 ball2 room1 rgripper2)\n(move robot2 room1 room3)\n(drop robot2 ball2 room3 rgripper2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": 2482,
+        "prompt_tokens": 692,
+        "total_tokens": 3174,
+        "reasoning_tokens": 2432
+      }
+    }
+  ]
+}

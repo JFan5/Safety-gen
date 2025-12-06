@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-12-05T18:19:57.061762",
+  "model_name": "gpt-5.1",
+  "provider": "openai",
+  "scenario": "spanner",
+  "problems_dir": "pddl3/spanner/testing_problem50",
+  "domain_file": "pddl3/spanner/domain3.pddl",
+  "max_problems": 2,
+  "one_shot": false,
+  "temperature": 0.6,
+  "max_new_tokens": null,
+  "total_tests": 2,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "category_counts": {
+    "success_plans": 0,
+    "plan_format_error": 2,
+    "precondition_violation": 0,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0
+  },
+  "category_rates": {
+    "success_plans": 0.0,
+    "plan_format_error": 100.0,
+    "precondition_violation": 0.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0
+  },
+  "size_success_rates": {
+    "s2-n2-l3": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s4-n3-l4": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    }
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "spanner-s4-n3-l4-s1702556085",
+      "size_key": "s4-n3-l4",
+      "scenario": "spanner",
+      "problem_file": "pddl3/spanner/testing_problem50/spanner-s4-n3-l4-s1702556085.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmpzr1rkbjy.soln\n',Plan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Follow each of:\n    (Set (tightened nut1) to true)\n    and (Set (tightened nut2) to true)\n    and (Set (tightened nut3) to true)\n)\n\n\nFailed plans:\n /tmp/tmpzr1rkbjy.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/spanner/domain3.pddl pddl3/spanner/testing_problem50/spanner-s4-n3-l4-s1702556085.pddl /tmp/tmpzr1rkbjy.soln",
+      "raw_solution": "', status='completed', type='message')",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 3213,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 2,
+      "problem_name": "spanner-s2-n2-l3-s1675852422",
+      "size_key": "s2-n2-l3",
+      "scenario": "spanner",
+      "problem_file": "pddl3/spanner/testing_problem50/spanner-s2-n2-l3-s1675852422.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmp3oyqf6hm.soln\n',Plan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Follow each of:\n    (Set (tightened nut1) to true)\n    and (Set (tightened nut2) to true)\n)\n\n\nFailed plans:\n /tmp/tmp3oyqf6hm.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/spanner/domain3.pddl pddl3/spanner/testing_problem50/spanner-s2-n2-l3-s1675852422.pddl /tmp/tmp3oyqf6hm.soln",
+      "raw_solution": "', status='completed', type='message')",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 3096,
+        "reasoning_tokens": null
+      }
+    }
+  ]
+}

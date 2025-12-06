@@ -54,35 +54,92 @@ MODEL_FAMILY_MAP = {
 API_MODEL_CONFIG = {
     'gpt-5': {
         'provider': 'openai',
-        'model_name': 'gpt-5-nano-2025-08-07',
-        'family': 'gpt'
+        'model_name': 'gpt-5-mini-2025-08-07',
+        'family': 'gpt',
+        'use_responses_api': False,  # 使用传统的 chat.completions API
+        'reasoning_effort': None
+    },
+    'gpt-5.1': {
+        'provider': 'openai',
+        'model_name': 'gpt-5.1',
+        'family': 'gpt',
+        'use_responses_api': True,  # 使用新的 responses API
+        'reasoning_effort': 'medium'  # medium reason
     },
     'gpt-4': {
         'provider': 'openai',
         'model_name': 'gpt-4',
-        'family': 'gpt'
+        'family': 'gpt',
+        'use_responses_api': False,
+        'reasoning_effort': None
     },
     'gpt-4-turbo': {
         'provider': 'openai',
         'model_name': 'gpt-4-turbo-preview',
-        'family': 'gpt'
+        'family': 'gpt',
+        'use_responses_api': False,
+        'reasoning_effort': None
     },
     'gpt-3.5-turbo': {
         'provider': 'openai',
         'model_name': 'gpt-3.5-turbo',
-        'family': 'gpt'
+        'family': 'gpt',
+        'use_responses_api': False,
+        'reasoning_effort': None
     },
     'chatgpt': {
         'provider': 'openai',
-        'model_name': 'gpt-5-nano-2025-08-07',  # 默认使用gpt-5-nano-2025-08-07
-        'family': 'gpt'
+        'model_name': 'gpt-5-mini-2025-08-07',  # 默认使用gpt-5-mini-2025-08-07
+        'family': 'gpt',
+        'use_responses_api': False,
+        'reasoning_effort': None
     },
 }
 
 def extract_llm_output(output, family='gpt'):
     """从模型输出中提取LLM生成的部分，不做action提取"""
+    def _to_text_fragment(obj):
+        """尽量从多种结构中提取文本"""
+        if obj is None:
+            return ""
+        if isinstance(obj, str):
+            return obj
+        if isinstance(obj, dict):
+            if 'text' in obj:
+                return str(obj['text'])
+            if 'content' in obj:
+                return _to_text_fragment(obj['content'])
+            return str(obj)
+        # 对象可能有 text 或 content 属性
+        if hasattr(obj, "text"):
+            try:
+                return str(obj.text)
+            except Exception:
+                pass
+        if hasattr(obj, "content"):
+            try:
+                content_val = obj.content
+                if isinstance(content_val, list):
+                    return "\n".join(
+                        frag for frag in (_to_text_fragment(c) for c in content_val) if frag
+                    )
+                return _to_text_fragment(content_val)
+            except Exception:
+                pass
+        return str(obj)
+
     if output is None:
         return ""
+    # 兼容部分SDK返回列表/对象（如content block）
+    if isinstance(output, list):
+        parts = []
+        for item in output:
+            frag = _to_text_fragment(item)
+            if frag:
+                parts.append(frag)
+        output = "\n".join(parts)
+    elif not isinstance(output, str):
+        output = _to_text_fragment(output)
     text = output.strip()
 
     # 处理Mistral格式的输出
@@ -415,8 +472,87 @@ def _call_openai_api(
     temperature: float = 0.6,
     max_tokens: int = MAX_NEW_TOKENS,
     timeout: float = OPENAI_TIMEOUT,
+    use_responses_api: bool = False,
+    reasoning_effort: Optional[str] = None,
 ) -> tuple[str, Optional[dict]]:
-    """调用OpenAI API，兼容新旧参数名，并在需要时移除 temperature"""
+    """调用OpenAI API，兼容新旧参数名，并在需要时移除 temperature
+    支持新的 responses API (用于 gpt-5.1 等模型)
+    """
+    # 如果使用新的 responses API
+    if use_responses_api:
+        kwargs = {
+            "model": model_name,
+            "input": prompt,
+        }
+        if reasoning_effort:
+            kwargs["reasoning"] = {"effort": reasoning_effort}
+        if timeout is not None:
+            kwargs["timeout"] = timeout
+        
+        print(f"    [OpenAI] Making responses API request with reasoning_effort={reasoning_effort}, timeout={timeout}s...", flush=True)
+        call_start = time.time()
+        
+        # 添加进度提示
+        import threading
+        progress_stop = threading.Event()
+        def progress_indicator():
+            elapsed = 0
+            while not progress_stop.is_set() and elapsed < timeout:
+                time.sleep(10)
+                if not progress_stop.is_set():
+                    elapsed = time.time() - call_start
+                    print(f"    [OpenAI] Still waiting... ({elapsed:.1f}s elapsed)", flush=True)
+        
+        progress_thread = threading.Thread(target=progress_indicator, daemon=True)
+        progress_thread.start()
+        
+        try:
+            response = client.responses.create(**kwargs)
+        finally:
+            progress_stop.set()
+        
+        call_elapsed = time.time() - call_start
+        print(f"    [OpenAI] Responses API request completed in {call_elapsed:.2f}s", flush=True)
+        
+        # 处理 responses API 的响应格式
+        try:
+            # responses API 的响应格式可能不同，需要根据实际API调整
+            if hasattr(response, 'output') and response.output:
+                content = response.output
+            elif hasattr(response, 'text'):
+                content = response.text
+            elif hasattr(response, 'choices') and len(response.choices) > 0:
+                content = response.choices[0].text if hasattr(response.choices[0], 'text') else str(response.choices[0])
+            else:
+                content = str(response)
+            
+            usage_info = None
+            if hasattr(response, 'usage') and response.usage:
+                usage = response.usage
+                usage_info = {
+                    "completion_tokens": getattr(usage, "completion_tokens", None),
+                    "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                    "total_tokens": getattr(usage, "total_tokens", None),
+                    "reasoning_tokens": getattr(usage, "reasoning_tokens", None) if hasattr(usage, "reasoning_tokens") else None
+                }
+                print(f"  [OpenAI] Usage - completion: {usage_info.get('completion_tokens')}, prompt: {usage_info.get('prompt_tokens')}, total: {usage_info.get('total_tokens')}", flush=True)
+                if usage_info.get('reasoning_tokens'):
+                    print(f"  [OpenAI] Reasoning tokens: {usage_info.get('reasoning_tokens')}", flush=True)
+            
+            print(f"  [OpenAI] Response length: {len(content)} chars", flush=True)
+            if len(content) > 0:
+                print(f"  [OpenAI] Response preview (first 200 chars): {content[:200]}", flush=True)
+            else:
+                print(f"  [OpenAI] ⚠️  WARNING: Empty response!", flush=True)
+            
+            return content, usage_info
+        except Exception as e:
+            print(f"  [OpenAI] ✗ Error processing responses API response: {e}", flush=True)
+            import traceback
+            print(f"  [OpenAI] Traceback: {traceback.format_exc()}", flush=True)
+            return "", None
+    
+    # 传统的 chat.completions API
     def _make_call(max_tokens_key: str, include_temperature: bool):
         kwargs = {
             "model": model_name,
@@ -530,7 +666,9 @@ def test_api_model_on_testing_data(
     temperature: float = 0.6,
     one_shot: bool = False,
     provider: str = 'openai',
-    max_workers: int = None
+    max_workers: int = None,
+    use_responses_api: bool = False,
+    reasoning_effort: Optional[str] = None
 ):
     """
     在testing数据上测试API模型并计算成功率
@@ -674,6 +812,8 @@ def test_api_model_on_testing_data(
                     temperature,
                     MAX_NEW_TOKENS,
                     OPENAI_TIMEOUT,
+                    use_responses_api=use_responses_api,
+                    reasoning_effort=reasoning_effort,
                 )
                 api_elapsed = time.time() - api_start_time
                 with print_lock:
@@ -934,8 +1074,8 @@ def main():
     """主函数"""
     import argparse
     
-    # 固定使用gpt-5模型
-    DEFAULT_MODEL = "gpt-5"
+    # 固定使用gpt-5模型（可以通过修改这里来测试不同模型，如 "gpt-5.1"）
+    DEFAULT_MODEL = "gpt-5.1"  # 测试 gpt-5.1 的 medium reason
     
     parser = argparse.ArgumentParser(description="Evaluate API-based LLM model (GPT-5) with explicit domain and problems directory")
     parser.add_argument("--api-key", type=str, default=None,
@@ -967,6 +1107,9 @@ def main():
     
     # 使用固定的gpt-5模型配置
     model_name = DEFAULT_MODEL.lower()
+    use_responses_api = False
+    reasoning_effort = None
+    
     if model_name in API_MODEL_CONFIG:
         config = API_MODEL_CONFIG[model_name]
         actual_model_name = config['model_name']
@@ -974,12 +1117,19 @@ def main():
             args.family = config['family']
         if args.provider == 'openai':
             args.provider = config['provider']
+        # 获取 responses API 相关配置
+        use_responses_api = config.get('use_responses_api', False)
+        reasoning_effort = config.get('reasoning_effort', None)
     else:
         actual_model_name = DEFAULT_MODEL
     
-    # 某些 OpenAI 模型（如 gpt-5-nano-2025-08-07）只支持默认 temperature=1
-    if args.provider == "openai" and "gpt-5-nano" in actual_model_name:
+    # 某些 OpenAI 模型（如 gpt-5-nano, gpt-5-mini）只支持默认 temperature=1
+    if args.provider == "openai" and ("gpt-5-nano" in actual_model_name or "gpt-5-mini" in actual_model_name):
         args.temperature = 1.0
+    
+    # 打印模型配置信息
+    if use_responses_api:
+        print(f"Using responses API with reasoning_effort={reasoning_effort}", flush=True)
     
     test_api_model_on_testing_data(
         actual_model_name,
@@ -992,7 +1142,9 @@ def main():
         temperature=args.temperature,
         one_shot=args.one_shot,
         provider=args.provider,
-        max_workers=args.max_workers
+        max_workers=args.max_workers,
+        use_responses_api=use_responses_api,
+        reasoning_effort=reasoning_effort
     )
 
 

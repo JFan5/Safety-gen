@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-12-05T18:18:55.299761",
+  "model_name": "gpt-5.1",
+  "provider": "openai",
+  "scenario": "blocksworld",
+  "problems_dir": "pddl3/blocksworld/testing_problem50",
+  "domain_file": "pddl3/blocksworld/domain3.pddl",
+  "max_problems": 2,
+  "one_shot": false,
+  "temperature": 0.6,
+  "max_new_tokens": null,
+  "total_tests": 2,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "category_counts": {
+    "success_plans": 0,
+    "plan_format_error": 2,
+    "precondition_violation": 0,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0
+  },
+  "category_rates": {
+    "success_plans": 0.0,
+    "plan_format_error": 100.0,
+    "precondition_violation": 0.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0
+  },
+  "size_success_rates": {
+    "ops3-n4": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "ops4-n5": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    }
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "bw_ops4_n5_seed1200762",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200762.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp84ot96oi.soln\n',Plan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Set (on b4 b5) to true)\n\n\nFailed plans:\n /tmp/tmp84ot96oi.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200762.pddl /tmp/tmp84ot96oi.soln",
+      "raw_solution": "', status='completed', type='message')",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8368,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 2,
+      "problem_name": "bw_ops3_n4_seed200054",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200054.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp6p5hw5fy.soln\n',Plan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Follow each of:\n    (Set (on b1 b3) to true)\n    and (Set (on b2 b4) to true)\n    and (Set (on b3 b2) to true)\n    and (Set (on-table b4) to true)\n)\n\n\nFailed plans:\n /tmp/tmp6p5hw5fy.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200054.pddl /tmp/tmp6p5hw5fy.soln",
+      "raw_solution": "', status='completed', type='message')",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 3960,
+        "reasoning_tokens": null
+      }
+    }
+  ]
+}
