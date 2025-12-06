@@ -17,12 +17,12 @@ export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
-DATASET="/jfan5/data/dpo/success_gpt_data/blocksworld/pddl3_dpo-500.jsonl"
-OUTPUT_DIR="/jfan5/dpo_models/mistral_7b-blocksworld-1206"
+DATASET="/home/ubuntu/Safety-gen/data/dpo/new_four/blocksworld_pddl3_dpo.jsonl"
+OUTPUT_DIR="/jfan5/dpo_models/mistral_7b-blocksworld-1206-2"
 
 # Training parameters
 NUM_EPOCHS=2
-BATCH_SIZE=4
+BATCH_SIZE=8
 GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=5e-6
 MAX_LENGTH=4096

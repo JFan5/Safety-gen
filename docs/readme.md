@@ -19,6 +19,7 @@
 |---------|---------|------|---------|----------|-------|----------|-------------|------|-----------|
 | Baseline | `unsloth/mistral-7b-instruct-v0.3-bnb-4bit` | - | 0.0%<br/>`paper_results_iccps2025/mistral-multi/pretrained/spanner_test_results.json` | 0.0%<br/>`paper_results_iccps2025/mistral-multi/pretrained/grippers_test_results.json` | 0.0%<br/>`paper_results_iccps2025/mistral-multi/pretrained/ferry_test_results.json` | 0.0%<br/>`planning_results/baseline_mistral_7b/delivery.json` | 0.0%<br/>`paper_results_iccps2025/mistral-multi/pretrained/blocksworld_test_results.json` | - | 0.0% |
 | SFT | `/jfan5/sft_models/mistral_7b/four_scenarios500` | 2025-11-24 | 54.0%<br/>`planning_results/mistral_7b-sft500_spanner_spanner_test_results.json` | 18.0%<br/>`planning_results/mistral_7b-sft500_grippers_grippers_test_results.json` | 72.0%<br/>`planning_results/mistral_7b-sft500_ferry_ferry_test_results.json` | 0.0%<br/>`planning_results/delivery_-jfan5-sft_models-mistral_7b-four_scenarios500-1124_50_oneshot_20251127_204146.json` | 46.0%<br/>`planning_results/mistral_7b-sft500_blocksworld_blocksworld_test_results.json` | - | 38.0% |
+| SFT | `/jfan5/sft_models/mistral_7b/four_scenarios500-1124` | 2025-12-06 | 52.0%<br/>`planning_results/spanner_-jfan5-sft_models-mistral_7b-four_scenarios500-1124_50_20251206_150941.json` | 50.0%<br/>`planning_results/grippers_-jfan5-sft_models-mistral_7b-four_scenarios500-1124_50_20251206_151334.json` | 76.0%<br/>`planning_results/ferry_-jfan5-sft_models-mistral_7b-four_scenarios500-1124_50_20251206_150333.json` | 0.0%<br/>`planning_results/delivery_-jfan5-sft_models-mistral_7b-four_scenarios500-1124_50_20251206_151739.json` | 58.0%<br/>`planning_results/blocksworld_-jfan5-sft_models-mistral_7b-four_scenarios500-1124_50_20251206_145855.json` | - | 47.2% |
 | DPO | `/groups/fkong/jfan5/dpo_models/mistral_7b/multi/pddl3_500-gpt-candidate` | - | - | 28.0%<br/>`paper_results_iccps2025/mistral-multi/dpo/grippers_test_results_pddl3.json` | 32.0%<br/>`paper_results_iccps2025/mistral-multi/dpo/ferry_test_results_pddl3.json` | - | 28.0%<br/>`paper_results_iccps2025/mistral-multi/dpo/blocksworld_test_results_pddl3.json` | - | 29.3% |
 | GRPO | - | - | - | - | - | - | - | - | - |
 
@@ -58,6 +59,7 @@
 | Blocksworld | GRPO | `/jfan5/grpo_models/mistral_variant-blocksworld` | 2025-11-28 | - | - | - | - | 58.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_variant-blocksworld_50_20251128_001213.json` | - | 58.0% |
 | Blocksworld | GRPO (grpo-stl) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121` | 2025-12-01 | - | - | - | - | 66.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121_50_20251201_165546.json` | - | 66.0% |
 | Blocksworld | GRPO (grpo-stl-121-1) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1` | 2025-12-05 | - | - | - | - | 86.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121-1_50_20251205_204703.json` | - | 86.0% |
+| Blocksworld | GRPO (grpo-stl) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121/` | 2025-12-06 | - | - | - | - | 82.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121-_50_20251206_150806.json` | - | 82.0% |
 
 **Blocksworld GRPO (grpo-stl) 错误分类统计：**
 - success_plans: 33 (66.0%)
@@ -71,6 +73,13 @@
 - plan_format_error: 1 (2.0%)
 - precondition_violation: 3 (6.0%)
 - safety_constraints_violation: 3 (6.0%)
+- goal_not_satisfied: 0 (0.0%)
+
+**Blocksworld GRPO (grpo-stl) 错误分类统计 (2025-12-06)：**
+- success_plans: 41 (82.0%)
+- plan_format_error: 0 (0.0%)
+- precondition_violation: 8 (16.0%)
+- safety_constraints_violation: 1 (2.0%)
 - goal_not_satisfied: 0 (0.0%)
 
 
@@ -129,6 +138,28 @@ dpo:
 | Spanner     | 66.0% | 33 | 2 | 15 | 0 | 0 | 0 |
 | Grippers    | 94.0% | 47 | 0 | 3 | 0 | 0 | 0 |
 | Delivery    | 84.0% | 42 | 0 | 1 | 7 | 0 | 0 |
+
+### OpenAI API - gpt-5.1 (PDDL3 testing_problem50, 50 problems, zero-shot, medium reasoning)
+
+说明：直接调用 gpt-5.1，temperature=0.6，未限制 completion tokens（max_new_tokens=None），medium reasoning，并在结果文件中记录了每题的 token 用量。
+
+| 场景 | 成功率 | 成功数/总数 | 平均 total tokens/题 | 结果文件 |
+|------|--------|-------------|----------------------|----------|
+| Blocksworld | 28.0% | 14/50 | ~5,305 | `evaluation_summary_gpt-5.1_20251205_184821.json` |
+| Ferry | 40.0% | 20/50 | ~3,624 | `evaluation_summary_gpt-5.1_20251205_185350.json` |
+| Spanner | 100.0% | 50/50 | ~2,812 | `evaluation_summary_gpt-5.1_20251205_185739.json` |
+| Grippers | 100.0% | 50/50 | ~1,622 | `evaluation_summary_gpt-5.1_20251205_185918.json` |
+| Delivery | 98.0% | 49/50 | ~4,400 | `evaluation_summary_gpt-5.1_20251205_190422.json` |
+
+错误分类（数量/50）：
+
+| 场景 | 成功率  | success | plan_format_err | precond_err | safety_violation | goal_not | others |
+|------|--------|---------|-----------------|-------------|------------------|----------|--------|
+| Blocksworld | 28.0% | 14 | 0 | 0 | 36 | 0 | 0 |
+| Ferry       | 40.0% | 20 | 0 | 0 | 30 | 0 | 0 |
+| Spanner     | 100.0% | 50 | 0 | 0 | 0 | 0 | 0 |
+| Grippers    | 100.0% | 50 | 0 | 0 | 0 | 0 | 0 |
+| Delivery    | 98.0% | 49 | 0 | 0 | 1 | 0 | 0 |
 
 
 ---
