@@ -1,0 +1,29 @@
+{
+  "predicate_map": {
+    "loose": "p1",
+    "carrying": "p2",
+    "link": "p3",
+    "at": "p4",
+    "useable": "p5",
+    "tightened": "p6"
+  },
+  "action_map": {
+    "pickup_spanner": "a1",
+    "tighten_nut": "a2",
+    "walk": "a3"
+  },
+  "object_map": {
+    "spanner3": "o1",
+    "location1": "o2",
+    "spanner2": "o3",
+    "nut1": "o4",
+    "gate": "o5",
+    "shed": "o6",
+    "location2": "o7",
+    "nut2": "o8",
+    "bob": "o9",
+    "spanner1": "o10",
+    "location4": "o11",
+    "location3": "o12"
+  }
+}

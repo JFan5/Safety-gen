@@ -1,0 +1,25 @@
+{
+  "predicate_map": {
+    "carry": "p1",
+    "at": "p2",
+    "free": "p3",
+    "at-robby": "p4"
+  },
+  "action_map": {
+    "pick": "a1",
+    "drop": "a2",
+    "move": "a3"
+  },
+  "object_map": {
+    "room2": "o1",
+    "ball2": "o2",
+    "robot1": "o3",
+    "room4": "o4",
+    "ball1": "o5",
+    "room3": "o6",
+    "rgripper1": "o7",
+    "lgripper1": "o8",
+    "ball3": "o9",
+    "room1": "o10"
+  }
+}

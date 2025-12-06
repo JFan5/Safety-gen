@@ -1,0 +1,25 @@
+{
+  "predicate_map": {
+    "at-ferry": "p1",
+    "location": "p2",
+    "at": "p3",
+    "car": "p4",
+    "empty-ferry": "p5",
+    "on": "p6",
+    "not-eq": "p7"
+  },
+  "action_map": {
+    "debark": "a1",
+    "board": "a2",
+    "sail": "a3"
+  },
+  "object_map": {
+    "l2": "o1",
+    "c0": "o2",
+    "c1": "o3",
+    "l0": "o4",
+    "c2": "o5",
+    "l1": "o6",
+    "l3": "o7"
+  }
+}

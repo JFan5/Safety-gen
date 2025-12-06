@@ -1,0 +1,23 @@
+{
+  "predicate_map": {
+    "holding": "p1",
+    "on-table": "p2",
+    "arm-empty": "p3",
+    "on": "p4",
+    "clear": "p5"
+  },
+  "action_map": {
+    "putdown": "a1",
+    "unstack": "a2",
+    "pickup": "a3",
+    "stack": "a4"
+  },
+  "object_map": {
+    "b3": "o1",
+    "b2": "o2",
+    "b1": "o3",
+    "b5": "o4",
+    "b4": "o5",
+    "b6": "o6"
+  }
+}
