@@ -17,22 +17,22 @@ export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
-DATASET="/home/ubuntu/Safety-gen/data/dpo/new_four/blocksworld_pddl3_dpo.jsonl"
-OUTPUT_DIR="/jfan5/dpo_models/mistral_7b-blocksworld-1206-2"
+DATASET="/jfan5/dpo_data-1206/blocksworld_dpo.jsonl"  # Using cleaned data
+OUTPUT_DIR="/jfan5/dpo_models/mistral_7b-blocksworld-1206"
 
 # Training parameters
-NUM_EPOCHS=2
-BATCH_SIZE=8
-GRADIENT_ACCUMULATION_STEPS=4
-LEARNING_RATE=5e-6
-MAX_LENGTH=4096
+NUM_EPOCHS=1
+BATCH_SIZE=2  # Reduce to 1 to avoid Unsloth batching issues
+GRADIENT_ACCUMULATION_STEPS=16  # Increase to maintain effective batch size
+LEARNING_RATE=1e-6
+MAX_LENGTH=2048  # Reduce from 4096 - our data is much shorter anyway
 MAX_PROMPT_LENGTH=512
-BETA=0.02
+BETA=0.1
 WARMUP_RATIO=0.1
 WEIGHT_DECAY=0.01
-LOGGING_STEPS=10
-SAVE_STEPS=60
-EVAL_STEPS=60
+LOGGING_STEPS=5
+SAVE_STEPS=50
+EVAL_STEPS=50
 WANDB_PROJECT="pddl-dpo-mistral7b"
 RUN_NAME="dpo_mistral_7b-blocksworld-1206"
 echo "=========================================="

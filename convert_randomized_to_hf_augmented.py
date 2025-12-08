@@ -79,6 +79,8 @@ def convert_json_to_hf_format_augmented(
         HuggingFace 格式的字典
     """
     hf_data = {
+        'prompt': [],       # 用于训练：用户输入（domain + problem）
+        'path': [],         # 用于训练：助手输出（plan）
         'text': [],
         'domain': [],
         'problem_id': [],
@@ -114,6 +116,8 @@ def convert_json_to_hf_format_augmented(
             full_text = f"{prompt}\n{completion}"
 
             # 添加到数据集
+            hf_data['prompt'].append(prompt)           # 训练用：用户输入
+            hf_data['path'].append(completion)         # 训练用：助手输出
             hf_data['text'].append(full_text)
             hf_data['domain'].append(item['domain'])
             hf_data['problem_id'].append(f"{item['problem_id']}_v{variant_idx+1}")

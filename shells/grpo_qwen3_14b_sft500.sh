@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# GRPO training for Qwen3-14B SFT model
-# Base model: /jfan5/sft_models/qwen3_14b/four_scenarios500
+
+#SBATCH --mail-user=jfan5@nd.edu
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --output=job_outputs/grpo_qwen3_14b_sft500.o
+#SBATCH --job-name=grpo_qwen3_14b_sft500
+
 
 conda activate llmstl
 
@@ -11,14 +15,15 @@ conda activate llmstl
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/grpo_models/qwen3_14b_1130"
+BASE_MODEL="/jfan5/sft_models/qwen3-14b-1127"
 # 
-DATASET="/jfan5/ppo_data/all_scenarios.jsonl"
-OUTPUT_DIR="/jfan5/grpo_modpels/qwen3_14b_12_02"
+DATASET="/jfan5/grpo_data-127/merged.jsonl"
+OUTPUT_DIR="/jfan5/grpo_models/qwen3_14b_1207"
 # Training parameters
+
 MAX_STEPS=500
 BATCH_SIZE=4
-GRADIENT_ACCUMULATION_STEPS=4
+GRADIENT_ACCUMULATION_STEPS=8
 LEARNING_RATE=5e-6
 NUM_GENERATIONS=4
 TEMPERATURE=0.6
@@ -27,7 +32,7 @@ LOGGING_STEPS=20
 SAVE_STEPS=100
 WANDB_PROJECT="pddl-grpo-qwen3-14b"
 RUN_NAME="grpo_qwen3_14b_sft500"
-
+BETA=0.01
 echo "=========================================="
 echo "GRPO Training for Qwen3-14B"
 echo "=========================================="
@@ -45,7 +50,7 @@ echo "=========================================="
 echo ""
 
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_copy.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
@@ -59,6 +64,7 @@ python3 script/train_grpo_unsloth.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --beta ${BETA} \
   --run_name "${RUN_NAME}"
 
 echo ""

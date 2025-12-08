@@ -16,9 +16,9 @@ cd /home/ubuntu/Safety-gen
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/grpo_models/mistral_7b-blocksworld-1129"
-DATASET="/jfan5/ppo_data/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-12_02-500"
+BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
+DATASET="/jfan5/grpo_data-127/blocksworld.jsonl"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-1208-500"
 
 # Training parameters
 
@@ -27,12 +27,12 @@ GRADIENT_ACCUMULATION_STEPS=8
 LEARNING_RATE=5e-6
 NUM_GENERATIONS=4
 TEMPERATURE=0.6
-MAX_STEPS=200
+MAX_STEPS=500
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=100
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-blocksworld-1129"
+RUN_NAME="grpo_mistral_7b-blocksworld-1208-500"
 BETA=0.01
 MAX_GRAD_NORM=1
 echo "=========================================="

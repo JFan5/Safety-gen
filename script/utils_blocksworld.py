@@ -170,7 +170,7 @@ def transition(state: State, action_str: ActionStr) -> Tuple[Optional[State], Op
     return new_state, None
 
 
-def simulate_plan(initial_state: State, planning_sequences: List[ActionStr]) -> Tuple[Trajectory, Optional[str]]:
+def simulate_plan(initial_state: State, planning_sequences: List[ActionStr]) -> Tuple[Trajectory, Optional[str], Optional[int]]:
     """
     执行整个计划：
       - initial_state: 初始状态
@@ -178,22 +178,25 @@ def simulate_plan(initial_state: State, planning_sequences: List[ActionStr]) -> 
     返回：
       - traj: [s0, s1, ..., sT]，总是至少包含初始状态 s0
       - error: None / 'precondition_violation' / 'plan_format_error' / 'unknown_action'
+      - violation_step: 违反发生的步骤（从1开始，表示第几个动作），如果没有违反则为 None
     """
     traj: Trajectory = [set(initial_state)]
     current_state = set(initial_state)
     error: Optional[str] = None
+    violation_step: Optional[int] = None
 
-    for act_str in planning_sequences:
+    for step_idx, act_str in enumerate(planning_sequences):
         new_state, err = transition(current_state, act_str)
         if err is not None:
             # 出错时，把当前状态再 append 一次，方便后面分析
             error = err
+            violation_step = step_idx + 1  # 步骤从1开始计数
             traj.append(set(current_state))
             break
         current_state = new_state
         traj.append(set(current_state))
 
-    return traj, error
+    return traj, error, violation_step
 
 def is_on(state: State, x: str, y: str) -> bool:
     return normalize_atom(f"(on {x} {y})") in state
@@ -308,6 +311,25 @@ def safety_score_sometime_before(
         return -(0.5 + 0.5 * frac)       # [-1, -0.5] 左右
 
 
+def precondition_violation_score(
+    traj: Trajectory,
+    violation_step: Optional[int]
+) -> float:
+    """
+    根据 precondition violation 的 violation_step 计算分数。
+    
+    返回 [-1, 1] 分数：如果没有违反，返回 1.0；越早违反，越接近 -1。
+    """
+    if violation_step is None:
+        # 没有违反
+        return 1.0
+    else:
+        # 越早违反，frac 越小；惩罚越大
+        T = max(len(traj) - 1, 1)
+        frac = (T - violation_step) / T  # 0~1
+        return -(0.5 + 0.5 * frac)       # [-1, -0.5] 左右
+
+
 def goal_score(last_state: State, goal_state: State) -> float:
     """
     简单把 goal_state 里的 on / on-table 原子当作目标 atom，
@@ -338,12 +360,15 @@ def blocksworld_reward(
     """
     综合：
       - 离散标签 reward（你之前那套 label）
-      - 轨迹级 dense reward：safety_score + goal_score
+      - 轨迹级 dense reward：safety_score + goal_score（部分类别使用）
+    
+    注意：
+      - success_plans 和 plan_format_error 固定返回 base_r，不加任何 dense
     """
     base_reward_table = {
         "success_plans": 1.0,
         "goal_not_satisfied": 0.0,
-        "plan_format_error": -0.5,
+        "plan_format_error": -0.3,
         "precondition_violation": -0.7,
         "safety_constraints_violation": -1.0,
     }
@@ -351,30 +376,50 @@ def blocksworld_reward(
     base_r = base_reward_table.get(class_label, -0.2)
 
     # 1. 明显不合格的几类：直接用 base_r，不去跑 simulate（节省时间）
-    if class_label in ["plan_format_error", "precondition_violation"]:
+    if class_label == "plan_format_error":
+        return float(base_r)
+    
+    # 2. success_plans 固定返回 base_r，不加任何 dense
+    if class_label == "success_plans":
         return float(base_r)
 
-    # 2. 执行计划，拿到轨迹 + 自动机发现的错误类型
-    traj, exec_error = simulate_plan(initial_state, planning_sequences)
+    # 3. 执行计划，拿到轨迹 + 自动机发现的错误类型 + violation_step
+    traj, exec_error, violation_step = simulate_plan(initial_state, planning_sequences)
 
     # 如果执行中发现 precondition_violation，而 class_label 没标出来，可以纠正一下
     if exec_error == "precondition_violation" and class_label not in [
         "precondition_violation",
         "safety_constraints_violation",
     ]:
-        # 你可以选择覆盖标签，也可以单独统计
+        # 更新 class_label 和 base_r
+        class_label = "precondition_violation"
         base_r = base_reward_table["precondition_violation"]
-        return float(base_r)
 
     if not traj:
         return float(base_r)
 
     last_state = traj[-1]
 
-    # 3. 计算 dense 部分：安全 + 目标距离
+    # 3. 计算 dense 部分：根据 class_label 决定使用哪些分数
     s_score = safety_score_sometime_before(traj, constraint_first, constraint_second)
     g_score = goal_score(last_state, goal_state)
-    dense = 0.7 * s_score + 0.3 * g_score   # [-1,1] 左右
+    # 对于 precondition violation score，如果 class_label 或 exec_error 是 precondition_violation，使用 violation_step
+    use_precondition_score = (class_label == "precondition_violation" or exec_error == "precondition_violation")
+    p_score = precondition_violation_score(traj, violation_step if use_precondition_score else None)
+    
+    # 根据不同的 class_label 使用不同的 dense 计算方式
+    if class_label == "safety_constraints_violation":
+        # 对于 safety constraints violation：只使用 safety score，删掉 goal score
+        dense = s_score
+    elif class_label == "goal_not_satisfied":
+        # 对于 goal not satisfied：只使用 goal score，删掉 safety score
+        dense = g_score
+    elif class_label == "precondition_violation":
+        # 对于 precondition violation：只使用 precondition violation score（根据 violation_step）
+        dense = p_score
+    else:
+        # 其他情况：使用两者组合
+        dense = 0.7 * s_score + 0.3 * g_score   # [-1,1] 左右
 
     # 4. 用 alpha 调节 dense 对整体 reward 的影响力
     alpha = 0.3

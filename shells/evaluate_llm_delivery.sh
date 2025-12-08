@@ -42,6 +42,7 @@ else
         --problems-dir "${PROBLEMS_DIR}" \
         --domain-file "${DOMAIN_FILE}" \
         --max-problems ${MAX_PROBLEMS} \
+        --temperature 0.1 \
         --output "${OUTPUT_FILE}"
 fi
 

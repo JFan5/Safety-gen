@@ -237,12 +237,27 @@ def sft_train_pddl(
             if 'completion' in entry:
                 entry['path'] = entry['completion']
         dataset = Dataset.from_list(data)
+        is_dataset_dict = False
     else:
         print("Loading HuggingFace dataset...")
-        dataset = Dataset.load_from_disk(dataset_path)
-    
+        # 尝试加载，可能是 Dataset 或 DatasetDict
+        from datasets import load_from_disk
+        loaded = load_from_disk(dataset_path)
+
+        # 检查是否是 DatasetDict
+        if hasattr(loaded, 'keys') and 'train' in loaded:
+            print("Detected DatasetDict with pre-split train/validation sets")
+            is_dataset_dict = True
+            train_ds = loaded['train']
+            eval_ds = loaded.get('validation', loaded.get('test', None))
+            dataset = train_ds  # 用于统计
+        else:
+            print("Detected single Dataset")
+            is_dataset_dict = False
+            dataset = loaded
+
     print(f"Dataset loaded with {len(dataset)} entries")
-    
+
     # 统计场景分布
     if "scenario" in dataset.column_names:
         # 场景计数
@@ -252,21 +267,24 @@ def sft_train_pddl(
         print("Scenario distribution:")
         for k, v in sorted(scen_counts.items()):
             print(f"  {k}: {v}")
-    
+
     if len(dataset) == 0:
         print("Dataset is empty.")
         return
-    
-    # train/val 划分
-    val_ratio = max(0.0, min(0.5, float(val_ratio)))
-    print(f"Validation ratio: {val_ratio}")
-    if val_ratio > 0:
-        split = dataset.train_test_split(test_size=val_ratio, seed=3407, shuffle=True)
-        train_ds = split["train"]
-        eval_ds = split["test"]
+
+    # train/val 划分（仅在未预先分割的情况下）
+    if not is_dataset_dict:
+        val_ratio = max(0.0, min(0.5, float(val_ratio)))
+        print(f"Validation ratio: {val_ratio}")
+        if val_ratio > 0:
+            split = dataset.train_test_split(test_size=val_ratio, seed=3407, shuffle=True)
+            train_ds = split["train"]
+            eval_ds = split["test"]
+        else:
+            train_ds = dataset
+            eval_ds = None
     else:
-        train_ds = dataset
-        eval_ds = None
+        print(f"Using pre-split dataset: {len(train_ds)} train, {len(eval_ds) if eval_ds else 0} validation")
     
     # 转换为 chat 模板文本
     print("Processing dataset format (chat template)...")

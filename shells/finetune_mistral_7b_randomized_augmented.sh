@@ -19,7 +19,7 @@ OUTPUT_DIR="/jfan5/sft_models/mistral_7b/four_scenarios500_randomized_augmented"
 
 # Training parameters
 NUM_EPOCHS=3
-BATCH_SIZE=4
+BATCH_SIZE=8
 GRADIENT_ACCUMULATION_STEPS=2
 LEARNING_RATE=2e-4
 MAX_SEQ_LENGTH=4096

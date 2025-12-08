@@ -40,50 +40,6 @@ logger = logging.getLogger("grpo_unsloth")
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
-# -----------------------------------------------------------------------------
-# Scenario-Specific Reward Functions Interface
-# -----------------------------------------------------------------------------
-# 场景特定的 reward 计算函数注册表
-# 函数签名: (class_label: str, completion: str, meta: Dict[str, Any]) -> float
-SCENARIO_REWARD_FUNCTIONS: Dict[str, Callable[[str, str, Dict[str, Any]], float]] = {}
-
-
-def register_scenario_reward(scenario: str, reward_func: Callable[[str, str, Dict[str, Any]], float]):
-    """
-    注册场景特定的 reward 计算函数
-    
-    Args:
-        scenario: 场景名称（如 "blocksworld"）
-        reward_func: reward 计算函数，签名 (class_label, completion, meta) -> float
-    """
-    SCENARIO_REWARD_FUNCTIONS[scenario] = reward_func
-    logger.info(f"Registered reward function for scenario: {scenario}")
-
-
-def compute_blocksworld_reward(
-    class_label: str,
-    completion: str,
-    meta: Dict[str, Any]
-) -> float:
-    """
-    Blocksworld 场景的详细 reward 计算函数（包装函数）
-    
-    Args:
-        class_label: 分类标签
-        completion: 模型生成的计划文本
-        meta: 包含 problem_file 等信息的字典
-    
-    Returns:
-        计算得到的 reward 值
-    """
-    from utils_blocksworld import compute_blocksworld_reward_from_meta
-    return compute_blocksworld_reward_from_meta(
-        class_label, completion, meta, REPO_ROOT, compute_reward
-    )
-
-
-# 注册 blocksworld 的 reward 函数
-register_scenario_reward("blocksworld", compute_blocksworld_reward)
 
 
 # -----------------------------------------------------------------------------
@@ -186,30 +142,17 @@ def grpo_reward_func(
             inferred_label = "unknown"
             all_labels.append("unknown")
 
-        # 4. 计算 reward - 使用场景特定的 reward 函数（如果已注册）
+        # 4. 计算 reward - 仅使用手动离散表 compute_reward
         r = 0.0
-        reward_method = "default"
-        
-        # 检查是否有场景特定的 reward 函数
-        if scenario in SCENARIO_REWARD_FUNCTIONS and isinstance(m, dict):
+        reward_method = "manual_discrete"
+        if inferred_label != "unknown":
             try:
-                reward_func = SCENARIO_REWARD_FUNCTIONS[scenario]
-                r = reward_func(inferred_label, completion, m)
-                reward_method = f"scenario_{scenario}"
-            except Exception as e:
-                logger.debug(f"Scenario-specific reward calculation failed for {scenario}: {e}, falling back to default")
-                reward_method = "default_fallback"
-        
-        # 如果没有场景特定的函数或调用失败，使用默认的 compute_reward
-        if reward_method == "default" or reward_method == "default_fallback":
-            if inferred_label != "unknown":
-                try:
-                    r = compute_reward(inferred_label)
-                except:
-                    r = 0.0
-                    inferred_label = "unknown"
-            else:
+                r = compute_reward(inferred_label)
+            except Exception:
                 r = 0.0
+                inferred_label = "unknown"
+        else:
+            r = 0.0
 
         rewards.append(float(r))
         reward_methods.append(reward_method)
@@ -475,6 +418,13 @@ def main():
         class_label_field=args.class_label_field,
     )
     logger.info(f"Training dataset size: {len(dataset)}; columns: {dataset.column_names}")
+    
+    # ============ 打印 Reward Function 配置信息 ============
+    print("=" * 60)
+    print("Reward Function Configuration:")
+    print("  Using manual discrete reward table: compute_reward")
+    print("  Scenario-specific reward functions: disabled")
+    print("=" * 60)
     
     # 使用整个数据集作为训练集（不进行 train/test split）
     # 数据集已经在 load_grpo_dataset 中按 scenario 排序，确保每个 batch 都是单一场景

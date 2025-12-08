@@ -8,8 +8,8 @@ from unsloth import FastLanguageModel
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("merge_model")
 
-ADAPTER_PATH = "/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500"
-OUTPUT_DIR = "/groups/fkong/jfan5/sft_models/mistral_7b-spanner-variant-500_merged_16bit"
+ADAPTER_PATH = "/jfan5/sft_models/mistral_7b/four_scenarios500-1124"
+OUTPUT_DIR = "/jfan5/sft_models/mistral_7b/four_scenarios500-1124-merged"
 
 
 def main():

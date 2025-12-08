@@ -1,0 +1,763 @@
+#!/usr/bin/env python3
+"""
+Generic PDDL Plan Evaluator with Batch Processing
+通过批处理和多线程优化，充分利用 GPU 内存。
+支持批量生成计划并并行验证。
+"""
+import os
+import json
+import random
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+from unsloth import FastLanguageModel
+import torch
+from datetime import datetime
+import re
+from typing import Optional, List, Dict, Tuple
+from collections import defaultdict
+from utils import _classify_result, validate_solution
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
+
+# 配置参数
+max_seq_length = 5000
+MAX_NEW_TOKENS = 512
+dtype = None
+
+# 批处理参数
+DEFAULT_BATCH_SIZE = 4  # 默认批次大小，可根据 GPU 内存调整
+DEFAULT_NUM_WORKERS = 4  # 验证的并行线程数
+
+# 模型家族映射
+MODEL_FAMILY_MAP = {
+    'mistral': 'mistral',
+    'llama': 'llama',
+    'phi': 'phi',
+    'qwen': 'qwen',
+    'gemma': 'gemma',
+    'gpt': 'gpt'
+}
+
+def template_input(prompt, rich=False):
+    """创建输入模板"""
+    if rich:
+        return [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+    return [{"role": "user", "content": prompt}]
+
+def extract_llm_output(output, family='mistral'):
+    """从模型输出中提取LLM生成的部分，不做action提取"""
+    if output is None:
+        return ""
+    text = output.strip()
+
+    # 处理Mistral格式的输出
+    if '[/INST]' in text or family == 'mistral':
+        parts = text.split('[/INST]')
+        if len(parts) > 1:
+            text = parts[-1].strip()
+        else:
+            text = text.strip()
+        if text.endswith('</s>'):
+            text = text[:-4].strip()
+
+    # 处理ChatML格式
+    if '<|im_start|>' in text:
+        segments = text.split('<|im_start|>')
+        for segment in reversed(segments):
+            seg = segment.strip()
+            if not seg:
+                continue
+            if seg.startswith('assistant'):
+                seg = seg[len('assistant'):].lstrip(' :\n')
+                if '<|im_end|>' in seg:
+                    seg = seg.split('<|im_end|>', 1)[0]
+                text = seg.strip()
+                break
+        else:
+            if '<|im_end|>' in text:
+                text = text.split('<|im_end|>', 1)[0].strip()
+
+    elif 'assistant' in text and not text.startswith('assistant'):
+        parts = text.split('assistant')
+        text = parts[-1].lstrip(':').strip()
+
+    text = re.sub(r'<[|｜][^>]+[|｜]>', '', text)
+    text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r'</?think>', '', text, flags=re.IGNORECASE)
+    text = text.strip()
+    text = re.sub(r'^(assistant|final|assistant_final)\s*[:\-]*', '', text, flags=re.IGNORECASE).lstrip()
+    text = re.sub(r'^\|>\s*', '', text)
+
+    if family == 'qwen':
+        text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE).strip()
+
+    # 只保留末尾连续的计划行
+    plan_line_pattern = re.compile(r'^\([^\s()]+(?: [^\s()]+)*\)$')
+    lines = [line.strip() for line in text.splitlines()]
+    trailing_plan_lines = []
+    for line in reversed(lines):
+        if not line:
+            if trailing_plan_lines:
+                break
+            continue
+        if plan_line_pattern.match(line):
+            trailing_plan_lines.append(line)
+        elif trailing_plan_lines:
+            break
+    if trailing_plan_lines:
+        text = "\n".join(reversed(trailing_plan_lines))
+    else:
+        text = "\n".join(line for line in lines if line)
+
+    return text
+
+
+def _looks_like_valid_plan(plan_text: str) -> bool:
+    """判断文本是否符合纯计划输出格式。"""
+    lines = [line.strip() for line in plan_text.splitlines() if line.strip()]
+    if not lines:
+        return False
+    return all(line.startswith("(") and line.endswith(")") for line in lines)
+
+
+def _extract_size_key(problem_name: str, scenario: Optional[str] = None) -> Optional[str]:
+    """从问题名称中提取规模标识"""
+    name = problem_name.lower()
+
+    if scenario == "delivery":
+        m = re.search(r"size(\d+)[-_]?packages?(\d+)", name)
+        if m:
+            size_part, pkg_part = m.groups()
+            return f"s{int(size_part)}-p{int(pkg_part)}"
+        m = re.search(r"s(\d+)[-_]?p(\d+)", name)
+        if m:
+            return f"s{m.group(1)}-p{m.group(2)}"
+
+    if scenario == "logistics":
+        m = re.search(r"c(\d+)[-_]?s(\d+)[-_]?p(\d+)", name)
+        if m:
+            c_part, s_part, p_part = m.groups()
+            return f"c{int(c_part)}-s{int(s_part)}-p{int(p_part)}"
+        m = re.search(r"s(\d+)[-_]?p(\d+)", name)
+        if m:
+            return f"s{m.group(1)}-p{m.group(2)}"
+
+    if scenario == "grid":
+        m = re.search(r"x(\d+).*y(\d+).*sh(\d+).*k(\d+).*l(\d+)", name)
+        if m:
+            x, y, sh, k, l_val = m.groups()
+            return f"x{x}-y{y}-sh{sh}-k{k}-l{l_val}"
+
+    if scenario == "blocksworld":
+        m = re.search(r"ops(\d+).*n0*([0-9]+)", name)
+        if m:
+            ops_part, n_part = m.groups()
+            return f"ops{int(ops_part)}-n{int(n_part)}"
+
+    if scenario == "ferry":
+        m = re.search(r"l0*([0-9]+).*c0*([0-9]+)", name)
+        if m:
+            l_part, c_part = m.groups()
+            return f"l{int(l_part)}-c{int(c_part)}"
+
+    if scenario == "spanner":
+        m = re.search(r"s0*([0-9]+).*n0*([0-9]+).*l0*([0-9]+)", name)
+        if m:
+            s_part, n_part, l_part = m.groups()
+            return f"s{int(s_part)}-n{int(n_part)}-l{int(l_part)}"
+
+    if scenario == "grippers":
+        m = re.search(r"n0*([0-9]+).*r0*([0-9]+).*o0*([0-9]+)", name)
+        if m:
+            n_part, r_part, o_part = m.groups()
+            return f"n{int(n_part)}-r{int(r_part)}-o{int(o_part)}"
+
+    if scenario == "rovers":
+        m = re.search(
+            r"rover0*([0-9]+).*waypoint0*([0-9]+).*objective0*([0-9]+).*camera0*([0-9]+).*goal0*([0-9]+)",
+            name,
+        )
+        if m:
+            r_part, wp_part, obj_part, cam_part, goal_part = m.groups()
+            return f"r{int(r_part)}-wp{int(wp_part)}-obj{int(obj_part)}-cam{int(cam_part)}-goal{int(goal_part)}"
+
+    match = re.search(r"s(\d+)[_-]?p(\d+)", name, flags=re.IGNORECASE)
+    if match:
+        size_part, prob_part = match.groups()
+        return f"s{size_part}-p{prob_part}"
+    return None
+
+
+def _infer_scenario_name(problems_dir: str, domain_file: str) -> Optional[str]:
+    """从路径推断 scenario 名称"""
+    path_str = (problems_dir + " " + domain_file).lower()
+    scenarios = ["blocksworld", "spanner", "ferry", "grippers", "grid", "delivery", "logistics", "rovers", "miconic"]
+    for scenario in scenarios:
+        if scenario in path_str:
+            return scenario
+    return None
+
+
+def _load_one_shot_example(scenario: str, repo_root: Path = None) -> Optional[dict]:
+    """加载 one-shot example 文件"""
+    if repo_root is None:
+        repo_root = Path(__file__).parent.parent
+
+    example_dir = repo_root / "one_shot_example" / scenario
+    if not example_dir.exists():
+        print(f"Warning: One-shot example directory not found: {example_dir}")
+        return None
+
+    example_files = {
+        'domain': example_dir / "domain.pddl",
+        'problem': example_dir / "problem.pddl",
+        'solution': example_dir / "solution.soln"
+    }
+
+    example_content = {}
+    for key, file_path in example_files.items():
+        if not file_path.exists():
+            print(f"Warning: One-shot example file not found: {file_path}")
+            return None
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                example_content[key] = f.read()
+        except Exception as e:
+            print(f"Error reading one-shot example file {file_path}: {e}")
+            return None
+
+    return example_content
+
+
+def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False) -> list:
+    """从指定目录加载所有 problem PDDL 文件"""
+    problems_path = Path(problems_dir)
+    if not problems_path.exists():
+        print(f"Problems directory not found: {problems_dir}")
+        return []
+
+    domain_content = ""
+    if domain_file and Path(domain_file).exists():
+        try:
+            with open(domain_file, 'r', encoding='utf-8') as f:
+                domain_content = f.read()
+        except Exception as e:
+            print(f"Error reading domain file {domain_file}: {e}")
+
+    test_data = []
+    pddl_files = sorted(problems_path.glob('*.pddl'))
+    pddl_files = [f for f in pddl_files if 'domain' not in f.name.lower()]
+
+    if not pddl_files:
+        print(f"No problem files found in {problems_dir}")
+        return []
+
+    prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
+    try:
+        with open(prompt_template_file, 'r', encoding='utf-8') as f:
+            prompt_template = f.read()
+        if prompt_template.startswith('prompt = f"""'):
+            prompt_template = prompt_template.replace('prompt = f"""', '', 1)
+            if prompt_template.endswith('"""'):
+                prompt_template = prompt_template[:-3]
+            prompt_template = prompt_template.strip()
+    except Exception as e:
+        print(f"Error reading {prompt_template_file}: {e}")
+        prompt_template = "{problem_content}"
+
+    example_content = None
+    if one_shot:
+        scenario = _infer_scenario_name(problems_dir, domain_file)
+        if scenario:
+            print(f"Inferred scenario: {scenario}")
+            example_content = _load_one_shot_example(scenario)
+            if example_content:
+                print(f"Loaded one-shot example for scenario: {scenario}")
+            else:
+                print(f"Warning: Failed to load one-shot example for scenario: {scenario}")
+        else:
+            print(f"Warning: Could not infer scenario name from paths")
+
+    for pddl_file in pddl_files:
+        problem_name = pddl_file.stem
+        try:
+            with open(pddl_file, 'r', encoding='utf-8') as f:
+                problem_content = f.read()
+        except Exception as e:
+            print(f"Error reading {pddl_file}: {e}")
+            continue
+
+        if one_shot and example_content:
+            example_text = f"""
+DOMAIN:
+{example_content['domain']}
+
+PROBLEM:
+{example_content['problem']}
+
+### Plan:
+{example_content['solution']}
+"""
+            prompt = prompt_template.format(
+                domain_content=domain_content,
+                problem_content=problem_content,
+                example_content=example_text
+            )
+        else:
+            prompt = prompt_template.format(domain_content=domain_content, problem_content=problem_content)
+
+        test_data.append({
+            'problem_name': problem_name,
+            'problem_file': str(pddl_file),
+            'prompt': prompt,
+            'problem_content': problem_content
+        })
+    return test_data
+
+
+def validate_solution_wrapper(args):
+    """验证解决方案的包装函数，用于并行处理"""
+    domain_file, problem_file, raw_solution, scenario_name, problem_name = args
+
+    category = ""
+    validation_message = ""
+    validation_stdout = ""
+    validation_stderr = ""
+    val_cmd = ""
+
+    if raw_solution.strip():
+        if not _looks_like_valid_plan(raw_solution):
+            category = "plan_format_error"
+            validation_message = "Invalid plan format"
+        else:
+            valid, message, stdout, stderr, val_cmd = validate_solution(domain_file, problem_file, raw_solution)
+            validation_message = message
+            validation_stdout = stdout
+            validation_stderr = stderr
+            category = _classify_result(stdout)
+    else:
+        category = "plan_format_error"
+        validation_message = "Empty solution generated"
+
+    size_key = _extract_size_key(problem_name, scenario_name)
+
+    return {
+        'category': category,
+        'validation_message': validation_message,
+        'validation_stdout': validation_stdout,
+        'validation_stderr': validation_stderr,
+        'validation_cmd': val_cmd,
+        'size_key': size_key
+    }
+
+
+def batch_generate_solutions(model, tokenizer, batch_samples: List[Dict],
+                            family: str, temperature: float, device) -> List[Tuple[str, str]]:
+    """批量生成解决方案
+
+    Returns:
+        List of (output, raw_solution) tuples
+    """
+    # 准备批量输入
+    batch_messages = []
+    for sample in batch_samples:
+        messages = template_input(sample['prompt'])
+        batch_messages.append(messages)
+
+    # 批量 tokenize
+    try:
+        inputs = tokenizer.apply_chat_template(
+            batch_messages,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_tensors="pt",
+            padding=True,
+            enable_thinking=False,
+        )
+    except TypeError:
+        # 如果失败，尝试 rich 格式
+        batch_messages = [template_input(sample['prompt'], rich=True) for sample in batch_samples]
+        inputs = tokenizer.apply_chat_template(
+            batch_messages,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_tensors="pt",
+            padding=True,
+            enable_thinking=False,
+        )
+
+    inputs = inputs.to(device)
+
+    cfg = {
+        'do_sample': True,
+        'temperature': temperature,
+        'top_p': 0.9,
+    }
+
+    # 批量生成
+    pad_token_id = getattr(tokenizer, "eos_token_id", None) or getattr(tokenizer, "pad_token_id", None)
+
+    with torch.no_grad():
+        outputs = model.generate(
+            input_ids=inputs,
+            max_new_tokens=MAX_NEW_TOKENS,
+            pad_token_id=pad_token_id,
+            **cfg
+        )
+
+    # 批量解码
+    decoded_outputs = tokenizer.batch_decode(outputs, skip_special_tokens=False)
+
+    # 提取解决方案
+    results = []
+    for output in decoded_outputs:
+        raw_solution = extract_llm_output(output, family)
+        results.append((output, raw_solution))
+
+    return results
+
+
+def test_model_on_testing_data(model_path,
+                              output_file="test_results.json", family='mistral',
+                              max_problems: int = 0, results_dir=None,
+                              problems_dir: str = None, domain_file: str = None,
+                              load_in_4bit: bool = True, temperature: float = 0.6,
+                              one_shot: bool = False, batch_size: int = DEFAULT_BATCH_SIZE,
+                              num_workers: int = DEFAULT_NUM_WORKERS):
+    """
+    在testing数据上测试模型并计算成功率（批处理版本）
+
+    Args:
+        batch_size: 批处理大小，控制一次生成多少个解决方案
+        num_workers: 验证的并行线程数
+    """
+    print(f"Testing model: {model_path}")
+    print(f"Problems dir: {problems_dir}")
+    print(f"Domain file: {domain_file}")
+    print(f"Max problems: {max_problems}")
+    print(f"Batch size: {batch_size}")
+    print(f"Validation workers: {num_workers}")
+    print(f"Output: {output_file}")
+
+    scenario_name = _infer_scenario_name(problems_dir, domain_file)
+    if scenario_name:
+        print(f"Detected scenario: {scenario_name}")
+    else:
+        print("Detected scenario: Unknown")
+
+    # 自动检测模型家族
+    if family == 'auto':
+        model_name_lower = model_path.lower()
+        for model_type, model_family in MODEL_FAMILY_MAP.items():
+            if model_type in model_name_lower:
+                family = model_family
+                break
+        else:
+            family = 'mistral'
+        print(f"Auto-detected model family: {family}")
+
+    if not problems_dir or not domain_file:
+        print("--problems-dir 和 --domain-file 都是必需参数。")
+        return
+
+    if one_shot:
+        print("Using one-shot mode with examples")
+
+    # 加载测试数据
+    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot)
+    if max_problems and max_problems > 0 and len(test_data) > max_problems:
+        random.seed(42)
+        test_data = random.sample(test_data, max_problems)
+
+    if not test_data:
+        print("No testing data found!")
+        return
+
+    print(f"Loaded {len(test_data)} problems for testing")
+
+    # 加载模型
+    print("Loading model...")
+    try:
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=model_path,
+            max_seq_length=max_seq_length,
+            dtype=dtype,
+            load_in_4bit=load_in_4bit,
+        )
+    except ValueError as e:
+        if "GPU RAM" in str(e):
+            print("GPU RAM insufficient, trying with CPU offload...")
+            try:
+                model, tokenizer = FastLanguageModel.from_pretrained(
+                    model_name=model_path,
+                    max_seq_length=max_seq_length,
+                    dtype=dtype,
+                    load_in_4bit=load_in_4bit,
+                    llm_int8_enable_fp32_cpu_offload=True,
+                    device_map="auto"
+                )
+            except Exception as e2:
+                print("CPU offload failed, trying 8-bit quantization...")
+                model, tokenizer = FastLanguageModel.from_pretrained(
+                    model_name=model_path,
+                    max_seq_length=max_seq_length,
+                    dtype=dtype,
+                    load_in_8bit=True,
+                    device_map="auto"
+                )
+        else:
+            raise e
+
+    FastLanguageModel.for_inference(model)
+
+    # 获取设备
+    device = next(model.parameters()).device
+    print(f"Model loaded on device: {device}")
+
+    # 测试结果
+    results = []
+    total_count = len(test_data)
+
+    # 分类统计
+    category_counts = {
+        "success_plans": 0,
+        "plan_format_error": 0,
+        "precondition_violation": 0,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+    }
+    size_stats = defaultdict(lambda: {"total": 0, "success": 0})
+
+    # 批量处理
+    print(f"\nProcessing {total_count} problems in batches of {batch_size}...")
+
+    for batch_start in tqdm(range(0, total_count, batch_size), desc="Generating solutions"):
+        batch_end = min(batch_start + batch_size, total_count)
+        batch_samples = test_data[batch_start:batch_end]
+
+        # 批量生成
+        try:
+            batch_results = batch_generate_solutions(
+                model, tokenizer, batch_samples, family, temperature, device
+            )
+        except torch.cuda.OutOfMemoryError as e:
+            print(f"\nCUDA Out of Memory in batch {batch_start//batch_size + 1}")
+            print(f"Try reducing batch size (current: {batch_size})")
+            torch.cuda.empty_cache()
+            # 降级为逐个处理
+            batch_results = []
+            for sample in batch_samples:
+                try:
+                    single_result = batch_generate_solutions(
+                        model, tokenizer, [sample], family, temperature, device
+                    )
+                    batch_results.append(single_result[0])
+                except Exception as e:
+                    print(f"Error processing {sample['problem_name']}: {e}")
+                    batch_results.append(("", ""))
+
+        # 准备验证任务
+        validation_tasks = []
+        for sample, (output, raw_solution) in zip(batch_samples, batch_results):
+            validation_tasks.append((
+                domain_file,
+                sample['problem_file'],
+                raw_solution,
+                scenario_name,
+                sample['problem_name']
+            ))
+
+        # 并行验证
+        with ThreadPoolExecutor(max_workers=num_workers) as executor:
+            validation_futures = {
+                executor.submit(validate_solution_wrapper, task): idx
+                for idx, task in enumerate(validation_tasks)
+            }
+
+            validation_results = [None] * len(validation_tasks)
+            for future in as_completed(validation_futures):
+                idx = validation_futures[future]
+                try:
+                    validation_results[idx] = future.result()
+                except Exception as e:
+                    print(f"Validation error: {e}")
+                    validation_results[idx] = {
+                        'category': 'others',
+                        'validation_message': str(e),
+                        'validation_stdout': '',
+                        'validation_stderr': '',
+                        'validation_cmd': '',
+                        'size_key': None
+                    }
+
+        # 记录结果
+        for idx, (sample, (output, raw_solution), val_result) in enumerate(
+            zip(batch_samples, batch_results, validation_results)
+        ):
+            global_idx = batch_start + idx + 1
+            category = val_result['category']
+            size_key = val_result['size_key']
+
+            # 更新统计
+            if category in category_counts:
+                category_counts[category] += 1
+            else:
+                category_counts["others"] += 1
+
+            if size_key:
+                size_stats[size_key]["total"] += 1
+                if category == "success_plans":
+                    size_stats[size_key]["success"] += 1
+
+            is_valid = (category == "success_plans")
+
+            result = {
+                'index': global_idx,
+                'problem_name': sample['problem_name'],
+                'size_key': size_key,
+                'scenario': scenario_name,
+                'problem_file': sample['problem_file'],
+                'is_valid': is_valid,
+                'category': category,
+                'validation_message': val_result['validation_message'],
+                'validation_stdout': val_result['validation_stdout'],
+                'validation_stderr': val_result['validation_stderr'],
+                'validation_cmd': val_result['validation_cmd'],
+                'raw_solution': raw_solution,
+                'generation_error': None,
+                'ground_truth': sample.get('path', '')
+            }
+
+            results.append(result)
+
+    # 计算最终统计
+    success_count = category_counts["success_plans"]
+    final_success_rate = (success_count / total_count) * 100 if total_count > 0 else 0
+    size_success_rates = {}
+    for key, stats in size_stats.items():
+        total = stats["total"]
+        succ = stats["success"]
+        size_success_rates[key] = {
+            "total": total,
+            "success": succ,
+            "success_rate": (succ / total * 100) if total > 0 else 0
+        }
+
+    # 生成输出文件名
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp_iso = datetime.now().isoformat()
+
+    output_file_path = Path(output_file)
+    if output_file == "test_results.json":
+        model_name_clean = model_path.replace('/', '_').replace('\\', '_')
+        suffix = "_oneshot" if one_shot else ""
+        output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
+    else:
+        parent_dir = output_file_path.parent
+        stem = output_file_path.stem
+        suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+        oneshot_suffix = "_oneshot" if one_shot else ""
+        if parent_dir and str(parent_dir) != ".":
+            output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+        else:
+            output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
+
+    output_data = {
+        'timestamp': timestamp_iso,
+        'model_path': model_path,
+        'scenario': scenario_name,
+        'problems_dir': str(problems_dir),
+        'domain_file': str(domain_file),
+        'max_problems': max_problems,
+        'load_in_4bit': load_in_4bit,
+        'one_shot': one_shot,
+        'temperature': temperature,
+        'max_new_tokens': MAX_NEW_TOKENS,
+        'batch_size': batch_size,
+        'num_workers': num_workers,
+        'total_tests': total_count,
+        'success_count': success_count,
+        'success_rate': final_success_rate,
+        'category_counts': category_counts,
+        'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0
+                          for k, v in category_counts.items()},
+        'size_success_rates': size_success_rates,
+        'results': results
+    }
+
+    with open(output_file_path, 'w', encoding='utf-8') as f:
+        json.dump(output_data, f, indent=2, ensure_ascii=False)
+
+    print(f"\n" + "="*60)
+    print(f"FINAL RESULTS")
+    print(f"="*60)
+    print(f"Total tests: {total_count}")
+    print(f"Success plans: {success_count}")
+    print(f"Success rate: {final_success_rate:.1f}%")
+    print(f"\nCategory Breakdown:")
+    for category, count in category_counts.items():
+        rate = (count / total_count * 100) if total_count > 0 else 0
+        print(f"  {category}: {count} ({rate:.1f}%)")
+    if size_success_rates:
+        print(f"\nSuccess by Problem Size:")
+        for size_key in sorted(size_success_rates.keys()):
+            stats = size_success_rates[size_key]
+            print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%)")
+    print(f"\nResults saved to: {output_file_path}")
+
+def main():
+    """主函数"""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Evaluate PDDL model with batch processing")
+    parser.add_argument("--model", type=str, required=True,
+                       help="Path to model")
+    parser.add_argument("--output", type=str, default="test_results.json",
+                       help="Output JSON file name")
+    parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gemma", "gpt", "auto"],
+                       default="auto", help="Model family")
+    parser.add_argument("--max-problems", type=int, default=0,
+                       help="Maximum number of problems to test (0 for all)")
+    parser.add_argument("--results-dir", help="已废弃")
+    parser.add_argument("--problems-dir", type=str, required=True,
+                       help="包含多个 problem PDDL 的目录")
+    parser.add_argument("--domain-file", type=str, required=True,
+                       help="对应的 domain PDDL 文件路径")
+    parser.add_argument("--load-in-4bit", dest='load_in_4bit', action='store_true',
+                       help="Load model in 4-bit quantization (default: True)")
+    parser.add_argument("--no-load-in-4bit", dest='load_in_4bit', action='store_false',
+                       help="Disable 4-bit quantization")
+    parser.set_defaults(load_in_4bit=True)
+    parser.add_argument("--temperature", type=float, default=0.6,
+                       help="Temperature for text generation (default: 0.6)")
+    parser.add_argument("--one-shot", dest='one_shot', action='store_true',
+                       help="Use one-shot mode")
+    parser.add_argument("--no-one-shot", dest='one_shot', action='store_false',
+                       help="Disable one-shot mode (default)")
+    parser.set_defaults(one_shot=False)
+    parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE,
+                       help=f"Batch size for generation (default: {DEFAULT_BATCH_SIZE})")
+    parser.add_argument("--num-workers", type=int, default=DEFAULT_NUM_WORKERS,
+                       help=f"Number of parallel validation workers (default: {DEFAULT_NUM_WORKERS})")
+
+    args = parser.parse_args()
+
+    test_model_on_testing_data(
+        args.model,
+        args.output,
+        args.family,
+        args.max_problems,
+        args.results_dir,
+        problems_dir=args.problems_dir,
+        domain_file=args.domain_file,
+        load_in_4bit=args.load_in_4bit,
+        temperature=args.temperature,
+        one_shot=args.one_shot,
+        batch_size=args.batch_size,
+        num_workers=args.num_workers
+    )
+
+if __name__ == "__main__":
+    main()

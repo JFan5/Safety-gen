@@ -46,7 +46,8 @@ def convert_json_to_hf_format(json_data: List[Dict]) -> Dict[str, List]:
         HuggingFace 格式的字典
     """
     hf_data = {
-        'text': [],
+        'prompt': [],
+        'path': [],
         'domain': [],
         'problem_id': [],
         'domain_pddl': [],
@@ -55,12 +56,11 @@ def convert_json_to_hf_format(json_data: List[Dict]) -> Dict[str, List]:
     }
 
     for item in json_data:
-        # 创建完整的训练文本（prompt + completion）
+        # 创建 prompt（用于 pddl_finetune.py）
         prompt = format_pddl_prompt(item['domain_pddl'], item['problem_pddl'])
-        completion = item['plan']
-        full_text = f"{prompt}\n{completion}"
 
-        hf_data['text'].append(full_text)
+        hf_data['prompt'].append(prompt)
+        hf_data['path'].append(item['plan'])
         hf_data['domain'].append(item['domain'])
         hf_data['problem_id'].append(item['problem_id'])
         hf_data['domain_pddl'].append(item['domain_pddl'])
@@ -82,6 +82,11 @@ def create_train_val_split(dataset: Dataset, val_ratio: float = 0.1, seed: int =
     Returns:
         包含训练集和验证集的 DatasetDict
     """
+    # 将 domain 列转换为 ClassLabel 以支持分层分割
+    from datasets import ClassLabel
+    domain_names = sorted(list(set(dataset['domain'])))
+    dataset = dataset.cast_column('domain', ClassLabel(names=domain_names))
+
     # 按场景分层分割
     split = dataset.train_test_split(
         test_size=val_ratio,
@@ -187,8 +192,10 @@ def main():
     sample = dataset[0]
     print(f"Domain: {sample['domain']}")
     print(f"Problem ID: {sample['problem_id']}")
-    print(f"\nText (前 300 字符):")
-    print(sample['text'][:300] + "...")
+    print(f"\nPrompt (前 300 字符):")
+    print(sample['prompt'][:300] + "...")
+    print(f"\nPath/Plan (前 200 字符):")
+    print(sample['path'][:200])
     print("-" * 70)
 
     print("\n" + "=" * 70)

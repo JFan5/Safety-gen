@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_blocksworld.o
-#SBATCH --job-name=grpo_mistral_7b_blocksworld
+#SBATCH --output=job_outputs/grpo_mistral_7b_blocksworld_stl.o
+#SBATCH --job-name=grpo_mistral_7b_blocksworld_stl
 
 
 
@@ -16,11 +16,12 @@ cd /home/ubuntu/Safety-gen
 export CUDA_VISIBLE_DEVICES=0
 
 # Configuration
-BASE_MODEL="/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1"
-DATASET="/jfan5/ppo_data/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-2"
+BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
+DATASET="/jfan5/grpo_data-127/blocksworld.jsonl"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-1208-500"
 
 # Training parameters
+
 
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=8
@@ -30,10 +31,9 @@ TEMPERATURE=0.6
 MAX_STEPS=500
 TOP_P=0.9
 LOGGING_STEPS=20
-SAVE_STEPS=200
-EVAL_STEPS=100
+SAVE_STEPS=100
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-blocksworld-stl-121"
+RUN_NAME="grpo_mistral_7b-blocksworld-1208-500"
 BETA=0.01
 MAX_GRAD_NORM=1
 echo "=========================================="
