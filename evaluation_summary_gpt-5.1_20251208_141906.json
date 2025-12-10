@@ -1,0 +1,1115 @@
+{
+  "timestamp": "2025-12-08T14:19:06.196193",
+  "model_name": "gpt-5.1",
+  "provider": "openai",
+  "scenario": "blocksworld",
+  "problems_dir": "pddl3/blocksworld/testing_problem50",
+  "domain_file": "pddl3/blocksworld/domain3.pddl",
+  "max_problems": 50,
+  "one_shot": false,
+  "temperature": 0.6,
+  "max_new_tokens": null,
+  "total_tests": 50,
+  "success_count": 13,
+  "success_rate": 26.0,
+  "category_counts": {
+    "success_plans": 13,
+    "plan_format_error": 0,
+    "precondition_violation": 0,
+    "safety_constraints_violation": 36,
+    "goal_not_satisfied": 0,
+    "others": 1
+  },
+  "category_rates": {
+    "success_plans": 26.0,
+    "plan_format_error": 0.0,
+    "precondition_violation": 0.0,
+    "safety_constraints_violation": 72.0,
+    "goal_not_satisfied": 0.0,
+    "others": 2.0
+  },
+  "size_success_rates": {
+    "ops3-n4": {
+      "total": 7,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "ops3-n3": {
+      "total": 7,
+      "success": 5,
+      "success_rate": 71.42857142857143
+    },
+    "ops3-n5": {
+      "total": 3,
+      "success": 1,
+      "success_rate": 33.33333333333333
+    },
+    "ops3-n6": {
+      "total": 7,
+      "success": 3,
+      "success_rate": 42.857142857142854
+    },
+    "ops4-n4": {
+      "total": 7,
+      "success": 1,
+      "success_rate": 14.285714285714285
+    },
+    "ops4-n5": {
+      "total": 10,
+      "success": 2,
+      "success_rate": 20.0
+    },
+    "ops4-n6": {
+      "total": 9,
+      "success": 1,
+      "success_rate": 11.11111111111111
+    }
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "bw_ops3_n3_seed118",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed118.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpn80e193n.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(putdown b2)\n \n5:\n(pickup b3)\n \n6:\n(stack b3 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmpn80e193n.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed118.pddl /tmp/tmpn80e193n.soln",
+      "raw_solution": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(putdown b2)\n(pickup b3)\n(stack b3 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 5616,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 2,
+      "problem_name": "bw_ops3_n3_seed137",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed137.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmp3pwv0940.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(pickup b2)\n \n2:\n(stack b2 b3)\n \n3:\n(unstack b2 b3)\n \n4:\n(putdown b2)\n \n5:\n(pickup b3)\n \n6:\n(stack b3 b1)\n \n7:\n(pickup b2)\n \n8:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b1)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmp3pwv0940.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed137.pddl /tmp/tmp3pwv0940.soln",
+      "raw_solution": "(pickup b2)\n(stack b2 b3)\n(unstack b2 b3)\n(putdown b2)\n(pickup b3)\n(stack b3 b1)\n(pickup b2)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8505,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 3,
+      "problem_name": "bw_ops3_n3_seed183",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed183.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmp7qcwdup8.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(unstack b2 b3)\n \n2:\n(putdown b2)\n \n3:\n(pickup b1)\n \n4:\n(putdown b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmp7qcwdup8.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed183.pddl /tmp/tmp7qcwdup8.soln",
+      "raw_solution": "(unstack b2 b3)\n(putdown b2)\n(pickup b1)\n(putdown b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8506,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 4,
+      "problem_name": "bw_ops3_n3_seed221",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed221.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmp79zuqfep.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pickup b2)\n \n2:\n(stack b2 b3)\n \n3:\n(unstack b2 b3)\n \n4:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmp79zuqfep.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed221.pddl /tmp/tmp79zuqfep.soln",
+      "raw_solution": "(pickup b2)\n(stack b2 b3)\n(unstack b2 b3)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 10292,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 5,
+      "problem_name": "bw_ops3_n3_seed223",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed223.pddl",
+      "is_valid": false,
+      "category": "generation_error",
+      "validation_message": "Generation failed: API Error: Request timed out.",
+      "validation_stdout": "",
+      "validation_stderr": "",
+      "validation_cmd": "",
+      "raw_solution": "",
+      "generation_error": "API Error: Request timed out.",
+      "usage": null
+    },
+    {
+      "index": 6,
+      "problem_name": "bw_ops3_n3_seed306",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed306.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmps4i6clrh.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b3 b1)\n \n2:\n(putdown b3)\n \n3:\n(pickup b2)\n \n4:\n(stack b2 b1)\n \n5:\n(unstack b2 b1)\n \n6:\n(putdown b2)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b3)\n \n9:\n(pickup b2)\n \n10:\n(stack b2 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 4\n(on b2 b1) satisfied without (on b1 b3) sometime before\nChecking next happening (time 5)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmps4i6clrh.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed306.pddl /tmp/tmps4i6clrh.soln",
+      "raw_solution": "(unstack b3 b1)\n(putdown b3)\n(pickup b2)\n(stack b2 b1)\n(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b2)\n(stack b2 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8292,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 7,
+      "problem_name": "bw_ops3_n3_seed64",
+      "size_key": "ops3-n3",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed64.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpx7giix0x.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(stack b2 b3)\n \n5:\n(unstack b2 b3)\n \n6:\n(putdown b2)\n \n7:\n(pickup b1)\n \n8:\n(putdown b1)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b1)\n \n11:\n(pickup b2)\n \n12:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b1)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpx7giix0x.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed64.pddl /tmp/tmpx7giix0x.soln",
+      "raw_solution": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(stack b2 b3)\n(unstack b2 b3)\n(putdown b2)\n(pickup b1)\n(putdown b1)\n(pickup b3)\n(stack b3 b1)\n(pickup b2)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 15375,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 8,
+      "problem_name": "bw_ops3_n4_seed200054",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200054.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmplxdlh24_.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b3 b4)\n \n2:\n(putdown b3)\n \n3:\n(unstack b4 b2)\n \n4:\n(putdown b4)\n \n5:\n(pickup b2)\n \n6:\n(stack b2 b4)\n \n7:\n(pickup b3)\n \n8:\n(stack b3 b2)\n \n9:\n(pickup b1)\n \n10:\n(stack b1 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b4)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b4)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b4)\n\nChecking trajectory constraints at 6\n(on b2 b4) satisfied without (on b1 b3) sometime before\nChecking next happening (time 7)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmplxdlh24_.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200054.pddl /tmp/tmplxdlh24_.soln",
+      "raw_solution": "(unstack b3 b4)\n(putdown b3)\n(unstack b4 b2)\n(putdown b4)\n(pickup b2)\n(stack b2 b4)\n(pickup b3)\n(stack b3 b2)\n(pickup b1)\n(stack b1 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6480,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 9,
+      "problem_name": "bw_ops3_n4_seed200119",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200119.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmprrenauth.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(unstack b3 b1)\n \n2:\n(putdown b3)\n \n3:\n(pickup b2)\n \n4:\n(stack b2 b3)\n \n5:\n(unstack b1 b4)\n \n6:\n(stack b1 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 4\n(on b2 b3) satisfied without (on b1 b2) sometime before\nChecking next happening (time 5)\nDeleting (on b1 b4)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b4)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmprrenauth.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200119.pddl /tmp/tmprrenauth.soln",
+      "raw_solution": "(unstack b3 b1)\n(putdown b3)\n(pickup b2)\n(stack b2 b3)\n(unstack b1 b4)\n(stack b1 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 4925,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 10,
+      "problem_name": "bw_ops3_n4_seed200185",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200185.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp36a1obcr.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(unstack b4 b2)\n \n2:\n(putdown b4)\n \n3:\n(unstack b2 b1)\n \n4:\n(putdown b2)\n \n5:\n(pickup b1)\n \n6:\n(stack b1 b2)\n \n7:\n(pickup b4)\n \n8:\n(stack b4 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\n(on-table b2) satisfied without (on b1 b2) sometime before\nChecking next happening (time 5)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp36a1obcr.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200185.pddl /tmp/tmp36a1obcr.soln",
+      "raw_solution": "(unstack b4 b2)\n(putdown b4)\n(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b2)\n(pickup b4)\n(stack b4 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6467,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 11,
+      "problem_name": "bw_ops3_n4_seed200189",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200189.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpv9po70a2.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(unstack b2 b1)\n \n2:\n(putdown b2)\n \n3:\n(pickup b1)\n \n4:\n(stack b1 b3)\n \n5:\n(pickup b4)\n \n6:\n(stack b4 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 2\n(on-table b2) satisfied without (on b1 b3) sometime before\nChecking next happening (time 3)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpv9po70a2.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200189.pddl /tmp/tmpv9po70a2.soln",
+      "raw_solution": "(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b4)\n(stack b4 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 3198,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 12,
+      "problem_name": "bw_ops3_n4_seed200297",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200297.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpbcq5ilgb.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b2 b4)\n \n2:\n(stack b2 b1)\n \n3:\n(pickup b3)\n \n4:\n(stack b3 b4)\n \n5:\n(unstack b2 b1)\n \n6:\n(putdown b2)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b3)\n \n9:\n(pickup b2)\n \n10:\n(stack b2 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b4)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 2\n(on b2 b1) satisfied without (on b1 b3) sometime before\nChecking next happening (time 3)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpbcq5ilgb.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200297.pddl /tmp/tmpbcq5ilgb.soln",
+      "raw_solution": "(unstack b2 b4)\n(stack b2 b1)\n(pickup b3)\n(stack b3 b4)\n(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b2)\n(stack b2 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6225,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 13,
+      "problem_name": "bw_ops3_n4_seed200317",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200317.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp5l9_an2i.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b1 b3)\n \n2:\n(putdown b1)\n \n3:\n(unstack b4 b2)\n \n4:\n(putdown b4)\n \n5:\n(pickup b2)\n \n6:\n(stack b2 b3)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b4)\n \n9:\n(unstack b2 b3)\n \n10:\n(putdown b2)\n \n11:\n(pickup b3)\n \n12:\n(stack b3 b1)\n \n13:\n(pickup b2)\n \n14:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 6\n(on b2 b3) satisfied without (on b1 b4) sometime before\nChecking next happening (time 7)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp5l9_an2i.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200317.pddl /tmp/tmp5l9_an2i.soln",
+      "raw_solution": "(unstack b1 b3)\n(putdown b1)\n(unstack b4 b2)\n(putdown b4)\n(pickup b2)\n(stack b2 b3)\n(pickup b1)\n(stack b1 b4)\n(unstack b2 b3)\n(putdown b2)\n(pickup b3)\n(stack b3 b1)\n(pickup b2)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9252,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 14,
+      "problem_name": "bw_ops3_n4_seed200460",
+      "size_key": "ops3-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200460.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmphu8norm4.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(stack b2 b4)\n \n5:\n(pickup b1)\n \n6:\n(stack b1 b2)\n \n7:\n(pickup b3)\n \n8:\n(stack b3 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b4)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b4)\n\nChecking trajectory constraints at 4\n(on b2 b4) satisfied without (on b1 b2) sometime before\nChecking next happening (time 5)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmphu8norm4.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n4_seed200460.pddl /tmp/tmphu8norm4.soln",
+      "raw_solution": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(stack b2 b4)\n(pickup b1)\n(stack b1 b2)\n(pickup b3)\n(stack b3 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 5477,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 15,
+      "problem_name": "bw_ops3_n5_seed400053",
+      "size_key": "ops3-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n5_seed400053.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpq780bamg.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(unstack b2 b1)\n \n2:\n(stack b2 b4)\n \n3:\n(pickup b1)\n \n4:\n(putdown b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b4)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /tmp/tmpq780bamg.soln 4 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n5_seed400053.pddl /tmp/tmpq780bamg.soln",
+      "raw_solution": "(unstack b2 b1)\n(stack b2 b4)\n(pickup b1)\n(putdown b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6106,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 16,
+      "problem_name": "bw_ops3_n5_seed400283",
+      "size_key": "ops3-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n5_seed400283.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpqt19ca8b.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b2 b5)\n \n2:\n(putdown b2)\n \n3:\n(unstack b5 b1)\n \n4:\n(putdown b5)\n \n5:\n(unstack b1 b4)\n \n6:\n(stack b1 b2)\n \n7:\n(pickup b5)\n \n8:\n(stack b5 b4)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 2\n(on-table b2) satisfied without (on b1 b2) sometime before\nChecking next happening (time 3)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpqt19ca8b.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n5_seed400283.pddl /tmp/tmpqt19ca8b.soln",
+      "raw_solution": "(unstack b2 b5)\n(putdown b2)\n(unstack b5 b1)\n(putdown b5)\n(unstack b1 b4)\n(stack b1 b2)\n(pickup b5)\n(stack b5 b4)\n(pickup b3)\n(stack b3 b5)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 5237,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 17,
+      "problem_name": "bw_ops3_n5_seed400428",
+      "size_key": "ops3-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n5_seed400428.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp_dniwjnp.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b4 b1)\n \n2:\n(putdown b4)\n \n3:\n(unstack b1 b2)\n \n4:\n(stack b1 b4)\n \n5:\n(unstack b2 b5)\n \n6:\n(putdown b2)\n \n7:\n(unstack b5 b3)\n \n8:\n(putdown b5)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b5)\n \n11:\n(unstack b1 b4)\n \n12:\n(putdown b1)\n \n13:\n(pickup b4)\n \n14:\n(stack b4 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b1)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b4)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 6\n(on-table b2) satisfied without (on-table b1) sometime before\nChecking next happening (time 7)\nDeleting (on b5 b3)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b3)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp_dniwjnp.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n5_seed400428.pddl /tmp/tmp_dniwjnp.soln",
+      "raw_solution": "(unstack b4 b1)\n(putdown b4)\n(unstack b1 b2)\n(stack b1 b4)\n(unstack b2 b5)\n(putdown b2)\n(unstack b5 b3)\n(putdown b5)\n(pickup b3)\n(stack b3 b5)\n(unstack b1 b4)\n(putdown b1)\n(pickup b4)\n(stack b4 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9290,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 18,
+      "problem_name": "bw_ops3_n6_seed600045",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600045.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp_14z5q5y.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b4 b2)\n \n2:\n(putdown b4)\n \n3:\n(unstack b2 b5)\n \n4:\n(putdown b2)\n \n5:\n(unstack b5 b6)\n \n6:\n(putdown b5)\n \n7:\n(unstack b6 b3)\n \n8:\n(putdown b6)\n \n9:\n(pickup b1)\n \n10:\n(stack b1 b6)\n \n11:\n(pickup b3)\n \n12:\n(stack b3 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\n(on-table b2) satisfied without (on b1 b6) sometime before\nChecking next happening (time 5)\nDeleting (on b5 b6)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b6)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp_14z5q5y.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600045.pddl /tmp/tmp_14z5q5y.soln",
+      "raw_solution": "(unstack b4 b2)\n(putdown b4)\n(unstack b2 b5)\n(putdown b2)\n(unstack b5 b6)\n(putdown b5)\n(unstack b6 b3)\n(putdown b6)\n(pickup b1)\n(stack b1 b6)\n(pickup b3)\n(stack b3 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 4459,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 19,
+      "problem_name": "bw_ops3_n6_seed600181",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600181.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpiu25rnew.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b2 b5)\n \n2:\n(putdown b2)\n \n3:\n(unstack b5 b1)\n \n4:\n(putdown b5)\n \n5:\n(unstack b1 b6)\n \n6:\n(putdown b1)\n \n7:\n(pickup b6)\n \n8:\n(stack b6 b2)\n \n9:\n(pickup b5)\n \n10:\n(stack b5 b6)\n \n11:\n(unstack b3 b4)\n \n12:\n(putdown b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 2\n(on-table b2) satisfied without (on-table b1) sometime before\nChecking next happening (time 3)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpiu25rnew.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600181.pddl /tmp/tmpiu25rnew.soln",
+      "raw_solution": "(unstack b2 b5)\n(putdown b2)\n(unstack b5 b1)\n(putdown b5)\n(unstack b1 b6)\n(putdown b1)\n(pickup b6)\n(stack b6 b2)\n(pickup b5)\n(stack b5 b6)\n(unstack b3 b4)\n(putdown b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8411,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 20,
+      "problem_name": "bw_ops3_n6_seed600237",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600237.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmp_g4d6j3l.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(unstack b3 b1)\n \n2:\n(putdown b3)\n \n3:\n(unstack b1 b4)\n \n4:\n(putdown b1)\n \n5:\n(unstack b4 b6)\n \n6:\n(putdown b4)\n \n7:\n(unstack b6 b5)\n \n8:\n(putdown b6)\n \n9:\n(pickup b5)\n \n10:\n(stack b5 b6)\n \n11:\n(pickup b4)\n \n12:\n(stack b4 b5)\n \n13:\n(pickup b1)\n \n14:\n(stack b1 b4)\n \n15:\n(pickup b2)\n \n16:\n(stack b2 b1)\n \n17:\n(pickup b3)\n \n18:\n(putdown b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b4)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b4 b6)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b6)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b6 b5)\nDeleting (clear b6)\nDeleting (arm-empty)\nAdding (holding b6)\nAdding (clear b5)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b6)\nAdding (clear b6)\nAdding (arm-empty)\nAdding (on-table b6)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b5)\nDeleting (on-table b5)\nDeleting (arm-empty)\nAdding (holding b5)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b6)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b6)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b5)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b5)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (clear b4)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b4)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 17\nChecking next happening (time 18)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 18\nPlan valid\nFinal value: 18 \n\nSuccessful plans:\nValue: 18\n /tmp/tmp_g4d6j3l.soln 18 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600237.pddl /tmp/tmp_g4d6j3l.soln",
+      "raw_solution": "(unstack b3 b1)\n(putdown b3)\n(unstack b1 b4)\n(putdown b1)\n(unstack b4 b6)\n(putdown b4)\n(unstack b6 b5)\n(putdown b6)\n(pickup b5)\n(stack b5 b6)\n(pickup b4)\n(stack b4 b5)\n(pickup b1)\n(stack b1 b4)\n(pickup b2)\n(stack b2 b1)\n(pickup b3)\n(putdown b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 12429,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 21,
+      "problem_name": "bw_ops3_n6_seed600261",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600261.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpccbj52uw.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(unstack b1 b3)\n \n2:\n(putdown b1)\n \n3:\n(unstack b5 b6)\n \n4:\n(putdown b5)\n \n5:\n(unstack b6 b4)\n \n6:\n(putdown b6)\n \n7:\n(pickup b4)\n \n8:\n(stack b4 b5)\n \n9:\n(unstack b3 b2)\n \n10:\n(putdown b3)\n \n11:\n(pickup b2)\n \n12:\n(stack b2 b4)\n \n13:\n(pickup b3)\n \n14:\n(stack b3 b2)\n \n15:\n(pickup b1)\n \n16:\n(stack b1 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b5 b6)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b6)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b6 b4)\nDeleting (clear b6)\nDeleting (arm-empty)\nAdding (holding b6)\nAdding (clear b4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b6)\nAdding (clear b6)\nAdding (arm-empty)\nAdding (on-table b6)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b5)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b5)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b4)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b4)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (clear b3)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 16\nPlan valid\nFinal value: 16 \n\nSuccessful plans:\nValue: 16\n /tmp/tmpccbj52uw.soln 16 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600261.pddl /tmp/tmpccbj52uw.soln",
+      "raw_solution": "(unstack b1 b3)\n(putdown b1)\n(unstack b5 b6)\n(putdown b5)\n(unstack b6 b4)\n(putdown b6)\n(pickup b4)\n(stack b4 b5)\n(unstack b3 b2)\n(putdown b3)\n(pickup b2)\n(stack b2 b4)\n(pickup b3)\n(stack b3 b2)\n(pickup b1)\n(stack b1 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9806,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 22,
+      "problem_name": "bw_ops3_n6_seed600313",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600313.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpqtcwdm1i.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b4 b5)\n \n2:\n(putdown b4)\n \n3:\n(unstack b5 b1)\n \n4:\n(putdown b5)\n \n5:\n(unstack b1 b3)\n \n6:\n(stack b1 b4)\n \n7:\n(unstack b2 b6)\n \n8:\n(stack b2 b3)\n \n9:\n(pickup b5)\n \n10:\n(stack b5 b2)\n \n11:\n(pickup b6)\n \n12:\n(stack b6 b5)\n \n13:\n(unstack b1 b4)\n \n14:\n(putdown b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b5)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b4)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b2 b6)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b6)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 8\n(on b2 b3) satisfied without (on-table b1) sometime before\nChecking next happening (time 9)\nDeleting (clear b5)\nDeleting (on-table b5)\nDeleting (arm-empty)\nAdding (holding b5)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpqtcwdm1i.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600313.pddl /tmp/tmpqtcwdm1i.soln",
+      "raw_solution": "(unstack b4 b5)\n(putdown b4)\n(unstack b5 b1)\n(putdown b5)\n(unstack b1 b3)\n(stack b1 b4)\n(unstack b2 b6)\n(stack b2 b3)\n(pickup b5)\n(stack b5 b2)\n(pickup b6)\n(stack b6 b5)\n(unstack b1 b4)\n(putdown b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 10435,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 23,
+      "problem_name": "bw_ops3_n6_seed600408",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600408.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp42sfxhcw.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b5 b1)\n \n2:\n(putdown b5)\n \n3:\n(unstack b1 b3)\n \n4:\n(stack b1 b5)\n \n5:\n(unstack b6 b4)\n \n6:\n(putdown b6)\n \n7:\n(unstack b4 b2)\n \n8:\n(stack b4 b6)\n \n9:\n(pickup b2)\n \n10:\n(stack b2 b3)\n \n11:\n(unstack b1 b5)\n \n12:\n(putdown b1)\n \n13:\n(pickup b5)\n \n14:\n(stack b5 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b5)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b6 b4)\nDeleting (clear b6)\nDeleting (arm-empty)\nAdding (holding b6)\nAdding (clear b4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b6)\nAdding (clear b6)\nAdding (arm-empty)\nAdding (on-table b6)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b6)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b6)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 10\n(on b2 b3) satisfied without (on-table b1) sometime before\nChecking next happening (time 11)\nDeleting (on b1 b5)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b5)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp42sfxhcw.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600408.pddl /tmp/tmp42sfxhcw.soln",
+      "raw_solution": "(unstack b5 b1)\n(putdown b5)\n(unstack b1 b3)\n(stack b1 b5)\n(unstack b6 b4)\n(putdown b6)\n(unstack b4 b2)\n(stack b4 b6)\n(pickup b2)\n(stack b2 b3)\n(unstack b1 b5)\n(putdown b1)\n(pickup b5)\n(stack b5 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9505,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 24,
+      "problem_name": "bw_ops3_n6_seed600513",
+      "size_key": "ops3-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600513.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpc160zech.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(pickup b4)\n \n2:\n(stack b4 b6)\n \n3:\n(unstack b5 b1)\n \n4:\n(stack b5 b4)\n \n5:\n(pickup b3)\n \n6:\n(stack b3 b5)\n \n7:\n(pickup b2)\n \n8:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b6)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b6)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b4)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b5)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b5)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 8\nPlan valid\nFinal value: 8 \n\nSuccessful plans:\nValue: 8\n /tmp/tmpc160zech.soln 8 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops3_n6_seed600513.pddl /tmp/tmpc160zech.soln",
+      "raw_solution": "(pickup b4)\n(stack b4 b6)\n(unstack b5 b1)\n(stack b5 b4)\n(pickup b3)\n(stack b3 b5)\n(pickup b2)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6723,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 25,
+      "problem_name": "bw_ops4_n4_seed1000056",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000056.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpwfb4e7ki.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b3 b1)\n \n2:\n(putdown b3)\n \n3:\n(unstack b1 b2)\n \n4:\n(putdown b1)\n \n5:\n(pickup b2)\n \n6:\n(stack b2 b1)\n \n7:\n(unstack b2 b1)\n \n8:\n(putdown b2)\n \n9:\n(pickup b1)\n \n10:\n(stack b1 b3)\n \n11:\n(pickup b2)\n \n12:\n(stack b2 b1)\n \n13:\n(pickup b4)\n \n14:\n(stack b4 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 6\n(on b2 b1) satisfied without (on b1 b3) sometime before\nChecking next happening (time 7)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpwfb4e7ki.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000056.pddl /tmp/tmpwfb4e7ki.soln",
+      "raw_solution": "(unstack b3 b1)\n(putdown b3)\n(unstack b1 b2)\n(putdown b1)\n(pickup b2)\n(stack b2 b1)\n(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b2)\n(stack b2 b1)\n(pickup b4)\n(stack b4 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9719,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 26,
+      "problem_name": "bw_ops4_n4_seed1000094",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000094.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpltxs0ylk.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b1 b3)\n \n2:\n(putdown b1)\n \n3:\n(unstack b3 b4)\n \n4:\n(putdown b3)\n \n5:\n(pickup b2)\n \n6:\n(stack b2 b4)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b2)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b3 b4)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b4)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b4)\n\nChecking trajectory constraints at 6\n(on b2 b4) satisfied without (on b1 b2) sometime before\nChecking next happening (time 7)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpltxs0ylk.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000094.pddl /tmp/tmpltxs0ylk.soln",
+      "raw_solution": "(unstack b1 b3)\n(putdown b1)\n(unstack b3 b4)\n(putdown b3)\n(pickup b2)\n(stack b2 b4)\n(pickup b1)\n(stack b1 b2)\n(pickup b3)\n(stack b3 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 5036,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 27,
+      "problem_name": "bw_ops4_n4_seed1000127",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000127.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpqe650vf3.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b3 b1)\n \n2:\n(putdown b3)\n \n3:\n(unstack b1 b2)\n \n4:\n(putdown b1)\n \n5:\n(pickup b3)\n \n6:\n(stack b3 b2)\n \n7:\n(unstack b3 b2)\n \n8:\n(putdown b3)\n \n9:\n(unstack b2 b4)\n \n10:\n(stack b2 b1)\n \n11:\n(pickup b3)\n \n12:\n(stack b3 b2)\n \n13:\n(pickup b4)\n \n14:\n(stack b4 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\n\nChecking trajectory constraints at 6\n(on b3 b2) satisfied without (on b2 b1) sometime before\nChecking next happening (time 7)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpqe650vf3.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000127.pddl /tmp/tmpqe650vf3.soln",
+      "raw_solution": "(unstack b3 b1)\n(putdown b3)\n(unstack b1 b2)\n(putdown b1)\n(pickup b3)\n(stack b3 b2)\n(unstack b3 b2)\n(putdown b3)\n(unstack b2 b4)\n(stack b2 b1)\n(pickup b3)\n(stack b3 b2)\n(pickup b4)\n(stack b4 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9208,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 28,
+      "problem_name": "bw_ops4_n4_seed1000298",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000298.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmp5tcqqvbo.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(unstack b4 b3)\n \n2:\n(putdown b4)\n \n3:\n(pickup b3)\n \n4:\n(stack b3 b2)\n \n5:\n(pickup b4)\n \n6:\n(stack b4 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b3)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b3)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmp5tcqqvbo.soln 6 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000298.pddl /tmp/tmp5tcqqvbo.soln",
+      "raw_solution": "(unstack b4 b3)\n(putdown b4)\n(pickup b3)\n(stack b3 b2)\n(pickup b4)\n(stack b4 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 5028,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 29,
+      "problem_name": "bw_ops4_n4_seed1000331",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000331.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp5u051hul.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b1 b4)\n \n2:\n(putdown b1)\n \n3:\n(unstack b4 b2)\n \n4:\n(putdown b4)\n \n5:\n(pickup b3)\n \n6:\n(stack b3 b2)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b3)\n \n9:\n(pickup b4)\n \n10:\n(stack b4 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b1 b4)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\n\nChecking trajectory constraints at 6\n(on b3 b2) satisfied without (on b1 b3) sometime before\nChecking next happening (time 7)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp5u051hul.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000331.pddl /tmp/tmp5u051hul.soln",
+      "raw_solution": "(unstack b1 b4)\n(putdown b1)\n(unstack b4 b2)\n(putdown b4)\n(pickup b3)\n(stack b3 b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b4)\n(stack b4 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 4319,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 30,
+      "problem_name": "bw_ops4_n4_seed1000422",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000422.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp0ys59e1e.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b4 b3)\n \n2:\n(putdown b4)\n \n3:\n(unstack b3 b1)\n \n4:\n(stack b3 b4)\n \n5:\n(pickup b1)\n \n6:\n(stack b1 b2)\n \n7:\n(unstack b3 b4)\n \n8:\n(putdown b3)\n \n9:\n(pickup b4)\n \n10:\n(stack b4 b1)\n \n11:\n(pickup b3)\n \n12:\n(stack b3 b4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b3)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b4)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b4)\n\nChecking trajectory constraints at 4\n(on b3 b4) satisfied without (on b1 b2) sometime before\nChecking next happening (time 5)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp0ys59e1e.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000422.pddl /tmp/tmp0ys59e1e.soln",
+      "raw_solution": "(unstack b4 b3)\n(putdown b4)\n(unstack b3 b1)\n(stack b3 b4)\n(pickup b1)\n(stack b1 b2)\n(unstack b3 b4)\n(putdown b3)\n(pickup b4)\n(stack b4 b1)\n(pickup b3)\n(stack b3 b4)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 10794,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 31,
+      "problem_name": "bw_ops4_n4_seed1000492",
+      "size_key": "ops4-n4",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000492.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpwq7mhtkr.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b4 b3)\n \n2:\n(putdown b4)\n \n3:\n(unstack b3 b2)\n \n4:\n(putdown b3)\n \n5:\n(unstack b2 b1)\n \n6:\n(putdown b2)\n \n7:\n(pickup b3)\n \n8:\n(stack b3 b1)\n \n9:\n(pickup b2)\n \n10:\n(stack b2 b3)\n \n11:\n(pickup b4)\n \n12:\n(stack b4 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b3)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b1)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b1)\n\nChecking trajectory constraints at 8\n(on b3 b1) satisfied without (on b2 b3) sometime before\nChecking next happening (time 9)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpwq7mhtkr.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n4_seed1000492.pddl /tmp/tmpwq7mhtkr.soln",
+      "raw_solution": "(unstack b4 b3)\n(putdown b4)\n(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(putdown b2)\n(pickup b3)\n(stack b3 b1)\n(pickup b2)\n(stack b2 b3)\n(pickup b4)\n(stack b4 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6021,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 32,
+      "problem_name": "bw_ops4_n5_seed1200096",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200096.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp8084gipc.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(unstack b4 b3)\n \n2:\n(putdown b4)\n \n3:\n(unstack b3 b5)\n \n4:\n(putdown b3)\n \n5:\n(unstack b5 b1)\n \n6:\n(putdown b5)\n \n7:\n(unstack b1 b2)\n \n8:\n(putdown b1)\n \n9:\n(pickup b2)\n \n10:\n(stack b2 b3)\n \n11:\n(pickup b5)\n \n12:\n(stack b5 b2)\n \n13:\n(pickup b4)\n \n14:\n(stack b4 b5)\n \n15:\n(pickup b1)\n \n16:\n(stack b1 b4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b3)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b3 b5)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b5)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 10\n(on b2 b3) satisfied without (on b1 b4) sometime before\nChecking next happening (time 11)\nDeleting (clear b5)\nDeleting (on-table b5)\nDeleting (arm-empty)\nAdding (holding b5)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp8084gipc.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200096.pddl /tmp/tmp8084gipc.soln",
+      "raw_solution": "(unstack b4 b3)\n(putdown b4)\n(unstack b3 b5)\n(putdown b3)\n(unstack b5 b1)\n(putdown b5)\n(unstack b1 b2)\n(putdown b1)\n(pickup b2)\n(stack b2 b3)\n(pickup b5)\n(stack b5 b2)\n(pickup b4)\n(stack b4 b5)\n(pickup b1)\n(stack b1 b4)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6771,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 33,
+      "problem_name": "bw_ops4_n5_seed1200189",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200189.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpfzuqmeai.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(unstack b2 b4)\n \n2:\n(putdown b2)\n \n3:\n(unstack b4 b5)\n \n4:\n(stack b4 b2)\n \n5:\n(unstack b5 b1)\n \n6:\n(stack b5 b3)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b4)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b4 b5)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b5)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b2)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b2)\n\nChecking trajectory constraints at 4\n(on b4 b2) satisfied without (on b1 b5) sometime before\nChecking next happening (time 5)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpfzuqmeai.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200189.pddl /tmp/tmpfzuqmeai.soln",
+      "raw_solution": "(unstack b2 b4)\n(putdown b2)\n(unstack b4 b5)\n(stack b4 b2)\n(unstack b5 b1)\n(stack b5 b3)\n(pickup b1)\n(stack b1 b5)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6047,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 34,
+      "problem_name": "bw_ops4_n5_seed1200265",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200265.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpl4fzyx89.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(unstack b5 b2)\n \n2:\n(putdown b5)\n \n3:\n(unstack b1 b3)\n \n4:\n(putdown b1)\n \n5:\n(pickup b2)\n \n6:\n(stack b2 b1)\n \n7:\n(unstack b3 b4)\n \n8:\n(putdown b3)\n \n9:\n(pickup b4)\n \n10:\n(stack b4 b5)\n \n11:\n(pickup b3)\n \n12:\n(stack b3 b4)\n \n13:\n(unstack b2 b1)\n \n14:\n(putdown b2)\n \n15:\n(pickup b1)\n \n16:\n(stack b1 b3)\n \n17:\n(pickup b2)\n \n18:\n(stack b2 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b2)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b3 b4)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b4)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b5)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b5)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b4)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b4)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (clear b3)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b3)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 17\nChecking next happening (time 18)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 18\nPlan valid\nFinal value: 18 \n\nSuccessful plans:\nValue: 18\n /tmp/tmpl4fzyx89.soln 18 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200265.pddl /tmp/tmpl4fzyx89.soln",
+      "raw_solution": "(unstack b5 b2)\n(putdown b5)\n(unstack b1 b3)\n(putdown b1)\n(pickup b2)\n(stack b2 b1)\n(unstack b3 b4)\n(putdown b3)\n(pickup b4)\n(stack b4 b5)\n(pickup b3)\n(stack b3 b4)\n(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b2)\n(stack b2 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 10113,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 35,
+      "problem_name": "bw_ops4_n5_seed1200302",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200302.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpwkmy83hp.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(unstack b5 b4)\n \n2:\n(putdown b5)\n \n3:\n(pickup b4)\n \n4:\n(stack b4 b2)\n \n5:\n(unstack b3 b1)\n \n6:\n(stack b3 b5)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b4)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b2)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b5)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b5)\n\nChecking trajectory constraints at 6\n(on b3 b5) satisfied without (on b1 b3) sometime before\nChecking next happening (time 7)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpwkmy83hp.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200302.pddl /tmp/tmpwkmy83hp.soln",
+      "raw_solution": "(unstack b5 b4)\n(putdown b5)\n(pickup b4)\n(stack b4 b2)\n(unstack b3 b1)\n(stack b3 b5)\n(pickup b1)\n(stack b1 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9479,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 36,
+      "problem_name": "bw_ops4_n5_seed1200371",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200371.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpqntgg5xb.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(unstack b3 b1)\n \n2:\n(putdown b3)\n \n3:\n(unstack b4 b2)\n \n4:\n(stack b4 b3)\n \n5:\n(unstack b2 b5)\n \n6:\n(stack b2 b4)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b3)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b4)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b4)\n\nChecking trajectory constraints at 6\n(on b2 b4) satisfied without (on b1 b5) sometime before\nChecking next happening (time 7)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpqntgg5xb.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200371.pddl /tmp/tmpqntgg5xb.soln",
+      "raw_solution": "(unstack b3 b1)\n(putdown b3)\n(unstack b4 b2)\n(stack b4 b3)\n(unstack b2 b5)\n(stack b2 b4)\n(pickup b1)\n(stack b1 b5)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 11809,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 37,
+      "problem_name": "bw_ops4_n5_seed1200452",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200452.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmppw9wusmo.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(unstack b4 b2)\n \n2:\n(putdown b4)\n \n3:\n(unstack b3 b5)\n \n4:\n(putdown b3)\n \n5:\n(pickup b2)\n \n6:\n(stack b2 b3)\n \n7:\n(unstack b5 b1)\n \n8:\n(putdown b5)\n \n9:\n(pickup b1)\n \n10:\n(stack b1 b4)\n \n11:\n(unstack b2 b3)\n \n12:\n(putdown b2)\n \n13:\n(pickup b3)\n \n14:\n(stack b3 b1)\n \n15:\n(pickup b2)\n \n16:\n(stack b2 b3)\n \n17:\n(pickup b5)\n \n18:\n(stack b5 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b3 b5)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b5)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 6\n(on b2 b3) satisfied without (on b1 b4) sometime before\nChecking next happening (time 7)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmppw9wusmo.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200452.pddl /tmp/tmppw9wusmo.soln",
+      "raw_solution": "(unstack b4 b2)\n(putdown b4)\n(unstack b3 b5)\n(putdown b3)\n(pickup b2)\n(stack b2 b3)\n(unstack b5 b1)\n(putdown b5)\n(pickup b1)\n(stack b1 b4)\n(unstack b2 b3)\n(putdown b2)\n(pickup b3)\n(stack b3 b1)\n(pickup b2)\n(stack b2 b3)\n(pickup b5)\n(stack b5 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 12713,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 38,
+      "problem_name": "bw_ops4_n5_seed1200537",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200537.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpr8gmah9f.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b4 b2)\n \n2:\n(putdown b4)\n \n3:\n(unstack b2 b5)\n \n4:\n(putdown b2)\n \n5:\n(unstack b5 b1)\n \n6:\n(stack b5 b4)\n \n7:\n(pickup b3)\n \n8:\n(stack b3 b5)\n \n9:\n(pickup b1)\n \n10:\n(stack b1 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b4)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b5)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b5)\n\nChecking trajectory constraints at 8\n(on b3 b5) satisfied without (on b1 b3) sometime before\nChecking next happening (time 9)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpr8gmah9f.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200537.pddl /tmp/tmpr8gmah9f.soln",
+      "raw_solution": "(unstack b4 b2)\n(putdown b4)\n(unstack b2 b5)\n(putdown b2)\n(unstack b5 b1)\n(stack b5 b4)\n(pickup b3)\n(stack b3 b5)\n(pickup b1)\n(stack b1 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6870,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 39,
+      "problem_name": "bw_ops4_n5_seed1200564",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200564.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpb9wvopp1.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b4 b2)\n \n2:\n(putdown b4)\n \n3:\n(unstack b1 b3)\n \n4:\n(putdown b1)\n \n5:\n(unstack b2 b5)\n \n6:\n(putdown b2)\n \n7:\n(pickup b5)\n \n8:\n(stack b5 b3)\n \n9:\n(pickup b4)\n \n10:\n(stack b4 b1)\n \n11:\n(pickup b2)\n \n12:\n(stack b2 b4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b2)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b5)\nDeleting (on-table b5)\nDeleting (arm-empty)\nAdding (holding b5)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b3)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b3)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b1)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b1)\n\nChecking trajectory constraints at 10\n(on b4 b1) satisfied without (on b2 b4) sometime before\nChecking next happening (time 11)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpb9wvopp1.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200564.pddl /tmp/tmpb9wvopp1.soln",
+      "raw_solution": "(unstack b4 b2)\n(putdown b4)\n(unstack b1 b3)\n(putdown b1)\n(unstack b2 b5)\n(putdown b2)\n(pickup b5)\n(stack b5 b3)\n(pickup b4)\n(stack b4 b1)\n(pickup b2)\n(stack b2 b4)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 7645,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 40,
+      "problem_name": "bw_ops4_n5_seed1200727",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200727.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmprlbdptfo.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(unstack b3 b4)\n \n2:\n(putdown b3)\n \n3:\n(pickup b2)\n \n4:\n(stack b2 b3)\n \n5:\n(unstack b4 b1)\n \n6:\n(putdown b4)\n \n7:\n(pickup b5)\n \n8:\n(stack b5 b4)\n \n9:\n(pickup b1)\n \n10:\n(stack b1 b5)\n \n11:\n(unstack b2 b3)\n \n12:\n(putdown b2)\n \n13:\n(pickup b3)\n \n14:\n(stack b3 b1)\n \n15:\n(pickup b2)\n \n16:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b4)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 4\n(on b2 b3) satisfied without (on b1 b5) sometime before\nChecking next happening (time 5)\nDeleting (on b4 b1)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmprlbdptfo.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200727.pddl /tmp/tmprlbdptfo.soln",
+      "raw_solution": "(unstack b3 b4)\n(putdown b3)\n(pickup b2)\n(stack b2 b3)\n(unstack b4 b1)\n(putdown b4)\n(pickup b5)\n(stack b5 b4)\n(pickup b1)\n(stack b1 b5)\n(unstack b2 b3)\n(putdown b2)\n(pickup b3)\n(stack b3 b1)\n(pickup b2)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 13979,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 41,
+      "problem_name": "bw_ops4_n5_seed1200762",
+      "size_key": "ops4-n5",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200762.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpqs4itb5o.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b5 b1)\n \n2:\n(putdown b5)\n \n3:\n(unstack b1 b2)\n \n4:\n(putdown b1)\n \n5:\n(unstack b2 b3)\n \n6:\n(putdown b2)\n \n7:\n(unstack b3 b4)\n \n8:\n(putdown b3)\n \n9:\n(pickup b5)\n \n10:\n(stack b5 b1)\n \n11:\n(pickup b4)\n \n12:\n(stack b4 b5)\n \n13:\n(pickup b2)\n \n14:\n(stack b2 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b3 b4)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b4)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b5)\nDeleting (on-table b5)\nDeleting (arm-empty)\nAdding (holding b5)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b1)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b5)\nDeleting (holding b4)\nAdding (arm-empty)\nAdding (clear b4)\nAdding (on b4 b5)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 14\nPlan valid\nFinal value: 14 \n\nSuccessful plans:\nValue: 14\n /tmp/tmpqs4itb5o.soln 14 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n5_seed1200762.pddl /tmp/tmpqs4itb5o.soln",
+      "raw_solution": "(unstack b5 b1)\n(putdown b5)\n(unstack b1 b2)\n(putdown b1)\n(unstack b2 b3)\n(putdown b2)\n(unstack b3 b4)\n(putdown b3)\n(pickup b5)\n(stack b5 b1)\n(pickup b4)\n(stack b4 b5)\n(pickup b2)\n(stack b2 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9460,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 42,
+      "problem_name": "bw_ops4_n6_seed1400196",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400196.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpeiev2wr8.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(unstack b4 b5)\n \n2:\n(putdown b4)\n \n3:\n(unstack b5 b1)\n \n4:\n(putdown b5)\n \n5:\n(unstack b1 b3)\n \n6:\n(putdown b1)\n \n7:\n(unstack b2 b6)\n \n8:\n(putdown b2)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b6)\n \n11:\n(pickup b4)\n \n12:\n(stack b4 b3)\n \n13:\n(pickup b2)\n \n14:\n(stack b2 b4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b5)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b2 b6)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b6)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b6)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b6)\n\nChecking trajectory constraints at 10\n(on b3 b6) satisfied without (on b2 b4) sometime before\nChecking next happening (time 11)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpeiev2wr8.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400196.pddl /tmp/tmpeiev2wr8.soln",
+      "raw_solution": "(unstack b4 b5)\n(putdown b4)\n(unstack b5 b1)\n(putdown b5)\n(unstack b1 b3)\n(putdown b1)\n(unstack b2 b6)\n(putdown b2)\n(pickup b3)\n(stack b3 b6)\n(pickup b4)\n(stack b4 b3)\n(pickup b2)\n(stack b2 b4)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 7925,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 43,
+      "problem_name": "bw_ops4_n6_seed1400219",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400219.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmprhsavalp.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b4 b1)\n \n2:\n(putdown b4)\n \n3:\n(unstack b1 b3)\n \n4:\n(putdown b1)\n \n5:\n(unstack b3 b5)\n \n6:\n(putdown b3)\n \n7:\n(unstack b5 b2)\n \n8:\n(stack b5 b1)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b5)\n \n11:\n(pickup b6)\n \n12:\n(stack b6 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b4 b1)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b1 b3)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b3 b5)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b5)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b5 b2)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b1)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b5)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b5)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b6)\nDeleting (on-table b6)\nDeleting (arm-empty)\nAdding (holding b6)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b3)\nDeleting (holding b6)\nAdding (arm-empty)\nAdding (clear b6)\nAdding (on b6 b3)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmprhsavalp.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400219.pddl /tmp/tmprhsavalp.soln",
+      "raw_solution": "(unstack b4 b1)\n(putdown b4)\n(unstack b1 b3)\n(putdown b1)\n(unstack b3 b5)\n(putdown b3)\n(unstack b5 b2)\n(stack b5 b1)\n(pickup b3)\n(stack b3 b5)\n(pickup b6)\n(stack b6 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 13956,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 44,
+      "problem_name": "bw_ops4_n6_seed1400353",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400353.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpdu1rdixz.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(unstack b6 b4)\n \n2:\n(putdown b6)\n \n3:\n(unstack b4 b1)\n \n4:\n(putdown b4)\n \n5:\n(unstack b1 b2)\n \n6:\n(putdown b1)\n \n7:\n(unstack b2 b3)\n \n8:\n(stack b2 b6)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b2)\n \n11:\n(pickup b5)\n \n12:\n(stack b5 b3)\n \n13:\n(pickup b1)\n \n14:\n(stack b1 b5)\n \n15:\n(pickup b4)\n \n16:\n(stack b4 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b6 b4)\nDeleting (clear b6)\nDeleting (arm-empty)\nAdding (holding b6)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b6)\nAdding (clear b6)\nAdding (arm-empty)\nAdding (on-table b6)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b4 b1)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b6)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b6)\n\nChecking trajectory constraints at 8\n(on b2 b6) satisfied without (on b1 b5) sometime before\nChecking next happening (time 9)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpdu1rdixz.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400353.pddl /tmp/tmpdu1rdixz.soln",
+      "raw_solution": "(unstack b6 b4)\n(putdown b6)\n(unstack b4 b1)\n(putdown b4)\n(unstack b1 b2)\n(putdown b1)\n(unstack b2 b3)\n(stack b2 b6)\n(pickup b3)\n(stack b3 b2)\n(pickup b5)\n(stack b5 b3)\n(pickup b1)\n(stack b1 b5)\n(pickup b4)\n(stack b4 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8854,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 45,
+      "problem_name": "bw_ops4_n6_seed1400412",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400412.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp_xez1bdd.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(unstack b5 b2)\n \n2:\n(putdown b5)\n \n3:\n(unstack b2 b3)\n \n4:\n(putdown b2)\n \n5:\n(unstack b3 b1)\n \n6:\n(stack b3 b4)\n \n7:\n(pickup b2)\n \n8:\n(stack b2 b1)\n \n9:\n(unstack b2 b1)\n \n10:\n(putdown b2)\n \n11:\n(unstack b1 b6)\n \n12:\n(putdown b1)\n \n13:\n(pickup b5)\n \n14:\n(stack b5 b6)\n \n15:\n(pickup b1)\n \n16:\n(stack b1 b5)\n \n17:\n(pickup b2)\n \n18:\n(stack b2 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b2)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b4)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (clear b2)\nDeleting (on-table b2)\nDeleting (arm-empty)\nAdding (holding b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 8\n(on b2 b1) satisfied without (on b1 b5) sometime before\nChecking next happening (time 9)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp_xez1bdd.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400412.pddl /tmp/tmp_xez1bdd.soln",
+      "raw_solution": "(unstack b5 b2)\n(putdown b5)\n(unstack b2 b3)\n(putdown b2)\n(unstack b3 b1)\n(stack b3 b4)\n(pickup b2)\n(stack b2 b1)\n(unstack b2 b1)\n(putdown b2)\n(unstack b1 b6)\n(putdown b1)\n(pickup b5)\n(stack b5 b6)\n(pickup b1)\n(stack b1 b5)\n(pickup b2)\n(stack b2 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 9254,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 46,
+      "problem_name": "bw_ops4_n6_seed1400497",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400497.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpgmt4dus3.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(unstack b2 b5)\n \n2:\n(putdown b2)\n \n3:\n(unstack b5 b1)\n \n4:\n(putdown b5)\n \n5:\n(unstack b1 b4)\n \n6:\n(putdown b1)\n \n7:\n(unstack b4 b3)\n \n8:\n(putdown b4)\n \n9:\n(pickup b3)\n \n10:\n(stack b3 b5)\n \n11:\n(pickup b6)\n \n12:\n(stack b6 b1)\n \n13:\n(pickup b2)\n \n14:\n(stack b2 b6)\n \n15:\n(pickup b4)\n \n16:\n(stack b4 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b2 b5)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b5 b1)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b1 b4)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b4 b3)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b3)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b4)\nAdding (clear b4)\nAdding (arm-empty)\nAdding (on-table b4)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (clear b5)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b5)\n\nChecking trajectory constraints at 10\n(on b3 b5) satisfied without (on b2 b6) sometime before\nChecking next happening (time 11)\nDeleting (clear b6)\nDeleting (on-table b6)\nDeleting (arm-empty)\nAdding (holding b6)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpgmt4dus3.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400497.pddl /tmp/tmpgmt4dus3.soln",
+      "raw_solution": "(unstack b2 b5)\n(putdown b2)\n(unstack b5 b1)\n(putdown b5)\n(unstack b1 b4)\n(putdown b1)\n(unstack b4 b3)\n(putdown b4)\n(pickup b3)\n(stack b3 b5)\n(pickup b6)\n(stack b6 b1)\n(pickup b2)\n(stack b2 b6)\n(pickup b4)\n(stack b4 b2)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 11368,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 47,
+      "problem_name": "bw_ops4_n6_seed1400527",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400527.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp2pkust8f.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b5 b2)\n \n2:\n(putdown b5)\n \n3:\n(unstack b2 b4)\n \n4:\n(stack b2 b1)\n \n5:\n(unstack b2 b1)\n \n6:\n(putdown b2)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b3)\n \n9:\n(pickup b2)\n \n10:\n(stack b2 b1)\n \n11:\n(pickup b5)\n \n12:\n(stack b5 b4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b2)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b4)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b1)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b1)\n\nChecking trajectory constraints at 4\n(on b2 b1) satisfied without (on b1 b3) sometime before\nChecking next happening (time 5)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp2pkust8f.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400527.pddl /tmp/tmp2pkust8f.soln",
+      "raw_solution": "(unstack b5 b2)\n(putdown b5)\n(unstack b2 b4)\n(stack b2 b1)\n(unstack b2 b1)\n(putdown b2)\n(pickup b1)\n(stack b1 b3)\n(pickup b2)\n(stack b2 b1)\n(pickup b5)\n(stack b5 b4)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6533,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 48,
+      "problem_name": "bw_ops4_n6_seed1400595",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400595.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp2let7087.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b3 b5)\n \n2:\n(putdown b3)\n \n3:\n(unstack b5 b6)\n \n4:\n(putdown b5)\n \n5:\n(unstack b6 b2)\n \n6:\n(stack b6 b5)\n \n7:\n(unstack b2 b1)\n \n8:\n(stack b2 b6)\n \n9:\n(pickup b4)\n \n10:\n(stack b4 b2)\n \n11:\n(pickup b1)\n \n12:\n(stack b1 b3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b5)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b5 b6)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b6)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b5)\nAdding (clear b5)\nAdding (arm-empty)\nAdding (on-table b5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on b6 b2)\nDeleting (clear b6)\nDeleting (arm-empty)\nAdding (holding b6)\nAdding (clear b2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b5)\nDeleting (holding b6)\nAdding (arm-empty)\nAdding (clear b6)\nAdding (on b6 b5)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (clear b6)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b6)\n\nChecking trajectory constraints at 8\n(on b2 b6) satisfied without (on b1 b3) sometime before\nChecking next happening (time 9)\nDeleting (clear b4)\nDeleting (on-table b4)\nDeleting (arm-empty)\nAdding (holding b4)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp2let7087.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400595.pddl /tmp/tmp2let7087.soln",
+      "raw_solution": "(unstack b3 b5)\n(putdown b3)\n(unstack b5 b6)\n(putdown b5)\n(unstack b6 b2)\n(stack b6 b5)\n(unstack b2 b1)\n(stack b2 b6)\n(pickup b4)\n(stack b4 b2)\n(pickup b1)\n(stack b1 b3)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 8091,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 49,
+      "problem_name": "bw_ops4_n6_seed1400628",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400628.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpc4oi67sd.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(unstack b5 b4)\n \n2:\n(stack b5 b2)\n \n3:\n(pickup b3)\n \n4:\n(stack b3 b5)\n \n5:\n(unstack b4 b1)\n \n6:\n(putdown b4)\n \n7:\n(pickup b1)\n \n8:\n(stack b1 b3)\n \n9:\n(pickup b4)\n \n10:\n(stack b4 b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b5 b4)\nDeleting (clear b5)\nDeleting (arm-empty)\nAdding (holding b5)\nAdding (clear b4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b2)\nDeleting (holding b5)\nAdding (arm-empty)\nAdding (clear b5)\nAdding (on b5 b2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b5)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b5)\n\nChecking trajectory constraints at 4\n(on b3 b5) satisfied without (on b1 b3) sometime before\nChecking next happening (time 5)\nDeleting (on b4 b1)\nDeleting (clear b4)\nDeleting (arm-empty)\nAdding (holding b4)\nAdding (clear b1)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmpc4oi67sd.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400628.pddl /tmp/tmpc4oi67sd.soln",
+      "raw_solution": "(unstack b5 b4)\n(stack b5 b2)\n(pickup b3)\n(stack b3 b5)\n(unstack b4 b1)\n(putdown b4)\n(pickup b1)\n(stack b1 b3)\n(pickup b4)\n(stack b4 b1)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 6313,
+        "reasoning_tokens": null
+      }
+    },
+    {
+      "index": 50,
+      "problem_name": "bw_ops4_n6_seed1400736",
+      "size_key": "ops4-n6",
+      "scenario": "blocksworld",
+      "problem_file": "pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400736.pddl",
+      "is_valid": false,
+      "category": "safety_constraints_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmp3bf0bbob.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b3 b1)\n \n2:\n(stack b3 b2)\n \n3:\n(unstack b1 b5)\n \n4:\n(putdown b1)\n \n5:\n(unstack b5 b4)\n \n6:\n(stack b5 b3)\n \n7:\n(unstack b4 b6)\n \n8:\n(putdown b4)\n \n9:\n(pickup b6)\n \n10:\n(stack b6 b4)\n \n11:\n(pickup b1)\n \n12:\n(stack b1 b6)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b1)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\n\nChecking trajectory constraints at 2\n(on b3 b2) satisfied without (on b1 b6) sometime before\nChecking next happening (time 3)\nDeleting (on b1 b5)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b5)\n\nPlan failed to execute\n\n\nFailed plans:\n /tmp/tmp3bf0bbob.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/jfan5/VAL/build/bin/Validate -v pddl3/blocksworld/domain3.pddl pddl3/blocksworld/testing_problem50/bw_ops4_n6_seed1400736.pddl /tmp/tmp3bf0bbob.soln",
+      "raw_solution": "(unstack b3 b1)\n(stack b3 b2)\n(unstack b1 b5)\n(putdown b1)\n(unstack b5 b4)\n(stack b5 b3)\n(unstack b4 b6)\n(putdown b4)\n(pickup b6)\n(stack b6 b4)\n(pickup b1)\n(stack b1 b6)",
+      "generation_error": null,
+      "usage": {
+        "completion_tokens": null,
+        "prompt_tokens": null,
+        "total_tokens": 7467,
+        "reasoning_tokens": null
+      }
+    }
+  ]
+}

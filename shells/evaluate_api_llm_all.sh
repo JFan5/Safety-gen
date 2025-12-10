@@ -36,10 +36,10 @@ run_eval() {
 total_start=$(date +%s)
 
 run_eval blocksworld
-run_eval ferry
-run_eval spanner
-run_eval grippers
-run_eval delivery
+# run_eval ferry
+# run_eval spanner
+# run_eval grippers
+# run_eval delivery
 
 total_end=$(date +%s)
 echo "All evaluations finished. Total time: $(fmt_dur $((total_end-total_start)))"

@@ -34,6 +34,8 @@ MAX_NEW_TOKENS = int(_max_new_tokens_env) if _max_new_tokens_env else None
 GEMINI_TIMEOUT = float(os.getenv("GEMINI_TIMEOUT", "300"))
 # 并发线程数（可通过环境变量覆盖）
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "5"))
+# 生成失败重试次数（可通过环境变量覆盖）
+MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))  # 默认重试3次
 
 # Gemini 模型配置
 GEMINI_MODEL_CONFIG = {
@@ -533,11 +535,12 @@ def test_gemini_model_on_testing_data(
         problem_file = sample.get('problem_file')
         size_key = _extract_size_key(problem_name, scenario_name)
 
-        # 调用API生成解决方案
+        # 调用API生成解决方案（带重试逻辑）
         generation_error = None
         output = ""
         usage_info = None
         raw_solution = ""
+        retry_count = 0
 
         with print_lock:
             print(f"\n{'='*80}", flush=True)
@@ -546,39 +549,61 @@ def test_gemini_model_on_testing_data(
             print(f"[Step 1/3] Calling Gemini API to generate solution...", flush=True)
             print(f"  Model: {model_name}, Temperature: {temperature}, Max tokens: {MAX_NEW_TOKENS}", flush=True)
 
-        api_start_time = time.time()
-        try:
-            with print_lock:
-                print(f"  [Thread] Making API request for {problem_name}...", flush=True)
-            output, usage_info = _call_gemini_api(
-                client,
-                model_name,
-                sample['prompt'],
-                temperature,
-                MAX_NEW_TOKENS,
-                GEMINI_TIMEOUT,
-            )
-            api_elapsed = time.time() - api_start_time
-            with print_lock:
-                print(f"  [Thread] API call completed for {problem_name} in {api_elapsed:.2f} seconds", flush=True)
+        # 重试循环
+        for attempt in range(MAX_RETRIES + 1):
+            generation_error = None
+            output = ""
 
-            if output:
+            if attempt > 0:
                 with print_lock:
-                    print(f"[Step 2/3] Extracting solution from API response for {problem_name}...", flush=True)
-                    print(f"  Response length: {len(output)} chars", flush=True)
-                raw_solution = extract_llm_output(output, 'gemini')
+                    print(f"  [Retry {attempt}/{MAX_RETRIES}] Retrying API call for {problem_name}...", flush=True)
+                # 重试前等待一小段时间，避免过于频繁的请求
+                time.sleep(2 * attempt)
+
+            api_start_time = time.time()
+            try:
                 with print_lock:
-                    print(f"  Solution extracted for {problem_name} (length: {len(raw_solution)} chars)", flush=True)
-            else:
-                generation_error = "Empty response from API"
+                    print(f"  [Thread] Making API request for {problem_name}...", flush=True)
+                output, usage_info = _call_gemini_api(
+                    client,
+                    model_name,
+                    sample['prompt'],
+                    temperature,
+                    MAX_NEW_TOKENS,
+                    GEMINI_TIMEOUT,
+                )
+                api_elapsed = time.time() - api_start_time
                 with print_lock:
-                    print(f"[Step 2/3] Warning: Empty response from API for {problem_name}", flush=True)
-        except Exception as e:
-            generation_error = f"API Error: {str(e)}"
+                    print(f"  [Thread] API call completed for {problem_name} in {api_elapsed:.2f} seconds", flush=True)
+
+                if output:
+                    with print_lock:
+                        print(f"[Step 2/3] Extracting solution from API response for {problem_name}...", flush=True)
+                        print(f"  Response length: {len(output)} chars", flush=True)
+                    raw_solution = extract_llm_output(output, 'gemini')
+                    with print_lock:
+                        print(f"  Solution extracted for {problem_name} (length: {len(raw_solution)} chars)", flush=True)
+                    # 成功获取响应，跳出重试循环
+                    break
+                else:
+                    generation_error = "Empty response from API"
+                    retry_count = attempt + 1
+                    with print_lock:
+                        print(f"[Step 2/3] Warning: Empty response from API for {problem_name} (attempt {attempt + 1}/{MAX_RETRIES + 1})", flush=True)
+                    # 继续重试
+            except Exception as e:
+                generation_error = f"API Error: {str(e)}"
+                retry_count = attempt + 1
+                with print_lock:
+                    print(f"[Step 1/3] Error for {problem_name}: {generation_error} (attempt {attempt + 1}/{MAX_RETRIES + 1})", flush=True)
+                    import traceback
+                    print(f"  Traceback: {traceback.format_exc()}", flush=True)
+                # 继续重试
+
+        # 如果所有重试都失败，记录最终的重试次数
+        if generation_error and retry_count > 0:
             with print_lock:
-                print(f"[Step 1/3] Error for {problem_name}: {generation_error}", flush=True)
-                import traceback
-                print(f"  Traceback: {traceback.format_exc()}", flush=True)
+                print(f"  [Thread] ✗ All {retry_count} attempts failed for {problem_name}", flush=True)
 
         # 验证解决方案
         validation_message = ""
@@ -640,6 +665,7 @@ def test_gemini_model_on_testing_data(
             'validation_cmd': val_cmd,
             'raw_solution': raw_solution,
             'generation_error': generation_error,
+            'retry_count': retry_count,
             'usage': usage_info
         }
 
@@ -807,7 +833,7 @@ def test_gemini_model_on_testing_data(
 
 def main():
     """主函数"""
-    DEFAULT_MODEL = "gemini-2.5-flash"
+    DEFAULT_MODEL = "gemini-3-pro-preview"
 
     parser = argparse.ArgumentParser(description="Evaluate Gemini model with explicit domain and problems directory")
     parser.add_argument("--model", type=str, default=DEFAULT_MODEL,

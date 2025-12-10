@@ -1,3 +1,4 @@
+; params: python3 /home/fjl2401/Safety-gen/spanner/spanner-generator.py 3 2 4 --seed 1188188163 --problem-name spanner-s3-n2-l4-s1188188163
 (define (problem spanner-s3-n2-l4-s1188188163)
  (:domain spanner)
  (:objects 

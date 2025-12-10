@@ -1,4 +1,5 @@
 from typing import List, Set, Tuple, Optional, Any, Dict, Callable
+import math
 import re
 from pathlib import Path
 
@@ -324,10 +325,10 @@ def precondition_violation_score(
         # 没有违反
         return 1.0
     else:
-        # 越早违反，frac 越小；惩罚越大
         T = max(len(traj) - 1, 1)
         frac = (T - violation_step) / T  # 0~1
-        return -(0.5 + 0.5 * frac)       # [-1, -0.5] 左右
+        score = 2 * frac - 1   # frac=1 -> 1; frac=0 -> -1
+        return float(score)
 
 
 def goal_score(last_state: State, goal_state: State) -> float:
@@ -349,7 +350,7 @@ def goal_score(last_state: State, goal_state: State) -> float:
     return 2.0 * frac - 1.0              # 映射到 [-1,1]
 
 
-def blocksworld_reward(
+def blocksworld_reward1(
     class_label: str,
     planning_sequences: List[ActionStr],
     initial_state: State,
@@ -369,7 +370,7 @@ def blocksworld_reward(
         "success_plans": 1.0,
         "goal_not_satisfied": 0.0,
         "plan_format_error": -0.3,
-        "precondition_violation": -0.7,
+        "precondition_violation": -0.6,
         "safety_constraints_violation": -1.0,
     }
 
@@ -418,8 +419,7 @@ def blocksworld_reward(
         # 对于 precondition violation：只使用 precondition violation score（根据 violation_step）
         dense = p_score
     else:
-        # 其他情况：使用两者组合
-        dense = 0.7 * s_score + 0.3 * g_score   # [-1,1] 左右
+        raise ValueError(f"Unknown class_label: {class_label}")
 
     # 4. 用 alpha 调节 dense 对整体 reward 的影响力
     alpha = 0.3
@@ -429,6 +429,127 @@ def blocksworld_reward(
     final_r = max(-1.5, min(1.5, final_r))
 
     return float(final_r)
+
+
+def reward_baseline(class_label: str) -> float:
+    """
+    Baseline reward function：只根据 class_label 返回固定的 reward 值。
+    不使用任何 dense reward（goal percentage, safety score 等）。
+
+    这是最简单的 reward 计算方式，适合作为 baseline 比较。
+
+    Args:
+        class_label: 分类标签
+
+    Returns:
+        固定的 reward 值
+    """
+    reward_table = {
+        "success_plans": 1.0,               # 完整达成目标，最高奖励
+        "goal_not_satisfied": 0.0,          # 计划是合法的，但没达到目标
+        "plan_format_error": -0.3,          # 语法格式错误（括号、关键字等）
+        "precondition_violation": -0.6,     # 动作在当前 state 下不可执行
+        "safety_constraints_violation": -1.0  # 违反安全约束，最严重
+    }
+
+    if class_label not in reward_table:
+        # 未知标签返回 0
+        return 0.0
+
+    return reward_table[class_label]
+
+
+# -----------------------------------------------------------------------------
+# Blocksworld Reward with Trajectory-Level RM Rewards
+# -----------------------------------------------------------------------------
+
+def _normalize_traj_sum(traj_sum: float) -> float:
+    """
+    Squash a trajectory reward sum into the range [-1, 1] using tanh.
+
+    Args:
+        traj_sum: The raw sum of per-step RM rewards.
+
+    Returns:
+        A value in [-1, 1].
+    """
+    return math.tanh(traj_sum)
+
+
+def blocksworld_reward2(
+    class_label: str,
+    step_rm_rewards: List[float],
+    alpha: float = 0.8,
+) -> float:
+    """
+    Compute a final scalar reward for a BlocksWorld plan by mixing the
+    baseline classifier reward with trajectory-level Reward Machine (RM) rewards.
+
+    This function combines two reward signals:
+    1. **Coarse-grained baseline reward**: Obtained from `reward_baseline(class_label)`,
+       which provides a fixed reward based on the final verifier classification
+       (e.g., success, goal not satisfied, format error, precondition violation,
+       or safety constraint violation).
+    2. **Trajectory-level RM rewards**: A list of per-step rewards from a Reward
+       Machine that captures fine-grained progress along the generated plan.
+
+    The final reward is a linear mixture of these two signals, suitable for use
+    as the GRPO reward for training.
+
+    Args:
+        class_label: The final classification label for the plan from the verifier.
+                     Valid values include:
+                     - "success_plans": Plan achieves the goal successfully.
+                     - "goal_not_satisfied": Plan is valid but doesn't achieve goal.
+                     - "plan_format_error": Plan has syntax/format errors.
+                     - "precondition_violation": An action's preconditions not met.
+                     - "safety_constraints_violation": Plan violates safety constraints.
+        step_rm_rewards: A list of per-step RM rewards along the generated trajectory.
+                         Each element represents the reward for a single action step.
+                         Can be empty if no trajectory information is available.
+        alpha: Mixing coefficient in [0, 1]. Controls the balance between:
+               - Higher alpha (closer to 1): More weight on baseline classifier reward.
+               - Lower alpha (closer to 0): More weight on trajectory RM reward.
+               Default is 0.8 (80% baseline, 20% trajectory).
+
+    Returns:
+        A single scalar reward in [-1.0, 1.0] to be used as the GRPO reward
+        for this trajectory.
+
+    Example:
+        >>> # A successful plan with positive trajectory rewards
+        >>> blocksworld_reward2("success_plans", [0.5, 0.5, 0.5], alpha=0.8)
+        0.892  # 0.8 * 1.0 + 0.2 * tanh(1.5)
+
+        >>> # Safety violation - trajectory rewards are ignored
+        >>> blocksworld_reward2("safety_constraints_violation", [0.5, 0.5], alpha=0.8)
+        -1.0  # Returns baseline reward directly
+    """
+    # Get baseline reward from the existing classifier
+    base_reward = reward_baseline(class_label)
+
+    # Safety constraint violation is treated as a hard constraint.
+    # We ignore trajectory rewards and return the baseline penalty directly.
+    if class_label == "safety_constraints_violation":
+        return base_reward
+
+    # Compute trajectory-level reward term
+    if not step_rm_rewards:
+        # No trajectory information available, use 0 as neutral
+        traj_score = 0.0
+    else:
+        # Sum up per-step rewards and normalize to [-1, 1]
+        traj_sum = sum(step_rm_rewards)
+        traj_score = _normalize_traj_sum(traj_sum)
+
+    # Linear mixture of baseline reward and trajectory score
+    # Both base_reward and traj_score are in [-1, 1]
+    mixed = alpha * base_reward + (1.0 - alpha) * traj_score
+
+    # Clip to ensure the result stays in [-1.0, 1.0]
+    mixed = max(-1.0, min(1.0, mixed))
+
+    return mixed
 
 
 # -----------------------------------------------------------------------------
@@ -564,10 +685,10 @@ def compute_blocksworld_reward_from_meta(
             constraint_first = normalize_atom(constraint_first)
             constraint_second = normalize_atom(constraint_second)
         
-        # 使用 blocksworld_reward 计算奖励
+        # 使用 blocksworld_reward1 计算奖励
         class_label_for_reward = class_label if class_label != "unknown" else "goal_not_satisfied"
-        
-        r = blocksworld_reward(
+
+        r = blocksworld_reward1(
             class_label_for_reward,
             planning_sequences,
             initial_state,

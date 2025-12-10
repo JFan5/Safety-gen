@@ -33,7 +33,11 @@ from utils_generic_reward import (
     get_supported_scenarios,
     get_base_reward,
 )
+from utils_blocksworld import reward_baseline
 import wandb
+
+# Global variable to store reward type (set by command line argument)
+REWARD_TYPE = "dense"  # Default to dense reward
 
 try:
     # Prefer Unsloth's helper if available
@@ -177,30 +181,44 @@ def grpo_reward_func(
             inferred_label = "unknown"
             all_labels.append("unknown")
 
-        # 4. 计算 reward - 使用场景特定的 reward 函数（如果已注册）
+        # 4. 计算 reward - 根据 REWARD_TYPE 选择不同的计算方式
         r = 0.0
         reward_method = "default"
-        
-        # 检查是否有场景特定的 reward 函数
-        if scenario in SCENARIO_REWARD_FUNCTIONS and isinstance(m, dict):
-            try:
-                reward_func = SCENARIO_REWARD_FUNCTIONS[scenario]
-                r = reward_func(inferred_label, completion, m)
-                reward_method = f"scenario_{scenario}"
-            except Exception as e:
-                logger.debug(f"Scenario-specific reward calculation failed for {scenario}: {e}, falling back to default")
-                reward_method = "default_fallback"
-        
-        # 如果没有场景特定的函数或调用失败，使用默认的 compute_reward
-        if reward_method == "default" or reward_method == "default_fallback":
+
+        if REWARD_TYPE == "baseline":
+            # Baseline: 只使用 reward_table，不使用 dense reward
             if inferred_label != "unknown":
                 try:
-                    r = compute_reward(inferred_label)
+                    r = reward_baseline(inferred_label)
+                    reward_method = "baseline"
                 except:
                     r = 0.0
                     inferred_label = "unknown"
             else:
                 r = 0.0
+                reward_method = "baseline"
+        else:
+            # Dense: 使用场景特定的 reward 函数（如果已注册）
+            # 检查是否有场景特定的 reward 函数
+            if scenario in SCENARIO_REWARD_FUNCTIONS and isinstance(m, dict):
+                try:
+                    reward_func = SCENARIO_REWARD_FUNCTIONS[scenario]
+                    r = reward_func(inferred_label, completion, m)
+                    reward_method = f"scenario_{scenario}"
+                except Exception as e:
+                    logger.debug(f"Scenario-specific reward calculation failed for {scenario}: {e}, falling back to default")
+                    reward_method = "default_fallback"
+
+            # 如果没有场景特定的函数或调用失败，使用默认的 compute_reward
+            if reward_method == "default" or reward_method == "default_fallback":
+                if inferred_label != "unknown":
+                    try:
+                        r = compute_reward(inferred_label)
+                    except:
+                        r = 0.0
+                        inferred_label = "unknown"
+                else:
+                    r = 0.0
 
         rewards.append(float(r))
         reward_methods.append(reward_method)
@@ -402,7 +420,21 @@ def main():
     parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable Unsloth gradient checkpointing")
     parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer, kept for compat)")
 
+    # Reward function options
+    parser.add_argument(
+        "--reward_type",
+        type=str,
+        default="dense",
+        choices=["baseline", "dense"],
+        help="Reward function type: 'baseline' uses simple reward_table, 'dense' uses goal percentage and trajectory-based rewards (default: dense)"
+    )
+
     args = parser.parse_args()
+
+    # Set global reward type
+    global REWARD_TYPE
+    REWARD_TYPE = args.reward_type
+    logger.info(f"Using reward type: {REWARD_TYPE}")
 
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
@@ -470,13 +502,24 @@ def main():
     # ============ 打印 Reward Function 配置信息 ============
     print("=" * 60)
     print("Reward Function Configuration:")
-    if SCENARIO_REWARD_FUNCTIONS:
-        print(f"  Registered scenario-specific reward functions: {list(SCENARIO_REWARD_FUNCTIONS.keys())}")
-        for scenario, func in SCENARIO_REWARD_FUNCTIONS.items():
-            print(f"    - {scenario}: {func.__name__}")
+    print(f"  Reward Type: {REWARD_TYPE}")
+    if REWARD_TYPE == "baseline":
+        print("  Using baseline reward: reward_baseline (simple reward_table, no dense reward)")
+        print("  Reward values:")
+        print("    - success_plans: 1.0")
+        print("    - goal_not_satisfied: 0.0")
+        print("    - plan_format_error: -0.3")
+        print("    - precondition_violation: -0.6")
+        print("    - safety_constraints_violation: -1.0")
     else:
-        print("  No scenario-specific reward functions registered")
-    print("  Default reward function: compute_reward (based on class_label only)")
+        print("  Using dense reward: goal percentage + trajectory-based rewards")
+        if SCENARIO_REWARD_FUNCTIONS:
+            print(f"  Registered scenario-specific reward functions: {list(SCENARIO_REWARD_FUNCTIONS.keys())}")
+            for scenario, func in SCENARIO_REWARD_FUNCTIONS.items():
+                print(f"    - {scenario}: {func.__name__}")
+        else:
+            print("  No scenario-specific reward functions registered")
+        print("  Fallback reward function: compute_reward (based on class_label only)")
     print("=" * 60)
     
     # 使用整个数据集作为训练集（不进行 train/test split）
@@ -525,6 +568,7 @@ def main():
                 "top_k": args.top_k,
                 "beta": args.beta,
                 "max_steps": args.max_steps,
+                "reward_type": args.reward_type,
             }
         )
 

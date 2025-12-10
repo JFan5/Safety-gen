@@ -61,6 +61,22 @@
 | Blocksworld | GRPO (grpo-stl-121-1) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121-1` | 2025-12-05 | - | - | - | - | 86.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121-1_50_20251205_204703.json` | - | 86.0% |
 | Blocksworld | GRPO (grpo-stl) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121/` | 2025-12-06 | - | - | - | - | 82.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-121-_50_20251206_150806.json` | - | 82.0% |
 | Blocksworld | GRPO (500 steps) | `/jfan5/grpo_models/mistral_7b-blocksworld-1207` | 2025-12-07 | - | - | - | - | 80.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-1207_50_20251207_174717.json` | - | 80.0% |
+| Blocksworld | GRPO (1208-500) | `/jfan5/grpo_models/mistral_7b-blocksworld-1208-500` | 2025-12-08 | - | - | - | - | 88.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-1208-500_50_20251208_141859.json` | - | 88.0% |
+| Blocksworld | GRPO (stl-1208-500) | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-1208-500` | 2025-12-08 | - | - | - | - | 86.0%<br/>`planning_results/blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-stl-1208-500_50_20251208_141945.json` | - | 86.0% |
+
+**Blocksworld GRPO (1208-500) 错误分类统计：**
+- success_plans: 44 (88.0%)
+- plan_format_error: 0 (0.0%)
+- precondition_violation: 2 (4.0%)
+- safety_constraints_violation: 2 (4.0%)
+- goal_not_satisfied: 2 (4.0%)
+
+**Blocksworld GRPO (stl-1208-500) 错误分类统计：**
+- success_plans: 43 (86.0%)
+- plan_format_error: 0 (0.0%)
+- precondition_violation: 2 (4.0%)
+- safety_constraints_violation: 3 (6.0%)
+- goal_not_satisfied: 2 (4.0%)
 
 **Blocksworld GRPO (grpo-stl) 错误分类统计：**
 - success_plans: 33 (66.0%)
@@ -83,6 +99,47 @@
 - safety_constraints_violation: 1 (2.0%)
 - goal_not_satisfied: 0 (0.0%)
 
+### Blocksworld 模型对比表 (Fine-tuned vs API)
+
+#### 错误类别分布 (%)
+
+| 类别 | SFT | DPO | GRPO (1208) | GRPO (stl-1208) | gpt-5-nano | gpt-5.1 | Gemini-3-Pro |
+|------|-----|-----|-------------|-----------------|------------|---------|--------------|
+| **success_plans** | 66.0 | 70.0 | **88.0** | 86.0 | 18.0 | 28.0 | 74.0 |
+| plan_format_error | 0.0 | 0.0 | 0.0 | 0.0 | 2.0 | 0.0 | 0.0 |
+| precondition_violation | 22.0 | 18.0 | **4.0** | **4.0** | 6.0 | 0.0 | 0.0 |
+| safety_constraints_violation | 10.0 | 12.0 | **4.0** | 6.0 | 68.0 | 72.0 | 24.0 |
+| goal_not_satisfied | 2.0 | 0.0 | 4.0 | 4.0 | 4.0 | 0.0 | 0.0 |
+
+#### 按问题规模成功率 (%)
+
+| 规模 | SFT | DPO | GRPO (1208) | GRPO (stl-1208) | gpt-5-nano | gpt-5.1 | Gemini-3-Pro |
+|------|-----|-----|-------------|-----------------|------------|---------|--------------|
+| ops3-n3 (n=7) | 100.0 | 100.0 | 100.0 | 100.0 | 57.1 | 85.7 | 85.7 |
+| ops3-n4 (n=7) | 85.7 | 85.7 | **100.0** | **100.0** | 0.0 | 0.0 | 57.1 |
+| ops3-n5 (n=3) | 100.0 | 100.0 | 100.0 | 100.0 | 33.3 | 33.3 | 33.3 |
+| ops3-n6 (n=7) | 71.4 | 57.1 | 85.7 | **100.0** | 28.6 | 42.9 | 85.7 |
+| ops4-n4 (n=7) | 57.1 | 71.4 | 85.7 | 85.7 | 14.3 | 14.3 | **100.0** |
+| ops4-n5 (n=10) | 50.0 | 50.0 | **70.0** | **70.0** | 0.0 | 20.0 | 80.0 |
+| ops4-n6 (n=9) | 33.3 | 55.6 | **88.9** | 66.7 | 11.1 | 11.1 | 55.6 |
+
+#### 关键发现
+
+| 模型 | 类型 | 成功率 | 主要失败原因 |
+|------|------|--------|-------------|
+| **GRPO (1208-500)** | Fine-tuned | **88.0%** | 均衡分布 |
+| GRPO (stl-1208-500) | Fine-tuned | 86.0% | 安全约束违反 (6%) |
+| Gemini-3-Pro | API | 74.0% | 安全约束违反 (24%) |
+| DPO | Fine-tuned | 70.0% | 前置条件违反 (18%) |
+| SFT | Fine-tuned | 66.0% | 前置条件违反 (22%) |
+| gpt-5.1 | API | 28.0% | 安全约束违反 (72%) |
+| gpt-5-nano | API | 18.0% | 安全约束违反 (68%) |
+
+**结论：**
+1. **微调模型显著优于API模型**：GRPO达到88%成功率，而gpt-5.1仅28%
+2. **API模型主要问题是安全约束违反**：gpt-5-nano和gpt-5.1的安全约束违反率高达68-72%
+3. **GRPO大幅降低前置条件违反率**：从SFT的22%降至4%
+4. **Gemini-3-Pro表现较好**但仍有24%安全约束违反
 
 ---
 
