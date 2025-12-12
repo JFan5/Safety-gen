@@ -13,15 +13,15 @@ echo "=== [Step 1] Generate symbolized (mixed) datasets for four scenarios ==="
 bash shells/augment_four_scenarios_pddl3.sh
 
 echo "=== [Step 2] Fine-tune Mistral-7B on Blocksworld (symbolized) ==="
-bash shells/finetune_mistral_7b_blocksworld_augmented.sh
+bash shells/finetune_mistral_7b_blocksworld_symbolized.sh
 
 echo "=== [Step 2.5] Evaluate Blocksworld model on testing set ==="
-bash shells/evaluate_llm_blocksworld.sh /jfan5/sft_models/mistral_7b/blocksworld_pddl3_augmented 0
+bash shells/evaluate_llm_blocksworld.sh /jfan5/sft_models/mistral_7b/blocksworld_pddl3_symbolized 0
 
 echo "=== [Step 3] Fine-tune Mistral-7B on cross-domain (symbolized) ==="
-bash shells/finetune_mistral_7b_cross_domain_augmented.sh
+bash shells/finetune_mistral_7b_cross_domain_symbolized.sh
 
 echo "=== [Step 3.5] Evaluate cross-domain model on all scenarios ==="
-bash shells/evaluate_llm_all.sh /jfan5/sft_models/mistral_7b/cross_domain_pddl3_augmented 0
+bash shells/evaluate_llm_all.sh /jfan5/sft_models/mistral_7b/cross_domain_pddl3_symbolized 0
 
 echo "=== Pipeline completed ==="
