@@ -24,10 +24,11 @@ import statistics
 from collections import Counter
 from datasets import Dataset
 from trl import GRPOConfig, GRPOTrainer
-
+from transformers import TrainingArguments, EarlyStoppingCallback
 from unsloth import FastLanguageModel
 from utils import _classify_result, validate_solution
 import wandb
+
 
 try:
     # Prefer Unsloth's helper if available
@@ -492,14 +493,11 @@ def main():
         max_grad_norm=args.max_grad_norm,  # 梯度裁剪，防止梯度爆炸
         bf16=bf16_ok,
         fp16=use_fp16,
-
         logging_steps=args.logging_steps,
         save_steps=args.save_steps if args.save_steps > 0 else 0,
         save_strategy="steps" if args.save_steps > 0 else "no",
-
         report_to=["wandb"] if use_wandb else [],
         run_name=args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}",
-
         # Data / generation 相关
         remove_unused_columns=False,
         max_prompt_length=args.max_prompt_length,
@@ -511,6 +509,8 @@ def main():
         beta=args.beta,  # KL penalty coefficient. Lower if loss is too high due to large KL divergence
         save_total_limit=2,
         do_eval=False,
+        metric_for_best_model="reward_mean",
+        greater_is_better=True,
     )
 
     # 构建 GRPOTrainer
@@ -520,6 +520,7 @@ def main():
         reward_funcs=grpo_reward_func,
         train_dataset=train_dataset,
         processing_class=tokenizer,
+        callbacks=[EarlyStoppingCallback(patience=5)]
     )
 
     logger.info("Starting GRPO training...")
