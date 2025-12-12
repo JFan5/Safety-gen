@@ -10,6 +10,7 @@ import random
 import shutil
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 from unsloth import FastLanguageModel
 import torch
@@ -59,7 +60,10 @@ def extract_llm_output(output, family='mistral'):
             text = parts[-1].strip()
         else:
             text = text.strip()
-        if text.endswith('</s>'):
+        # 移除 </s> 及其后面的所有内容（包括 padding tokens）
+        if '</s>' in text:
+            text = text.split('</s>')[0].strip()
+        elif text.endswith('</s>'):
             text = text[:-4].strip()
 
     # 处理ChatML格式
@@ -360,6 +364,15 @@ def batch_generate_solutions(model, tokenizer, batch_samples: List[Dict],
     Returns:
         List of (output, raw_solution) tuples
     """
+    # 保存原始 padding_side 并设置为左侧（decoder-only 模型必须左侧 padding）
+    original_padding_side = tokenizer.padding_side
+    tokenizer.padding_side = "left"
+
+    # 确保有 pad_token
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
     # 准备批量输入
     batch_messages = []
     for sample in batch_samples:
@@ -376,6 +389,14 @@ def batch_generate_solutions(model, tokenizer, batch_samples: List[Dict],
             padding=True,
             enable_thinking=False,
         )
+        # apply_chat_template 可能返回 tensor 或 dict
+        if isinstance(inputs, torch.Tensor):
+            input_ids = inputs
+            # 手动创建 attention_mask
+            attention_mask = (input_ids != tokenizer.pad_token_id).long()
+        else:
+            input_ids = inputs["input_ids"]
+            attention_mask = inputs.get("attention_mask", (input_ids != tokenizer.pad_token_id).long())
     except TypeError:
         # 如果失败，尝试 rich 格式
         batch_messages = [template_input(sample['prompt'], rich=True) for sample in batch_samples]
@@ -387,8 +408,18 @@ def batch_generate_solutions(model, tokenizer, batch_samples: List[Dict],
             padding=True,
             enable_thinking=False,
         )
+        if isinstance(inputs, torch.Tensor):
+            input_ids = inputs
+            attention_mask = (input_ids != tokenizer.pad_token_id).long()
+        else:
+            input_ids = inputs["input_ids"]
+            attention_mask = inputs.get("attention_mask", (input_ids != tokenizer.pad_token_id).long())
 
-    inputs = inputs.to(device)
+    # 恢复原始 padding_side
+    tokenizer.padding_side = original_padding_side
+
+    input_ids = input_ids.to(device)
+    attention_mask = attention_mask.to(device)
 
     cfg = {
         'do_sample': True,
@@ -397,13 +428,16 @@ def batch_generate_solutions(model, tokenizer, batch_samples: List[Dict],
     }
 
     # 批量生成
-    pad_token_id = getattr(tokenizer, "eos_token_id", None) or getattr(tokenizer, "pad_token_id", None)
+    pad_token_id = tokenizer.pad_token_id
+    eos_token_id = tokenizer.eos_token_id
 
     with torch.no_grad():
         outputs = model.generate(
-            input_ids=inputs,
+            input_ids=input_ids,
+            attention_mask=attention_mask,
             max_new_tokens=MAX_NEW_TOKENS,
             pad_token_id=pad_token_id,
+            eos_token_id=eos_token_id,
             **cfg
         )
 
@@ -477,8 +511,12 @@ def test_model_on_testing_data(model_path,
 
     print(f"Loaded {len(test_data)} problems for testing")
 
+    # 开始计时
+    total_start_time = time.time()
+
     # 加载模型
     print("Loading model...")
+    model_load_start = time.time()
     try:
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=model_path,
@@ -511,6 +549,8 @@ def test_model_on_testing_data(model_path,
             raise e
 
     FastLanguageModel.for_inference(model)
+    model_load_time = time.time() - model_load_start
+    print(f"Model loaded in {model_load_time:.2f} seconds")
 
     # 获取设备
     device = next(model.parameters()).device
@@ -530,6 +570,12 @@ def test_model_on_testing_data(model_path,
     }
     size_stats = defaultdict(lambda: {"total": 0, "success": 0})
 
+    # 时间统计
+    total_generation_time = 0.0
+    total_validation_time = 0.0
+
+    inference_start_time = time.time()
+
     # 批量处理
     print(f"\nProcessing {total_count} problems in batches of {batch_size}...")
 
@@ -538,6 +584,7 @@ def test_model_on_testing_data(model_path,
         batch_samples = test_data[batch_start:batch_end]
 
         # 批量生成
+        gen_start = time.time()
         try:
             batch_results = batch_generate_solutions(
                 model, tokenizer, batch_samples, family, temperature, device
@@ -558,7 +605,11 @@ def test_model_on_testing_data(model_path,
                     print(f"Error processing {sample['problem_name']}: {e}")
                     batch_results.append(("", ""))
 
+        gen_time = time.time() - gen_start
+        total_generation_time += gen_time
+
         # 准备验证任务
+        val_start = time.time()
         validation_tasks = []
         for sample, (output, raw_solution) in zip(batch_samples, batch_results):
             validation_tasks.append((
@@ -591,6 +642,9 @@ def test_model_on_testing_data(model_path,
                         'validation_cmd': '',
                         'size_key': None
                     }
+
+        val_time = time.time() - val_start
+        total_validation_time += val_time
 
         # 记录结果
         for idx, (sample, (output, raw_solution), val_result) in enumerate(
@@ -645,6 +699,12 @@ def test_model_on_testing_data(model_path,
             "success_rate": (succ / total * 100) if total > 0 else 0
         }
 
+    # 计算时间统计
+    inference_time = time.time() - inference_start_time
+    total_time = time.time() - total_start_time
+    avg_generation_time = total_generation_time / total_count if total_count > 0 else 0
+    avg_validation_time = total_validation_time / total_count if total_count > 0 else 0
+
     # 生成输出文件名
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     timestamp_iso = datetime.now().isoformat()
@@ -684,6 +744,16 @@ def test_model_on_testing_data(model_path,
         'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0
                           for k, v in category_counts.items()},
         'size_success_rates': size_success_rates,
+        'timing': {
+            'total_time_seconds': round(total_time, 2),
+            'model_load_time_seconds': round(model_load_time, 2),
+            'inference_time_seconds': round(inference_time, 2),
+            'total_generation_time_seconds': round(total_generation_time, 2),
+            'total_validation_time_seconds': round(total_validation_time, 2),
+            'avg_generation_time_seconds': round(avg_generation_time, 2),
+            'avg_validation_time_seconds': round(avg_validation_time, 2),
+            'problems_per_second': round(total_count / inference_time, 3) if inference_time > 0 else 0,
+        },
         'results': results
     }
 
@@ -705,6 +775,15 @@ def test_model_on_testing_data(model_path,
         for size_key in sorted(size_success_rates.keys()):
             stats = size_success_rates[size_key]
             print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%)")
+    print(f"\nTiming Statistics:")
+    print(f"  Total time: {total_time:.2f}s")
+    print(f"  Model load time: {model_load_time:.2f}s")
+    print(f"  Inference time: {inference_time:.2f}s")
+    print(f"  Total generation time: {total_generation_time:.2f}s")
+    print(f"  Total validation time: {total_validation_time:.2f}s")
+    print(f"  Avg generation time per problem: {avg_generation_time:.2f}s")
+    print(f"  Avg validation time per problem: {avg_validation_time:.2f}s")
+    print(f"  Throughput: {total_count / inference_time:.3f} problems/sec" if inference_time > 0 else "  Throughput: N/A")
     print(f"\nResults saved to: {output_file_path}")
 
 def main():

@@ -6,7 +6,6 @@
 set -euo pipefail
 
 # Activate env and set workdir
-conda activate llmstl
 cd /home/ubuntu/Safety-gen
 
 echo "=== [Step 1] Generate symbolized (mixed) datasets for four scenarios ==="

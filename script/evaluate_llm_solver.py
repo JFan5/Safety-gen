@@ -14,6 +14,7 @@ from pathlib import Path
 from unsloth import FastLanguageModel
 import torch
 from datetime import datetime
+import time
 import re
 from typing import Optional
 from collections import defaultdict
@@ -420,9 +421,13 @@ def test_model_on_testing_data(model_path,
         return
     
     print(f"Loaded {len(test_data)} problems for testing")
-    
+
+    # 开始计时
+    total_start_time = time.time()
+
     # 加载模型
     print("Loading model...")
+    model_load_start = time.time()
     try:
         model, tokenizer = FastLanguageModel.from_pretrained(
             model_name=model_path,
@@ -455,7 +460,9 @@ def test_model_on_testing_data(model_path,
             raise e
     
     FastLanguageModel.for_inference(model)
-    
+    model_load_time = time.time() - model_load_start
+    print(f"Model loaded in {model_load_time:.2f} seconds")
+
     # 测试结果
     results = []
     total_count = len(test_data)
@@ -468,7 +475,13 @@ def test_model_on_testing_data(model_path,
         "goal_not_satisfied": 0,
     }
     size_stats = defaultdict(lambda: {"total": 0, "success": 0})
-    
+
+    # 时间统计
+    total_generation_time = 0.0
+    total_validation_time = 0.0
+
+    inference_start_time = time.time()
+
     for i, sample in enumerate(test_data, 1):
         print(f"\n--- Test {i}/{total_count} ---")
         print(f"Problem: {sample['problem_name']}")
@@ -515,6 +528,7 @@ def test_model_on_testing_data(model_path,
         
         generation_error = None
         output = ""
+        gen_start = time.time()
         try:
             pad_token_id = getattr(tokenizer, "eosf_token_id", None)
             if pad_token_id is None:
@@ -546,8 +560,11 @@ def test_model_on_testing_data(model_path,
             generation_error = f"Generation Error: {str(e)}"
             print(generation_error)
         
+        gen_time = time.time() - gen_start
+        total_generation_time += gen_time
+
         raw_solution = extract_llm_output(output, family) if output else ""
-    
+
         # 在终端打印LLM的完整输出
         print(f"\n{'='*80}")
         print("LLM FULL OUTPUT:")
@@ -567,7 +584,8 @@ def test_model_on_testing_data(model_path,
         validation_stdout = ""
         validation_stderr = ""
         category = ""
-        
+        val_start = time.time()
+
         if generation_error:
             # 如果生成时出现错误，跳过验证
             category = "generation_error"
@@ -580,7 +598,7 @@ def test_model_on_testing_data(model_path,
                 validation_message = message
                 validation_stdout = stdout
                 validation_stderr = stderr
-                
+
                 # 检查 plan_text 格式
                 if not _looks_like_valid_plan(raw_solution):
                     category = "plan_format_error"
@@ -595,7 +613,10 @@ def test_model_on_testing_data(model_path,
             category = "others"
             validation_message = f"Problem file not found: {problem_file}"
             val_cmd = ""
-        
+
+        val_time = time.time() - val_start
+        total_validation_time += val_time
+
         # 更新分类统计
         if category in category_counts:
             category_counts[category] += 1
@@ -684,6 +705,12 @@ def test_model_on_testing_data(model_path,
         else:
             output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
     
+    # 计算时间统计
+    inference_time = time.time() - inference_start_time
+    total_time = time.time() - total_start_time
+    avg_generation_time = total_generation_time / total_count if total_count > 0 else 0
+    avg_validation_time = total_validation_time / total_count if total_count > 0 else 0
+
     output_data = {
         'timestamp': timestamp_iso,
         'model_path': model_path,
@@ -699,9 +726,19 @@ def test_model_on_testing_data(model_path,
         'success_count': success_count,
         'success_rate': final_success_rate,
         'category_counts': category_counts,
-        'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0 
+        'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0
                           for k, v in category_counts.items()},
         'size_success_rates': size_success_rates,
+        'timing': {
+            'total_time_seconds': round(total_time, 2),
+            'model_load_time_seconds': round(model_load_time, 2),
+            'inference_time_seconds': round(inference_time, 2),
+            'total_generation_time_seconds': round(total_generation_time, 2),
+            'total_validation_time_seconds': round(total_validation_time, 2),
+            'avg_generation_time_seconds': round(avg_generation_time, 2),
+            'avg_validation_time_seconds': round(avg_validation_time, 2),
+            'problems_per_second': round(total_count / inference_time, 3) if inference_time > 0 else 0,
+        },
         'results': results
     }
     
@@ -723,6 +760,15 @@ def test_model_on_testing_data(model_path,
         for size_key in sorted(size_success_rates.keys()):
             stats = size_success_rates[size_key]
             print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%)")
+    print(f"\nTiming Statistics:")
+    print(f"  Total time: {total_time:.2f}s")
+    print(f"  Model load time: {model_load_time:.2f}s")
+    print(f"  Inference time: {inference_time:.2f}s")
+    print(f"  Total generation time: {total_generation_time:.2f}s")
+    print(f"  Total validation time: {total_validation_time:.2f}s")
+    print(f"  Avg generation time per problem: {avg_generation_time:.2f}s")
+    print(f"  Avg validation time per problem: {avg_validation_time:.2f}s")
+    print(f"  Throughput: {total_count / inference_time:.3f} problems/sec" if inference_time > 0 else "  Throughput: N/A")
     print(f"\nResults saved to: {output_file_path}")
 
 def main():

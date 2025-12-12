@@ -1,8 +1,8 @@
- #!/bin/bash
+#!/bin/bash
 
-# Evaluate LLM model on grippers scenario
-# Usage: ./evaluate_llm_grippers.sh <model_path> [one_shot]
-# Example: ./evaluate_llm_grippers.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
+# Evaluate LLM model on grid scenario
+# Usage: ./evaluate_llm_grid.sh <model_path> [one_shot]
+# Example: ./evaluate_llm_grid.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
 
 set -e
 
@@ -22,9 +22,9 @@ MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
 
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
-PROBLEMS_DIR="pddl3/grippers/testing_problem50"
-DOMAIN_FILE="pddl3/grippers/domain3.pddl"
-OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_50.json"
+PROBLEMS_DIR="pddl3/grid/testing_problem50"
+DOMAIN_FILE="pddl3/grid/domain3.pddl"
+OUTPUT_FILE="planning_results/grid_${MODEL_NAME}_50.json"
 
 echo "=========================================="
 echo "Evaluating ${MODEL_PATH} model"
