@@ -1,13 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-# Generate obfuscated JSONL datasets for four scenarios using PDDL3 data.
+# Generate symbolized (obfuscated) JSONL datasets for four scenarios using PDDL3 data.
 # Uses pddl3/pddl_augment.py to create per-domain JSONL files and a combined.jsonl.
 
 
 
 INPUT_DIR="$(pwd)/pddl3"
-OUTPUT_DIR="/jfan5/sft_data/pddl3_augmented_four_scenarios"
+OUTPUT_DIR="/jfan5/sft_data/pddl3_symbolized_four_scenarios"
 SEED=42
 
 python3 pddl3/pddl_augment.py \

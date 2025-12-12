@@ -15,9 +15,8 @@ from typing import Any
 
 import torch
 from datasets import Dataset
-from transformers import TrainingArguments
 from trl import DPOTrainer, DPOConfig
-
+from transformers import TrainingArguments, EarlyStoppingCallback
 # Unsloth
 from unsloth import FastLanguageModel
 try:
@@ -303,6 +302,7 @@ def main():
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
         processing_class=tokenizer,
+        callback_handler=[EarlyStoppingCallback(patience=3)],
     )
 
     print("eval steps: ", args.eval_steps)
