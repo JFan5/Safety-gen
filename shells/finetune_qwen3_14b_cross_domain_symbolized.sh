@@ -8,7 +8,7 @@
 #SBATCH --output=job_outputs/finetune_qwen3_14b_cross_domain_symbolized.o
 #SBATCH --job-name=finetune_qwen3_14b_cross_sym
 
-set -euo pipefail
+
 
 conda activate llmstl
 

@@ -5,42 +5,55 @@ GRPO Training Script using Unsloth for PDDL-style planning models.
 Dataset format (JSONL per line):
 - prompt (str)               : required
 - response (str, optional)   : UNUSED for GRPO (model在线生成)
-- class_label (str, optional): one of compute_reward keys; 作为备份标签
+- class_label (str, optional): 作为备份标签
 - meta (dict, optional)      : 包含 domain_file / problem_file 等，用于 VAL 校验
 
+Reward Structure (Normalized to [-1, 1] for stable GRPO training):
+- plan_format_error: -1.0 (floor)
+- safety_constraints_violation: [-0.9, -0.5]
+- precondition_violation: [-0.4, -0.1]
+- goal_not_satisfied: [0.0, 0.8]
+- success_plans: 1.0 (ceiling)
+
 Usage:
-    python train_grpo_unsloth.py --base_model <model_path_or_hub_id> --dataset <ppo_dataset.jsonl> --output_dir <output_path>
+    python train_grpo_unsloth_stl.py --base_model <model_path_or_hub_id> --dataset <ppo_dataset.jsonl> --output_dir <output_path>
 """
-import unsloth
 import argparse
 import json
 import logging
 import os
+import statistics
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, List, Optional
+from collections import Counter
 
 import torch
-import statistics
-from collections import Counter
 from datasets import Dataset
-from trl import GRPOConfig, GRPOTrainer
-
 from unsloth import FastLanguageModel
-from utils import _classify_result, validate_solution
-from utils_generic_reward import (
-    get_reward_calculator,
-    compute_scenario_reward,
-    get_supported_scenarios,
-    get_base_reward,
-)
-from utils_blocksworld import reward_baseline
-import wandb
-
-# Global variable to store reward type (set by command line argument)
-REWARD_TYPE = "dense"  # Default to dense reward
 
 try:
-    # Prefer Unsloth's helper if available
+    import wandb  # type: ignore
+except Exception:  # pragma: no cover - optional dependency
+    wandb = None
+
+try:
+    from trl import GRPOConfig, GRPOTrainer  # type: ignore
+except Exception as exc:  # pragma: no cover - environment dependent
+    raise RuntimeError(
+        "Failed to import `trl.GRPOTrainer`. This is often caused by an incompatible "
+        "`trl` / `vllm` version combination in your environment. "
+        "Fix by upgrading/downgrading to a compatible pair (or uninstall `vllm` if you "
+        "don't use TRL's vLLM features)."
+    ) from exc
+
+from utils import _classify_result, validate_solution
+from utils_generic_reward import (
+    compute_reward_from_validation,
+    get_supported_scenarios,
+    print_reward_summary,
+)
+
+try:
     from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
 except Exception:
     _unsloth_bf16_ok = None
@@ -51,83 +64,52 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 # -----------------------------------------------------------------------------
-# Scenario-Specific Reward Functions (Using Generic Framework)
+# Scenario-Agnostic Reward Functions (Using Generic Framework)
 # -----------------------------------------------------------------------------
 # 使用 utils_generic_reward.py 中的通用框架
-# 支持的场景: blocksworld, ferry, grippers, spanner
+# 支持所有场景: blocksworld, ferry, grippers, spanner, delivery, etc.
+# 通过解析 VAL validator 输出来计算 reward，无需场景特定逻辑
 
-def get_scenario_reward_wrapper(scenario: str) -> Callable[[str, str, Dict[str, Any]], float]:
+SUPPORTED_SCENARIOS = get_supported_scenarios()
+logger.info(f"Supported scenarios for generic reward: {SUPPORTED_SCENARIOS}")
+
+# This script currently uses the dense, scenario-agnostic reward in
+# `script/utils_generic_reward.py` (normalized to [-1, 1]).
+REWARD_TYPE = "dense"
+
+
+# -----------------------------------------------------------------------------
+# Validation
+# -----------------------------------------------------------------------------
+def classify_with_validator(meta: Any, response_text: str) -> tuple[Optional[str], str]:
     """
-    为特定场景创建 reward 计算包装函数
-
-    Args:
-        scenario: 场景名称
+    Run VAL validation and classify using utils._classify_result.
 
     Returns:
-        reward 计算函数，签名 (class_label, completion, meta) -> float
+        (class_label, validation_stdout) tuple
+        - class_label: Classification result or None if validation failed
+        - validation_stdout: Raw validator output (empty string if failed)
     """
-    def wrapper(class_label: str, completion: str, meta: Dict[str, Any]) -> float:
-        return compute_scenario_reward(
-            scenario, class_label, completion, meta, REPO_ROOT, compute_reward
-        )
-    return wrapper
-
-
-# 为所有支持的场景创建 reward 函数
-SCENARIO_REWARD_FUNCTIONS: Dict[str, Callable[[str, str, Dict[str, Any]], float]] = {}
-
-for scenario in get_supported_scenarios():
-    SCENARIO_REWARD_FUNCTIONS[scenario] = get_scenario_reward_wrapper(scenario)
-    logger.info(f"Registered reward function for scenario: {scenario}")
-
-
-# -----------------------------------------------------------------------------
-# Reward
-# -----------------------------------------------------------------------------
-def compute_reward(class_label: str) -> float:
-    reward_table = {
-    "success_plans": 1,                 # 完整达成目标，最高奖励
-
-    "goal_not_satisfied": 0,          # 计划是合法的，但没达到目标
-                                         # -> 至少语法 & precondition & 安全都过了，算“差一点”
-
-    "plan_format_error": -0.3,          # 语法格式错误（括号、关键字等）
-                                         # -> 比 goal_not_satisfied 更糟，因为连 parser 都过不了
-
-    "precondition_violation": -0.6,      # 动作在当前 state 下不可执行
-                                         # -> 逻辑错误更严重
-
-    "safety_constraints_violation": -1 # 违反安全约束，最严重
-    }
-    if class_label not in reward_table:
-        raise ValueError(f"Unknown class_label='{class_label}'. Expected one of {list(reward_table)}")
-    return reward_table[class_label]
-
-
-def classify_with_validator(meta: Any, response_text: str) -> Optional[str]:
-    """Run VAL validation and classify using utils._classify_result."""
     if not isinstance(meta, dict):
-        return None
+        return None, ""
     domain_rel = meta.get("domain_file")
     problem_rel = meta.get("problem_file")
     if not domain_rel or not problem_rel:
-        return None
+        return None, ""
     domain_path = REPO_ROOT / domain_rel
     problem_path = REPO_ROOT / problem_rel
     if not domain_path.exists() or not problem_path.exists():
-        return None
+        return None, ""
     try:
         _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), response_text)
-        return _classify_result(stdout)
+        return _classify_result(stdout), stdout
     except Exception as exc:  # pragma: no cover - defensive
         logger.warning(f"Validation failed for {problem_rel}: {exc}")
-        return None
+        return None, ""
 
-
-import os
-from collections import Counter
 
 DEBUG_FILE = "reward_debug.log"
+
 
 def grpo_reward_func(
     prompts: List[str],
@@ -137,7 +119,16 @@ def grpo_reward_func(
     trainer_state=None,
     **kwargs,
 ) -> List[float]:
+    """
+    GRPO reward function using the generic reward calculator.
 
+    Reward ranges (normalized to [-1, 1]):
+    - plan_format_error: -1.0 (floor)
+    - safety_constraints_violation: [-0.9, -0.5]
+    - precondition_violation: [-0.4, -0.1]
+    - goal_not_satisfied: [0.0, 0.8]
+    - success_plans: 1.0 (ceiling)
+    """
     n = len(completions)
     if meta is None:
         meta = [None] * n
@@ -150,7 +141,6 @@ def grpo_reward_func(
     reward_methods: List[str] = []  # 收集 reward 计算方法
 
     # ---------- debug: 打开文件，只 append ----------
-    # 如果文件不存在，创建并写 header
     if not os.path.exists(DEBUG_FILE):
         with open(DEBUG_FILE, "w") as f:
             f.write("=== GRPO REWARD DEBUG LOG ===\n")
@@ -158,7 +148,6 @@ def grpo_reward_func(
     for i, (prompt, completion, m, label) in enumerate(
         zip(prompts, completions, meta, class_label)
     ):
-        
         # 提取场景信息
         scenario = "unknown"
         if isinstance(m, dict):
@@ -167,8 +156,8 @@ def grpo_reward_func(
                 scenario = "unknown"
         all_scenarios.append(scenario)
 
-        # 1. validator 推断 label
-        inferred_label = classify_with_validator(m, completion)
+        # 1. validator 推断 label 和获取 validation_stdout
+        inferred_label, validation_stdout = classify_with_validator(m, completion)
 
         # 2. fallback：使用数据集原始 label
         if inferred_label is None and isinstance(label, str):
@@ -181,44 +170,28 @@ def grpo_reward_func(
             inferred_label = "unknown"
             all_labels.append("unknown")
 
-        # 4. 计算 reward - 根据 REWARD_TYPE 选择不同的计算方式
+        # 4. 计算 reward - 使用通用 dense reward 函数
         r = 0.0
-        reward_method = "default"
+        reward_method = "unknown"
 
-        if REWARD_TYPE == "baseline":
-            # Baseline: 只使用 reward_table，不使用 dense reward
-            if inferred_label != "unknown":
-                try:
-                    r = reward_baseline(inferred_label)
-                    reward_method = "baseline"
-                except:
-                    r = 0.0
-                    inferred_label = "unknown"
-            else:
+        if inferred_label != "unknown":
+            try:
+                # 获取 problem_file 路径用于解析 goal 信息
+                problem_file = None
+                if isinstance(m, dict) and m.get("problem_file"):
+                    problem_file = str(REPO_ROOT / m["problem_file"])
+
+                # 使用通用 reward 计算（解析 validation_stdout）
+                r = compute_reward_from_validation(
+                    category=inferred_label,
+                    validation_stdout=validation_stdout,
+                    problem_file=problem_file,
+                )
+                reward_method = "dense"
+            except Exception as e:
+                logger.debug(f"Dense reward calculation failed: {e}")
                 r = 0.0
-                reward_method = "baseline"
-        else:
-            # Dense: 使用场景特定的 reward 函数（如果已注册）
-            # 检查是否有场景特定的 reward 函数
-            if scenario in SCENARIO_REWARD_FUNCTIONS and isinstance(m, dict):
-                try:
-                    reward_func = SCENARIO_REWARD_FUNCTIONS[scenario]
-                    r = reward_func(inferred_label, completion, m)
-                    reward_method = f"scenario_{scenario}"
-                except Exception as e:
-                    logger.debug(f"Scenario-specific reward calculation failed for {scenario}: {e}, falling back to default")
-                    reward_method = "default_fallback"
-
-            # 如果没有场景特定的函数或调用失败，使用默认的 compute_reward
-            if reward_method == "default" or reward_method == "default_fallback":
-                if inferred_label != "unknown":
-                    try:
-                        r = compute_reward(inferred_label)
-                    except:
-                        r = 0.0
-                        inferred_label = "unknown"
-                else:
-                    r = 0.0
+                reward_method = "error"
 
         rewards.append(float(r))
         reward_methods.append(reward_method)
@@ -420,21 +393,7 @@ def main():
     parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable Unsloth gradient checkpointing")
     parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer, kept for compat)")
 
-    # Reward function options
-    parser.add_argument(
-        "--reward_type",
-        type=str,
-        default="dense",
-        choices=["baseline", "dense"],
-        help="Reward function type: 'baseline' uses simple reward_table, 'dense' uses goal percentage and trajectory-based rewards (default: dense)"
-    )
-
     args = parser.parse_args()
-
-    # Set global reward type
-    global REWARD_TYPE
-    REWARD_TYPE = args.reward_type
-    logger.info(f"Using reward type: {REWARD_TYPE}")
 
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
@@ -449,7 +408,9 @@ def main():
         logger.warning("Loading model in full precision (4-bit quantization disabled)")
 
     # W&B（默认启用，通过 GRPOConfig.report_to 集成，不手动 wandb.init）
-    use_wandb = not args.no_wandb
+    use_wandb = (not args.no_wandb) and (wandb is not None)
+    if (not args.no_wandb) and (wandb is None):
+        logger.warning("wandb is not installed/importable; disabling W&B logging.")
 
     # 模型类型（用于日志提示）
     model_name = args.base_model
@@ -500,27 +461,13 @@ def main():
     logger.info(f"Training dataset size: {len(dataset)}; columns: {dataset.column_names}")
     
     # ============ 打印 Reward Function 配置信息 ============
-    print("=" * 60)
+    print("=" * 70)
     print("Reward Function Configuration:")
     print(f"  Reward Type: {REWARD_TYPE}")
-    if REWARD_TYPE == "baseline":
-        print("  Using baseline reward: reward_baseline (simple reward_table, no dense reward)")
-        print("  Reward values:")
-        print("    - success_plans: 1.0")
-        print("    - goal_not_satisfied: 0.0")
-        print("    - plan_format_error: -0.3")
-        print("    - precondition_violation: -0.6")
-        print("    - safety_constraints_violation: -1.0")
-    else:
-        print("  Using dense reward: goal percentage + trajectory-based rewards")
-        if SCENARIO_REWARD_FUNCTIONS:
-            print(f"  Registered scenario-specific reward functions: {list(SCENARIO_REWARD_FUNCTIONS.keys())}")
-            for scenario, func in SCENARIO_REWARD_FUNCTIONS.items():
-                print(f"    - {scenario}: {func.__name__}")
-        else:
-            print("  No scenario-specific reward functions registered")
-        print("  Fallback reward function: compute_reward (based on class_label only)")
-    print("=" * 60)
+    print("  Using dense reward: Generic reward calculator (normalized to [-1, 1])")
+    print("  Supported scenarios:", SUPPORTED_SCENARIOS)
+    print_reward_summary()
+    print("=" * 70)
     
     # 使用整个数据集作为训练集（不进行 train/test split）
     # 数据集已经在 load_grpo_dataset 中按 scenario 排序，确保每个 batch 都是单一场景
@@ -568,8 +515,8 @@ def main():
                 "top_k": args.top_k,
                 "beta": args.beta,
                 "max_steps": args.max_steps,
-                "reward_type": args.reward_type,
-            }
+                    "reward_type": REWARD_TYPE,  # dense reward normalized to [-1, 1]
+                }
         )
 
     # GRPOConfig：对应原来 PPOConfig 的超参

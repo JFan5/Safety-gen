@@ -8,7 +8,7 @@
 #SBATCH --output=job_outputs/finetune_gpt_oss_20b_cross_domain_symbolized.o
 #SBATCH --job-name=finetune_gpt_oss_20b_cross_sym
 
-set -euo pipefail
+
 
 conda activate llmstl
 

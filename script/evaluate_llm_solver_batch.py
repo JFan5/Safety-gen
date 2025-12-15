@@ -24,7 +24,7 @@ from tqdm import tqdm
 
 # 配置参数
 max_seq_length = 5000
-MAX_NEW_TOKENS = 512
+MAX_NEW_TOKENS = 768
 dtype = None
 
 # 批处理参数
@@ -397,23 +397,50 @@ def batch_generate_solutions(model, tokenizer, batch_samples: List[Dict],
         else:
             input_ids = inputs["input_ids"]
             attention_mask = inputs.get("attention_mask", (input_ids != tokenizer.pad_token_id).long())
-    except TypeError:
-        # 如果失败，尝试 rich 格式
-        batch_messages = [template_input(sample['prompt'], rich=True) for sample in batch_samples]
-        inputs = tokenizer.apply_chat_template(
-            batch_messages,
-            tokenize=True,
-            add_generation_prompt=True,
-            return_tensors="pt",
-            padding=True,
-            enable_thinking=False,
-        )
-        if isinstance(inputs, torch.Tensor):
-            input_ids = inputs
-            attention_mask = (input_ids != tokenizer.pad_token_id).long()
-        else:
+    except (TypeError, ValueError) as e:
+        # 如果 chat_template 不可用，直接使用 tokenizer 编码
+        if "chat_template" in str(e).lower() or "template" in str(e).lower():
+            # 没有 chat_template，直接编码 prompt 文本
+            batch_texts = [sample['prompt'] for sample in batch_samples]
+            inputs = tokenizer(
+                batch_texts,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+                max_length=max_seq_length,
+            )
             input_ids = inputs["input_ids"]
             attention_mask = inputs.get("attention_mask", (input_ids != tokenizer.pad_token_id).long())
+        else:
+            # 如果失败，尝试 rich 格式
+            batch_messages = [template_input(sample['prompt'], rich=True) for sample in batch_samples]
+            try:
+                inputs = tokenizer.apply_chat_template(
+                    batch_messages,
+                    tokenize=True,
+                    add_generation_prompt=True,
+                    return_tensors="pt",
+                    padding=True,
+                    enable_thinking=False,
+                )
+                if isinstance(inputs, torch.Tensor):
+                    input_ids = inputs
+                    attention_mask = (input_ids != tokenizer.pad_token_id).long()
+                else:
+                    input_ids = inputs["input_ids"]
+                    attention_mask = inputs.get("attention_mask", (input_ids != tokenizer.pad_token_id).long())
+            except (TypeError, ValueError):
+                # 最后的后备方案：直接编码
+                batch_texts = [sample['prompt'] for sample in batch_samples]
+                inputs = tokenizer(
+                    batch_texts,
+                    return_tensors="pt",
+                    padding=True,
+                    truncation=True,
+                    max_length=max_seq_length,
+                )
+                input_ids = inputs["input_ids"]
+                attention_mask = inputs.get("attention_mask", (input_ids != tokenizer.pad_token_id).long())
 
     # 恢复原始 padding_side
     tokenizer.padding_side = original_padding_side
@@ -560,14 +587,18 @@ def test_model_on_testing_data(model_path,
     results = []
     total_count = len(test_data)
 
-    # 分类统计
-    category_counts = {
-        "success_plans": 0,
-        "plan_format_error": 0,
-        "precondition_violation": 0,
-        "safety_constraints_violation": 0,
-        "goal_not_satisfied": 0,
-    }
+    # 分类统计（允许出现未知分类，避免 KeyError）
+    category_counts = defaultdict(int)
+    for k in [
+        "success_plans",
+        "plan_format_error",
+        "precondition_violation",
+        "safety_constraints_violation",
+        "goal_not_satisfied",
+        "generation_error",
+        "others",
+    ]:
+        category_counts[k] = 0
     size_stats = defaultdict(lambda: {"total": 0, "success": 0})
 
     # 时间统计
@@ -654,11 +685,8 @@ def test_model_on_testing_data(model_path,
             category = val_result['category']
             size_key = val_result['size_key']
 
-            # 更新统计
-            if category in category_counts:
-                category_counts[category] += 1
-            else:
-                category_counts["others"] += 1
+            # 更新统计（defaultdict 自动兜底）
+            category_counts[category] += 1
 
             if size_key:
                 size_stats[size_key]["total"] += 1

@@ -40,8 +40,8 @@ TEMPERATURE=0.6
 MAX_STEPS=200
 TOP_P=0.9
 LOGGING_STEPS=20
-SAVE_STEPS=20
-EVAL_STEPS=20
+SAVE_STEPS=60
+EVAL_STEPS=60
 WANDB_PROJECT="pddl-grpo-mistral7b"
 RUN_NAME="grpo_mistral_7b-1207"
 BETA=0.01
@@ -78,6 +78,7 @@ python3 script/train_grpo_unsloth.py \
   --max_steps ${MAX_STEPS} \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
+  --eval_steps ${EVAL_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
   --run_name "${RUN_NAME}"
 

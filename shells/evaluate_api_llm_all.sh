@@ -35,7 +35,9 @@ run_eval() {
 
 total_start=$(date +%s)
 
-run_eval blocksworld
+# run_eval blocksworld
+run_eval grid
+
 # run_eval ferry
 # run_eval spanner
 # run_eval grippers

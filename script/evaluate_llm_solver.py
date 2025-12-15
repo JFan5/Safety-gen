@@ -23,7 +23,7 @@ from utils import _classify_result, validate_solution
 # input and output length
 max_seq_length = 5000
 # output length
-MAX_NEW_TOKENS = 512
+MAX_NEW_TOKENS = 1024
 dtype = None
 
 
@@ -367,7 +367,8 @@ def test_model_on_testing_data(model_path,
                               max_problems: int = 0, results_dir=None,
                               problems_dir: str = None, domain_file: str = None,
                               load_in_4bit: bool = True, temperature: float = 0.6,
-                              one_shot: bool = False):
+                              one_shot: bool = False,
+                              no_timestamp: bool = False):
     """
     在testing数据上测试模型并计算成功率
     
@@ -466,14 +467,18 @@ def test_model_on_testing_data(model_path,
     # 测试结果
     results = []
     total_count = len(test_data)
-    # 分类统计
-    category_counts = {
-        "success_plans": 0,
-        "plan_format_error": 0,
-        "precondition_violation": 0,
-        "safety_constraints_violation": 0,
-        "goal_not_satisfied": 0,
-    }
+    # 分类统计（允许出现未知分类，避免 KeyError）
+    category_counts = defaultdict(int)
+    for k in [
+        "success_plans",
+        "plan_format_error",
+        "precondition_violation",
+        "safety_constraints_violation",
+        "goal_not_satisfied",
+        "generation_error",
+        "others",
+    ]:
+        category_counts[k] = 0
     size_stats = defaultdict(lambda: {"total": 0, "success": 0})
 
     # 时间统计
@@ -497,15 +502,35 @@ def test_model_on_testing_data(model_path,
                 return_tensors="pt",
                 enable_thinking=False,
             )
-        except TypeError:
-            messages = template_input(sample['prompt'], rich=True)
-            inputs = tokenizer.apply_chat_template(
-                messages,
-                tokenize=True,
-                add_generation_prompt=True,
-                return_tensors="pt",
-                enable_thinking=False,
-            )
+        except (TypeError, ValueError) as e:
+            # 如果 chat_template 不可用，直接使用 tokenizer 编码
+            if "chat_template" in str(e).lower() or "template" in str(e).lower():
+                # 没有 chat_template，直接编码 prompt 文本
+                inputs = tokenizer(
+                    sample['prompt'],
+                    return_tensors="pt",
+                    truncation=True,
+                    max_length=max_seq_length,
+                )
+            else:
+                # 尝试 rich 格式
+                try:
+                    messages = template_input(sample['prompt'], rich=True)
+                    inputs = tokenizer.apply_chat_template(
+                        messages,
+                        tokenize=True,
+                        add_generation_prompt=True,
+                        return_tensors="pt",
+                        enable_thinking=False,
+                    )
+                except (TypeError, ValueError):
+                    # 最后的后备方案：直接编码
+                    inputs = tokenizer(
+                        sample['prompt'],
+                        return_tensors="pt",
+                        truncation=True,
+                        max_length=max_seq_length,
+                    )
         
         # 确保输入张量在正确的设备上
         if hasattr(model, 'device'):
@@ -530,18 +555,25 @@ def test_model_on_testing_data(model_path,
         output = ""
         gen_start = time.time()
         try:
-            pad_token_id = getattr(tokenizer, "eosf_token_id", None)
+            pad_token_id = getattr(tokenizer, "pad_token_id", None)
             if pad_token_id is None:
                 pad_token_id = getattr(tokenizer, "eos_token_id", None)
-            if pad_token_id is None:
-                pad_token_id = getattr(tokenizer, "pad_token_id", None)
+
+            # inputs 可能是 Tensor（apply_chat_template 返回）或 BatchEncoding/dict（tokenizer(...) 返回）
+            if isinstance(inputs, torch.Tensor):
+                gen_input_ids = inputs
+                gen_attention_mask = None
+            else:
+                gen_input_ids = inputs["input_ids"]
+                gen_attention_mask = inputs.get("attention_mask", None)
 
             with torch.no_grad():
                 outputs = model.generate(
-                    input_ids=inputs,
+                    input_ids=gen_input_ids,
+                    attention_mask=gen_attention_mask,
                     max_new_tokens=MAX_NEW_TOKENS,
                     pad_token_id=pad_token_id,
-                    **cfg
+                    **cfg,
                 )
             output = tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]
         except torch.cuda.OutOfMemoryError as e:
@@ -617,11 +649,8 @@ def test_model_on_testing_data(model_path,
         val_time = time.time() - val_start
         total_validation_time += val_time
 
-        # 更新分类统计
-        if category in category_counts:
-            category_counts[category] += 1
-        else:
-            category_counts["others"] += 1
+        # 更新分类统计（defaultdict 自动兜底）
+        category_counts[category] += 1
         if size_key:
             size_stats[size_key]["total"] += 1
             if category == "success_plans":
@@ -682,28 +711,39 @@ def test_model_on_testing_data(model_path,
             "success_rate": (succ / total * 100) if total > 0 else 0
         }
     
-    # 自动生成输出文件名并加上时间戳
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     timestamp_iso = datetime.now().isoformat()
-    
-    # 处理输出文件名，添加时间戳和 oneshot 后缀（如果使用 one-shot 模式）
+
+    # 处理输出文件名：默认会插入 timestamp；如指定 --no-timestamp 则严格保留文件名
     output_file_path = Path(output_file)
-    if output_file == "test_results.json":
-        # 如果使用默认文件名，生成带时间戳的文件名
-        model_name_clean = model_path.replace('/', '_').replace('\\', '_')
-        suffix = "_oneshot" if one_shot else ""
-        output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
+    if no_timestamp:
+        # Only keep optional oneshot suffix (but still no timestamp)
+        if one_shot:
+            parent_dir = output_file_path.parent
+            stem = output_file_path.stem
+            suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+            oneshot_suffix = "_oneshot"
+            if parent_dir and str(parent_dir) != ".":
+                output_file_path = parent_dir / f"{stem}{oneshot_suffix}{suffix}"
+            else:
+                output_file_path = Path(f"{stem}{oneshot_suffix}{suffix}")
+        # else: keep as-is
     else:
-        # 如果指定了自定义文件名，在文件名中插入时间戳和 oneshot 后缀
-        # 保留原始路径（如果有）
-        parent_dir = output_file_path.parent
-        stem = output_file_path.stem
-        suffix = output_file_path.suffix if output_file_path.suffix else ".json"
-        oneshot_suffix = "_oneshot" if one_shot else ""
-        if parent_dir and str(parent_dir) != ".":
-            output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+        if output_file == "test_results.json":
+            # 如果使用默认文件名，生成带时间戳的文件名
+            model_name_clean = model_path.replace('/', '_').replace('\\', '_')
+            suffix = "_oneshot" if one_shot else ""
+            output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
         else:
-            output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
+            # 如果指定了自定义文件名，在文件名中插入时间戳和 oneshot 后缀
+            parent_dir = output_file_path.parent
+            stem = output_file_path.stem
+            suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+            oneshot_suffix = "_oneshot" if one_shot else ""
+            if parent_dir and str(parent_dir) != ".":
+                output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+            else:
+                output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
     
     # 计算时间统计
     inference_time = time.time() - inference_start_time
@@ -742,6 +782,12 @@ def test_model_on_testing_data(model_path,
         'results': results
     }
     
+    # Ensure parent directory exists
+    try:
+        output_file_path.parent.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass
+
     with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
     
@@ -801,6 +847,11 @@ def main():
     parser.add_argument("--no-one-shot", dest='one_shot', action='store_false',
                        help="Disable one-shot mode (default)")
     parser.set_defaults(one_shot=False)
+    parser.add_argument(
+        "--no-timestamp",
+        action="store_true",
+        help="Do not append timestamp to output filename (keep exactly --output).",
+    )
     
     args = parser.parse_args()
     
@@ -814,7 +865,8 @@ def main():
         domain_file=args.domain_file,
         load_in_4bit=args.load_in_4bit,
         temperature=args.temperature,
-        one_shot=args.one_shot
+        one_shot=args.one_shot,
+        no_timestamp=args.no_timestamp,
     )
 
 if __name__ == "__main__":

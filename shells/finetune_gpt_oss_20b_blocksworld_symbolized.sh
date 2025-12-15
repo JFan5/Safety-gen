@@ -8,7 +8,7 @@
 #SBATCH --output=job_outputs/finetune_gpt_oss_20b_blocksworld_symbolized.o
 #SBATCH --job-name=finetune_gpt_oss_20b_blocksworld_sym
 
-set -euo pipefail
+
 
 conda activate llmstl
 

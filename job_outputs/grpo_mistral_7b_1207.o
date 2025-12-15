@@ -1,0 +1,83 @@
+
+CondaError: Run 'conda init' before 'conda activate'
+
+==========================================
+GRPO Training for Mistral-7B
+==========================================
+Base model: /jfan5/sft_models/mistral_7b/four_scenarios500-1124
+Dataset: /jfan5/grpo_data-127/merged.jsonl
+Output: /jfan5/grpo_models/mistral_7b-1214-stl-500
+
+Training parameters:
+  Epochs: 1.0
+  Batch size: 4
+  Gradient accumulation: 8
+  Learning rate: 5e-6
+  Generations per prompt: 4
+==========================================
+
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+Unsloth 2025.11.6 patched 32 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
+wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.22.2
+wandb: Run data is saved locally in /home/ubuntu/Safety-gen/wandb/run-20251215_154307-cvdrz7dr
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run grpo_mistral_7b-1214-stl-500
+wandb: ⭐️ View project at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b
+wandb: 🚀 View run at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/cvdrz7dr
+wandb: Detected [huggingface_hub.inference, openai] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Weave is installed but not imported. Add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 2,000 | Num Epochs = 2 | Total steps = 500
+O^O/ \_/ \    Batch size per device = 4 | Gradient accumulation steps = 8
+\        /    Data Parallel GPUs = 1 | Total batch size (4 x 8 x 1) = 32
+ "-____-"     Trainable parameters = 83,886,080 of 7,331,909,632 (1.14% trained)
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2025.11.6: Fast Mistral patching. Transformers: 4.56.2. vLLM: 0.12.0.
+   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.9.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.5.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.33.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+unsloth/mistral-7b-instruct-v0.3-bnb-4bit does not have a padding token! Will use pad_token = [control_768].
+======================================================================
+Reward Function Configuration:
+  Reward Type: dense
+  Using dense reward: Generic reward calculator (normalized to [-1, 1])
+  Supported scenarios: ['blocksworld', 'ferry', 'grippers', 'spanner', 'delivery', 'all']
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    PDDL Planning Reward Structure                            ║
+║                     (Normalized to [-1, 1] for GRPO)                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║                                                                              ║
+║  FIXED ANCHORS:                                                              ║
+║  ┌─────────────────────┬─────────┐                                           ║
+║  │ plan_format_error   │  -1.0   │  ← Floor (cannot parse)                   ║
+║  │ success_plans       │  +1.0   │  ← Ceiling (complete success)             ║
+║  └─────────────────────┴─────────┘                                           ║
+║                                                                              ║
+║  VARIABLE PENALTIES (by violation count):                                    ║
+║  ┌─────────────────────────────┬───────────────┬────────────────────────┐    ║
+║  │ Category                    │ Range         │ Formula                │    ║
+║  ├─────────────────────────────┼───────────────┼────────────────────────┤    ║
+║  │ safety_constraints_violation│ [-0.9, -0.5]  │ max(-0.9, -0.4-n*0.1)  │    ║
+║  │ precondition_violation      │ [-0.4, -0.1]  │ max(-0.4, -n*0.1)      │    ║
+║  └─────────────────────────────┴───────────────┴────────────────────────┘    ║
+║                                                                              ║
+║  PARTIAL SUCCESS (by goal satisfaction):                                     ║
+║  ┌─────────────────────────────┬───────────────┬────────────────────────┐    ║
+║  │ goal_not_satisfied          │ [0.0, 0.8]    │ 0.8 * (done/total)     │    ║
+║  └─────────────────────────────┴───────────────┴────────────────────────┘    ║
+║                                                                              ║
+║  HIERARCHY (worst to best):                                                  ║
+║  -1.0 ──── -0.9 ─── -0.5 ──── -0.4 ─── -0.1 ──── 0.0 ─── 0.8 ──── 1.0       ║
+║   │         └────────┘         └────────┘        └────────┘        │         ║
+║   │           safety            precond           partial          │         ║
+║  format                                                          success     ║
+║  error                                                                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+======================================================================
+  0%|          | 0/500 [00:00<?, ?it/s]  0%|          | 1/500 [00:44<6:06:57, 44.12s/it]  0%|          | 2/500 [01:03<4:06:38, 29.72s/it]  1%|          | 3/500 [01:21<3:21:39, 24.34s/it]  1%|          | 4/500 [01:40<3:01:32, 21.96s/it]  1%|          | 5/500 [01:59<2:53:35, 21.04s/it]  1%|          | 6/500 [02:17<2:45:19, 20.08s/it]  1%|▏         | 7/500 [02:35<2:40:02, 19.48s/it]  2%|▏         | 8/500 [02:55<2:39:33, 19.46s/it]  2%|▏         | 9/500 [03:14<2:38:45, 19.40s/it]  2%|▏         | 10/500 [03:32<2:35:31, 19.04s/it]  2%|▏         | 11/500 [03:51<2:33:43, 18.86s/it]  2%|▏         | 12/500 [04:09<2:32:18, 18.73s/it]  3%|▎         | 13/500 [04:29<2:33:32, 18.92s/it]  3%|▎         | 14/500 [04:48<2:34:22, 19.06s/it]  3%|▎         | 15/500 [05:07<2:35:11, 19.20s/it]  3%|▎         | 16/500 [05:26<2:32:48, 18.94s/it]  3%|▎         | 17/500 [05:45<2:32:31, 18.95s/it]  4%|▎         | 18/500 [06:04<2:32:06, 18.94s/it]  4%|▍         | 19/500 [06:22<2:30:32, 18.78s/it]  4%|▍         | 20/500 [06:40<2:28:58, 18.62s/it]                                                    4%|▍         | 20/500 [06:40<2:28:58, 18.62s/it]  4%|▍         | 21/500 [06:58<2:27:32, 18.48s/it]  4%|▍         | 22/500 [07:17<2:26:32, 18.40s/it]  5%|▍         | 23/500 [07:35<2:26:14, 18.39s/it]  5%|▍         | 24/500 [07:54<2:28:15, 18.69s/it]  5%|▌         | 25/500 [08:13<2:28:33, 18.76s/it]  5%|▌         | 26/500 [08:31<2:26:29, 18.54s/it]  5%|▌         | 27/500 [08:50<2:26:46, 18.62s/it]  6%|▌         | 28/500 [09:09<2:27:14, 18.72s/it]  6%|▌         | 29/500 [09:42<2:59:06, 22.82s/it]  6%|▌         | 30/500 [10:06<3:02:09, 23.25s/it]  6%|▌         | 31/500 [10:45<3:39:12, 28.04s/it]  6%|▋         | 32/500 [11:29<4:15:30, 32.76s/it]  7%|▋         | 33/500 [12:10<4:33:40, 35.16s/it]  7%|▋         | 34/500 [12:51<4:47:00, 36.95s/it]  7%|▋         | 35/500 [13:33<4:58:58, 38.58s/it]  7%|▋         | 36/500 [14:14<5:04:52, 39.42s/it]  7%|▋         | 37/500 [14:56<5:08:28, 39.98s/it]  8%|▊         | 38/500 [15:37<5:10:56, 40.38s/it]  8%|▊         | 39/500 [16:18<5:11:52, 40.59s/it]  8%|▊         | 40/500 [17:01<5:16:18, 41.26s/it]                                                    8%|▊         | 40/500 [17:01<5:16:18, 41.26s/it]  8%|▊         | 41/500 [17:42<5:16:00, 41.31s/it]  8%|▊         | 42/500 [18:23<5:14:26, 41.19s/it]  9%|▊         | 43/500 [19:06<5:17:41, 41.71s/it]  9%|▉         | 44/500 [19:50<5:21:41, 42.33s/it]  9%|▉         | 45/500 [20:34<5:24:18, 42.77s/it]  9%|▉         | 46/500 [21:12<5:14:04, 41.51s/it]  9%|▉         | 47/500 [21:49<5:02:21, 40.05s/it] 10%|▉         | 48/500 [22:08<4:14:57, 33.84s/it] 10%|▉         | 49/500 [22:27<3:40:48, 29.38s/it] 10%|█         | 50/500 [22:46<3:15:36, 26.08s/it] 10%|█         | 51/500 [23:04<2:57:52, 23.77s/it] 10%|█         | 52/500 [23:22<2:45:31, 22.17s/it] 11%|█         | 53/500 [23:41<2:36:20, 20.99s/it] 11%|█         | 54/500 [23:59<2:30:14, 20.21s/it] 11%|█         | 55/500 [24:18<2:26:39, 19.78s/it] 11%|█         | 56/500 [24:36<2:22:46, 19.29s/it]slurmstepd-ambitious-tesla: error: *** JOB 255 ON ambitious-tesla CANCELLED AT 2025-12-15T16:07:58 ***

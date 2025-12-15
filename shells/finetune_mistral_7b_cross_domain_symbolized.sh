@@ -8,7 +8,6 @@
 #SBATCH --output=job_outputs/finetune_mistral_7b_cross_domain_symbolized.o
 #SBATCH --job-name=finetune_mistral_7b_cross_sym
 
-set -euo pipefail
 
 conda activate llmstl
 
@@ -17,42 +16,11 @@ cd /home/ubuntu/Safety-gen
 
 # Paths
 MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-SYM_JSONL="/jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.jsonl"
-DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.hf"
-OUTPUT_DIR="/jfan5/sft_models/mistral_7b/symbolized"
 
-# Convert JSONL -> HF dataset if needed
-if [ ! -d "${DATASET}" ]; then
-  python3 - "${SYM_JSONL}" "${DATASET}" <<'PY'
-import sys, json
-from pathlib import Path
-from datasets import Dataset
+DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v4/combined.hf"
+OUTPUT_DIR="/jfan5/sft_models/mistral_7b/symbolized_v4"
 
-src = Path(sys.argv[1])
-dst = Path(sys.argv[2])
-if not src.exists():
-    raise SystemExit(f"Source JSONL not found: {src}")
 
-print(f"Building HF dataset from {src} -> {dst}")
-entries = []
-with src.open(encoding="utf-8") as f:
-    for line in f:
-        line = line.strip()
-        if not line:
-            continue
-        obj = json.loads(line)
-        entries.append({
-            "prompt": obj.get("input", ""),
-            "path": obj.get("output", ""),
-            "scenario": "cross_domain",
-            "pddl": "PDDL3",
-        })
-
-ds = Dataset.from_list(entries)
-ds.save_to_disk(str(dst))
-print(f"Saved HF dataset with {len(ds)} entries to {dst}")
-PY
-fi
 
 # Training parameters
 NUM_EPOCHS=3

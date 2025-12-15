@@ -8,9 +8,8 @@
 #SBATCH --output=job_outputs/finetune_mistral_7b_blocksworld_symbolized.o
 #SBATCH --job-name=finetune_mistral_7b_blocksworld_sym
 
-set -euo pipefail
 
-conda activate llmstl
+
 
 # Set working directory
 cd /home/ubuntu/Safety-gen

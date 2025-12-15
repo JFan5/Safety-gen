@@ -1,0 +1,47 @@
+(define (problem ferry-l4-c3)
+(:domain ferry)
+(:objects obj_06 obj_03 obj_02 obj_07 
+          obj_05 obj_01 obj_04 
+)
+(:init
+(pred_6 obj_06)
+(pred_6 obj_03)
+(pred_6 obj_02)
+(pred_6 obj_07)
+(pred_4 obj_05)
+(pred_4 obj_01)
+(pred_4 obj_04)
+(not-eq obj_06 obj_03)
+(not-eq obj_03 obj_06)
+(not-eq obj_06 obj_02)
+(not-eq obj_02 obj_06)
+(not-eq obj_06 obj_07)
+(not-eq obj_07 obj_06)
+(not-eq obj_03 obj_02)
+(not-eq obj_02 obj_03)
+(not-eq obj_03 obj_07)
+(not-eq obj_07 obj_03)
+(not-eq obj_02 obj_07)
+(not-eq obj_07 obj_02)
+(pred_2)
+(pred_3 obj_05 obj_07)
+(pred_3 obj_01 obj_06)
+(pred_3 obj_04 obj_03)
+(pred_5 obj_07)
+)
+(:goal
+(and
+(pred_3 obj_05 obj_03)
+(pred_3 obj_01 obj_02)
+(pred_3 obj_04 obj_07)
+)
+)
+
+(:constraints
+  (and
+    (sometime-before  (pred_3 obj_05 obj_03) (pred_5 obj_06))
+    (sometime-before  (pred_3 obj_01 obj_02) (pred_5 obj_03))
+    (sometime-before  (pred_3 obj_04 obj_07) (pred_5 obj_06))
+  )
+)
+)

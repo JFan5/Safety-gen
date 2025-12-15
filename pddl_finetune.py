@@ -368,9 +368,9 @@ def sft_train_pddl(
         "weight_decay": 0.05,
         "lr_scheduler_type": "cosine",
         "max_grad_norm": 1.0,
-        "eval_strategy": "epoch",
-        "eval_steps": 100,
-        "save_strategy": "epoch",
+        "eval_strategy": "steps",
+        "eval_steps": 50,
+        "save_strategy": "steps",
         "load_best_model_at_end": True,
         "metric_for_best_model": "eval_loss",
         "greater_is_better": False,
@@ -382,7 +382,7 @@ def sft_train_pddl(
         "bf16": use_bf16,
         "optim": "adamw_torch",
         "seed": 3407,
-        "save_steps": 30,
+        "save_steps": 50,
     }
 
     if family == 'gpt':

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Evaluate LLM model on all 5 scenarios: delivery, blocksworld, ferry, spanner, grippers
+# Evaluate LLM model on 4 scenarios: blocksworld, ferry, spanner, grippers
 # Usage: ./evaluate_llm_all.sh <model_path> [one_shot]
 # Example: ./evaluate_llm_all.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
 
@@ -24,18 +24,23 @@ MAX_PROBLEMS=50
 # Sanitize model path for filename (replace / and other special chars with -)
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
 
+RUN_TS="$(date +%Y%m%d_%H%M%S)"
+OUTPUT_DIR="planning_results/${MODEL_NAME}_${RUN_TS}"
+mkdir -p "${OUTPUT_DIR}"
+
 echo "=========================================="
-echo "Evaluating model on all 5 scenarios"
+echo "Evaluating model on 4 scenarios"
 echo "=========================================="
 echo "Model: ${MODEL_PATH}"
 echo "Family: ${MODEL_FAMILY}"
 echo "Max problems per scenario: ${MAX_PROBLEMS}"
 echo "One-shot: ${ONE_SHOT}"
+echo "Output dir: ${OUTPUT_DIR}"
 echo "=========================================="
 echo ""
 
 # Define scenarios array
-declare -a SCENARIOS=( "blocksworld" "ferry" "spanner" "grippers" "delivery")
+declare -a SCENARIOS=( "blocksworld" "ferry" "spanner" "grippers" )
 
 # Loop through each scenario
 for SCENARIO in "${SCENARIOS[@]}"; do
@@ -47,41 +52,31 @@ for SCENARIO in "${SCENARIOS[@]}"; do
     
     # Set scenario-specific paths
     case "${SCENARIO}" in
-        delivery)
-            PROBLEMS_DIR="pddl3/delivery/testing_problem50"
-            DOMAIN_FILE="pddl3/delivery/domain3.pddl"
-            OUTPUT_FILE="planning_results/delivery_${MODEL_NAME}_${MAX_PROBLEMS}.json"
-            ;;
         blocksworld)
             PROBLEMS_DIR="pddl3/blocksworld/testing_problem50"
             DOMAIN_FILE="pddl3/blocksworld/domain3.pddl"
-            OUTPUT_FILE="planning_results/blocksworld_${MODEL_NAME}_${MAX_PROBLEMS}.json"
+            OUTPUT_FILE="${OUTPUT_DIR}/blocksworld.json"
             ;;
         ferry)
             PROBLEMS_DIR="pddl3/ferry/testing_problem50"
             DOMAIN_FILE="pddl3/ferry/domain3.pddl"
-            OUTPUT_FILE="planning_results/ferry_${MODEL_NAME}_${MAX_PROBLEMS}.json"
+            OUTPUT_FILE="${OUTPUT_DIR}/ferry.json"
             ;;
         spanner)
             PROBLEMS_DIR="pddl3/spanner/testing_problem50"
             DOMAIN_FILE="pddl3/spanner/domain3.pddl"
-            OUTPUT_FILE="planning_results/spanner_${MODEL_NAME}_${MAX_PROBLEMS}.json"
+            OUTPUT_FILE="${OUTPUT_DIR}/spanner.json"
             ;;
         grippers)
             PROBLEMS_DIR="pddl3/grippers/testing_problem50"
             DOMAIN_FILE="pddl3/grippers/domain3.pddl"
-            OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_${MAX_PROBLEMS}.json"
-            ;;
-        grid)
-            PROBLEMS_DIR="pddl3/grid/testing_problem50"
-            DOMAIN_FILE="pddl3/grid/domain3.pddl"
-            OUTPUT_FILE="planning_results/grid_${MODEL_NAME}_${MAX_PROBLEMS}.json"
+            OUTPUT_FILE="${OUTPUT_DIR}/grippers.json"
             ;;
     esac
     
     echo "Problems dir: ${PROBLEMS_DIR}"
     echo "Domain file: ${DOMAIN_FILE}"
-    echo "Output file: ${OUTPUT_FILE} (timestamp will be added)"
+    echo "Output file: ${OUTPUT_FILE}"
     echo ""
     
     # Run evaluation
@@ -95,7 +90,8 @@ for SCENARIO in "${SCENARIOS[@]}"; do
                 --max-problems ${MAX_PROBLEMS} \
                 --output "${OUTPUT_FILE}" \
                 --no-load-in-4bit \
-                --one-shot
+                --one-shot \
+                --no-timestamp
         else
             python3 script/evaluate_llm_solver.py \
                 --model "${MODEL_PATH}" \
@@ -104,7 +100,8 @@ for SCENARIO in "${SCENARIOS[@]}"; do
                 --domain-file "${DOMAIN_FILE}" \
                 --max-problems ${MAX_PROBLEMS} \
                 --output "${OUTPUT_FILE}" \
-                --no-load-in-4bit
+                --no-load-in-4bit \
+                --no-timestamp
         fi
     else
         if [ "${ONE_SHOT}" = "1" ]; then
@@ -115,7 +112,8 @@ for SCENARIO in "${SCENARIOS[@]}"; do
                 --domain-file "${DOMAIN_FILE}" \
                 --max-problems ${MAX_PROBLEMS} \
                 --output "${OUTPUT_FILE}" \
-                --one-shot
+                --one-shot \
+                --no-timestamp
         else
             python3 script/evaluate_llm_solver.py \
                 --model "${MODEL_PATH}" \
@@ -123,14 +121,15 @@ for SCENARIO in "${SCENARIOS[@]}"; do
                 --problems-dir "${PROBLEMS_DIR}" \
                 --domain-file "${DOMAIN_FILE}" \
                 --max-problems ${MAX_PROBLEMS} \
-                --output "${OUTPUT_FILE}"
+                --output "${OUTPUT_FILE}" \
+                --no-timestamp
         fi
     fi
     
     echo ""
     echo "=========================================="
     echo "${SCENARIO} evaluation completed!"
-    echo "Results saved to: ${OUTPUT_FILE} (with timestamp added)"
+    echo "Results saved to: ${OUTPUT_FILE}"
     echo "=========================================="
 done
 
@@ -139,6 +138,6 @@ echo "=========================================="
 echo "All evaluations completed!"
 echo "=========================================="
 echo "Evaluated scenarios: ${SCENARIOS[*]}"
-echo "Results saved in: planning_results/"
+echo "Results saved in: ${OUTPUT_DIR}"
 echo ""
 
