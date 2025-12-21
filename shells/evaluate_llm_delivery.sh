@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 # Evaluate LLM model on delivery scenario
-# Usage: ./evaluate_llm_delivery.sh <model_path> [one_shot]
-# Example: ./evaluate_llm_delivery.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
+# Usage: ./evaluate_llm_delivery.sh <model_path> <problems_subdir> [one_shot]
+# Example: ./evaluate_llm_delivery.sh /jfan5/sft_models/mistral_7b/four_scenarios500 testing_problem50 1
 
 # Initialize conda for zsh shell
 eval "$(conda shell.zsh hook)"
@@ -13,7 +13,8 @@ cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
+PROBLEMS_SUBDIR="${2:-testing_problem50}"
+ONE_SHOT="${3:-0}"  # Default to 0 (disabled)
 
 # Fixed parameters
 MODEL_FAMILY="auto"
@@ -21,7 +22,7 @@ MAX_PROBLEMS=50
 
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
 
-PROBLEMS_DIR="pddl3/delivery/testing_problem50"
+PROBLEMS_DIR="pddl3/delivery/${PROBLEMS_SUBDIR}"
 DOMAIN_FILE="pddl3/delivery/domain3.pddl"
 OUTPUT_FILE="planning_results/delivery_${MODEL_NAME}_50.json"
 
@@ -42,7 +43,7 @@ else
         --problems-dir "${PROBLEMS_DIR}" \
         --domain-file "${DOMAIN_FILE}" \
         --max-problems ${MAX_PROBLEMS} \
-        --temperature 0.1 \
+        --temperature 0.6 \
         --output "${OUTPUT_FILE}"
 fi
 

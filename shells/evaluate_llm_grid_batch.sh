@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Evaluate LLM model on grid scenario using BATCH PROCESSING
-# Usage: ./evaluate_llm_grid_batch.sh <model_path> [batch_size] [num_workers]
-# Example: ./evaluate_llm_grid_batch.sh /jfan5/sft_models/mistral_7b/grid 8 8
+# Usage: ./evaluate_llm_grid_batch.sh <model_path> <problems_subdir> [batch_size] [num_workers]
+# Example: ./evaluate_llm_grid_batch.sh /jfan5/sft_models/mistral_7b/grid testing_problem50 8 8
 
 set -e
 
@@ -15,8 +15,9 @@ cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-BATCH_SIZE="${2:-8}"
-NUM_WORKERS="${3:-8}"
+PROBLEMS_SUBDIR="${2:-testing_problem50}"
+BATCH_SIZE="${3:-8}"
+NUM_WORKERS="${4:-8}"
 
 # Fixed parameters
 MODEL_FAMILY="auto"
@@ -27,7 +28,7 @@ MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/
 
 # Scenario-specific paths
 SCENARIO="grid"
-PROBLEMS_DIR="pddl3/grid/testing_problem50"
+PROBLEMS_DIR="pddl3/grid/${PROBLEMS_SUBDIR}"
 DOMAIN_FILE="pddl3/grid/domain3.pddl"
 OUTPUT_FILE="planning_results/grid_${MODEL_NAME}_${MAX_PROBLEMS}.json"
 
@@ -37,6 +38,7 @@ echo "=========================================="
 echo "Model: ${MODEL_PATH}"
 echo "Family: ${MODEL_FAMILY}"
 echo "Max problems: ${MAX_PROBLEMS}"
+echo "Problems subdir: ${PROBLEMS_SUBDIR}"
 echo "Batch size: ${BATCH_SIZE}"
 echo "Validation workers: ${NUM_WORKERS}"
 echo "Problems dir: ${PROBLEMS_DIR}"

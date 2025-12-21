@@ -5,8 +5,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/finetune_qwen3_14b_blocksworld_symbolized.o
-#SBATCH --job-name=finetune_qwen3_14b_blocksworld_sym
+#SBATCH --output=job_outputs/finetune_qwen3_14b_delivery_symbolized.o
+#SBATCH --job-name=finetune_qwen3_14b_delivery_symbolized
 
 
 
@@ -18,8 +18,8 @@ cd /home/ubuntu/Safety-gen
 # Paths
 MODEL="unsloth/Qwen3-14B-unsloth-bnb-4bit"
 
-DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v3-1/delivery.hf"
-OUTPUT_DIR="/jfan5/sft_models/qwen3_14b/delivery_symbolized_v3-1"
+DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v4/delivery.hf"
+OUTPUT_DIR="/jfan5/sft_models/qwen3_14b/delivery_symbolized_v4"
 
 
 # Training parameters
@@ -30,7 +30,7 @@ LEARNING_RATE=2e-4
 MAX_SEQ_LENGTH=4096
 
 echo "=========================================="
-echo "Fine-tuning Qwen3-14B on Blocksworld (PDDL3 symbolized)"
+echo "Fine-tuning Qwen3-14B on Delivery (PDDL3 symbolized)"
 echo "=========================================="
 echo "Model: ${MODEL}"
 echo "Dataset: ${DATASET}"

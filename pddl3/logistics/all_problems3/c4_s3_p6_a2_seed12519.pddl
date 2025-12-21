@@ -79,7 +79,7 @@
 )
 
   (:constraints
-    (always (not (in p2 t2)))
+      (always (not (in p2 t2)))
   )
 )
 

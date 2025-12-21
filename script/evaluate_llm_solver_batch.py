@@ -486,7 +486,8 @@ def test_model_on_testing_data(model_path,
                               problems_dir: str = None, domain_file: str = None,
                               load_in_4bit: bool = True, temperature: float = 0.6,
                               one_shot: bool = False, batch_size: int = DEFAULT_BATCH_SIZE,
-                              num_workers: int = DEFAULT_NUM_WORKERS):
+                              num_workers: int = DEFAULT_NUM_WORKERS,
+                              no_timestamp: bool = False):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
@@ -738,19 +739,31 @@ def test_model_on_testing_data(model_path,
     timestamp_iso = datetime.now().isoformat()
 
     output_file_path = Path(output_file)
-    if output_file == "test_results.json":
-        model_name_clean = model_path.replace('/', '_').replace('\\', '_')
-        suffix = "_oneshot" if one_shot else ""
-        output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
+    if no_timestamp:
+        # Keep exactly --output (optional oneshot suffix, but no timestamp)
+        if one_shot:
+            parent_dir = output_file_path.parent
+            stem = output_file_path.stem
+            suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+            oneshot_suffix = "_oneshot"
+            if parent_dir and str(parent_dir) != ".":
+                output_file_path = parent_dir / f"{stem}{oneshot_suffix}{suffix}"
+            else:
+                output_file_path = Path(f"{stem}{oneshot_suffix}{suffix}")
     else:
-        parent_dir = output_file_path.parent
-        stem = output_file_path.stem
-        suffix = output_file_path.suffix if output_file_path.suffix else ".json"
-        oneshot_suffix = "_oneshot" if one_shot else ""
-        if parent_dir and str(parent_dir) != ".":
-            output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+        if output_file == "test_results.json":
+            model_name_clean = model_path.replace('/', '_').replace('\\', '_')
+            suffix = "_oneshot" if one_shot else ""
+            output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
         else:
-            output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
+            parent_dir = output_file_path.parent
+            stem = output_file_path.stem
+            suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+            oneshot_suffix = "_oneshot" if one_shot else ""
+            if parent_dir and str(parent_dir) != ".":
+                output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+            else:
+                output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
 
     output_data = {
         'timestamp': timestamp_iso,
@@ -784,6 +797,12 @@ def test_model_on_testing_data(model_path,
         },
         'results': results
     }
+
+    # Ensure parent directory exists
+    try:
+        output_file_path.parent.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass
 
     with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
@@ -848,6 +867,11 @@ def main():
                        help=f"Batch size for generation (default: {DEFAULT_BATCH_SIZE})")
     parser.add_argument("--num-workers", type=int, default=DEFAULT_NUM_WORKERS,
                        help=f"Number of parallel validation workers (default: {DEFAULT_NUM_WORKERS})")
+    parser.add_argument(
+        "--no-timestamp",
+        action="store_true",
+        help="Do not append timestamp to output filename (keep exactly --output).",
+    )
 
     args = parser.parse_args()
 
@@ -863,7 +887,8 @@ def main():
         temperature=args.temperature,
         one_shot=args.one_shot,
         batch_size=args.batch_size,
-        num_workers=args.num_workers
+        num_workers=args.num_workers,
+        no_timestamp=args.no_timestamp,
     )
 
 if __name__ == "__main__":

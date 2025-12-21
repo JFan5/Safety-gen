@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_1207_symbolized.o
-#SBATCH --job-name=grpo_mistral_7b_1207_symbolized
+#SBATCH --output=job_outputs/grpo_mistral_7b_1217_symbolized.o
+#SBATCH --job-name=grpo_mistral_7b_1217_symbolized
 
 conda activate llmstl
 
@@ -16,11 +16,11 @@ export CUDA_VISIBLE_DEVICES=0
 # ==========================================
 # Step 2: GRPO Training Configuration
 # ==========================================
-BASE_MODEL="/jfan5/sft_models/mistral_7b/symbolized"
+BASE_MODEL="/jfan5/sft_models/mistral_7b/symbolized_v3"
 
 # Symbolized (obfuscated) 4-scenarios combined GRPO JSONL
 DATASET="/jfan5/grpo_data/pddl3_symbolized_four_scenarios/train_combined.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-symbolized-1214"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-symbolized-1217"
 
 # Training parameters
 NUM_EPOCHS=1.0

@@ -1,0 +1,5 @@
+(move robot1 room3 room1)
+(move robot3 room1 room4)
+(pick robot3 ball2 room4 lgripper3)
+(move robot3 room4 room2)
+(drop robot3 ball2 room2 lgripper3)

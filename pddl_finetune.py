@@ -28,17 +28,54 @@ use_bf16 = is_bfloat16_supported()  # A100: True
 load_in_4bit = True    # 方案 A 用 False；若想走 QLoRA，设 True
 max_new_tokens = 512  # 最大生成token数
 
-def template(prompt, path):
-    """创建对话模板"""
-    return [{"role": "user", "content": prompt}, {"role": "assistant", "content": path}]
+def template(prompt, path, system_prompt=None):
+    """创建对话模板
 
-def template_input(prompt):
+    Args:
+        prompt: 用户输入
+        path: 助手回复（解决方案）
+        system_prompt: 可选的系统提示（用于 GPT-OSS reasoning effort 等）
+    """
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
+    messages.append({"role": "assistant", "content": path})
+    return messages
+
+def template_input(prompt, system_prompt=None):
     """创建输入模板"""
-    return [{"role": "user", "content": prompt}]
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
+    return messages
 
 def template_output(path):
     """创建输出模板"""
     return [{"role": "assistant", "content": path}]
+
+
+def get_system_prompt_for_family(family: str, reasoning_effort: str = None) -> str:
+    """根据模型家族获取系统提示
+
+    Args:
+        family: 模型家族 (mistral, llama, phi, qwen, gpt, gpt-oss)
+        reasoning_effort: 推理努力程度 (low, medium, high)，仅用于 gpt-oss
+
+    Returns:
+        系统提示字符串，或 None（如果不需要系统提示）
+
+    Note:
+        对于 GPT-OSS/DeepSeek-R1 模型，reasoning_effort 控制推理深度。
+        如果 user prompt 中已包含完整指令，可以：
+        1. 只设置 reasoning effort（不重复角色设定）
+        2. 或者完全不使用 system_prompt（传入 reasoning_effort=None）
+    """
+    if family == 'gpt-oss' and reasoning_effort:
+        # 只设置 reasoning effort，不重复 "You are a planning expert"（因为 user prompt 已包含）
+        return f"Reasoning: {reasoning_effort}"
+    return None
 
 
 def extract_llm_output(output: str, family: str = 'mistral') -> str:
@@ -89,40 +126,53 @@ def extract_llm_output(output: str, family: str = 'mistral') -> str:
     if family == 'qwen':
         text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE).strip()
 
+    # 处理 GPT-OSS/DeepSeek-R1 输出格式
+    if family == 'gpt-oss':
+        # 移除 <think>...</think> 标签
+        text = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL | re.IGNORECASE).strip()
+        # 提取 assistantfinal 之后的内容
+        if 'assistantfinal' in text.lower():
+            parts = re.split(r'assistantfinal', text, flags=re.IGNORECASE)
+            if len(parts) > 1:
+                text = parts[-1].strip()
+        # 移除 GPT-OSS 特殊标记
+        text = re.sub(r'<[｜|][^>]+[｜|]>', '', text).strip()
+
     return text
 
 class PDDLTestCallback(TrainerCallback):
     """PDDL测试回调，用于在训练过程中测试模型性能"""
-    
-    def __init__(self, model, tokenizer, test_prompt, family='mistral'):
+
+    def __init__(self, model, tokenizer, test_prompt, family='mistral', system_prompt=None):
         self.model = model
         self.tokenizer = tokenizer
         self.test_prompt = test_prompt
         self.family = family
-    
+        self.system_prompt = system_prompt
+
     def on_save(self, args, state, control, **kwargs):
         """在保存检查点时测试模型"""
         print("\n" + "="*50)
         print("Testing model performance...")
         print("="*50)
-        
+
         FastLanguageModel.for_inference(self.model)
-        
+
         inputs = self.tokenizer.apply_chat_template(
-            template_input(self.test_prompt), 
+            template_input(self.test_prompt, system_prompt=self.system_prompt),
             tokenize=True,
-            add_generation_prompt=True, 
+            add_generation_prompt=True,
             return_tensors="pt",
             enable_thinking=False,
         ).to("cuda")
-        
+
         output = self.tokenizer.batch_decode(
             self.model.generate(input_ids=inputs, max_new_tokens=max_new_tokens)
         )[0]
 
         # 提取生成的解决方案
         path_w_tag = extract_llm_output(output, self.family)
-        
+
         print("Generated solution:")
         print(path_w_tag)
         print("="*50)
@@ -140,17 +190,19 @@ def sft_train_pddl(
     lora_alpha: int = 64,
     lora_dropout: float = 0.05,
     lora_target_modules: Optional[List[str]] = None,
+    reasoning_effort: str = None,
 ):
     """
     使用unsloth进行PDDL fine-tune训练（多场景）
-    
+
     Args:
         model_name: 预训练模型名称
         output_note: 输出标识
-        family: 模型家族 (mistral, llama, phi)
+        family: 模型家族 (mistral, llama, phi, qwen, gpt, gpt-oss)
         dataset_path: 数据集路径（collect_dataset.py 生成）
         val_ratio: 验证集占比（0-1）
         lora_r: LoRA rank (default 32)
+        reasoning_effort: GPT-OSS 推理努力程度 (low, medium, high)，仅用于 gpt-oss family
         lora_alpha: LoRA alpha scaling factor (default 64)
         lora_dropout: LoRA dropout 概率 (default 0.05)
         lora_target_modules: 需要注入 LoRA 的模块列表
@@ -286,12 +338,17 @@ def sft_train_pddl(
     else:
         print(f"Using pre-split dataset: {len(train_ds)} train, {len(eval_ds) if eval_ds else 0} validation")
     
+    # 获取系统提示（用于 GPT-OSS 等需要 reasoning effort 的模型）
+    system_prompt = get_system_prompt_for_family(family, reasoning_effort)
+    if system_prompt:
+        print(f"Using system prompt: {system_prompt}")
+
     # 转换为 chat 模板文本
     print("Processing dataset format (chat template)...")
     train_ds = train_ds.map(lambda entry: {
         "text": tokenizer.apply_chat_template(
-            template(entry['prompt'], entry['path']), 
-            tokenize=False, 
+            template(entry['prompt'], entry['path'], system_prompt=system_prompt),
+            tokenize=False,
             add_generation_prompt=False,
             enable_thinking=False,
         )
@@ -299,8 +356,8 @@ def sft_train_pddl(
     if eval_ds is not None:
         eval_ds = eval_ds.map(lambda entry: {
             "text": tokenizer.apply_chat_template(
-                template(entry['prompt'], entry['path']), 
-                tokenize=False, 
+                template(entry['prompt'], entry['path'], system_prompt=system_prompt),
+                tokenize=False,
                 add_generation_prompt=False,
                 enable_thinking=False,
             )
@@ -314,9 +371,9 @@ def sft_train_pddl(
     FastLanguageModel.for_inference(model)
     if test_prompt:
         inputs = tokenizer.apply_chat_template(
-            template_input(test_prompt), 
+            template_input(test_prompt, system_prompt=system_prompt),
             tokenize=True,
-            add_generation_prompt=True, 
+            add_generation_prompt=True,
             return_tensors="pt",
             enable_thinking=False,
         ).to("cuda")
@@ -326,9 +383,9 @@ def sft_train_pddl(
         path_w_tag = extract_llm_output(output, family)
         print("Initial model output:")
         print(path_w_tag[:500] + "..." if len(path_w_tag) > 500 else path_w_tag)
-    
+
     # 创建测试回调
-    test_callback = PDDLTestCallback(model, tokenizer, test_prompt, family)
+    test_callback = PDDLTestCallback(model, tokenizer, test_prompt, family, system_prompt=system_prompt)
     
     # 规范化输出路径并确保目录存在（默认写入 sft_models 子目录）
     raw_output_path = Path(output_note).expanduser()
@@ -385,7 +442,7 @@ def sft_train_pddl(
         "save_steps": 50,
     }
 
-    if family == 'gpt':
+    if family in ('gpt', 'gpt-oss'):
         if "per_device_train_batch_size" not in training_overrides:
             base_training_args["per_device_train_batch_size"] = 4
         if "gradient_accumulation_steps" not in training_overrides:
@@ -563,8 +620,11 @@ def main():
                        help="Model name for training or model path for testing")
     parser.add_argument("--output", type=str, default="default_run",
                        help="Run name or path for saving the fine-tuned model (default stored under sft_models/)")
-    parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gpt"], 
-                       default="mistral", help="Model family")
+    parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gpt", "gpt-oss"],
+                       default="mistral", help="Model family (use 'gpt-oss' for GPT-OSS/DeepSeek-R1 models)")
+    parser.add_argument("--reasoning", type=str, default=None,
+                       choices=["low", "medium", "high"],
+                       help="Reasoning effort level for GPT-OSS models (default: high when using gpt-oss family)")
     parser.add_argument("--dataset", type=str, default="data/sft/pddl_dataset.hf",
                        help="Dataset path (from collect_dataset.py)")
     parser.add_argument("--val_ratio", type=float, default=0.05,
@@ -677,6 +737,7 @@ def main():
             lora_alpha=args.lora_alpha,
             lora_dropout=args.lora_dropout,
             lora_target_modules=lora_target_modules,
+            reasoning_effort=args.reasoning,
         )
     elif args.mode == "test":
         test_pddl_model(args.model, args.test_prompt, args.test_count, args.family, args.dataset)

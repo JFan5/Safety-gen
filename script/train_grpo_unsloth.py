@@ -49,16 +49,16 @@ def compute_reward(class_label: str) -> float:
     reward_table = {
     "success_plans": 1,                 # 完整达成目标，最高奖励
 
-    "goal_not_satisfied": 0,          # 计划是合法的，但没达到目标
+    "goal_not_satisfied": -0.2,          # 计划是合法的，但没达到目标
                                          # -> 至少语法 & precondition & 安全都过了，算“差一点”
 
-    "plan_format_error": -0.3,          # 语法格式错误（括号、关键字等）
+    "plan_format_error": -1,          # 语法格式错误（括号、关键字等）
                                          # -> 比 goal_not_satisfied 更糟，因为连 parser 都过不了
 
-    "precondition_violation": -0.6,      # 动作在当前 state 下不可执行
+    "precondition_violation": -0.5,      # 动作在当前 state 下不可执行
                                          # -> 逻辑错误更严重
 
-    "safety_constraints_violation": -1 # 违反安全约束，最严重
+    "safety_constraints_violation": -0.9 # 违反安全约束，最严重
     }
     if class_label not in reward_table:
         raise ValueError(f"Unknown class_label='{class_label}'. Expected one of {list(reward_table)}")
@@ -326,9 +326,9 @@ def main():
     parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta). Lower values reduce KL penalty in loss. If loss is too high due to large KL divergence, try reducing this (e.g., 0.001, 0.01)")
 
     # Generation
-    parser.add_argument("--max_prompt_length", type=int, default=4096, help="Maximum prompt length")
-    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
-    parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
+    parser.add_argument("--max_prompt_length", type=int, default=5000, help="Maximum prompt length")
+    parser.add_argument("--max_new_tokens", type=int, default=1024, help="Max completion length for GRPO")
+    parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
     parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
     parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
 

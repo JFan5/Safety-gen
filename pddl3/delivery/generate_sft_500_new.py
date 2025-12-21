@@ -96,7 +96,7 @@ def sample_uniformly(problems_by_config: Dict[Tuple, List[str]], target_count: i
 
 
 def main():
-    base_dir = Path("/home/jfan5/Safety-gen/pddl3/delivery")
+    base_dir = Path(__file__).resolve().parent
     
     print(f"\n{'='*80}")
     print(f"生成 delivery 的 sft_500_new 数据集")

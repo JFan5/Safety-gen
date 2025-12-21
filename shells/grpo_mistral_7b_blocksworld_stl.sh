@@ -20,7 +20,6 @@ BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
 DATASET="/jfan5/grpo_data-127/blocksworld.jsonl"
 OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-1208-500"
 
-# Training parameters
 
 
 BATCH_SIZE=4
@@ -51,7 +50,7 @@ echo "  Generations per prompt: ${NUM_GENERATIONS}"
 echo "=========================================="
 echo ""
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \

@@ -17,42 +17,10 @@ cd /home/ubuntu/Safety-gen
 
 # Configuration
 MODEL="unsloth/gpt-oss-20b-unsloth-bnb-4bit"
-SYM_JSONL="/jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.jsonl"
 DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.hf"
 OUTPUT_DIR="/jfan5/sft_models/gpt_oss_20b/cross_domain_pddl3_symbolized"
 
-# Convert JSONL -> HF dataset if needed
-if [ ! -d "${DATASET}" ]; then
-  python3 - "${SYM_JSONL}" "${DATASET}" <<'PY'
-import sys, json
-from pathlib import Path
-from datasets import Dataset
 
-src = Path(sys.argv[1])
-dst = Path(sys.argv[2])
-if not src.exists():
-    raise SystemExit(f"Source JSONL not found: {src}")
-
-print(f"Building HF dataset from {src} -> {dst}")
-entries = []
-with src.open(encoding="utf-8") as f:
-    for line in f:
-        line = line.strip()
-        if not line:
-            continue
-        obj = json.loads(line)
-        entries.append({
-            "prompt": obj.get("input", ""),
-            "path": obj.get("output", ""),
-            "scenario": "cross_domain",
-            "pddl": "PDDL3",
-        })
-
-ds = Dataset.from_list(entries)
-ds.save_to_disk(str(dst))
-print(f"Saved HF dataset with {len(ds)} entries to {dst}")
-PY
-fi
 
 # Training parameters (GPT models typically need smaller batch sizes and shorter sequences)
 NUM_EPOCHS=3
@@ -81,7 +49,7 @@ echo ""
 python3 pddl_finetune.py \
     --mode train \
     --model "${MODEL}" \
-    --family gpt \
+    --family gpt-oss \
     --dataset "${DATASET}" \
     --output "${OUTPUT_DIR}" \
     --num-train-epochs ${NUM_EPOCHS} \
@@ -92,6 +60,7 @@ python3 pddl_finetune.py \
     --load-in-4bit \
     --eval-strategy steps \
     --save-strategy steps \
+    --reasoning high \
     --eval-steps 10 \
     --save-steps 30 \
     --logging-steps 10 \

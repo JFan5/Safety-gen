@@ -76,7 +76,7 @@
 )
 
   (:constraints
-    (always (not (in p0 t3)))
+      (always (not (in p0 t3)))
   )
 )
 

@@ -1,8 +1,8 @@
  #!/bin/bash
 
 # Evaluate LLM model on grippers scenario
-# Usage: ./evaluate_llm_grippers.sh <model_path> [one_shot]
-# Example: ./evaluate_llm_grippers.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
+# Usage: ./evaluate_llm_grippers.sh <model_path> <problems_subdir> [one_shot]
+# Example: ./evaluate_llm_grippers.sh /jfan5/sft_models/mistral_7b/four_scenarios500 testing_problem50 1
 
 set -e
 
@@ -15,14 +15,15 @@ cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
+PROBLEMS_SUBDIR="${2:-testing_problem50}"
+ONE_SHOT="${3:-0}"  # Default to 0 (disabled)
 
 # Fixed parameters
 MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
 
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
-PROBLEMS_DIR="pddl3/grippers/testing_problem50"
+PROBLEMS_DIR="pddl3/grippers/${PROBLEMS_SUBDIR}"
 DOMAIN_FILE="pddl3/grippers/domain3.pddl"
 OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_50.json"
 

@@ -17,8 +17,8 @@ cd /home/ubuntu/Safety-gen
 # Paths
 MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
-DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v4/combined.hf"
-OUTPUT_DIR="/jfan5/sft_models/mistral_7b/symbolized_v4"
+DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v2/combined.hf"
+OUTPUT_DIR="/jfan5/sft_models/mistral_7b/symbolized_v2"
 
 
 

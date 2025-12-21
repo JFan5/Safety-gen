@@ -70,7 +70,7 @@
 )
 
   (:constraints
-    (always (not (in p6 t0)))
+      (always (not (in p6 t0)))
   )
 )
 

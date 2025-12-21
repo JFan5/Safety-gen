@@ -1,55 +1,55 @@
 (define (domain grid)
 (:requirements :strips :constraints)
-(:predicates (pred_11 ?v3 ?v8)
-             (pred_4 ?v2 ?v1)
-             (pred_1 ?v3 ?v1)
-             (pred_10 ?v13 ?v3 )
-	     (pred_12 ?v3)
-             (pred_3 ?v4)
+(:predicates (pred_9 ?v2 ?v10)
+             (pred_1 ?v12 ?v11)
+             (pred_3 ?v2 ?v11)
+             (pred_7 ?v4 ?v2 )
+	     (pred_11 ?v2)
+             (pred_10 ?v8)
+             (pred_4 ?v12)
+             (pred_8 ?v11)
              (pred_6 ?v2)
-             (pred_7 ?v1)
-             (pred_9 ?v3)
-             (pred_8 ?v2)
-             (pred_5 ?v3)
-             (pred_2 ))
+             (pred_5 ?v12)
+             (pred_2 ?v2)
+             (pred_12 ))
 
 
 
-(:action op_4
-:parameters (?v10 ?v9 ?v5 ?v12)
-:precondition (and (pred_3 ?v10) (pred_3 ?v9) (pred_6 ?v5) (pred_7 ?v12)
-          (pred_11 ?v10 ?v9) (pred_4 ?v5 ?v12)
-                   (pred_1 ?v9 ?v12) (pred_12 ?v10) 
-                   (pred_9 ?v9) (pred_8 ?v5))
-:effect (and  (pred_5 ?v9) (not (pred_9 ?v9))))
-
-
-(:action op_5
-:parameters (?v10 ?v11)
-:precondition (and (pred_3 ?v10) (pred_3 ?v11)
-               (pred_12 ?v10) (pred_11 ?v10 ?v11) (pred_5 ?v11))
-:effect (and (pred_12 ?v11) (not (pred_12 ?v10))))
-
-(:action op_3
-:parameters (?v10 ?v5)
-:precondition (and (pred_3 ?v10) (pred_6 ?v5) 
-                  (pred_12 ?v10) (pred_10 ?v5 ?v10) (pred_2 ))
-:effect (and (pred_8 ?v5)
-   (not (pred_10 ?v5 ?v10)) (not (pred_2 ))))
+(:action op_2
+:parameters (?v6 ?v5 ?v9 ?v13)
+:precondition (and (pred_10 ?v6) (pred_10 ?v5) (pred_4 ?v9) (pred_8 ?v13)
+          (pred_9 ?v6 ?v5) (pred_1 ?v9 ?v13)
+                   (pred_3 ?v5 ?v13) (pred_11 ?v6) 
+                   (pred_6 ?v5) (pred_5 ?v9))
+:effect (and  (pred_2 ?v5) (not (pred_6 ?v5))))
 
 
 (:action op_1
-:parameters (?v10 ?v7 ?v6)
-:precondition (and (pred_3 ?v10) (pred_6 ?v7) (pred_6 ?v6)
-                  (pred_12 ?v10) (pred_8 ?v6) (pred_10 ?v7 ?v10))
-:effect (and (pred_8 ?v7) (pred_10 ?v6 ?v10)
-        (not (pred_8 ?v6)) (not (pred_10 ?v7 ?v10))))
+:parameters (?v6 ?v7)
+:precondition (and (pred_10 ?v6) (pred_10 ?v7)
+               (pred_11 ?v6) (pred_9 ?v6 ?v7) (pred_2 ?v7))
+:effect (and (pred_11 ?v7) (not (pred_11 ?v6))))
 
-(:action op_2
-:parameters (?v10 ?v5)
-:precondition (and (pred_3 ?v10) (pred_6 ?v5) 
-                  (pred_12 ?v10) (pred_8 ?v5))
-:effect (and (pred_2 ) (pred_10 ?v5 ?v10) (not (pred_8 ?v5)))))
+(:action op_4
+:parameters (?v6 ?v9)
+:precondition (and (pred_10 ?v6) (pred_4 ?v9) 
+                  (pred_11 ?v6) (pred_7 ?v9 ?v6) (pred_12 ))
+:effect (and (pred_5 ?v9)
+   (not (pred_7 ?v9 ?v6)) (not (pred_12 ))))
+
+
+(:action op_5
+:parameters (?v6 ?v1 ?v3)
+:precondition (and (pred_10 ?v6) (pred_4 ?v1) (pred_4 ?v3)
+                  (pred_11 ?v6) (pred_5 ?v3) (pred_7 ?v1 ?v6))
+:effect (and (pred_5 ?v1) (pred_7 ?v3 ?v6)
+        (not (pred_5 ?v3)) (not (pred_7 ?v1 ?v6))))
+
+(:action op_3
+:parameters (?v6 ?v9)
+:precondition (and (pred_10 ?v6) (pred_4 ?v9) 
+                  (pred_11 ?v6) (pred_5 ?v9))
+:effect (and (pred_12 ) (pred_7 ?v9 ?v6) (not (pred_5 ?v9)))))
 
 
 	

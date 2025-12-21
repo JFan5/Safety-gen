@@ -449,6 +449,7 @@ def test_gemini_model_on_testing_data(
     temperature: float = 0.6,
     one_shot: bool = False,
     max_workers: int = None,
+    no_timestamp: bool = False,
 ):
     """
     在testing数据上测试 Gemini 模型并计算成功率
@@ -766,24 +767,36 @@ def test_gemini_model_on_testing_data(
     print(f"  Total tests: {total_count}", flush=True)
     print(f"{'='*80}\n", flush=True)
 
-    # 自动生成输出文件名并加上时间戳
+    # 自动生成输出文件名并加上时间戳（可通过 no_timestamp 关闭）
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     timestamp_iso = datetime.now().isoformat()
 
     output_file_path = Path(output_file)
-    if output_file == "test_results.json":
-        model_name_clean = model_name.replace('/', '_').replace('\\', '_')
-        suffix = "_oneshot" if one_shot else ""
-        output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
+    if no_timestamp:
+        # Keep exactly --output (optional oneshot suffix, but no timestamp)
+        if one_shot:
+            parent_dir = output_file_path.parent
+            stem = output_file_path.stem
+            suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+            oneshot_suffix = "_oneshot"
+            if parent_dir and str(parent_dir) != ".":
+                output_file_path = parent_dir / f"{stem}{oneshot_suffix}{suffix}"
+            else:
+                output_file_path = Path(f"{stem}{oneshot_suffix}{suffix}")
     else:
-        parent_dir = output_file_path.parent
-        stem = output_file_path.stem
-        suffix = output_file_path.suffix if output_file_path.suffix else ".json"
-        oneshot_suffix = "_oneshot" if one_shot else ""
-        if parent_dir and str(parent_dir) != ".":
-            output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+        if output_file == "test_results.json":
+            model_name_clean = model_name.replace('/', '_').replace('\\', '_')
+            suffix = "_oneshot" if one_shot else ""
+            output_file_path = Path(f"evaluation_summary_{model_name_clean}{suffix}_{timestamp}.json")
         else:
-            output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
+            parent_dir = output_file_path.parent
+            stem = output_file_path.stem
+            suffix = output_file_path.suffix if output_file_path.suffix else ".json"
+            oneshot_suffix = "_oneshot" if one_shot else ""
+            if parent_dir and str(parent_dir) != ".":
+                output_file_path = parent_dir / f"{stem}{oneshot_suffix}_{timestamp}{suffix}"
+            else:
+                output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
 
     output_data = {
         'timestamp': timestamp_iso,
@@ -808,6 +821,11 @@ def test_gemini_model_on_testing_data(
 
     print(f"\n{'='*80}", flush=True)
     print(f"Saving results to file...", flush=True)
+    # Ensure parent directory exists
+    try:
+        output_file_path.parent.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass
     with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
     print(f"Results saved successfully!", flush=True)
@@ -858,6 +876,11 @@ def main():
     parser.set_defaults(one_shot=False)
     parser.add_argument("--max-workers", type=int, default=None,
                        help=f"Maximum number of concurrent threads (default: {MAX_WORKERS})")
+    parser.add_argument(
+        "--no-timestamp",
+        action="store_true",
+        help="Do not append timestamp to output filename (keep exactly --output).",
+    )
 
     args = parser.parse_args()
 
@@ -879,6 +902,7 @@ def main():
         temperature=args.temperature,
         one_shot=args.one_shot,
         max_workers=args.max_workers,
+        no_timestamp=args.no_timestamp,
     )
 
 

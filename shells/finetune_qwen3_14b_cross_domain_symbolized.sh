@@ -17,45 +17,11 @@ cd /home/ubuntu/Safety-gen
 
 # Paths
 MODEL="unsloth/Qwen3-14B-unsloth-bnb-4bit"
-SYM_JSONL="/jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.jsonl"
-DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.hf"
-OUTPUT_DIR="/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized"
-
-# Convert JSONL -> HF dataset if needed
-if [ ! -d "${DATASET}" ]; then
-  python3 - "${SYM_JSONL}" "${DATASET}" <<'PY'
-import sys, json
-from pathlib import Path
-from datasets import Dataset
-
-src = Path(sys.argv[1])
-dst = Path(sys.argv[2])
-if not src.exists():
-    raise SystemExit(f"Source JSONL not found: {src}")
-
-print(f"Building HF dataset from {src} -> {dst}")
-entries = []
-with src.open(encoding="utf-8") as f:
-    for line in f:
-        line = line.strip()
-        if not line:
-            continue
-        obj = json.loads(line)
-        entries.append({
-            "prompt": obj.get("input", ""),
-            "path": obj.get("output", ""),
-            "scenario": "cross_domain",
-            "pddl": "PDDL3",
-        })
-
-ds = Dataset.from_list(entries)
-ds.save_to_disk(str(dst))
-print(f"Saved HF dataset with {len(ds)} entries to {dst}")
-PY
-fi
+DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v5/combined.hf"
+OUTPUT_DIR="/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized-v5"
 
 # Training parameters
-NUM_EPOCHS=3
+NUM_EPOCHS=1
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=2
 LEARNING_RATE=2e-4
@@ -89,11 +55,7 @@ python3 pddl_finetune.py \
     --gradient-accumulation-steps ${GRADIENT_ACCUMULATION_STEPS} \
     --learning-rate ${LEARNING_RATE} \
     --max-seq-length ${MAX_SEQ_LENGTH} \
-    --load-in-4bit \
-    --eval-strategy epoch \
-    --save-strategy epoch \
-    --logging-steps 10 \
-    --save-total-limit 3
+    --load-in-4bit 
 
 echo ""
 echo "=========================================="

@@ -1,22 +1,11 @@
 #!/bin/bash
-set -euo pipefail
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_1207_symbolized.o
-#SBATCH --job-name=grpo_mistral_7b_1207_symbolized
+#SBATCH --output=job_outputs/grpo_mistral_7b_1219_symbolized_stl.o
+#SBATCH --job-name=grpo_mistral_7b_1219_symbolized_stl
 #SBATCH --chdir=/home/ubuntu/Safety-gen
 
-if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-  # shellcheck source=/dev/null
-  source "$HOME/miniconda3/etc/profile.d/conda.sh"
-elif command -v conda >/dev/null 2>&1; then
-  # shellcheck source=/dev/null
-  source "$(conda info --base)/etc/profile.d/conda.sh"
-else
-  echo "[ERROR] conda not found; cannot activate env 'llmstl'." >&2
-  exit 1
-fi
 conda activate llmstl
 
 # Set working directory
@@ -28,27 +17,29 @@ export CUDA_VISIBLE_DEVICES=0
 # ==========================================
 # Step 2: GRPO Training Configuration
 # ==========================================
-BASE_MODEL="/jfan5/grpo_models/mistral_7b-symbolized-1214-stl"
+BASE_MODEL="/jfan5/sft_models/mistral_7b/symbolized_v2"
 
 # Symbolized (obfuscated) 4-scenarios combined GRPO JSONL
-DATASET="/jfan5/grpo_data/pddl3_symbolized_four_scenarios/train_combined.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-symbolized-1214-stl-500"
+# DATASET="/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/train_combined.jsonl"
+DATASET="/jfan5/grpo_data-127/merged.jsonl"
+
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-symbolized-1219-stl-1000"
 
 # Training parameters
 # NOTE: `--num_epochs` is currently not used by `script/train_grpo_unsloth_stl.py`;
 # training length is controlled by `--max_steps`.
 NUM_EPOCHS=1.0
 BATCH_SIZE=4
-GRADIENT_ACCUMULATION_STEPS=8
-LEARNING_RATE=5e-6
-NUM_GENERATIONS=4
+GRADIENT_ACCUMULATION_STEPS=4
+LEARNING_RATE=1e-5
+NUM_GENERATIONS=8
 TEMPERATURE=0.6
-MAX_STEPS=300
+MAX_STEPS=1000
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=60
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-symbolized-1214-stl"
+RUN_NAME="grpo_mistral_7b-symbolized-1219-stl"
 BETA=0.01
 MAX_GRAD_NORM=1
 
@@ -56,17 +47,17 @@ echo "=========================================="
 echo "Step 2: GRPO Training for Mistral-7B (Symbolized)"
 echo "=========================================="
 echo "Base model: ${BASE_MODEL}"
-echo "Dataset: ${DATASET}"
-echo "Output: ${OUTPUT_DIR}"
-echo ""
-echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
-echo "  Batch size: ${BATCH_SIZE}"
-echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
-echo "  Learning rate: ${LEARNING_RATE}"
-echo "  Generations per prompt: ${NUM_GENERATIONS}"
-echo "=========================================="
-echo ""
+        echo "Dataset: ${DATASET}"
+        echo "Output: ${OUTPUT_DIR}"
+        echo ""
+        echo "Training parameters:"
+        echo "  Epochs: ${NUM_EPOCHS}"
+        echo "  Batch size: ${BATCH_SIZE}"
+        echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
+        echo "  Learning rate: ${LEARNING_RATE}"
+        echo "  Generations per prompt: ${NUM_GENERATIONS}"
+        echo "=========================================="
+        echo ""
 
 # Run GRPO training
 python3 script/train_grpo_unsloth_stl.py \

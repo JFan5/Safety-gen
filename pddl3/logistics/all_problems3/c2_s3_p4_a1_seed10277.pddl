@@ -51,12 +51,12 @@
 )
 
   (:constraints
-    (and
-      (always (not (in p0 a0)))
-      (always (not (in p1 a0)))
-      (always (not (in p2 a0)))
-      (always (not (in p3 a0)))
-    )
+      (and
+          (always (not (in p0 a0)))
+          (always (not (in p1 a0)))
+          (always (not (in p2 a0)))
+          (always (not (in p3 a0)))
+      )
   )
 )
 

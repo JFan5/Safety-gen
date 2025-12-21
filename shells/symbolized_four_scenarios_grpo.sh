@@ -8,10 +8,10 @@ set -euo pipefail
 
 
 INPUT_DIR="$(pwd)/pddl3"
-OUTPUT_DIR="/jfan5/grpo_data/pddl3_symbolized_four_scenarios"
+OUTPUT_DIR="/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v2"
 SEED=42
 
-python3 pddl3/pddl_symbolized.py \
+python3 pddl3/pddl_symbolized_v2.py \
   --input_dir "${INPUT_DIR}" \
   --output_dir "${OUTPUT_DIR}" \
   --domains blocksworld ferry grippers spanner \

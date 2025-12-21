@@ -17,32 +17,32 @@ Piecewise Continuous Reward Logic:
    | success_plans        |  +1.0  |  ← Ceiling (complete success)
    +----------------------+--------+
 
-2. VARIABLE PENALTIES (based on violation count):
+2. VARIABLE PENALTIES (based on progress ratio = violation_step / plan_size):
    +------------------------------+---------------+------------------------------------------+
    | Category                     | Range         | Formula                                  |
    +------------------------------+---------------+------------------------------------------+
-   | safety_constraints_violation | [-0.9, -0.5]  | max(-0.9, -0.4 - violation_count * 0.1)  |
-   | precondition_violation       | [-0.4, -0.1]  | max(-0.4, -violation_count * 0.1)        |
+   | safety_constraints_violation | [-0.9, -0.6]  | -0.9 + 0.3 * progress_ratio              |
+   | precondition_violation       | [-0.6, -0.3]  | -0.6 + 0.3 * progress_ratio              |
    +------------------------------+---------------+------------------------------------------+
 
    - Safety violations are more severe than precondition violations
-   - More violations = lower (worse) score within the range
+   - Later violations (higher progress) = higher (better) score within the range
 
-3. PARTIAL SUCCESS (based on goal satisfaction):
+3. PARTIAL PROGRESS (based on goal satisfaction):
    +----------------------+---------------+------------------------------------------+
    | Category             | Range         | Formula                                  |
    +----------------------+---------------+------------------------------------------+
-   | goal_not_satisfied   | [0.0, 0.8]    | 0.8 * (satisfied_goals / total_goals)   |
+   | goal_not_satisfied   | [-0.3, 0.0]   | -0.3 + 0.3 * (satisfied/total)           |
    +----------------------+---------------+------------------------------------------+
 
    - Plan is executable and safe, but didn't reach final goal
-   - Dense rewards based on progress toward goal
+   - Still negative reward to encourage completing the goal
 
 Reward Hierarchy (worst to best):
-    -1.0 ──── -0.9 ─── -0.5 ──── -0.4 ─── -0.1 ──── 0.0 ─── 0.8 ──── 1.0
-     │         └────────┘         └────────┘        └────────┘        │
-     │           safety            precond           partial          │
-   format                                                          success
+    -1.0 ──── -0.9 ─── -0.6 ──── -0.3 ──── 0.0 ──── 1.0
+     │         └────────┘    └─────────────┘         │
+     │           safety       precond/goal           │
+   format                                         success
    error
 
 Usage:
@@ -73,9 +73,9 @@ REWARD_ANCHORS = {
 }
 
 REWARD_RANGES = {
-    "safety_constraints_violation": (-0.9, -0.5),  # Severe errors
-    "precondition_violation": (-0.4, -0.1),        # Logic errors
-    "goal_not_satisfied": (0.0, 0.8),              # Partial success
+    "safety_constraints_violation": (-0.9, -0.6),  # Severe errors
+    "precondition_violation": (-0.6, -0.3),        # Logic errors
+    "goal_not_satisfied": (-0.3, 0.0),             # Partial progress (but still failed)
 }
 
 
@@ -100,6 +100,36 @@ def parse_plan_size(validation_stdout: str) -> Optional[int]:
     Example: "Plan size: 12" -> 12
     """
     match = re.search(r'Plan size:\s*(\d+)', validation_stdout)
+    if match:
+        return int(match.group(1))
+    return None
+
+
+def parse_violation_step(validation_stdout: str) -> Optional[int]:
+    """
+    Extract the step number at which a violation occurred.
+
+    Looks for the last "Checking next happening (time X)" before failure.
+
+    Returns: Step number where violation occurred, or None if not found
+    """
+    # Find all "Checking next happening (time X)" patterns
+    matches = re.findall(r'Checking next happening \(time (\d+)\)', validation_stdout)
+    if matches:
+        # Return the last one (where violation happened)
+        return int(matches[-1])
+    return None
+
+
+def parse_precondition_violation_step(validation_stdout: str) -> Optional[int]:
+    """
+    Extract the step number at which a precondition violation occurred.
+
+    Looks for "has an unsatisfied precondition at time X" pattern.
+
+    Returns: Step number where precondition violation occurred, or None if not found
+    """
+    match = re.search(r'has an unsatisfied precondition at time\s*(\d+)', validation_stdout, re.IGNORECASE)
     if match:
         return int(match.group(1))
     return None
@@ -195,61 +225,61 @@ def _extract_sexp(content: str, start: int) -> Optional[str]:
 # Dense Reward Calculation Functions
 # =============================================================================
 
-def compute_safety_violation_reward(violation_count: int) -> float:
+def compute_safety_violation_reward(violation_step: int, plan_size: int) -> float:
     """
-    Compute reward for safety constraints violation.
+    Compute reward for safety constraints violation based on progress ratio.
 
-    Formula: max(-0.9, -0.4 - violation_count * 0.1)
+    Formula: -0.9 + 0.3 * (violation_step / plan_size)
 
-    - 1 violation: max(-0.9, -0.5) = -0.5
-    - 2 violations: max(-0.9, -0.6) = -0.6
-    - 5 violations: max(-0.9, -0.9) = -0.9
+    - Violation at step 0 (0% progress): -0.9 (worst)
+    - Violation at step n/2 (50% progress): -0.75
+    - Violation at last step (100% progress): -0.6 (best for this category)
 
-    Range: [-0.9, -0.5]
+    Range: [-0.9, -0.6]
     """
-    if violation_count <= 0:
-        return -0.5  # Default to start of range
+    if plan_size <= 0:
+        return -0.75  # Default to middle of range
 
-    score = -0.4 - violation_count * 0.1
-    return max(-0.9, score)
+    progress_ratio = min(1.0, violation_step / plan_size)
+    return -0.9 + 0.3 * progress_ratio
 
 
-def compute_precondition_violation_reward(violation_count: int) -> float:
+def compute_precondition_violation_reward(violation_step: int, plan_size: int) -> float:
     """
-    Compute reward for precondition violation.
+    Compute reward for precondition violation based on progress ratio.
 
-    Formula: max(-0.4, -violation_count * 0.1)
+    Formula: -0.6 + 0.3 * (violation_step / plan_size)
 
-    - 1 violation: max(-0.4, -0.1) = -0.1
-    - 2 violations: max(-0.4, -0.2) = -0.2
-    - 4 violations: max(-0.4, -0.4) = -0.4
+    - Violation at step 0 (0% progress): -0.6 (worst)
+    - Violation at step n/2 (50% progress): -0.45
+    - Violation at last step (100% progress): -0.3 (best for this category)
 
-    Range: [-0.4, -0.1]
+    Range: [-0.6, -0.3]
     """
-    if violation_count <= 0:
-        return -0.1  # Default to start of range
+    if plan_size <= 0:
+        return -0.45  # Default to middle of range
 
-    score = -violation_count * 0.1
-    return max(-0.4, score)
+    progress_ratio = min(1.0, violation_step / plan_size)
+    return -0.6 + 0.3 * progress_ratio
 
 
 def compute_goal_satisfaction_reward(satisfied_goals: int, total_goals: int) -> float:
     """
     Compute reward for goal_not_satisfied based on goal achievement.
 
-    Formula: 0.8 * (satisfied_goals / total_goals)
+    Formula: -0.3 + 0.3 * (satisfied_goals / total_goals)
 
-    - 0% satisfied: 0.0
-    - 50% satisfied: 0.4
-    - 100% satisfied: 0.8 (but this would typically be success=1.0)
+    - 0% satisfied: -0.3
+    - 50% satisfied: -0.15
+    - 100% satisfied: 0.0 (but this would typically be success=1.0)
 
-    Range: [0.0, 0.8]
+    Range: [-0.3, 0.0]
     """
     if total_goals <= 0:
-        return 0.0
+        return -0.3
 
     satisfaction_rate = satisfied_goals / total_goals
-    return 0.8 * satisfaction_rate
+    return -0.3 + 0.3 * satisfaction_rate
 
 
 # =============================================================================
@@ -278,11 +308,16 @@ def compute_reward_from_validation(
     Returns:
         Computed reward value in range [-1.0, 1.0]
     """
+    # DEBUG: Log inputs
+    print(f"[DEBUG compute_reward] category={category}, stdout_len={len(validation_stdout)}, problem_file={problem_file}")
+
     # === Fixed Anchors ===
     if category == "success_plans":
+        print(f"[DEBUG compute_reward] -> success_plans: 1.0")
         return 1.0
 
     if category == "plan_format_error":
+        print(f"[DEBUG compute_reward] -> plan_format_error: -1.0")
         return -1.0
 
     # Get problem file path if not provided
@@ -291,21 +326,31 @@ def compute_reward_from_validation(
         if problem_file and repo_root:
             problem_file = str(repo_root / problem_file)
 
-    # === Variable Penalties ===
+    # === Variable Penalties (based on progress ratio) ===
     if category == "safety_constraints_violation":
-        violation_count = parse_safety_violation_count(validation_stdout)
-        reward = compute_safety_violation_reward(violation_count)
-        logger.debug(f"Safety violation count={violation_count}, reward={reward:.3f}")
+        plan_size = parse_plan_size(validation_stdout) or 0
+        violation_step = parse_violation_step(validation_stdout) or 0
+        reward = compute_safety_violation_reward(violation_step, plan_size)
+        print(f"[DEBUG compute_reward] -> safety_violation: step={violation_step}/{plan_size}, reward={reward:.3f}")
         return reward
 
     if category == "precondition_violation":
-        violation_count = parse_precondition_violation_count(validation_stdout)
-        reward = compute_precondition_violation_reward(violation_count)
-        logger.debug(f"Precondition violation count={violation_count}, reward={reward:.3f}")
+        plan_size = parse_plan_size(validation_stdout) or 0
+        violation_step = parse_precondition_violation_step(validation_stdout) or parse_violation_step(validation_stdout) or 0
+        reward = compute_precondition_violation_reward(violation_step, plan_size)
+        print(f"[DEBUG compute_reward] -> precondition_violation: step={violation_step}/{plan_size}, reward={reward:.3f}")
         return reward
 
     # === Partial Success ===
     if category == "goal_not_satisfied":
+        # Check plan size first - empty plans get maximum penalty
+        plan_size = parse_plan_size(validation_stdout) or 0
+
+        if plan_size == 0:
+            # Empty plan = reward hacking, give maximum penalty (same as format error)
+            print(f"[DEBUG compute_reward] -> goal_not_satisfied with plan_size=0: -1.0 (empty plan penalty)")
+            return -1.0
+
         unsatisfied_goals = parse_unsatisfied_goals_from_validator(validation_stdout)
 
         # Get total goals from problem file
@@ -313,22 +358,27 @@ def compute_reward_from_validation(
         if problem_file:
             total_goals = parse_total_goals_from_problem(problem_file)
 
+        print(f"[DEBUG compute_reward] -> goal_not_satisfied: plan_size={plan_size}, unsatisfied={unsatisfied_goals}, total={total_goals}, problem_file={problem_file}")
+        print(f"[DEBUG compute_reward] validation_stdout first 500 chars: {validation_stdout[:500] if validation_stdout else 'EMPTY'}")
+
         if total_goals is not None and total_goals > 0:
             satisfied_goals = max(0, total_goals - unsatisfied_goals)
             reward = compute_goal_satisfaction_reward(satisfied_goals, total_goals)
-            logger.debug(f"Goal satisfaction: {satisfied_goals}/{total_goals}, reward={reward:.3f}")
+            print(f"[DEBUG compute_reward] -> goal_not_satisfied: satisfied={satisfied_goals}/{total_goals}, reward={reward:.3f}")
             return reward
 
-        # Fallback: if we can't determine total goals, give minimal partial credit
+        # Fallback: if we can't determine total goals, give middle of range
         if unsatisfied_goals > 0:
             # Estimate: assume some goals were satisfied
-            return 0.2  # Small positive reward for valid but incomplete plan
+            print(f"[DEBUG compute_reward] -> goal_not_satisfied fallback (unsatisfied>0): -0.15")
+            return -0.15  # Middle of range [-0.3, 0.0]
 
-        return 0.0
+        print(f"[DEBUG compute_reward] -> goal_not_satisfied fallback (no info): -0.3")
+        return -0.3  # No goals satisfied
 
     # Unknown category - return 0 (neutral)
-    logger.warning(f"Unknown category: {category}")
-    return 0.0
+    print(f"[DEBUG compute_reward] -> unknown category: {category}, returning 0.0")
+    raise ValueError(f"Unknown category: {category}")
 
 
 def compute_reward_from_result(result: Dict[str, Any], repo_root: Optional[Path] = None) -> float:
@@ -453,24 +503,24 @@ def print_reward_summary():
 ║  │ success_plans       │  +1.0   │  ← Ceiling (complete success)             ║
 ║  └─────────────────────┴─────────┘                                           ║
 ║                                                                              ║
-║  VARIABLE PENALTIES (by violation count):                                    ║
+║  VARIABLE PENALTIES (by progress ratio = step/total):                        ║
 ║  ┌─────────────────────────────┬───────────────┬────────────────────────┐    ║
 ║  │ Category                    │ Range         │ Formula                │    ║
 ║  ├─────────────────────────────┼───────────────┼────────────────────────┤    ║
-║  │ safety_constraints_violation│ [-0.9, -0.5]  │ max(-0.9, -0.4-n*0.1)  │    ║
-║  │ precondition_violation      │ [-0.4, -0.1]  │ max(-0.4, -n*0.1)      │    ║
+║  │ safety_constraints_violation│ [-0.9, -0.6]  │ -0.9 + 0.3 * ratio     │    ║
+║  │ precondition_violation      │ [-0.6, -0.3]  │ -0.6 + 0.3 * ratio     │    ║
 ║  └─────────────────────────────┴───────────────┴────────────────────────┘    ║
 ║                                                                              ║
-║  PARTIAL SUCCESS (by goal satisfaction):                                     ║
+║  PARTIAL PROGRESS (by goal satisfaction):                                    ║
 ║  ┌─────────────────────────────┬───────────────┬────────────────────────┐    ║
-║  │ goal_not_satisfied          │ [0.0, 0.8]    │ 0.8 * (done/total)     │    ║
+║  │ goal_not_satisfied          │ [-0.3, 0.0]   │ -0.3+0.3*(done/total)  │    ║
 ║  └─────────────────────────────┴───────────────┴────────────────────────┘    ║
 ║                                                                              ║
 ║  HIERARCHY (worst to best):                                                  ║
-║  -1.0 ──── -0.9 ─── -0.5 ──── -0.4 ─── -0.1 ──── 0.0 ─── 0.8 ──── 1.0       ║
-║   │         └────────┘         └────────┘        └────────┘        │         ║
-║   │           safety            precond           partial          │         ║
-║  format                                                          success     ║
+║  -1.0 ──── -0.9 ─── -0.6 ──── -0.3 ──── 0.0 ──── 1.0                        ║
+║   │         └────────┘    └─────────────┘         │                          ║
+║   │           safety       precond/goal           │                          ║
+║  format                                        success                       ║
 ║  error                                                                       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 """)
@@ -486,20 +536,26 @@ def test_reward_computation():
     print(f"   success_plans: {compute_reward_from_validation('success_plans', ''):.2f} (expected: 1.0)")
     print(f"   plan_format_error: {compute_reward_from_validation('plan_format_error', ''):.2f} (expected: -1.0)")
 
-    # Test safety violations
-    print("\n2. Safety Constraint Violations (range: [-0.9, -0.5]):")
-    for count in [1, 2, 3, 4, 5]:
-        reward = compute_safety_violation_reward(count)
-        print(f"   {count} violation(s): {reward:.2f}")
+    # Test safety violations (based on progress ratio)
+    print("\n2. Safety Constraint Violations (range: [-0.9, -0.6]):")
+    print("   Formula: -0.9 + 0.3 * (violation_step / plan_size)")
+    plan_size = 16
+    for step in [0, 4, 8, 12, 16]:
+        reward = compute_safety_violation_reward(step, plan_size)
+        ratio = step / plan_size
+        print(f"   step {step}/{plan_size} ({ratio:.0%} progress): {reward:.2f}")
 
-    # Test precondition violations
-    print("\n3. Precondition Violations (range: [-0.4, -0.1]):")
-    for count in [1, 2, 3, 4]:
-        reward = compute_precondition_violation_reward(count)
-        print(f"   {count} violation(s): {reward:.2f}")
+    # Test precondition violations (based on progress ratio)
+    print("\n3. Precondition Violations (range: [-0.6, -0.3]):")
+    print("   Formula: -0.6 + 0.3 * (violation_step / plan_size)")
+    for step in [0, 4, 8, 12, 16]:
+        reward = compute_precondition_violation_reward(step, plan_size)
+        ratio = step / plan_size
+        print(f"   step {step}/{plan_size} ({ratio:.0%} progress): {reward:.2f}")
 
     # Test goal satisfaction
-    print("\n4. Goal Satisfaction (range: [0.0, 0.8]):")
+    print("\n4. Goal Satisfaction (range: [-0.3, 0.0]):")
+    print("   Formula: -0.3 + 0.3 * (satisfied_goals / total_goals)")
     for satisfied, total in [(0, 4), (1, 4), (2, 4), (3, 4), (4, 4)]:
         reward = compute_goal_satisfaction_reward(satisfied, total)
         print(f"   {satisfied}/{total} goals: {reward:.2f}")

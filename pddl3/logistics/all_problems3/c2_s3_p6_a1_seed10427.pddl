@@ -57,7 +57,7 @@
 )
 
   (:constraints
-    (always (not (in p1 t0)))
+      (always (not (in p1 t0)))
   )
 )
 

@@ -10,9 +10,9 @@ Dataset format (JSONL per line):
 
 Reward Structure (Normalized to [-1, 1] for stable GRPO training):
 - plan_format_error: -1.0 (floor)
-- safety_constraints_violation: [-0.9, -0.5]
-- precondition_violation: [-0.4, -0.1]
-- goal_not_satisfied: [0.0, 0.8]
+- safety_constraints_violation: [-0.9, -0.6]
+- precondition_violation: [-0.6, -0.3]
+- goal_not_satisfied: [-0.3, 0.0]
 - success_plans: 1.0 (ceiling)
 
 Usage:
@@ -22,6 +22,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import statistics
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -31,37 +32,26 @@ import torch
 from datasets import Dataset
 from unsloth import FastLanguageModel
 
-try:
-    import wandb  # type: ignore
-except Exception:  # pragma: no cover - optional dependency
-    wandb = None
+import wandb  # type: ignore
 
-try:
-    from trl import GRPOConfig, GRPOTrainer  # type: ignore
-except Exception as exc:  # pragma: no cover - environment dependent
-    raise RuntimeError(
-        "Failed to import `trl.GRPOTrainer`. This is often caused by an incompatible "
-        "`trl` / `vllm` version combination in your environment. "
-        "Fix by upgrading/downgrading to a compatible pair (or uninstall `vllm` if you "
-        "don't use TRL's vLLM features)."
-    ) from exc
+from trl import GRPOConfig, GRPOTrainer  # type: ignore
 
-from utils import _classify_result, validate_solution
+from utils import _classify_result, extract_llm_output, validate_solution
 from utils_generic_reward import (
     compute_reward_from_validation,
     get_supported_scenarios,
     print_reward_summary,
 )
 
-try:
-    from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
-except Exception:
-    _unsloth_bf16_ok = None
+from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("grpo_unsloth")
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
+# Used to keep GRPO validation consistent with evaluate_llm_solver.py
+# Set in main() based on args.base_model.
+MODEL_FAMILY_FOR_EXTRACTION = "mistral"
 
 # -----------------------------------------------------------------------------
 # Scenario-Agnostic Reward Functions (Using Generic Framework)
@@ -99,16 +89,17 @@ def classify_with_validator(meta: Any, response_text: str) -> tuple[Optional[str
     domain_path = REPO_ROOT / domain_rel
     problem_path = REPO_ROOT / problem_rel
     if not domain_path.exists() or not problem_path.exists():
-        return None, ""
-    try:
-        _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), response_text)
-        return _classify_result(stdout), stdout
-    except Exception as exc:  # pragma: no cover - defensive
-        logger.warning(f"Validation failed for {problem_rel}: {exc}")
-        return None, ""
+        raise ValueError(f"Domain or problem file does not exist: {domain_path} or {problem_path}")
+    # Align with offline evaluator: strip any non-plan text and keep only trailing "(...)" lines.
+    cleaned_plan = extract_llm_output(response_text, family=MODEL_FAMILY_FOR_EXTRACTION)
+    _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), cleaned_plan)
+    return _classify_result(stdout), stdout
 
 
 DEBUG_FILE = "reward_debug.log"
+
+# Global variable to store logging_steps for debug printing
+LOGGING_STEPS = 10
 
 
 def grpo_reward_func(
@@ -124,9 +115,9 @@ def grpo_reward_func(
 
     Reward ranges (normalized to [-1, 1]):
     - plan_format_error: -1.0 (floor)
-    - safety_constraints_violation: [-0.9, -0.5]
-    - precondition_violation: [-0.4, -0.1]
-    - goal_not_satisfied: [0.0, 0.8]
+    - safety_constraints_violation: [-0.9, -0.6]
+    - precondition_violation: [-0.6, -0.3]
+    - goal_not_satisfied: [-0.3, 0.0]
     - success_plans: 1.0 (ceiling)
     """
     n = len(completions)
@@ -156,6 +147,22 @@ def grpo_reward_func(
                 scenario = "unknown"
         all_scenarios.append(scenario)
 
+        # ---------- debug: 打印每个生成的 plan（按 logging_steps 间隔，每个 batch 只打印第一个样本） ----------
+        should_log = (
+            trainer_state is not None
+            and trainer_state.global_step % LOGGING_STEPS == 0
+            and i == 0  # 只在每个 batch 的第一个样本时打印，避免重复
+        )
+        if should_log:
+            step_str = str(trainer_state.global_step)
+            problem_rel = m.get("problem_file") if isinstance(m, dict) else None
+            problem_rel = problem_rel if isinstance(problem_rel, str) else ""
+            print("\n" + "=" * 80)
+            print(f"[REWARD] step={step_str} sample_idx={i} scenario={scenario} problem_file={problem_rel}")
+            print("[REWARD] completion(plan):")
+            print(completion)
+            print("=" * 80 + "\n")
+
         # 1. validator 推断 label 和获取 validation_stdout
         inferred_label, validation_stdout = classify_with_validator(m, completion)
 
@@ -171,11 +178,15 @@ def grpo_reward_func(
             all_labels.append("unknown")
 
         # 4. 计算 reward - 使用通用 dense reward 函数
-        r = 0.0
+        r = -1
         reward_method = "unknown"
-
         if inferred_label != "unknown":
-            try:
+            # 特判：goal_not_satisfied + 空计划（Plan size: 0）视为 reward hacking
+            # 直接给最大惩罚（与 plan_format_error 同档）：-1.0
+            if inferred_label == "goal_not_satisfied" and re.search(r"Plan size:\s*0\b", validation_stdout or ""):
+                r = -1.0
+                reward_method = "empty_plan"
+            else:
                 # 获取 problem_file 路径用于解析 goal 信息
                 problem_file = None
                 if isinstance(m, dict) and m.get("problem_file"):
@@ -188,11 +199,6 @@ def grpo_reward_func(
                     problem_file=problem_file,
                 )
                 reward_method = "dense"
-            except Exception as e:
-                logger.debug(f"Dense reward calculation failed: {e}")
-                r = 0.0
-                reward_method = "error"
-
         rewards.append(float(r))
         reward_methods.append(reward_method)
 
@@ -254,13 +260,17 @@ def grpo_reward_func(
             # 写到文件：永远有效
             with open(DEBUG_FILE, "a") as f:
                 f.write(msg)
+            # 按 logging_steps 间隔打印到 stdout
+            should_log_stats = (
+                trainer_state is not None
+                and trainer_state.global_step % LOGGING_STEPS == 0
+            )
+            if should_log_stats:
+                print(msg, end="")  # msg 已经包含了换行符
 
         # wandb 强制 log（确保打印）
         if wandb is not None:
-            try:
-                wandb.log(log_dict)
-            except Exception as e:
-                print("[wandb.log ERROR]", e)
+            wandb.log(log_dict)
 
         # 同步写到 debug 文件
         with open(DEBUG_FILE, "a") as f:
@@ -284,12 +294,7 @@ def load_grpo_dataset(
         for line_num, line in enumerate(f, 1):
             if not line.strip():
                 continue
-            try:
-                record = json.loads(line)
-            except json.JSONDecodeError as e:
-                invalid_count += 1
-                logger.warning(f"Line {line_num}: JSON decode error: {e}, skipping")
-                continue
+            record = json.loads(line)
 
             prompt = record.get(prompt_field, "")
             if not prompt or not isinstance(prompt, str):
@@ -369,9 +374,9 @@ def main():
     parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta). Lower values reduce KL penalty in loss. If loss is too high due to large KL divergence, try reducing this (e.g., 0.001, 0.01)")
 
     # Generation
-    parser.add_argument("--max_prompt_length", type=int, default=4096, help="Maximum prompt length")
-    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
-    parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
+    parser.add_argument("--max_prompt_length", type=int, default=5000, help="Maximum prompt length")
+    parser.add_argument("--max_new_tokens", type=int, default=1024, help="Max completion length for GRPO")
+    parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
     parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
     parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
 
@@ -394,6 +399,10 @@ def main():
     parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer, kept for compat)")
 
     args = parser.parse_args()
+
+    # Set global logging_steps for reward function
+    global LOGGING_STEPS
+    LOGGING_STEPS = args.logging_steps
 
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
@@ -423,6 +432,8 @@ def main():
     else:
         model_type = "auto"
     logger.info(f"Detected/assumed model family: {model_type}")
+    global MODEL_FAMILY_FOR_EXTRACTION
+    MODEL_FAMILY_FOR_EXTRACTION = "qwen" if model_type == "qwen" else "mistral"
 
     # 选择混精度：优先 bf16，不支持则用 fp16（仅 CUDA）
     bf16_ok = bool(_unsloth_bf16_ok()) if _unsloth_bf16_ok is not None else torch.cuda.is_bf16_supported()

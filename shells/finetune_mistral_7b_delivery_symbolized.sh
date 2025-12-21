@@ -17,12 +17,12 @@ cd /home/ubuntu/Safety-gen
 # Paths
 MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
 
-DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v3-1/delivery.hf"
-OUTPUT_DIR="/jfan5/sft_models/mistral_7b/symbolized-delivery"
+DATASET="/jfan5/sft_data/pddl3_symbolized_four_scenarios_v4/delivery.hf"
+OUTPUT_DIR="/jfan5/sft_models/mistral_7b/symbolized-delivery-v4"
 
 
 # Training parameters
-NUM_EPOCHS=3
+NUM_EPOCHS=1
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=2
 LEARNING_RATE=2e-4

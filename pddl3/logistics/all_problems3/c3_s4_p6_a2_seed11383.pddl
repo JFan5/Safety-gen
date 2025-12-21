@@ -75,7 +75,7 @@
 )
 
   (:constraints
-    (always (not (in p4 t1)))
+      (always (not (in p4 t1)))
   )
 )
 

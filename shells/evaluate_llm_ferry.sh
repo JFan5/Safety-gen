@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Evaluate LLM model on ferry scenario
-# Usage: ./evaluate_llm_ferry.sh <model_path> [one_shot]
-# Example: ./evaluate_llm_ferry.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
+# Usage: ./evaluate_llm_ferry.sh <model_path> <problems_subdir> [one_shot]
+# Example: ./evaluate_llm_ferry.sh /jfan5/sft_models/mistral_7b/four_scenarios500 testing_problem50 1
 
 # Initialize conda for bash shell
 eval "$(conda shell.bash hook)"
@@ -13,7 +13,8 @@ cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
+PROBLEMS_SUBDIR="${2:-testing_problem50}"
+ONE_SHOT="${3:-0}"  # Default to 0 (disabled)
 
 # Fixed parameters
 MODEL_FAMILY="auto"
@@ -21,7 +22,7 @@ MAX_PROBLEMS=50
 
 # Scenario configuration
 SCENARIO="ferry"
-PROBLEMS_DIR="pddl3/ferry/testing_problem50"
+PROBLEMS_DIR="pddl3/ferry/${PROBLEMS_SUBDIR}"
 DOMAIN_FILE="pddl3/ferry/domain3.pddl"
 
 # Sanitize model path for filename (replace / and other special chars with -)

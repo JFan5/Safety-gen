@@ -51,8 +51,24 @@ def extract_llm_output(output, family='mistral'):
         return ""
     text = output.strip()
 
+    # 处理 Llama-3 格式的输出 (支持 Llama-3.1, Llama-3.2 等)
+    if '<|start_header_id|>' in text or family == 'llama':
+        # 提取 assistant 部分的内容
+        if '<|start_header_id|>assistant<|end_header_id|>' in text:
+            parts = text.split('<|start_header_id|>assistant<|end_header_id|>')
+            if len(parts) > 1:
+                text = parts[-1].strip()
+        # 移除结束标记
+        if '<|eot_id|>' in text:
+            text = text.split('<|eot_id|>')[0].strip()
+        # 移除其他 Llama-3 特殊标记
+        text = re.sub(r'<\|begin_of_text\|>', '', text)
+        text = re.sub(r'<\|end_of_text\|>', '', text)
+        text = re.sub(r'<\|start_header_id\|>[^<]*<\|end_header_id\|>', '', text)
+        text = text.strip()
+
     # 处理Mistral格式的输出
-    if '[/INST]' in text or family == 'mistral':
+    if '[/INST]' in text or (family == 'mistral' and '<|start_header_id|>' not in output):
         parts = text.split('[/INST]')
         if len(parts) > 1:
             text = parts[-1].strip()

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Evaluate LLM model on 4 scenarios: blocksworld, ferry, spanner, grippers
-# Usage: ./evaluate_llm_all.sh <model_path> [one_shot]
-# Example: ./evaluate_llm_all.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
+# Usage: ./evaluate_llm_all.sh <model_path> <problems_subdir> [one_shot]
+# Example: ./evaluate_llm_all.sh /jfan5/sft_models/mistral_7b/four_scenarios500 testing_problem50 1
 
 set -e
 
@@ -15,7 +15,8 @@ cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
+PROBLEMS_SUBDIR="${2:-testing_problem50}"
+ONE_SHOT="${3:-0}"  # Default to 0 (disabled)
 
 # Fixed parameters
 MODEL_FAMILY="auto"
@@ -34,6 +35,7 @@ echo "=========================================="
 echo "Model: ${MODEL_PATH}"
 echo "Family: ${MODEL_FAMILY}"
 echo "Max problems per scenario: ${MAX_PROBLEMS}"
+echo "Problems subdir: ${PROBLEMS_SUBDIR}"
 echo "One-shot: ${ONE_SHOT}"
 echo "Output dir: ${OUTPUT_DIR}"
 echo "=========================================="
@@ -53,22 +55,22 @@ for SCENARIO in "${SCENARIOS[@]}"; do
     # Set scenario-specific paths
     case "${SCENARIO}" in
         blocksworld)
-            PROBLEMS_DIR="pddl3/blocksworld/testing_problem50"
+            PROBLEMS_DIR="pddl3/blocksworld/${PROBLEMS_SUBDIR}"
             DOMAIN_FILE="pddl3/blocksworld/domain3.pddl"
             OUTPUT_FILE="${OUTPUT_DIR}/blocksworld.json"
             ;;
         ferry)
-            PROBLEMS_DIR="pddl3/ferry/testing_problem50"
+            PROBLEMS_DIR="pddl3/ferry/${PROBLEMS_SUBDIR}"
             DOMAIN_FILE="pddl3/ferry/domain3.pddl"
             OUTPUT_FILE="${OUTPUT_DIR}/ferry.json"
             ;;
         spanner)
-            PROBLEMS_DIR="pddl3/spanner/testing_problem50"
+            PROBLEMS_DIR="pddl3/spanner/${PROBLEMS_SUBDIR}"
             DOMAIN_FILE="pddl3/spanner/domain3.pddl"
             OUTPUT_FILE="${OUTPUT_DIR}/spanner.json"
             ;;
         grippers)
-            PROBLEMS_DIR="pddl3/grippers/testing_problem50"
+            PROBLEMS_DIR="pddl3/grippers/${PROBLEMS_SUBDIR}"
             DOMAIN_FILE="pddl3/grippers/domain3.pddl"
             OUTPUT_FILE="${OUTPUT_DIR}/grippers.json"
             ;;

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Evaluate LLM model on spanner scenario
-# Usage: ./evaluate_llm_spanner.sh <model_path> [one_shot]
-# Example: ./evaluate_llm_spanner.sh /jfan5/sft_models/mistral_7b/four_scenarios500 1
+# Usage: ./evaluate_llm_spanner.sh <model_path> <problems_subdir> [one_shot]
+# Example: ./evaluate_llm_spanner.sh /jfan5/sft_models/mistral_7b/four_scenarios500 testing_problem50 1
 # Note: spanner scenario requires --no-load-in-4bit flag
 
 # Initialize conda for bash shell
@@ -14,12 +14,13 @@ cd /home/ubuntu/Safety-gen
 
 # Parse arguments
 MODEL_PATH="${1}"
-ONE_SHOT="${2:-0}"  # Default to 0 (disabled)
+PROBLEMS_SUBDIR="${2:-testing_problem50}"
+ONE_SHOT="${3:-0}"  # Default to 0 (disabled)
 
 # Fixed parameters
 MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
-PROBLEMS_DIR="pddl3/spanner/testing_problem50"
+PROBLEMS_DIR="pddl3/spanner/${PROBLEMS_SUBDIR}"
 DOMAIN_FILE="pddl3/spanner/domain3.pddl"
 
 # Sanitize model path for filename (replace / and other special chars with -)
