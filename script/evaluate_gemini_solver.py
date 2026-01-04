@@ -35,12 +35,16 @@ GEMINI_TIMEOUT = float(os.getenv("GEMINI_TIMEOUT", "300"))
 # 并发线程数（可通过环境变量覆盖）
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "5"))
 # 生成失败重试次数（可通过环境变量覆盖）
-MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))  # 默认重试3次
+MAX_RETRIES = int(os.getenv("MAX_RETRIES", "5"))  # 默认重试3次
 
 # Gemini 模型配置
 GEMINI_MODEL_CONFIG = {
     'gemini-3-pro-preview': {
         'model_name': 'gemini-3-pro-preview',
+        'family': 'gemini',
+    },
+    'gemini-3-flash-preview': {
+        'model_name': 'gemini-3-flash-preview',
         'family': 'gemini',
     },
     'gemini-2.5-flash': {
@@ -849,6 +853,280 @@ def test_gemini_model_on_testing_data(
     print(f"{'='*60}\n", flush=True)
 
 
+def retry_failed_results(
+    results_file: str,
+    model_name: str,
+    api_key: str = None,
+    temperature: float = 0.6,
+    max_workers: int = None,
+    one_shot: bool = False,
+):
+    """
+    读取现有结果文件，重新运行 generation_error 类型的问题，并更新文件。
+    """
+    print(f"Loading existing results from: {results_file}", flush=True)
+
+    if not Path(results_file).exists():
+        print(f"ERROR: Results file not found: {results_file}", flush=True)
+        return
+
+    with open(results_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    results = data.get('results', [])
+    domain_file = data.get('domain_file', '')
+    scenario_name = data.get('scenario', None)
+
+    # 找出所有 generation_error 的问题
+    failed_indices = []
+    for i, result in enumerate(results):
+        if result.get('category') == 'generation_error' or result.get('generation_error'):
+            failed_indices.append(i)
+
+    if not failed_indices:
+        print("No generation_error cases found. Nothing to retry.", flush=True)
+        return
+
+    print(f"Found {len(failed_indices)} generation_error cases to retry.", flush=True)
+
+    # 初始化 Gemini 客户端
+    if genai is None:
+        print("Error: google-genai package not installed.", flush=True)
+        return
+
+    if api_key:
+        client = genai.Client(api_key=api_key)
+    else:
+        client = genai.Client()
+
+    # 加载 prompt 模板
+    prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
+    try:
+        with open(prompt_template_file, 'r', encoding='utf-8') as f:
+            prompt_template = f.read()
+        if prompt_template.startswith('prompt = f"""'):
+            prompt_template = prompt_template.replace('prompt = f"""', '', 1)
+            if prompt_template.endswith('"""'):
+                prompt_template = prompt_template[:-3]
+            prompt_template = prompt_template.strip()
+    except Exception as e:
+        print(f"Error reading {prompt_template_file}: {e}", flush=True)
+        prompt_template = "{problem_content}"
+
+    # 读取 domain 内容
+    domain_content = ""
+    if domain_file and Path(domain_file).exists():
+        with open(domain_file, 'r', encoding='utf-8') as f:
+            domain_content = f.read()
+
+    # 加载 one-shot example
+    example_content = None
+    if one_shot and scenario_name:
+        example_content = _load_one_shot_example(scenario_name)
+
+    # 重试函数
+    def retry_single_problem(idx):
+        result = results[idx]
+        problem_name = result['problem_name']
+        problem_file = result.get('problem_file', '')
+        size_key = result.get('size_key')
+
+        print(f"\n[Retry] Problem {idx+1}: {problem_name}", flush=True)
+
+        # 读取问题内容
+        if not problem_file or not Path(problem_file).exists():
+            print(f"  Problem file not found: {problem_file}", flush=True)
+            return idx, result
+
+        with open(problem_file, 'r', encoding='utf-8') as f:
+            problem_content = f.read()
+
+        # 构建 prompt
+        if one_shot and example_content:
+            example_text = f"""
+DOMAIN:
+{example_content['domain']}
+
+PROBLEM:
+{example_content['problem']}
+
+### Plan:
+{example_content['solution']}
+"""
+            prompt = prompt_template.format(
+                domain_content=domain_content,
+                problem_content=problem_content,
+                example_content=example_text
+            )
+        else:
+            prompt = prompt_template.format(domain_content=domain_content, problem_content=problem_content)
+
+        # 调用 API（带重试）
+        generation_error = None
+        output = ""
+        usage_info = None
+        raw_solution = ""
+        retry_count = 0
+
+        for attempt in range(MAX_RETRIES + 1):
+            generation_error = None
+            output = ""
+
+            if attempt > 0:
+                print(f"  [Retry {attempt}/{MAX_RETRIES}]...", flush=True)
+                time.sleep(2 * attempt)
+
+            try:
+                output, usage_info = _call_gemini_api(
+                    client,
+                    model_name,
+                    prompt,
+                    temperature,
+                    MAX_NEW_TOKENS,
+                    GEMINI_TIMEOUT,
+                )
+
+                if output:
+                    raw_solution = extract_llm_output(output, 'gemini')
+                    break
+                else:
+                    generation_error = "Empty response from API"
+                    retry_count = attempt + 1
+            except Exception as e:
+                generation_error = f"API Error: {str(e)}"
+                retry_count = attempt + 1
+
+        # 验证解决方案
+        validation_message = ""
+        validation_stdout = ""
+        validation_stderr = ""
+        category = ""
+        val_cmd = ""
+
+        if generation_error:
+            category = "generation_error"
+            validation_message = f"Generation failed: {generation_error}"
+        elif raw_solution.strip():
+            _, message, stdout, stderr, val_cmd = validate_solution(domain_file, problem_file, raw_solution)
+            validation_message = message
+            validation_stdout = stdout
+            validation_stderr = stderr
+
+            if not _looks_like_valid_plan(raw_solution):
+                category = "plan_format_error"
+            else:
+                category = _classify_result(stdout)
+        else:
+            category = "plan_format_error"
+            validation_message = "Empty solution generated"
+
+        is_valid = (category == "success_plans")
+
+        # 更新结果
+        new_result = {
+            'index': result.get('index', idx + 1),
+            'problem_name': problem_name,
+            'size_key': size_key,
+            'scenario': scenario_name,
+            'problem_file': problem_file,
+            'is_valid': is_valid,
+            'category': category,
+            'validation_message': validation_message,
+            'validation_stdout': validation_stdout,
+            'validation_stderr': validation_stderr,
+            'validation_cmd': val_cmd,
+            'raw_solution': raw_solution,
+            'generation_error': generation_error,
+            'retry_count': retry_count,
+            'usage': usage_info
+        }
+
+        status = "✓ SUCCESS" if is_valid else f"✗ {category}"
+        print(f"  Result: {status}", flush=True)
+
+        return idx, new_result
+
+    # 并行重试
+    workers = max_workers if max_workers is not None else MAX_WORKERS
+    print(f"\nStarting parallel retry with {workers} workers...", flush=True)
+
+    updated_count = 0
+    success_count = 0
+
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = {executor.submit(retry_single_problem, idx): idx for idx in failed_indices}
+
+        for future in as_completed(futures):
+            try:
+                idx, new_result = future.result()
+                results[idx] = new_result
+                updated_count += 1
+                if new_result.get('is_valid'):
+                    success_count += 1
+            except Exception as e:
+                print(f"Error retrying problem: {e}", flush=True)
+
+    # 重新计算统计数据
+    category_counts = {
+        "success_plans": 0,
+        "plan_format_error": 0,
+        "precondition_violation": 0,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "others": 0,
+    }
+    size_stats = defaultdict(lambda: {"total": 0, "success": 0})
+
+    for result in results:
+        cat = result.get('category', 'others')
+        if cat in category_counts:
+            category_counts[cat] += 1
+        else:
+            category_counts["others"] += 1
+
+        size_key = result.get('size_key')
+        if size_key:
+            size_stats[size_key]["total"] += 1
+            if result.get('is_valid'):
+                size_stats[size_key]["success"] += 1
+
+    total_count = len(results)
+    total_success = category_counts.get("success_plans", 0)
+
+    # 更新数据
+    data['results'] = results
+    data['success_count'] = total_success
+    data['success_rate'] = (total_success / total_count * 100) if total_count > 0 else 0
+    data['category_counts'] = category_counts
+    data['category_rates'] = {k: (v / total_count * 100) if total_count > 0 else 0 for k, v in category_counts.items()}
+    data['size_success_rates'] = {
+        key: {
+            "total": stats["total"],
+            "success": stats["success"],
+            "success_rate": (stats["success"] / stats["total"] * 100) if stats["total"] > 0 else 0
+        }
+        for key, stats in size_stats.items()
+    }
+    data['timestamp'] = datetime.now().isoformat()
+
+    # 保存更新后的文件
+    with open(results_file, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+    print(f"\n{'='*60}", flush=True)
+    print(f"RETRY RESULTS", flush=True)
+    print(f"{'='*60}", flush=True)
+    print(f"Retried: {updated_count} problems", flush=True)
+    print(f"Newly successful: {success_count}/{updated_count}", flush=True)
+    print(f"Total success rate: {data['success_rate']:.1f}% ({total_success}/{total_count})", flush=True)
+    print(f"\nCategory Breakdown:", flush=True)
+    for category, count in category_counts.items():
+        rate = (count / total_count * 100) if total_count > 0 else 0
+        print(f"  {category}: {count} ({rate:.1f}%)", flush=True)
+    print(f"\nResults updated in: {results_file}", flush=True)
+    print(f"{'='*60}\n", flush=True)
+
+
 def main():
     """主函数"""
     DEFAULT_MODEL = "gemini-3-pro-preview"
@@ -863,10 +1141,10 @@ def main():
                        help="Output JSON file name")
     parser.add_argument("--max-problems", type=int, default=0,
                        help="Maximum number of problems to test (0 for all)")
-    parser.add_argument("--problems-dir", type=str, required=True,
-                       help="Directory containing problem PDDL files")
-    parser.add_argument("--domain-file", type=str, required=True,
-                       help="Path to domain PDDL file")
+    parser.add_argument("--problems-dir", type=str, default=None,
+                       help="Directory containing problem PDDL files (required unless using --retry-errors)")
+    parser.add_argument("--domain-file", type=str, default=None,
+                       help="Path to domain PDDL file (required unless using --retry-errors)")
     parser.add_argument("--temperature", type=float, default=0.6,
                        help="Temperature for text generation (default: 0.6)")
     parser.add_argument("--one-shot", dest='one_shot', action='store_true',
@@ -881,6 +1159,12 @@ def main():
         action="store_true",
         help="Do not append timestamp to output filename (keep exactly --output).",
     )
+    parser.add_argument(
+        "--retry-errors",
+        type=str,
+        default=None,
+        help="Path to existing results JSON file. Will retry only generation_error cases and update the file.",
+    )
 
     args = parser.parse_args()
 
@@ -892,18 +1176,34 @@ def main():
     else:
         actual_model_name = args.model
 
-    test_gemini_model_on_testing_data(
-        actual_model_name,
-        args.api_key,
-        args.output,
-        args.max_problems,
-        problems_dir=args.problems_dir,
-        domain_file=args.domain_file,
-        temperature=args.temperature,
-        one_shot=args.one_shot,
-        max_workers=args.max_workers,
-        no_timestamp=args.no_timestamp,
-    )
+    # 验证参数
+    if not args.retry_errors:
+        if not args.problems_dir or not args.domain_file:
+            parser.error("--problems-dir and --domain-file are required unless using --retry-errors")
+
+    # 如果指定了 --retry-errors，则只重试失败的问题
+    if args.retry_errors:
+        retry_failed_results(
+            args.retry_errors,
+            actual_model_name,
+            api_key=args.api_key,
+            temperature=args.temperature,
+            max_workers=args.max_workers,
+            one_shot=args.one_shot,
+        )
+    else:
+        test_gemini_model_on_testing_data(
+            actual_model_name,
+            args.api_key,
+            args.output,
+            args.max_problems,
+            problems_dir=args.problems_dir,
+            domain_file=args.domain_file,
+            temperature=args.temperature,
+            one_shot=args.one_shot,
+            max_workers=args.max_workers,
+            no_timestamp=args.no_timestamp,
+        )
 
 
 if __name__ == "__main__":

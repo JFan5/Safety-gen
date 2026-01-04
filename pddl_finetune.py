@@ -710,6 +710,7 @@ def main():
                 "lr_scheduler_type",
                 "max_grad_norm",
                 "eval_steps",
+                "save_steps",
                 "logging_steps",
                 "save_total_limit",
                 "eval_strategy",

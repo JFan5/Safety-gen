@@ -37,7 +37,7 @@ OPENAI_TIMEOUT = float(os.getenv("OPENAI_TIMEOUT", "300"))  # 增加到300秒（
 # 并发线程数（可通过环境变量覆盖）
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "5"))  # 默认5个并发线程
 # 生成失败重试次数（可通过环境变量覆盖）
-MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))  # 默认重试3次
+MAX_RETRIES = int(os.getenv("MAX_RETRIES", "5"))  # 默认重试3次
 
 # 模型家族映射
 MODEL_FAMILY_MAP = {

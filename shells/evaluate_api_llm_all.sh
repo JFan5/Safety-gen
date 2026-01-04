@@ -16,12 +16,12 @@ fmt_dur() {
 
 run_eval() {
   local scenario="$1"
-  local dir="pddl3/${scenario}/testing_problem50"
+  local dir="pddl3/${scenario}/testing_problems100"
   local domain="pddl3/${scenario}/domain3.pddl"
   local start_ts end_ts elapsed
-  local max_problems=50
+  local max_problems=100
 
-  echo "=== Evaluating ${scenario} (testing_problem${max_problems}) ==="
+  echo "=== Evaluating ${scenario} (testing_problems${max_problems}) ==="
   start_ts=$(date +%s)
   python script/evaluate_api_llm_solver.py \
     --problems-dir "${dir}" \
@@ -35,13 +35,14 @@ run_eval() {
 
 total_start=$(date +%s)
 
-# run_eval blocksworld
-run_eval grid
+run_eval blocksworld
+run_eval ferry
+run_eval spanner
+run_eval grippers
+run_eval delivery
+# run_eval grid
 
-# run_eval ferry
-# run_eval spanner
-# run_eval grippers
-# run_eval delivery
+
 
 total_end=$(date +%s)
 echo "All evaluations finished. Total time: $(fmt_dur $((total_end-total_start)))"

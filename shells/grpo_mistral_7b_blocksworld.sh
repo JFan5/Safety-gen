@@ -18,18 +18,18 @@ export CUDA_VISIBLE_DEVICES=0
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
 DATASET="/jfan5/grpo_data-127/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-1220-200"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-122-500"
 
 # Training parameters
 
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=4
-LEARNING_RATE=1e-5
-NUM_GENERATIONS=8
+LEARNING_RATE=5e-6
+NUM_GENERATIONS=4
 TEMPERATURE=0.6
-MAX_STEPS=200
+MAX_STEPS=500
 TOP_P=0.9
-LOGGING_STEPS=20
+LOGGING_STEPS=60
 SAVE_STEPS=60
 WANDB_PROJECT="pddl-grpo-mistral7b"
 RUN_NAME="grpo_mistral_7b-blocksworld-1220-200"

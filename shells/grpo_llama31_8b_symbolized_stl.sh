@@ -31,7 +31,7 @@ BASE_MODEL="/jfan5/sft_models/llama31_8b/symbolized"
 
 # Symbolized (obfuscated) 4-scenarios combined GRPO JSONL
 DATASET="/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/train_combined.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/llama31_8b-symbolized-1219-stl-1000"
+OUTPUT_DIR="/jfan5/grpo_models/llama31_8b-symbolized-stl-1221-symbolized"
 
 # Training parameters
 # NOTE: `--num_epochs` is currently not used by `script/train_grpo_unsloth_stl.py`;
@@ -46,7 +46,7 @@ TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=60
 WANDB_PROJECT="pddl-grpo-llama31-8b"
-RUN_NAME="grpo_llama31_8b-symbolized-1219-stl"
+RUN_NAME="grpo_llama31_8b-symbolized-stl-1221-symbolized"
 BETA=0.05
 MAX_GRAD_NORM=1
 
@@ -58,7 +58,7 @@ echo "Dataset: ${DATASET}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
+echo "  Steps: ${MAX_STEPS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"

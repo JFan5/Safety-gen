@@ -18,7 +18,7 @@ export CUDA_VISIBLE_DEVICES=0
 # Configuration
 BASE_MODEL="/jfan5/sft_models/mistral_variant-blocksworld"
 DATASET="/jfan5/grpo_data-127/blocksworld.jsonl"
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-1208-500"
+OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-blocksworld-stl-1221"
 
 
 

@@ -12,7 +12,7 @@ fi
 # Default model (can be overridden via command line argument)
 MODEL="${1:-gemini-3-pro}"
 PROBLEMS_SUBDIR="${2:-testing_problem50}"
-MAX_PROBLEMS="${3:-50}"
+MAX_PROBLEMS="${3:-100}"
 MAX_WORKERS="${4:-5}"
 
 # Create output directory (like evaluate_llm_all.sh)
@@ -63,7 +63,7 @@ run_eval blocksworld
 run_eval ferry
 run_eval spanner
 run_eval grippers
-# run_eval delivery
+run_eval delivery
 # run_eval grid
 
 

@@ -1,0 +1,3 @@
+model,total,success,success_rate,plan_format_error,precondition_violation,safety_constraints_violation,goal_not_satisfied,generation_error,others
+grpo_ckpt300,400,328,82.0,0,52,17,3,0,0
+sft_cross_domain,400,331,82.75,0,42,22,5,0,0

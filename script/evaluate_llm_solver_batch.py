@@ -23,8 +23,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
 # 配置参数
-max_seq_length = 5000
-MAX_NEW_TOKENS = 768
+max_seq_length = 2048
+MAX_NEW_TOKENS = 512
 dtype = None
 
 # 批处理参数

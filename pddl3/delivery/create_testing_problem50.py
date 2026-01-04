@@ -20,7 +20,7 @@ def parse_delivery(filename: str):
 
 
 def main():
-    base_dir = Path("/home/jfan5/Safety-gen/pddl3/delivery")
+    base_dir = Path(__file__).parent.resolve()
     source_dir = base_dir / "all_problems3"
     target_dir = base_dir / "testing_problem50"
     

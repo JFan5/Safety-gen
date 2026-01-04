@@ -21,7 +21,7 @@ NUM_WORKERS="${4:-8}"
 
 # Fixed parameters
 MODEL_FAMILY="auto"
-MAX_PROBLEMS=50
+MAX_PROBLEMS=100
 
 # Sanitize model path for filename
 MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')

@@ -2,9 +2,10 @@
 set -euo pipefail
 
 # Generate Spanner hard testing set: 150 problems total
-# - 扳手数 (spanners) = 4, 5, 6
-# - nuts数 = 4, 5, 6 (nuts <= spanners)
-# - 位置数 (locations) = 5, 6, 7
+# 修改生成问题的难度：
+# - 扳手数 (spanners) = 2, 3
+# - 螺母数 (nuts) = 3, 4   # (nuts <= spanners)
+# - 位置数 (locations) = 4, 5, 6
 # - 参数随机组合，总共 150 个问题
 #
 # Output: pddl3/spanner/testing_problems_hard/
@@ -19,63 +20,29 @@ rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 
 echo "Generating Spanner hard testing problems into $TARGET_DIR"
-echo "Parameters: spanners=nuts={4,5,6}, locations={5,6,7}"
+echo "Parameters: spanners={2,3}, nuts={3,4} (with nuts<=spanners), locations={4,5,6}"
 echo "Target: 150 problems total"
 
-# 组合: spanners/nuts 相同 {4,5,6} × locations {5,6,7} = 3 × 3 = 9 种组合
-# 每种组合生成约 16-17 个问题，总共 150 个
-# 分配: 9 × 16 = 144, 再补 6 个到 150
+# 组合: 满足约束 nuts <= spanners 的有效组合：
+# - spanners=2: nuts最大为2（但注释目标nuts=3,4都不满足，所以跳过spanners=2）
+# - spanners=3, nuts=3: 满足约束 (3<=3)，nuts=4不满足约束(4>3)
+# 所以只有一种配置: spanners=3, nuts=3, locations={4,5,6} = 3 种组合
+# 每种组合生成 50 个问题，总共 150 个
 
 SEED_BASE=60001
 combo_idx=0
 
-# s=n=4, locations=5,6,7
-for loc in 5 6 7; do
-  count=17
+# spanners=3, nuts=3, locations=4,5,6
+for loc in 4 5 6; do
+  count=50
   seed=$(( SEED_BASE + combo_idx * 1000 ))
-  echo "  -> spanners=4, nuts=4, locations=$loc, count=$count"
+  echo "  -> spanners=3, nuts=3, locations=$loc, count=$count"
   $PYTHON_EXEC "$GEN_PY" \
     --output-dir "$TARGET_DIR" \
     --append \
     --count $count \
-    --spanners 4 \
-    --nuts 4 \
-    --locations $loc \
-    --seed $seed
-  combo_idx=$((combo_idx + 1))
-done
-
-# s=n=5, locations=5,6,7
-for loc in 5 6 7; do
-  count=17
-  seed=$(( SEED_BASE + combo_idx * 1000 ))
-  echo "  -> spanners=5, nuts=5, locations=$loc, count=$count"
-  $PYTHON_EXEC "$GEN_PY" \
-    --output-dir "$TARGET_DIR" \
-    --append \
-    --count $count \
-    --spanners 5 \
-    --nuts 5 \
-    --locations $loc \
-    --seed $seed
-  combo_idx=$((combo_idx + 1))
-done
-
-# s=n=6, locations=5,6,7
-for loc in 5 6 7; do
-  if [[ $loc -eq 5 ]]; then
-    count=16  # 稍微少 1 个来达到 150
-  else
-    count=16
-  fi
-  seed=$(( SEED_BASE + combo_idx * 1000 ))
-  echo "  -> spanners=6, nuts=6, locations=$loc, count=$count"
-  $PYTHON_EXEC "$GEN_PY" \
-    --output-dir "$TARGET_DIR" \
-    --append \
-    --count $count \
-    --spanners 6 \
-    --nuts 6 \
+    --spanners 3 \
+    --nuts 3 \
     --locations $loc \
     --seed $seed
   combo_idx=$((combo_idx + 1))

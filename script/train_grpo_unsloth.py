@@ -86,6 +86,152 @@ from collections import Counter
 
 DEBUG_FILE = "reward_debug.log"
 
+# Global variable to store logging_steps for debug printing
+LOGGING_STEPS = 10
+
+
+def log_reward_batch_stats(
+    all_labels: List[str],
+    all_scenarios: List[str],
+    rewards: List[float],
+    reward_methods: List[str],
+    trainer_state=None,
+    debug_file: str = DEBUG_FILE,
+    logging_steps: int = LOGGING_STEPS,
+    log_sample_plan: bool = False,
+    sample_idx: int = 0,
+    sample_completion: str = "",
+    sample_meta: Optional[Dict] = None,
+) -> Dict[str, Any]:
+    """
+    统一的 reward batch 统计和打印方法。
+    
+    Args:
+        all_labels: 所有样本的标签列表
+        all_scenarios: 所有样本的场景列表
+        rewards: 所有样本的 reward 列表
+        reward_methods: 所有样本的 reward 计算方法列表
+        trainer_state: Trainer state 对象（用于获取 global_step）
+        debug_file: Debug 日志文件路径
+        logging_steps: 打印间隔步数
+        log_sample_plan: 是否打印单个样本的 plan
+        sample_idx: 样本索引（用于打印单个样本）
+        sample_completion: 样本的 completion（用于打印单个样本）
+        sample_meta: 样本的 meta（用于打印单个样本）
+    
+    Returns:
+        log_dict: 用于 wandb.log 的字典
+    """
+    log_dict: Dict[str, Any] = {}
+    
+    # 初始化 debug 文件
+    if not os.path.exists(debug_file):
+        with open(debug_file, "w") as f:
+            f.write("=== GRPO REWARD DEBUG LOG ===\n")
+    
+    # 打印单个样本的 plan（如果需要）
+    if log_sample_plan:
+        should_log = (
+            trainer_state is not None
+            and trainer_state.global_step % logging_steps == 0
+            and sample_idx == 0  # 只在每个 batch 的第一个样本时打印
+        )
+        if should_log:
+            step_str = str(trainer_state.global_step)
+            scenario = "unknown"
+            problem_rel = ""
+            if isinstance(sample_meta, dict):
+                scenario = sample_meta.get("scenario", "unknown")
+                if not isinstance(scenario, str):
+                    scenario = "unknown"
+                problem_rel = sample_meta.get("problem_file", "")
+                if not isinstance(problem_rel, str):
+                    problem_rel = ""
+            
+            print("\n" + "=" * 80)
+            print(f"[REWARD] step={step_str} sample_idx={sample_idx} scenario={scenario} problem_file={problem_rel}")
+            print("[REWARD] completion(plan):")
+            print(sample_completion)
+            print("=" * 80 + "\n")
+    
+    # 统计并构建 log_dict
+    if all_labels:
+        counts = Counter(all_labels)
+        total = len(all_labels)
+        
+        log_dict = {"stats/total_samples": total}
+        
+        for category in [
+            "success_plans",
+            "goal_not_satisfied",
+            "plan_format_error",
+            "precondition_violation",
+            "safety_constraints_violation",
+            "unknown",
+        ]:
+            c = counts.get(category, 0)
+            log_dict[f"stats/count_{category}"] = c
+            log_dict[f"stats/rate_{category}"] = c / total
+        
+        # 统计场景分布
+        if all_scenarios:
+            scenario_counts = Counter(all_scenarios)
+            main_scenario = scenario_counts.most_common(1)[0][0] if scenario_counts else "unknown"
+            log_dict["batch/main_scenario"] = main_scenario
+            
+            for scenario_name, count in scenario_counts.items():
+                log_dict[f"batch/scenario_count_{scenario_name}"] = count
+                log_dict[f"batch/scenario_rate_{scenario_name}"] = count / total
+        
+        # 计算 reward 统计
+        if rewards:
+            reward_mean = statistics.mean(rewards)
+            reward_std = statistics.stdev(rewards) if len(rewards) > 1 else 0.0
+            log_dict["stats/reward_mean"] = reward_mean
+            log_dict["stats/reward_std"] = reward_std
+            
+            # 统计 reward 方法使用情况
+            if reward_methods:
+                method_counts = Counter(reward_methods)
+                for method, count in method_counts.items():
+                    log_dict[f"reward_method/count_{method}"] = count
+                    log_dict[f"reward_method/rate_{method}"] = count / total
+            
+            # 打印 batch 统计信息
+            main_scenario_str = log_dict.get("batch/main_scenario", "unknown")
+            main_reward_method = Counter(reward_methods).most_common(1)[0][0] if reward_methods else "default"
+            msg = (
+                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
+                f"scenario={main_scenario_str}, "
+                f"reward_method={main_reward_method}, "
+                f"batch_reward_mean={reward_mean:.4f}, batch_reward_std={reward_std:.4f}\n"
+            )
+            
+            # 写到文件：永远有效
+            with open(debug_file, "a") as f:
+                f.write(msg)
+            
+            # 按 logging_steps 间隔打印到 stdout
+            should_log_stats = (
+                trainer_state is not None
+                and trainer_state.global_step % logging_steps == 0
+            )
+            if should_log_stats:
+                print(msg, end="")
+        
+        # wandb log
+        if wandb is not None:
+            try:
+                wandb.log(log_dict)
+            except Exception as e:
+                print("[wandb.log ERROR]", e)
+        
+        # 同步写到 debug 文件
+        with open(debug_file, "a") as f:
+            f.write(f"stats={log_dict}\n")
+    
+    return log_dict
+
 def grpo_reward_func(
     prompts: List[str],
     completions: List[str],
@@ -105,12 +251,6 @@ def grpo_reward_func(
     all_labels: List[str] = []
     all_scenarios: List[str] = []  # 收集场景信息
     reward_methods: List[str] = []  # 收集 reward 计算方法
-
-    # ---------- debug: 打开文件，只 append ----------
-    # 如果文件不存在，创建并写 header
-    if not os.path.exists(DEBUG_FILE):
-        with open(DEBUG_FILE, "w") as f:
-            f.write("=== GRPO REWARD DEBUG LOG ===\n")
 
     for i, (prompt, completion, m, label) in enumerate(
         zip(prompts, completions, meta, class_label)
@@ -154,74 +294,17 @@ def grpo_reward_func(
         reward_methods.append(reward_method)
 
 
-    # ============ 统计并 wandb.log ============
-    if all_labels:
-        counts = Counter(all_labels)
-        total = len(all_labels)
-
-        log_dict = {"stats/total_samples": total}
-
-        for category in [
-            "success_plans",
-            "goal_not_satisfied",
-            "plan_format_error",
-            "precondition_violation",
-            "safety_constraints_violation",
-            "unknown",
-        ]:
-            c = counts.get(category, 0)
-            log_dict[f"stats/count_{category}"] = c
-            log_dict[f"stats/rate_{category}"] = c / total
-
-        # 统计场景分布
-        if all_scenarios:
-            scenario_counts = Counter(all_scenarios)
-            # 记录主要场景（出现最多的场景）
-            main_scenario = scenario_counts.most_common(1)[0][0] if scenario_counts else "unknown"
-            log_dict["batch/main_scenario"] = main_scenario
-            
-            # 记录场景分布（每个场景的数量和比例）
-            for scenario_name, count in scenario_counts.items():
-                log_dict[f"batch/scenario_count_{scenario_name}"] = count
-                log_dict[f"batch/scenario_rate_{scenario_name}"] = count / total
-
-        # 计算整个 batch 的 reward 的 mean 和 std
-        if rewards:
-            reward_mean = statistics.mean(rewards)
-            reward_std = statistics.stdev(rewards) if len(rewards) > 1 else 0.0
-            log_dict["stats/reward_mean"] = reward_mean
-            log_dict["stats/reward_std"] = reward_std
-
-            # 统计 reward 方法使用情况
-            if reward_methods:
-                method_counts = Counter(reward_methods)
-                for method, count in method_counts.items():
-                    log_dict[f"reward_method/count_{method}"] = count
-                    log_dict[f"reward_method/rate_{method}"] = count / total
-
-            # ============ 强制打印（stdout + 文件）- 整个 batch 的统计 ============
-            main_scenario_str = log_dict.get("batch/main_scenario", "unknown")
-            main_reward_method = Counter(reward_methods).most_common(1)[0][0] if reward_methods else "default"
-            msg = (
-                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
-                f"scenario={main_scenario_str}, "
-                f"reward_method={main_reward_method}, "
-                f"batch_reward_mean={reward_mean:.4f}, batch_reward_std={reward_std:.4f}\n"
-            )
-            # 写到文件：永远有效
-            with open(DEBUG_FILE, "a") as f:
-                f.write(msg)
-
-        # wandb 强制 log（确保打印）
-        if wandb is not None:
-            try:
-                wandb.log(log_dict)
-            except Exception as e:
-                print("[wandb.log ERROR]", e)
-
-        # 同步写到 debug 文件
-        with open(DEBUG_FILE, "a") as f:
-            f.write(f"stats={log_dict}\n")
+    # ============ 统计并打印（使用统一方法） ============
+    log_reward_batch_stats(
+        all_labels=all_labels,
+        all_scenarios=all_scenarios,
+        rewards=rewards,
+        reward_methods=reward_methods,
+        trainer_state=trainer_state,
+        debug_file=DEBUG_FILE,
+        logging_steps=LOGGING_STEPS,
+        log_sample_plan=False,  # train_grpo_unsloth 不需要打印样本 plan
+    )
 
     return rewards
 
@@ -326,15 +409,15 @@ def main():
     parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta). Lower values reduce KL penalty in loss. If loss is too high due to large KL divergence, try reducing this (e.g., 0.001, 0.01)")
 
     # Generation
-    parser.add_argument("--max_prompt_length", type=int, default=5000, help="Maximum prompt length")
-    parser.add_argument("--max_new_tokens", type=int, default=1024, help="Max completion length for GRPO")
-    parser.add_argument("--temperature", type=float, default=0.6, help="Sampling temperature")
+    parser.add_argument("--max_prompt_length", type=int, default=1024, help="Maximum prompt length")
+    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
+    parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
     parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
     parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
 
     # Logging / saving
     parser.add_argument("--save_steps", type=int, default=50, help="Save checkpoint every N steps (0 to disable)")
-    parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
+    parser.add_argument("--logging_steps", type=int, default=50, help="Log every N steps")
     parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
     parser.add_argument("--max_steps", type=int, default=1000, help="Maximum number of training steps")
     parser.add_argument("--wandb_project", default="pddl-grpo-training", help="W&B project name")
@@ -351,6 +434,10 @@ def main():
     parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer, kept for compat)")
 
     args = parser.parse_args()
+
+    # Set global logging_steps for reward function
+    global LOGGING_STEPS
+    LOGGING_STEPS = args.logging_steps
 
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
