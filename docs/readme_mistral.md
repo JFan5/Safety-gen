@@ -1,4 +1,4 @@
-# Model Training and Success Rate Statistics
+# Model Training and Success Rate Statistics - Mistral-7B
 
 
 ## supervised fine-tuning data
@@ -13,21 +13,6 @@
 ### grpo data
 /jfan5/grpo_data
 symobolized，每个1000条：/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v2/
-
-
-## 训练好的model
-
-qwen3-14b
-1. sft model和测试结果： /jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized 测试结果： planning_results/-jfan5-sft_models-qwen3_14b-cross_domain_pddl3_symbolized_20251216_191358
-
-2. grpo测试结果：  planning_results/-jfan5-grpo_models-qwen3_14b-symbolized-1215-stl-1000-checkpoint-900_20251216_191254， model: /jfan5/grpo_models/qwen3_14b-symbolized-1215-stl-1000/checkpoint-900
-
-
-
-## single domain 测试结果
-qwen3-14b, sft
-
-
 
 
 ## Mistral-7B
@@ -150,87 +135,6 @@ qwen3-14b, sft
 2. **API models mainly fail on safety constraints**: gpt-5-nano and gpt-5.1 have 68-72% safety constraint violations
 3. **GRPO dramatically reduces precondition violations**: from 22% (SFT) to only 4%
 4. **Gemini-3-Pro performs better** than GPT models but still has 24% safety violations
-
----
-
-## Qwen3-14B
-
-sft: /jfan5/sft_models/qwen3_14b/four_scenarios500/pddl3
-
-dpo: 
-
-grpo: 
-### Cross-Domain
-
-| Training Method | Model Path | Date | Spanner | Grippers | Ferry | Delivery | Blocksworld | Grid | Average Success Rate |
-|---------|---------|------|---------|----------|-------|----------|-------------|------|-----------|
-| Baseline | `unsloth/Qwen3-14B-unsloth-bnb-4bit` | - | 0.0%<br/>`paper_results_iccps2025/qwen3-14b/baseline/spanner_test_results.json` | 0.0%<br/>`paper_results_iccps2025/qwen3-14b/baseline/grippers_test_results.json` | 0.0%<br/>`paper_results_iccps2025/qwen3-14b/baseline/ferry_test_results.json` | 12.0%<br/>`paper_results_iccps2025/qwen3-14b/baseline/delivery_test_results.json` | 4.0%<br/>`paper_results_iccps2025/qwen3-14b/baseline/blocksworld_test_results.json` | - | 3.2% |
-| SFT | `/jfan5/sft_models/qwen3-14b-1127` | 2025-11-28 | 66.0%<br/>`planning_results/spanner_-jfan5-sft_models-qwen3-14b-1127_50_20251128_001536.json` | 34.0%<br/>`planning_results/grippers_-jfan5-sft_models-qwen3-14b-1127_50_20251128_001934.json` | 46.0%<br/>`planning_results/ferry_-jfan5-sft_models-qwen3-14b-1127_50_20251128_001213.json` | 2.0%<br/>`planning_results/delivery_-jfan5-sft_models-qwen3-14b-1127_50_20251128_000120.json` | 30.0%<br/>`planning_results/blocksworld_-jfan5-sft_models-qwen3-14b-1127_50_20251128_000655.json` | - | 35.6% |
-| DPO | `/home/ubuntu/dpo_models/qwen3_14b/multi/pddl3_500-gpt-candidate` | 2025-11-09 | 94.0%<br/>`paper_results_iccps2025/qwen3-14b/dpo/spanner_test_results.json` | 30.0%<br/>`paper_results_iccps2025/qwen3-14b/dpo/grippers_test_results.json` | 24.0%<br/>`paper_results_iccps2025/qwen3-14b/dpo/ferry_test_results.json` | 20.0%<br/>`paper_results_iccps2025/qwen3-14b/dpo/delivery_test_results.json` | 18.0%<br/>`paper_results_iccps2025/qwen3-14b/dpo/blocksworld_test_results.json` | - | 37.2% |
-| GRPO | - | - | - | - | - | - | - | - | - |
-
-### Single-Domain
-
-| Scenario | Training Method | Model Path | Date | Spanner | Grippers | Ferry | Delivery | Blocksworld | Grid | Average Success Rate |
-|------|---------|---------|------|---------|----------|-------|----------|-------------|------|-----------|
-| Spanner | DPO | `/home/ubuntu/dpo_models/qwen3_14b/multi/pddl3_500-gpt-candidate-2` | 2025-11-14 | 56.0%<br/>`planning_results/qwen3_dpo_bfgs-v2_spanner_results_spanner_dpo_bfgs.json` | - | - | - | - | - | 56.0% |
-
----
-
-## GPT
-
-### Cross-Domain
-
-| Training Method | Model Path | Date | Spanner | Grippers | Ferry | Delivery | Blocksworld | Grid | Average Success Rate |
-|---------|---------|------|---------|----------|-------|----------|-------------|------|-----------|
-| Baseline | `unsloth/gpt-oss-20b-unsloth-bnb-4bit` | - | 0.0%<br/>`paper_results_iccps2025/gpt-oss-multi/baseline/spanner_test_results.json` | 2.0%<br/>`paper_results_iccps2025/gpt-oss-multi/baseline/grippers_test_results.json` | 2.0%<br/>`paper_results_iccps2025/gpt-oss-multi/baseline/ferry_test_results.json` | 0.0%<br/>`paper_results_iccps2025/gpt-oss-multi/baseline/delivery_test_results.json` | 0.0%<br/>`paper_results_iccps2025/gpt-oss-multi/baseline/blocksworld_test_results.json` | 0.0%<br/>`paper_results_iccps2025/gpt-oss-multi/baseline/grid_test_results.json` | 0.7% |
-| SFT | `/jfan5/sft_models/gpt_oss_20b/four_scenarios500` | 2025-11-24 | 60.0%<br/>`planning_results/gpt_oss_20b-sft500_spanner_spanner_test_results.json` | 10.0%<br/>`planning_results/gpt_oss_20b-sft500_grippers_grippers_test_results.json` | 4.0%<br/>`planning_results/gpt_oss_20b-sft500_ferry_ferry_test_results.json` | 2.0%<br/>`planning_results/gpt_oss_20b-sft500_delivery_delivery_test_results.json` | 2.0%<br/>`planning_results/gpt_oss_20b-sft500_blocksworld_blocksworld_test_results.json` | - | 15.6% |
-| GRPO | - | - | - | - | - | - | - | - | - |
-
-### OpenAI API - gpt-5-nano (PDDL3 testing_problem50, 50 problems, zero-shot)
-
-Note: Directly calling gpt-5-nano-2025-08-07, temperature=1.0, no completion token limit (max_new_tokens=None), and token usage per problem is recorded in the result files.
-
-| Scenario | Success Rate | Success/Total | Average total tokens/problem | Result File |
-|------|--------|-------------|----------------------|----------|
-| Blocksworld | 18.0% | 9/50 | ~16,845 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_163156.json` |
-| Ferry | 20.0% | 10/50 | ~6,685 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_163622.json` |
-| Spanner | 66.0% | 33/50 | ~7,469 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_164014.json` |
-| Grippers | 94.0% | 47/50 | ~3,733 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_164222.json` |
-| Delivery | 84.0% | 42/50 | ~7,601 | `evaluation_summary_gpt-5-nano-2025-08-07_20251205_164648.json` |
-
-Error Classification (count/50):
-
-| Scenario | Success Rate  | success | plan_format_err | precond_err | safety_violation | goal_not | others |
-|------|--------|---------|-----------------|-------------|------------------|----------|--------|
-| Blocksworld | 18.0% | 9 | 1 | 3 | 34 | 2 | 1 |
-| Ferry       | 20.0% | 10 | 0 | 0 | 40 | 0 | 0 |
-| Spanner     | 66.0% | 33 | 2 | 15 | 0 | 0 | 0 |
-| Grippers    | 94.0% | 47 | 0 | 3 | 0 | 0 | 0 |
-| Delivery    | 84.0% | 42 | 0 | 1 | 7 | 0 | 0 |
-
-### OpenAI API - gpt-5.1 (PDDL3 testing_problem50, 50 problems, zero-shot, medium reasoning)
-
-Note: Directly calling gpt-5.1, temperature=0.6, no completion token limit (max_new_tokens=None), medium reasoning, and token usage per problem is recorded in the result files.
-
-| Scenario | Success Rate | Success/Total | Average total tokens/problem | Result File |
-|------|--------|-------------|----------------------|----------|
-| Blocksworld | 28.0% | 14/50 | ~5,305 | `evaluation_summary_gpt-5.1_20251205_184821.json` |
-| Ferry | 40.0% | 20/50 | ~3,624 | `evaluation_summary_gpt-5.1_20251205_185350.json` |
-| Spanner | 100.0% | 50/50 | ~2,812 | `evaluation_summary_gpt-5.1_20251205_185739.json` |
-| Grippers | 100.0% | 50/50 | ~1,622 | `evaluation_summary_gpt-5.1_20251205_185918.json` |
-| Delivery | 98.0% | 49/50 | ~4,400 | `evaluation_summary_gpt-5.1_20251205_190422.json` |
-
-Error Classification (count/50):
-
-| Scenario | Success Rate  | success | plan_format_err | precond_err | safety_violation | goal_not | others |
-|------|--------|---------|-----------------|-------------|------------------|----------|--------|
-| Blocksworld | 28.0% | 14 | 0 | 0 | 36 | 0 | 0 |
-| Ferry       | 40.0% | 20 | 0 | 0 | 30 | 0 | 0 |
-| Spanner     | 100.0% | 50 | 0 | 0 | 0 | 0 | 0 |
-| Grippers    | 100.0% | 50 | 0 | 0 | 0 | 0 | 0 |
-| Delivery    | 98.0% | 49 | 0 | 0 | 1 | 0 | 0 |
-
 
 ---
 
