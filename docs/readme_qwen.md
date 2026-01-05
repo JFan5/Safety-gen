@@ -1,10 +1,10 @@
 # Model Training and Success Rate Statistics - Qwen3-14B
 
 
-## supervised fine-tuning data
+# 数据集
+## sft data
 1. 用5个prompt去randomnized：/jfan5/sft_data/four_scenarios500
 2. simple prompt symbolized (每个Scenario 1000条): /jfan5/sft_data/pddl3_symbolized_four_scenarios_v2
-
 
 
 ### dpo data
@@ -24,8 +24,11 @@ qwen3-14b
 
 
 
-## single domain 测试结果
-qwen3-14b, sft
+## single domain blocksworld 测试结果
+sft_model evaluation results: 
+planning_results/blocksworld_-jfan5-sft_models-qwen3_14b-blocksworld_pddl3_symbolized_50_20251212_195238.json
+
+
 
 
 
