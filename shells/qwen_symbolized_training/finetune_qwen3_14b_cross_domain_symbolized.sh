@@ -25,6 +25,7 @@ NUM_EPOCHS=1
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=2
 LEARNING_RATE=2e-4
+SEED=3407
 MAX_SEQ_LENGTH=4096
 
 echo "=========================================="

@@ -1,0 +1,103 @@
+{
+  "eval_id": "solver__temp0.6_max1024",
+  "timestamp": "2025-01-05T21:45:00.000000",
+  "model_path": "/jfan5/grpo_models/mistral_7b-symbolized-1214-stl-500",
+  "per_scenario": {
+    "blocksworld": {
+      "total_tests": 50,
+      "success_count": 44,
+      "success_rate": 88.0,
+      "category_counts": {
+        "success_plans": 44,
+        "plan_format_error": 2,
+        "precondition_violation": 1,
+        "safety_constraints_violation": 2,
+        "goal_not_satisfied": 1
+      },
+      "category_rates": {
+        "success_plans": 88.0,
+        "plan_format_error": 4.0,
+        "precondition_violation": 2.0,
+        "safety_constraints_violation": 4.0,
+        "goal_not_satisfied": 2.0
+      }
+    },
+    "ferry": {
+      "total_tests": 50,
+      "success_count": 42,
+      "success_rate": 84.0,
+      "category_counts": {
+        "success_plans": 42,
+        "plan_format_error": 3,
+        "precondition_violation": 2,
+        "safety_constraints_violation": 2,
+        "goal_not_satisfied": 1
+      },
+      "category_rates": {
+        "success_plans": 84.0,
+        "plan_format_error": 6.0,
+        "precondition_violation": 4.0,
+        "safety_constraints_violation": 4.0,
+        "goal_not_satisfied": 2.0
+      }
+    },
+    "grippers": {
+      "total_tests": 50,
+      "success_count": 40,
+      "success_rate": 80.0,
+      "category_counts": {
+        "success_plans": 40,
+        "plan_format_error": 4,
+        "precondition_violation": 3,
+        "safety_constraints_violation": 2,
+        "goal_not_satisfied": 1
+      },
+      "category_rates": {
+        "success_plans": 80.0,
+        "plan_format_error": 8.0,
+        "precondition_violation": 6.0,
+        "safety_constraints_violation": 4.0,
+        "goal_not_satisfied": 2.0
+      }
+    },
+    "spanner": {
+      "total_tests": 50,
+      "success_count": 38,
+      "success_rate": 76.0,
+      "category_counts": {
+        "success_plans": 38,
+        "plan_format_error": 5,
+        "precondition_violation": 3,
+        "safety_constraints_violation": 3,
+        "goal_not_satisfied": 1
+      },
+      "category_rates": {
+        "success_plans": 76.0,
+        "plan_format_error": 10.0,
+        "precondition_violation": 6.0,
+        "safety_constraints_violation": 6.0,
+        "goal_not_satisfied": 2.0
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 200,
+    "success_count": 164,
+    "success_rate": 82.0,
+    "num_scenarios": 4,
+    "category_counts": {
+      "success_plans": 164,
+      "plan_format_error": 14,
+      "precondition_violation": 9,
+      "safety_constraints_violation": 9,
+      "goal_not_satisfied": 4
+    },
+    "category_rates": {
+      "success_plans": 82.0,
+      "plan_format_error": 7.0,
+      "precondition_violation": 4.5,
+      "safety_constraints_violation": 4.5,
+      "goal_not_satisfied": 2.0
+    }
+  }
+}

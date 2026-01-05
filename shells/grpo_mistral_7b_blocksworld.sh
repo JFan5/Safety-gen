@@ -35,6 +35,7 @@ WANDB_PROJECT="pddl-grpo-mistral7b"
 RUN_NAME="grpo_mistral_7b-blocksworld-1220-200"
 BETA=0.01
 MAX_GRAD_NORM=1
+SEED=3407
 echo "=========================================="
 echo "GRPO Training for Mistral-7B - Blocksworld"
 echo "=========================================="
@@ -43,7 +44,6 @@ echo "Dataset: ${DATASET}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
@@ -51,7 +51,7 @@ echo "  Generations per prompt: ${NUM_GENERATIONS}"
 echo "=========================================="
 echo ""
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
@@ -67,6 +67,7 @@ python3 script/train_grpo_unsloth.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

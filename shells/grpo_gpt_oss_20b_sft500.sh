@@ -17,7 +17,6 @@ DATASET="/jfan5/ppo_data/all_scenarios.jsonl"
 OUTPUT_DIR="/jfan5/grpo_models/gpt_oss_20b_sft500"
 
 # Training parameters (larger model may need adjusted batch size)
-NUM_EPOCHS=1.0
 BATCH_SIZE=16
 GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=5e-6
@@ -37,7 +36,6 @@ echo "Dataset: ${DATASET}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
@@ -46,11 +44,10 @@ echo "=========================================="
 echo ""
 
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
-  --num_epochs ${NUM_EPOCHS} \
   --batch_size ${BATCH_SIZE} \
   --gradient_accumulation_steps ${GRADIENT_ACCUMULATION_STEPS} \
   --learning_rate ${LEARNING_RATE} \
@@ -60,6 +57,7 @@ python3 script/train_grpo_unsloth.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

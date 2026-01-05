@@ -35,6 +35,7 @@ WANDB_PROJECT="pddl-grpo-mistral7b"
 RUN_NAME="grpo_mistral_7b-blocksworld-1208-500"
 BETA=0.01
 MAX_GRAD_NORM=1
+SEED=3407
 echo "=========================================="
 echo "GRPO Training for Mistral-7B - Blocksworld"
 echo "=========================================="
@@ -66,6 +67,7 @@ python3 script/train_grpo_unsloth_stl.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

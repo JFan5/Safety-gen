@@ -17,6 +17,7 @@ import argparse
 import json
 import logging
 import os
+import sys
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 import torch
@@ -28,6 +29,12 @@ from trl import GRPOConfig, GRPOTrainer
 from unsloth import FastLanguageModel
 from utils import _classify_result, validate_solution
 import wandb
+
+# Import run management utilities
+from utils.run_manager import (
+    RunContext,
+    update_wandb_url,
+)
 
 try:
     # Prefer Unsloth's helper if available
@@ -389,52 +396,10 @@ def load_grpo_dataset(
 
 
 # -----------------------------------------------------------------------------
-# Main
+# Training Function
 # -----------------------------------------------------------------------------
-def main():
-    parser = argparse.ArgumentParser(description="Train a model using GRPO with Unsloth on PDDL planning data")
-
-    # Required
-    parser.add_argument("--base_model", required=True, help="Path or HF Hub ID of the base (SFT) model")
-    parser.add_argument("--dataset", required=True, help="Path to dataset JSONL file (prompts + meta etc.)")
-    parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
-
-    # Training / GRPO 基本参数
-    parser.add_argument("--num_epochs", type=float, default=1.0, help="Number of GRPO training epochs")
-    parser.add_argument("--batch_size", type=int, default=4, help="per_device_train_batch_size for GRPO")
-    parser.add_argument("--learning_rate", type=float, default=1e-5, help="Learning rate")
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Gradient accumulation steps")
-    parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
-    parser.add_argument("--num_generations", type=int, default=4, help="G: number of completions per prompt")
-    parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta). Lower values reduce KL penalty in loss. If loss is too high due to large KL divergence, try reducing this (e.g., 0.001, 0.01)")
-
-    # Generation
-    parser.add_argument("--max_prompt_length", type=int, default=1024, help="Maximum prompt length")
-    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
-    parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
-    parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
-    parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
-
-    # Logging / saving
-    parser.add_argument("--save_steps", type=int, default=50, help="Save checkpoint every N steps (0 to disable)")
-    parser.add_argument("--logging_steps", type=int, default=50, help="Log every N steps")
-    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
-    parser.add_argument("--max_steps", type=int, default=1000, help="Maximum number of training steps")
-    parser.add_argument("--wandb_project", default="pddl-grpo-training", help="W&B project name")
-    parser.add_argument("--run_name", default=None, help="Run name for logging")
-
-    # Dataset field names
-    parser.add_argument("--prompt_field", default="prompt", help="Field name for prompts")
-    parser.add_argument("--response_field", default="response", help="Field name for optional stored responses")
-    parser.add_argument("--class_label_field", default="class_label", help="Field name for reward class labels")
-
-    # Model options
-    parser.add_argument("--no_4bit", action="store_true", help="Disable 4-bit quantization (default is 4-bit on)")
-    parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable Unsloth gradient checkpointing")
-    parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer, kept for compat)")
-
-    args = parser.parse_args()
-
+def run_training(args):
+    """Core training logic."""
     # Set global logging_steps for reward function
     global LOGGING_STEPS
     LOGGING_STEPS = args.logging_steps
@@ -613,6 +578,93 @@ def main():
     tokenizer.save_pretrained(args.output_dir)
 
     logger.info("GRPO training completed successfully!")
+
+    return args.output_dir
+
+
+def main():
+    """Main entry point with run tracking."""
+    parser = argparse.ArgumentParser(description="Train a model using GRPO with Unsloth on PDDL planning data")
+
+    # Required
+    parser.add_argument("--base_model", required=True, help="Path or HF Hub ID of the base (SFT) model")
+    parser.add_argument("--dataset", required=True, help="Path to dataset JSONL file (prompts + meta etc.)")
+    parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
+
+    # Training / GRPO 基本参数
+    parser.add_argument("--num_epochs", type=float, default=1.0, help="Number of GRPO training epochs")
+    parser.add_argument("--batch_size", type=int, default=4, help="per_device_train_batch_size for GRPO")
+    parser.add_argument("--learning_rate", type=float, default=1e-5, help="Learning rate")
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help="Gradient accumulation steps")
+    parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
+    parser.add_argument("--num_generations", type=int, default=4, help="G: number of completions per prompt")
+    parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta)")
+
+    # Generation
+    parser.add_argument("--max_prompt_length", type=int, default=1024, help="Maximum prompt length")
+    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
+    parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
+    parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
+    parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
+
+    # Logging / saving
+    parser.add_argument("--save_steps", type=int, default=50, help="Save checkpoint every N steps")
+    parser.add_argument("--logging_steps", type=int, default=50, help="Log every N steps")
+    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
+    parser.add_argument("--max_steps", type=int, default=1000, help="Maximum number of training steps")
+    parser.add_argument("--wandb_project", default="pddl-grpo-training", help="W&B project name")
+    parser.add_argument("--run_name", default=None, help="Run name for logging")
+
+    # Dataset field names
+    parser.add_argument("--prompt_field", default="prompt", help="Field name for prompts")
+    parser.add_argument("--response_field", default="response", help="Field name for optional stored responses")
+    parser.add_argument("--class_label_field", default="class_label", help="Field name for reward class labels")
+
+    # Model options
+    parser.add_argument("--no_4bit", action="store_true", help="Disable 4-bit quantization")
+    parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable gradient checkpointing")
+    parser.add_argument("--dataloader_num_workers", type=int, default=0, help="(Unused by GRPOTrainer)")
+
+    # Run management arguments
+    parser.add_argument("--runs_root", type=str, default="./runs",
+                       help="Root directory for runs (default: ./runs)")
+    parser.add_argument("--seed", type=int, default=3407,
+                       help="Random seed (default: 3407)")
+    parser.add_argument("--no_run_tracking", action="store_true",
+                       help="Disable run tracking (don't create run directory)")
+
+    args = parser.parse_args()
+
+    if args.no_run_tracking:
+        # Run without tracking
+        run_training(args)
+    else:
+        # Run with tracking
+        with RunContext(
+            method="grpo",
+            args=args,
+            runs_root=args.runs_root,
+            run_name=args.run_name,
+            seed=args.seed,
+            base_model=args.base_model,
+            dataset=args.dataset,
+            output_dir=args.output_dir,
+            wandb_project=args.wandb_project,
+            wandb_run_name=args.run_name,
+            extra_metadata={
+                "reward_type": "manual_discrete",
+                "beta": args.beta,
+                "temperature": args.temperature,
+                "max_steps": args.max_steps,
+                "num_generations": args.num_generations,
+            },
+            redirect_logs=True,
+        ) as run_ctx:
+            run_training(args)
+
+            # Update wandb URL if available
+            if wandb.run is not None:
+                run_ctx.update_wandb_url(wandb.run.get_url())
 
 
 if __name__ == "__main__":

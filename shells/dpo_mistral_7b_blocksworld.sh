@@ -34,6 +34,7 @@ LOGGING_STEPS=5
 SAVE_STEPS=50
 EVAL_STEPS=50
 WANDB_PROJECT="pddl-dpo-mistral7b"
+SEED=3407
 RUN_NAME="dpo_mistral_7b-blocksworld-1206"
 echo "=========================================="
 echo "DPO Training for Mistral-7B"

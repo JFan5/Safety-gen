@@ -1,0 +1,24 @@
+BEST RESULT: delivery / gpt-oss-20b
+============================================================
+
+Run ID:           20251123_231205_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_950owo5m
+Eval ID:          gpt_oss_20b-sft500_delivery_delivery_test_results
+Method:           sft
+Base Model:       gpt-oss-20b
+
+Success Rate:     2.00%
+Success Count:    1/50
+
+Model Path:       /jfan5/sft_models/gpt_oss_20b/four_scenarios500
+Dataset:          /jfan5/sft_data/four_scenarios500/combined.hf
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/950owo5m
+
+Eval Timestamp:   2025-11-24T04:40:35.478574
+Created At:       2025-11-23T23:12:05+00:00
+
+Category Breakdown:
+  success_plans: 2.00%
+  plan_format_error: 0.00%
+  precondition_violation: 86.00%
+  safety_constraints_violation: 12.00%
+  goal_not_satisfied: 0.00%

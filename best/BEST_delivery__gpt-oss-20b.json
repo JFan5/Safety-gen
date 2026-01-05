@@ -1,0 +1,23 @@
+{
+  "run_id": "20251123_231205_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_950owo5m",
+  "eval_id": "gpt_oss_20b-sft500_delivery_delivery_test_results",
+  "method": "sft",
+  "base_model_family": "gpt-oss-20b",
+  "main_metric": 2.0,
+  "total_tests": 50,
+  "success_count": 1,
+  "eval_timestamp": "2025-11-24T04:40:35.478574",
+  "model_path": "/jfan5/sft_models/gpt_oss_20b/four_scenarios500",
+  "output_dir": "/jfan5/sft_models/gpt_oss_20b/four_scenarios500",
+  "dataset_path": "/jfan5/sft_data/four_scenarios500/combined.hf",
+  "wandb_url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/950owo5m",
+  "project": "pddl-finetune",
+  "seed": 3407,
+  "created_at": "2025-11-23T23:12:05+00:00",
+  "scenario_delivery_success_rate": 2.0,
+  "category_success_plans": 2.0,
+  "category_plan_format_error": 0.0,
+  "category_precondition_violation": 86.0,
+  "category_safety_constraints_violation": 12.0,
+  "category_goal_not_satisfied": 0.0
+}

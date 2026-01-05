@@ -27,6 +27,7 @@ NUM_EPOCHS=3
 BATCH_SIZE=8
 GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=2e-4
+SEED=3407
 MAX_SEQ_LENGTH=4096
 
 echo "=========================================="
@@ -64,7 +65,8 @@ python3 pddl_finetune.py \
     --eval-steps 10 \
     --save-steps 30 \
     --logging-steps 10 \
-    --save-total-limit 2
+    --save-total-limit 2 \
+    --seed ${SEED}
 
 echo ""
 echo "=========================================="

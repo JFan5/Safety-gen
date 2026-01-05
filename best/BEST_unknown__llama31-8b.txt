@@ -1,0 +1,26 @@
+BEST RESULT: unknown / llama31-8b
+============================================================
+
+Run ID:           20251217_233502_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_32f04d1x
+Eval ID:          -jfan5-sft_models-llama31_8b-symbolized_v4_20251218_003845_spanner
+Method:           sft
+Base Model:       llama31-8b
+
+Success Rate:     88.00%
+Success Count:    44/50
+
+Model Path:       /jfan5/sft_models/llama31_8b/symbolized_v4
+Dataset:          /jfan5/sft_data/pddl3_symbolized_four_scenarios_v4/combined.hf
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/32f04d1x
+
+Eval Timestamp:   2025-12-18T00:41:39.575255
+Created At:       2025-12-17T23:35:02+00:00
+
+Category Breakdown:
+  success_plans: 88.00%
+  plan_format_error: 0.00%
+  precondition_violation: 12.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%
+  generation_error: 0.00%
+  others: 0.00%

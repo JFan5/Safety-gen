@@ -1,0 +1,26 @@
+BEST RESULT: rovers / unknown
+============================================================
+
+Run ID:           20251111_235927_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_kfug9f49
+Eval ID:          qwen3_sft_bfgs_rovers_rovers_test_results_pddl3
+Method:           sft
+Base Model:       unknown
+
+Success Rate:     0.00%
+Success Count:    0/50
+
+Model Path:       /jfan5/sft_qwen3/bfgs-variant-500
+Dataset:          /home/ubuntu/data/sft/bfgs-variant-500/combined.hf
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/kfug9f49
+
+Eval Timestamp:   2025-11-12T16:43:52.232701
+Created At:       2025-11-11T23:59:27+00:00
+
+Category Breakdown:
+  success_plans: 0.00%
+  plan_format_error: 0.00%
+  precondition_violation: 60.00%
+  safety_constraints_violation: 40.00%
+  goal_not_satisfied: 0.00%
+  others: 0.00%
+  generation_error: 0.00%

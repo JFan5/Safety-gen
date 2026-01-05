@@ -1,0 +1,50 @@
+{
+  "run_id": "20251129_210830_proj-pddl-dpo-mistral7b_method-dpo_base-four_scenarios500-1124_ds-new_four_multi_pddl3_dpo.jsonl_seed-3407_tqxg23gb",
+  "project": "pddl-dpo-mistral7b",
+  "wandb": {
+    "entity": "fjl2401-university-of-notre-dame",
+    "project": "pddl-dpo-mistral7b",
+    "run_id": "tqxg23gb",
+    "run_name": "dpo_mistral_7b-1129",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-dpo-mistral7b/runs/tqxg23gb",
+    "group": "",
+    "tags": []
+  },
+  "state": "finished",
+  "method": "dpo",
+  "base_model": "/jfan5/sft_models/mistral_7b/four_scenarios500-1124",
+  "dataset": {
+    "dataset_id": "unknown",
+    "dataset_path": "/home/ubuntu/Safety-gen/data/dpo/new_four/multi_pddl3_dpo.jsonl",
+    "dataset_artifact": "unknown"
+  },
+  "train": {
+    "seed": 3407,
+    "lr": 5e-06,
+    "batch_size": 8,
+    "epochs": 2,
+    "max_steps": -1,
+    "other_hparams": {
+      "warmup_steps": 0,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.01,
+      "gradient_accumulation_steps": 4,
+      "max_grad_norm": 1,
+      "adam_epsilon": 1e-08,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.999,
+      "lr_scheduler_type": "linear",
+      "fp16": false,
+      "bf16": true,
+      "gradient_checkpointing": true,
+      "lora_r": 16,
+      "lora_alpha": 32,
+      "lora_dropout": 0.05
+    }
+  },
+  "code": {
+    "git_commit": "9b381ad8409228f5e4654a7fb5727f0f788764e9"
+  },
+  "created_at": "2025-11-29T21:08:30+00:00",
+  "updated_at": null
+}

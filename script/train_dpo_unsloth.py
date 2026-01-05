@@ -9,6 +9,7 @@ import unsloth
 import argparse
 import json
 import os
+import sys
 import logging
 
 from typing import Any
@@ -19,6 +20,13 @@ from trl import DPOTrainer, DPOConfig
 from transformers import TrainingArguments, EarlyStoppingCallback
 # Unsloth
 from unsloth import FastLanguageModel
+
+# Import run management utilities
+from utils.run_manager import (
+    RunContext,
+    update_wandb_url,
+)
+
 try:
     # Prefer Unsloth's helper if available
     from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
@@ -88,48 +96,10 @@ def load_dpo_dataset(dataset_path: str) -> Dataset:
 
 
 # -----------------------------------------------------------------------------
-# Main
+# Training Function
 # -----------------------------------------------------------------------------
-def main():
-    parser = argparse.ArgumentParser(description="Train a model using DPO with Unsloth on PDDL planning data")
-
-    # Required
-    parser.add_argument("--base_model", required=True, help="Path or HF Hub ID of the base (SFT) model")
-    parser.add_argument("--dataset", required=True, help="Path to DPO dataset JSONL file")
-    parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
-
-    # Optional
-    parser.add_argument("--num_epochs", type=float, default=3, help="Number of training epochs (supports fractional epochs, e.g., 0.3)")
-    parser.add_argument("--batch_size", type=int, default=2, help="Per-device train/eval batch size")
-    parser.add_argument("--learning_rate", type=float, default=5e-6, help="Learning rate")
-    parser.add_argument("--max_length", type=int, default=2048, help="Maximum sequence length (prompt+completion)")
-    parser.add_argument("--max_prompt_length", type=int, default=1024, help="Maximum prompt length")
-    parser.add_argument("--beta", type=float, default=0.1, help="DPO beta (temperature)")
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=4, help="Gradient accumulation steps")
-    parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps")
-    parser.add_argument("--eval_steps", type=int, default=50, help="Evaluate every N steps")
-    parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
-    parser.add_argument("--warmup_ratio", type=float, default=0.1, help="Warmup ratio")
-    parser.add_argument("--weight_decay", type=float, default=0.01, help="Weight decay")
-    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging (enabled by default)")
-    parser.add_argument("--wandb_project", default="pddl-dpo-training", help="W&B project name")
-    parser.add_argument("--run_name", help="Run name for logging")
-    parser.add_argument("--no_4bit", action="store_true", help="Disable 4-bit quantization (load in full precision, not recommended)")
-    parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable Unsloth gradient checkpointing")
-    parser.add_argument("--lora_r", type=int, default=16)
-    parser.add_argument("--lora_alpha", type=int, default=32)
-    parser.add_argument("--lora_dropout", type=float, default=0.05)
-    parser.add_argument("--reference_free", action="store_true", help="Use reference-free DPO to save memory")
-    parser.add_argument("--dataloader_num_workers", type=int, default=0, help="PyTorch DataLoader workers")
-    parser.add_argument(
-        "--resume_from_checkpoint",
-        type=str,
-        default=None,
-        help="Path to a checkpoint directory to resume training from",
-    )
-
-    args = parser.parse_args()
-
+def run_training(args):
+    """Core training logic."""
     # Validate paths
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
@@ -333,6 +303,88 @@ def main():
     if use_wandb:
         import wandb  # type: ignore
         wandb.finish()
+
+    return args.output_dir
+
+
+def main():
+    """Main entry point with run tracking."""
+    parser = argparse.ArgumentParser(description="Train a model using DPO with Unsloth on PDDL planning data")
+
+    # Required
+    parser.add_argument("--base_model", required=True, help="Path or HF Hub ID of the base (SFT) model")
+    parser.add_argument("--dataset", required=True, help="Path to DPO dataset JSONL file")
+    parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
+
+    # Optional
+    parser.add_argument("--num_epochs", type=float, default=3, help="Number of training epochs")
+    parser.add_argument("--batch_size", type=int, default=2, help="Per-device train/eval batch size")
+    parser.add_argument("--learning_rate", type=float, default=5e-6, help="Learning rate")
+    parser.add_argument("--max_length", type=int, default=2048, help="Maximum sequence length")
+    parser.add_argument("--max_prompt_length", type=int, default=1024, help="Maximum prompt length")
+    parser.add_argument("--beta", type=float, default=0.1, help="DPO beta (temperature)")
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=4, help="Gradient accumulation steps")
+    parser.add_argument("--save_steps", type=int, default=500, help="Save checkpoint every N steps")
+    parser.add_argument("--eval_steps", type=int, default=50, help="Evaluate every N steps")
+    parser.add_argument("--logging_steps", type=int, default=10, help="Log every N steps")
+    parser.add_argument("--warmup_ratio", type=float, default=0.1, help="Warmup ratio")
+    parser.add_argument("--weight_decay", type=float, default=0.01, help="Weight decay")
+    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
+    parser.add_argument("--wandb_project", default="pddl-dpo-training", help="W&B project name")
+    parser.add_argument("--run_name", help="Run name for logging")
+    parser.add_argument("--no_4bit", action="store_true", help="Disable 4-bit quantization")
+    parser.add_argument("--use_gradient_checkpointing", action="store_true", help="Enable gradient checkpointing")
+    parser.add_argument("--lora_r", type=int, default=16)
+    parser.add_argument("--lora_alpha", type=int, default=32)
+    parser.add_argument("--lora_dropout", type=float, default=0.05)
+    parser.add_argument("--reference_free", action="store_true", help="Use reference-free DPO")
+    parser.add_argument("--dataloader_num_workers", type=int, default=0, help="DataLoader workers")
+    parser.add_argument("--resume_from_checkpoint", type=str, default=None,
+                       help="Path to checkpoint directory to resume from")
+
+    # Run management arguments
+    parser.add_argument("--runs_root", type=str, default="./runs",
+                       help="Root directory for runs (default: ./runs)")
+    parser.add_argument("--seed", type=int, default=42,
+                       help="Random seed (default: 42)")
+    parser.add_argument("--no_run_tracking", action="store_true",
+                       help="Disable run tracking (don't create run directory)")
+
+    args = parser.parse_args()
+
+    if args.no_run_tracking:
+        # Run without tracking
+        run_training(args)
+    else:
+        # Run with tracking
+        with RunContext(
+            method="dpo",
+            args=args,
+            runs_root=args.runs_root,
+            run_name=args.run_name,
+            seed=args.seed,
+            base_model=args.base_model,
+            dataset=args.dataset,
+            output_dir=args.output_dir,
+            wandb_project=args.wandb_project,
+            wandb_run_name=args.run_name,
+            extra_metadata={
+                "beta": args.beta,
+                "num_epochs": args.num_epochs,
+                "lora_r": args.lora_r,
+                "lora_alpha": args.lora_alpha,
+            },
+            redirect_logs=True,
+        ) as run_ctx:
+            run_training(args)
+
+            # Update wandb URL if available
+            try:
+                import wandb
+                if wandb.run is not None:
+                    run_ctx.update_wandb_url(wandb.run.get_url())
+            except ImportError:
+                pass
 
 
 if __name__ == "__main__":

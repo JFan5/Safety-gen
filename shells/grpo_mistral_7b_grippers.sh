@@ -21,7 +21,6 @@ DATASET="/jfan5/ppo_data/grippers.jsonl"
 OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-grippers-1129"
 
 # Training parameters
-NUM_EPOCHS=1.0
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=8
 LEARNING_RATE=5e-6
@@ -31,11 +30,11 @@ MAX_STEPS=300
 TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=20
-EVAL_STEPS=20
 WANDB_PROJECT="pddl-grpo-mistral7b"
 RUN_NAME="grpo_mistral_7b-grippers-1129"
 BETA=0.02
 MAX_GRAD_NORM=1
+SEED=3407
 echo "=========================================="
 echo "GRPO Training for Mistral-7B - Grippers"
 echo "=========================================="
@@ -59,17 +58,15 @@ echo "  Run name: ${RUN_NAME}"
 echo "=========================================="
 echo ""
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
-  --num_epochs ${NUM_EPOCHS} \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \
   --gradient_accumulation_steps ${GRADIENT_ACCUMULATION_STEPS} \
   --learning_rate ${LEARNING_RATE} \
-  --eval_steps ${EVAL_STEPS} \
   --num_generations ${NUM_GENERATIONS} \
   --temperature ${TEMPERATURE} \
   --top_p ${TOP_P} \
@@ -77,6 +74,7 @@ python3 script/train_grpo_unsloth.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

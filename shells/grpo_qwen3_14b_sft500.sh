@@ -33,6 +33,7 @@ SAVE_STEPS=100
 WANDB_PROJECT="pddl-grpo-qwen3-14b"
 RUN_NAME="grpo_qwen3_14b_sft500"
 BETA=0.01
+SEED=3407
 echo "=========================================="
 echo "GRPO Training for Qwen3-14B"
 echo "=========================================="
@@ -41,7 +42,6 @@ echo "Dataset: ${DATASET}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
@@ -64,6 +64,7 @@ python3 script/train_grpo_unsloth_copy.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --beta ${BETA} \
   --run_name "${RUN_NAME}"
 

@@ -3,6 +3,11 @@
 Generic PDDL Plan Evaluator with Batch Processing
 通过批处理和多线程优化，充分利用 GPU 内存。
 支持批量生成计划并并行验证。
+
+Supports automatic output to runs/<run_id>/eval/<eval_id>/ structure with:
+- scenarios/<scenario>.json: Per-scenario evaluation results
+- metrics.json: Aggregated cross-scenario metrics
+- eval_config.yaml: Evaluation parameters snapshot
 """
 import os
 import json
@@ -21,6 +26,21 @@ from collections import defaultdict
 from utils import _classify_result, validate_solution
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
+
+# Import run registry utilities
+try:
+    from utils.run_registry import (
+        get_eval_output_dir,
+        generate_eval_id,
+        update_run_evals,
+    )
+    from utils.eval_aggregator import (
+        aggregate_and_write_metrics,
+        print_metrics_summary,
+    )
+    RUNS_INTEGRATION_AVAILABLE = True
+except ImportError:
+    RUNS_INTEGRATION_AVAILABLE = False
 
 # 配置参数
 max_seq_length = 2048
@@ -487,13 +507,28 @@ def test_model_on_testing_data(model_path,
                               load_in_4bit: bool = True, temperature: float = 0.6,
                               one_shot: bool = False, batch_size: int = DEFAULT_BATCH_SIZE,
                               num_workers: int = DEFAULT_NUM_WORKERS,
-                              no_timestamp: bool = False):
+                              no_timestamp: bool = False,
+                              runs_dir: str = None,
+                              use_runs_structure: bool = False):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
     Args:
+        model_path: 模型路径
+        output_file: 输出JSON文件路径
+        family: 模型家族
+        max_problems: 最大问题数量
+        results_dir: 结果保存目录（已废弃）
+        problems_dir: 包含 problem 文件的目录
+        domain_file: domain 文件路径
+        load_in_4bit: 是否使用 4-bit 量化
+        temperature: 文本生成的温度参数
+        one_shot: 是否使用 one-shot 模式
         batch_size: 批处理大小，控制一次生成多少个解决方案
         num_workers: 验证的并行线程数
+        no_timestamp: 是否不添加时间戳到输出文件名
+        runs_dir: runs 目录路径（用于自动写入 runs 结构）
+        use_runs_structure: 是否使用 runs/<run_id>/eval/<eval_id>/ 结构输出
     """
     print(f"Testing model: {model_path}")
     print(f"Problems dir: {problems_dir}")
@@ -807,6 +842,82 @@ def test_model_on_testing_data(model_path,
     with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
+    # === Runs structure integration ===
+    runs_output_path = None
+    if use_runs_structure and RUNS_INTEGRATION_AVAILABLE:
+        print("\n[Runs Integration] Writing to runs structure...")
+
+        # Generate eval_id (include batch_size for batch version)
+        eval_id = generate_eval_id(
+            eval_type="solver_batch",
+            temperature=temperature,
+            max_new_tokens=MAX_NEW_TOKENS,
+            batch_size=batch_size,
+            extra_params={"oneshot": 1} if one_shot else None
+        )
+
+        # Get eval output directory
+        runs_dir_path = Path(runs_dir) if runs_dir else None
+        eval_output_dir, run_id = get_eval_output_dir(
+            model_path=model_path,
+            eval_id=eval_id,
+            runs_dir=runs_dir_path,
+            create=True
+        )
+
+        if eval_output_dir:
+            print(f"[Runs Integration] run_id: {run_id}")
+            print(f"[Runs Integration] eval_id: {eval_id}")
+            print(f"[Runs Integration] Output dir: {eval_output_dir}")
+
+            # Write scenario result to scenarios/<scenario>.json
+            scenario_filename = f"{scenario_name or 'unknown'}.json"
+            scenario_output_path = eval_output_dir / "scenarios" / scenario_filename
+
+            with open(scenario_output_path, 'w', encoding='utf-8') as f:
+                json.dump(output_data, f, indent=2, ensure_ascii=False)
+            print(f"[Runs Integration] Scenario result: {scenario_output_path}")
+
+            # Prepare eval config
+            eval_config = {
+                "eval_id": eval_id,
+                "eval_type": "solver_batch",
+                "model_path": model_path,
+                "temperature": temperature,
+                "max_new_tokens": MAX_NEW_TOKENS,
+                "load_in_4bit": load_in_4bit,
+                "one_shot": one_shot,
+                "batch_size": batch_size,
+                "num_workers": num_workers,
+                "max_problems": max_problems,
+                "timestamp": timestamp_iso,
+            }
+
+            # Aggregate and write metrics.json
+            metrics = aggregate_and_write_metrics(
+                eval_output_dir=eval_output_dir,
+                eval_id=eval_id,
+                model_path=model_path,
+                eval_config=eval_config
+            )
+
+            if metrics:
+                print_metrics_summary(metrics)
+
+                # Update run.json with eval record
+                run_dir = eval_output_dir.parent.parent
+                update_run_evals(
+                    run_dir=run_dir,
+                    eval_id=eval_id,
+                    main_metric=metrics.get("overall", {}).get("success_rate", 0),
+                    eval_path=f"eval/{eval_id}"
+                )
+
+            runs_output_path = eval_output_dir
+        else:
+            print(f"[Runs Integration] Warning: Could not find run for model_path: {model_path}")
+            print("[Runs Integration] Results written to default location only.")
+
     print(f"\n" + "="*60)
     print(f"FINAL RESULTS")
     print(f"="*60)
@@ -832,6 +943,8 @@ def test_model_on_testing_data(model_path,
     print(f"  Avg validation time per problem: {avg_validation_time:.2f}s")
     print(f"  Throughput: {total_count / inference_time:.3f} problems/sec" if inference_time > 0 else "  Throughput: N/A")
     print(f"\nResults saved to: {output_file_path}")
+    if runs_output_path:
+        print(f"Runs structure output: {runs_output_path}")
 
 def main():
     """主函数"""
@@ -872,6 +985,18 @@ def main():
         action="store_true",
         help="Do not append timestamp to output filename (keep exactly --output).",
     )
+    # Runs structure integration
+    parser.add_argument(
+        "--runs-dir",
+        type=str,
+        default=None,
+        help="Path to runs directory for automatic output to runs/<run_id>/eval/<eval_id>/",
+    )
+    parser.add_argument(
+        "--use-runs-structure",
+        action="store_true",
+        help="Enable automatic output to runs structure (requires --runs-dir or default runs/)",
+    )
 
     args = parser.parse_args()
 
@@ -889,6 +1014,8 @@ def main():
         batch_size=args.batch_size,
         num_workers=args.num_workers,
         no_timestamp=args.no_timestamp,
+        runs_dir=args.runs_dir,
+        use_runs_structure=args.use_runs_structure,
     )
 
 if __name__ == "__main__":

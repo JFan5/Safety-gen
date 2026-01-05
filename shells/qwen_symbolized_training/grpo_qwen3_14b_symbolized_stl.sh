@@ -36,9 +36,7 @@ DATASET="/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/train_combined.json
 OUTPUT_DIR="/jfan5/grpo_models/qwen3_14b-symbolized-1221-stl-1000"
 
 # Training parameters
-# NOTE: `--num_epochs` is currently not used by `script/train_grpo_unsloth_stl.py`;
 # training length is controlled by `--max_steps`.
-NUM_EPOCHS=1.0
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=5e-6
@@ -54,6 +52,7 @@ WANDB_PROJECT="pddl-grpo-qwen3_14b"
 RUN_NAME="grpo_qwen3_14b-symbolized-1221-stl-1000"
 BETA=0.05
 MAX_GRAD_NORM=1
+SEED=3407
 
 echo "=========================================="
 echo "Step 2: GRPO Training for Qwen3-14B (Symbolized)"
@@ -63,7 +62,6 @@ echo "Dataset: ${DATASET}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
-echo "  Epochs: ${NUM_EPOCHS}"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
@@ -76,7 +74,6 @@ python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
-  --num_epochs ${NUM_EPOCHS} \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \
@@ -91,6 +88,7 @@ python3 script/train_grpo_unsloth_stl.py \
   --max_new_tokens ${MAX_NEW_TOKENS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

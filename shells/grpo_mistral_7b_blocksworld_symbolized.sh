@@ -35,6 +35,7 @@ WANDB_PROJECT="pddl-grpo-mistral7b-symbolized"
 RUN_NAME="grpo_mistral_7b-blocksworld-1212-symbolized"
 BETA=0.01
 MAX_GRAD_NORM=1
+SEED=3407
 echo "=========================================="
 echo "GRPO Training for Mistral-7B - Blocksworld (Symbolized)"
 echo "=========================================="
@@ -51,7 +52,7 @@ echo "  Max steps: ${MAX_STEPS}"
 echo "=========================================="
 echo ""
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
@@ -67,6 +68,7 @@ python3 script/train_grpo_unsloth.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

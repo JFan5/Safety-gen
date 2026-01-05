@@ -50,7 +50,7 @@ echo "=========================================="
 echo ""
 
 # Run GRPO training
-python3 script/train_grpo_unsloth.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \
@@ -64,6 +64,7 @@ python3 script/train_grpo_unsloth.py \
   --logging_steps ${LOGGING_STEPS} \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
+  --seed ${SEED} \
   --run_name "${RUN_NAME}"
 
 echo ""

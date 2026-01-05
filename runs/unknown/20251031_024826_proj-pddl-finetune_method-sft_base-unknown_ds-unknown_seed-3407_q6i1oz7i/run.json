@@ -1,0 +1,49 @@
+{
+  "run_id": "20251031_024826_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_q6i1oz7i",
+  "project": "pddl-finetune",
+  "wandb": {
+    "entity": "fjl2401-university-of-notre-dame",
+    "project": "pddl-finetune",
+    "run_id": "q6i1oz7i",
+    "run_name": "pddl_sft_pddl3",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/q6i1oz7i",
+    "group": "",
+    "tags": []
+  },
+  "state": "finished",
+  "method": "sft",
+  "base_model": "unknown",
+  "dataset": {
+    "dataset_id": "unknown",
+    "dataset_path": "/groups/fkong/jfan5/data/sft/multi_scenarios/pddl3.hf",
+    "dataset_artifact": "unknown",
+    "status": "unknown"
+  },
+  "train": {
+    "seed": 3407,
+    "lr": 2e-05,
+    "batch_size": 4,
+    "epochs": 3,
+    "max_steps": -1,
+    "other_hparams": {
+      "warmup_steps": 0,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.05,
+      "gradient_accumulation_steps": 2,
+      "max_grad_norm": 1,
+      "adam_epsilon": 1e-08,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.999,
+      "lr_scheduler_type": "cosine",
+      "fp16": false,
+      "bf16": true,
+      "gradient_checkpointing": false
+    }
+  },
+  "code": {
+    "git_commit": "cff1b6bf885ea9be96e683b74eb3ed6357effc60"
+  },
+  "created_at": "2025-10-31T02:48:26+00:00",
+  "updated_at": null,
+  "artifacts": {}
+}

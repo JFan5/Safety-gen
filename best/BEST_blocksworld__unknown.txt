@@ -1,0 +1,24 @@
+BEST RESULT: blocksworld / unknown
+============================================================
+
+Run ID:           20251125_003048_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_2gvrrx7s
+Eval ID:          blocksworld_-jfan5-sft_models-mistral_variant-blocksworld_50_20251207_034712
+Method:           sft
+Base Model:       unknown
+
+Success Rate:     66.00%
+Success Count:    33/50
+
+Model Path:       /jfan5/sft_models/mistral_variant-blocksworld
+Dataset:          /jfan5/sft_data/blocksworld-sft500-variant-5/pddl3.hf
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/2gvrrx7s
+
+Eval Timestamp:   2025-12-07T03:47:12.403990
+Created At:       2025-11-25T00:30:48+00:00
+
+Category Breakdown:
+  success_plans: 66.00%
+  plan_format_error: 0.00%
+  precondition_violation: 20.00%
+  safety_constraints_violation: 10.00%
+  goal_not_satisfied: 4.00%

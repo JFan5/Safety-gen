@@ -1,0 +1,52 @@
+{
+  "run_id": "20251130_030537_proj-pddl-grpo-mistral7b_method-grpo_base-mistral_7b_ds-ppo_data_blocksworld.jsonl_seed-3407_79nsrpfd",
+  "project": "pddl-grpo-mistral7b",
+  "wandb": {
+    "entity": "fjl2401-university-of-notre-dame",
+    "project": "pddl-grpo-mistral7b",
+    "run_id": "79nsrpfd",
+    "run_name": "grpo_mistral_7b-blocksworld-1129",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/79nsrpfd",
+    "group": "",
+    "tags": []
+  },
+  "state": "finished",
+  "method": "grpo",
+  "base_model": "mistral_7b",
+  "dataset": {
+    "dataset_id": "unknown",
+    "dataset_path": "/jfan5/ppo_data/blocksworld.jsonl",
+    "dataset_artifact": "unknown",
+    "status": "confirmed"
+  },
+  "train": {
+    "seed": 3407,
+    "lr": 5e-06,
+    "batch_size": 4,
+    "epochs": 3,
+    "max_steps": 300,
+    "other_hparams": {
+      "warmup_steps": 0,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.01,
+      "gradient_accumulation_steps": 8,
+      "max_grad_norm": 1,
+      "adam_epsilon": 1e-08,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.999,
+      "lr_scheduler_type": "linear",
+      "fp16": false,
+      "bf16": true,
+      "gradient_checkpointing": true
+    }
+  },
+  "code": {
+    "git_commit": "9b381ad8409228f5e4654a7fb5727f0f788764e9"
+  },
+  "created_at": "2025-11-30T03:05:37+00:00",
+  "updated_at": null,
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/mistral_7b-blocksworld-1129",
+    "model_path_status": "confirmed"
+  }
+}

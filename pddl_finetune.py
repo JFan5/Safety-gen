@@ -6,6 +6,7 @@ PDDL Fine-tuning with Unsloth
 """
 import unsloth
 import os
+import sys
 import random
 import re
 import torch
@@ -19,6 +20,14 @@ from transformers import TrainerCallback, TrainingArguments, EarlyStoppingCallba
 from unsloth import FastLanguageModel
 from trl import SFTTrainer
 from unsloth import is_bfloat16_supported, FastLanguageModel
+
+# Import run management utilities
+from script.utils.run_manager import (
+    RunContext,
+    add_run_args,
+    extract_run_args,
+    update_wandb_url,
+)
 
 # 配置参数
 max_seq_length = 4096  # 最大序列长度
@@ -680,7 +689,17 @@ def main():
         default="q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj",
         help="Comma-separated list of LoRA target modules.",
     )
-    
+
+    # Run management arguments
+    parser.add_argument("--runs_root", type=str, default="./runs",
+                       help="Root directory for runs (default: ./runs)")
+    parser.add_argument("--run_name", type=str, default=None,
+                       help="Custom run name (optional)")
+    parser.add_argument("--seed", type=int, default=3407,
+                       help="Random seed (default: 3407)")
+    parser.add_argument("--no_run_tracking", action="store_true",
+                       help="Disable run tracking (don't create run directory)")
+
     args = parser.parse_args()
     
     # 如果只是列出场景，则显示并退出
@@ -725,21 +744,77 @@ def main():
             if module.strip()
         ] or None
 
-        sft_train_pddl(
-            args.model,
-            args.output,
-            args.family,
-            args.dataset,
-            args.val_ratio,
-            training_overrides=training_overrides,
-            max_seq_length_override=args.max_seq_length,
-            load_in_4bit_override=args.load_in_4bit,
-            lora_r=args.lora_r,
-            lora_alpha=args.lora_alpha,
-            lora_dropout=args.lora_dropout,
-            lora_target_modules=lora_target_modules,
-            reasoning_effort=args.reasoning,
-        )
+        # Compute output path for run tracking
+        raw_output_path = Path(args.output).expanduser()
+        if raw_output_path.is_absolute():
+            output_path = raw_output_path
+        else:
+            if raw_output_path.parts and raw_output_path.parts[0] == "sft_models":
+                output_path = Path(*raw_output_path.parts)
+            else:
+                output_path = Path("sft_models") / raw_output_path
+        output_dir_str = str(output_path)
+
+        # Run with or without tracking
+        if args.no_run_tracking:
+            # Train without run tracking
+            sft_train_pddl(
+                args.model,
+                args.output,
+                args.family,
+                args.dataset,
+                args.val_ratio,
+                training_overrides=training_overrides,
+                max_seq_length_override=args.max_seq_length,
+                load_in_4bit_override=args.load_in_4bit,
+                lora_r=args.lora_r,
+                lora_alpha=args.lora_alpha,
+                lora_dropout=args.lora_dropout,
+                lora_target_modules=lora_target_modules,
+                reasoning_effort=args.reasoning,
+            )
+        else:
+            # Train with run tracking
+            with RunContext(
+                method="sft",
+                args=args,
+                runs_root=args.runs_root,
+                run_name=args.run_name or args.output,
+                seed=args.seed,
+                base_model=args.model,
+                dataset=args.dataset,
+                output_dir=output_dir_str,
+                wandb_project=args.wandb_project,
+                wandb_run_name=args.run_name or args.output,
+                extra_metadata={
+                    "family": args.family,
+                    "val_ratio": args.val_ratio,
+                    "lora_r": args.lora_r,
+                    "lora_alpha": args.lora_alpha,
+                    "lora_dropout": args.lora_dropout,
+                },
+                redirect_logs=True,
+            ) as run_ctx:
+                sft_train_pddl(
+                    args.model,
+                    args.output,
+                    args.family,
+                    args.dataset,
+                    args.val_ratio,
+                    training_overrides=training_overrides,
+                    max_seq_length_override=args.max_seq_length,
+                    load_in_4bit_override=args.load_in_4bit,
+                    lora_r=args.lora_r,
+                    lora_alpha=args.lora_alpha,
+                    lora_dropout=args.lora_dropout,
+                    lora_target_modules=lora_target_modules,
+                    reasoning_effort=args.reasoning,
+                )
+
+                # Update wandb URL if available
+                if wandb.run is not None:
+                    run_ctx.update_wandb_url(wandb.run.get_url())
+
     elif args.mode == "test":
         test_pddl_model(args.model, args.test_prompt, args.test_count, args.family, args.dataset)
 
