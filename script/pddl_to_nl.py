@@ -14,6 +14,7 @@ Usage:
 import argparse
 import os
 import re
+import shutil
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, field
@@ -510,7 +511,8 @@ class PDDLToNLConverter:
         if self.verbose:
             print(message)
 
-    def convert_file(self, input_path: Path, output_path: Path, dry_run: bool = False) -> bool:
+    def convert_file(self, input_path: Path, output_path: Path, dry_run: bool = False,
+                     copy_soln: bool = True, copy_pddl: bool = True) -> bool:
         """
         Convert a single PDDL file to natural language.
 
@@ -518,6 +520,8 @@ class PDDLToNLConverter:
             input_path: Path to input PDDL file
             output_path: Path for output .txt file
             dry_run: If True, parse but don't write files
+            copy_soln: If True, copy corresponding .soln file to output directory
+            copy_pddl: If True, copy original .pddl file to output directory
 
         Returns:
             True if successful, False otherwise
@@ -541,6 +545,21 @@ class PDDLToNLConverter:
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 output_path.write_text(nl_document, encoding='utf-8')
 
+                # Copy original .pddl file (needed for validation)
+                if copy_pddl:
+                    pddl_dest = output_path.parent / input_path.name
+                    if not pddl_dest.exists():
+                        shutil.copy2(input_path, pddl_dest)
+                        self._log(f"  Copied: {input_path.name}")
+
+                # Copy corresponding .soln file if it exists
+                if copy_soln:
+                    soln_source = input_path.with_suffix('.soln')
+                    if soln_source.exists():
+                        soln_dest = output_path.parent / soln_source.name
+                        shutil.copy2(soln_source, soln_dest)
+                        self._log(f"  Copied: {soln_source.name}")
+
             self._log(f"  Converted: {input_path.name} -> {output_path.name}")
             return True
 
@@ -553,7 +572,9 @@ class PDDLToNLConverter:
         input_dir: Path,
         output_dir: Optional[Path] = None,
         recursive: bool = True,
-        dry_run: bool = False
+        dry_run: bool = False,
+        copy_soln: bool = True,
+        copy_pddl: bool = True
     ) -> Dict[str, int]:
         """
         Convert all PDDL files in a directory.
@@ -563,6 +584,8 @@ class PDDLToNLConverter:
             output_dir: Output directory (default: testing_problems_nl/ under input_dir)
             recursive: Whether to process subdirectories
             dry_run: If True, parse but don't write files
+            copy_soln: If True, copy corresponding .soln files to output directory
+            copy_pddl: If True, copy original .pddl files to output directory
 
         Returns:
             Dict with counts: {"success": N, "failed": M, "total": N+M}
@@ -585,6 +608,8 @@ class PDDLToNLConverter:
 
         print(f"Found {len(pddl_files)} PDDL problem files")
         print(f"Output directory: {output_dir}")
+        print(f"Copy PDDL files: {copy_pddl}")
+        print(f"Copy SOLN files: {copy_soln}")
         if dry_run:
             print("(Dry run - no files will be written)")
         print("-" * 50)
@@ -597,7 +622,7 @@ class PDDLToNLConverter:
             # input/file.pddl -> output_dir/file.txt
             output_file = output_dir / f"{pddl_file.stem}.txt"
 
-            if self.convert_file(pddl_file, output_file, dry_run):
+            if self.convert_file(pddl_file, output_file, dry_run, copy_soln, copy_pddl):
                 success += 1
             else:
                 failed += 1
@@ -615,7 +640,9 @@ class PDDLToNLConverter:
         input_path: Path,
         output_path: Optional[Path] = None,
         recursive: bool = True,
-        dry_run: bool = False
+        dry_run: bool = False,
+        copy_soln: bool = True,
+        copy_pddl: bool = True
     ) -> Dict[str, int]:
         """
         Main entry point for conversion.
@@ -626,11 +653,11 @@ class PDDLToNLConverter:
             if output_path is None:
                 output_path = input_path.parent / "testing_problems_nl" / f"{input_path.stem}.txt"
 
-            success = self.convert_file(input_path, output_path, dry_run)
+            success = self.convert_file(input_path, output_path, dry_run, copy_soln, copy_pddl)
             return {"success": 1 if success else 0, "failed": 0 if success else 1, "total": 1}
 
         elif input_path.is_dir():
-            return self.convert_directory(input_path, output_path, recursive, dry_run)
+            return self.convert_directory(input_path, output_path, recursive, dry_run, copy_soln, copy_pddl)
 
         else:
             print(f"Error: {input_path} is not a valid file or directory")
@@ -694,6 +721,36 @@ Examples:
         help='Parse files but do not write output'
     )
 
+    parser.add_argument(
+        '--copy-soln',
+        action='store_true',
+        dest='copy_soln',
+        default=True,
+        help='Copy corresponding .soln files to output directory (default: True)'
+    )
+
+    parser.add_argument(
+        '--no-copy-soln',
+        action='store_false',
+        dest='copy_soln',
+        help='Do not copy .soln files'
+    )
+
+    parser.add_argument(
+        '--copy-pddl',
+        action='store_true',
+        dest='copy_pddl',
+        default=True,
+        help='Copy original .pddl files to output directory (default: True)'
+    )
+
+    parser.add_argument(
+        '--no-copy-pddl',
+        action='store_false',
+        dest='copy_pddl',
+        help='Do not copy .pddl files'
+    )
+
     args = parser.parse_args()
 
     input_path = Path(args.input)
@@ -708,7 +765,9 @@ Examples:
         input_path=input_path,
         output_path=output_path,
         recursive=args.recursive,
-        dry_run=args.dry_run
+        dry_run=args.dry_run,
+        copy_soln=args.copy_soln,
+        copy_pddl=args.copy_pddl
     )
 
     return 0 if results["failed"] == 0 else 1

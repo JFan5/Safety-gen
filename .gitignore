@@ -96,3 +96,17 @@ data
 sft_data
 ppo_data
 dpo_data
+
+# Temporary job files
+temp_jobs/
+
+# SLURM output files
+*.o
+
+# Backup files
+*_bk.txt
+*_bk.py
+*.bak
+
+# Unknown experiment runs
+runs/unknown/

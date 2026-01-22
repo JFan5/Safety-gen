@@ -257,8 +257,16 @@ def _load_one_shot_example(scenario: str, repo_root: Path = None) -> Optional[di
     return example_content
 
 
-def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False) -> list:
-    """从指定目录加载所有 problem PDDL 文件"""
+def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False,
+                           nl_mode: bool = False) -> list:
+    """从指定目录加载所有 problem 文件
+
+    Args:
+        problems_dir: Directory containing problem files
+        domain_file: Path to domain PDDL file
+        one_shot: Whether to use one-shot mode
+        nl_mode: If True, load .txt files for NL prompting (requires .pddl files for validation)
+    """
     problems_path = Path(problems_dir)
     if not problems_path.exists():
         print(f"Problems directory not found: {problems_dir}")
@@ -273,14 +281,23 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
             print(f"Error reading domain file {domain_file}: {e}")
 
     test_data = []
-    pddl_files = sorted(problems_path.glob('*.pddl'))
-    pddl_files = [f for f in pddl_files if 'domain' not in f.name.lower()]
 
-    if not pddl_files:
-        print(f"No problem files found in {problems_dir}")
+    if nl_mode:
+        # NL mode: load .txt files for prompting, use .pddl files for validation
+        problem_files = sorted(problems_path.glob('*.txt'))
+        prompt_template_file = 'prompt_nl.txt'
+        print(f"NL mode enabled: loading {len(problem_files)} .txt files")
+    else:
+        # Standard mode: load .pddl files
+        problem_files = sorted(problems_path.glob('*.pddl'))
+        problem_files = [f for f in problem_files if 'domain' not in f.name.lower()]
+        prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
+
+    if not problem_files:
+        file_type = ".txt" if nl_mode else ".pddl"
+        print(f"No {file_type} problem files found in {problems_dir}")
         return []
 
-    prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
     try:
         with open(prompt_template_file, 'r', encoding='utf-8') as f:
             prompt_template = f.read()
@@ -294,7 +311,7 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         prompt_template = "{problem_content}"
 
     example_content = None
-    if one_shot:
+    if one_shot and not nl_mode:
         scenario = _infer_scenario_name(problems_dir, domain_file)
         if scenario:
             print(f"Inferred scenario: {scenario}")
@@ -306,16 +323,26 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         else:
             print(f"Warning: Could not infer scenario name from paths")
 
-    for pddl_file in pddl_files:
-        problem_name = pddl_file.stem
+    for problem_file in problem_files:
+        problem_name = problem_file.stem
         try:
-            with open(pddl_file, 'r', encoding='utf-8') as f:
+            with open(problem_file, 'r', encoding='utf-8') as f:
                 problem_content = f.read()
         except Exception as e:
-            print(f"Error reading {pddl_file}: {e}")
+            print(f"Error reading {problem_file}: {e}")
             continue
 
-        if one_shot and example_content:
+        # For NL mode, locate the corresponding .pddl file for validation
+        if nl_mode:
+            pddl_file = problems_path / f"{problem_name}.pddl"
+            if not pddl_file.exists():
+                print(f"Warning: No .pddl file for validation: {problem_name}, skipping...")
+                continue
+            validation_file = str(pddl_file)
+        else:
+            validation_file = str(problem_file)
+
+        if one_shot and example_content and not nl_mode:
             example_text = f"""
 DOMAIN:
 {example_content['domain']}
@@ -336,7 +363,7 @@ PROBLEM:
 
         test_data.append({
             'problem_name': problem_name,
-            'problem_file': str(pddl_file),
+            'problem_file': validation_file,  # PDDL file for validation
             'prompt': prompt,
             'problem_content': problem_content
         })
