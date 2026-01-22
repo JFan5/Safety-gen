@@ -33,6 +33,8 @@ try:
         get_eval_output_dir,
         generate_eval_id,
         update_run_evals,
+        resolve_model_path_from_run,
+        find_latest_checkpoint,
     )
     from utils.eval_aggregator import (
         aggregate_and_write_metrics,
@@ -509,7 +511,8 @@ def test_model_on_testing_data(model_path,
                               num_workers: int = DEFAULT_NUM_WORKERS,
                               no_timestamp: bool = False,
                               runs_dir: str = None,
-                              use_runs_structure: bool = False):
+                              use_runs_structure: bool = False,
+                              eval_id: str = None):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
@@ -833,28 +836,32 @@ def test_model_on_testing_data(model_path,
         'results': results
     }
 
-    # Ensure parent directory exists
-    try:
-        output_file_path.parent.mkdir(parents=True, exist_ok=True)
-    except Exception:
-        pass
+    # Write to output file only if NOT using runs structure
+    # (runs structure will write to its own location)
+    if not (use_runs_structure and RUNS_INTEGRATION_AVAILABLE):
+        # Ensure parent directory exists
+        try:
+            output_file_path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
 
-    with open(output_file_path, 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+        with open(output_file_path, 'w', encoding='utf-8') as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
 
     # === Runs structure integration ===
     runs_output_path = None
     if use_runs_structure and RUNS_INTEGRATION_AVAILABLE:
         print("\n[Runs Integration] Writing to runs structure...")
 
-        # Generate eval_id (include batch_size for batch version)
-        eval_id = generate_eval_id(
-            eval_type="solver_batch",
-            temperature=temperature,
-            max_new_tokens=MAX_NEW_TOKENS,
-            batch_size=batch_size,
-            extra_params={"oneshot": 1} if one_shot else None
-        )
+        # Use provided eval_id or generate one (include batch_size for batch version)
+        if eval_id is None:
+            eval_id = generate_eval_id(
+                eval_type="solver_batch",
+                temperature=temperature,
+                max_new_tokens=MAX_NEW_TOKENS,
+                batch_size=batch_size,
+                extra_params={"oneshot": 1} if one_shot else None
+            )
 
         # Get eval output directory
         runs_dir_path = Path(runs_dir) if runs_dir else None
@@ -942,17 +949,20 @@ def test_model_on_testing_data(model_path,
     print(f"  Avg generation time per problem: {avg_generation_time:.2f}s")
     print(f"  Avg validation time per problem: {avg_validation_time:.2f}s")
     print(f"  Throughput: {total_count / inference_time:.3f} problems/sec" if inference_time > 0 else "  Throughput: N/A")
-    print(f"\nResults saved to: {output_file_path}")
     if runs_output_path:
-        print(f"Runs structure output: {runs_output_path}")
+        print(f"\nResults saved to: {runs_output_path}")
+    else:
+        print(f"\nResults saved to: {output_file_path}")
 
 def main():
     """主函数"""
     import argparse
 
     parser = argparse.ArgumentParser(description="Evaluate PDDL model with batch processing")
-    parser.add_argument("--model", type=str, required=True,
+    parser.add_argument("--model", type=str, default=None,
                        help="Path to model")
+    parser.add_argument("--run-path", type=str, default=None,
+                       help="Path to run directory (will extract model_path from run.json)")
     parser.add_argument("--output", type=str, default="test_results.json",
                        help="Output JSON file name")
     parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gemma", "gpt", "auto"],
@@ -997,11 +1007,52 @@ def main():
         action="store_true",
         help="Enable automatic output to runs structure (requires --runs-dir or default runs/)",
     )
+    parser.add_argument(
+        "--eval-id",
+        type=str,
+        default=None,
+        help="Shared eval_id for multiple scenarios (avoids creating separate folders per scenario)",
+    )
 
     args = parser.parse_args()
 
+    # Handle --run-path: extract model_path from run.json with fallback to latest checkpoint
+    model_path = args.model
+    run_dir_for_eval = None  # Track the run directory for eval output
+
+    if args.run_path:
+        if not RUNS_INTEGRATION_AVAILABLE:
+            raise RuntimeError(
+                "--run-path requires run registry utilities. "
+                "Please ensure utils/run_registry.py is available."
+            )
+
+        print("\n" + "="*60)
+        print("MODEL PATH RESOLUTION")
+        print("="*60)
+
+        try:
+            model_path, run_dir_for_eval = resolve_model_path_from_run(
+                args.run_path,
+                verbose=True
+            )
+        except ValueError as e:
+            print(f"\n[ERROR] {e}")
+            raise
+
+        print(f"\n[Model Resolution] ✓ Final model path: {model_path}")
+        print("="*60 + "\n")
+
+        # Auto-enable runs structure output
+        if not args.use_runs_structure and run_dir_for_eval:
+            args.use_runs_structure = True
+            args.runs_dir = str(run_dir_for_eval.parent.parent)  # runs/<method>/../ = runs/
+
+    if not model_path:
+        raise ValueError("Must provide either --model or --run-path")
+
     test_model_on_testing_data(
-        args.model,
+        model_path,
         args.output,
         args.family,
         args.max_problems,
@@ -1016,6 +1067,7 @@ def main():
         no_timestamp=args.no_timestamp,
         runs_dir=args.runs_dir,
         use_runs_structure=args.use_runs_structure,
+        eval_id=args.eval_id,
     )
 
 if __name__ == "__main__":

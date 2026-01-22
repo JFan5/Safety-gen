@@ -1,0 +1,11 @@
+batch_size: 2
+eval_id: solver_batch__temp0.6_max512_bs2
+eval_type: solver_batch
+load_in_4bit: true
+max_new_tokens: 512
+max_problems: 2
+model_path: /jfan5/grpo_models/mistral_7b-symbolized-chat-v2-0107-1000/checkpoint-720
+num_workers: 4
+one_shot: false
+temperature: 0.6
+timestamp: '2026-01-07T04:54:26.917773'

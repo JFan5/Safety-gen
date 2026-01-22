@@ -1,24 +1,26 @@
 BEST RESULT: blocksworld / mistral-7b
 ============================================================
 
-Run ID:           20251208_045810_proj-pddl-grpo-mistral7b_method-grpo_base-mistral_7b_ds-blocksworld_seed-3407_gdqqcx3e
-Eval ID:          blocksworld_-jfan5-grpo_models-mistral_7b-blocksworld-1208-500_50_20251208_141859
+Run ID:           20251201_224403_proj-pddl-grpo-mistral7b_method-grpo_base-mistral_7b_ds-ppo_data_blocksworld.jsonl_seed-3407_0t9g7iel
+Eval ID:          solver__temp0.6_max1024__blocksworld
 Method:           grpo
 Base Model:       mistral-7b
 
-Success Rate:     88.00%
-Success Count:    44/50
+Success Rate:     100.00%
+Success Count:    3/3
 
-Model Path:       /jfan5/grpo_models/mistral_7b-blocksworld-1208-500
-Dataset:          /jfan5/grpo_data-127/blocksworld.jsonl
-W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/gdqqcx3e
+Model Path:       /jfan5/grpo_models/mistral_7b-blocksworld-stl-121-2
+Dataset:          /jfan5/ppo_data/blocksworld.jsonl
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/0t9g7iel
 
-Eval Timestamp:   2025-12-08T14:18:59.697570
-Created At:       2025-12-08T04:58:10+00:00
+Eval Timestamp:   2026-01-05T22:29:27.393716
+Created At:       2025-12-01T22:44:03+00:00
 
 Category Breakdown:
-  success_plans: 88.00%
+  success_plans: 100.00%
   plan_format_error: 0.00%
-  precondition_violation: 4.00%
-  safety_constraints_violation: 4.00%
-  goal_not_satisfied: 4.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%
+  generation_error: 0.00%
+  others: 0.00%

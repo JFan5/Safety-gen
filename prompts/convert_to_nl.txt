@@ -1,0 +1,72 @@
+You are tasked with implementing a PDDL-to-Natural-Language (NL) conversion tool to evaluate whether a trained PDDL planning model can generalize to natural language inputs.
+
+1. Background and Goal
+I have a collection of PDDL3 test problems in the Blocksworld domain. I want to convert each PDDL problem file into a structured, formatted natural language description. The output will be used to test the generalization capability of a trained PDDL planning model.
+
+2. Input Data Location
+- Root directory of test problems:
+  pddl3/blocksworld/testing_problem50/
+- This directory contains multiple scenario subfolders.
+- Each scenario folder contains one or more .pddl problem files (and possibly domain files or other auxiliary files).
+
+3. Output Requirements
+For each scenario folder:
+- Create (or reuse) a subfolder named:
+  testing_problems_nl/
+- Convert every .pddl problem file in that scenario folder into a natural language text file.
+- Output file naming rule:
+  problem_xxx.pddl -> testing_problems_nl/problem_xxx.txt
+
+4. Script Location and Execution
+- Generate a runnable Python script located at:
+  /home/ubuntu/Safety-gen/script/
+- Suggested script name:
+  pddl_to_nl.py
+- The script must support command-line arguments, e.g.:
+  python3 pddl_to_nl.py --input pddl3/blocksworld/testing_problem50
+
+5. Conversion Rules Documentation
+- Additionally, generate documentation explaining the conversion rules.
+- Location:
+  docs/
+- Suggested file:
+  docs/pddl_to_nl_rules.md
+- The document should include:
+  1) How each PDDL section (objects, init, goal, constraints, metric, etc.) is mapped to natural language
+  2) The fixed output template for the natural language problems
+  3) Handling strategy for PDDL3 :constraints (e.g., LTL or trajectory constraints)
+  4) Fallback behavior for unsupported or unparseable structures
+
+6. Natural Language Output Template (Strict Order)
+Each converted problem must follow this exact structure:
+
+- Title
+- Domain / Scenario
+- Objects (grouped by type if types exist)
+- Initial State (one short sentence per predicate)
+- Goal (support and/or/not)
+- Constraints (PDDL3), if present
+- Notes (optional: metric, cost, or raw fragments)
+
+7. Robustness Requirements
+- Recursively traverse all scenario folders under the input directory.
+- Gracefully handle comments, whitespace, and formatting variations in PDDL files.
+- If a section cannot be parsed, do NOT crash:
+  - Preserve the raw content in the Notes section.
+- Ensure every input .pddl file produces a corresponding output .txt file.
+- Output encoding must be UTF-8.
+
+8. Blocksworld Predicate Mapping (Minimum Support)
+- on(x, y): "Block x is on block y."
+- ontable(x): "Block x is on the table."
+- clear(x): "Block x is clear."
+- handempty: "The robot hand is empty."
+- holding(x): "The robot is holding block x."
+
+For unknown predicates:
+- predicate(arg1, arg2, ...) -> "predicate(arg1, arg2, ...) is true."
+
+9. Deliverables Checklist
+1) /home/ubuntu/Safety-gen/script/pddl_to_nl.py
+2) docs/pddl_to_nl_rules.md
+3) testing_problems_nl/*.txt generated under each scenario folder

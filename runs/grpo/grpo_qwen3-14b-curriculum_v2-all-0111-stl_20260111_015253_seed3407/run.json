@@ -1,0 +1,49 @@
+{
+  "run_id": "grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407",
+  "method": "grpo",
+  "status": "finished",
+  "start_time": "2026-01-11T01:52:53.891740",
+  "end_time": "2026-01-11T11:35:13.845915",
+  "config": {
+    "base_model": "/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized",
+    "dataset": "/jfan5/grpo_data/five_domain_0109/",
+    "output_dir": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-qwen3-14b",
+    "run_name": "grpo_qwen3-14b-curriculum_v2-all-0111-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-qwen3-14b/runs/sg1t5m9m"
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000"
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8",
+      "main_metric": 76.8,
+      "timestamp": "2026-01-12T19:56:11.997985"
+    },
+    "solver_batch__temp0.6_max512_bs8_20260122_143526": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260122_143526",
+      "main_metric": 92.0,
+      "timestamp": "2026-01-22T14:38:36.676288"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.01,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  }
+}

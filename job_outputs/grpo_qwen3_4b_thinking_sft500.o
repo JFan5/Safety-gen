@@ -1,54 +1,0 @@
-
-CondaError: Run 'conda init' before 'conda activate'
-
-==========================================
-GRPO Training for Qwen3-4B-Thinking
-==========================================
-Base model: /jfan5/sft_models/qwen3-4b-thinking/four_scenarios500
-Dataset: /jfan5/ppo_data/all_scenarios.jsonl
-Output: /jfan5/grpo_models/qwen3_4b_thinking_sft500
-
-Training parameters:
-  Max steps: 500
-  Batch size: 16
-  Gradient accumulation: 2
-  Learning rate: 1e-5
-  Generations per prompt: 2
-==========================================
-
-🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
-Unsloth 2025.11.6 patched 36 layers with 0 QKV layers, 0 O layers and 0 MLP layers.
-wandb: Currently logged in as: fjl2401 (fjl2401-university-of-notre-dame) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-wandb: setting up run g00g4cex
-wandb: Tracking run with wandb version 0.22.2
-wandb: Run data is saved locally in /home/ubuntu/Safety-gen/wandb/run-20251208_044244-g00g4cex
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run grpo_qwen3_4b_thinking_sft500
-wandb: ⭐️ View project at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-qwen3-4b-thinking
-wandb: 🚀 View run at https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-qwen3-4b-thinking/runs/g00g4cex
-wandb: Detected [huggingface_hub.inference, openai] in use.
-wandb: Use W&B Weave for improved LLM call tracing. Weave is installed but not imported. Add `import weave` to the top of your script.
-wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
-==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
-   \\   /|    Num examples = 10,000 | Num Epochs = 1 | Total steps = 500
-O^O/ \_/ \    Batch size per device = 16 | Gradient accumulation steps = 2
-\        /    Data Parallel GPUs = 1 | Total batch size (16 x 2 x 1) = 32
- "-____-"     Trainable parameters = 66,060,288 of 4,088,528,384 (1.62% trained)
-🦥 Unsloth Zoo will now patch everything to make training faster!
-==((====))==  Unsloth 2025.11.6: Fast Qwen3 patching. Transformers: 4.56.2. vLLM: 0.12.0.
-   \\   /|    NVIDIA H100 PCIe. Num GPUs = 1. Max memory: 79.109 GB. Platform: Linux.
-O^O/ \_/ \    Torch: 2.9.0+cu128. CUDA: 9.0. CUDA Toolkit: 12.8. Triton: 3.5.0
-\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.33.post2. FA2 = False]
- "-____-"     Free license: http://github.com/unslothai/unsloth
-Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
-unsloth/qwen3-4b-thinking-2507-unsloth-bnb-4bit does not have a padding token! Will use pad_token = <|vision_pad|>.
-  0%|          | 0/500 [00:00<?, ?it/s]`generation_config` default values have been modified to match model-specific defaults: {'max_length': 262144, 'top_k': 20}. If this is not desired, please set these values explicitly.
-/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/kernels/utils.py:970: UserWarning: An output with one or more elements was resized since it had shape [1, 32, 2560], which does not match the required output shape [32, 1, 2560]. This behavior is deprecated, and in a future PyTorch release outputs will not be resized unless they have zero elements. You can explicitly reuse an out tensor t by resizing it, inplace, to zero elements with t.resize_(0). (Triggered internally at /pytorch/aten/src/ATen/native/Resize.cpp:31.)
-  out = torch_matmul(X, W, out = out)
-/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/kernels/utils.py:963: UserWarning: An output with one or more elements was resized since it had shape [1, 32, 2560], which does not match the required output shape [32, 1, 2560]. This behavior is deprecated, and in a future PyTorch release outputs will not be resized unless they have zero elements. You can explicitly reuse an out tensor t by resizing it, inplace, to zero elements with t.resize_(0). (Triggered internally at /pytorch/aten/src/ATen/native/Resize.cpp:31.)
-  out = torch_matmul(X, W.t(), out = out)
-  0%|          | 1/500 [01:10<9:45:25, 70.39s/it]/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/kernels/utils.py:970: UserWarning: An output with one or more elements was resized since it had shape [1, 32, 2560], which does not match the required output shape [32, 1, 2560]. This behavior is deprecated, and in a future PyTorch release outputs will not be resized unless they have zero elements. You can explicitly reuse an out tensor t by resizing it, inplace, to zero elements with t.resize_(0). (Triggered internally at /pytorch/aten/src/ATen/native/Resize.cpp:31.)
-  out = torch_matmul(X, W, out = out)
-/home/ubuntu/miniconda3/envs/llmstl/lib/python3.10/site-packages/unsloth/kernels/utils.py:963: UserWarning: An output with one or more elements was resized since it had shape [1, 32, 2560], which does not match the required output shape [32, 1, 2560]. This behavior is deprecated, and in a future PyTorch release outputs will not be resized unless they have zero elements. You can explicitly reuse an out tensor t by resizing it, inplace, to zero elements with t.resize_(0). (Triggered internally at /pytorch/aten/src/ATen/native/Resize.cpp:31.)
-  out = torch_matmul(X, W.t(), out = out)
-  0%|          | 2/500 [01:23<5:04:36, 36.70s/it]  1%|          | 3/500 [01:28<3:05:22, 22.38s/it]  1%|          | 4/500 [01:47<2:54:17, 21.08s/it]  1%|          | 5/500 [02:06<2:45:42, 20.09s/it]  1%|          | 6/500 [02:20<2:27:51, 17.96s/it]  1%|▏         | 7/500 [02:45<2:46:55, 20.31s/it]  2%|▏         | 8/500 [03:12<3:05:48, 22.66s/it]  2%|▏         | 9/500 [03:33<2:59:58, 21.99s/it]  2%|▏         | 10/500 [03:54<2:56:48, 21.65s/it]  2%|▏         | 11/500 [04:15<2:55:07, 21.49s/it]  2%|▏         | 12/500 [04:36<2:53:28, 21.33s/it]  3%|▎         | 13/500 [04:57<2:52:08, 21.21s/it]  3%|▎         | 14/500 [05:10<2:32:32, 18.83s/it]  3%|▎         | 15/500 [05:31<2:37:00, 19.42s/it]  3%|▎         | 16/500 [05:50<2:35:51, 19.32s/it]  3%|▎         | 17/500 [06:08<2:31:27, 18.81s/it]  4%|▎         | 18/500 [06:27<2:32:01, 18.92s/it]  4%|▍         | 19/500 [06:46<2:31:56, 18.95s/it]  4%|▍         | 20/500 [07:07<2:36:31, 19.57s/it]                                                    4%|▍         | 20/500 [07:07<2:36:31, 19.57s/it]  4%|▍         | 21/500 [07:21<2:22:04, 17.80s/it]  4%|▍         | 22/500 [07:34<2:10:55, 16.43s/it]  5%|▍         | 23/500 [07:55<2:20:56, 17.73s/it]  5%|▍         | 24/500 [08:10<2:15:01, 17.02s/it]  5%|▌         | 25/500 [08:31<2:23:50, 18.17s/it]  5%|▌         | 26/500 [08:44<2:11:51, 16.69s/it]  5%|▌         | 27/500 [09:05<2:21:14, 17.92s/it]  6%|▌         | 28/500 [09:20<2:13:39, 16.99s/it]  6%|▌         | 29/500 [09:36<2:11:35, 16.76s/it]  6%|▌         | 30/500 [09:47<1:58:13, 15.09s/it]  6%|▌         | 31/500 [10:08<2:11:16, 16.79s/it]  6%|▋         | 32/500 [10:22<2:05:41, 16.12s/it]  7%|▋         | 33/500 [10:38<2:03:40, 15.89s/it]  7%|▋         | 34/500 [10:52<2:00:18, 15.49s/it]  7%|▋         | 35/500 [11:13<2:12:27, 17.09s/it]  7%|▋         | 36/500 [11:33<2:18:02, 17.85s/it]  7%|▋         | 37/500 [11:48<2:11:37, 17.06s/it]  8%|▊         | 38/500 [12:02<2:04:40, 16.19s/it]  8%|▊         | 39/500 [12:23<2:15:16, 17.61s/it]  8%|▊         | 40/500 [12:44<2:22:20, 18.57s/it]                                                    8%|▊         | 40/500 [12:44<2:22:20, 18.57s/it]  8%|▊         | 41/500 [12:57<2:08:48, 16.84s/it]  8%|▊         | 42/500 [13:02<1:41:45, 13.33s/it]  9%|▊         | 43/500 [13:07<1:22:35, 10.84s/it]  9%|▉         | 44/500 [13:12<1:09:46,  9.18s/it]  9%|▉         | 45/500 [13:17<1:00:34,  7.99s/it]  9%|▉         | 46/500 [13:23<54:21,  7.18s/it]    9%|▉         | 47/500 [13:28<49:38,  6.57s/it] 10%|▉         | 48/500 [13:33<46:20,  6.15s/it] 10%|▉         | 49/500 [13:38<43:45,  5.82s/it] 10%|█         | 50/500 [13:43<42:22,  5.65s/it] 10%|█         | 51/500 [13:57<1:00:27,  8.08s/it]slurmstepd-ambitious-tesla: error: *** JOB 244 ON ambitious-tesla CANCELLED AT 2025-12-08T04:56:50 ***

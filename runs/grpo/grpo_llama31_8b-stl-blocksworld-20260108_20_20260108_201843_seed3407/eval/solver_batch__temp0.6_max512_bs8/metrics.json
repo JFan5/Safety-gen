@@ -1,0 +1,91 @@
+{
+  "eval_id": "solver_batch__temp0.6_max512_bs8",
+  "timestamp": "2026-01-09T03:28:32.863478",
+  "model_path": "/jfan5/grpo_models/llama31_8b-stl-blocksworld-20260108_20/checkpoint-360",
+  "per_scenario": {
+    "blocksworld": {
+      "total_tests": 50,
+      "success_count": 29,
+      "success_rate": 58.0,
+      "category_counts": {
+        "success_plans": 29,
+        "plan_format_error": 1,
+        "precondition_violation": 14,
+        "safety_constraints_violation": 4,
+        "goal_not_satisfied": 2,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 57.99999999999999,
+        "plan_format_error": 2.0,
+        "precondition_violation": 28.000000000000004,
+        "safety_constraints_violation": 8.0,
+        "goal_not_satisfied": 4.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "ops3-n3": {
+          "total": 7,
+          "success": 6,
+          "success_rate": 85.71428571428571
+        },
+        "ops3-n4": {
+          "total": 7,
+          "success": 4,
+          "success_rate": 57.14285714285714
+        },
+        "ops3-n5": {
+          "total": 3,
+          "success": 2,
+          "success_rate": 66.66666666666666
+        },
+        "ops3-n6": {
+          "total": 7,
+          "success": 3,
+          "success_rate": 42.857142857142854
+        },
+        "ops4-n4": {
+          "total": 7,
+          "success": 3,
+          "success_rate": 42.857142857142854
+        },
+        "ops4-n5": {
+          "total": 10,
+          "success": 7,
+          "success_rate": 70.0
+        },
+        "ops4-n6": {
+          "total": 9,
+          "success": 4,
+          "success_rate": 44.44444444444444
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 50,
+    "success_count": 29,
+    "success_rate": 58.0,
+    "num_scenarios": 1,
+    "category_counts": {
+      "success_plans": 29,
+      "plan_format_error": 1,
+      "precondition_violation": 14,
+      "safety_constraints_violation": 4,
+      "goal_not_satisfied": 2,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 58.0,
+      "plan_format_error": 2.0,
+      "precondition_violation": 28.0,
+      "safety_constraints_violation": 8.0,
+      "goal_not_satisfied": 4.0,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}

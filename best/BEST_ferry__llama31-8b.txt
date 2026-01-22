@@ -1,26 +1,26 @@
 BEST RESULT: ferry / llama31-8b
 ============================================================
 
-Run ID:           20251218_004714_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_apebvjnz
-Eval ID:          -jfan5-sft_models-llama31_8b-symbolized_20251218_015102_ferry
-Method:           sft
+Run ID:           grpo_llama3.1-8b-curriculum_v2-all-0110-stl_20260110_144726_seed3407
+Eval ID:          solver_batch__temp0.6_max512_bs8__ferry
+Method:           grpo
 Base Model:       llama31-8b
 
-Success Rate:     78.00%
-Success Count:    39/50
+Success Rate:     82.00%
+Success Count:    41/50
 
-Model Path:       /jfan5/sft_models/llama31_8b/symbolized
-Dataset:          /jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.hf
-W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/apebvjnz
+Model Path:       /jfan5/grpo_models/llama3.1-8b-curriculum_v2-all-0110-stl-1000
+Dataset:          
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/dr5oseuw
 
-Eval Timestamp:   2025-12-18T01:54:35.069425
-Created At:       2025-12-18T00:47:14+00:00
+Eval Timestamp:   2026-01-11T14:44:54.912827
+Created At:       
 
 Category Breakdown:
-  success_plans: 78.00%
-  plan_format_error: 0.00%
+  success_plans: 82.00%
+  plan_format_error: 2.00%
   precondition_violation: 4.00%
-  safety_constraints_violation: 18.00%
+  safety_constraints_violation: 12.00%
   goal_not_satisfied: 0.00%
   generation_error: 0.00%
   others: 0.00%

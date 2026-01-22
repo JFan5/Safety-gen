@@ -8,6 +8,7 @@ from .validation import (
     _classify_result,
     validate_solution,
     compute_reward,
+    log_reward_batch_stats,
 )
 
 # Run registry utilities
@@ -51,6 +52,7 @@ __all__ = [
     "_classify_result",
     "validate_solution",
     "compute_reward",
+    "log_reward_batch_stats",
     # run_registry
     "build_model_path_index",
     "find_run_by_model_path",

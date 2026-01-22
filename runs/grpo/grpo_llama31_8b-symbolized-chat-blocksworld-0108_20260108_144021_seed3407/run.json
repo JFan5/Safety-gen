@@ -1,0 +1,37 @@
+{
+  "run_id": "grpo_llama31_8b-symbolized-chat-blocksworld-0108_20260108_144021_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-08T14:40:21.308113",
+  "end_time": "2026-01-08T15:37:09.114547",
+  "config": {
+    "base_model": "/jfan5/sft_models/llama31_8b/symbolized",
+    "dataset": "/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/blocksworld.jsonl",
+    "output_dir": "/jfan5/grpo_models/llama31_8b-blocksworld-symbolized-chat-blocksworld-0108-500",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-llama31-8b-blocksworld",
+    "run_name": "grpo_llama31_8b-symbolized-chat-blocksworld-0108",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b-blocksworld/runs/8e123j1t"
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/llama31_8b-blocksworld-symbolized-chat-blocksworld-0108-500"
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.01,
+    "temperature": 0.8,
+    "max_steps": 500,
+    "num_generations": 4,
+    "chat_template_enabled": true
+  },
+  "error": "Received signal: SIGINT"
+}

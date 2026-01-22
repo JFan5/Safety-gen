@@ -37,7 +37,7 @@ import wandb  # type: ignore
 
 from trl import GRPOConfig, GRPOTrainer  # type: ignore
 
-from utils import _classify_result, extract_llm_output, validate_solution
+from utils import _classify_result, extract_llm_output, log_reward_batch_stats, validate_solution
 from utils_generic_reward import (
     compute_reward_from_validation,
     get_supported_scenarios,
@@ -113,146 +113,6 @@ GLOBAL_TOKENIZER = None
 
 # File to store prompt token lengths
 PROMPT_LENGTH_FILE = "prompt_lengths.txt"
-
-
-def log_reward_batch_stats(
-    all_labels: List[str],
-    all_scenarios: List[str],
-    rewards: List[float],
-    reward_methods: List[str],
-    trainer_state=None,
-    debug_file: str = DEBUG_FILE,
-    logging_steps: int = LOGGING_STEPS,
-    log_sample_plan: bool = False,
-    sample_idx: int = 0,
-    sample_completion: str = "",
-    sample_meta: Optional[Dict] = None,
-) -> Dict[str, Any]:
-    """
-    统一的 reward batch 统计和打印方法。
-    
-    Args:
-        all_labels: 所有样本的标签列表
-        all_scenarios: 所有样本的场景列表
-        rewards: 所有样本的 reward 列表
-        reward_methods: 所有样本的 reward 计算方法列表
-        trainer_state: Trainer state 对象（用于获取 global_step）
-        debug_file: Debug 日志文件路径
-        logging_steps: 打印间隔步数
-        log_sample_plan: 是否打印单个样本的 plan
-        sample_idx: 样本索引（用于打印单个样本）
-        sample_completion: 样本的 completion（用于打印单个样本）
-        sample_meta: 样本的 meta（用于打印单个样本）
-    
-    Returns:
-        log_dict: 用于 wandb.log 的字典
-    """
-    log_dict: Dict[str, Any] = {}
-    
-    # 初始化 debug 文件
-    if not os.path.exists(debug_file):
-        with open(debug_file, "w") as f:
-            f.write("=== GRPO REWARD DEBUG LOG ===\n")
-    
-    # 打印单个样本的 plan（如果需要）
-    if log_sample_plan:
-        should_log = (
-            trainer_state is not None
-            and trainer_state.global_step % logging_steps == 0
-            and sample_idx == 0  # 只在每个 batch 的第一个样本时打印
-        )
-        if should_log:
-            step_str = str(trainer_state.global_step)
-            scenario = "unknown"
-            problem_rel = ""
-            if isinstance(sample_meta, dict):
-                scenario = sample_meta.get("scenario", "unknown")
-                if not isinstance(scenario, str):
-                    scenario = "unknown"
-                problem_rel = sample_meta.get("problem_file", "")
-                if not isinstance(problem_rel, str):
-                    problem_rel = ""
-            
-            print("\n" + "=" * 80)
-            print(f"[REWARD] step={step_str} sample_idx={sample_idx} scenario={scenario} problem_file={problem_rel}")
-            print("[REWARD] completion(plan):")
-            print(sample_completion)
-            print("=" * 80 + "\n")
-    
-    # 统计并构建 log_dict
-    if all_labels:
-        counts = Counter(all_labels)
-        total = len(all_labels)
-        
-        log_dict = {"stats/total_samples": total}
-        
-        for category in [
-            "success_plans",
-            "goal_not_satisfied",
-            "plan_format_error",
-            "precondition_violation",
-            "safety_constraints_violation",
-            "unknown",
-        ]:
-            c = counts.get(category, 0)
-            log_dict[f"stats/count_{category}"] = c
-            log_dict[f"stats/rate_{category}"] = c / total
-        
-        # 统计场景分布
-        if all_scenarios:
-            scenario_counts = Counter(all_scenarios)
-            main_scenario = scenario_counts.most_common(1)[0][0] if scenario_counts else "unknown"
-            log_dict["batch/main_scenario"] = main_scenario
-            
-            for scenario_name, count in scenario_counts.items():
-                log_dict[f"batch/scenario_count_{scenario_name}"] = count
-                log_dict[f"batch/scenario_rate_{scenario_name}"] = count / total
-        
-        # 计算 reward 统计
-        if rewards:
-            reward_mean = statistics.mean(rewards)
-            reward_std = statistics.stdev(rewards) if len(rewards) > 1 else 0.0
-            log_dict["stats/reward_mean"] = reward_mean
-            log_dict["stats/reward_std"] = reward_std
-            
-            # 统计 reward 方法使用情况
-            if reward_methods:
-                method_counts = Counter(reward_methods)
-                for method, count in method_counts.items():
-                    log_dict[f"reward_method/count_{method}"] = count
-                    log_dict[f"reward_method/rate_{method}"] = count / total
-            
-            # 打印 batch 统计信息
-            main_scenario_str = log_dict.get("batch/main_scenario", "unknown")
-            main_reward_method = Counter(reward_methods).most_common(1)[0][0] if reward_methods else "default"
-            msg = (
-                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
-                f"scenario={main_scenario_str}, "
-                f"reward_method={main_reward_method}, "
-                f"batch_reward_mean={reward_mean:.4f}, batch_reward_std={reward_std:.4f}\n"
-            )
-            
-            # 写到文件：永远有效
-            with open(debug_file, "a") as f:
-                f.write(msg)
-            
-            # 按 logging_steps 间隔打印到 stdout
-            should_log_stats = (
-                trainer_state is not None
-                and trainer_state.global_step % logging_steps == 0
-            )
-            if should_log_stats:
-                print(msg, end="")
-        
-        # wandb log
-        if wandb is not None:
-            wandb.log(log_dict)
-        
-        # 同步写到 debug 文件
-        with open(debug_file, "a") as f:
-            f.write(f"stats={log_dict}\n")
-    
-    return log_dict
 
 
 def grpo_reward_func(
@@ -443,14 +303,50 @@ def load_grpo_dataset(
 # -----------------------------------------------------------------------------
 # Training Function
 # -----------------------------------------------------------------------------
-def run_training(args):
-    """Core training logic."""
+def run_training(args, run_ctx=None):
+    """Core training logic.
+
+    Args:
+        args: Command line arguments
+        run_ctx: Optional RunContext for updating wandb URL
+    """
     # Set global logging_steps for reward function
     global LOGGING_STEPS
     LOGGING_STEPS = args.logging_steps
 
     if not os.path.exists(args.dataset):
         raise ValueError(f"Dataset path does not exist: {args.dataset}")
+
+    # W&B（默认启用，通过 GRPOConfig.report_to 集成）
+    use_wandb = (not args.no_wandb) and (wandb is not None)
+    if (not args.no_wandb) and (wandb is None):
+        logger.warning("wandb is not installed/importable; disabling W&B logging.")
+
+    # 如果没有提供 output_dir，需要先初始化 wandb 获取 run id
+    if args.output_dir is None:
+        if use_wandb:
+            # 从数据集路径中提取数据集名称
+            dataset_name = Path(args.dataset).stem if args.dataset else "unknown"
+            # 从 base_model 中提取模型短名称
+            model_short_name = os.path.basename(args.base_model).replace("/", "_")
+
+            wandb_run_name = args.run_name or f"grpo-unsloth-{model_short_name}"
+            wandb.init(
+                project=args.wandb_project,
+                name=wandb_run_name,
+            )
+            # 使用 wandb run id 生成唯一的 output_dir
+            wandb_id = wandb.run.id  # e.g., "6xq2brly"
+            args.output_dir = f"/jfan5/grpo_models/{model_short_name}_{dataset_name}_{wandb_id}"
+            logger.info(f"Auto-generated output_dir with wandb id: {args.output_dir}")
+        else:
+            # 没有 wandb，使用时间戳生成唯一路径
+            import time
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            model_short_name = os.path.basename(args.base_model).replace("/", "_")
+            dataset_name = Path(args.dataset).stem if args.dataset else "unknown"
+            args.output_dir = f"/jfan5/grpo_models/{model_short_name}_{dataset_name}_{timestamp}"
+            logger.info(f"Auto-generated output_dir with timestamp: {args.output_dir}")
 
     os.makedirs(args.output_dir, exist_ok=True)
 
@@ -460,11 +356,6 @@ def run_training(args):
         logger.info("Loading model in 4-bit quantization (default)")
     else:
         logger.warning("Loading model in full precision (4-bit quantization disabled)")
-
-    # W&B（默认启用，通过 GRPOConfig.report_to 集成，不手动 wandb.init）
-    use_wandb = (not args.no_wandb) and (wandb is not None)
-    if (not args.no_wandb) and (wandb is None):
-        logger.warning("wandb is not installed/importable; disabling W&B logging.")
 
     # 模型类型（用于日志提示）
     model_name = args.base_model
@@ -551,37 +442,52 @@ def run_training(args):
     logger.info(f"First 100 train samples scenarios: {Counter(train_scenarios)}")
 
     # 手动初始化 wandb（参考 pddl_finetune.py）
+    # 注意：如果之前为了获取 wandb id 已经 init 过，这里只更新 config
     if use_wandb:
         # 从数据集路径中提取数据集名称（文件名，不含扩展名）
         dataset_name = Path(args.dataset).stem if args.dataset else "unknown"
-        
-        wandb_run_name = args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}"
-        wandb.init(
-            project=args.wandb_project,
-            name=wandb_run_name,
-            config={
-                "model_name": args.base_model,
-                "model_type": model_type,
-                "dataset": args.dataset,
-                "dataset_name": dataset_name,
-                "output_dir": args.output_dir,
-                "max_seq_length": args.max_prompt_length + args.max_new_tokens,
-                "load_in_4bit": load_in_4bit,
-                "dataset_size": len(dataset),
-                "train_size": len(train_dataset),
-                "batch_size": args.batch_size,
-                "gradient_accumulation_steps": args.gradient_accumulation_steps,
-                "learning_rate": args.learning_rate,
-                "max_grad_norm": args.max_grad_norm,
-                "num_generations": args.num_generations,
-                "temperature": args.temperature,
-                "top_p": args.top_p,
-                "top_k": args.top_k,
-                "beta": args.beta,
-                "max_steps": args.max_steps,
-                    "reward_type": REWARD_TYPE,  # dense reward normalized to [-1, 1]
-                }
-        )
+
+        wandb_config = {
+            "model_name": args.base_model,
+            "model_type": model_type,
+            "dataset": args.dataset,
+            "dataset_name": dataset_name,
+            "output_dir": args.output_dir,
+            "max_seq_length": args.max_prompt_length + args.max_new_tokens,
+            "load_in_4bit": load_in_4bit,
+            "dataset_size": len(dataset),
+            "train_size": len(train_dataset),
+            "batch_size": args.batch_size,
+            "gradient_accumulation_steps": args.gradient_accumulation_steps,
+            "learning_rate": args.learning_rate,
+            "max_grad_norm": args.max_grad_norm,
+            "num_generations": args.num_generations,
+            "temperature": args.temperature,
+            "top_p": args.top_p,
+            "top_k": args.top_k,
+            "beta": args.beta,
+            "max_steps": args.max_steps,
+            "reward_type": REWARD_TYPE,  # dense reward normalized to [-1, 1]
+        }
+
+        # 检查 wandb 是否已经初始化（为了获取 wandb id 可能已经 init 过）
+        if wandb.run is None:
+            wandb_run_name = args.run_name or f"grpo-unsloth-{os.path.basename(args.base_model)}"
+            wandb.init(
+                project=args.wandb_project,
+                name=wandb_run_name,
+                config=wandb_config,
+            )
+        else:
+            # 已经初始化过，只更新 config
+            wandb.config.update(wandb_config, allow_val_change=True)
+
+        # Update wandb URL in run.json immediately after init
+        if run_ctx is not None and wandb.run is not None:
+            wandb_url = wandb.run.get_url()
+            if wandb_url:
+                run_ctx.update_wandb_url(wandb_url)
+                logger.info(f"[run_manager] Updated wandb URL: {wandb_url}")
 
     # GRPOConfig：对应原来 PPOConfig 的超参
     # 注意：如果 loss 过大（通常由 KL 散度过大导致），可以尝试：
@@ -649,7 +555,7 @@ def main():
     # Required
     parser.add_argument("--base_model", required=True, help="Path or HF Hub ID of the base (SFT) model")
     parser.add_argument("--dataset", required=True, help="Path to dataset JSONL file (prompts + meta etc.)")
-    parser.add_argument("--output_dir", required=True, help="Output directory for trained model")
+    parser.add_argument("--output_dir", default=None, help="Output directory for trained model (auto-generated with wandb id if not provided)")
 
     # Training / GRPO 基本参数
     parser.add_argument("--num_epochs", type=float, default=1.0, help="Number of GRPO training epochs")
@@ -661,8 +567,8 @@ def main():
     parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient (beta)")
 
     # Generation
-    parser.add_argument("--max_prompt_length", type=int, default=4096, help="Maximum prompt length")
-    parser.add_argument("--max_new_tokens", type=int, default=256, help="Max completion length for GRPO")
+    parser.add_argument("--max_prompt_length", type=int, default=2048, help="Maximum prompt length")
+    parser.add_argument("--max_new_tokens", type=int, default=512, help="Max completion length for GRPO")
     parser.add_argument("--temperature", type=float, default=0.8, help="Sampling temperature")
     parser.add_argument("--top_p", type=float, default=0.9, help="Top-p nucleus sampling")
     parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling")
@@ -720,11 +626,8 @@ def main():
             },
             redirect_logs=True,
         ) as run_ctx:
-            run_training(args)
-
-            # Update wandb URL if available
-            if wandb.run is not None:
-                run_ctx.update_wandb_url(wandb.run.get_url())
+            # Pass run_ctx to run_training so wandb URL can be saved immediately after init
+            run_training(args, run_ctx=run_ctx)
 
 
 if __name__ == "__main__":

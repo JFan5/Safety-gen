@@ -1,26 +1,26 @@
 BEST RESULT: blocksworld / llama31-8b
 ============================================================
 
-Run ID:           20251218_004714_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_apebvjnz
-Eval ID:          -jfan5-sft_models-llama31_8b-symbolized_20251218_015102_blocksworld
-Method:           sft
+Run ID:           grpo_llama31_8b-stl-blocksworld-20260108_20_20260108_201843_seed3407
+Eval ID:          solver_batch__temp0.6_max512_bs8__blocksworld
+Method:           grpo
 Base Model:       llama31-8b
 
-Success Rate:     52.00%
-Success Count:    26/50
+Success Rate:     58.00%
+Success Count:    29/50
 
-Model Path:       /jfan5/sft_models/llama31_8b/symbolized
-Dataset:          /jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.hf
-W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/apebvjnz
+Model Path:       /jfan5/grpo_models/llama31_8b-stl-blocksworld-20260108_20/checkpoint-360
+Dataset:          
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/r7foqq4p
 
-Eval Timestamp:   2025-12-18T01:52:51.000714
-Created At:       2025-12-18T00:47:14+00:00
+Eval Timestamp:   2026-01-09T03:28:32.863478
+Created At:       
 
 Category Breakdown:
-  success_plans: 52.00%
-  plan_format_error: 0.00%
-  precondition_violation: 32.00%
+  success_plans: 58.00%
+  plan_format_error: 2.00%
+  precondition_violation: 28.00%
   safety_constraints_violation: 8.00%
-  goal_not_satisfied: 8.00%
+  goal_not_satisfied: 4.00%
   generation_error: 0.00%
   others: 0.00%

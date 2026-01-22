@@ -826,14 +826,17 @@ def test_model_on_testing_data(model_path,
         'results': results
     }
     
-    # Ensure parent directory exists
-    try:
-        output_file_path.parent.mkdir(parents=True, exist_ok=True)
-    except Exception:
-        pass
+    # Write to output file only if NOT using runs structure
+    # (runs structure will write to its own location)
+    if not (use_runs_structure and RUNS_INTEGRATION_AVAILABLE):
+        # Ensure parent directory exists
+        try:
+            output_file_path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
 
-    with open(output_file_path, 'w', encoding='utf-8') as f:
-        json.dump(output_data, f, indent=2, ensure_ascii=False)
+        with open(output_file_path, 'w', encoding='utf-8') as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
 
     # === Runs structure integration ===
     runs_output_path = None
@@ -932,17 +935,20 @@ def test_model_on_testing_data(model_path,
     print(f"  Avg generation time per problem: {avg_generation_time:.2f}s")
     print(f"  Avg validation time per problem: {avg_validation_time:.2f}s")
     print(f"  Throughput: {total_count / inference_time:.3f} problems/sec" if inference_time > 0 else "  Throughput: N/A")
-    print(f"\nResults saved to: {output_file_path}")
     if runs_output_path:
-        print(f"Runs structure output: {runs_output_path}")
+        print(f"\nResults saved to: {runs_output_path}")
+    else:
+        print(f"\nResults saved to: {output_file_path}")
 
 def main():
     """主函数"""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="Evaluate PDDL model with explicit domain and problems directory")
-    parser.add_argument("--model", type=str, required=True,
+    parser.add_argument("--model", type=str, default=None,
                        help="Path to model (e.g., unsloth fine-tuned)")
+    parser.add_argument("--run-path", type=str, default=None,
+                       help="Path to run directory (will extract model_path from run.json)")
     parser.add_argument("--output", type=str, default="test_results.json",
                        help="Output JSON file name (saved in results directory)")
     parser.add_argument("--family", choices=["mistral", "llama", "phi", "qwen", "gemma", "gpt", "auto"], 
@@ -986,8 +992,33 @@ def main():
 
     args = parser.parse_args()
 
+    # Handle --run-path: extract model_path from run.json
+    model_path = args.model
+    if args.run_path:
+        run_json_path = Path(args.run_path) / "run.json"
+        if not run_json_path.exists():
+            raise ValueError(f"run.json not found at {run_json_path}")
+        with open(run_json_path, 'r') as f:
+            run_data = json.load(f)
+        model_path = run_data.get("artifacts", {}).get("model_path")
+        if not model_path:
+            # Try model_dir symlink
+            model_dir_link = Path(args.run_path) / "model_dir"
+            if model_dir_link.exists() and model_dir_link.is_symlink():
+                model_path = str(model_dir_link.resolve())
+            else:
+                raise ValueError(f"Cannot find model_path in run.json or model_dir symlink")
+        print(f"Using model from run: {model_path}")
+        # Auto-enable runs structure output
+        if not args.use_runs_structure:
+            args.use_runs_structure = True
+            args.runs_dir = str(Path(args.run_path).parent.parent)  # runs/<method>/../ = runs/
+
+    if not model_path:
+        raise ValueError("Must provide either --model or --run-path")
+
     test_model_on_testing_data(
-        args.model,
+        model_path,
         args.output,
         args.family,
         args.max_problems,

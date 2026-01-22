@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-01-07T04:54:26.917773",
+  "model_path": "/jfan5/grpo_models/mistral_7b-symbolized-chat-v2-0107-1000/checkpoint-720",
+  "scenario": "ferry",
+  "problems_dir": "pddl3/ferry/testing_problem50",
+  "domain_file": "pddl3/ferry/domain.pddl",
+  "max_problems": 2,
+  "load_in_4bit": true,
+  "one_shot": false,
+  "temperature": 0.6,
+  "max_new_tokens": 512,
+  "batch_size": 2,
+  "num_workers": 4,
+  "total_tests": 2,
+  "success_count": 1,
+  "success_rate": 50.0,
+  "category_counts": {
+    "success_plans": 1,
+    "plan_format_error": 0,
+    "precondition_violation": 1,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0,
+    "generation_error": 0,
+    "others": 0
+  },
+  "category_rates": {
+    "success_plans": 50.0,
+    "plan_format_error": 0.0,
+    "precondition_violation": 50.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0,
+    "generation_error": 0.0,
+    "others": 0.0
+  },
+  "size_success_rates": {
+    "l6-c3": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "l3-c3": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    }
+  },
+  "timing": {
+    "total_time_seconds": 22.05,
+    "model_load_time_seconds": 9.13,
+    "inference_time_seconds": 12.91,
+    "total_generation_time_seconds": 12.91,
+    "total_validation_time_seconds": 0.01,
+    "avg_generation_time_seconds": 6.45,
+    "avg_validation_time_seconds": 0.0,
+    "problems_per_second": 0.155
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "ferry-l6-c3-s1686484123",
+      "size_key": "l6-c3",
+      "scenario": "ferry",
+      "problem_file": "pddl3/ferry/testing_problem50/ferry-l6-c3-s1686484123.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Checking plan: /tmp/tmpoz22yskh.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l3 l1)\n \n2:\n(board c2 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(sail l0 l3)\n \n6:\n(board c1 l3)\n \n7:\n(sail l3 l5)\n \n8:\n(debark c1 l5)\n \n9:\n(sail l5 l0)\n \n10:\n(board c2 l0)\n \n11:\n(sail l0 l3)\n \n12:\n(debark c2 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l3)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l5)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpoz22yskh.soln 12 \n\n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/ubuntu/VAL/build/linux64/Release/bin/Validate -v pddl3/ferry/domain.pddl pddl3/ferry/testing_problem50/ferry-l6-c3-s1686484123.pddl /tmp/tmpoz22yskh.soln",
+      "raw_solution": "(sail l3 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(sail l0 l3)\n(board c1 l3)\n(sail l3 l5)\n(debark c1 l5)\n(sail l5 l0)\n(board c2 l0)\n(sail l0 l3)\n(debark c2 l3)",
+      "generation_error": null,
+      "ground_truth": ""
+    },
+    {
+      "index": 2,
+      "problem_name": "ferry-l3-c3-s1717270288",
+      "size_key": "l3-c3",
+      "scenario": "ferry",
+      "problem_file": "pddl3/ferry/testing_problem50/ferry-l3-c3-s1717270288.pddl",
+      "is_valid": false,
+      "category": "precondition_violation",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "Checking plan: /tmp/tmpkdg156_d.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(sail l2 l1)\n \n2:\n(board c0 l1)\n \n3:\n(sail l1 l2)\n \n4:\n(debark c1 l2)\n \n5:\n(sail l2 l1)\n \n6:\n(sail l1 l0)\n \n7:\n(board c2 l0)\n \n8:\n(sail l0 l1)\n \n9:\n(debark c1 l1)\n \n10:\n(sail l1 l0)\n \n11:\n(debark c2 l0)\n \n12:\n(sail l0 l1)\n \n13:\n(debark c1 l1)\n \n14:\n(sail l1 l0)\n \n15:\n(debark c2 l0)\n \n16:\n(sail l0 l1)\n \n17:\n(board c2 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nPlan failed because of unsatisfied precondition in:\n(debark c1 l2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(debark c1 l2) has an unsatisfied precondition at time 4\n(Set (on c1) to true)\n\n\nFailed plans:\n /tmp/tmpkdg156_d.soln \n",
+      "validation_stderr": "",
+      "validation_cmd": "/home/ubuntu/VAL/build/linux64/Release/bin/Validate -v pddl3/ferry/domain.pddl pddl3/ferry/testing_problem50/ferry-l3-c3-s1717270288.pddl /tmp/tmpkdg156_d.soln",
+      "raw_solution": "(sail l2 l1)\n(board c0 l1)\n(sail l1 l2)\n(debark c1 l2)\n(sail l2 l1)\n(sail l1 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c1 l1)\n(sail l1 l0)\n(debark c2 l0)\n(sail l0 l1)\n(debark c1 l1)\n(sail l1 l0)\n(debark c2 l0)\n(sail l0 l1)\n(board c2 l1)",
+      "generation_error": null,
+      "ground_truth": ""
+    }
+  ]
+}

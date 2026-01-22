@@ -213,6 +213,23 @@ class TeeWriter:
             if hasattr(w, 'flush'):
                 w.flush()
 
+    def isatty(self):
+        """Check if any writer is a TTY (required by wandb)."""
+        for w in self.writers:
+            if hasattr(w, 'isatty') and w.isatty():
+                return True
+        return False
+
+    def fileno(self):
+        """Return file descriptor of first writer that has one (required by some libraries)."""
+        for w in self.writers:
+            if hasattr(w, 'fileno'):
+                try:
+                    return w.fileno()
+                except Exception:
+                    pass
+        raise OSError("No valid file descriptor available")
+
 
 def create_run(
     method: str,
@@ -225,7 +242,8 @@ def create_run(
     output_dir: Optional[str] = None,
     wandb_project: Optional[str] = None,
     wandb_run_name: Optional[str] = None,
-    extra_metadata: Optional[Dict[str, Any]] = None
+    extra_metadata: Optional[Dict[str, Any]] = None,
+    training_script: Optional[str] = None
 ) -> Tuple[Path, str, Dict[str, Any]]:
     """
     Create a new run directory with initial run.json.
@@ -242,6 +260,7 @@ def create_run(
         wandb_project: W&B project name
         wandb_run_name: W&B run name
         extra_metadata: Additional metadata to include
+        training_script: Path to training script to copy to run directory
 
     Returns:
         Tuple of (run_dir, run_id, run_data)
@@ -303,6 +322,20 @@ def create_run(
     # Add extra metadata
     if extra_metadata:
         run_data["extra"] = extra_metadata
+
+    # Copy training script to run directory for reproducibility
+    if training_script:
+        training_script_path = Path(training_script)
+        if training_script_path.exists():
+            script_dest = run_dir / "training_script.py"
+            try:
+                shutil.copy2(training_script_path, script_dest)
+                run_data["artifacts"]["training_script"] = str(script_dest)
+                print(f"[run_manager] Copied training script: {training_script} -> {script_dest}")
+            except Exception as e:
+                print(f"[run_manager] Warning: Could not copy training script: {e}", file=sys.stderr)
+        else:
+            print(f"[run_manager] Warning: Training script not found: {training_script}", file=sys.stderr)
 
     # Write run.json
     write_atomic_json(run_dir / "run.json", run_data)
@@ -502,7 +535,8 @@ class RunContext:
         wandb_project: Optional[str] = None,
         wandb_run_name: Optional[str] = None,
         extra_metadata: Optional[Dict[str, Any]] = None,
-        redirect_logs: bool = True
+        redirect_logs: bool = True,
+        training_script: Optional[str] = None
     ):
         self.method = method
         self.args = args
@@ -516,6 +550,7 @@ class RunContext:
         self.wandb_run_name = wandb_run_name
         self.extra_metadata = extra_metadata
         self.redirect_logs = redirect_logs
+        self.training_script = training_script
 
         self.run_dir: Optional[Path] = None
         self.run_id: Optional[str] = None
@@ -536,7 +571,8 @@ class RunContext:
             output_dir=self.output_dir,
             wandb_project=self.wandb_project,
             wandb_run_name=self.wandb_run_name,
-            extra_metadata=self.extra_metadata
+            extra_metadata=self.extra_metadata,
+            training_script=self.training_script
         )
 
         # Set up log redirection

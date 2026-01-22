@@ -48,5 +48,12 @@
   "artifacts": {
     "model_path": "/jfan5/grpo_models/mistral_7b-symbolized-1219-stl-1000",
     "model_path_status": "confirmed"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8",
+      "main_metric": 16.4,
+      "timestamp": "2026-01-05T23:37:28.314803"
+    }
   }
 }

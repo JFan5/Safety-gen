@@ -1,0 +1,76 @@
+{
+  "eval_id": "solver_batch__temp0.6_max512_bs8_20260112_201449",
+  "timestamp": "2026-01-12T20:14:49.625038",
+  "model_path": "/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized",
+  "per_scenario": {
+    "spanner": {
+      "total_tests": 50,
+      "success_count": 49,
+      "success_rate": 98.0,
+      "category_counts": {
+        "success_plans": 49,
+        "plan_format_error": 0,
+        "precondition_violation": 1,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 98.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 2.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s2-n2-l3": {
+          "total": 17,
+          "success": 17,
+          "success_rate": 100.0
+        },
+        "s3-n2-l4": {
+          "total": 8,
+          "success": 8,
+          "success_rate": 100.0
+        },
+        "s3-n3-l4": {
+          "total": 9,
+          "success": 9,
+          "success_rate": 100.0
+        },
+        "s4-n3-l4": {
+          "total": 16,
+          "success": 15,
+          "success_rate": 93.75
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 50,
+    "success_count": 49,
+    "success_rate": 98.0,
+    "num_scenarios": 1,
+    "category_counts": {
+      "success_plans": 49,
+      "plan_format_error": 0,
+      "precondition_violation": 1,
+      "safety_constraints_violation": 0,
+      "goal_not_satisfied": 0,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 98.0,
+      "plan_format_error": 0.0,
+      "precondition_violation": 2.0,
+      "safety_constraints_violation": 0.0,
+      "goal_not_satisfied": 0.0,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}

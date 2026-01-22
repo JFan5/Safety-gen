@@ -1,0 +1,91 @@
+{
+  "eval_id": "solver_batch__temp0.6_max512_bs8_20260112_201232",
+  "timestamp": "2026-01-12T20:12:32.319276",
+  "model_path": "/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized",
+  "per_scenario": {
+    "ferry": {
+      "total_tests": 50,
+      "success_count": 40,
+      "success_rate": 80.0,
+      "category_counts": {
+        "success_plans": 40,
+        "plan_format_error": 0,
+        "precondition_violation": 4,
+        "safety_constraints_violation": 6,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 80.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 8.0,
+        "safety_constraints_violation": 12.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "l3-c2": {
+          "total": 2,
+          "success": 2,
+          "success_rate": 100.0
+        },
+        "l3-c3": {
+          "total": 11,
+          "success": 8,
+          "success_rate": 72.72727272727273
+        },
+        "l4-c2": {
+          "total": 10,
+          "success": 9,
+          "success_rate": 90.0
+        },
+        "l4-c3": {
+          "total": 3,
+          "success": 2,
+          "success_rate": 66.66666666666666
+        },
+        "l5-c2": {
+          "total": 12,
+          "success": 11,
+          "success_rate": 91.66666666666666
+        },
+        "l6-c2": {
+          "total": 1,
+          "success": 1,
+          "success_rate": 100.0
+        },
+        "l6-c3": {
+          "total": 11,
+          "success": 7,
+          "success_rate": 63.63636363636363
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 50,
+    "success_count": 40,
+    "success_rate": 80.0,
+    "num_scenarios": 1,
+    "category_counts": {
+      "success_plans": 40,
+      "plan_format_error": 0,
+      "precondition_violation": 4,
+      "safety_constraints_violation": 6,
+      "goal_not_satisfied": 0,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 80.0,
+      "plan_format_error": 0.0,
+      "precondition_violation": 8.0,
+      "safety_constraints_violation": 12.0,
+      "goal_not_satisfied": 0.0,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}

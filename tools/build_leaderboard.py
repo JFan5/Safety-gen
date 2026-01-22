@@ -397,11 +397,151 @@ def create_eval_record(
 # =============================================================================
 
 
+def process_new_format_metrics(
+    run_id: str,
+    run_json: Dict[str, Any],
+    eval_id: str,
+    metrics_json: Dict[str, Any],
+    method: str,
+    stats: Dict,
+) -> List[EvalRecord]:
+    """
+    Process new format metrics.json with per_scenario and overall fields.
+
+    This format has:
+    - eval_id: identifier
+    - per_scenario: dict of scenario -> metrics
+    - overall: aggregated metrics
+
+    Returns list of EvalRecord (one per scenario, plus optionally overall).
+    """
+    records = []
+    per_scenario = metrics_json.get("per_scenario", {})
+
+    if not per_scenario:
+        # Fallback: create single record from overall
+        overall = metrics_json.get("overall", {})
+        if overall:
+            record = create_eval_record_from_new_format(
+                run_id=run_id,
+                run_json=run_json,
+                eval_id=eval_id,
+                scenario="unknown",
+                scenario_metrics=overall,
+                metrics_json=metrics_json,
+                method=method,
+            )
+            if record:
+                records.append(record)
+        return records
+
+    # Create one record per scenario
+    for scenario, scenario_data in per_scenario.items():
+        try:
+            # Construct a unique eval_id that includes the scenario
+            scenario_eval_id = f"{eval_id}__{scenario}"
+
+            record = create_eval_record_from_new_format(
+                run_id=run_id,
+                run_json=run_json,
+                eval_id=scenario_eval_id,
+                scenario=scenario,
+                scenario_metrics=scenario_data,
+                metrics_json=metrics_json,
+                method=method,
+            )
+            if record:
+                records.append(record)
+                stats["evals_parsed"] += 1
+                stats["methods"][method] += 1
+                stats["base_model_families"][record.base_model_family] += 1
+        except Exception as e:
+            logger.warning(f"Error creating record for {eval_id}/{scenario}: {e}")
+            stats["parse_errors"] += 1
+
+    return records
+
+
+def create_eval_record_from_new_format(
+    run_id: str,
+    run_json: Dict[str, Any],
+    eval_id: str,
+    scenario: str,
+    scenario_metrics: Dict[str, Any],
+    metrics_json: Dict[str, Any],
+    method: str,
+) -> Optional[EvalRecord]:
+    """Create an EvalRecord from new format per-scenario metrics."""
+
+    # Infer base model family
+    base_model_family = infer_base_model_family(run_json, metrics_json, run_id)
+
+    # Extract metrics from scenario data
+    main_metric = scenario_metrics.get("success_rate", 0.0)
+    total_tests = scenario_metrics.get("total_tests", 0)
+    success_count = scenario_metrics.get("success_count", 0)
+    eval_timestamp = metrics_json.get("timestamp", "")
+
+    # Model path from metrics or run.json
+    model_path = metrics_json.get("model_path", "")
+    if not model_path:
+        model_path = safe_get(run_json, "artifacts", "model_path", default="")
+
+    # Output dir from run.json
+    output_dir = safe_get(run_json, "paths", "output_dir", default="")
+    if not output_dir:
+        output_dir = safe_get(run_json, "artifacts", "model_path", default="")
+
+    # Dataset path
+    dataset_path = safe_get(run_json, "dataset", "dataset_path", default="")
+
+    # W&B URL
+    wandb_url = safe_get(run_json, "wandb", "url", default="")
+
+    # Category rates from scenario data
+    category_rates = scenario_metrics.get("category_rates", {})
+
+    # Scenario metrics
+    scenario_metrics_dict = {scenario: main_metric} if scenario != "unknown" else {}
+
+    # Additional fields
+    project = run_json.get("project", "")
+    seed = safe_get(run_json, "train", "seed", default=0)
+    if not seed:
+        seed = run_json.get("seed", 0)
+    created_at = run_json.get("created_at", "")
+
+    return EvalRecord(
+        run_id=run_id,
+        eval_id=eval_id,
+        method=method,
+        base_model_family=base_model_family,
+        main_metric=main_metric,
+        total_tests=total_tests,
+        success_count=success_count,
+        eval_timestamp=eval_timestamp,
+        model_path=model_path,
+        output_dir=output_dir,
+        dataset_path=dataset_path,
+        wandb_url=wandb_url,
+        scenario_metrics=scenario_metrics_dict,
+        category_rates=category_rates,
+        project=project,
+        seed=seed,
+        created_at=created_at,
+    )
+
+
 def scan_runs_directory(
     runs_root: Path, include_unknown: bool = False
 ) -> List[EvalRecord]:
     """
     Scan the runs/ directory and collect all eval records.
+
+    Supports two directory structures:
+    1. Old format: runs/<method>/<run_id>/evals/<eval_id>.json
+    2. New format: runs/<method>/<run_id>/eval/<eval_config>/metrics.json
+       with per_scenario and overall fields
 
     Args:
         runs_root: Path to runs/ directory
@@ -450,42 +590,87 @@ def scan_runs_directory(
                 stats["parse_errors"] += 1
                 continue
 
-            # Look for evals directory
+            # Try both eval directory structures
+
+            # Structure 1: evals/ directory with individual JSON files (old format)
             evals_dir = run_dir / "evals"
-            if not evals_dir.exists():
-                logger.debug(f"No evals directory in {run_dir}")
-                continue
+            if evals_dir.exists():
+                for eval_file in evals_dir.iterdir():
+                    if not eval_file.name.endswith(".json"):
+                        continue
 
-            # Iterate over eval files
-            for eval_file in evals_dir.iterdir():
-                if not eval_file.name.endswith(".json"):
-                    continue
+                    stats["evals_found"] += 1
+                    eval_id = eval_file.stem  # filename without .json
 
-                stats["evals_found"] += 1
-                eval_id = eval_file.stem  # filename without .json
+                    # Parse metrics.json
+                    metrics_json = parse_metrics_json(eval_file)
+                    if metrics_json is None:
+                        stats["parse_errors"] += 1
+                        continue
 
-                # Parse metrics.json
-                metrics_json = parse_metrics_json(eval_file)
-                if metrics_json is None:
-                    stats["parse_errors"] += 1
-                    continue
+                    # Check if this is new format (has per_scenario/overall)
+                    if "per_scenario" in metrics_json or "overall" in metrics_json:
+                        new_records = process_new_format_metrics(
+                            run_id=run_id,
+                            run_json=run_json,
+                            eval_id=eval_id,
+                            metrics_json=metrics_json,
+                            method=method,
+                            stats=stats,
+                        )
+                        records.extend(new_records)
+                    else:
+                        # Old format: create single record
+                        try:
+                            record = create_eval_record(
+                                run_id=run_id,
+                                run_json=run_json,
+                                eval_id=eval_id,
+                                metrics_json=metrics_json,
+                                method=method,
+                            )
+                            records.append(record)
+                            stats["evals_parsed"] += 1
+                            stats["methods"][method] += 1
+                            stats["base_model_families"][record.base_model_family] += 1
+                        except Exception as e:
+                            logger.warning(f"Error creating record for {eval_file}: {e}")
+                            stats["parse_errors"] += 1
 
-                # Create eval record
-                try:
-                    record = create_eval_record(
+            # Structure 2: eval/ directory with subdirectories (new format)
+            eval_dir = run_dir / "eval"
+            if eval_dir.exists():
+                for eval_config_dir in eval_dir.iterdir():
+                    if not eval_config_dir.is_dir():
+                        continue
+
+                    # Look for metrics.json in the config directory
+                    metrics_file = eval_config_dir / "metrics.json"
+                    if not metrics_file.exists():
+                        continue
+
+                    stats["evals_found"] += 1
+                    eval_id = eval_config_dir.name  # directory name as eval_id
+
+                    metrics_json = parse_metrics_json(metrics_file)
+                    if metrics_json is None:
+                        stats["parse_errors"] += 1
+                        continue
+
+                    # Use eval_id from metrics if available
+                    if "eval_id" in metrics_json:
+                        eval_id = metrics_json["eval_id"]
+
+                    # Process new format metrics
+                    new_records = process_new_format_metrics(
                         run_id=run_id,
                         run_json=run_json,
                         eval_id=eval_id,
                         metrics_json=metrics_json,
                         method=method,
+                        stats=stats,
                     )
-                    records.append(record)
-                    stats["evals_parsed"] += 1
-                    stats["methods"][method] += 1
-                    stats["base_model_families"][record.base_model_family] += 1
-                except Exception as e:
-                    logger.warning(f"Error creating record for {eval_file}: {e}")
-                    stats["parse_errors"] += 1
+                    records.extend(new_records)
 
     # Log stats
     logger.info(f"Scan complete:")

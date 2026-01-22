@@ -1,5 +1,5 @@
 prompt = f"""
-You are a planning expert. Your task is to generate a **valid plan** for the given domain and problem.
+You are a PDDL planning expert. Solve the following problem based on the provided domain.
 
 DOMAIN:
 {domain_content}
@@ -7,16 +7,5 @@ DOMAIN:
 PROBLEM:
 {problem_content}
 
-### Output Requirements:
-- Return ONLY the plan steps, one per line.
-- Each line must follow the format:
-  (<ACTION_NAME> <param1> <param2> ...)
-- Use only objects defined in the PROBLEM.
-- Do NOT include any explanations, comments, or headers.
-- Do NOT output anything except the plan lines.
-- The output must NOT contain natural language sentences.
-- STRICTLY VERIFY: Do not generate an action unless its preconditions are explicitly satisfied by the state resulting from the previous steps.
-- If the PROBLEM includes PDDL3 constraints, the plan must satisfy all of them; otherwise, solve as a standard PDDL2 goal-directed task.
-- Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
 ### Plan:
 """

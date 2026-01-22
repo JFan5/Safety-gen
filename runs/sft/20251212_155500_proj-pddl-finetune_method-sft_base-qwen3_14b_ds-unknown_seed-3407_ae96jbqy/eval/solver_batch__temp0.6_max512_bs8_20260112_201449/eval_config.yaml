@@ -1,0 +1,11 @@
+batch_size: 8
+eval_id: solver_batch__temp0.6_max512_bs8_20260112_201449
+eval_type: solver_batch
+load_in_4bit: false
+max_new_tokens: 512
+max_problems: 50
+model_path: /jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized
+num_workers: 8
+one_shot: false
+temperature: 0.6
+timestamp: '2026-01-12T20:14:49.613168'

@@ -27,7 +27,7 @@ from datasets import Dataset
 from trl import GRPOConfig, GRPOTrainer
 
 from unsloth import FastLanguageModel
-from utils import _classify_result, validate_solution
+from utils import _classify_result, log_reward_batch_stats, validate_solution
 import wandb
 
 # Import run management utilities
@@ -88,156 +88,11 @@ def classify_with_validator(meta: Any, response_text: str) -> Optional[str]:
     return _classify_result(stdout)
 
 
-import os
-from collections import Counter
-
 DEBUG_FILE = "reward_debug.log"
 
 # Global variable to store logging_steps for debug printing
 LOGGING_STEPS = 10
 
-
-def log_reward_batch_stats(
-    all_labels: List[str],
-    all_scenarios: List[str],
-    rewards: List[float],
-    reward_methods: List[str],
-    trainer_state=None,
-    debug_file: str = DEBUG_FILE,
-    logging_steps: int = LOGGING_STEPS,
-    log_sample_plan: bool = False,
-    sample_idx: int = 0,
-    sample_completion: str = "",
-    sample_meta: Optional[Dict] = None,
-) -> Dict[str, Any]:
-    """
-    统一的 reward batch 统计和打印方法。
-    
-    Args:
-        all_labels: 所有样本的标签列表
-        all_scenarios: 所有样本的场景列表
-        rewards: 所有样本的 reward 列表
-        reward_methods: 所有样本的 reward 计算方法列表
-        trainer_state: Trainer state 对象（用于获取 global_step）
-        debug_file: Debug 日志文件路径
-        logging_steps: 打印间隔步数
-        log_sample_plan: 是否打印单个样本的 plan
-        sample_idx: 样本索引（用于打印单个样本）
-        sample_completion: 样本的 completion（用于打印单个样本）
-        sample_meta: 样本的 meta（用于打印单个样本）
-    
-    Returns:
-        log_dict: 用于 wandb.log 的字典
-    """
-    log_dict: Dict[str, Any] = {}
-    
-    # 初始化 debug 文件
-    if not os.path.exists(debug_file):
-        with open(debug_file, "w") as f:
-            f.write("=== GRPO REWARD DEBUG LOG ===\n")
-    
-    # 打印单个样本的 plan（如果需要）
-    if log_sample_plan:
-        should_log = (
-            trainer_state is not None
-            and trainer_state.global_step % logging_steps == 0
-            and sample_idx == 0  # 只在每个 batch 的第一个样本时打印
-        )
-        if should_log:
-            step_str = str(trainer_state.global_step)
-            scenario = "unknown"
-            problem_rel = ""
-            if isinstance(sample_meta, dict):
-                scenario = sample_meta.get("scenario", "unknown")
-                if not isinstance(scenario, str):
-                    scenario = "unknown"
-                problem_rel = sample_meta.get("problem_file", "")
-                if not isinstance(problem_rel, str):
-                    problem_rel = ""
-            
-            print("\n" + "=" * 80)
-            print(f"[REWARD] step={step_str} sample_idx={sample_idx} scenario={scenario} problem_file={problem_rel}")
-            print("[REWARD] completion(plan):")
-            print(sample_completion)
-            print("=" * 80 + "\n")
-    
-    # 统计并构建 log_dict
-    if all_labels:
-        counts = Counter(all_labels)
-        total = len(all_labels)
-        
-        log_dict = {"stats/total_samples": total}
-        
-        for category in [
-            "success_plans",
-            "goal_not_satisfied",
-            "plan_format_error",
-            "precondition_violation",
-            "safety_constraints_violation",
-            "unknown",
-        ]:
-            c = counts.get(category, 0)
-            log_dict[f"stats/count_{category}"] = c
-            log_dict[f"stats/rate_{category}"] = c / total
-        
-        # 统计场景分布
-        if all_scenarios:
-            scenario_counts = Counter(all_scenarios)
-            main_scenario = scenario_counts.most_common(1)[0][0] if scenario_counts else "unknown"
-            log_dict["batch/main_scenario"] = main_scenario
-            
-            for scenario_name, count in scenario_counts.items():
-                log_dict[f"batch/scenario_count_{scenario_name}"] = count
-                log_dict[f"batch/scenario_rate_{scenario_name}"] = count / total
-        
-        # 计算 reward 统计
-        if rewards:
-            reward_mean = statistics.mean(rewards)
-            reward_std = statistics.stdev(rewards) if len(rewards) > 1 else 0.0
-            log_dict["stats/reward_mean"] = reward_mean
-            log_dict["stats/reward_std"] = reward_std
-            
-            # 统计 reward 方法使用情况
-            if reward_methods:
-                method_counts = Counter(reward_methods)
-                for method, count in method_counts.items():
-                    log_dict[f"reward_method/count_{method}"] = count
-                    log_dict[f"reward_method/rate_{method}"] = count / total
-            
-            # 打印 batch 统计信息
-            main_scenario_str = log_dict.get("batch/main_scenario", "unknown")
-            main_reward_method = Counter(reward_methods).most_common(1)[0][0] if reward_methods else "default"
-            msg = (
-                f"[STEP {trainer_state.global_step if trainer_state else '?'}] "
-                f"scenario={main_scenario_str}, "
-                f"reward_method={main_reward_method}, "
-                f"batch_reward_mean={reward_mean:.4f}, batch_reward_std={reward_std:.4f}\n"
-            )
-            
-            # 写到文件：永远有效
-            with open(debug_file, "a") as f:
-                f.write(msg)
-            
-            # 按 logging_steps 间隔打印到 stdout
-            should_log_stats = (
-                trainer_state is not None
-                and trainer_state.global_step % logging_steps == 0
-            )
-            if should_log_stats:
-                print(msg, end="")
-        
-        # wandb log
-        if wandb is not None:
-            try:
-                wandb.log(log_dict)
-            except Exception as e:
-                print("[wandb.log ERROR]", e)
-        
-        # 同步写到 debug 文件
-        with open(debug_file, "a") as f:
-            f.write(f"stats={log_dict}\n")
-    
-    return log_dict
 
 def grpo_reward_func(
     prompts: List[str],

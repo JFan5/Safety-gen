@@ -1,0 +1,39 @@
+{
+  "run_id": "grpo-v2-mistral7b-blocksworld_20260110_020045_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-10T02:00:45.351109",
+  "end_time": "2026-01-10T02:00:51.858134",
+  "config": {
+    "base_model": "/jfan5/sft_models/mistral_7b/cross_domain_pddl3_symbolized",
+    "dataset": "/jfan5/grpo_data/five_domain_0109",
+    "output_dir": "/jfan5/grpo_models/mistral_7b_v2_blocksworld_20260110_020034",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-training-v2",
+    "run_name": "grpo-v2-mistral7b-blocksworld",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/mistral_7b_v2_blocksworld_20260110_020034"
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.02,
+    "temperature": 0.8,
+    "max_steps": 100,
+    "num_generations": 4,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": "blocksworld"
+  },
+  "error": "BrokenPipeError: [Errno 32] Broken pipe"
+}

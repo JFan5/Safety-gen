@@ -22,6 +22,10 @@ def build_model_path_index(runs_dir: Path = None) -> Dict[str, Path]:
     """
     Build an index mapping model_path -> run directory.
 
+    This function indexes both:
+    - artifacts.model_path (final trained model)
+    - config.output_dir (checkpoint directory during training)
+
     Args:
         runs_dir: Path to runs directory
 
@@ -54,7 +58,7 @@ def build_model_path_index(runs_dir: Path = None) -> Dict[str, Path]:
                 with open(run_json) as f:
                     run_data = json.load(f)
 
-                # Get model path from artifacts
+                # Get model path from artifacts (final model)
                 model_path = run_data.get("artifacts", {}).get("model_path")
                 if model_path:
                     # Normalize path (remove trailing slashes)
@@ -66,6 +70,13 @@ def build_model_path_index(runs_dir: Path = None) -> Dict[str, Path]:
                         base_path = normalized.rsplit("/checkpoint-", 1)[0]
                         if base_path not in index:
                             index[base_path] = run_dir
+
+                # Also index config.output_dir (for matching checkpoints during training)
+                output_dir = run_data.get("config", {}).get("output_dir")
+                if output_dir:
+                    normalized_output = output_dir.rstrip("/")
+                    if normalized_output not in index:
+                        index[normalized_output] = run_dir
 
             except (json.JSONDecodeError, KeyError):
                 continue
@@ -134,12 +145,13 @@ def generate_eval_id(
     temperature: float = 0.6,
     max_new_tokens: int = 1024,
     batch_size: Optional[int] = None,
-    extra_params: Optional[Dict] = None
+    extra_params: Optional[Dict] = None,
+    include_timestamp: bool = True
 ) -> str:
     """
     Generate eval_id based on eval parameters.
 
-    Format: {eval_type}__temp{temperature}_max{max_new_tokens}[_bs{batch_size}]
+    Format: {eval_type}__temp{temperature}_max{max_new_tokens}[_bs{batch_size}][_{timestamp}]
 
     Args:
         eval_type: Type of evaluation (solver, solver_batch)
@@ -147,6 +159,7 @@ def generate_eval_id(
         max_new_tokens: Maximum new tokens
         batch_size: Batch size (for batch evaluation)
         extra_params: Additional parameters to include
+        include_timestamp: Whether to include timestamp for uniqueness (default: True)
 
     Returns:
         eval_id string
@@ -165,6 +178,11 @@ def generate_eval_id(
         for key, value in sorted(extra_params.items()):
             if value is not None:
                 parts.append(f"{key}{value}")
+
+    # Add timestamp for uniqueness
+    if include_timestamp:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        parts.append(timestamp)
 
     return "__".join([parts[0], "_".join(parts[1:])])
 
@@ -206,6 +224,208 @@ def get_eval_output_dir(
         (eval_output_dir / "scenarios").mkdir(exist_ok=True)
 
     return eval_output_dir, run_id
+
+
+def resolve_model_path_from_run(
+    run_path: str,
+    verbose: bool = True
+) -> Tuple[str, Optional[Path]]:
+    """
+    Resolve model path from run directory with fallback to latest checkpoint.
+
+    Priority:
+    1. artifacts.model_path in run.json (if exists and valid)
+    2. model_dir symlink in run directory
+    3. Latest checkpoint in config.output_dir
+
+    Args:
+        run_path: Path to run directory
+        verbose: Whether to print resolution details
+
+    Returns:
+        Tuple of (resolved_model_path, run_dir_path)
+
+    Raises:
+        ValueError: If no valid model path can be found
+    """
+    run_dir = Path(run_path)
+    run_json_path = run_dir / "run.json"
+
+    # Handle case where run_path points to a checkpoint directory
+    if not run_json_path.exists():
+        if run_dir.name.startswith("checkpoint-") and run_dir.parent.name == "model":
+            # Go up: checkpoint-XXX -> model -> run_dir
+            parent_run_dir = run_dir.parent.parent
+            parent_run_json = parent_run_dir / "run.json"
+            if parent_run_json.exists():
+                if verbose:
+                    print(f"[Model Resolution] Detected checkpoint path, using parent run: {parent_run_dir}")
+                # Return the checkpoint path directly as the model
+                return str(run_dir), parent_run_dir
+
+    if not run_json_path.exists():
+        raise ValueError(
+            f"run.json not found at {run_json_path}\n"
+            f"Please provide a valid run directory containing run.json"
+        )
+
+    # Load run.json
+    try:
+        with open(run_json_path, 'r') as f:
+            run_data = json.load(f)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Failed to parse run.json: {e}")
+
+    run_id = run_data.get("run_id", run_dir.name)
+    if verbose:
+        print(f"[Model Resolution] Run ID: {run_id}")
+        print(f"[Model Resolution] Status: {run_data.get('status', 'unknown')}")
+
+    # Strategy 1: Check artifacts.model_path
+    model_path = run_data.get("artifacts", {}).get("model_path")
+    if model_path and Path(model_path).exists():
+        if verbose:
+            print(f"[Model Resolution] Using artifacts.model_path: {model_path}")
+        return model_path, run_dir
+
+    if model_path:
+        if verbose:
+            print(f"[Model Resolution] artifacts.model_path not available: {model_path}")
+
+    # Strategy 2: Check model_dir symlink
+    model_dir_link = run_dir / "model_dir"
+    if model_dir_link.exists():
+        if model_dir_link.is_symlink():
+            resolved_link = model_dir_link.resolve()
+            if resolved_link.exists():
+                if verbose:
+                    print(f"[Model Resolution] Using model_dir symlink: {resolved_link}")
+                return str(resolved_link), run_dir
+            else:
+                if verbose:
+                    print(f"[Model Resolution] model_dir symlink target not found: {resolved_link}")
+        else:
+            # It's a real directory
+            if verbose:
+                print(f"[Model Resolution] Using model_dir directory: {model_dir_link}")
+            return str(model_dir_link), run_dir
+
+    # Strategy 3: Fallback to latest checkpoint in output_dir
+    output_dir = run_data.get("config", {}).get("output_dir")
+    if not output_dir:
+        raise ValueError(
+            f"Cannot resolve model path:\n"
+            f"  - artifacts.model_path: {model_path or 'not set'}\n"
+            f"  - model_dir symlink: not found\n"
+            f"  - config.output_dir: not set\n"
+            f"Please wait for training to complete or specify a checkpoint path directly."
+        )
+
+    output_dir_path = Path(output_dir)
+    if not output_dir_path.exists():
+        raise ValueError(
+            f"Cannot resolve model path:\n"
+            f"  - artifacts.model_path: {model_path or 'not set'}\n"
+            f"  - model_dir symlink: not found\n"
+            f"  - config.output_dir: {output_dir} (does not exist)\n"
+            f"Training may not have started or output directory is invalid."
+        )
+
+    # Find latest checkpoint
+    latest_checkpoint = find_latest_checkpoint(output_dir_path, verbose=verbose)
+
+    if latest_checkpoint:
+        if verbose:
+            print(f"[Model Resolution] ✓ Fallback to latest checkpoint: {latest_checkpoint}")
+        return str(latest_checkpoint), run_dir
+
+    # No checkpoint found - check if there are model files directly in output_dir
+    if _is_valid_model_dir(output_dir_path):
+        if verbose:
+            print(f"[Model Resolution] Using output_dir directly (contains model files): {output_dir}")
+        return output_dir, run_dir
+
+    raise ValueError(
+        f"Cannot resolve model path:\n"
+        f"  - artifacts.model_path: {model_path or 'not set'}\n"
+        f"  - model_dir symlink: not found\n"
+        f"  - config.output_dir: {output_dir} (no checkpoints found)\n"
+        f"Training may still be in early stages. Please wait for first checkpoint."
+    )
+
+
+def find_latest_checkpoint(
+    output_dir: Path,
+    verbose: bool = True
+) -> Optional[Path]:
+    """
+    Find the latest checkpoint in an output directory.
+
+    Checkpoints are directories named 'checkpoint-{step}' where step is an integer.
+    The latest checkpoint is the one with the highest step number.
+
+    Args:
+        output_dir: Directory to search for checkpoints
+        verbose: Whether to print search details
+
+    Returns:
+        Path to latest checkpoint directory, or None if no checkpoints found
+    """
+    import re
+
+    if not output_dir.exists():
+        return None
+
+    checkpoint_pattern = re.compile(r'^checkpoint-(\d+)$')
+    checkpoints = []
+
+    for item in output_dir.iterdir():
+        if item.is_dir():
+            match = checkpoint_pattern.match(item.name)
+            if match:
+                step = int(match.group(1))
+                checkpoints.append((step, item))
+
+    if not checkpoints:
+        if verbose:
+            print(f"[Model Resolution] No checkpoints found in {output_dir}")
+        return None
+
+    # Sort by step number (descending) and return the latest
+    checkpoints.sort(key=lambda x: x[0], reverse=True)
+
+    if verbose:
+        print(f"[Model Resolution] Found {len(checkpoints)} checkpoint(s):")
+        for step, path in checkpoints[:5]:  # Show up to 5
+            print(f"    - checkpoint-{step}")
+        if len(checkpoints) > 5:
+            print(f"    ... and {len(checkpoints) - 5} more")
+
+    latest_step, latest_path = checkpoints[0]
+    return latest_path
+
+
+def _is_valid_model_dir(path: Path) -> bool:
+    """
+    Check if a directory contains valid model files.
+
+    A valid model directory should contain:
+    - config.json (Hugging Face model config)
+    - Some weight files (.bin, .safetensors, or .pt)
+    """
+    if not path.is_dir():
+        return False
+
+    has_config = (path / "config.json").exists()
+    has_weights = any(
+        path.glob("*.bin")
+    ) or any(
+        path.glob("*.safetensors")
+    ) or any(
+        path.glob("*.pt")
+    )
+
+    return has_config and has_weights
 
 
 def update_run_evals(

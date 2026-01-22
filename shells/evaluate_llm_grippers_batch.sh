@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Evaluate LLM model on grippers scenario using BATCH PROCESSING
-# Usage: ./evaluate_llm_grippers_batch.sh <model_path> <problems_subdir> [batch_size] [num_workers]
-# Example: ./evaluate_llm_grippers_batch.sh /jfan5/sft_models/mistral_7b/grippers testing_problem50 8 8
+# Usage: ./evaluate_llm_grippers_batch.sh <run_path> <problems_subdir> [batch_size] [num_workers]
+# Example: ./evaluate_llm_grippers_batch.sh runs/grpo/<run_id> testing_problem50 8 8
 
 set -e
 
@@ -14,52 +14,44 @@ conda activate llmstl
 cd /home/ubuntu/Safety-gen
 
 # Parse arguments
-MODEL_PATH="${1}"
+RUN_PATH="${1}"
 PROBLEMS_SUBDIR="${2:-testing_problem50}"
 BATCH_SIZE="${3:-8}"
 NUM_WORKERS="${4:-8}"
 
 # Fixed parameters
-MODEL_FAMILY="auto"
 MAX_PROBLEMS=50
-
-# Sanitize model path for filename
-MODEL_NAME=$(echo "${MODEL_PATH}" | sed 's/[\/\\]/-/g' | sed 's/[^a-zA-Z0-9._-]/-/g')
 
 # Scenario-specific paths
 SCENARIO="grippers"
 PROBLEMS_DIR="pddl3/grippers/${PROBLEMS_SUBDIR}"
 DOMAIN_FILE="pddl3/grippers/domain3.pddl"
-OUTPUT_FILE="planning_results/grippers_${MODEL_NAME}_${MAX_PROBLEMS}.json"
+# Output handled by runs structure
 
 echo "=========================================="
 echo "Evaluating model on ${SCENARIO} (BATCH MODE)"
 echo "=========================================="
-echo "Model: ${MODEL_PATH}"
-echo "Family: ${MODEL_FAMILY}"
+echo "Run path: ${RUN_PATH}"
 echo "Max problems: ${MAX_PROBLEMS}"
 echo "Problems subdir: ${PROBLEMS_SUBDIR}"
 echo "Batch size: ${BATCH_SIZE}"
 echo "Validation workers: ${NUM_WORKERS}"
 echo "Problems dir: ${PROBLEMS_DIR}"
 echo "Domain file: ${DOMAIN_FILE}"
-echo "Output file: ${OUTPUT_FILE} (timestamp will be added)"
 echo "=========================================="
 echo ""
 
 # Run evaluation with batch processing
 python3 script/evaluate_llm_solver_batch.py \
-    --model "${MODEL_PATH}" \
-    --family "${MODEL_FAMILY}" \
+    --run-path "${RUN_PATH}" \
     --problems-dir "${PROBLEMS_DIR}" \
     --domain-file "${DOMAIN_FILE}" \
     --max-problems ${MAX_PROBLEMS} \
-    --output "${OUTPUT_FILE}" \
     --batch-size ${BATCH_SIZE} \
     --num-workers ${NUM_WORKERS}
 
 echo ""
 echo "=========================================="
 echo "${SCENARIO} evaluation completed!"
-echo "Results saved to: ${OUTPUT_FILE} (with timestamp added)"
+echo "Results saved to runs structure"
 echo "=========================================="

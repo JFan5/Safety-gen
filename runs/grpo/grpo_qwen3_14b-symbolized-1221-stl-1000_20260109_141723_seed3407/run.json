@@ -1,0 +1,35 @@
+{
+  "run_id": "grpo_qwen3_14b-symbolized-1221-stl-1000_20260109_141723_seed3407",
+  "method": "grpo",
+  "status": "running",
+  "start_time": "2026-01-09T14:17:23.129740",
+  "end_time": null,
+  "config": {
+    "base_model": "/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized",
+    "dataset": "/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/train_combined.jsonl",
+    "output_dir": "/jfan5/grpo_models/qwen3_14b-symbolized-1221-stl-1000",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-qwen3_14b",
+    "run_name": "grpo_qwen3_14b-symbolized-1221-stl-1000",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-qwen3_14b/runs/4yu2xykh"
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 4
+  }
+}

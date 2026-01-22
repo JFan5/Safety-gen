@@ -1,0 +1,301 @@
+{
+  "eval_id": "solver_batch__temp0.6_max512_bs8",
+  "timestamp": "2026-01-06T15:10:56.185777",
+  "model_path": "/jfan5/grpo_models/mistral_7b-symbolized-chat-0106-1000",
+  "per_scenario": {
+    "blocksworld": {
+      "total_tests": 50,
+      "success_count": 3,
+      "success_rate": 6.0,
+      "category_counts": {
+        "success_plans": 3,
+        "plan_format_error": 0,
+        "precondition_violation": 25,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 22,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 6.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 50.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 44.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "ops3-n3": {
+          "total": 7,
+          "success": 1,
+          "success_rate": 14.285714285714285
+        },
+        "ops3-n4": {
+          "total": 7,
+          "success": 2,
+          "success_rate": 28.57142857142857
+        },
+        "ops3-n5": {
+          "total": 3,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "ops3-n6": {
+          "total": 7,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "ops4-n4": {
+          "total": 7,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "ops4-n5": {
+          "total": 10,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "ops4-n6": {
+          "total": 9,
+          "success": 0,
+          "success_rate": 0.0
+        }
+      }
+    },
+    "delivery": {
+      "total_tests": 50,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "category_counts": {
+        "success_plans": 0,
+        "plan_format_error": 0,
+        "precondition_violation": 50,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 0.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 100.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s2-p1": {
+          "total": 9,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s2-p2": {
+          "total": 9,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s3-p1": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s3-p2": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s4-p1": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s4-p2": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        }
+      }
+    },
+    "ferry": {
+      "total_tests": 50,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "category_counts": {
+        "success_plans": 0,
+        "plan_format_error": 0,
+        "precondition_violation": 42,
+        "safety_constraints_violation": 1,
+        "goal_not_satisfied": 7,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 0.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 84.0,
+        "safety_constraints_violation": 2.0,
+        "goal_not_satisfied": 14.000000000000002,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "l3-c2": {
+          "total": 2,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "l3-c3": {
+          "total": 11,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "l4-c2": {
+          "total": 10,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "l4-c3": {
+          "total": 3,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "l5-c2": {
+          "total": 12,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "l6-c2": {
+          "total": 1,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "l6-c3": {
+          "total": 11,
+          "success": 0,
+          "success_rate": 0.0
+        }
+      }
+    },
+    "grippers": {
+      "total_tests": 50,
+      "success_count": 8,
+      "success_rate": 16.0,
+      "category_counts": {
+        "success_plans": 8,
+        "plan_format_error": 34,
+        "precondition_violation": 5,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 3,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 16.0,
+        "plan_format_error": 68.0,
+        "precondition_violation": 10.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 6.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "n1-r3-o3": {
+          "total": 3,
+          "success": 2,
+          "success_rate": 66.66666666666666
+        },
+        "n1-r4-o3": {
+          "total": 22,
+          "success": 6,
+          "success_rate": 27.27272727272727
+        },
+        "n2-r3-o2": {
+          "total": 2,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "n2-r3-o3": {
+          "total": 20,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "n2-r4-o3": {
+          "total": 3,
+          "success": 0,
+          "success_rate": 0.0
+        }
+      }
+    },
+    "spanner": {
+      "total_tests": 50,
+      "success_count": 19,
+      "success_rate": 38.0,
+      "category_counts": {
+        "success_plans": 19,
+        "plan_format_error": 4,
+        "precondition_violation": 23,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 4,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 38.0,
+        "plan_format_error": 8.0,
+        "precondition_violation": 46.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 8.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s2-n2-l3": {
+          "total": 17,
+          "success": 12,
+          "success_rate": 70.58823529411765
+        },
+        "s3-n2-l4": {
+          "total": 8,
+          "success": 1,
+          "success_rate": 12.5
+        },
+        "s3-n3-l4": {
+          "total": 9,
+          "success": 1,
+          "success_rate": 11.11111111111111
+        },
+        "s4-n3-l4": {
+          "total": 16,
+          "success": 5,
+          "success_rate": 31.25
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 250,
+    "success_count": 30,
+    "success_rate": 12.0,
+    "num_scenarios": 5,
+    "category_counts": {
+      "success_plans": 30,
+      "plan_format_error": 38,
+      "precondition_violation": 145,
+      "safety_constraints_violation": 1,
+      "goal_not_satisfied": 36,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 12.0,
+      "plan_format_error": 15.2,
+      "precondition_violation": 58.0,
+      "safety_constraints_violation": 0.4,
+      "goal_not_satisfied": 14.4,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}

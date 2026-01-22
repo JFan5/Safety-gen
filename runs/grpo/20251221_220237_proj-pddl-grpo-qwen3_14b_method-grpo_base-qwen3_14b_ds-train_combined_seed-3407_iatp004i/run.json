@@ -48,5 +48,12 @@
   "artifacts": {
     "model_path": "/jfan5/grpo_models/qwen3_14b-symbolized-1221-stl-1000",
     "model_path_status": "confirmed"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8",
+      "main_metric": 66.0,
+      "timestamp": "2026-01-07T15:30:20.576520"
+    }
   }
 }

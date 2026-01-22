@@ -46,7 +46,14 @@
   "created_at": "2025-12-18T21:32:25+00:00",
   "updated_at": null,
   "artifacts": {
-    "model_path": "/jfan5/grpo_models/mistral_7b-symbolized-1218-stl-1000",
+    "model_path": "/jfan5/grpo_models/qwen3_14b-symbolized-1218-1000",
     "model_path_status": "confirmed"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8",
+      "main_metric": 57.2,
+      "timestamp": "2026-01-12T18:36:08.017164"
+    }
   }
 }

@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_mistral_7b_1219_symbolized_stl.o
-#SBATCH --job-name=grpo_mistral_7b_1219_symbolized_stl
+#SBATCH --output=job_outputs/grpo_mistral_7b_symbolized_stl.o
+#SBATCH --job-name=grpo_mistral_7b_symbolized_stl
 #SBATCH --chdir=/home/ubuntu/Safety-gen
 
 conda activate llmstl
@@ -21,26 +21,36 @@ BASE_MODEL="/jfan5/sft_models/mistral_7b/symbolized_v2"
 
 # Symbolized (obfuscated) 4-scenarios combined GRPO JSONL
 # DATASET="/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/train_combined.jsonl"
-DATASET="/jfan5/grpo_data-127/merged.jsonl"
-
-OUTPUT_DIR="/jfan5/grpo_models/mistral_7b-symbolized-1219-stl-1000"
+DATASET="/jfan5/grpo_data/five_domain_0109/combined.jsonl"
 
 # Training parameters
 # training length is controlled by `--max_steps`.
+
 BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=4
-LEARNING_RATE=1e-5
-NUM_GENERATIONS=8
+LEARNING_RATE=5e-6
+NUM_GENERATIONS=4
 TEMPERATURE=0.6
 MAX_STEPS=1000
 TOP_P=0.9
-LOGGING_STEPS=20
-SAVE_STEPS=60
+LOGGING_STEPS=50
+SAVE_STEPS=100
+MAX_PROMPT_LENGTH=2048
+MAX_NEW_TOKENS=512
 WANDB_PROJECT="pddl-grpo-mistral7b"
-RUN_NAME="grpo_mistral_7b-symbolized-1219-stl"
-BETA=0.01
+BETA=0.05
 MAX_GRAD_NORM=1
 SEED=3407
+
+# ==========================================
+# Auto-generate RUN_NAME and OUTPUT_DIR
+# ==========================================
+DATE_TAG=$(date +%m%d)
+MODEL_TAG="mistral_7b"
+DATASET_TAG="five_domain_0109-combined"
+
+# 自动生成 RUN_NAME 和 OUTPUT_DIR
+RUN_NAME="grpo_${MODEL_TAG}-${DATASET_TAG}-${DATE_TAG}-stl"
 
 echo "=========================================="
 echo "Step 2: GRPO Training for Mistral-7B (Symbolized)"
@@ -61,7 +71,6 @@ echo "Base model: ${BASE_MODEL}"
 python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
-  --output_dir "${OUTPUT_DIR}" \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \

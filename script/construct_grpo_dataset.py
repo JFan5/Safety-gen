@@ -84,6 +84,7 @@ def _locate_domain_file(scenario: str) -> str:
 
 
 DEFAULT_PROBLEM_DIRS = (
+    "grpo_500",
     "grpo_training",
     "dpo_training",
     "testing_problems",
