@@ -1,0 +1,62 @@
+## Domain / Scenario
+Domain: ferry
+
+## Objects
+Objects: l0, l1, l2, l3, l4, l5, c0, c1, c2
+
+## Initial State
+- L0 is a valid location.
+- L1 is a valid location.
+- L2 is a valid location.
+- L3 is a valid location.
+- L4 is a valid location.
+- L5 is a valid location.
+- C0 is a car.
+- C1 is a car.
+- C2 is a car.
+- L0 and l1 are different locations.
+- L1 and l0 are different locations.
+- L0 and l2 are different locations.
+- L2 and l0 are different locations.
+- L0 and l3 are different locations.
+- L3 and l0 are different locations.
+- L0 and l4 are different locations.
+- L4 and l0 are different locations.
+- L0 and l5 are different locations.
+- L5 and l0 are different locations.
+- L1 and l2 are different locations.
+- L2 and l1 are different locations.
+- L1 and l3 are different locations.
+- L3 and l1 are different locations.
+- L1 and l4 are different locations.
+- L4 and l1 are different locations.
+- L1 and l5 are different locations.
+- L5 and l1 are different locations.
+- L2 and l3 are different locations.
+- L3 and l2 are different locations.
+- L2 and l4 are different locations.
+- L4 and l2 are different locations.
+- L2 and l5 are different locations.
+- L5 and l2 are different locations.
+- L3 and l4 are different locations.
+- L4 and l3 are different locations.
+- L3 and l5 are different locations.
+- L5 and l3 are different locations.
+- L4 and l5 are different locations.
+- L5 and l4 are different locations.
+- The ferry is empty.
+- C0 is at location l1.
+- C1 is at location l4.
+- C2 is at location l5.
+- The ferry is at location l2.
+
+## Goal
+All of the following must be true:
+  - C0 is at location l3.
+  - C1 is at location l0.
+  - C2 is at location l3.
+
+## Constraints
+- Before "c0 is at location l3" becomes true, "the ferry is at location l0" must be true at some point.
+- Before "c1 is at location l0" becomes true, "the ferry is at location l1" must be true at some point.
+- Before "c2 is at location l3" becomes true, "the ferry is at location l0" must be true at some point.

@@ -1,0 +1,23 @@
+{
+  "problems": [
+    {
+      "success": true,
+      "final_plan": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(stack b2 b3)\n(pickup b1)\n(stack b1 b2)\n(unstack b1 b2)\n(putdown b1)\n(unstack b2 b3)\n(putdown b2)\n(pickup b3)\n(stack b3 b2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "plan": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(stack b2 b3)\n(pickup b1)\n(stack b1 b2)\n(unstack b1 b2)\n(putdown b1)\n(unstack b2 b3)\n(putdown b2)\n(pickup b3)\n(stack b3 b2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpc0c14goe.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(stack b2 b3)\n \n5:\n(pickup b1)\n \n6:\n(stack b1 b2)\n \n7:\n(unstack b1 b2)\n \n8:\n(putdown b1)\n \n9:\n(unstack b2 b3)\n \n10:\n(putdown b2)\n \n11:\n(pickup b3)\n \n12:\n(stack b3 b2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (clear b3)\nDeleting (holding b2)\nAdding (arm-empty)\nAdding (clear b2)\nAdding (on b2 b3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (clear b1)\nDeleting (on-table b1)\nDeleting (arm-empty)\nAdding (holding b1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (clear b2)\nDeleting (holding b1)\nAdding (arm-empty)\nAdding (clear b1)\nAdding (on b1 b2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on b1 b2)\nDeleting (clear b1)\nDeleting (arm-empty)\nAdding (holding b1)\nAdding (clear b2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (holding b1)\nAdding (clear b1)\nAdding (arm-empty)\nAdding (on-table b1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (on b2 b3)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b3)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (clear b3)\nDeleting (on-table b3)\nDeleting (arm-empty)\nAdding (holding b3)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (clear b2)\nDeleting (holding b3)\nAdding (arm-empty)\nAdding (clear b3)\nAdding (on b3 b2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpc0c14goe.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "bw_ops3_n3_seed118",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed118.pddl"
+    }
+  ]
+}

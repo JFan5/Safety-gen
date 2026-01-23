@@ -1,0 +1,11 @@
+prompt = f"""
+You are a planning expert. Solve the following problem based on the provided domain.
+
+DOMAIN:
+{domain_content}
+
+PROBLEM (Natural Language Description):
+{problem_content}
+
+### Plan:
+"""

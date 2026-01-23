@@ -1,0 +1,76 @@
+{
+  "eval_id": "solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_170053",
+  "timestamp": "2026-01-23T17:01:58.483986",
+  "model_path": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000",
+  "per_scenario": {
+    "spanner": {
+      "total_tests": 50,
+      "success_count": 42,
+      "success_rate": 84.0,
+      "category_counts": {
+        "success_plans": 42,
+        "plan_format_error": 5,
+        "precondition_violation": 3,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 84.0,
+        "plan_format_error": 10.0,
+        "precondition_violation": 6.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s2-n2-l3": {
+          "total": 17,
+          "success": 15,
+          "success_rate": 88.23529411764706
+        },
+        "s3-n2-l4": {
+          "total": 8,
+          "success": 7,
+          "success_rate": 87.5
+        },
+        "s3-n3-l4": {
+          "total": 9,
+          "success": 7,
+          "success_rate": 77.77777777777779
+        },
+        "s4-n3-l4": {
+          "total": 16,
+          "success": 13,
+          "success_rate": 81.25
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 50,
+    "success_count": 42,
+    "success_rate": 84.0,
+    "num_scenarios": 1,
+    "category_counts": {
+      "success_plans": 42,
+      "plan_format_error": 5,
+      "precondition_violation": 3,
+      "safety_constraints_violation": 0,
+      "goal_not_satisfied": 0,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 84.0,
+      "plan_format_error": 10.0,
+      "precondition_violation": 6.0,
+      "safety_constraints_violation": 0.0,
+      "goal_not_satisfied": 0.0,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}

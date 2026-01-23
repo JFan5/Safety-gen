@@ -12,11 +12,11 @@ Usage:
 """
 
 import argparse
-import os
 import re
 import shutil
+from enum import Enum
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any, Union
 from dataclasses import dataclass, field
 
 
@@ -24,21 +24,233 @@ from dataclasses import dataclass, field
 # 1. DATA STRUCTURES
 # ==============================================================================
 
+class ExprType(Enum):
+    """Types of PDDL expressions for the AST."""
+    PREDICATE = "predicate"
+    NOT = "not"
+    AND = "and"
+    OR = "or"
+    IMPLY = "imply"
+    FORALL = "forall"
+    EXISTS = "exists"
+    ALWAYS = "always"
+    SOMETIME = "sometime"
+    SOMETIME_BEFORE = "sometime-before"
+    SOMETIME_AFTER = "sometime-after"
+    AT_MOST_ONCE = "at-most-once"
+    AT_END = "at-end"
+    HOLD_DURING = "hold-during"
+    HOLD_AFTER = "hold-after"
+
+
+@dataclass
+class PDDLExpr:
+    """Recursive PDDL expression representation (AST node)."""
+    expr_type: ExprType
+    predicate_name: Optional[str] = None  # For PREDICATE type
+    args: List[str] = field(default_factory=list)  # For PREDICATE type
+    children: List['PDDLExpr'] = field(default_factory=list)  # For compound expressions
+    variables: List[Tuple[str, str]] = field(default_factory=list)  # [(var, type)] for forall/exists
+
+
 @dataclass
 class PDDLProblem:
     """Parsed PDDL problem representation."""
     problem_name: str = ""
     domain_name: str = ""
-    objects: List[str] = field(default_factory=list)
+    objects: List[str] = field(default_factory=list)  # Flat list for backward compat
+    objects_by_type: Dict[str, List[str]] = field(default_factory=dict)  # Type -> objects mapping
     init: List[Tuple[str, List[str]]] = field(default_factory=list)  # (predicate_name, [args])
     goal: List[Tuple[str, List[str]]] = field(default_factory=list)
-    constraints: List[Dict[str, Any]] = field(default_factory=list)
+    constraints: List[PDDLExpr] = field(default_factory=list)  # AST-based constraints
     raw_content: str = ""
     parse_errors: List[str] = field(default_factory=list)
 
 
 # ==============================================================================
-# 2. PDDL PARSER
+# 2. S-EXPRESSION TOKENIZER AND PARSER
+# ==============================================================================
+
+def tokenize(s: str) -> List[str]:
+    """
+    Split PDDL into tokens: '(', ')', and atoms.
+
+    Examples:
+        "(at bob shed)" -> ['(', 'at', 'bob', 'shed', ')']
+        "(not (tightened nut1))" -> ['(', 'not', '(', 'tightened', 'nut1', ')', ')']
+    """
+    tokens = []
+    i = 0
+    while i < len(s):
+        c = s[i]
+        if c.isspace():
+            i += 1
+        elif c == '(':
+            tokens.append('(')
+            i += 1
+        elif c == ')':
+            tokens.append(')')
+            i += 1
+        elif c == ';':
+            # Skip comment until end of line
+            while i < len(s) and s[i] != '\n':
+                i += 1
+        else:
+            # Read an atom (identifier, number, etc.)
+            start = i
+            while i < len(s) and not s[i].isspace() and s[i] not in '()':
+                i += 1
+            tokens.append(s[start:i])
+    return tokens
+
+
+def parse_sexpr(tokens: List[str], pos: int = 0) -> Tuple[PDDLExpr, int]:
+    """
+    Recursively parse tokens into PDDLExpr AST.
+
+    Returns (expr, new_pos) where new_pos is the position after parsing.
+
+    Handles:
+    - (predicate arg1 arg2 ...)
+    - (not X)
+    - (and X Y ...)
+    - (or X Y ...)
+    - (imply A B)
+    - (forall (?x - type) body)
+    - (exists (?x - type) body)
+    - (always X)
+    - (sometime X)
+    - (sometime-before A B)
+    - (sometime-after A B)
+    - (at-most-once X)
+    """
+    if pos >= len(tokens):
+        raise ValueError("Unexpected end of tokens")
+
+    token = tokens[pos]
+
+    if token != '(':
+        # It's an atom - treat as a predicate with no args (unusual but handle it)
+        return PDDLExpr(expr_type=ExprType.PREDICATE, predicate_name=token.lower(), args=[]), pos + 1
+
+    # Skip '('
+    pos += 1
+    if pos >= len(tokens):
+        raise ValueError("Unexpected end after '('")
+
+    # Get the operator/predicate name
+    op = tokens[pos].lower()
+    pos += 1
+
+    # Map operators to expression types
+    op_map = {
+        'not': ExprType.NOT,
+        'and': ExprType.AND,
+        'or': ExprType.OR,
+        'imply': ExprType.IMPLY,
+        'forall': ExprType.FORALL,
+        'exists': ExprType.EXISTS,
+        'always': ExprType.ALWAYS,
+        'sometime': ExprType.SOMETIME,
+        'sometime-before': ExprType.SOMETIME_BEFORE,
+        'sometime-after': ExprType.SOMETIME_AFTER,
+        'at-most-once': ExprType.AT_MOST_ONCE,
+        'at-end': ExprType.AT_END,
+        'hold-during': ExprType.HOLD_DURING,
+        'hold-after': ExprType.HOLD_AFTER,
+    }
+
+    if op in op_map:
+        expr_type = op_map[op]
+
+        if expr_type in (ExprType.FORALL, ExprType.EXISTS):
+            # Parse variable list: (?x - type) or (?x ?y - type)
+            variables = []
+            if pos < len(tokens) and tokens[pos] == '(':
+                pos += 1  # Skip '('
+                var_names = []
+                while pos < len(tokens) and tokens[pos] != ')':
+                    tok = tokens[pos]
+                    if tok == '-':
+                        # Next token is the type
+                        pos += 1
+                        if pos < len(tokens) and tokens[pos] != ')':
+                            var_type = tokens[pos]
+                            pos += 1
+                            for vn in var_names:
+                                variables.append((vn, var_type))
+                            var_names = []
+                    elif tok.startswith('?'):
+                        var_names.append(tok)
+                        pos += 1
+                    else:
+                        pos += 1
+                # If no type specified, use 'object' as default
+                for vn in var_names:
+                    variables.append((vn, 'object'))
+                if pos < len(tokens) and tokens[pos] == ')':
+                    pos += 1  # Skip ')'
+
+            # Parse body
+            children = []
+            while pos < len(tokens) and tokens[pos] != ')':
+                child, pos = parse_sexpr(tokens, pos)
+                children.append(child)
+
+            if pos < len(tokens) and tokens[pos] == ')':
+                pos += 1  # Skip closing ')'
+
+            return PDDLExpr(expr_type=expr_type, variables=variables, children=children), pos
+
+        else:
+            # Parse children
+            children = []
+            while pos < len(tokens) and tokens[pos] != ')':
+                child, pos = parse_sexpr(tokens, pos)
+                children.append(child)
+
+            if pos < len(tokens) and tokens[pos] == ')':
+                pos += 1  # Skip closing ')'
+
+            return PDDLExpr(expr_type=expr_type, children=children), pos
+
+    else:
+        # It's a predicate
+        args = []
+        while pos < len(tokens) and tokens[pos] != ')':
+            args.append(tokens[pos])
+            pos += 1
+
+        if pos < len(tokens) and tokens[pos] == ')':
+            pos += 1  # Skip closing ')'
+
+        return PDDLExpr(expr_type=ExprType.PREDICATE, predicate_name=op, args=args), pos
+
+
+def parse_constraint_block(constraint_text: str) -> List[PDDLExpr]:
+    """
+    Parse a constraints block and return list of constraint expressions.
+    Handles outer (and ...) wrapper if present.
+    """
+    tokens = tokenize(constraint_text)
+    if not tokens:
+        return []
+
+    try:
+        expr, _ = parse_sexpr(tokens, 0)
+
+        # If the outer expression is AND, return its children as individual constraints
+        if expr.expr_type == ExprType.AND:
+            return expr.children
+        else:
+            return [expr]
+    except (ValueError, IndexError) as e:
+        # Parsing failed, return empty
+        return []
+
+
+# ==============================================================================
+# 3. PDDL PARSER
 # ==============================================================================
 
 class PDDLProblemParser:
@@ -110,95 +322,67 @@ class PDDLProblemParser:
 
         return self._parse_predicates(inner)
 
-    def _parse_objects(self, objects_block: str) -> List[str]:
+    def _parse_objects(self, objects_block: str) -> Tuple[Dict[str, List[str]], List[str]]:
         """
-        Parse objects from block like: b1 b2 b3
-        Handles untyped objects (blocksworld style) and typed objects (obj - type).
+        Parse objects from block and return both typed dict and flat list.
+
+        Handles:
+        - Untyped: "b1 b2 b3" -> {'object': ['b1', 'b2', 'b3']}, ['b1', 'b2', 'b3']
+        - Typed: "bob - man\n spanner1 spanner2 - spanner" ->
+                 {'man': ['bob'], 'spanner': ['spanner1', 'spanner2']}, ['bob', 'spanner1', 'spanner2']
         """
-        objects = []
-        # Remove type annotations (- type)
-        cleaned = re.sub(r'-\s+[\w\-]+', '', objects_block)
-        tokens = cleaned.split()
-        for token in tokens:
-            token = token.strip()
-            if token and re.match(r'^[a-zA-Z0-9_\-]+$', token):
-                objects.append(token)
-        return objects
+        objects_by_type: Dict[str, List[str]] = {}
+        all_objects: List[str] = []
 
-    def _parse_constraints(self, constraints_block: str) -> List[Dict[str, Any]]:
-        """
-        Parse PDDL3 constraints.
-        Currently supports: sometime-before
-        """
-        constraints = []
+        # Split by lines and process
+        lines = objects_block.strip().split('\n')
+        combined = ' '.join(lines)
 
-        # Match sometime-before constraints
-        # (sometime-before (pred1 args) (pred2 args))
-        sb_pattern = re.compile(
-            r'\(\s*sometime-before\s+\(([^)]+)\)\s+\(([^)]+)\)\s*\)',
-            re.IGNORECASE
-        )
+        # Check if typed (contains ' - ')
+        if ' - ' in combined:
+            # Parse typed objects
+            # Pattern: obj1 obj2 ... - type
+            # Can have multiple groups
+            parts = combined.split(' - ')
+            pending_objects = []
 
-        for match in sb_pattern.finditer(constraints_block):
-            first_raw = match.group(1).strip()
-            second_raw = match.group(2).strip()
+            for i, part in enumerate(parts):
+                tokens = part.split()
+                if i == 0:
+                    # First part is just objects
+                    pending_objects = [t for t in tokens if t and re.match(r'^[a-zA-Z0-9_\-]+$', t)]
+                else:
+                    # First token is the type for pending objects, rest are new objects
+                    if tokens:
+                        obj_type = tokens[0].lower()
+                        if obj_type not in objects_by_type:
+                            objects_by_type[obj_type] = []
+                        objects_by_type[obj_type].extend(pending_objects)
+                        all_objects.extend(pending_objects)
+                        # Remaining tokens are new pending objects
+                        pending_objects = [t for t in tokens[1:] if t and re.match(r'^[a-zA-Z0-9_\-]+$', t)]
 
-            # Parse each predicate
-            first_parts = first_raw.split()
-            second_parts = second_raw.split()
+            # Handle any remaining pending objects (untyped)
+            if pending_objects:
+                if 'object' not in objects_by_type:
+                    objects_by_type['object'] = []
+                objects_by_type['object'].extend(pending_objects)
+                all_objects.extend(pending_objects)
+        else:
+            # Untyped objects
+            tokens = combined.split()
+            for token in tokens:
+                token = token.strip()
+                if token and re.match(r'^[a-zA-Z0-9_\-]+$', token):
+                    all_objects.append(token)
+            if all_objects:
+                objects_by_type['object'] = all_objects.copy()
 
-            first_pred = (first_parts[0].lower(), first_parts[1:]) if first_parts else ("", [])
-            second_pred = (second_parts[0].lower(), second_parts[1:]) if second_parts else ("", [])
+        return objects_by_type, all_objects
 
-            constraints.append({
-                "type": "sometime-before",
-                "first": first_pred,  # (predicate, [args])
-                "second": second_pred  # (predicate, [args])
-            })
-
-        # Match always constraints
-        always_pattern = re.compile(
-            r'\(\s*always\s+\(([^)]+)\)\s*\)',
-            re.IGNORECASE
-        )
-        for match in always_pattern.finditer(constraints_block):
-            pred_raw = match.group(1).strip()
-            parts = pred_raw.split()
-            pred = (parts[0].lower(), parts[1:]) if parts else ("", [])
-            constraints.append({
-                "type": "always",
-                "predicate": pred
-            })
-
-        # Match always-not constraints
-        always_not_pattern = re.compile(
-            r'\(\s*always\s+\(\s*not\s+\(([^)]+)\)\s*\)\s*\)',
-            re.IGNORECASE
-        )
-        for match in always_not_pattern.finditer(constraints_block):
-            pred_raw = match.group(1).strip()
-            parts = pred_raw.split()
-            pred = (parts[0].lower(), parts[1:]) if parts else ("", [])
-            constraints.append({
-                "type": "always-not",
-                "predicate": pred
-            })
-
-        # Match at-most-once constraints
-        amo_pattern = re.compile(
-            r'\(\s*at-most-once\s+\(([^)]+)\)\s*\)',
-            re.IGNORECASE
-        )
-        for match in amo_pattern.finditer(constraints_block):
-            pred_raw = match.group(1).strip()
-            parts = pred_raw.split()
-            pred = (parts[0].lower(), parts[1:]) if parts else ("", [])
-            constraints.append({
-                "type": "at-most-once",
-                "predicate": pred
-            })
-
-        return constraints
+    def _parse_constraints(self, constraints_block: str) -> List[PDDLExpr]:
+        """Parse PDDL3 constraints using recursive S-expression parser."""
+        return parse_constraint_block(constraints_block)
 
     def parse(self, content: str) -> PDDLProblem:
         """Parse PDDL problem content and return structured representation."""
@@ -224,7 +408,7 @@ class PDDLProblemParser:
         # Extract objects
         objects_block = self._find_balanced_section(clean_content, "objects")
         if objects_block:
-            problem.objects = self._parse_objects(objects_block)
+            problem.objects_by_type, problem.objects = self._parse_objects(objects_block)
 
         # Extract init
         init_block = self._find_balanced_section(clean_content, "init")
@@ -249,7 +433,7 @@ class PDDLProblemParser:
 
 
 # ==============================================================================
-# 3. NATURAL LANGUAGE TEMPLATES
+# 4. NATURAL LANGUAGE TEMPLATES
 # ==============================================================================
 
 class NLTemplates:
@@ -257,45 +441,61 @@ class NLTemplates:
 
     # Blocksworld predicate templates
     BLOCKSWORLD = {
-        "on": "Block {0} is on block {1}.",
-        "on-table": "Block {0} is on the table.",
-        "clear": "Block {0} is clear (nothing on top).",
-        "arm-empty": "The robot arm is empty.",
-        "holding": "The robot is holding block {0}.",
+        "on": "block {0} is on block {1}",
+        "on-table": "block {0} is on the table",
+        "clear": "block {0} is clear (nothing on top)",
+        "arm-empty": "the robot arm is empty",
+        "holding": "the robot is holding block {0}",
     }
 
     # Ferry domain predicate templates
     FERRY = {
-        "at-ferry": "The ferry is at location {0}.",
-        "at": "{0} is at location {1}.",
-        "on-ferry": "{0} is on the ferry.",
-        "empty-ferry": "The ferry is empty.",
+        "at-ferry": "the ferry is at location {0}",
+        "at": "{0} is at location {1}",
+        "on": "{0} is on the ferry",
+        "on-ferry": "{0} is on the ferry",
+        "empty-ferry": "the ferry is empty",
+        "location": "{0} is a valid location",
+        "car": "{0} is a car",
+        "not-eq": "{0} and {1} are different locations",
+        "auto": "{0} is a car",
     }
 
-    # Grippers domain predicate templates
+    # Grippers domain predicate templates (updated for robot-specific predicates)
     GRIPPERS = {
-        "at-robby": "The robot is at room {0}.",
-        "at": "Object {0} is at room {1}.",
-        "free": "Gripper {0} is free.",
-        "carry": "Gripper {0} is carrying object {1}.",
+        "at-robby": "robot {0} is at room {1}",
+        "at": "object {0} is at room {1}",
+        "free": "gripper {1} of robot {0} is free",
+        "carry": "robot {0} is carrying object {1} with gripper {2}",
+        "ball": "{0} is a ball",
+        "gripper": "{0} is a gripper",
+        "room": "{0} is a room",
     }
 
     # Spanner domain predicate templates
     SPANNER = {
-        "at": "{0} is at location {1}.",
-        "carrying": "The man is carrying {0}.",
-        "useable": "Spanner {0} is useable.",
-        "link": "Location {0} is connected to location {1}.",
-        "tightened": "Nut {0} is tightened.",
-        "loose": "Nut {0} is loose.",
+        "at": "{0} is at location {1}",
+        "carrying": "man {0} is carrying {1}",
+        "useable": "spanner {0} is useable",
+        "link": "location {0} is connected to location {1}",
+        "tightened": "nut {0} is tightened",
+        "loose": "nut {0} is loose",
+        "man": "{0} is a man",
+        "spanner": "{0} is a spanner",
+        "nut": "{0} is a nut",
+        "location": "{0} is a location",
     }
 
     # Delivery domain predicate templates
     DELIVERY = {
-        "at": "{0} is at location {1}.",
-        "in": "Package {0} is in truck {1}.",
-        "road": "There is a road from {0} to {1}.",
-        "delivered": "Package {0} has been delivered.",
+        "at": "{0} is at cell {1}",
+        "carrying": "truck {0} is carrying package {1}",
+        "in": "package {0} is in truck {1}",
+        "empty": "truck {0} is empty",
+        "adjacent": "cell {0} is adjacent to cell {1}",
+        "last": "truck {0} was last at cell {1}",
+        "road": "there is a road from {0} to {1}",
+        "delivered": "package {0} has been delivered",
     }
 
     # Domain name to template mapping
@@ -303,6 +503,7 @@ class NLTemplates:
         "blocksworld": BLOCKSWORLD,
         "ferry": FERRY,
         "grippers": GRIPPERS,
+        "gripper-strips": GRIPPERS,
         "spanner": SPANNER,
         "delivery": DELIVERY,
     }
@@ -313,7 +514,8 @@ class NLTemplates:
         return cls.DOMAIN_TEMPLATES.get(domain_name.lower(), {})
 
     @classmethod
-    def predicate_to_nl(cls, domain_name: str, predicate: str, args: List[str]) -> str:
+    def predicate_to_nl(cls, domain_name: str, predicate: str, args: List[str],
+                        with_period: bool = True) -> str:
         """
         Convert a predicate to natural language.
         Falls back to generic format if no template exists.
@@ -324,69 +526,220 @@ class NLTemplates:
         if pred_lower in templates:
             template = templates[pred_lower]
             try:
-                return template.format(*args)
+                result = template.format(*args)
+                if with_period:
+                    # Capitalize first letter and add period
+                    result = result[0].upper() + result[1:] + "."
+                return result
             except (IndexError, KeyError):
                 # Template mismatch, use generic
                 pass
 
         # Generic fallback
         if args:
-            return f"{predicate}({', '.join(args)}) is true."
+            result = f"{predicate}({', '.join(args)}) is true"
         else:
-            return f"{predicate} is true."
+            result = f"{predicate} is true"
+
+        if with_period:
+            result = result[0].upper() + result[1:] + "."
+        return result
 
 
 # ==============================================================================
-# 4. CONSTRAINT TEMPLATES
+# 5. CONSTRAINT NL GENERATOR
 # ==============================================================================
 
-class ConstraintNL:
-    """Natural language generation for PDDL3 constraints."""
+class ConstraintNLGenerator:
+    """Generate natural language from PDDLExpr AST."""
 
-    @staticmethod
-    def predicate_to_quote(domain_name: str, predicate: Tuple[str, List[str]]) -> str:
-        """Convert predicate tuple to quoted NL form."""
-        pred_name, args = predicate
-        nl = NLTemplates.predicate_to_nl(domain_name, pred_name, args)
-        # Remove trailing period for use in constraint sentences
-        if nl.endswith('.'):
-            nl = nl[:-1]
-        return f'"{nl}"'
+    def __init__(self, domain_name: str, objects_by_type: Dict[str, List[str]]):
+        self.domain_name = domain_name.lower()
+        self.objects_by_type = objects_by_type
 
-    @classmethod
-    def constraint_to_nl(cls, domain_name: str, constraint: Dict[str, Any]) -> str:
-        """Convert a constraint to natural language."""
-        ctype = constraint.get("type", "")
+    def _pred_to_nl(self, predicate_name: str, args: List[str], context: Dict[str, str] = None) -> str:
+        """
+        Convert a predicate to natural language, substituting variables from context.
+        Returns without period and lowercase for embedding in sentences.
+        """
+        # Substitute variables from context if provided
+        substituted_args = []
+        for arg in args:
+            if context and arg in context:
+                substituted_args.append(context[arg])
+            else:
+                substituted_args.append(arg)
 
-        if ctype == "sometime-before":
-            first = constraint.get("first", ("", []))
-            second = constraint.get("second", ("", []))
-            first_nl = cls.predicate_to_quote(domain_name, first)
-            second_nl = cls.predicate_to_quote(domain_name, second)
-            return f'Before {second_nl} becomes true, {first_nl} must be true at some point.'
+        templates = NLTemplates.get_templates(self.domain_name)
+        pred_lower = predicate_name.lower()
 
-        elif ctype == "always":
-            pred = constraint.get("predicate", ("", []))
-            pred_nl = cls.predicate_to_quote(domain_name, pred)
-            return f'{pred_nl} must always be true throughout the plan.'
+        if pred_lower in templates:
+            template = templates[pred_lower]
+            try:
+                return template.format(*substituted_args)
+            except (IndexError, KeyError):
+                pass
 
-        elif ctype == "always-not":
-            pred = constraint.get("predicate", ("", []))
-            pred_nl = cls.predicate_to_quote(domain_name, pred)
-            return f'{pred_nl} must never become true during the plan.'
+        # Generic fallback
+        if substituted_args:
+            return f"{predicate_name}({', '.join(substituted_args)}) holds"
+        else:
+            return f"{predicate_name} holds"
 
-        elif ctype == "at-most-once":
-            pred = constraint.get("predicate", ("", []))
-            pred_nl = cls.predicate_to_quote(domain_name, pred)
-            return f'{pred_nl} can become true at most once during the plan.'
+    def expr_to_nl(self, expr: PDDLExpr, context: Dict[str, str] = None) -> str:
+        """
+        Recursively convert PDDLExpr to natural language.
+
+        Args:
+            expr: The expression to convert
+            context: Variable substitution context {?var: value}
+        """
+        if context is None:
+            context = {}
+
+        if expr.expr_type == ExprType.PREDICATE:
+            return self._pred_to_nl(expr.predicate_name, expr.args, context)
+
+        elif expr.expr_type == ExprType.NOT:
+            if expr.children:
+                inner = self.expr_to_nl(expr.children[0], context)
+                return f"it is not the case that {inner}"
+            return "not (empty)"
+
+        elif expr.expr_type == ExprType.AND:
+            if len(expr.children) == 0:
+                return "true"
+            elif len(expr.children) == 1:
+                return self.expr_to_nl(expr.children[0], context)
+            else:
+                parts = [self.expr_to_nl(c, context) for c in expr.children]
+                # Join with "and" for readability
+                if len(parts) == 2:
+                    return f"{parts[0]} and {parts[1]}"
+                else:
+                    return ", ".join(parts[:-1]) + f", and {parts[-1]}"
+
+        elif expr.expr_type == ExprType.OR:
+            if len(expr.children) == 0:
+                return "false"
+            elif len(expr.children) == 1:
+                return self.expr_to_nl(expr.children[0], context)
+            else:
+                parts = [self.expr_to_nl(c, context) for c in expr.children]
+                if len(parts) == 2:
+                    return f"{parts[0]} or {parts[1]}"
+                else:
+                    return ", ".join(parts[:-1]) + f", or {parts[-1]}"
+
+        elif expr.expr_type == ExprType.IMPLY:
+            if len(expr.children) >= 2:
+                antecedent = self.expr_to_nl(expr.children[0], context)
+                consequent = self.expr_to_nl(expr.children[1], context)
+                return f"if {antecedent}, then {consequent}"
+            return "imply (malformed)"
+
+        elif expr.expr_type == ExprType.FORALL:
+            return self._handle_forall(expr, context)
+
+        elif expr.expr_type == ExprType.EXISTS:
+            return self._handle_exists(expr, context)
+
+        elif expr.expr_type == ExprType.ALWAYS:
+            if expr.children:
+                inner = self.expr_to_nl(expr.children[0], context)
+                return f"at all times during the plan, {inner} must hold"
+            return "always (empty)"
+
+        elif expr.expr_type == ExprType.SOMETIME:
+            if expr.children:
+                inner = self.expr_to_nl(expr.children[0], context)
+                return f"{inner} must become true at some point during the plan"
+            return "sometime (empty)"
+
+        elif expr.expr_type == ExprType.SOMETIME_BEFORE:
+            if len(expr.children) >= 2:
+                first = self.expr_to_nl(expr.children[0], context)
+                second = self.expr_to_nl(expr.children[1], context)
+                return f"before \"{first}\" becomes true, \"{second}\" must be true at some point"
+            return "sometime-before (malformed)"
+
+        elif expr.expr_type == ExprType.SOMETIME_AFTER:
+            if len(expr.children) >= 2:
+                first = self.expr_to_nl(expr.children[0], context)
+                second = self.expr_to_nl(expr.children[1], context)
+                return f"after \"{first}\" becomes true, \"{second}\" must become true at some point"
+            return "sometime-after (malformed)"
+
+        elif expr.expr_type == ExprType.AT_MOST_ONCE:
+            if expr.children:
+                inner = self.expr_to_nl(expr.children[0], context)
+                return f"\"{inner}\" is allowed to become true at most once during the entire plan"
+            return "at-most-once (empty)"
+
+        elif expr.expr_type == ExprType.AT_END:
+            if expr.children:
+                inner = self.expr_to_nl(expr.children[0], context)
+                return f"at the end of the plan, {inner}"
+            return "at-end (empty)"
 
         else:
-            # Unknown constraint type - preserve raw
-            return f"Unknown constraint: {constraint}"
+            return f"(unknown expression type: {expr.expr_type})"
+
+    def _handle_forall(self, expr: PDDLExpr, context: Dict[str, str]) -> str:
+        """
+        Handle forall quantifier.
+        For small object sets, expand to conjunction.
+        Otherwise, use "for every X" phrasing.
+        """
+        if not expr.variables or not expr.children:
+            return "forall (malformed)"
+
+        var_name, var_type = expr.variables[0]
+
+        # Get objects of this type
+        objects_of_type = self.objects_by_type.get(var_type, [])
+
+        # If there's only one variable and small set of objects, expand
+        if len(expr.variables) == 1 and 0 < len(objects_of_type) <= 4:
+            expanded_parts = []
+            for obj in objects_of_type:
+                new_context = context.copy()
+                new_context[var_name] = obj
+                inner_nl = self.expr_to_nl(expr.children[0], new_context)
+                expanded_parts.append(f"for {obj}: {inner_nl}")
+            return "; ".join(expanded_parts)
+
+        # Otherwise use generic phrasing
+        type_label = var_type if var_type != 'object' else 'object'
+        body_nl = self.expr_to_nl(expr.children[0], context)
+        return f"for every {type_label} {var_name}: {body_nl}"
+
+    def _handle_exists(self, expr: PDDLExpr, context: Dict[str, str]) -> str:
+        """Handle exists quantifier."""
+        if not expr.variables or not expr.children:
+            return "exists (malformed)"
+
+        var_name, var_type = expr.variables[0]
+        type_label = var_type if var_type != 'object' else 'object'
+        body_nl = self.expr_to_nl(expr.children[0], context)
+        return f"there exists some {type_label} {var_name} such that {body_nl}"
+
+    def constraint_to_nl(self, constraint: PDDLExpr) -> str:
+        """
+        Convert a top-level constraint expression to a complete NL sentence.
+        """
+        nl = self.expr_to_nl(constraint)
+        # Capitalize first letter
+        if nl:
+            nl = nl[0].upper() + nl[1:]
+        # Add period if not present
+        if not nl.endswith('.'):
+            nl += '.'
+        return nl
 
 
 # ==============================================================================
-# 5. NL DOCUMENT GENERATOR
+# 6. NL DOCUMENT GENERATOR
 # ==============================================================================
 
 class NLDocumentGenerator:
@@ -395,16 +748,34 @@ class NLDocumentGenerator:
     def __init__(self, domain_name: str = ""):
         self.domain_name = domain_name.lower() if domain_name else ""
 
-    def _format_objects(self, objects: List[str]) -> str:
-        """Format objects section."""
-        if not objects:
+    def _format_objects(self, objects_by_type: Dict[str, List[str]], all_objects: List[str]) -> str:
+        """Format objects section, grouping by type."""
+        if not objects_by_type:
+            if all_objects:
+                return ', '.join(all_objects)
             return "None"
 
-        # For blocksworld, label as blocks
+        # Special handling for blocksworld - use "Blocks:" label
         if self.domain_name == "blocksworld":
-            return f"Blocks: {', '.join(objects)}"
+            if 'object' in objects_by_type:
+                return f"Blocks: {', '.join(objects_by_type['object'])}"
+            else:
+                # Collect all objects
+                all_objs = []
+                for objs in objects_by_type.values():
+                    all_objs.extend(objs)
+                return f"Blocks: {', '.join(all_objs)}"
 
-        return ', '.join(objects)
+        # For other domains, group by type
+        lines = []
+        for obj_type, objs in objects_by_type.items():
+            if objs:
+                type_label = obj_type.capitalize() if obj_type != 'object' else 'Objects'
+                lines.append(f"{type_label}: {', '.join(objs)}")
+
+        if lines:
+            return '\n'.join(lines)
+        return ', '.join(all_objects) if all_objects else "None"
 
     def _format_init(self, init: List[Tuple[str, List[str]]]) -> str:
         """Format initial state as bullet list."""
@@ -413,7 +784,7 @@ class NLDocumentGenerator:
 
         lines = []
         for pred_name, args in init:
-            nl = NLTemplates.predicate_to_nl(self.domain_name, pred_name, args)
+            nl = NLTemplates.predicate_to_nl(self.domain_name, pred_name, args, with_period=True)
             lines.append(f"- {nl}")
         return '\n'.join(lines)
 
@@ -424,18 +795,19 @@ class NLDocumentGenerator:
 
         lines = ["All of the following must be true:"]
         for pred_name, args in goal:
-            nl = NLTemplates.predicate_to_nl(self.domain_name, pred_name, args)
+            nl = NLTemplates.predicate_to_nl(self.domain_name, pred_name, args, with_period=True)
             lines.append(f"  - {nl}")
         return '\n'.join(lines)
 
-    def _format_constraints(self, constraints: List[Dict[str, Any]]) -> str:
-        """Format constraints section."""
+    def _format_constraints(self, constraints: List[PDDLExpr], objects_by_type: Dict[str, List[str]]) -> str:
+        """Format constraints section using the recursive NL generator."""
         if not constraints:
             return "None"
 
+        generator = ConstraintNLGenerator(self.domain_name, objects_by_type)
         lines = []
         for constraint in constraints:
-            nl = ConstraintNL.constraint_to_nl(self.domain_name, constraint)
+            nl = generator.constraint_to_nl(constraint)
             lines.append(f"- {nl}")
         return '\n'.join(lines)
 
@@ -456,11 +828,6 @@ class NLDocumentGenerator:
 
         sections = []
 
-        # Title
-        sections.append("## Title")
-        sections.append(f"Problem: {problem.problem_name or 'Unknown'}")
-        sections.append("")
-
         # Domain / Scenario
         sections.append("## Domain / Scenario")
         sections.append(f"Domain: {problem.domain_name or 'Unknown'}")
@@ -468,7 +835,7 @@ class NLDocumentGenerator:
 
         # Objects
         sections.append("## Objects")
-        sections.append(self._format_objects(problem.objects))
+        sections.append(self._format_objects(problem.objects_by_type, problem.objects))
         sections.append("")
 
         # Initial State
@@ -482,8 +849,8 @@ class NLDocumentGenerator:
         sections.append("")
 
         # Constraints
-        sections.append("## Constraints (PDDL3)")
-        sections.append(self._format_constraints(problem.constraints))
+        sections.append("## Constraints")
+        sections.append(self._format_constraints(problem.constraints, problem.objects_by_type))
 
         # Notes (only if there's content)
         notes = self._format_notes(problem)
@@ -496,7 +863,7 @@ class NLDocumentGenerator:
 
 
 # ==============================================================================
-# 6. FILE PROCESSOR
+# 7. FILE PROCESSOR
 # ==============================================================================
 
 class PDDLToNLConverter:
@@ -593,6 +960,9 @@ class PDDLToNLConverter:
         if output_dir is None:
             output_dir = input_dir / "testing_problems_nl"
 
+        # Resolve output_dir to absolute path for comparison
+        output_dir_resolved = output_dir.resolve()
+
         # Find all PDDL files
         if recursive:
             pddl_files = list(input_dir.rglob("*.pddl"))
@@ -601,6 +971,9 @@ class PDDLToNLConverter:
 
         # Filter out domain files
         pddl_files = [f for f in pddl_files if 'domain' not in f.name.lower()]
+
+        # Filter out files already in the output directory (to avoid copying same file to itself)
+        pddl_files = [f for f in pddl_files if not str(f.resolve()).startswith(str(output_dir_resolved))]
 
         if not pddl_files:
             print(f"No PDDL problem files found in {input_dir}")
@@ -665,7 +1038,7 @@ class PDDLToNLConverter:
 
 
 # ==============================================================================
-# 7. CLI INTERFACE
+# 8. CLI INTERFACE
 # ==============================================================================
 
 def main():

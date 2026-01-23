@@ -1,0 +1,22 @@
+## Domain / Scenario
+Domain: blocksworld
+
+## Objects
+Blocks: b1, b2, b3
+
+## Initial State
+- The robot arm is empty.
+- Block b1 is on the table.
+- Block b2 is on the table.
+- Block b3 is on block b1.
+- Block b2 is clear (nothing on top).
+- Block b3 is clear (nothing on top).
+
+## Goal
+All of the following must be true:
+  - Block b1 is on the table.
+  - Block b2 is on block b3.
+  - Block b3 is on block b1.
+
+## Constraints
+- Before "block b2 is on block b3" becomes true, "block b1 is on the table" must be true at some point.

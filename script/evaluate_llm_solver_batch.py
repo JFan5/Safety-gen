@@ -303,6 +303,8 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
             prompt_template = f.read()
         if prompt_template.startswith('prompt = f"""'):
             prompt_template = prompt_template.replace('prompt = f"""', '', 1)
+            # Strip whitespace first, then check for trailing triple quotes
+            prompt_template = prompt_template.strip()
             if prompt_template.endswith('"""'):
                 prompt_template = prompt_template[:-3]
             prompt_template = prompt_template.strip()
@@ -539,7 +541,8 @@ def test_model_on_testing_data(model_path,
                               no_timestamp: bool = False,
                               runs_dir: str = None,
                               use_runs_structure: bool = False,
-                              eval_id: str = None):
+                              eval_id: str = None,
+                              nl_mode: bool = False):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
@@ -559,6 +562,7 @@ def test_model_on_testing_data(model_path,
         no_timestamp: 是否不添加时间戳到输出文件名
         runs_dir: runs 目录路径（用于自动写入 runs 结构）
         use_runs_structure: 是否使用 runs/<run_id>/eval/<eval_id>/ 结构输出
+        nl_mode: 是否使用自然语言 (.txt) 文件进行提示
     """
     print(f"Testing model: {model_path}")
     print(f"Problems dir: {problems_dir}")
@@ -592,8 +596,11 @@ def test_model_on_testing_data(model_path,
     if one_shot:
         print("Using one-shot mode with examples")
 
+    if nl_mode:
+        print("Using NL mode: loading .txt files for prompting")
+
     # 加载测试数据
-    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot)
+    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot, nl_mode=nl_mode)
     if max_problems and max_problems > 0 and len(test_data) > max_problems:
         random.seed(42)
         test_data = random.sample(test_data, max_problems)
@@ -1040,6 +1047,11 @@ def main():
         default=None,
         help="Shared eval_id for multiple scenarios (avoids creating separate folders per scenario)",
     )
+    parser.add_argument(
+        "--nl-mode",
+        action="store_true",
+        help="Use natural language (.txt) files for prompting instead of PDDL files",
+    )
 
     args = parser.parse_args()
 
@@ -1095,6 +1107,7 @@ def main():
         runs_dir=args.runs_dir,
         use_runs_structure=args.use_runs_structure,
         eval_id=args.eval_id,
+        nl_mode=args.nl_mode,
     )
 
 if __name__ == "__main__":

@@ -44,6 +44,26 @@ python script/evaluate_llm_solver_batch.py --models-dir <models> --domains block
 # Evaluate API models (GPT, Gemini)
 python script/evaluate_api_llm_solver.py --model gpt-5 --domain blocksworld
 python script/evaluate_gemini_solver.py --model gemini-3-pro --domain blocksworld
+
+# Evaluate on natural language (NL) problems
+python script/evaluate_llm_solver_batch.py \
+    --run-path runs/<run_id> \
+    --problems-dir pddl3/blocksworld/testing_problem50/testing_problems_nl \
+    --domain-file pddl3/blocksworld/domain3.pddl \
+    --nl-mode
+
+# Batch NL evaluation across all domains
+./shells/evaluate_llm_all_batch_nl.sh runs/<run_id> testing_problem50
+```
+
+### NL Problem Generation
+
+```bash
+# Generate NL problems for a domain (copies .pddl and .soln files for validation)
+python script/pddl_to_nl.py --input pddl3/blocksworld/testing_problem50/ --verbose
+
+# Generate NL problems for all 5 domains
+./shells/generate_nl_all.sh testing_problem50
 ```
 
 ### Dataset Construction

@@ -1,0 +1,28 @@
+## Domain / Scenario
+Domain: gripper-strips
+
+## Objects
+Robot: robot1, robot2
+Gripper: rgripper1, lgripper1, rgripper2, lgripper2
+Room: room1, room2, room3, room4
+Objects: ball1, ball2, ball3
+
+## Initial State
+- Robot robot1 is at room room2.
+- Gripper rgripper1 of robot robot1 is free.
+- Gripper lgripper1 of robot robot1 is free.
+- Robot robot2 is at room room1.
+- Gripper rgripper2 of robot robot2 is free.
+- Gripper lgripper2 of robot robot2 is free.
+- Object ball1 is at room room2.
+- Object ball2 is at room room1.
+- Object ball3 is at room room3.
+
+## Goal
+All of the following must be true:
+  - Object ball1 is at room room2.
+  - Object ball2 is at room room3.
+  - Object ball3 is at room room1.
+
+## Constraints
+- At all times during the plan, it is not the case that robot robot1 is at room room3 and robot robot2 is at room room3 must hold.
