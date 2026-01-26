@@ -143,7 +143,7 @@ def format_table_csv(summary: dict) -> str:
     return "\n".join(lines)
 
 
-def generate_chart(results: dict, output_path: str = None, show: bool = False) -> str:
+def generate_chart(results: dict, output_path: str = None) -> str:
     """
     Generate a scatter chart with problem complexity on X-axis and time on Y-axis.
     Points are colored green for success and red for failure.
@@ -185,10 +185,10 @@ def generate_chart(results: dict, output_path: str = None, show: bool = False) -
     colors = ["#2ecc71" if p["success"] else "#e74c3c" for p in data_points]
 
     # Create figure
-    fig, ax = plt.subplots(figsize=(max(12, len(data_points) * 0.3), 6))
+    _fig, ax = plt.subplots(figsize=(max(12, len(data_points) * 0.3), 6))
 
     # Plot scatter points
-    scatter = ax.scatter(x_indices, y_times, c=colors, s=80, alpha=0.8, edgecolors='black', linewidths=0.5)
+    ax.scatter(x_indices, y_times, c=colors, s=80, alpha=0.8, edgecolors='black', linewidths=0.5)
 
     # Connect points with a line (gray)
     ax.plot(x_indices, y_times, color='#bdc3c7', linewidth=1, alpha=0.5, zorder=1)

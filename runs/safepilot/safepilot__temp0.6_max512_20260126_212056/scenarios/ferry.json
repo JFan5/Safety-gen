@@ -1,0 +1,148 @@
+{
+  "scenario_name": "ferry",
+  "domain": "ferry",
+  "timestamp": "2026-01-26T21:29:52.445262",
+  "model_path": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+  "config": {
+    "domain_file": "/home/ubuntu/Safety-gen/pddl3/ferry/domain3.pddl",
+    "problems_dir": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50",
+    "max_retries": 5,
+    "max_problems": 2,
+    "temperature": 0.6,
+    "max_new_tokens": 512
+  },
+  "summary": {
+    "total_problems": 2,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "avg_retries": 5.0,
+    "category_counts": {
+      "success_plans": 0,
+      "precondition_violation": 1,
+      "safety_constraints_violation": 0,
+      "goal_not_satisfied": 0,
+      "plan_format_error": 1
+    },
+    "category_rates": {
+      "success_plans": 0.0,
+      "precondition_violation": 50.0,
+      "safety_constraints_violation": 0.0,
+      "goal_not_satisfied": 0.0,
+      "plan_format_error": 50.0
+    }
+  },
+  "problems": [
+    {
+      "success": false,
+      "final_plan": "(sail l2 l1)\n(debark c1 l2)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+      "actual_retries": 5,
+      "max_retries": 5,
+      "category": "precondition_violation",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "To solve the **ferry planning problem** `ferry-l3-c2`, we need to move **two cars (`c0` and `c1`)** from their **initial locations (`l1` and `l2`)** to a **common destination (`l0`)** using a **ferry** that can only carry **one car at a time**.\n---\n### \ud83d\udd0d Problem Summary:\n- **Cars:** `c0` at `l1`, `c1` at `l2`\n- **Ferry:** Starts at `l2`\n- **Goal:** Both cars must be at `l0`\n- **Constraints:**\n- `c0` must arrive at `l0` **before** the ferry is at `l2`\n- `c1` must arrive at `l0` **before** the ferry is at `l1`\n---\n### \u2705 Plan:\nWe will plan the steps to move both cars to `l0` using the ferry, while respecting the constraints.\n---\n### \ud83d\udea2 Step-by-Step Plan:\n#### 1. **Move ferry from `l2` to `l1`**\n- **Action:** `sail(l2, l1)`\n- **Reason:** Ferry is initially at `l2`, and we need to get it to `l1` to pick up `c1`.\n#### 2. **Board `c1` at `l1`**\n- **Action:** `board(c1, l1)`\n- **Reason:** `c1` is at `l1`, ferry is at `l1`, and ferry is empty.\n#### 3. **Move ferry from `l1` to `l0`**\n- **Action:** `sail(l1, l0)`\n- **Reason:** Ferry has `c1`, needs to move to `l0`.\n#### 4. **Debark `c1` at `l0`**\n- **Action:** `debark(c1, l0)`\n- **Reason:** `c1` is now at `l0`.\n#### 5. **Move ferry from `l0` to `l2`**\n- **Action:** `sail(l0, l2)`\n- **Reason:** Ferry is at `l0`, needs to return to `l2` to pick up `c0`.\n#### 6. **Board `c0` at `l2`**\n- **Action:** `board",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 2,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c1 l1) ",
+          "validation_stdout": "Checking plan: /tmp/tmpyj81dwgc.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(sail l2 l1)\n \n2:\n(board c1 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(sail l0 l2)\n \n6:\n(board c0 l2)\n \n7:\n(sail l2 l0)\n \n8:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nPlan failed because of unsatisfied precondition in:\n(board c1 l1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c1 l1) has an unsatisfied precondition at time 2\n(Set (at c1 l1) to true)\n\n\nFailed plans:\n /tmp/tmpyj81dwgc.soln \n"
+        },
+        {
+          "attempt": 3,
+          "feedback_prompt": "Your plan failed at step 2.\nAction: (board c1 l1)\nError: Precondition not satisfied - (at c1 l1) must be true.\nPlease fix your plan to ensure this precondition is met before executing (board c1 l1).",
+          "plan": "To fix the invalid plan, we need to ensure that the **precondition** for the `board` action is satisfied before it is executed. Specifically, for the action `(board c1 l1)`, the following must be true:\n- `(car c1)` \u2013 already true\n- `(location l1)` \u2013 already true\n- `(at c1 l1)` \u2013 **this is not true at step 2**, which is why the action fails\n- `(at-ferry l1)` \u2013 not true at step 2\n- `(empty-ferry)` \u2013 not true at step 2\nSo the key issue is that **c1 is not at l1** when we try to board it at l1. Therefore, we need to **move c1 to l1** before we can board it.\n---\n### \u2705 Corrected Plan:\nHere is a valid sequence of actions that satisfies all preconditions:\n```lisp\n(sail l2 l1)         ; Move ferry from l2 to l1\n(debark c1 l2)       ; Debark c1 at l2 (since it's currently at l2)\n(sail l1 l2)         ; Move ferry back to l2\n(board c1 l2)        ; Now c1 is at l2, and ferry is at l2, so board c1\n(sail l2 l1)         ; Move ferry to l1\n(board c1 l1)        ; Now c1 is at l1, and ferry is at l1, so board c1\n(sail l1 l0)         ; Move ferry to l0\n(debark c1 l0)       ; Debark c1 at l0\n(sail l0 l2)         ; Move ferry back to l2\n(board c0 l2)        ; Board c0 at l2\n(sail l2 l0)         ; Move ferry to l0\n(debark c0 l0)       ; Debark c0 at l0\n```\n---\n### \u2705 Summary of Fixes:\n- **Added:** `(debark c1 l2)` before `(sail l2 l1)` to move `c1` from `l2` to `l2` (i.e., it stays at `l2`).\n- Then moved ferry to `l1` and `board c1 l1` only after `c1` is at `l1` (which it",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 4,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "You're absolutely right \u2014 the previous plan had formatting issues and some logical inconsistencies. Let's **correct and reformat** the plan **strictly according to the PDDL syntax**, ensuring that:\n- Each action is on its own line.\n- Each action is in the format `(action-name arg1 arg2 ...)`.\n- All objects and actions match the domain and problem definitions.\n- The logical flow is valid and satisfies all preconditions and constraints.\n---\n### \u2705 **Corrected and Formatted Plan:**\n```lisp\n(sail l2 l1)         ; Move ferry from l2 to l1\n(debark c1 l2)       ; Debark c1 at l2 (c1 is already at l2)\n(sail l1 l2)         ; Move ferry back to l2\n(board c1 l2)        ; Now c1 is at l2, and ferry is at l2, so board c1\n(sail l2 l1)         ; Move ferry to l1\n(board c1 l1)        ; Now c1 is at l1, and ferry is at l1, so board c1\n(sail l1 l0)         ; Move ferry to l0\n(debark c1 l0)       ; Debark c1 at l0\n(sail l0 l2)         ; Move ferry back to l2\n(board c0 l2)        ; Board c0 at l2\n(sail l2 l0)         ; Move ferry to l0\n(debark c0 l0)       ; Debark c0 at l0\n```\n---\n### \u2705 **Summary of Fixes and Validity:**\n- **Formatting:** All actions are now on separate lines and follow the correct `(action-name arg1 arg2 ...)` format.\n- **Logical Flow:**\n- `c1` is initially at `l2`, so we debark it at `l2` (no change in location), then board it at `l2` and sail to `l1`, then board it again at `l1`.\n- `c0` is at `l1`, so we sail to `l1`, board `c0`, sail to `l0`, and debark it.\n- **Constraints:**\n- `(sometime-before (at c0 l0) (at-ferry l2))`: `c0` is debarked at `l0` after the ferry",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 5,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(sail l2 l1)\n(debark c1 l2)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (debark c1 l2) ",
+          "validation_stdout": "Checking plan: /tmp/tmpj56xwg2r.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l2 l1)\n \n2:\n(debark c1 l2)\n \n3:\n(sail l1 l2)\n \n4:\n(board c1 l2)\n \n5:\n(sail l2 l1)\n \n6:\n(board c1 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(sail l0 l2)\n \n10:\n(board c0 l2)\n \n11:\n(sail l2 l0)\n \n12:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nPlan failed because of unsatisfied precondition in:\n(debark c1 l2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(debark c1 l2) has an unsatisfied precondition at time 2\n(Follow each of:\n    (Set (on c1) to true)\n    and (Set (at-ferry l2) to true)\n)\n\n\nFailed plans:\n /tmp/tmpj56xwg2r.soln \n"
+        }
+      ],
+      "problem_name": "ferry-l3-c2-s1300312024",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c2-s1300312024.pddl"
+    },
+    {
+      "success": false,
+      "final_plan": "(at c0 l2)\n(at c1 l2)",
+      "actual_retries": 5,
+      "max_retries": 5,
+      "category": "plan_format_error",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "To solve the problem `ferry-l3-c2`, we are tasked with moving **two cars (c0 and c1)** from **location l1** to **location l2**, using a **ferry** that can only move between **locations** and **board/debark** cars at **locations**.\nWe are given the following constraints:\n- The ferry must be at **l1** initially.\n- The ferry must be at **l0** **before** both cars reach **l2**.\n- So, the ferry must make a **trip to l0**, and **then** both cars must reach **l2**.\n---\n### Step-by-step Plan:\nLet\u2019s break this down into **actions** that will satisfy the goal and constraints.\n---\n### **Initial State:**\n- `at-ferry l1`\n- `at c0 l1`\n- `at c1 l1`\n- `empty-ferry`\n- `location l0`, `l1`, `l2`\n- `car c0`, `car c1`\n---\n### **Goal:**\n- `at c0 l2`\n- `at c1 l2`\n---\n### **Constraints:**\n- `sometime-before (at c0 l2) (at-ferry l0)`\n- `sometime-before (at c1 l2) (at-ferry l0)`\nSo, **both cars must reach l2 after the ferry has arrived at l0**.\n---\n### **Plan:**\nLet\u2019s construct a sequence of actions to achieve the goal:\n---\n#### **Step 1: Board both cars at l1**\n- **Action**: `board(c0, l1)`\n- **Precondition**: `car(c0)`, `location(l1)`, `at(c0, l1)`, `at-ferry(l1)`, `empty-ferry` \u2705\n- **Effect**:\n- `on(c0)`\n- `not (at(c0, l1))`\n- `not (empty-ferry)`\n- **Action**: `board(c1, l1)`\n- **Precondition**: `car(c1)`, `location(l1)`, `at(c1, l1)`, `at-ferry(l1)`, `not empty-ferry` \u2705\n- **Effect**:\n- `on(c1)`\n- `not (at(c1, l",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 2,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(board c0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c0 l0)\n(debark c1 l0)\n(sail l0 l2)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c1 l1) ",
+          "validation_stdout": "Checking plan: /tmp/tmpcjjefn3b.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(board c0 l1)\n \n2:\n(board c1 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(debark c1 l0)\n \n6:\n(sail l0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nPlan failed because of unsatisfied precondition in:\n(board c1 l1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c1 l1) has an unsatisfied precondition at time 2\n(Set (empty-ferry) to true)\n\n\nFailed plans:\n /tmp/tmpcjjefn3b.soln \n"
+        },
+        {
+          "attempt": 3,
+          "feedback_prompt": "Your plan failed at step 2.\nAction: (board c1 l1)\nError: Precondition not satisfied - (empty-ferry) must be true.\nPlease fix your plan to ensure this precondition is met before executing (board c1 l1).",
+          "plan": "Thank you for the feedback. The issue in the previous plan was that the `board` action requires the `empty-ferry` predicate to be true before it can be executed. However, in the original plan, both cars `c0` and `c1` were boarded at `l1` **before** the ferry was moved, which violated the `empty-ferry` precondition for the second `board` action.\nTo fix this, we need to ensure that the ferry is **empty** before boarding either car. That means we must **board only one car at a time**, and **after each board**, the ferry is no longer empty, so the second board must wait until the ferry is emptied again (e.g., after debarking and sailing away).\nHere is a **corrected plan** that satisfies all the preconditions and constraints:\n---\n### \u2705 **Corrected Plan:**\n1. **board c0 l1**\n- *Precondition satisfied:* `empty-ferry` is true, `at-ferry l1` is true, `at c0 l1` is true.\n2. **sail l1 l0**\n- *Precondition satisfied:* `at-ferry l1` is true, `l1 \u2260 l0`.\n3. **debark c0 l0**\n- *Precondition satisfied:* `on c0` is true, `at-ferry l0` is true.\n4. **sail l0 l1**\n- *Precondition satisfied:* `at-ferry l0` is true, `l0 \u2260 l1`.\n5. **board c1 l1**\n- *Precondition satisfied:* `empty-ferry` is now true (after debarking and sailing back), `at-ferry l1` is true, `at c1 l1` is true.\n6. **sail l1 l0**\n- *Precondition satisfied:* `at-ferry l1` is true, `l1 \u2260 l0`.\n7. **debark c1 l0**\n- *Precondition satisfied:* `on c1` is true, `at-ferry l0` is true.\n8. **sail l0 l2**\n- *Precondition satisfied:* `at-ferry l0` is true, `l0 \u2260 l2`.\n---\n### \u2705 Final State:\n- `at c0 l2` is true.\n- `",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 4,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l2)",
+          "is_valid": false,
+          "category": "goal_not_satisfied",
+          "message": "Goal state not achieved",
+          "validation_stdout": "Checking plan: /tmp/tmpxadusw5a.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(board c0 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(debark c0 l0)\n \n4:\n(sail l0 l1)\n \n5:\n(board c1 l1)\n \n6:\n(sail l1 l0)\n \n7:\n(debark c1 l0)\n \n8:\n(sail l0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Follow each of:\n    (Set (at c0 l2) to true)\n    and (Set (at c1 l2) to true)\n)\n\n\nFailed plans:\n /tmp/tmpxadusw5a.soln \n"
+        },
+        {
+          "attempt": 5,
+          "feedback_prompt": "Your plan executed successfully but did not achieve all goals.\nUnsatisfied goals: (at c0 l2), (at c1 l2)\nPlease add the necessary actions to achieve these goals.",
+          "plan": "(at c0 l2)\n(at c1 l2)",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid action: No matching action defined for at",
+          "validation_stdout": "Checking plan: /tmp/tmptaa4aqte.soln\nNo matching action defined for at\n\nErrors: 0, warnings: 1\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c2-s1340277683",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c2-s1340277683.pddl"
+    }
+  ]
+}

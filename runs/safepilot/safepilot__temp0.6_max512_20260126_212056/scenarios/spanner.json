@@ -1,0 +1,148 @@
+{
+  "scenario_name": "spanner",
+  "domain": "spanner",
+  "timestamp": "2026-01-26T21:38:38.544888",
+  "model_path": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+  "config": {
+    "domain_file": "/home/ubuntu/Safety-gen/pddl3/spanner/domain3.pddl",
+    "problems_dir": "/home/ubuntu/Safety-gen/pddl3/spanner/testing_problem50",
+    "max_retries": 5,
+    "max_problems": 2,
+    "temperature": 0.6,
+    "max_new_tokens": 512
+  },
+  "summary": {
+    "total_problems": 2,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "avg_retries": 5.0,
+    "category_counts": {
+      "success_plans": 0,
+      "precondition_violation": 1,
+      "safety_constraints_violation": 0,
+      "goal_not_satisfied": 1,
+      "plan_format_error": 0
+    },
+    "category_rates": {
+      "success_plans": 0.0,
+      "precondition_violation": 50.0,
+      "safety_constraints_violation": 0.0,
+      "goal_not_satisfied": 50.0,
+      "plan_format_error": 0.0
+    }
+  },
+  "problems": [
+    {
+      "success": false,
+      "final_plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner location2 spanner2 bob)\n(walk location2 location3 bob)\n(walk location3 gate bob)\n(tighten_nut gate spanner2 bob nut1)\n(tighten_nut gate spanner2 bob nut2)",
+      "actual_retries": 5,
+      "max_retries": 5,
+      "category": "precondition_violation",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "To solve the given PDDL problem, we need to **tighten both `nut1` and `nut2`** using a **spanner**, while adhering to the **constraints** and **initial state**.\n---\n### \ud83d\udd0d Problem Summary:\n- **Objects:**\n- Man: `bob`\n- Spanners: `spanner1`, `spanner2`\n- Nuts: `nut1`, `nut2`\n- Locations: `shed`, `location1`, `location2`, `location3`, `gate`\n- **Initial State:**\n- `bob` is at `shed`\n- `spanner1` is at `location3` and is **useable**\n- `spanner2` is at `location2` and is **useable**\n- `nut1` is at `gate` and is **loose**\n- `nut2` is at `gate` and is **loose**\n- Links:\n- `shed` \u2194 `location1`\n- `location3` \u2194 `gate`\n- `location1` \u2194 `location2`\n- `location2` \u2194 `location3`\n- **Goal:**\n- `tightened nut1` and `tightened nut2`\n- **Constraints:**\n- If `nut1` is not tightened, then `nut2` cannot be tightened (i.e., both must be tightened or neither can be).\n- `bob` can only be at `shed` **once** (i.e., he must leave `shed` after the first time he is there).\n---\n### \ud83e\udde0 Plan:\nWe need to **pick up a spanner**, **walk to the location of the nut**, and **tighten it**. Since both nuts are at `gate`, and `spanner1` is at `location3` (which is linked to `gate`), and `spanner2` is at `location2` (which is linked to `gate`), we can use either spanner.\nWe\u2019ll follow this plan:\n---\n### \u2705 Step-by-Step Plan:\n#### 1. **Walk from shed to location1** (since `shed` is linked to `location1`)\n- Action: `(walk shed location1 bob)`\n#### 2. **Walk from location1 to location2**\n- Action: `(walk location1 location2 bob)`\n#### 3. **Pick up",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 2,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner location2 spanner2 bob)\n(walk location2 location3 bob)\n(tighten_nut location3 spanner2 bob nut1)\n(walk location3 gate bob)\n(tighten_nut gate spanner2 bob nut2)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (tighten_nut location3 spanner2 bob nut1) ",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmpkv8rxw7_.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(pickup_spanner location2 spanner2 bob)\n \n4:\n(walk location2 location3 bob)\n \n5:\n(tighten_nut location3 spanner2 bob nut1)\n \n6:\n(walk location3 gate bob)\n \n7:\n(tighten_nut gate spanner2 bob nut2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking trajectory constraints at 1\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\n(at bob shed) stops being true at 1\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking trajectory constraints at 2\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 3)\nDeleting (at spanner2 location2)\nAdding (carrying bob spanner2)\n\nChecking trajectory constraints at 3\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 4)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking trajectory constraints at 4\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(tighten_nut location3 spanner2 bob nut1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(tighten_nut location3 spanner2 bob nut1) has an unsatisfied precondition at time 5\n(Set (at nut1 location3) to true)\n\n\nFailed plans:\n /tmp/tmpkv8rxw7_.soln \n"
+        },
+        {
+          "attempt": 3,
+          "feedback_prompt": "Your plan failed at step 5.\nAction: (tighten_nut location3 spanner2 bob nut1)\nError: Precondition not satisfied - (at nut1 location3) must be true.\nPlease fix your plan to ensure this precondition is met before executing (tighten_nut location3 spanner2 bob nut1).",
+          "plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner location2 spanner2 bob)\n(walk location2 location3 bob)",
+          "is_valid": false,
+          "category": "goal_not_satisfied",
+          "message": "Goal state not achieved",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmp_3u4etjn.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(pickup_spanner location2 spanner2 bob)\n \n4:\n(walk location2 location3 bob)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking trajectory constraints at 1\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\n(at bob shed) stops being true at 1\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking trajectory constraints at 2\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 3)\nDeleting (at spanner2 location2)\nAdding (carrying bob spanner2)\n\nChecking trajectory constraints at 3\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 4)\nDeleting (at bob location2)\nAdding (at bob location3)\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Follow each of:\n    (Set (tightened nut1) to true)\n    and (Set (tightened nut2) to true)\n)\n\n\nFailed plans:\n /tmp/tmp_3u4etjn.soln \n"
+        },
+        {
+          "attempt": 4,
+          "feedback_prompt": "Your plan executed successfully but did not achieve all goals.\nUnsatisfied goals: (tightened nut1), (tightened nut2)\nPlease add the necessary actions to achieve these goals.",
+          "plan": "To achieve the goal of tightening both `nut1` and `nut2`, we need to ensure that:\n1. **Bob picks up a spanner**.\n2. **Bob walks to the location where a nut is located** (`gate`).\n3. **Bob tightens the nut** using the spanner.\nYour previous plan only got Bob to `location3` with `spanner2` in hand, but it didn't include any actions to go to `gate` (where both nuts are located) and tighten them.\n---\n### \u2705 **Corrected Plan:**\n```lisp\n(walk shed location1 bob)        ; Move from shed to location1\n(walk location1 location2 bob)   ; Move from location1 to location2\n(pickup_spanner location2 spanner2 bob)  ; Pick up spanner2 at location2\n(walk location2 location3 bob)   ; Move to location3\n(walk location3 gate bob)        ; Go to gate where nuts are located\n(tighten_nut gate spanner2 bob nut1)  ; Tighten nut1\n(tighten_nut gate spanner2 bob nut2)  ; Tighten nut2\n```\n---\n### \ud83d\udd0d Explanation:\n- **Step 1\u20133**: Bob moves to `location2` and picks up `spanner2`.\n- **Step 4\u20135**: Bob walks from `location3` to `gate` (where `nut1` and `nut2` are).\n- **Step 6\u20137**: Bob uses `spanner2` to tighten both nuts at `gate`.\nThis sequence satisfies the goal of tightening both nuts.\n---\n### \ud83d\udccc Note on Constraints:\n- The constraint `(forall (?m - man) (at-most-once (at ?m shed)))` is satisfied because Bob only starts at `shed` and never returns.\n- The constraint `(always (imply (not (tightened nut1)) (not (tightened nut2))))` is also satisfied because both nuts are tightened.\n---\nLet me know if you'd like a version of this plan in a specific format or with additional comments.",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 5,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner location2 spanner2 bob)\n(walk location2 location3 bob)\n(walk location3 gate bob)\n(tighten_nut gate spanner2 bob nut1)\n(tighten_nut gate spanner2 bob nut2)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (tighten_nut gate spanner2 bob nut2) ",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmpgdnn1xwe.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(pickup_spanner location2 spanner2 bob)\n \n4:\n(walk location2 location3 bob)\n \n5:\n(walk location3 gate bob)\n \n6:\n(tighten_nut gate spanner2 bob nut1)\n \n7:\n(tighten_nut gate spanner2 bob nut2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking trajectory constraints at 1\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\n(at bob shed) stops being true at 1\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking trajectory constraints at 2\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 3)\nDeleting (at spanner2 location2)\nAdding (carrying bob spanner2)\n\nChecking trajectory constraints at 3\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 4)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking trajectory constraints at 4\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 5)\nDeleting (at bob location3)\nAdding (at bob gate)\n\nChecking trajectory constraints at 5\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 6)\nDeleting (loose nut1)\nDeleting (useable spanner2)\nAdding (tightened nut1)\n\nChecking trajectory constraints at 6\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 7)\nPlan failed because of unsatisfied precondition in:\n(tighten_nut gate spanner2 bob nut2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(tighten_nut gate spanner2 bob nut2) has an unsatisfied precondition at time 7\n(Set (useable spanner2) to true)\n\n\nFailed plans:\n /tmp/tmpgdnn1xwe.soln \n"
+        }
+      ],
+      "problem_name": "spanner-s2-n2-l3-s1008927885",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/spanner/testing_problem50/spanner-s2-n2-l3-s1008927885.pddl"
+    },
+    {
+      "success": false,
+      "final_plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(walk location3 gate bob)",
+      "actual_retries": 5,
+      "max_retries": 5,
+      "category": "goal_not_satisfied",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "To solve the **spanner** domain problem, we need to generate a **PDDL plan** that satisfies the **goal**:\n> `(tightened nut1) \u2227 (tightened nut2)`\nwith the **constraints**:\n1. If `nut1` is not tightened, then `nut2` must also not be tightened.\n2. The man `bob` can only be at `shed` at most once.\n---\n### \u2705 Problem Summary\n**Initial State:**\n- `bob` is at `shed`\n- `spanner1` is at `location2` and is **useable**\n- `spanner2` is at `location3` and is **useable**\n- `nut1` and `nut2` are at `gate`, both **loose**\n- Links between locations:\n- `shed` \u2194 `location1`\n- `location1` \u2194 `location2`\n- `location2` \u2194 `location3`\n- `location3` \u2194 `gate`\n**Goal:** Both nuts must be **tightened**\n---\n### \ud83d\udd0d Plan Strategy\nWe need to:\n1. **Pick up** a spanner.\n2. **Walk** to the location of the nut.\n3. **Tighten** the nut using the spanner.\n4. Repeat for the second nut.\nBut since **spanners are not reusable** once used, we need to:\n- Use `spanner1` to tighten `nut1`\n- Use `spanner2` to tighten `nut2`\nAlso, we must ensure `bob` only visits `shed` once (already true in the initial state).\n---\n### \ud83e\udded Step-by-Step Plan\n#### Step 1: Walk from `shed` to `location1`\n- `bob` is at `shed`\n- `shed` is linked to `location1`\n- **Action:** `(walk shed location1 bob)`\n#### Step 2: Walk from `location1` to `location2`\n- `location1` is linked to `location2`\n- **Action:** `(walk location1 location2 bob)`\n#### Step 3: Pick up `spanner1` at `location2`\n- `spanner1` is at `location2`\n- **Action:** `(pickup_spanner location2 spanner1 bob)`\n#### Step 4: Walk from `location2` to `gate`\n- `location2` is linked to `location3",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 2,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner location2 spanner1 bob)\n(walk location2 location3 bob)\n(walk location3 gate bob)\n(tighten_nut gate spanner1 bob nut1)\n(walk gate location3 bob)\n(walk location3 location2 bob)\n(pickup_spanner location2 spanner2 bob)\n(walk location2 location3 bob)\n(walk location3 gate bob)\n(tighten_nut gate spanner2 bob nut2)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (walk gate location3 bob) ",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmpxx6sxzsu.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(pickup_spanner location2 spanner1 bob)\n \n4:\n(walk location2 location3 bob)\n \n5:\n(walk location3 gate bob)\n \n6:\n(tighten_nut gate spanner1 bob nut1)\n \n7:\n(walk gate location3 bob)\n \n8:\n(walk location3 location2 bob)\n \n9:\n(pickup_spanner location2 spanner2 bob)\n \n10:\n(walk location2 location3 bob)\n \n11:\n(walk location3 gate bob)\n \n12:\n(tighten_nut gate spanner2 bob nut2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking trajectory constraints at 1\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\n(at bob shed) stops being true at 1\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking trajectory constraints at 2\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 3)\nDeleting (at spanner1 location2)\nAdding (carrying bob spanner1)\n\nChecking trajectory constraints at 3\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 4)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking trajectory constraints at 4\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 5)\nDeleting (at bob location3)\nAdding (at bob gate)\n\nChecking trajectory constraints at 5\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 6)\nDeleting (loose nut1)\nDeleting (useable spanner1)\nAdding (tightened nut1)\n\nChecking trajectory constraints at 6\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 7)\nPlan failed because of unsatisfied precondition in:\n(walk gate location3 bob)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(walk gate location3 bob) has an unsatisfied precondition at time 7\n(Set (link gate location3) to true)\n\n\nFailed plans:\n /tmp/tmpxx6sxzsu.soln \n"
+        },
+        {
+          "attempt": 3,
+          "feedback_prompt": "Your plan failed at step 7.\nAction: (walk gate location3 bob)\nError: Precondition not satisfied - (link gate location3) must be true.\nPlease fix your plan to ensure this precondition is met before executing (walk gate location3 bob).",
+          "plan": "(walk gate location3 bob)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (walk gate location3 bob) ",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmpyaajbdne.soln\nPlan to validate:\n\nPlan size: 1\n1:\n(walk gate location3 bob)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(walk gate location3 bob)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(walk gate location3 bob) has an unsatisfied precondition at time 1\n(Follow each of:\n    (Set (at bob gate) to true)\n    and (Set (link gate location3) to true)\n)\n\n\nFailed plans:\n /tmp/tmpyaajbdne.soln \n"
+        },
+        {
+          "attempt": 4,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(walk location2 gate bob)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (walk location2 gate bob) ",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmp_d_j0pvu.soln\nPlan to validate:\n\nPlan size: 1\n1:\n(walk location2 gate bob)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(walk location2 gate bob)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(walk location2 gate bob) has an unsatisfied precondition at time 1\n(Follow each of:\n    (Set (at bob location2) to true)\n    and (Set (link location2 gate) to true)\n)\n\n\nFailed plans:\n /tmp/tmp_d_j0pvu.soln \n"
+        },
+        {
+          "attempt": 5,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(walk location3 gate bob)",
+          "is_valid": false,
+          "category": "goal_not_satisfied",
+          "message": "Goal state not achieved",
+          "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /tmp/tmpr4nko369.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(walk location2 location3 bob)\n \n4:\n(walk location3 gate bob)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nFirst satisfied (at bob shed) at 0\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking trajectory constraints at 1\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\n(at bob shed) stops being true at 1\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking trajectory constraints at 2\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 3)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking trajectory constraints at 3\nChecking ((NOT (tightened nut1)) IMPLIES (NOT (tightened nut2)))\nChecking next happening (time 4)\nDeleting (at bob location3)\nAdding (at bob gate)\nPlan executed successfully - checking goal\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(Follow each of:\n    (Set (tightened nut1) to true)\n    and (Set (tightened nut2) to true)\n)\n\n\nFailed plans:\n /tmp/tmpr4nko369.soln \n"
+        }
+      ],
+      "problem_name": "spanner-s2-n2-l3-s1099301123",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/spanner/testing_problem50/spanner-s2-n2-l3-s1099301123.pddl"
+    }
+  ]
+}
