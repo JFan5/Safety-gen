@@ -1,0 +1,92 @@
+{
+  "scenario_name": "blocksworld",
+  "domain": "blocksworld",
+  "timestamp": "2026-01-26T18:07:09.457048",
+  "model_path": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+  "config": {
+    "domain_file": "/home/ubuntu/Safety-gen/pddl3/blocksworld/domain3.pddl",
+    "problems_dir": "/home/ubuntu/Safety-gen/pddl3/blocksworld/testing_problem50",
+    "max_retries": 5,
+    "max_problems": 1,
+    "temperature": 0.6,
+    "max_new_tokens": 512
+  },
+  "summary": {
+    "total_problems": 1,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "avg_retries": 5.0,
+    "category_counts": {
+      "success_plans": 0,
+      "precondition_violation": 0,
+      "safety_constraints_violation": 0,
+      "goal_not_satisfied": 0,
+      "plan_format_error": 1
+    },
+    "category_rates": {
+      "success_plans": 0.0,
+      "precondition_violation": 0.0,
+      "safety_constraints_violation": 0.0,
+      "goal_not_satisfied": 0.0,
+      "plan_format_error": 100.0
+    }
+  },
+  "problems": [
+    {
+      "success": false,
+      "final_plan": "Thank you for providing the domain, problem, and the previous plan that failed. Based on the error message and the problem constraints, the issue lies in the **order of actions** and **precondition satisfaction**.\nLet\u2019s analyze the problem and fix the plan accordingly.\n---\n### Problem Summary\nWe are given a blocksworld problem with:\n- **Blocks**: `b1`, `b2`, `b3`\n- **Initial State**:\n- `arm-empty`\n- `on-table b1`\n- `on b2 b1`\n- `on b3 b2`\n- `clear b3`\n- **Goal State**:\n- `on-table b1`\n- `on-table b2`\n- `on b3 b2`\n- **Constraint**:\n- `sometime-before (on-table b2) (on-table b1)`: `b2` must be on the table **before** `b1` is on the table.\n---\n### Problem in Previous Plan\nYour previous plan was:\n1. `(unstack b3 b2)` \u2013 This is valid, because `b3` is on `b2` and `clear b3` is true.\n2. `(putdown b3)` \u2013 This is valid, because `b3` is being held.\n3. `(unstack b2 b1)` \u2013 **This fails**. Why?\nAt this point in the plan:\n- `b2` is on `b1`, and `clear b2` is **not** true (because `b3` was just put down on the table, and `b3` is now on the table, so `clear b3` is true, but `clear b2` is not).\n- Also, `arm-empty` is **not** true at this point (because `b3` was just put down, and the arm is now empty again).\n- So the **precondition** for `(unstack b2 b1)` is:\n- `(on b2 b1)` \u2705\n- `(clear b2)` \u274c (not true)\n- `(arm-empty)` \u274c (not true)\nSo the action `(unstack b2 b1)` fails due to unsatisfied preconditions.\n---\n### Corrected Plan\nWe need to ensure that `b2` is on the table **before** `b1` is on the table.\nHere is a **corrected plan**",
+      "actual_retries": 5,
+      "max_retries": 5,
+      "category": "plan_format_error",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "To solve the **PDDL planning problem** `BW-rand-3`, we need to determine a sequence of actions that transforms the initial state into the goal state, satisfying the constraint that `on-table b2` must occur **before** `on-table b1`.\n---\n### **Initial State:**\n- `arm-empty` is true.\n- `on-table b1` is true.\n- `on b2 b1` is true.\n- `on b3 b2` is true.\n- `clear b3` is true.\nSo the blocks are stacked as:\n```\nb3\n|\nb2\n|\nb1 (on table)\n```\n---\n### **Goal State:**\n- `on-table b1` (already true)\n- `on-table b2` (currently not true)\n- `on b3 b2` (currently true)\nSo the goal is to **move b2 to the table**, while **keeping b3 on top of b2**.\n---\n### **Constraint:**\n- `on-table b2` must occur **before** `on-table b1`.\nHowever, in the **initial state**, `on-table b1` is already true, so this constraint is **not satisfied** unless we **remove b1 from the table** and **put it back later** after `on-table b2` is achieved.\n---\n### **Plan:**\nWe need to **move b2 to the table**, but **b2 is currently on b1**, which is on the table. So to do that, we need to:\n1. **Unstack b2 from b1** \u2192 requires `on b2 b1`, `clear b2`, and `arm-empty` (all true).\n2. **Putdown b2** \u2192 moves b2 to the table.\n3. **Stack b3 on b2** again (to restore the `on b3 b2` condition).\n4. **Put b1 back on the table** (to satisfy the goal and the constraint that `on-table b2` occurs before `on-table b1`).\n---\n### **Step-by-step Plan:**\n1. **unstack b2 b1**\n- Precondition: `on b2 b1`, `clear b2`, `arm-empty` \u2192 all true.\n- Effect: `holding b2`, `clear b1`, `not on b2 b1`, `not clear b2`, `not arm-empty`.\n2. **",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        },
+        {
+          "attempt": 2,
+          "feedback_prompt": "Your plan has format errors. Please ensure:\n1. Each action is on a separate line\n2. Each action is in the format: (action-name arg1 arg2 ...)\n3. All action names and objects match the domain and problem definitions",
+          "plan": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(putdown b2)\n(stack b3 b2)\n(pickup b1)\n(putdown b1)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (stack b3 b2) ",
+          "validation_stdout": "Checking plan: /tmp/tmpnshmxgcx.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(putdown b2)\n \n5:\n(stack b3 b2)\n \n6:\n(pickup b1)\n \n7:\n(putdown b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(stack b3 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack b3 b2) has an unsatisfied precondition at time 5\n(Set (holding b3) to true)\n\n\nFailed plans:\n /tmp/tmpnshmxgcx.soln \n"
+        },
+        {
+          "attempt": 3,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 5)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(putdown b2)\n(stack b3 b2)\n(pickup b1)\n(putdown b1)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (stack b3 b2) ",
+          "validation_stdout": "Checking plan: /tmp/tmp91molo3m.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(putdown b2)\n \n5:\n(stack b3 b2)\n \n6:\n(pickup b1)\n \n7:\n(putdown b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(stack b3 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack b3 b2) has an unsatisfied precondition at time 5\n(Set (holding b3) to true)\n\n\nFailed plans:\n /tmp/tmp91molo3m.soln \n"
+        },
+        {
+          "attempt": 4,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 5)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(unstack b3 b2)\n(putdown b3)\n(unstack b2 b1)\n(putdown b2)\n(stack b3 b2)\n(pickup b1)\n(putdown b1)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (stack b3 b2) ",
+          "validation_stdout": "Checking plan: /tmp/tmplbo6papr.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(unstack b3 b2)\n \n2:\n(putdown b3)\n \n3:\n(unstack b2 b1)\n \n4:\n(putdown b2)\n \n5:\n(stack b3 b2)\n \n6:\n(pickup b1)\n \n7:\n(putdown b1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (on b3 b2)\nDeleting (clear b3)\nDeleting (arm-empty)\nAdding (holding b3)\nAdding (clear b2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (holding b3)\nAdding (clear b3)\nAdding (arm-empty)\nAdding (on-table b3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on b2 b1)\nDeleting (clear b2)\nDeleting (arm-empty)\nAdding (holding b2)\nAdding (clear b1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (holding b2)\nAdding (clear b2)\nAdding (arm-empty)\nAdding (on-table b2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(stack b3 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack b3 b2) has an unsatisfied precondition at time 5\n(Set (holding b3) to true)\n\n\nFailed plans:\n /tmp/tmplbo6papr.soln \n"
+        },
+        {
+          "attempt": 5,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 5)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "Thank you for providing the domain, problem, and the previous plan that failed. Based on the error message and the problem constraints, the issue lies in the **order of actions** and **precondition satisfaction**.\nLet\u2019s analyze the problem and fix the plan accordingly.\n---\n### Problem Summary\nWe are given a blocksworld problem with:\n- **Blocks**: `b1`, `b2`, `b3`\n- **Initial State**:\n- `arm-empty`\n- `on-table b1`\n- `on b2 b1`\n- `on b3 b2`\n- `clear b3`\n- **Goal State**:\n- `on-table b1`\n- `on-table b2`\n- `on b3 b2`\n- **Constraint**:\n- `sometime-before (on-table b2) (on-table b1)`: `b2` must be on the table **before** `b1` is on the table.\n---\n### Problem in Previous Plan\nYour previous plan was:\n1. `(unstack b3 b2)` \u2013 This is valid, because `b3` is on `b2` and `clear b3` is true.\n2. `(putdown b3)` \u2013 This is valid, because `b3` is being held.\n3. `(unstack b2 b1)` \u2013 **This fails**. Why?\nAt this point in the plan:\n- `b2` is on `b1`, and `clear b2` is **not** true (because `b3` was just put down on the table, and `b3` is now on the table, so `clear b3` is true, but `clear b2` is not).\n- Also, `arm-empty` is **not** true at this point (because `b3` was just put down, and the arm is now empty again).\n- So the **precondition** for `(unstack b2 b1)` is:\n- `(on b2 b1)` \u2705\n- `(clear b2)` \u274c (not true)\n- `(arm-empty)` \u274c (not true)\nSo the action `(unstack b2 b1)` fails due to unsatisfied preconditions.\n---\n### Corrected Plan\nWe need to ensure that `b2` is on the table **before** `b1` is on the table.\nHere is a **corrected plan**",
+          "is_valid": false,
+          "category": "plan_format_error",
+          "message": "Invalid plan format",
+          "validation_stdout": ""
+        }
+      ],
+      "problem_name": "bw_ops3_n3_seed118",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/blocksworld/testing_problem50/bw_ops3_n3_seed118.pddl"
+    }
+  ]
+}

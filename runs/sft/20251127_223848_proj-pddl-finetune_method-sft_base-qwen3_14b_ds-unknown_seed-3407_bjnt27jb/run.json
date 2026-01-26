@@ -48,5 +48,12 @@
   "artifacts": {
     "model_path": "/jfan5/sft_models/qwen3-14b-1127",
     "model_path_status": "confirmed"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8_20260126_175427": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260126_175427",
+      "main_metric": 40.0,
+      "timestamp": "2026-01-26T18:08:10.291975"
+    }
   }
 }

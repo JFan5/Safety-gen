@@ -58,6 +58,7 @@ WANDB_PROJECT="pddl-grpo-llama31-8b"
 BETA=0.01
 MAX_GRAD_NORM=1
 SEED=3407
+MAX_NEW_TOKENS=256
 
 # ==========================================
 # Auto-generate RUN_NAME and OUTPUT_DIR
@@ -123,7 +124,8 @@ python3 script/train_grpo_unsloth_stl_v2.py \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
   --seed ${SEED} \
-  --run_name "${RUN_NAME}"
+  --run_name "${RUN_NAME}" \
+  --max_new_tokens ${MAX_NEW_TOKENS}
 
 EXIT_CODE=$?
 

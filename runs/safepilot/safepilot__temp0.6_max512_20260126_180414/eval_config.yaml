@@ -1,0 +1,8 @@
+family: qwen
+load_in_4bit: true
+max_new_tokens: 512
+max_problems: 1
+max_retries: 5
+model_path: unsloth/Qwen3-14B-unsloth-bnb-4bit
+temperature: 0.6
+timestamp: '2026-01-26T18:04:14.406606'

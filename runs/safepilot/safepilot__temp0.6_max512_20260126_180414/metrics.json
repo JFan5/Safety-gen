@@ -1,0 +1,45 @@
+{
+  "overall": {
+    "total_problems": 1,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "avg_retries": 5.0,
+    "category_counts": {
+      "success_plans": 0,
+      "precondition_violation": 0,
+      "safety_constraints_violation": 0,
+      "goal_not_satisfied": 0,
+      "plan_format_error": 1
+    },
+    "category_rates": {
+      "success_plans": 0.0,
+      "precondition_violation": 0.0,
+      "safety_constraints_violation": 0.0,
+      "goal_not_satisfied": 0.0,
+      "plan_format_error": 100.0
+    }
+  },
+  "scenarios": {
+    "blocksworld": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "avg_retries": 5.0,
+      "category_counts": {
+        "success_plans": 0,
+        "precondition_violation": 0,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "plan_format_error": 1
+      },
+      "category_rates": {
+        "success_plans": 0.0,
+        "precondition_violation": 0.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 0.0,
+        "plan_format_error": 100.0
+      }
+    }
+  },
+  "num_scenarios": 1
+}

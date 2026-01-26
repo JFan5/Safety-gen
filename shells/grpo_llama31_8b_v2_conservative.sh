@@ -50,7 +50,7 @@ DATA_ROOT="/jfan5/grpo_data/five_domain_0109/"
 
 # Conservative adjustments
 BETA=0.02              # Increased from 0.01 to prevent reward hacking
-MAX_NEW_TOKENS=512     # Increased from 256 for longer plans
+MAX_NEW_TOKENS=256     # Increased from 256 for longer plans
 
 # Standard parameters
 BATCH_SIZE=8

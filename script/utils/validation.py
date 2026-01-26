@@ -26,6 +26,8 @@ def log_reward_batch_stats(
     problem_files: Optional[List[str]] = None,
     domains: Optional[List[str]] = None,
     stdout_lens: Optional[List[int]] = None,
+    prompt_lengths: Optional[List[int]] = None,
+    completion_lengths: Optional[List[int]] = None,
     verbose_batch_samples: bool = False,
     verbose_max_groups: int = 1,
     verbose_max_k: int = 8,
@@ -54,6 +56,8 @@ def log_reward_batch_stats(
         problem_files: 与 all_labels 同长度，每条 completion 对应的 problem_file
         domains: 与 all_labels 同长度，每条 completion 的 domain；若为 None 则用 all_scenarios
         stdout_lens: 与 all_labels 同长度，每条 completion 的 stdout_len（可选）
+        prompt_lengths: 与 all_labels 同长度，每条 prompt 的 token 长度（可选）
+        completion_lengths: 与 all_labels 同长度，每条 completion 的 token 长度（可选）
         verbose_batch_samples: 是否在每个 batch 展开打印多个样本
         verbose_max_groups: 展开打印的 group 数
         verbose_max_k: 每个 group 最多打印多少条采样
@@ -149,12 +153,12 @@ def log_reward_batch_stats(
                 log_dict[f"batch/scenario_count_{scenario_name}"] = count
                 log_dict[f"batch/scenario_rate_{scenario_name}"] = count / total
 
-        # 统计 domain 分布（top 3）
-        top_domains_str = ""
+        # 统计 domain 分布（全部）
+        all_domains_str = ""
         if effective_domains:
             domain_counts = Counter(effective_domains)
-            top3 = domain_counts.most_common(3)
-            top_domains_str = ",".join(f"{d}:{c}" for d, c in top3)
+            all_domain_items = domain_counts.most_common()  # All domains, sorted by count
+            all_domains_str = ",".join(f"{d}:{c}" for d, c in all_domain_items)
             for domain_name, count in domain_counts.items():
                 log_dict[f"batch/domain_count_{domain_name}"] = count
                 log_dict[f"batch/domain_rate_{domain_name}"] = count / total
@@ -251,6 +255,16 @@ def log_reward_batch_stats(
                 log_dict["grpo/mean_unique_categories_per_group"] = mean_unique_categories
                 log_dict["grpo/mean_unique_rewards_per_group"] = mean_unique_rewards
 
+        # ========== 统计 prompt/completion 长度 ==========
+        max_prompt_len = 0
+        max_completion_len = 0
+        if prompt_lengths:
+            max_prompt_len = max(prompt_lengths)
+            log_dict["stats/max_prompt_length"] = max_prompt_len
+        if completion_lengths:
+            max_completion_len = max(completion_lengths)
+            log_dict["stats/max_completion_length"] = max_completion_len
+
         # ========== 构建并打印 [BATCH_STATS] ==========
         step_str = str(trainer_state.global_step) if trainer_state else "?"
 
@@ -269,11 +283,16 @@ def log_reward_batch_stats(
                 f"uniq_r/grp={mean_unique_rewards:.2f}"
             )
 
+        # 构建 token 长度统计字符串
+        len_stats = ""
+        if prompt_lengths or completion_lengths:
+            len_stats = f" max_prompt_len={max_prompt_len} max_completion_len={max_completion_len}"
+
         # 单行输出便于 grep
         print(
             f"[BATCH_STATS] step={step_str} total={total} "
             f"reward_mean={reward_mean:.4f} reward_std={reward_std:.4f} "
-            f"{cat_counts} top_domains={top_domains_str}{grpo_stats}"
+            f"{cat_counts} domains={all_domains_str}{len_stats}{grpo_stats}"
         )
 
         # ========== 展开打印 group 样本详细信息 ==========

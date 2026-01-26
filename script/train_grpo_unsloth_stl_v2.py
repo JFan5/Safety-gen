@@ -143,13 +143,19 @@ def grpo_reward_func(
     all_labels: List[str] = []
     all_scenarios: List[str] = []
     reward_methods: List[str] = []
+    prompt_lengths: List[int] = []
+    completion_lengths: List[int] = []
 
-    # Write prompt token lengths to file
+    # Calculate prompt and completion token lengths
     if GLOBAL_TOKENIZER is not None:
         with open(PROMPT_LENGTH_FILE, "a") as f:
             for prompt in prompts:
                 prompt_tokens = GLOBAL_TOKENIZER.encode(prompt, add_special_tokens=False)
+                prompt_lengths.append(len(prompt_tokens))
                 f.write(f"{len(prompt_tokens)}\n")
+        for completion in completions:
+            completion_tokens = GLOBAL_TOKENIZER.encode(completion, add_special_tokens=False)
+            completion_lengths.append(len(completion_tokens))
 
     for prompt, completion, m, label in zip(prompts, completions, meta, class_label):
         # Extract scenario
@@ -214,6 +220,8 @@ def grpo_reward_func(
         sample_idx=0,
         sample_completion=first_completion,
         sample_meta=first_meta,
+        prompt_lengths=prompt_lengths if prompt_lengths else None,
+        completion_lengths=completion_lengths if completion_lengths else None,
     )
 
     return rewards
@@ -497,7 +505,6 @@ def main():
     parser.add_argument("--max_grad_norm", type=float, default=1.0, help="Gradient clipping")
     parser.add_argument("--num_generations", type=int, default=4, help="Number of completions per prompt")
     parser.add_argument("--beta", type=float, default=0.02, help="KL penalty coefficient")
-
     # Generation
     parser.add_argument("--max_prompt_length", type=int, default=1576, help="Maximum prompt length")
     parser.add_argument("--max_new_tokens", type=int, default=512, help="Max completion length (increased from 256 for longer plans)")

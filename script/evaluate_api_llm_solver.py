@@ -71,6 +71,13 @@ API_MODEL_CONFIG = {
         'use_responses_api': True,  # 使用新的 responses API
         'reasoning_effort': 'high'  # high reasoning effort
     },
+    'gpt-5.2': {
+        'provider': 'openai',
+        'model_name': 'gpt-5.2-2025-12-11',
+        'family': 'gpt',
+        'use_responses_api': True,
+        'reasoning_effort': 'high'
+    },
     'gpt-4': {
         'provider': 'openai',
         'model_name': 'gpt-4',
