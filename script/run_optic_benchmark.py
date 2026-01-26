@@ -131,6 +131,18 @@ def parse_args(argv=None):
         action="store_true",
         help="Reuse cached solver results when available and skip solving problems that already have a valid solution.",
     )
+    parser.add_argument(
+        "--problems-dir",
+        type=Path,
+        default=None,
+        help="Directory containing problem files to use directly (bypasses generation and benchmark-dir structure).",
+    )
+    parser.add_argument(
+        "--domain",
+        type=str,
+        default=None,
+        help="Domain/scenario name to use when --problems-dir is specified (e.g., blocksworld, ferry).",
+    )
     return parser.parse_args(argv)
 
 
@@ -149,7 +161,27 @@ def run(argv=None):
     cache = load_solver_cache(cache_path)
 
     # Generate or load existing problems
-    if args.skip_generation:
+    if args.problems_dir is not None:
+        # Load problems directly from the specified directory (used by run_benchmark.py)
+        print(f"Loading problems from specified directory: {args.problems_dir}", flush=True)
+        problems_dir = args.problems_dir
+        if not problems_dir.exists():
+            raise ValueError(f"Problems directory not found: {problems_dir}")
+
+        # Find all .pddl files in the directory
+        pddl_files = sorted([
+            f for f in problems_dir.iterdir()
+            if f.is_file() and f.suffix == ".pddl"
+        ], key=lambda p: p.name)
+
+        if not pddl_files:
+            raise ValueError(f"No .pddl files found in {problems_dir}")
+
+        # Determine the scenario name
+        scenario = args.domain if args.domain else "default"
+        generated = {scenario: pddl_files}
+        print(f"Loaded {len(pddl_files)} problems for scenario '{scenario}'", flush=True)
+    elif args.skip_generation:
         print("Skipping problem generation, loading existing problems...", flush=True)
         generated = load_existing_problems(
             args.benchmark_dir,

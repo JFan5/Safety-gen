@@ -38,10 +38,6 @@ designing domain-specific safety knowledge, constructing the supervised dataset,
     A worker must collect spanners and tighten all nuts across connected locations. &
     Bolts must be tightened in a safe sequence (e.g., foundation nuts before upper ones), and access to shared tools (e.g., entering the tool shed) is limited to prevent unsafe congestion. \\
     \hline
-    \textbf{Delivery} &
-    A truck must pick up and deliver packages to specified destinations while moving over a grid of adjacent cells. &
-    The truck must follow safe and efficient routes, avoiding unnecessary back-and-forth traversals between the same cells that could cause congestion or collision risks in tight spaces. \\
-    \hline
   \end{tabularx}
 \end{table*}
 
@@ -53,7 +49,7 @@ The domains are chosen using the following criteria:
   \item presence of safety-critical objects, locations, or actions;
   \item availability of problem instances with varying difficulty.
 \end{itemize}
-Based on these criteria, we select five representative domains: Blocksworld, Ferry, Grippers, Spanner, and Delivery.
+Based on these criteria, we select four representative domains: Blocksworld, Ferry, Grippers, and Spanner.
 A brief overview of each domain and its associated safety constraints is given in Table~\ref{tab:domain-introduction}.
 For each domain, we design additional domain-specific safety knowledge in the form of high-level constraints that mirror realistic CPS requirements (e.g., collision avoidance, load limits, safe ordering of operations).
 These constraints are subsequently encoded in PDDL3 \texttt{:constraints} format and used to generate safety-compliant plan demonstrations.
@@ -192,3 +188,22 @@ Unlike reinforcement-learning–based RLHF methods such as PPO~\cite{ouyang2022t
 In our framework, DPO is used to encode \emph{safety-critical} preferences.
 By constructing preference pairs that explicitly contrast safe and unsafe plans (e.g., success vs. safety-violating plans, or safety-violating vs. precondition-violating plans), we guide the model toward a policy that favors safety-compliant behaviors while preserving the task competence acquired during SFT.
 The resulting Safe-Gen LLM is therefore both instruction-following and safety-aligned, and serves as the core component of our safety-aware CPS task-planning pipeline.
+
+\subsection{Group Relative Policy Optimization}
+
+While DPO relies on offline preference data, Group Relative Policy Optimization (GRPO)~\cite{shao2024deepseekmath} enables online reinforcement learning with verifiable rewards, allowing the model to explore and learn from its own generated plans.
+
+\subsubsection{Reward design.}
+We design a hierarchical reward function based on the VAL verifier output. For each generated plan, we assign rewards according to a four-stage validation pipeline:
+\begin{itemize}
+  \item \textbf{Format correctness}: The plan must be syntactically valid and parseable.
+  \item \textbf{Precondition satisfaction}: All action preconditions must hold during execution.
+  \item \textbf{Safety constraint compliance}: The plan must satisfy all PDDL3 constraints.
+  \item \textbf{Goal achievement}: The plan must reach the specified goal state.
+\end{itemize}
+Plans that pass all stages receive the highest reward, while failures at earlier stages receive progressively lower rewards.
+
+\subsubsection{Curriculum learning.}
+To improve training stability, we adopt a curriculum learning strategy that progressively increases problem difficulty. Problems are grouped by complexity (e.g., number of objects, constraint types), and the model is first trained on simpler instances before advancing to harder ones. This approach helps the model build foundational planning skills before tackling complex safety constraints.
+
+The GRPO objective optimizes the policy by comparing multiple sampled responses within each group, encouraging the model to consistently generate high-reward plans while maintaining diversity in its outputs.

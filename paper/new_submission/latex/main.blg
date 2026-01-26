@@ -37,6 +37,8 @@ Warning--page numbers missing in both pages and numpages fields in pan2023data
 Warning--page numbers missing in both pages and numpages fields in paszke2019pytorch
 Warning--no number and no volume in plaat2024reasoning
 Warning--page numbers missing in both pages and numpages fields in plaat2024reasoning
+Warning--no number and no volume in shao2024deepseekmath
+Warning--page numbers missing in both pages and numpages fields in shao2024deepseekmath
 Warning--empty address in Shivadekar2025CognitiveAI
 Warning--can't use both volume and number fields in silver2024generalized
 Warning--empty publisher in silver2024generalized
@@ -52,45 +54,45 @@ Warning--no number and no volume in yin2024safeagentbench
 Warning--page numbers missing in both pages and numpages fields in yin2024safeagentbench
 Warning--empty publisher in zuo2025planetarium
 Warning--empty address in zuo2025planetarium
-You've used 44 entries,
+You've used 45 entries,
             6273 wiz_defined-function locations,
-            1760 strings with 28144 characters,
-and the built_in function-call counts, 51025 in all, are:
-= -- 6766
-> -- 2176
+            1764 strings with 28410 characters,
+and the built_in function-call counts, 52322 in all, are:
+= -- 6946
+> -- 2255
 < -- 0
-+ -- 759
-- -- 755
-* -- 3953
-:= -- 5228
-add.period$ -- 226
-call.type$ -- 44
-change.case$ -- 398
-chr.to.int$ -- 44
-cite$ -- 84
-duplicate$ -- 4022
-empty$ -- 2850
-format.name$ -- 907
-if$ -- 12488
++ -- 787
+- -- 782
+* -- 4071
+:= -- 5371
+add.period$ -- 231
+call.type$ -- 45
+change.case$ -- 411
+chr.to.int$ -- 45
+cite$ -- 87
+duplicate$ -- 4104
+empty$ -- 2910
+format.name$ -- 938
+if$ -- 12810
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 143
-newline$ -- 416
-num.names$ -- 308
-pop$ -- 1700
+missing$ -- 147
+newline$ -- 424
+num.names$ -- 315
+pop$ -- 1744
 preamble$ -- 1
-purify$ -- 748
+purify$ -- 769
 quote$ -- 0
-skip$ -- 1422
+skip$ -- 1445
 stack$ -- 0
-substring$ -- 3164
-swap$ -- 354
+substring$ -- 3218
+swap$ -- 358
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 910
-warning$ -- 40
-while$ -- 231
+type$ -- 926
+warning$ -- 42
+while$ -- 234
 width$ -- 0
-write$ -- 885
-(There were 40 warnings)
+write$ -- 903
+(There were 42 warnings)

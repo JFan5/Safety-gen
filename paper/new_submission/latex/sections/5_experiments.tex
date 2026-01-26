@@ -9,8 +9,8 @@ In this section, we empirically evaluate the proposed framework along four dimen
 We first describe the datasets, models, and training environment used in our experiments.
 
 \noindent\textbf{SFT dataset construction.}
-As introduced in Section~\ref{subsec:sft}, we select five domains from the PDDL2 problem generators~\cite{seipp-et-al-zenodo2022} to construct the safety-oriented SFT dataset: \emph{Blocksworld}, \emph{Ferry}, \emph{Grippers}, \emph{Spanner}, and \emph{Delivery}.
-We use Blocksworld, Ferry, Grippers, and Spanner as training domains and reserve Delivery as a held-out test domain.
+As introduced in Section~\ref{subsec:sft}, we select four domains from the PDDL2 problem generators~\cite{seipp-et-al-zenodo2022} to construct the safety-oriented SFT dataset: \emph{Blocksworld}, \emph{Ferry}, \emph{Grippers}, and \emph{Spanner}.
+We use Blocksworld, Ferry, Grippers, and Spanner as both training and evaluation domains.
 For each domain, we generate $500$ planning problems with parameters ranging from simple to complex to diversify the dataset (e.g., different numbers of blocks, objects, or locations).
 All problems are solved by the temporal planner OPTIC~\cite{benton2012temporal} and the resulting plans are validated by VAL~\cite{howey2004val} to ensure correctness.
 Importantly, these problems cannot be solved by the solutions of the corresponding PDDL2 benchmark problems without incorporating the additional safety constraints, which highlights the need for a safety-aware planner.
@@ -118,13 +118,6 @@ This is because such error types were not included in the preference dataset; th
 We also emphasize that all experiments in this section are conducted with a quantized $7$B LLM and a relatively small dataset (only $500$ problems and roughly three thousand instruction--response pairs).
 Therefore, the reported results likely underestimate the potential performance of the framework, yet they are still encouraging and demonstrate its effectiveness.
 
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[width=0.9\linewidth]{figures/blocksworld_cross_domain_comparison.png}
-  \caption{Blocksworld model performance on the Delivery domain.}
-  \label{fig:blocksworld_delivery_comparison}
-\end{figure}
-
 \begin{table*}[h]
   \centering
   \caption{Error Type Percentages by Domain}
@@ -151,28 +144,18 @@ Therefore, the reported results likely underestimate the potential performance o
   \textbf{Grippers   } & 8.0\% & 6.0\% & 42.0\% & 42.0\% & 46.0\% & 30.0\% & 4.0\% & 8.0\% & 0.0\% & \textbf{14.0\%} \\
   \textbf{Spanner    } & 6.0\% & 2.0\% & 94.0\% & 48.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{50.0\%} \\
   \hline
-    \multicolumn{11}{c}{\textbf{Generalized Domain}} \\
-  \hline
-  \textbf{Delivery   } & 0.0\% & 0.0\% & 44.0\% & 22.0\% & 48.0\% & 64.0\% & 2.0\% & 2.0\% & 6.0\% & \textbf{12.0\%} \\
-  \hline
   \end{tabular}
   }% end resizebox
   \end{table*}
 
-\subsection{Cross-Domain Safety Generalizability}
-We now consider cross-domain safety generalization, which is the ultimate goal of the proposed framework: a trained LLM-based planner should be able to solve problems in \emph{unseen} domains with \emph{unseen} safety constraints.
+\subsection{SFT and GRPO Model Performance}
+We now evaluate the impact of GRPO on safety performance.
+Starting from the SFT model trained on the four domains, we further fine-tune it using online reinforcement learning via GRPO.
 
-\subsubsection{Blocksworld Model Performance on an Unseen Domain.}
-We first evaluate the Blocksworld-only model on the unseen Delivery domain.
-The results are shown in Figure~\ref{fig:blocksworld_delivery_comparison}.
-We observe that both the SFT- and DPO-trained Blocksworld models perform poorly on the Delivery domain: the success rate is essentially zero, and most plans fail due to precondition violations.
-The performance is comparable to that of the pretrained Mistral-7B model.
-
-This result indicates that a model trained solely on Blocksworld does not acquire sufficient cross-domain safety generalization to solve problems in the structurally different Delivery domain, highlighting a key challenge for fine-tuning-based LLM planners.
 \begin{table*}[!ht]
   \centering
-  \caption{Error Type Percentages by Domain on SFT and DPO Models}
-  \label{tab:error_percentages_sft_dpo}
+  \caption{Error Type Percentages by Domain on SFT and GRPO Models (Qwen3-14B)}
+  \label{tab:error_percentages_sft_grpo}
   \resizebox{0.95\textwidth}{!}{%
   \begin{tabular}{l|cc|cc|cc|cc||cc}
   \hline
@@ -183,81 +166,44 @@ This result indicates that a model trained solely on Blocksworld does not acquir
   & \multicolumn{2}{c}{Goal Not Satisfied}
   & \multicolumn{2}{c}{Success Plans} \\
   \hline
-  
-  & \textbf{SFT} & \textbf{DPO}
-  & \textbf{SFT} & \textbf{DPO}
-  & \textbf{SFT} & \textbf{DPO}
-  & \textbf{SFT} & \textbf{DPO}
-  & \textbf{SFT} & \textbf{DPO} \\
+
+  & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{SFT} & \textbf{GRPO} \\
   \hline
-  \textbf{Blocksworld} & 0.0\% & 2.0\% & 58.0\% & 40.0\% & 24.0\% & 36.0\% & 6.0\% & 6.0\% & 12.0\% & \textbf{16.0\%} \\
-  \textbf{Ferry      } & 2.0\% & 0.0\% & 44.0\% & 44.0\% & 36.0\% & 26.0\% & 0.0\% & 6.0\% & 18.0\% & \textbf{24.0\%} \\
-  \textbf{Grippers   } & 6.0\% & 6.0\% & 42.0\% & 20.0\% & 30.0\% & 46.0\% & 8.0\% & 4.0\% & 14.0\% & \textbf{24.0\%} \\
-  \textbf{Spanner    } & 2.0\% & 16.0\% & 48.0\% & 26.0\% & 0.0\% & 2.0\% & 0.0\% & 0.0\% & 50.0\% & \textbf{56.0\%} \\
-  \hline
-  \multicolumn{11}{c}{\textbf{Generalized Domain}} \\
-  \hline
-  \textbf{Delivery   } & 0.0\% & 0.0\% & 22.0\% & 28.0\% & 64.0\% & 46.0\% & 2.0\% & 2.0\% & 12.0\% & \textbf{24.0\%} \\
+  \textbf{Blocksworld} & 0.0\% & 0.0\% & 24.0\% & 12.0\% & 2.0\% & 0.0\% & 4.0\% & 0.0\% & 70.0\% & \textbf{88.0\%} \\
+  \textbf{Ferry      } & 0.0\% & 0.0\% & 4.0\% & 4.0\% & 10.0\% & 0.0\% & 0.0\% & 0.0\% & 86.0\% & \textbf{96.0\%} \\
+  \textbf{Grippers   } & 0.0\% & 0.0\% & 4.0\% & 0.0\% & 4.0\% & 2.0\% & 0.0\% & 0.0\% & 92.0\% & \textbf{98.0\%} \\
+  \textbf{Spanner    } & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 100.0\% & \textbf{100.0\%} \\
   \hline
   \end{tabular}
   }% end resizebox
 \end{table*}
-\subsubsection{Pretrained and SFT Model Performance Comparison.}
-To address this limitation, we next train the model jointly on four domains: Blocksworld, Ferry, Grippers, and Spanner.
-The SFT stage uses the full SFT dataset of $10{,}000$ instruction--response pairs, and the DPO stage uses the $11{,}960$ preference pairs described earlier.
-
-Table~\ref{tab:error_percentages} reports the error-type distributions for the pretrained and SFT models across the four training domains and the unseen Delivery domain.
+Table~\ref{tab:error_percentages_sft_grpo} reports the error-type distributions for the SFT and GRPO models across all four domains.
 We highlight several key findings:
+
 \begin{enumerate}
-\item \textbf{Success rate improvements across domains.}
-In Blocksworld, the success rate improves from $4\%$ (pretrained) to $12\%$ (SFT).
-For Ferry, Grippers, and Spanner, the pretrained model achieves $0\%$ success, whereas the SFT model reaches $18\%$, $14\%$, and $50\%$, respectively.
-These results indicate that the SFT model exhibits strong cross-problem safety generalization, enabling it to generate valid plans for previously unseen problem instances within the four training domains.
+    \item \textbf{Significant success rate improvements after GRPO.}
+    GRPO substantially improves success rates across all domains:
+    from $70\%$ to $88\%$ in Blocksworld (+18\%), from $86\%$ to $96\%$ in Ferry (+10\%), and from $92\%$ to $98\%$ in Grippers (+6\%).
+    Spanner maintains its perfect $100\%$ success rate.
+    These results demonstrate that online RL with verifiable rewards effectively enhances the model's planning capabilities.
 
-\item \textbf{Significant reduction in precondition violations.}
-Across the four training domains, the precondition violation rate is substantially reduced after SFT:
-\begin{itemize}
-  \item Ferry: from $98\%$ to $44\%$,
-  \item Blocksworld: from $70\%$ to $58\%$,
-  \item Grippers: remains at $42\%$,
-  \item Spanner: from $94\%$ to $48\%$.
-\end{itemize}
-This demonstrates that the SFT model effectively internalizes domain-level planning rules and produces plans that are more frequently executable with respect to preconditions.
+    \item \textbf{Dramatic reduction in safety violations.}
+    GRPO nearly eliminates safety constraint violations: Blocksworld drops from $2\%$ to $0\%$, Ferry from $10\%$ to $0\%$, and Grippers from $4\%$ to $2\%$.
+    This demonstrates that online RL with verifiable rewards effectively teaches the model to prioritize safety compliance.
 
-\item \textbf{Interpreting safety constraint violations.}
-In some domains, the Safety Constraint Violation rate is higher for the SFT model than for the pretrained model.
-This behavior is expected: the pretrained model often fails to generate meaningful or executable plans, so its outputs may not progress to states where safety constraints are even evaluated.
-By contrast, the SFT model generates more complete and structured plans, thereby exposing more opportunities for safety checks---and hence observable safety violations---to occur.
+    \item \textbf{Reduced precondition violations.}
+    Precondition violation rates also decrease significantly, particularly in Blocksworld (from $24\%$ to $12\%$) and Grippers (from $4\%$ to $0\%$), indicating improved domain knowledge acquisition through GRPO.
 
-\item \textbf{Generalization to the unseen Delivery domain.}
-Most importantly, the SFT model also improves performance on the unseen Delivery domain.
-The precondition violation rate decreases from $44\%$ to $22\%$, while the success rate increases from $6\%$ to $12\%$.
-This indicates that SFT injects planning knowledge that can transfer across domains, enabling the model to generate feasible plans even in a domain that was not seen during supervised training.
+    \item \textbf{Elimination of goal failures.}
+    GRPO completely eliminates goal-not-satisfied errors in Blocksworld (from $4\%$ to $0\%$), demonstrating that the hierarchical reward design effectively guides the model toward complete task fulfillment.
 \end{enumerate}
 
-Overall, these results show that SFT substantially enhances the model's ability to generate feasible, legal, and safety-aware plans across both seen and unseen domains.
-
-
-
-\subsubsection{SFT and DPO Model Performance Comparison.}
-We finally study the impact of DPO on safety generalization.
-Starting from the SFT model trained on the four domains, we further fine-tune it using the preference dataset via DPO.
-Table~\ref{tab:error_percentages_sft_dpo} reports the error-type distributions for the SFT and DPO models.
-
-We obtain the following observations:
-\begin{enumerate}
-    \item \textbf{Success rate improvements after DPO.}  
-    DPO consistently improves success rates across all domains:
-    from $12\%$ to $16\%$ in Blocksworld, from $18\%$ to $24\%$ in Ferry, from $14\%$ to $24\%$ in Grippers, and from $50\%$ to $56\%$ in Spanner.
-    This indicates that DPO effectively leverages preference data to bias the model toward plans that are both safe and goal-satisfying.
-
-    \item \textbf{Cross-domain safety generalization.}  
-    In the unseen Delivery domain, DPO reduces the Safety Constraint Violation rate from $64\%$ to $46\%$, a substantial improvement in safety behavior.
-    Combined with the success rate increase from $12\%$ to $24\%$, this shows that DPO internalizes safety-related patterns that generalize beyond the training domains and transfer to new, unseen domains.
-\end{enumerate}
-
-Overall, the relatively small preference dataset and the use of quantized models limit the absolute performance achievable by DPO.
-Nevertheless, the two-stage SFT+DPO pipeline yields a clear improvement over the pretrained and SFT-only baselines, enabling the model to generate safe and goal-satisfying plans with both cross-problem and cross-domain safety generalization.
+These results show that GRPO provides substantial improvements over SFT alone, enabling the model to generate plans that are both more successful and significantly safer.
+The combination of curriculum learning and verifiable rewards allows the model to explore and learn from its own generated plans, leading to robust safety-aware planning behavior.
 
 \begin{figure*}[!ht]
   \centering
@@ -273,7 +219,7 @@ To demonstrate the practical impact of safety-aware training, we evaluate our fr
 \paragraph{Simulation.}
 We first select a test-set problem instance and compare two planners:
 (i) a classical PDDL2 solver, and
-(ii) our safety-aware SFT+DPO model.
+(ii) our safety-aware SFT+GRPO model.
 The task requires satisfying a safety constraint that enforces a specific ordering between two stacking operations to avoid unsafe intermediate configurations.
 
 As shown in Figure~\ref{fig:case-study}, the classical solver produces a plan that violates the constraint, leading to an intermediate configuration that would cause a collision between blocks.  

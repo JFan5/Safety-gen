@@ -1,0 +1,27 @@
+Number of literals: 25
+Constructing lookup tables: [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+Post filtering unreachable actions:  [10%] [20%] [30%] [40%] [50%] [60%] [70%] [80%] [90%] [100%]
+No semaphore facts found, returning
+[01;34mNo analytic limits found, not considering limit effects of goal-only operators[00m
+Initial heuristic = 5.000, admissible cost estimate 0.000
+b (4.000 | 0.005)
+Resorting to best-first search
+Running WA* with W = 5.000, not restarting with goal states
+b (4.000 | 0.005)b (3.000 | 0.007)b (2.000 | 0.011)b (1.000 | 0.012)(G);;;; Solution Found
+; States evaluated: 92
+; Cost: 0.013
+; Time 0.01
+0.000: (unstack b3 b2)  [0.001]
+0.001: (putdown b3)  [0.001]
+0.002: (unstack b2 b4)  [0.001]
+0.003: (putdown b2)  [0.001]
+0.004: (pickup b3)  [0.001]
+0.005: (stack b3 b2)  [0.001]
+0.006: (pickup b1)  [0.001]
+0.007: (stack b1 b4)  [0.001]
+0.008: (unstack b3 b2)  [0.001]
+0.009: (putdown b3)  [0.001]
+0.010: (pickup b2)  [0.001]
+0.011: (stack b2 b1)  [0.001]
+0.012: (pickup b3)  [0.001]
+0.013: (stack b3 b2)  [0.001]

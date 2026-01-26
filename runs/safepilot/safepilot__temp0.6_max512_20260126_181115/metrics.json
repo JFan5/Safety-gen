@@ -1,0 +1,85 @@
+{
+  "overall": {
+    "total_problems": 150,
+    "success_count": 27,
+    "success_rate": 18.0,
+    "avg_retries": 4.566666666666666,
+    "category_counts": {
+      "success_plans": 27,
+      "precondition_violation": 44,
+      "safety_constraints_violation": 11,
+      "goal_not_satisfied": 10,
+      "plan_format_error": 58
+    },
+    "category_rates": {
+      "success_plans": 18.0,
+      "precondition_violation": 29.333333333333332,
+      "safety_constraints_violation": 7.333333333333333,
+      "goal_not_satisfied": 6.666666666666667,
+      "plan_format_error": 38.666666666666664
+    }
+  },
+  "scenarios": {
+    "blocksworld": {
+      "total_problems": 50,
+      "success_count": 5,
+      "success_rate": 10.0,
+      "avg_retries": 4.82,
+      "category_counts": {
+        "success_plans": 5,
+        "precondition_violation": 17,
+        "safety_constraints_violation": 1,
+        "goal_not_satisfied": 1,
+        "plan_format_error": 26
+      },
+      "category_rates": {
+        "success_plans": 10.0,
+        "precondition_violation": 34.0,
+        "safety_constraints_violation": 2.0,
+        "goal_not_satisfied": 2.0,
+        "plan_format_error": 52.0
+      }
+    },
+    "ferry": {
+      "total_problems": 50,
+      "success_count": 2,
+      "success_rate": 4.0,
+      "avg_retries": 4.88,
+      "category_counts": {
+        "success_plans": 2,
+        "precondition_violation": 17,
+        "safety_constraints_violation": 5,
+        "goal_not_satisfied": 5,
+        "plan_format_error": 21
+      },
+      "category_rates": {
+        "success_plans": 4.0,
+        "precondition_violation": 34.0,
+        "safety_constraints_violation": 10.0,
+        "goal_not_satisfied": 10.0,
+        "plan_format_error": 42.0
+      }
+    },
+    "grippers": {
+      "total_problems": 50,
+      "success_count": 20,
+      "success_rate": 40.0,
+      "avg_retries": 4.0,
+      "category_counts": {
+        "success_plans": 20,
+        "precondition_violation": 10,
+        "safety_constraints_violation": 5,
+        "goal_not_satisfied": 4,
+        "plan_format_error": 11
+      },
+      "category_rates": {
+        "success_plans": 40.0,
+        "precondition_violation": 20.0,
+        "safety_constraints_violation": 10.0,
+        "goal_not_satisfied": 8.0,
+        "plan_format_error": 22.0
+      }
+    }
+  },
+  "num_scenarios": 3
+}

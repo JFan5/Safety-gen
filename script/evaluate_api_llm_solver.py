@@ -356,15 +356,16 @@ def _load_one_shot_example(scenario: str, repo_root: Path = None) -> Optional[di
     return example_content
 
 
-def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False) -> list:
+def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False, prompt_template: str = None) -> list:
     """
     从指定目录加载所有 problem PDDL 文件，并使用提供的 domain 文件构建测试样本。
     会跳过名称包含 "domain" 的文件。
-    
+
     Args:
         problems_dir: 包含 problem 文件的目录
         domain_file: domain 文件路径
         one_shot: 是否使用 one-shot 模式
+        prompt_template: 自定义 prompt 模板文件路径（可选）
     """
     problems_path = Path(problems_dir)
     if not problems_path.exists():
@@ -397,7 +398,10 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
     print(f"Found {len(pddl_files)} problem files", flush=True)
 
     # 加载 prompt 模板
-    prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
+    if prompt_template:
+        prompt_template_file = prompt_template
+    else:
+        prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
     print(f"Loading prompt template: {prompt_template_file}...", flush=True)
     try:
         with open(prompt_template_file, 'r', encoding='utf-8') as f:
@@ -680,7 +684,8 @@ def test_api_model_on_testing_data(
     provider: str = 'openai',
     max_workers: int = None,
     use_responses_api: bool = False,
-    reasoning_effort: Optional[str] = None
+    reasoning_effort: Optional[str] = None,
+    prompt_template: str = None
 ):
     """
     在testing数据上测试API模型并计算成功率
@@ -696,6 +701,7 @@ def test_api_model_on_testing_data(
         temperature: 文本生成的温度参数（默认: 0.6）
         one_shot: 是否使用one-shot模式
         provider: API提供商（'openai'等）
+        prompt_template: 自定义 prompt 模板文件路径（可选）
     """
     # 某些 OpenAI 模型（如 gpt-5-nano, gpt-5-mini）只支持默认 temperature=1
     # 在这些模型上，必须使用 temperature=None（不传参数）或 temperature=1.0
@@ -739,7 +745,9 @@ def test_api_model_on_testing_data(
     print(f"[Stage 1/4] Loading problems from directory...", flush=True)
     print(f"  Problems directory: {problems_dir}", flush=True)
     print(f"  Domain file: {domain_file}", flush=True)
-    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot)
+    if prompt_template:
+        print(f"  Prompt template: {prompt_template}", flush=True)
+    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot, prompt_template=prompt_template)
     print(f"[Stage 1/4] Loaded {len(test_data)} problems", flush=True)
     
     if max_problems and max_problems > 0 and len(test_data) > max_problems:
@@ -813,6 +821,7 @@ def test_api_model_on_testing_data(
         usage_info = None
         raw_solution = ""
         retry_count = 0
+        api_elapsed = None
 
         with print_lock:
             print(f"\n{'='*80}", flush=True)
@@ -944,7 +953,8 @@ def test_api_model_on_testing_data(
             'raw_solution': raw_solution,
             'generation_error': generation_error,
             'retry_count': retry_count,
-            'usage': usage_info
+            'usage': usage_info,
+            'solve_time_seconds': api_elapsed
         }
         
         # 更新统计（线程安全）
@@ -1147,7 +1157,9 @@ def main():
     parser.set_defaults(one_shot=False)
     parser.add_argument("--max-workers", type=int, default=None,
                        help=f"Maximum number of concurrent threads (default: {MAX_WORKERS}, or set MAX_WORKERS env var)")
-    
+    parser.add_argument("--prompt-template", type=str, default=None,
+                       help="Path to custom prompt template file (default: prompt.txt or prompt_oneshot.txt)")
+
     args = parser.parse_args()
     
     # 使用固定的gpt-5模型配置
@@ -1189,7 +1201,8 @@ def main():
         provider=args.provider,
         max_workers=args.max_workers,
         use_responses_api=use_responses_api,
-        reasoning_effort=reasoning_effort
+        reasoning_effort=reasoning_effort,
+        prompt_template=args.prompt_template
     )
 
 

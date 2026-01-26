@@ -1,0 +1,22 @@
+{
+  "command": "script/run_benchmark.py --solver openai --model gpt-5.2 --domain all --max-problems 1",
+  "timestamp": "2026-01-26T19:26:27.548944",
+  "solver_type": "openai",
+  "model": "gpt-5.2",
+  "domain": "grid",
+  "parameters": {
+    "model": "gpt-5.2",
+    "actual_model_name": "gpt-5.2-2025-12-11",
+    "domain": "grid",
+    "domain_file": "/home/ubuntu/Safety-gen/pddl3/grid/domain3.pddl",
+    "problems_dir": "/home/ubuntu/Safety-gen/benchmark_problems/grid",
+    "selected_problems_count": 48,
+    "temperature": 0.6,
+    "max_problems": 1,
+    "one_shot": false,
+    "max_workers": 5,
+    "use_responses_api": true,
+    "reasoning_effort": "high",
+    "prompt_template": null
+  }
+}

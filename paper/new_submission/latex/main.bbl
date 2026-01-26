@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{44}
+\begin{thebibliography}{45}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -409,6 +409,20 @@
   \bibinfo{year}{2022}\natexlab{}.
 \newblock \bibinfo{title}{{PDDL} Generators}.
 \newblock \bibinfo{howpublished}{\url{https://doi.org/10.5281/zenodo.6382173}}.
+\newblock
+
+
+\bibitem[Shao et~al\mbox{.}(2024)]%
+        {shao2024deepseekmath}
+\bibfield{author}{\bibinfo{person}{Zhihong Shao}, \bibinfo{person}{Peiyi Wang},
+  \bibinfo{person}{Qihao Zhu}, \bibinfo{person}{Runxin Xu},
+  \bibinfo{person}{Junxiao Song}, \bibinfo{person}{Mingchuan Zhang},
+  \bibinfo{person}{YK Li}, \bibinfo{person}{Y Wu}, {and} \bibinfo{person}{Daya
+  Guo}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Deepseekmath: Pushing the limits of mathematical
+  reasoning in open language models}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2402.03300}}
+  (\bibinfo{year}{2024}).
 \newblock
 
 

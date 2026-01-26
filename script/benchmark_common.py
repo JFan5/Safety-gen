@@ -29,7 +29,7 @@ SCENARIOS: Tuple[str, ...] = (
 )
 
 DOMAIN_PATHS: Dict[str, Path] = {
-    name: PROJECT_ROOT / name / "domain.pddl" for name in SCENARIOS
+    name: PROJECT_ROOT / "pddl3" / name / "domain.pddl" for name in SCENARIOS
 }
 
 CACHE_FILENAME = "solver_cache.json"

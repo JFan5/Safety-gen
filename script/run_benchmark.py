@@ -301,11 +301,15 @@ def run_openai_benchmark(
     one_shot: bool,
     max_workers: int,
     output_dir: Path,
+    prompt_template: str = None,
 ) -> Dict[str, Any]:
     """
     Run OpenAI API-based benchmark.
 
     Uses OPENAI_API_KEY environment variable for authentication.
+
+    Args:
+        prompt_template: Path to custom prompt template file (optional)
 
     Returns:
         Dictionary with results and statistics
@@ -366,6 +370,7 @@ def run_openai_benchmark(
             "max_workers": max_workers,
             "use_responses_api": use_responses_api,
             "reasoning_effort": reasoning_effort,
+            "prompt_template": prompt_template,
         }
         save_run_config(
             run_dir=run_dir,
@@ -385,6 +390,8 @@ def run_openai_benchmark(
         print(f"Output dir: {run_dir}")
         if use_responses_api:
             print(f"Using responses API with reasoning_effort={reasoning_effort}")
+        if prompt_template:
+            print(f"Prompt template: {prompt_template}")
         print(f"{'='*60}\n")
 
         # Run evaluation on temp directory with selected problems
@@ -403,6 +410,7 @@ def run_openai_benchmark(
             max_workers=max_workers,
             use_responses_api=use_responses_api,
             reasoning_effort=reasoning_effort,
+            prompt_template=prompt_template,
         )
 
         # Load results and add level statistics
@@ -528,6 +536,7 @@ def run_optic_benchmark(
             "--skip-llm",
             "--time-limit", str(time_limit),
             "--problems-dir", str(temp_dir),
+            "--domain", domain,
         ]
         if max_problems > 0:
             argv.extend(["--problems-per-scenario", str(max_problems)])
@@ -796,6 +805,12 @@ Examples:
         default=DEFAULT_BENCHMARK_DIR,
         help=f"Output directory (default: {DEFAULT_BENCHMARK_DIR})",
     )
+    parser.add_argument(
+        "--prompt-template",
+        type=str,
+        default=None,
+        help="Path to custom prompt template file (default: prompt.txt or prompt_oneshot.txt)",
+    )
 
     args = parser.parse_args()
 
@@ -838,6 +853,7 @@ Examples:
                     one_shot=args.one_shot,
                     max_workers=args.max_workers,
                     output_dir=args.output_dir,
+                    prompt_template=args.prompt_template,
                 )
             elif args.solver == "optic":
                 result = run_optic_benchmark(
