@@ -1,0 +1,27 @@
+## Domain Overview
+
+This domain involves a robot arm manipulating blocks on a table. The arm can hold one block at a time. Blocks can be stacked on top of each other, and the goal is typically to rearrange blocks into a desired configuration.
+
+## Actions
+
+The following actions are available. Use the exact syntax shown when creating plans.
+
+**pickup** - Pick up a block from the table
+  When: the block is clear (nothing on top), it is on the table, and the arm is empty
+  Result: the arm holds the block; the block is no longer on the table or clear; the arm is no longer empty
+  Syntax: (pickup <ob>)
+
+**putdown** - Put the held block down on the table
+  When: the arm is holding a block
+  Result: the block is on the table and clear; the arm becomes empty
+  Syntax: (putdown <ob>)
+
+**stack** - Place the held block on top of another block
+  When: the arm is holding a block, and the target block is clear
+  Result: the held block is on the target block and becomes clear; the target block is no longer clear; the arm becomes empty
+  Syntax: (stack <ob> <underob>)
+
+**unstack** - Pick up a block from the top of another block
+  When: a block is on another block, the top block is clear, and the arm is empty
+  Result: the arm holds the top block; the bottom block becomes clear; the top block is no longer on the bottom block
+  Syntax: (unstack <ob> <underob>)

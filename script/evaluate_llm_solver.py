@@ -23,7 +23,10 @@ import time
 import re
 from typing import Optional
 from collections import defaultdict
-from utils import _classify_result, validate_solution
+from utils import (
+    _classify_result,
+    validate_solution,
+)
 
 # Import run registry utilities
 try:
@@ -719,7 +722,8 @@ def test_model_on_testing_data(model_path,
             'validation_cmd': val_cmd,
             'raw_solution': raw_solution,
             'generation_error': generation_error,
-            'ground_truth': sample.get('path', '')
+            'ground_truth': sample.get('path', ''),
+            'prompt': sample['prompt']
         }
         
         results.append(result)

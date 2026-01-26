@@ -17,7 +17,10 @@ from typing import Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 from collections import defaultdict
-from utils import _classify_result, validate_solution
+from utils import (
+    _classify_result,
+    validate_solution,
+)
 import argparse
 
 try:
@@ -526,8 +529,8 @@ def test_gemini_model_on_testing_data(
         "safety_constraints_violation": 0,
         "goal_not_satisfied": 0,
     }
-    # 规模统计
-    size_stats = defaultdict(lambda: {"total": 0, "success": 0})
+    # 规模统计 (including solve times)
+    size_stats = defaultdict(lambda: {"total": 0, "success": 0, "solve_times": []})
 
     # 线程安全的锁和计数器
     print_lock = Lock()
@@ -539,6 +542,9 @@ def test_gemini_model_on_testing_data(
         problem_name = sample['problem_name']
         problem_file = sample.get('problem_file')
         size_key = _extract_size_key(problem_name, scenario_name)
+
+        # Start timing for this problem
+        problem_start_time = time.time()
 
         # 调用API生成解决方案（带重试逻辑）
         generation_error = None
@@ -655,6 +661,9 @@ def test_gemini_model_on_testing_data(
 
         is_valid = (category == "success_plans")
 
+        # Calculate solve time for this problem
+        solve_time_seconds = time.time() - problem_start_time
+
         # 记录结果
         result = {
             'index': index,
@@ -671,7 +680,8 @@ def test_gemini_model_on_testing_data(
             'raw_solution': raw_solution,
             'generation_error': generation_error,
             'retry_count': retry_count,
-            'usage': usage_info
+            'usage': usage_info,
+            'solve_time_seconds': solve_time_seconds,
         }
 
         # 更新统计
@@ -707,6 +717,7 @@ def test_gemini_model_on_testing_data(
                 size_stats[size_key]["total"] += 1
                 if is_valid:
                     size_stats[size_key]["success"] += 1
+                size_stats[size_key]["solve_times"].append(solve_time_seconds)
             print(f"{'='*80}\n", flush=True)
 
         return result
@@ -746,7 +757,8 @@ def test_gemini_model_on_testing_data(
                     'validation_stderr': '',
                     'validation_cmd': '',
                     'raw_solution': '',
-                    'generation_error': f"Processing error: {str(e)}"
+                    'generation_error': f"Processing error: {str(e)}",
+                    'solve_time_seconds': 0,
                 })
 
     # 按索引排序结果
@@ -759,10 +771,15 @@ def test_gemini_model_on_testing_data(
     for key, stats in size_stats.items():
         total = stats["total"]
         succ = stats["success"]
+        times = stats.get("solve_times", [])
         size_success_rates[key] = {
             "total": total,
             "success": succ,
-            "success_rate": (succ / total * 100) if total > 0 else 0
+            "success_rate": (succ / total * 100) if total > 0 else 0,
+            "total_solve_time_seconds": sum(times) if times else 0,
+            "avg_solve_time_seconds": (sum(times) / len(times)) if times else 0,
+            "min_solve_time_seconds": min(times) if times else 0,
+            "max_solve_time_seconds": max(times) if times else 0,
         }
 
     print(f"\n{'='*80}", flush=True)
@@ -802,6 +819,11 @@ def test_gemini_model_on_testing_data(
             else:
                 output_file_path = Path(f"{stem}{oneshot_suffix}_{timestamp}{suffix}")
 
+    # Calculate overall timing statistics
+    all_solve_times = [r.get('solve_time_seconds', 0) for r in results if r.get('solve_time_seconds') is not None]
+    total_solve_time = sum(all_solve_times) if all_solve_times else 0
+    avg_solve_time = (total_solve_time / len(all_solve_times)) if all_solve_times else 0
+
     output_data = {
         'timestamp': timestamp_iso,
         'model_name': model_name,
@@ -816,6 +838,8 @@ def test_gemini_model_on_testing_data(
         'total_tests': total_count,
         'success_count': success_count,
         'success_rate': final_success_rate,
+        'total_solve_time_seconds': total_solve_time,
+        'avg_solve_time_seconds': avg_solve_time,
         'category_counts': category_counts,
         'category_rates': {k: (v / total_count * 100) if total_count > 0 else 0
                           for k, v in category_counts.items()},
@@ -840,6 +864,8 @@ def test_gemini_model_on_testing_data(
     print(f"Total tests: {total_count}", flush=True)
     print(f"Success plans: {success_count}", flush=True)
     print(f"Success rate: {final_success_rate:.1f}%", flush=True)
+    print(f"Total solve time: {total_solve_time:.2f}s", flush=True)
+    print(f"Avg solve time per problem: {avg_solve_time:.2f}s", flush=True)
     print(f"\nCategory Breakdown:", flush=True)
     for category, count in category_counts.items():
         rate = (count / total_count * 100) if total_count > 0 else 0
@@ -848,7 +874,8 @@ def test_gemini_model_on_testing_data(
         print(f"\nSuccess by Problem Size:", flush=True)
         for size_key in sorted(size_success_rates.keys()):
             stats = size_success_rates[size_key]
-            print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%)", flush=True)
+            time_str = f", avg {stats.get('avg_solve_time_seconds', 0):.2f}s" if stats.get('avg_solve_time_seconds') else ""
+            print(f"  {size_key}: {stats['success']}/{stats['total']} ({stats['success_rate']:.1f}%){time_str}", flush=True)
     print(f"\nResults saved to: {output_file_path}", flush=True)
     print(f"{'='*60}\n", flush=True)
 

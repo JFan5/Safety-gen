@@ -23,7 +23,10 @@ from datetime import datetime
 import re
 from typing import Optional, List, Dict, Tuple
 from collections import defaultdict
-from utils import _classify_result, validate_solution
+from utils import (
+    _classify_result,
+    validate_solution,
+)
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
@@ -258,7 +261,8 @@ def _load_one_shot_example(scenario: str, repo_root: Path = None) -> Optional[di
 
 
 def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False,
-                           nl_mode: bool = False) -> list:
+                           nl_mode: bool = False, domain_nl_mode: bool = False,
+                           json_mode: bool = False, domain_json_mode: bool = False) -> list:
     """从指定目录加载所有 problem 文件
 
     Args:
@@ -266,6 +270,9 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         domain_file: Path to domain PDDL file
         one_shot: Whether to use one-shot mode
         nl_mode: If True, load .txt files for NL prompting (requires .pddl files for validation)
+        domain_nl_mode: If True, use domain NL file instead of PDDL domain (requires nl_mode)
+        json_mode: If True, load .json files for JSON prompting (requires .pddl files for validation)
+        domain_json_mode: If True, use domain JSON file instead of PDDL domain (requires json_mode)
     """
     problems_path = Path(problems_dir)
     if not problems_path.exists():
@@ -273,16 +280,60 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         return []
 
     domain_content = ""
-    if domain_file and Path(domain_file).exists():
+    domain_path = Path(domain_file) if domain_file else None
+
+    # Handle domain JSON mode
+    if domain_json_mode and domain_path:
+        # Look for domain JSON file (e.g., domain3.json)
+        domain_json_path = domain_path.parent / f"{domain_path.stem}.json"
+        if domain_json_path.exists():
+            try:
+                with open(domain_json_path, 'r', encoding='utf-8') as f:
+                    domain_content = f.read()
+                print(f"Using domain JSON file: {domain_json_path}")
+            except Exception as e:
+                print(f"Error reading domain JSON file {domain_json_path}: {e}")
+                print(f"Falling back to PDDL domain file")
+                domain_json_mode = False
+        else:
+            print(f"Warning: Domain JSON file not found: {domain_json_path}")
+            print(f"Falling back to PDDL domain file")
+            domain_json_mode = False
+
+    # Handle domain NL mode
+    if domain_nl_mode and domain_path and not domain_content:
+        # Look for domain NL file (e.g., domain3_nl.txt)
+        domain_nl_path = domain_path.parent / f"{domain_path.stem}_nl.txt"
+        if domain_nl_path.exists():
+            try:
+                with open(domain_nl_path, 'r', encoding='utf-8') as f:
+                    domain_content = f.read()
+                print(f"Using domain NL file: {domain_nl_path}")
+            except Exception as e:
+                print(f"Error reading domain NL file {domain_nl_path}: {e}")
+                print(f"Falling back to PDDL domain file")
+                domain_nl_mode = False
+        else:
+            print(f"Warning: Domain NL file not found: {domain_nl_path}")
+            print(f"Falling back to PDDL domain file")
+            domain_nl_mode = False
+
+    # Fall back to PDDL domain if not using domain NL mode
+    if not domain_content and domain_path and domain_path.exists():
         try:
-            with open(domain_file, 'r', encoding='utf-8') as f:
+            with open(domain_path, 'r', encoding='utf-8') as f:
                 domain_content = f.read()
         except Exception as e:
             print(f"Error reading domain file {domain_file}: {e}")
 
     test_data = []
 
-    if nl_mode:
+    if json_mode:
+        # JSON mode: load .json files for prompting, use .pddl files for validation
+        problem_files = sorted(problems_path.glob('*.json'))
+        prompt_template_file = 'prompt_json.txt' if Path('prompt_json.txt').exists() else 'prompt_nl.txt'
+        print(f"JSON mode enabled: loading {len(problem_files)} .json files")
+    elif nl_mode:
         # NL mode: load .txt files for prompting, use .pddl files for validation
         problem_files = sorted(problems_path.glob('*.txt'))
         prompt_template_file = 'prompt_nl.txt'
@@ -294,7 +345,7 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
 
     if not problem_files:
-        file_type = ".txt" if nl_mode else ".pddl"
+        file_type = ".json" if json_mode else (".txt" if nl_mode else ".pddl")
         print(f"No {file_type} problem files found in {problems_dir}")
         return []
 
@@ -334,8 +385,8 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
             print(f"Error reading {problem_file}: {e}")
             continue
 
-        # For NL mode, locate the corresponding .pddl file for validation
-        if nl_mode:
+        # For NL/JSON mode, locate the corresponding .pddl file for validation
+        if nl_mode or json_mode:
             pddl_file = problems_path / f"{problem_name}.pddl"
             if not pddl_file.exists():
                 print(f"Warning: No .pddl file for validation: {problem_name}, skipping...")
@@ -542,7 +593,10 @@ def test_model_on_testing_data(model_path,
                               runs_dir: str = None,
                               use_runs_structure: bool = False,
                               eval_id: str = None,
-                              nl_mode: bool = False):
+                              nl_mode: bool = False,
+                              domain_nl_mode: bool = False,
+                              json_mode: bool = False,
+                              domain_json_mode: bool = False):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
@@ -563,6 +617,9 @@ def test_model_on_testing_data(model_path,
         runs_dir: runs 目录路径（用于自动写入 runs 结构）
         use_runs_structure: 是否使用 runs/<run_id>/eval/<eval_id>/ 结构输出
         nl_mode: 是否使用自然语言 (.txt) 文件进行提示
+        domain_nl_mode: 是否使用自然语言域文件代替 PDDL 域文件
+        json_mode: 是否使用 JSON (.json) 文件进行提示
+        domain_json_mode: 是否使用 JSON 域文件代替 PDDL 域文件
     """
     print(f"Testing model: {model_path}")
     print(f"Problems dir: {problems_dir}")
@@ -596,11 +653,19 @@ def test_model_on_testing_data(model_path,
     if one_shot:
         print("Using one-shot mode with examples")
 
+    if json_mode:
+        print("Using JSON mode: loading .json files for prompting")
+    if domain_json_mode:
+        print("Using domain JSON mode: loading domain JSON file for prompting")
     if nl_mode:
         print("Using NL mode: loading .txt files for prompting")
+    if domain_nl_mode:
+        print("Using domain NL mode: loading domain NL file for prompting")
 
     # 加载测试数据
-    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot, nl_mode=nl_mode)
+    test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot,
+                                         nl_mode=nl_mode, domain_nl_mode=domain_nl_mode,
+                                         json_mode=json_mode, domain_json_mode=domain_json_mode)
     if max_problems and max_problems > 0 and len(test_data) > max_problems:
         random.seed(42)
         test_data = random.sample(test_data, max_problems)
@@ -782,7 +847,8 @@ def test_model_on_testing_data(model_path,
                 'validation_cmd': val_result['validation_cmd'],
                 'raw_solution': raw_solution,
                 'generation_error': None,
-                'ground_truth': sample.get('path', '')
+                'ground_truth': sample.get('path', ''),
+                'prompt': sample['prompt']
             }
 
             results.append(result)
@@ -1052,6 +1118,21 @@ def main():
         action="store_true",
         help="Use natural language (.txt) files for prompting instead of PDDL files",
     )
+    parser.add_argument(
+        "--domain-nl-mode",
+        action="store_true",
+        help="Use domain NL file (domain3_nl.txt) instead of PDDL domain file (requires --nl-mode)",
+    )
+    parser.add_argument(
+        "--json-mode",
+        action="store_true",
+        help="Use JSON (.json) files for prompting instead of PDDL files",
+    )
+    parser.add_argument(
+        "--domain-json-mode",
+        action="store_true",
+        help="Use domain JSON file (domain3.json) instead of PDDL domain file (requires --json-mode)",
+    )
 
     args = parser.parse_args()
 
@@ -1108,6 +1189,9 @@ def main():
         use_runs_structure=args.use_runs_structure,
         eval_id=args.eval_id,
         nl_mode=args.nl_mode,
+        domain_nl_mode=args.domain_nl_mode,
+        json_mode=args.json_mode,
+        domain_json_mode=args.domain_json_mode,
     )
 
 if __name__ == "__main__":

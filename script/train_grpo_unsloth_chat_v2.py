@@ -50,8 +50,11 @@ import wandb  # type: ignore
 
 from trl import GRPOConfig, GRPOTrainer  # type: ignore
 
-from utils import _classify_result, extract_llm_output, log_reward_batch_stats, validate_solution
-from utils_generic_reward import (
+from utils import (
+    _classify_result,
+    extract_llm_output,
+    log_reward_batch_stats,
+    validate_solution,
     compute_reward_from_validation,
     get_supported_scenarios,
     print_reward_summary,

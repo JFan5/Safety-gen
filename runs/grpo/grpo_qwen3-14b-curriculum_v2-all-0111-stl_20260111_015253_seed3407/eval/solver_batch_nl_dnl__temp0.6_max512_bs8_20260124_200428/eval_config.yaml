@@ -1,0 +1,11 @@
+batch_size: 8
+eval_id: solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_200428
+eval_type: solver_batch
+load_in_4bit: true
+max_new_tokens: 512
+max_problems: 50
+model_path: /jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000
+num_workers: 8
+one_shot: false
+temperature: 0.6
+timestamp: '2026-01-24T20:11:21.964640'

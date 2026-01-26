@@ -67,6 +67,36 @@ class PDDLProblem:
     parse_errors: List[str] = field(default_factory=list)
 
 
+@dataclass
+class PDDLPredicate:
+    """Parsed PDDL predicate definition."""
+    name: str
+    parameters: List[Tuple[str, str]] = field(default_factory=list)  # [(param_name, type)]
+
+
+@dataclass
+class PDDLAction:
+    """Parsed PDDL action definition."""
+    name: str
+    parameters: List[Tuple[str, str]] = field(default_factory=list)  # [(param_name, type)]
+    precondition: Optional[PDDLExpr] = None
+    effect: Optional[PDDLExpr] = None
+    raw_precondition: str = ""
+    raw_effect: str = ""
+
+
+@dataclass
+class PDDLDomain:
+    """Parsed PDDL domain representation."""
+    domain_name: str = ""
+    requirements: List[str] = field(default_factory=list)
+    types: Dict[str, str] = field(default_factory=dict)  # type -> parent_type
+    predicates: List[PDDLPredicate] = field(default_factory=list)
+    actions: List[PDDLAction] = field(default_factory=list)
+    raw_content: str = ""
+    parse_errors: List[str] = field(default_factory=list)
+
+
 # ==============================================================================
 # 2. S-EXPRESSION TOKENIZER AND PARSER
 # ==============================================================================
@@ -508,10 +538,167 @@ class NLTemplates:
         "delivery": DELIVERY,
     }
 
+    # Domain overview descriptions (natural language)
+    DOMAIN_DESCRIPTIONS = {
+        "blocksworld": (
+            "This domain involves a robot arm manipulating blocks on a table. "
+            "The arm can hold one block at a time. Blocks can be stacked on top of each other, "
+            "and the goal is typically to rearrange blocks into a desired configuration."
+        ),
+        "ferry": (
+            "This domain involves a ferry that transports cars between locations. "
+            "The ferry sails between locations and can carry cars from one place to another "
+            "by boarding them at the origin and debarking them at the destination."
+        ),
+        "grippers": (
+            "This domain features robots equipped with grippers that transport objects between rooms. "
+            "Each robot can move between rooms and use its grippers to carry objects."
+        ),
+        "gripper-strips": (
+            "This domain features robots equipped with grippers that transport objects between rooms. "
+            "Each robot can move between rooms and use its grippers to carry objects."
+        ),
+        "spanner": (
+            "This domain involves a worker who moves between connected locations, picks up spanners, "
+            "and uses them to tighten nuts. Spanners are single-use tools: once a spanner tightens a nut, "
+            "it can no longer be used."
+        ),
+        "delivery": (
+            "This domain involves trucks delivering packages across a grid of cells. "
+            "Trucks navigate between adjacent cells, pick up packages, and drop them off at destination cells."
+        ),
+    }
+
+    # Action templates for hybrid NL+PDDL format
+    # Each action has: description, when (preconditions in NL), result (effects in NL)
+    ACTION_NL_TEMPLATES = {
+        "blocksworld": {
+            "pickup": {
+                "desc": "Pick up a block from the table",
+                "when": "the block is clear (nothing on top), it is on the table, and the arm is empty",
+                "result": "the arm holds the block; the block is no longer on the table or clear; the arm is no longer empty",
+            },
+            "putdown": {
+                "desc": "Put the held block down on the table",
+                "when": "the arm is holding a block",
+                "result": "the block is on the table and clear; the arm becomes empty",
+            },
+            "stack": {
+                "desc": "Place the held block on top of another block",
+                "when": "the arm is holding a block, and the target block is clear",
+                "result": "the held block is on the target block and becomes clear; the target block is no longer clear; the arm becomes empty",
+            },
+            "unstack": {
+                "desc": "Pick up a block from the top of another block",
+                "when": "a block is on another block, the top block is clear, and the arm is empty",
+                "result": "the arm holds the top block; the bottom block becomes clear; the top block is no longer on the bottom block",
+            },
+        },
+        "ferry": {
+            "sail": {
+                "desc": "Sail the ferry from one location to another",
+                "when": "the two locations are different, and the ferry is at the departure location",
+                "result": "the ferry is at the destination; the ferry is no longer at the origin",
+            },
+            "board": {
+                "desc": "Load a car onto the ferry",
+                "when": "the car is at the same location as the ferry, and the ferry is empty",
+                "result": "the car is on the ferry; the car is no longer at that location; the ferry is no longer empty",
+            },
+            "debark": {
+                "desc": "Unload a car from the ferry",
+                "when": "the car is on the ferry",
+                "result": "the car is at the ferry's current location; the ferry becomes empty; the car is no longer on the ferry",
+            },
+        },
+        "grippers": {
+            "move": {
+                "desc": "Move a robot from one room to another",
+                "when": "the robot is in the departure room",
+                "result": "the robot is in the destination room; the robot is no longer in the departure room",
+            },
+            "pick": {
+                "desc": "Pick up an object using a gripper",
+                "when": "the object is in the same room as the robot, and the gripper is free",
+                "result": "the robot carries the object with that gripper; the object is no longer in the room; the gripper is no longer free",
+            },
+            "drop": {
+                "desc": "Release an object from a gripper",
+                "when": "the robot is carrying the object with a gripper",
+                "result": "the object is in the robot's current room; the gripper becomes free; the robot no longer carries that object",
+            },
+        },
+        "gripper-strips": {
+            "move": {
+                "desc": "Move a robot from one room to another",
+                "when": "the robot is in the departure room",
+                "result": "the robot is in the destination room; the robot is no longer in the departure room",
+            },
+            "pick": {
+                "desc": "Pick up an object using a gripper",
+                "when": "the object is in the same room as the robot, and the gripper is free",
+                "result": "the robot carries the object with that gripper; the object is no longer in the room; the gripper is no longer free",
+            },
+            "drop": {
+                "desc": "Release an object from a gripper",
+                "when": "the robot is carrying the object with a gripper",
+                "result": "the object is in the robot's current room; the gripper becomes free; the robot no longer carries that object",
+            },
+        },
+        "spanner": {
+            "walk": {
+                "desc": "Walk from one location to an adjacent location",
+                "when": "the worker is at the start location, and there is a link to the destination",
+                "result": "the worker is at the destination; the worker is no longer at the origin",
+            },
+            "pickup_spanner": {
+                "desc": "Pick up a spanner",
+                "when": "the worker and the spanner are at the same location",
+                "result": "the worker carries the spanner; the spanner is no longer at that location",
+            },
+            "tighten_nut": {
+                "desc": "Tighten a nut using a spanner",
+                "when": "the worker is at the nut's location, carrying a useable spanner, and the nut is loose",
+                "result": "the nut is tightened and no longer loose; the spanner becomes unuseable",
+            },
+        },
+        "delivery": {
+            "pick-package": {
+                "desc": "Pick up a package with the truck",
+                "when": "the package and truck are at the same cell, and the truck is empty",
+                "result": "the truck carries the package; the package is no longer at that cell; the truck is no longer empty",
+            },
+            "drop-package": {
+                "desc": "Drop off the package",
+                "when": "the truck is carrying a package",
+                "result": "the truck becomes empty; the package is at the truck's current cell",
+            },
+            "move": {
+                "desc": "Move the truck to an adjacent cell",
+                "when": "the cells are adjacent and different, and the truck is at the origin cell",
+                "result": "the truck is at the destination cell; the truck is no longer at the origin; the origin is recorded as last visited",
+            },
+        },
+    }
+
     @classmethod
     def get_templates(cls, domain_name: str) -> Dict[str, str]:
         """Get templates for a domain, with fallback to empty dict."""
         return cls.DOMAIN_TEMPLATES.get(domain_name.lower(), {})
+
+    @classmethod
+    def get_domain_description(cls, domain_name: str) -> str:
+        """Get domain overview description."""
+        return cls.DOMAIN_DESCRIPTIONS.get(
+            domain_name.lower(),
+            f"A planning domain called {domain_name}."
+        )
+
+    @classmethod
+    def get_action_nl(cls, domain_name: str, action_name: str) -> Optional[Dict[str, str]]:
+        """Get action NL template (desc, when, result)."""
+        domain_actions = cls.ACTION_NL_TEMPLATES.get(domain_name.lower(), {})
+        return domain_actions.get(action_name.lower())
 
     @classmethod
     def predicate_to_nl(cls, domain_name: str, predicate: str, args: List[str],
@@ -547,7 +734,285 @@ class NLTemplates:
 
 
 # ==============================================================================
-# 5. CONSTRAINT NL GENERATOR
+# 5. DOMAIN PARSER AND HYBRID NL GENERATOR
+# ==============================================================================
+
+class PDDLDomainParser:
+    """Parser for PDDL domain files."""
+
+    def __init__(self):
+        self.domain_pattern = re.compile(
+            r'\(define\s+\(domain\s+([\w\-]+)\)', re.IGNORECASE | re.DOTALL
+        )
+        self.action_pattern = re.compile(
+            r'\(:action\s+([\w\-]+)(.*?)(?=\(:action|\Z)',
+            re.IGNORECASE | re.DOTALL
+        )
+
+    def _remove_comments(self, content: str) -> str:
+        """Remove PDDL comments (lines starting with ;)."""
+        lines = content.split('\n')
+        cleaned = []
+        for line in lines:
+            # Remove inline comments
+            if ';' in line:
+                line = line[:line.index(';')]
+            cleaned.append(line)
+        return '\n'.join(cleaned)
+
+    def _find_balanced_block(self, content: str, start_keyword: str) -> Optional[str]:
+        """Find a balanced parenthetical block starting with keyword."""
+        pattern = re.compile(rf'\(:{start_keyword}\b', re.IGNORECASE)
+        match = pattern.search(content)
+        if not match:
+            return None
+
+        start = match.start()
+        depth = 0
+        i = start
+        while i < len(content):
+            if content[i] == '(':
+                depth += 1
+            elif content[i] == ')':
+                depth -= 1
+                if depth == 0:
+                    return content[start:i+1]
+            i += 1
+        return None
+
+    def _parse_parameters(self, param_str: str) -> List[Tuple[str, str]]:
+        """Parse action parameters like '?x - type ?y - type2'."""
+        params = []
+        if not param_str:
+            return params
+
+        # Clean up whitespace
+        param_str = ' '.join(param_str.split())
+
+        # Handle typed parameters: ?x - type ?y - type
+        # Also handle untyped: ?x ?y ?z
+        parts = param_str.split()
+        i = 0
+        current_vars = []
+
+        while i < len(parts):
+            part = parts[i]
+            if part.startswith('?'):
+                current_vars.append(part)
+                i += 1
+            elif part == '-':
+                # Next part is the type
+                if i + 1 < len(parts):
+                    param_type = parts[i + 1]
+                    for var in current_vars:
+                        params.append((var, param_type))
+                    current_vars = []
+                    i += 2
+                else:
+                    i += 1
+            else:
+                # Untyped or type name
+                i += 1
+
+        # Handle remaining untyped variables
+        for var in current_vars:
+            params.append((var, 'object'))
+
+        return params
+
+    def _parse_predicates(self, pred_block: str) -> List[PDDLPredicate]:
+        """Parse predicates block."""
+        predicates = []
+
+        # Remove outer (:predicates ...)
+        inner = pred_block.strip()
+        if inner.startswith('(:predicates'):
+            inner = inner[12:]
+        if inner.endswith(')'):
+            inner = inner[:-1]
+
+        # Find each predicate definition (name params)
+        # Use tokenizer approach
+        tokens = tokenize(inner)
+        i = 0
+        while i < len(tokens):
+            if tokens[i] == '(':
+                # Start of predicate definition
+                depth = 1
+                pred_tokens = []
+                i += 1
+                while i < len(tokens) and depth > 0:
+                    if tokens[i] == '(':
+                        depth += 1
+                    elif tokens[i] == ')':
+                        depth -= 1
+                        if depth == 0:
+                            break
+                    pred_tokens.append(tokens[i])
+                    i += 1
+
+                if pred_tokens:
+                    pred_name = pred_tokens[0]
+                    param_str = ' '.join(pred_tokens[1:])
+                    params = self._parse_parameters(param_str)
+                    predicates.append(PDDLPredicate(name=pred_name, parameters=params))
+            i += 1
+
+        return predicates
+
+    def _parse_action(self, action_match: re.Match) -> PDDLAction:
+        """Parse a single action definition."""
+        action_name = action_match.group(1)
+        action_body = action_match.group(2)
+
+        action = PDDLAction(name=action_name)
+
+        # Parse parameters
+        param_match = re.search(r':parameters\s*\(([^)]*)\)', action_body, re.IGNORECASE)
+        if param_match:
+            action.parameters = self._parse_parameters(param_match.group(1))
+
+        # Extract precondition block
+        prec_block = self._find_balanced_block(action_body, 'precondition')
+        if prec_block:
+            # Remove :precondition wrapper
+            inner = prec_block.strip()
+            if inner.startswith('(:precondition'):
+                inner = inner[14:].strip()
+                if inner.endswith(')'):
+                    inner = inner[:-1].strip()
+            action.raw_precondition = inner
+
+        # Extract effect block
+        eff_block = self._find_balanced_block(action_body, 'effect')
+        if eff_block:
+            inner = eff_block.strip()
+            if inner.startswith('(:effect'):
+                inner = inner[8:].strip()
+                if inner.endswith(')'):
+                    inner = inner[:-1].strip()
+            action.raw_effect = inner
+
+        return action
+
+    def parse(self, content: str) -> PDDLDomain:
+        """Parse PDDL domain content."""
+        domain = PDDLDomain(raw_content=content)
+
+        # Remove comments
+        clean_content = self._remove_comments(content)
+
+        # Extract domain name
+        dom_match = self.domain_pattern.search(clean_content)
+        if dom_match:
+            domain.domain_name = dom_match.group(1)
+        else:
+            domain.parse_errors.append("Could not extract domain name")
+
+        # Parse predicates
+        pred_block = self._find_balanced_block(clean_content, 'predicates')
+        if pred_block:
+            domain.predicates = self._parse_predicates(pred_block)
+
+        # Parse actions
+        for action_match in self.action_pattern.finditer(clean_content):
+            action = self._parse_action(action_match)
+            domain.actions.append(action)
+
+        return domain
+
+
+class DomainHybridNLGenerator:
+    """
+    Generates hybrid NL+PDDL domain description.
+
+    The output format:
+    - Domain overview in natural language
+    - Actions with NL descriptions AND PDDL syntax
+    """
+
+    def __init__(self, domain_name: str = ""):
+        self.domain_name = domain_name.lower() if domain_name else ""
+
+    def _format_param_for_syntax(self, param: Tuple[str, str]) -> str:
+        """Format parameter for PDDL syntax display with type hints."""
+        name, ptype = param
+        # Remove ? prefix for display
+        clean_name = name[1:] if name.startswith('?') else name
+
+        # Include type for clarity (except generic 'object')
+        if ptype and ptype != 'object':
+            # Use descriptive format: name:type or just type if name is single letter
+            if len(clean_name) == 1:
+                return f"<{ptype}>"
+            else:
+                return f"<{clean_name}:{ptype}>"
+        return f"<{clean_name}>"
+
+    def _format_action(self, action: PDDLAction) -> str:
+        """Format a single action with NL description and PDDL syntax."""
+        lines = []
+
+        # Get NL template if available
+        nl_template = NLTemplates.get_action_nl(self.domain_name, action.name)
+
+        # Action header with description
+        if nl_template:
+            desc = nl_template['desc']
+        else:
+            desc = f"Perform the {action.name} action"
+
+        lines.append(f"**{action.name}** - {desc}")
+
+        # When (preconditions)
+        if nl_template and 'when' in nl_template:
+            lines.append(f"  When: {nl_template['when']}")
+        elif action.raw_precondition:
+            lines.append(f"  When: {action.raw_precondition}")
+
+        # Result (effects)
+        if nl_template and 'result' in nl_template:
+            lines.append(f"  Result: {nl_template['result']}")
+        elif action.raw_effect:
+            lines.append(f"  Result: {action.raw_effect}")
+
+        # PDDL syntax
+        if action.parameters:
+            param_strs = [self._format_param_for_syntax(p) for p in action.parameters]
+            syntax = f"({action.name} {' '.join(param_strs)})"
+        else:
+            syntax = f"({action.name})"
+        lines.append(f"  Syntax: {syntax}")
+
+        return '\n'.join(lines)
+
+    def generate(self, domain: PDDLDomain) -> str:
+        """Generate hybrid NL+PDDL domain description."""
+        self.domain_name = domain.domain_name.lower()
+
+        sections = []
+
+        # Domain overview
+        sections.append("## Domain Overview")
+        sections.append("")
+        sections.append(NLTemplates.get_domain_description(domain.domain_name))
+        sections.append("")
+
+        # Actions section
+        sections.append("## Actions")
+        sections.append("")
+        sections.append("The following actions are available. Use the exact syntax shown when creating plans.")
+        sections.append("")
+
+        for action in domain.actions:
+            sections.append(self._format_action(action))
+            sections.append("")
+
+        return '\n'.join(sections).rstrip()
+
+
+# ==============================================================================
+# 6. CONSTRAINT NL GENERATOR
 # ==============================================================================
 
 class ConstraintNLGenerator:
@@ -934,6 +1399,52 @@ class PDDLToNLConverter:
             self._log(f"  ERROR converting {input_path.name}: {e}")
             return False
 
+    def convert_domain_file(self, domain_path: Path, output_path: Path = None,
+                            dry_run: bool = False) -> bool:
+        """
+        Convert a PDDL domain file to hybrid NL+PDDL format.
+
+        Args:
+            domain_path: Path to input domain PDDL file
+            output_path: Path for output file (default: domain3_nl.txt in same directory)
+            dry_run: If True, parse but don't write file
+
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            # Read input file
+            try:
+                content = domain_path.read_text(encoding='utf-8')
+            except UnicodeDecodeError:
+                content = domain_path.read_text(encoding='latin-1')
+
+            # Parse domain
+            domain_parser = PDDLDomainParser()
+            domain = domain_parser.parse(content)
+
+            # Generate hybrid NL document
+            generator = DomainHybridNLGenerator(domain.domain_name)
+            nl_document = generator.generate(domain)
+
+            # Determine output path
+            if output_path is None:
+                output_path = domain_path.parent / f"{domain_path.stem}_nl.txt"
+
+            # Write output (unless dry run)
+            if not dry_run:
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                output_path.write_text(nl_document, encoding='utf-8')
+
+            print(f"  Converted domain: {domain_path.name} -> {output_path.name}")
+            return True
+
+        except Exception as e:
+            print(f"  ERROR converting domain {domain_path.name}: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+
     def convert_directory(
         self,
         input_dir: Path,
@@ -1043,22 +1554,40 @@ class PDDLToNLConverter:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Convert PDDL3 problem files to structured natural language descriptions.",
+        description="Convert PDDL3 problem/domain files to natural language descriptions.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
+  # Convert problem files to NL
   python script/pddl_to_nl.py --input pddl3/blocksworld/testing_problem50/
   python script/pddl_to_nl.py --input path/to/single_file.pddl
-  python script/pddl_to_nl.py --input pddl3/ --recursive --verbose
-  python script/pddl_to_nl.py --input pddl3/blocksworld/testing_problem50/ --dry-run
+
+  # Convert domain file to hybrid NL+PDDL format
+  python script/pddl_to_nl.py --domain-file pddl3/blocksworld/domain3.pddl
+
+  # Convert both problems and domain
+  python script/pddl_to_nl.py --input pddl3/blocksworld/testing_problem50/ --convert-domain
         """
     )
 
     parser.add_argument(
         '--input', '-i',
         type=str,
-        required=True,
-        help='Input file or directory containing PDDL files'
+        default=None,
+        help='Input file or directory containing PDDL problem files'
+    )
+
+    parser.add_argument(
+        '--domain-file', '-d',
+        type=str,
+        default=None,
+        help='Convert a domain PDDL file to hybrid NL+PDDL format'
+    )
+
+    parser.add_argument(
+        '--convert-domain',
+        action='store_true',
+        help='When processing a directory, also convert domain3.pddl to hybrid NL format'
     )
 
     parser.add_argument(
@@ -1126,24 +1655,58 @@ Examples:
 
     args = parser.parse_args()
 
-    input_path = Path(args.input)
-    output_path = Path(args.output_dir) if args.output_dir else None
-
-    if not input_path.exists():
-        print(f"Error: Input path does not exist: {input_path}")
+    # Validate arguments
+    if not args.input and not args.domain_file:
+        print("Error: Must specify either --input or --domain-file")
         return 1
 
     converter = PDDLToNLConverter(verbose=args.verbose)
-    results = converter.convert(
-        input_path=input_path,
-        output_path=output_path,
-        recursive=args.recursive,
-        dry_run=args.dry_run,
-        copy_soln=args.copy_soln,
-        copy_pddl=args.copy_pddl
-    )
 
-    return 0 if results["failed"] == 0 else 1
+    # Handle domain file conversion
+    if args.domain_file:
+        domain_path = Path(args.domain_file)
+        if not domain_path.exists():
+            print(f"Error: Domain file does not exist: {domain_path}")
+            return 1
+
+        print(f"Converting domain file: {domain_path}")
+        success = converter.convert_domain_file(domain_path, dry_run=args.dry_run)
+
+        if not args.input:
+            # Only domain conversion requested
+            return 0 if success else 1
+
+    # Handle problem file conversion
+    if args.input:
+        input_path = Path(args.input)
+        output_path = Path(args.output_dir) if args.output_dir else None
+
+        if not input_path.exists():
+            print(f"Error: Input path does not exist: {input_path}")
+            return 1
+
+        # Convert domain if --convert-domain is specified
+        if args.convert_domain and input_path.is_dir():
+            # Look for domain3.pddl in parent or current directory
+            domain_file = input_path.parent / "domain3.pddl"
+            if not domain_file.exists():
+                domain_file = input_path / "domain3.pddl"
+            if domain_file.exists():
+                print(f"Converting domain file: {domain_file}")
+                converter.convert_domain_file(domain_file, dry_run=args.dry_run)
+
+        results = converter.convert(
+            input_path=input_path,
+            output_path=output_path,
+            recursive=args.recursive,
+            dry_run=args.dry_run,
+            copy_soln=args.copy_soln,
+            copy_pddl=args.copy_pddl
+        )
+
+        return 0 if results["failed"] == 0 else 1
+
+    return 0
 
 
 if __name__ == '__main__':

@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-01-25T20:51:30.304464",
+  "overall": {
+    "total_problems": 50,
+    "success_count": 50,
+    "success_rate": 100.0,
+    "total_time_seconds": 1704.1123802661896,
+    "avg_time_per_problem": 34.08224760532379
+  },
+  "by_level": {
+    "l3-c2": {
+      "total": 2,
+      "success": 2,
+      "success_rate": 100.0,
+      "avg_time": 41.15156698226929
+    },
+    "l3-c3": {
+      "total": 11,
+      "success": 11,
+      "success_rate": 100.0,
+      "avg_time": 27.14805017818104
+    },
+    "l4-c2": {
+      "total": 10,
+      "success": 10,
+      "success_rate": 100.0,
+      "avg_time": 28.406182384490968
+    },
+    "l4-c3": {
+      "total": 3,
+      "success": 3,
+      "success_rate": 100.0,
+      "avg_time": 49.7934627532959
+    },
+    "l5-c2": {
+      "total": 12,
+      "success": 12,
+      "success_rate": 100.0,
+      "avg_time": 36.12591332197189
+    },
+    "l6-c2": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 35.79202628135681
+    },
+    "l6-c3": {
+      "total": 11,
+      "success": 11,
+      "success_rate": 100.0,
+      "avg_time": 38.221408735622056
+    }
+  },
+  "categories": {
+    "success_plans": {
+      "count": 50,
+      "rate": 100.0
+    },
+    "plan_format_error": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "precondition_violation": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "safety_constraints_violation": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "goal_not_satisfied": {
+      "count": 0,
+      "rate": 0.0
+    }
+  }
+}

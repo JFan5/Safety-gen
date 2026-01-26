@@ -15,7 +15,9 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
-from utils import _classify_result  
+from utils import (
+    _classify_result,
+)
 def _load_unsloth_candidates(path: Path, scenario: str) -> Dict[str, List[dict]]:
     """Group UnsLoTH scored JSONL entries by <scenario>/<problem_name>."""
     grouped: Dict[str, List[dict]] = defaultdict(list)

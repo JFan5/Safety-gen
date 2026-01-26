@@ -1,0 +1,297 @@
+\section{Experiments}\label{V}
+In this section, we empirically evaluate the proposed framework along four dimensions:
+(i)~its runtime behavior compared to a classical search-based planner,
+(ii)~its cross-problem safety generalization within the same domain,
+(iii)~its cross-domain safety generalization to unseen domains, and
+(iv)~its effectiveness in a real-world CPS deployment on a physical robot arm.
+
+\subsection{Experimental Setup}\label{subsec:experimental-setup}
+We first describe the datasets, models, and training environment used in our experiments.
+
+\noindent\textbf{SFT dataset construction.}
+As introduced in Section~\ref{subsec:sft}, we select five domains from the PDDL2 problem generators~\cite{seipp-et-al-zenodo2022} to construct the safety-oriented SFT dataset: \emph{Blocksworld}, \emph{Ferry}, \emph{Grippers}, \emph{Spanner}, and \emph{Delivery}.
+We use Blocksworld, Ferry, Grippers, and Spanner as training domains and reserve Delivery as a held-out test domain.
+For each domain, we generate $500$ planning problems with parameters ranging from simple to complex to diversify the dataset (e.g., different numbers of blocks, objects, or locations).
+All problems are solved by the temporal planner OPTIC~\cite{benton2012temporal} and the resulting plans are validated by VAL~\cite{howey2004val} to ensure correctness.
+Importantly, these problems cannot be solved by the solutions of the corresponding PDDL2 benchmark problems without incorporating the additional safety constraints, which highlights the need for a safety-aware planner.
+
+For each problem instance, we randomly sample $5$ instruction templates from a pool of $10$ templates to construct natural-language prompts, thereby further diversifying the dataset.
+This procedure yields an SFT dataset of $10{,}000$ instruction--response pairs.
+
+\noindent\textbf{DPO dataset construction.}
+For the DPO stage, we construct a preference dataset that distinguishes safety-compliant plans from unsafe or infeasible ones.
+First, we use the fine-tuned SFT model to sample candidate plans under two temperature settings, $T=0.6$ and $T=0.9$, which encourages diverse error types in the generated plans.
+Second, we treat valid plans from the SFT dataset---i.e., plans that both achieve the goal and satisfy all safety constraints---as the \emph{chosen} candidates.
+Third, we collect \emph{rejected} candidates from two sources:
+(i) plans sampled from the LLM that fail to reach the goal or violate safety constraints, and
+(ii) solutions to the corresponding PDDL2 problems that are feasible in the original domain but violate the additional safety constraints; these are categorized as \textbf{Safety Constraint Violation} examples.
+Overall, we construct a DPO preference dataset containing $11{,}960$ instruction--response pairs.
+For both SFT and DPO, the test set consists of $50$ problems per domain.
+
+\noindent\textbf{Model selection and training environment.}
+We instantiate our framework with open-source LLMs available through the Unsloth library~\cite{unsloth} on Hugging Face~\cite{wolf-etal-2020-transformers}.
+Specifically, we consider:
+\begin{itemize}
+  \item \texttt{unsloth/mistral-7b-instruct-v0.3-bnb-4bit}, abbreviated as \textbf{Mistral-7B};
+  \item \texttt{unsloth/Qwen3-14B-unsloth-bnb-4bit}, abbreviated as \textbf{Qwen3-14B}.
+\end{itemize}
+Unless otherwise specified, we use the quantized 4-bit variants of these models throughout our experiments.
+
+For training, Mistral-7B is fine-tuned on a single NVIDIA A10 GPU with 24~GB memory, and Qwen3-14B is fine-tuned on a single NVIDIA H100 GPU with 80~GB memory.
+Our implementation is based on Python~3.10 and PyTorch~2.8.0~\cite{paszke2019pytorch}, and uses the Hugging Face Transformers library~\cite{wolf-etal-2020-transformers}, TRL~\cite{vonwerra2022trl}, and Unsloth~\cite{unsloth}.
+We adopt LoRA~\cite{hu2022lora} and QLoRA~\cite{dettmers2023qlora} as parameter-efficient fine-tuning strategies to reduce memory usage and training time.
+
+\subsection{Running Time Comparison}
+We first compare the runtime behavior of an LLM-based solver with a classical search-based planner to evaluate scalability as problem complexity grows.
+
+We generate planning problems whose parameter sizes range from $3$ to $50$.
+Taking Blocksworld as an example, the simplest instance contains $3$ blocks, whereas the most complex instance contains $50$ blocks to be stacked.
+For each parameter size, we generate $20$ problem instances, resulting in $96$ problems per domain.
+We consider two domains: Blocksworld and Grippers.
+As the LLM-based solver, we use GPT-OSS-20B~\cite{openai2025gptoss120bgptoss20bmodel}, and as the classical baseline, we use OPTIC~\cite{benton2012temporal}.
+GPT-OSS-20B runs on a single NVIDIA A100 GPU with 80~GB memory, while OPTIC runs on an AMD EPYC~9554 64-core CPU with 180~GB memory.
+The timeout for both methods is set to $100$ seconds.
+
+Figure~\ref{fig:running-time-comparison} reports the average solving time across different problem sizes.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/blocksworld_time.png}
+    \caption{Blocksworld domain.}
+    \label{fig:blocksworld-time}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+      \centering    
+    \includegraphics[width=\linewidth]{figures/grippers_time.png}
+    \caption{Grippers domain.}
+    \label{fig:grippers-time}
+  \end{subfigure}
+  \caption{Running time comparison for the LLM-based solver and classical solver in two domains.}
+  \label{fig:running-time-comparison}
+\end{figure}
+
+We observe from Figure~\ref{fig:running-time-comparison} that, for relatively simple problems, the classical search-based solver is much faster than the LLM-based solver and typically completes within one second.
+However, as the problem complexity increases, the runtime of the classical solver grows dramatically---almost exponentially in these settings---and eventually reaches the timeout limit of $100$ seconds.
+In contrast, the runtime of the LLM-based solver remains relatively stable across different problem sizes.
+
+Because LLM decoding is inherently stochastic, the runtime of the LLM-based solver may occasionally decrease slightly as the problem size increases within a certain range; nevertheless, the overall trend is consistent.
+These results suggest that the LLM-based solver can effectively address the scalability limitations of classical search-based planners in complex planning domains.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/blocksworld_model_comparison.png}
+  \caption{SFT and DPO results comparison for Mistral-7B in the Blocksworld domain.}
+  \label{fig:model-comparison}
+\end{figure}
+
+\subsection{Cross-Problem Safety Generalizability}
+We next evaluate the cross-problem safety generalization of the proposed framework, i.e., whether a model trained on a set of problems and safety constraints within a given domain can solve previously unseen problems with new safety constraints in the \emph{same} planning domain.
+
+We use the Blocksworld domain as a representative example and fine-tune Mistral-7B.
+We generate $500$ training problems with different numbers of blocks (from $3$ to $6$) and varying operator combinations using the PDDL2 problem generators.
+During the SFT stage, we train the model for three epochs with a batch size of $4$, resulting in $714$ gradient steps.
+The training loss converges steadily to $0.0262$.
+
+For the subsequent DPO stage, following the construction procedure described in Section~\ref{subsec:experimental-setup}, we obtain a preference dataset with $3{,}050$ instruction--response pairs in Blocksworld.
+Figure~\ref{fig:model-comparison} compares the performance of the pretrained, SFT, and DPO models on the Blocksworld test set.
+
+We summarize the key observations as follows:
+\begin{enumerate}
+  \item \textbf{Reduction in precondition violations.}
+  The precondition violation rate is significantly reduced after SFT and DPO. 
+  In particular, the rate decreases from nearly $98\%$ for the pretrained model to $52\%$ for the SFT model and $42\%$ for the DPO model.
+  This indicates that the SFT and DPO models have internalized the underlying planning domain knowledge and are able to generate feasible plans that respect domain preconditions.
+
+  \item \textbf{Improvement in safety constraint satisfaction.}
+  The rate of safety constraint violations also decreases after DPO, from $28\%$ for the SFT model to $26\%$ for the DPO model.
+  This demonstrates that the DPO stage effectively leverages preference data to further bias the model toward safety-compliant plans.
+
+  \item \textbf{Improvement in overall success rate.}
+  The success rate---defined as generating a plan that both satisfies all safety constraints and reaches the goal---is $0\%$ for the pretrained model, but increases to $14\%$ and $20\%$ for the SFT and DPO models, respectively.
+\end{enumerate}
+
+It is worth noting that we observe two test cases categorized as \textbf{Plan Format Error}.
+This is because such error types were not included in the preference dataset; they could be further reduced by adding a small number of format-error examples into the preference data.
+We also emphasize that all experiments in this section are conducted with a quantized $7$B LLM and a relatively small dataset (only $500$ problems and roughly three thousand instruction--response pairs).
+Therefore, the reported results likely underestimate the potential performance of the framework, yet they are still encouraging and demonstrate its effectiveness.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/blocksworld_cross_domain_comparison.png}
+  \caption{Blocksworld model performance on the Delivery domain.}
+  \label{fig:blocksworld_delivery_comparison}
+\end{figure}
+
+\begin{table*}[h]
+  \centering
+  \caption{Error Type Percentages by Domain}
+  \label{tab:error_percentages}
+  \resizebox{0.95\textwidth}{!}{%
+  \begin{tabular}{l|cc|cc|cc|cc||cc}
+  \hline
+  \textbf{Domain} 
+    & \multicolumn{2}{c}{Plan Format Error} 
+    & \multicolumn{2}{c}{Precondition Violation} 
+    & \multicolumn{2}{c}{Safety Constraint Violation} 
+    & \multicolumn{2}{c}{Goal Not Satisfied} 
+    & \multicolumn{2}{c}{Success Plans} \\
+  \hline
+    
+     & \textbf{Pretrained} & \textbf{SFT} 
+     & \textbf{Pretrained} & \textbf{SFT} 
+     & \textbf{Pretrained} & \textbf{SFT} 
+     & \textbf{Pretrained} & \textbf{SFT} 
+     & \textbf{Pretrained} & \textbf{SFT} \\
+  \hline
+  \textbf{Blocksworld} & 0.0\% & 0.0\% & 70.0\% & 58.0\% & 24.0\% & 24.0\% & 2.0\% & 6.0\% & 4.0\% & \textbf{12.0\%} \\
+  \textbf{Ferry      } & 0.0\% & 2.0\% & 98.0\% & 44.0\% & 2.0\% & 36.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{18.0\%} \\
+  \textbf{Grippers   } & 8.0\% & 6.0\% & 42.0\% & 42.0\% & 46.0\% & 30.0\% & 4.0\% & 8.0\% & 0.0\% & \textbf{14.0\%} \\
+  \textbf{Spanner    } & 6.0\% & 2.0\% & 94.0\% & 48.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{50.0\%} \\
+  \hline
+    \multicolumn{11}{c}{\textbf{Generalized Domain}} \\
+  \hline
+  \textbf{Delivery   } & 0.0\% & 0.0\% & 44.0\% & 22.0\% & 48.0\% & 64.0\% & 2.0\% & 2.0\% & 6.0\% & \textbf{12.0\%} \\
+  \hline
+  \end{tabular}
+  }% end resizebox
+  \end{table*}
+
+\subsection{Cross-Domain Safety Generalizability}
+We now consider cross-domain safety generalization, which is the ultimate goal of the proposed framework: a trained LLM-based planner should be able to solve problems in \emph{unseen} domains with \emph{unseen} safety constraints.
+
+\subsubsection{Blocksworld Model Performance on an Unseen Domain.}
+We first evaluate the Blocksworld-only model on the unseen Delivery domain.
+The results are shown in Figure~\ref{fig:blocksworld_delivery_comparison}.
+We observe that both the SFT- and DPO-trained Blocksworld models perform poorly on the Delivery domain: the success rate is essentially zero, and most plans fail due to precondition violations.
+The performance is comparable to that of the pretrained Mistral-7B model.
+
+This result indicates that a model trained solely on Blocksworld does not acquire sufficient cross-domain safety generalization to solve problems in the structurally different Delivery domain, highlighting a key challenge for fine-tuning-based LLM planners.
+\begin{table*}[!ht]
+  \centering
+  \caption{Error Type Percentages by Domain on SFT and DPO Models}
+  \label{tab:error_percentages_sft_dpo}
+  \resizebox{0.95\textwidth}{!}{%
+  \begin{tabular}{l|cc|cc|cc|cc||cc}
+  \hline
+  \textbf{Domain}
+  & \multicolumn{2}{c}{Plan Format Error}
+  & \multicolumn{2}{c}{Precondition Violation}
+  & \multicolumn{2}{c}{Safety Constraints Violation}
+  & \multicolumn{2}{c}{Goal Not Satisfied}
+  & \multicolumn{2}{c}{Success Plans} \\
+  \hline
+  
+  & \textbf{SFT} & \textbf{DPO}
+  & \textbf{SFT} & \textbf{DPO}
+  & \textbf{SFT} & \textbf{DPO}
+  & \textbf{SFT} & \textbf{DPO}
+  & \textbf{SFT} & \textbf{DPO} \\
+  \hline
+  \textbf{Blocksworld} & 0.0\% & 2.0\% & 58.0\% & 40.0\% & 24.0\% & 36.0\% & 6.0\% & 6.0\% & 12.0\% & \textbf{16.0\%} \\
+  \textbf{Ferry      } & 2.0\% & 0.0\% & 44.0\% & 44.0\% & 36.0\% & 26.0\% & 0.0\% & 6.0\% & 18.0\% & \textbf{24.0\%} \\
+  \textbf{Grippers   } & 6.0\% & 6.0\% & 42.0\% & 20.0\% & 30.0\% & 46.0\% & 8.0\% & 4.0\% & 14.0\% & \textbf{24.0\%} \\
+  \textbf{Spanner    } & 2.0\% & 16.0\% & 48.0\% & 26.0\% & 0.0\% & 2.0\% & 0.0\% & 0.0\% & 50.0\% & \textbf{56.0\%} \\
+  \hline
+  \multicolumn{11}{c}{\textbf{Generalized Domain}} \\
+  \hline
+  \textbf{Delivery   } & 0.0\% & 0.0\% & 22.0\% & 28.0\% & 64.0\% & 46.0\% & 2.0\% & 2.0\% & 12.0\% & \textbf{24.0\%} \\
+  \hline
+  \end{tabular}
+  }% end resizebox
+\end{table*}
+\subsubsection{Pretrained and SFT Model Performance Comparison.}
+To address this limitation, we next train the model jointly on four domains: Blocksworld, Ferry, Grippers, and Spanner.
+The SFT stage uses the full SFT dataset of $10{,}000$ instruction--response pairs, and the DPO stage uses the $11{,}960$ preference pairs described earlier.
+
+Table~\ref{tab:error_percentages} reports the error-type distributions for the pretrained and SFT models across the four training domains and the unseen Delivery domain.
+We highlight several key findings:
+\begin{enumerate}
+\item \textbf{Success rate improvements across domains.}
+In Blocksworld, the success rate improves from $4\%$ (pretrained) to $12\%$ (SFT).
+For Ferry, Grippers, and Spanner, the pretrained model achieves $0\%$ success, whereas the SFT model reaches $18\%$, $14\%$, and $50\%$, respectively.
+These results indicate that the SFT model exhibits strong cross-problem safety generalization, enabling it to generate valid plans for previously unseen problem instances within the four training domains.
+
+\item \textbf{Significant reduction in precondition violations.}
+Across the four training domains, the precondition violation rate is substantially reduced after SFT:
+\begin{itemize}
+  \item Ferry: from $98\%$ to $44\%$,
+  \item Blocksworld: from $70\%$ to $58\%$,
+  \item Grippers: remains at $42\%$,
+  \item Spanner: from $94\%$ to $48\%$.
+\end{itemize}
+This demonstrates that the SFT model effectively internalizes domain-level planning rules and produces plans that are more frequently executable with respect to preconditions.
+
+\item \textbf{Interpreting safety constraint violations.}
+In some domains, the Safety Constraint Violation rate is higher for the SFT model than for the pretrained model.
+This behavior is expected: the pretrained model often fails to generate meaningful or executable plans, so its outputs may not progress to states where safety constraints are even evaluated.
+By contrast, the SFT model generates more complete and structured plans, thereby exposing more opportunities for safety checks---and hence observable safety violations---to occur.
+
+\item \textbf{Generalization to the unseen Delivery domain.}
+Most importantly, the SFT model also improves performance on the unseen Delivery domain.
+The precondition violation rate decreases from $44\%$ to $22\%$, while the success rate increases from $6\%$ to $12\%$.
+This indicates that SFT injects planning knowledge that can transfer across domains, enabling the model to generate feasible plans even in a domain that was not seen during supervised training.
+\end{enumerate}
+
+Overall, these results show that SFT substantially enhances the model's ability to generate feasible, legal, and safety-aware plans across both seen and unseen domains.
+
+
+
+\subsubsection{SFT and DPO Model Performance Comparison.}
+We finally study the impact of DPO on safety generalization.
+Starting from the SFT model trained on the four domains, we further fine-tune it using the preference dataset via DPO.
+Table~\ref{tab:error_percentages_sft_dpo} reports the error-type distributions for the SFT and DPO models.
+
+We obtain the following observations:
+\begin{enumerate}
+    \item \textbf{Success rate improvements after DPO.}  
+    DPO consistently improves success rates across all domains:
+    from $12\%$ to $16\%$ in Blocksworld, from $18\%$ to $24\%$ in Ferry, from $14\%$ to $24\%$ in Grippers, and from $50\%$ to $56\%$ in Spanner.
+    This indicates that DPO effectively leverages preference data to bias the model toward plans that are both safe and goal-satisfying.
+
+    \item \textbf{Cross-domain safety generalization.}  
+    In the unseen Delivery domain, DPO reduces the Safety Constraint Violation rate from $64\%$ to $46\%$, a substantial improvement in safety behavior.
+    Combined with the success rate increase from $12\%$ to $24\%$, this shows that DPO internalizes safety-related patterns that generalize beyond the training domains and transfer to new, unseen domains.
+\end{enumerate}
+
+Overall, the relatively small preference dataset and the use of quantized models limit the absolute performance achievable by DPO.
+Nevertheless, the two-stage SFT+DPO pipeline yields a clear improvement over the pretrained and SFT-only baselines, enabling the model to generate safe and goal-satisfying plans with both cross-problem and cross-domain safety generalization.
+
+\begin{figure*}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{Blocksworld.pdf}
+  \caption{Case study in the Blocksworld domain.}
+  \label{fig:case-study}
+\end{figure*}
+
+\subsection{Real-World Validation in Blocksworld}
+
+To demonstrate the practical impact of safety-aware training, we evaluate our framework in both simulation and a physical Cyber-Physical System (CPS) setup using the classical Blocksworld domain.
+
+\paragraph{Simulation.}
+We first select a test-set problem instance and compare two planners:
+(i) a classical PDDL2 solver, and
+(ii) our safety-aware SFT+DPO model.
+The task requires satisfying a safety constraint that enforces a specific ordering between two stacking operations to avoid unsafe intermediate configurations.
+
+As shown in Figure~\ref{fig:case-study}, the classical solver produces a plan that violates the constraint, leading to an intermediate configuration that would cause a collision between blocks.  
+In contrast, the safety-aware LLM planner restructures the action sequence so that the constraint is satisfied while still achieving the goal, demonstrating that the learned safety knowledge directly influences plan generation.
+
+\paragraph{Physical Deployment.}
+We further deploy the safety-aware planner on a desktop robot arm (Elephant myCobot~280) controlled by a Raspberry~Pi.  
+The LLM-generated plan is transmitted via SSH and executed on the real robot.  
+We compare the safety-aware plan with a baseline unsafe sequence that mirrors the violation observed in simulation.
+
+Figure~\ref{fig:experiment-snapshot} shows snapshots from the execution.  
+The unsafe baseline results in a physical collision during stacking, whereas the safety-aware plan completes the task without violating the safety requirement.  
+This experiment confirms that the proposed framework not only improves symbolic safety in simulation but also yields robust, collision-free behaviors when deployed on real CPS hardware.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{experiments.pdf}
+  \caption{Snapshot of the physical robot executing the Blocksworld task.}
+  \label{fig:experiment-snapshot}
+\end{figure}

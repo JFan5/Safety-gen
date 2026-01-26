@@ -22,7 +22,9 @@ import tempfile
 from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Iterable, List
-from utils import _classify_result  # 通过这个来鉴定
+from utils import (
+    _classify_result,  # 通过这个来鉴定
+)
 
 
 def _repo_root() -> Path:
@@ -41,7 +43,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from construct_dpo_dataset import construct_dpo  # type: ignore  # noqa: E402
-from utils import _classify_result  # type: ignore  # noqa: E402
+# _classify_result already imported above
 
 
 SCORE_MAP = {

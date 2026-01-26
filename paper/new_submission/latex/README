@@ -1,0 +1,31 @@
+ICCPS Safety Generalization LaTeX package
+=======================================
+
+This repository now holds only the artefacts required to build the
+`sample-acmcp` manuscript. Everything else from the original ACM
+bundle has been removed to keep the project lightweight. All files now
+live in the repository root:
+
+- `sample-acmcp.tex`: main manuscript source
+- `sample-base.bib`: bibliography database
+- `acmart.cls`: ACM class used by the manuscript
+- `ACM-Reference-Format.bst`: bibliography style
+- `acm-jdslogo.png`: logo referenced by the class
+
+Build:
+1. Ensure a recent TeX Live/MacTeX distribution is available.
+2. Run `make` (or `make all`) from the repository root to generate
+   `sample-acmcp.pdf`.
+3. Use `make clean` to drop intermediate files, or `make distclean` to
+   remove the PDF as well.
+
+You can also compile manually:
+
+```
+pdflatex sample-acmcp.tex
+bibtex sample-acmcp
+pdflatex sample-acmcp.tex
+pdflatex sample-acmcp.tex
+```
+
+The resulting PDF is written to `sample-acmcp.pdf`.

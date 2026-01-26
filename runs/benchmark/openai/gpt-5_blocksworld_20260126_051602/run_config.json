@@ -1,0 +1,21 @@
+{
+  "command": "script/run_benchmark.py --solver openai --model gpt-5 --domain all",
+  "timestamp": "2026-01-26T05:16:02.315330",
+  "solver_type": "openai",
+  "model": "gpt-5",
+  "domain": "blocksworld",
+  "parameters": {
+    "model": "gpt-5",
+    "actual_model_name": "gpt-5-mini-2025-08-07",
+    "domain": "blocksworld",
+    "domain_file": "/home/ubuntu/Safety-gen/pddl3/blocksworld/domain3.pddl",
+    "problems_dir": "/home/ubuntu/Safety-gen/benchmark_problems/blocksworld",
+    "selected_problems_count": 48,
+    "temperature": 0.6,
+    "max_problems": 0,
+    "one_shot": false,
+    "max_workers": 5,
+    "use_responses_api": false,
+    "reasoning_effort": null
+  }
+}

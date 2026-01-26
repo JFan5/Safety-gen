@@ -1,0 +1,17 @@
+{
+  "command": "script/run_benchmark.py --solver gemini --model gemini-3-pro-preview --domain all",
+  "timestamp": "2026-01-25T20:40:25.202338",
+  "solver_type": "gemini",
+  "model": "gemini-3-pro-preview",
+  "domain": "blocksworld",
+  "parameters": {
+    "model": "gemini-3-pro-preview",
+    "domain": "blocksworld",
+    "domain_file": "/home/ubuntu/Safety-gen/pddl3/blocksworld/domain3.pddl",
+    "problems_dir": "/home/ubuntu/Safety-gen/pddl3/blocksworld/testing_problem50",
+    "temperature": 0.6,
+    "max_problems": 0,
+    "one_shot": false,
+    "max_workers": 5
+  }
+}

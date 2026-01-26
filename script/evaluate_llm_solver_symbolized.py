@@ -22,7 +22,10 @@ import time
 import re
 from typing import Optional
 from collections import defaultdict
-from utils import _classify_result, validate_solution
+from utils import (
+    _classify_result,
+    validate_solution,
+)
 
 # 配置参数
 # input and output length

@@ -1,0 +1,22 @@
+## Domain Overview
+
+This domain features robots equipped with grippers that transport objects between rooms. Each robot can move between rooms and use its grippers to carry objects.
+
+## Actions
+
+The following actions are available. Use the exact syntax shown when creating plans.
+
+**move** - Move a robot from one room to another
+  When: the robot is in the departure room
+  Result: the robot is in the destination room; the robot is no longer in the departure room
+  Syntax: (move <robot> <from:room> <to:room>)
+
+**pick** - Pick up an object using a gripper
+  When: the object is in the same room as the robot, and the gripper is free
+  Result: the robot carries the object with that gripper; the object is no longer in the room; the gripper is no longer free
+  Syntax: (pick <robot> <obj> <room:room> <gripper>)
+
+**drop** - Release an object from a gripper
+  When: the robot is carrying the object with a gripper
+  Result: the object is in the robot's current room; the gripper becomes free; the robot no longer carries that object
+  Syntax: (drop <robot> <obj> <room:room> <gripper>)

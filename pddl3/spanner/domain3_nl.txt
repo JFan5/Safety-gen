@@ -1,0 +1,22 @@
+## Domain Overview
+
+This domain involves a worker who moves between connected locations, picks up spanners, and uses them to tighten nuts. Spanners are single-use tools: once a spanner tightens a nut, it can no longer be used.
+
+## Actions
+
+The following actions are available. Use the exact syntax shown when creating plans.
+
+**walk** - Walk from one location to an adjacent location
+  When: the worker is at the start location, and there is a link to the destination
+  Result: the worker is at the destination; the worker is no longer at the origin
+  Syntax: (walk <start:location> <end:location> <man>)
+
+**pickup_spanner** - Pick up a spanner
+  When: the worker and the spanner are at the same location
+  Result: the worker carries the spanner; the spanner is no longer at that location
+  Syntax: (pickup_spanner <location> <spanner> <man>)
+
+**tighten_nut** - Tighten a nut using a spanner
+  When: the worker is at the nut's location, carrying a useable spanner, and the nut is loose
+  Result: the nut is tightened and no longer loose; the spanner becomes unuseable
+  Syntax: (tighten_nut <location> <spanner> <man> <nut>)

@@ -187,6 +187,7 @@ class EvalRecord:
     # Core info
     method: str  # sft, dpo, grpo
     base_model_family: str
+    eval_type: str  # PDDL, NL, or JSON (reserved)
 
     # Metrics
     main_metric: float  # success_rate
@@ -220,6 +221,7 @@ class EvalRecord:
             "eval_id": self.eval_id,
             "method": self.method,
             "base_model_family": self.base_model_family,
+            "eval_type": self.eval_type,
             "main_metric": self.main_metric,
             "total_tests": self.total_tests,
             "success_count": self.success_count,
@@ -239,6 +241,33 @@ class EvalRecord:
         for category, rate in self.category_rates.items():
             d[f"category_{category}"] = rate
         return d
+
+
+@dataclass
+class ModelSummary:
+    """Aggregated evaluation data for a single trained model."""
+
+    model_path: str
+    method: str
+    run_id: str
+    base_model_family: str
+    domain_results: Dict[str, Tuple[float, int, str, str]] = field(
+        default_factory=dict
+    )  # domain -> (rate, tests, timestamp, eval_type)
+    eval_types: set = field(default_factory=set)  # Set of eval types seen
+
+    def get_avg_success_rate(self) -> float:
+        """Calculate average success rate across all evaluated domains."""
+        if not self.domain_results:
+            return 0.0
+        rates = [r[0] for r in self.domain_results.values()]
+        return sum(rates) / len(rates)
+
+    def get_domain_rate(self, domain: str) -> Optional[float]:
+        """Get success rate for a specific domain, or None if not evaluated."""
+        if domain in self.domain_results:
+            return self.domain_results[domain][0]
+        return None
 
 
 # =============================================================================
@@ -321,6 +350,25 @@ def extract_scenario_from_eval_id(eval_id: str) -> str:
     return "unknown"
 
 
+def extract_eval_type_from_eval_id(eval_id: str) -> str:
+    """
+    Extract evaluation type from eval_id naming convention.
+
+    Returns:
+        "NL" if eval_id contains "_nl_" patterns
+        "JSON" if eval_id contains "_json_" (reserved for future)
+        "PDDL" otherwise (default)
+    """
+    eval_id_lower = eval_id.lower()
+    # NL evaluation (includes _nl_dnl_ and _nl_)
+    if "_nl_" in eval_id_lower or eval_id_lower.endswith("_nl"):
+        return "NL"
+    # JSON reserved for future use
+    if "_json_" in eval_id_lower:
+        return "JSON"
+    return "PDDL"
+
+
 def create_eval_record(
     run_id: str,
     run_json: Dict[str, Any],
@@ -332,6 +380,9 @@ def create_eval_record(
 
     # Infer base model family
     base_model_family = infer_base_model_family(run_json, metrics_json, run_id)
+
+    # Extract eval type
+    eval_type = extract_eval_type_from_eval_id(eval_id)
 
     # Extract metrics
     main_metric = metrics_json.get("success_rate", 0.0)
@@ -376,6 +427,7 @@ def create_eval_record(
         eval_id=eval_id,
         method=method,
         base_model_family=base_model_family,
+        eval_type=eval_type,
         main_metric=main_metric,
         total_tests=total_tests,
         success_count=success_count,
@@ -476,6 +528,9 @@ def create_eval_record_from_new_format(
     # Infer base model family
     base_model_family = infer_base_model_family(run_json, metrics_json, run_id)
 
+    # Extract eval type
+    eval_type = extract_eval_type_from_eval_id(eval_id)
+
     # Extract metrics from scenario data
     main_metric = scenario_metrics.get("success_rate", 0.0)
     total_tests = scenario_metrics.get("total_tests", 0)
@@ -516,6 +571,7 @@ def create_eval_record_from_new_format(
         eval_id=eval_id,
         method=method,
         base_model_family=base_model_family,
+        eval_type=eval_type,
         main_metric=main_metric,
         total_tests=total_tests,
         success_count=success_count,
@@ -724,6 +780,63 @@ def sort_records(
 # =============================================================================
 
 
+def collect_domains(records: List[EvalRecord]) -> List[str]:
+    """Collect all unique domains from evaluation records, sorted."""
+    domains = set()
+    for record in records:
+        domain = extract_scenario_from_eval_id(record.eval_id)
+        if domain != "unknown":
+            domains.add(domain)
+    return sorted(domains)
+
+
+def aggregate_by_model(records: List[EvalRecord]) -> Dict[str, ModelSummary]:
+    """
+    Aggregate evaluation records by model_path, keeping best result per domain.
+
+    Returns a dictionary mapping model_path to ModelSummary.
+    For each model-domain pair, keeps the result with highest success rate.
+    """
+    model_summaries: Dict[str, ModelSummary] = {}
+
+    for record in records:
+        domain = extract_scenario_from_eval_id(record.eval_id)
+        if domain == "unknown":
+            continue
+
+        model_path = record.model_path
+        if not model_path:
+            continue
+
+        # Initialize ModelSummary if not exists
+        if model_path not in model_summaries:
+            model_summaries[model_path] = ModelSummary(
+                model_path=model_path,
+                method=record.method,
+                run_id=record.run_id,
+                base_model_family=record.base_model_family,
+                domain_results={},
+                eval_types=set(),
+            )
+
+        summary = model_summaries[model_path]
+
+        # Track eval type
+        summary.eval_types.add(record.eval_type)
+
+        # Keep best result per domain (highest success rate)
+        current_result = summary.domain_results.get(domain)
+        if current_result is None or record.main_metric > current_result[0]:
+            summary.domain_results[domain] = (
+                record.main_metric,
+                record.total_tests,
+                record.eval_timestamp,
+                record.eval_type,
+            )
+
+    return model_summaries
+
+
 def generate_csv(records: List[EvalRecord], out_path: Path):
     """Generate leaderboard.csv file."""
     if not records:
@@ -740,6 +853,7 @@ def generate_csv(records: List[EvalRecord], out_path: Path):
         "run_id",
         "method",
         "base_model_family",
+        "eval_type",
         "eval_id",
         "eval_timestamp",
         "main_metric",
@@ -772,25 +886,31 @@ def generate_csv(records: List[EvalRecord], out_path: Path):
 
 def generate_markdown(records: List[EvalRecord], out_path: Path, top_k: int = 50):
     """
-    Generate leaderboard.md with tables grouped by base_model_family.
+    Generate leaderboard.md with model-centric pivot tables grouped by base_model_family.
 
     Structure:
     - Top-level grouping by base_model_family
-    - Within each family, grouped by scenario (extracted from eval_id)
+    - Each row represents a unique trained model (identified by model_path)
+    - Columns are domains (auto-collected from all evals)
+    - Cells show success rate for that model-domain pair (or "-" if missing)
+    - Models sorted by average success rate (descending) within each family
     """
     if not records:
         logger.warning("No records to write to Markdown")
         return
 
-    # Group by base_model_family, then by scenario
-    by_family: Dict[str, Dict[str, List[EvalRecord]]] = defaultdict(
-        lambda: defaultdict(list)
-    )
-    for r in records:
-        scenario = extract_scenario_from_eval_id(r.eval_id)
-        by_family[r.base_model_family][scenario].append(r)
+    # Collect all domains across all records
+    all_domains = collect_domains(records)
 
-    # Sort families
+    # Aggregate records by model
+    model_summaries = aggregate_by_model(records)
+
+    # Group model summaries by base_model_family
+    by_family: Dict[str, List[ModelSummary]] = defaultdict(list)
+    for summary in model_summaries.values():
+        by_family[summary.base_model_family].append(summary)
+
+    # Sort families (unknown last)
     sorted_families = sorted(by_family.keys(), key=lambda x: (x == "unknown", x))
 
     lines = []
@@ -798,7 +918,9 @@ def generate_markdown(records: List[EvalRecord], out_path: Path, top_k: int = 50
     lines.append("")
     lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     lines.append("")
-    lines.append(f"Total records: {len(records)}")
+    lines.append(f"Total models: {len(model_summaries)}")
+    lines.append(f"Total evaluation records: {len(records)}")
+    lines.append(f"Domains: {', '.join(all_domains)}")
     lines.append("")
 
     # Table of contents
@@ -813,39 +935,67 @@ def generate_markdown(records: List[EvalRecord], out_path: Path, top_k: int = 50
         lines.append(f"## {family}")
         lines.append("")
 
-        scenarios = by_family[family]
-        sorted_scenarios = sorted(scenarios.keys(), key=lambda x: (x == "unknown", x))
+        family_summaries = by_family[family]
 
-        for scenario in sorted_scenarios:
-            scenario_records = scenarios[scenario]
-            # Sort by main_metric descending
-            scenario_records = sorted(
-                scenario_records, key=lambda r: r.main_metric, reverse=True
-            )[:top_k]
+        # Sort by: 1) number of domains evaluated (descending), 2) avg success rate (descending)
+        family_summaries = sorted(
+            family_summaries,
+            key=lambda s: (len(s.domain_results), s.get_avg_success_rate()),
+            reverse=True,
+        )[:top_k]
 
-            lines.append(f"### {scenario.capitalize()}")
+        if not family_summaries:
+            lines.append("_No models with valid evaluations._")
             lines.append("")
+            continue
 
-            # Markdown table header
-            lines.append(
-                "| Rank | Method | Success Rate | Total | Model Path | Run ID |"
-            )
-            lines.append(
-                "|------|--------|--------------|-------|------------|--------|"
-            )
+        # Collect domains that have at least one result in this family
+        family_domains = set()
+        for summary in family_summaries:
+            family_domains.update(summary.domain_results.keys())
+        family_domains_sorted = sorted(family_domains)
 
-            for i, r in enumerate(scenario_records, 1):
-                # Truncate model path for readability
-                model_path_short = r.model_path
-                if len(model_path_short) > 40:
-                    model_path_short = "..." + model_path_short[-37:]
-                run_id_short = r.run_id[:30] + "..." if len(r.run_id) > 30 else r.run_id
-
-                lines.append(
-                    f"| {i} | {r.method} | {r.main_metric:.2f}% | {r.total_tests} | `{model_path_short}` | `{run_id_short}` |"
-                )
-
+        if not family_domains_sorted:
+            lines.append("_No domain evaluations found._")
             lines.append("")
+            continue
+
+        # Build header: | Model | Method | Eval Type | Domain1 | Domain2 | ... | Avg |
+        header_parts = ["| Model | Method | Eval Type"]
+        separator_parts = ["|-------|--------|----------"]
+        for domain in family_domains_sorted:
+            header_parts.append(f" {domain.capitalize()}")
+            separator_parts.append("-----------:")  # Right-aligned for numbers
+        header_parts.append(" Avg |")
+        separator_parts.append("----:|")
+
+        lines.append(" |".join(header_parts))
+        lines.append("|".join(separator_parts))
+
+        # Build rows
+        for summary in family_summaries:
+            # Truncate model path for readability
+            model_path_short = summary.model_path
+            if len(model_path_short) > 50:
+                model_path_short = "..." + model_path_short[-47:]
+
+            # Determine primary eval type for this model
+            primary_eval_type = ", ".join(sorted(summary.eval_types)) if summary.eval_types else "-"
+            row_parts = [f"| `{model_path_short}` | {summary.method} | {primary_eval_type}"]
+
+            for domain in family_domains_sorted:
+                rate = summary.get_domain_rate(domain)
+                if rate is not None:
+                    row_parts.append(f" {rate:.1f}%")
+                else:
+                    row_parts.append(" -")
+
+            avg_rate = summary.get_avg_success_rate()
+            row_parts.append(f" {avg_rate:.1f}% |")
+
+            lines.append(" |".join(row_parts))
+
+        lines.append("")
 
     # Write file
     with open(out_path, "w", encoding="utf-8") as f:

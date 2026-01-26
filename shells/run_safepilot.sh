@@ -5,7 +5,7 @@
 #
 # Arguments:
 #   $1 - model_path (required): Path to local model directory
-#   $2 - domain (required): blocksworld|ferry|grippers|spanner|delivery
+#   $2 - domain (required): blocksworld|ferry|grippers|spanner|delivery|all
 #   $3 - max_retries (optional, default: 5): Maximum retry attempts per problem
 #   $4 - max_problems (optional, default: 0 = all): Limit number of problems
 #
@@ -21,6 +21,9 @@
 #
 #   # Run on delivery domain (very hard)
 #   ./shells/run_safepilot.sh runs/grpo/grpo_qwen3-14b/model_dir delivery 5 50
+#
+#   # Run on ALL domains
+#   ./shells/run_safepilot.sh runs/grpo/grpo_qwen3-14b/model_dir all
 
 set -e
 
@@ -30,13 +33,14 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ] || [ -z "$1" ]; then
     echo ""
     echo "Arguments:"
     echo "  model_path   - Path to local model directory (required)"
-    echo "  domain       - Planning domain: blocksworld|ferry|grippers|spanner|delivery (required)"
+    echo "  domain       - Planning domain: blocksworld|ferry|grippers|spanner|delivery|all (required)"
     echo "  max_retries  - Maximum retry attempts per problem (default: 5)"
     echo "  max_problems - Limit number of problems, 0 = all (default: 0)"
     echo ""
     echo "Examples:"
     echo "  ./shells/run_safepilot.sh runs/grpo/grpo_qwen3-14b/model_dir blocksworld"
     echo "  ./shells/run_safepilot.sh runs/grpo/grpo_qwen3-14b/model_dir blocksworld 3 1"
+    echo "  ./shells/run_safepilot.sh runs/grpo/grpo_qwen3-14b/model_dir all  # Run all domains"
     exit 0
 fi
 
@@ -59,6 +63,9 @@ TEMPERATURE="0.6"
 MAX_NEW_TOKENS="512"
 OUTPUT_DIR="runs/safepilot"
 
+# All valid domains
+ALL_DOMAINS="blocksworld ferry grippers spanner delivery"
+
 # Validate required arguments
 if [ -z "${MODEL_PATH}" ]; then
     echo "Error: model_path is required"
@@ -72,12 +79,13 @@ if [ -z "${DOMAIN}" ]; then
     exit 1
 fi
 
-# Validate domain
-VALID_DOMAINS="blocksworld ferry grippers spanner delivery"
-if [[ ! " ${VALID_DOMAINS} " =~ " ${DOMAIN} " ]]; then
-    echo "Error: Invalid domain '${DOMAIN}'"
-    echo "Valid domains: ${VALID_DOMAINS}"
-    exit 1
+# Validate domain (allow 'all' or specific domain)
+if [ "${DOMAIN}" != "all" ]; then
+    if [[ ! " ${ALL_DOMAINS} " =~ " ${DOMAIN} " ]]; then
+        echo "Error: Invalid domain '${DOMAIN}'"
+        echo "Valid domains: ${ALL_DOMAINS} all"
+        exit 1
+    fi
 fi
 
 # Check model path exists
@@ -86,33 +94,83 @@ if [ ! -d "${MODEL_PATH}" ]; then
     exit 1
 fi
 
-echo "=========================================="
-echo "SafePilot - Iterative Refinement Runner"
-echo "=========================================="
-echo "Model path: ${MODEL_PATH}"
-echo "Domain: ${DOMAIN}"
-echo "Max retries: ${MAX_RETRIES}"
-echo "Max problems: ${MAX_PROBLEMS} (0 = all)"
-echo "Family: ${FAMILY}"
-echo "Temperature: ${TEMPERATURE}"
-echo "Max new tokens: ${MAX_NEW_TOKENS}"
-echo "Output dir: ${OUTPUT_DIR}"
-echo "=========================================="
-echo ""
+# Function to run SafePilot on a single domain
+run_domain() {
+    local domain=$1
+    local eval_dir=$2  # Optional: shared eval directory
 
-# Run SafePilot
-python3 SafePilot/src/safepilot/run_safepilot.py \
-    --run-path "${MODEL_PATH}" \
-    --domain "${DOMAIN}" \
-    --family "${FAMILY}" \
-    --max-retries "${MAX_RETRIES}" \
-    --max-problems "${MAX_PROBLEMS}" \
-    --temperature "${TEMPERATURE}" \
-    --max-new-tokens "${MAX_NEW_TOKENS}" \
-    --output-dir "${OUTPUT_DIR}"
+    echo ""
+    echo "=========================================="
+    echo "SafePilot - Running domain: ${domain}"
+    echo "=========================================="
+    echo "Model path: ${MODEL_PATH}"
+    echo "Domain: ${domain}"
+    echo "Max retries: ${MAX_RETRIES}"
+    echo "Max problems: ${MAX_PROBLEMS} (0 = all)"
+    echo "Family: ${FAMILY}"
+    echo "Temperature: ${TEMPERATURE}"
+    echo "Max new tokens: ${MAX_NEW_TOKENS}"
+    echo "Output dir: ${OUTPUT_DIR}"
+    if [ -n "${eval_dir}" ]; then
+        echo "Eval dir: ${eval_dir}"
+    fi
+    echo "=========================================="
+    echo ""
 
-echo ""
-echo "=========================================="
-echo "SafePilot run completed!"
-echo "Results saved to ${OUTPUT_DIR}"
-echo "=========================================="
+    # Build command with optional --eval-dir
+    local cmd="python3 SafePilot/src/safepilot/run_safepilot.py \
+        --run-path \"${MODEL_PATH}\" \
+        --domain \"${domain}\" \
+        --family \"${FAMILY}\" \
+        --max-retries \"${MAX_RETRIES}\" \
+        --max-problems \"${MAX_PROBLEMS}\" \
+        --temperature \"${TEMPERATURE}\" \
+        --max-new-tokens \"${MAX_NEW_TOKENS}\" \
+        --output-dir \"${OUTPUT_DIR}\""
+
+    if [ -n "${eval_dir}" ]; then
+        cmd="${cmd} --eval-dir \"${eval_dir}\" --scenario-name \"${domain}\""
+    fi
+
+    # Run SafePilot
+    eval ${cmd}
+
+    echo ""
+    echo "=========================================="
+    echo "Completed domain: ${domain}"
+    echo "=========================================="
+}
+
+# Run on all domains or single domain
+if [ "${DOMAIN}" = "all" ]; then
+    # Generate single eval directory for all domains
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    EVAL_DIR="${OUTPUT_DIR}/safepilot__temp${TEMPERATURE}_max${MAX_NEW_TOKENS}_${TIMESTAMP}"
+
+    echo "=========================================="
+    echo "SafePilot - Running ALL domains"
+    echo "Domains: ${ALL_DOMAINS}"
+    echo "Eval directory: ${EVAL_DIR}"
+    echo "=========================================="
+
+    # Create the eval directory and scenarios subdirectory
+    mkdir -p "${EVAL_DIR}/scenarios"
+
+    for domain in ${ALL_DOMAINS}; do
+        run_domain "${domain}" "${EVAL_DIR}"
+    done
+
+    echo ""
+    echo "=========================================="
+    echo "SafePilot completed ALL domains!"
+    echo "Results saved to ${EVAL_DIR}"
+    echo "=========================================="
+else
+    run_domain "${DOMAIN}"
+
+    echo ""
+    echo "=========================================="
+    echo "SafePilot run completed!"
+    echo "Results saved to ${OUTPUT_DIR}"
+    echo "=========================================="
+fi

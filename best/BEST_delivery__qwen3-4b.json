@@ -3,6 +3,7 @@
   "eval_id": "qwen3-4b-thinking-sft500_delivery_delivery_test_results",
   "method": "sft",
   "base_model_family": "qwen3-4b",
+  "eval_type": "PDDL",
   "main_metric": 0.0,
   "total_tests": 50,
   "success_count": 0,

@@ -23,7 +23,13 @@
     "dirty": true,
     "branch": "main"
   },
-  "evals": {},
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8_20260124_203548": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260124_203548",
+      "main_metric": 47.6,
+      "timestamp": "2026-01-24T20:48:13.427082"
+    }
+  },
   "invalid_paths": null,
   "extra": {
     "reward_type": "dense",

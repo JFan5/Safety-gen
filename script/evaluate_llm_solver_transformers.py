@@ -21,7 +21,10 @@ from transformers import (
     GenerationConfig,
 )
 
-from utils import _classify_result, validate_solution
+from utils import (
+    _classify_result,
+    validate_solution,
+)
 
 MAX_NEW_TOKENS = 2048
 

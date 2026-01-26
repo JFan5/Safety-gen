@@ -1,0 +1,22 @@
+## Domain Overview
+
+This domain involves a ferry that transports cars between locations. The ferry sails between locations and can carry cars from one place to another by boarding them at the origin and debarking them at the destination.
+
+## Actions
+
+The following actions are available. Use the exact syntax shown when creating plans.
+
+**sail** - Sail the ferry from one location to another
+  When: the two locations are different, and the ferry is at the departure location
+  Result: the ferry is at the destination; the ferry is no longer at the origin
+  Syntax: (sail <from> <to>)
+
+**board** - Load a car onto the ferry
+  When: the car is at the same location as the ferry, and the ferry is empty
+  Result: the car is on the ferry; the car is no longer at that location; the ferry is no longer empty
+  Syntax: (board <car> <loc>)
+
+**debark** - Unload a car from the ferry
+  When: the car is on the ferry
+  Result: the car is at the ferry's current location; the ferry becomes empty; the car is no longer on the ferry
+  Syntax: (debark <car> <loc>)

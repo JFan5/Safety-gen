@@ -6,7 +6,9 @@ import json
 import re
 from pathlib import Path
 from typing import Dict, Optional
-from utils import _classify_result  
+from utils import (
+    _classify_result,
+)
 
 
 def _extract_solution_text(item: dict) -> Optional[str]:

@@ -3,6 +3,7 @@
   "eval_id": "solver_batch__temp0.6_max512_bs8__spanner",
   "method": "grpo",
   "base_model_family": "mistral-7b",
+  "eval_type": "PDDL",
   "main_metric": 100.0,
   "total_tests": 50,
   "success_count": 50,

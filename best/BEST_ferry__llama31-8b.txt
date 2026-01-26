@@ -2,7 +2,7 @@ BEST RESULT: ferry / llama31-8b
 ============================================================
 
 Run ID:           grpo_llama3.1-8b-curriculum_v2-all-0110-stl_20260110_144726_seed3407
-Eval ID:          solver_batch__temp0.6_max512_bs8__ferry
+Eval ID:          solver_batch__temp0.6_max512_bs8_20260124_192457__ferry
 Method:           grpo
 Base Model:       llama31-8b
 
@@ -13,14 +13,14 @@ Model Path:       /jfan5/grpo_models/llama3.1-8b-curriculum_v2-all-0110-stl-1000
 Dataset:          
 W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/dr5oseuw
 
-Eval Timestamp:   2026-01-11T14:44:54.912827
+Eval Timestamp:   2026-01-24T19:34:54.761042
 Created At:       
 
 Category Breakdown:
   success_plans: 82.00%
   plan_format_error: 2.00%
-  precondition_violation: 4.00%
-  safety_constraints_violation: 12.00%
+  precondition_violation: 2.00%
+  safety_constraints_violation: 14.00%
   goal_not_satisfied: 0.00%
   generation_error: 0.00%
   others: 0.00%

@@ -15,7 +15,9 @@ import torch
 from datetime import datetime
 import re
 from typing import List, Optional
-from utils import _classify_result
+from utils import (
+    _classify_result,
+)
 
 # 配置参数
 max_seq_length = 5000

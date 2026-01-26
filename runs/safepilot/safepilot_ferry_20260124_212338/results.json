@@ -1,0 +1,1040 @@
+{
+  "problems": [
+    {
+      "success": true,
+      "final_plan": "(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpu1gqx0s0.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(board c1 l2)\n \n2:\n(sail l2 l1)\n \n3:\n(debark c1 l1)\n \n4:\n(board c0 l1)\n \n5:\n(sail l1 l0)\n \n6:\n(debark c0 l0)\n \n7:\n(sail l0 l1)\n \n8:\n(board c1 l1)\n \n9:\n(sail l1 l0)\n \n10:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 10\nPlan valid\nFinal value: 10 \n\nSuccessful plans:\nValue: 10\n /tmp/tmpu1gqx0s0.soln 10 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c2-s1300312024",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c2-s1300312024.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp8foj66kk.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(board c0 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(debark c0 l0)\n \n4:\n(sail l0 l1)\n \n5:\n(board c1 l1)\n \n6:\n(sail l1 l2)\n \n7:\n(debark c1 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c0 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmp8foj66kk.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c2-s1340277683",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c2-s1340277683.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpd7hzq4va.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(board c2 l0)\n \n2:\n(sail l0 l2)\n \n3:\n(debark c2 l2)\n \n4:\n(board c1 l2)\n \n5:\n(sail l2 l1)\n \n6:\n(debark c1 l1)\n \n7:\n(sail l1 l2)\n \n8:\n(board c2 l2)\n \n9:\n(sail l2 l1)\n \n10:\n(debark c2 l1)\n \n11:\n(board c1 l1)\n \n12:\n(sail l1 l0)\n \n13:\n(debark c1 l0)\n \n14:\n(sail l0 l2)\n \n15:\n(board c0 l2)\n \n16:\n(sail l2 l0)\n \n17:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 17\nPlan valid\nFinal value: 17 \n\nSuccessful plans:\nValue: 17\n /tmp/tmpd7hzq4va.soln 17 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s102373682",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s102373682.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l1)\n(board c0 l1)\n(sail l1 l2)\n(debark c0 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l1)\n(board c0 l1)\n(sail l1 l2)\n(debark c0 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpucn1tl62.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(board c1 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(debark c1 l0)\n \n4:\n(board c2 l0)\n \n5:\n(sail l0 l2)\n \n6:\n(debark c2 l2)\n \n7:\n(sail l2 l1)\n \n8:\n(board c0 l1)\n \n9:\n(sail l1 l2)\n \n10:\n(debark c0 l2)\n \n11:\n(board c2 l2)\n \n12:\n(sail l2 l1)\n \n13:\n(debark c2 l1)\n \n14:\n(sail l1 l0)\n \n15:\n(board c1 l0)\n \n16:\n(sail l0 l2)\n \n17:\n(debark c1 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 17\nPlan valid\nFinal value: 17 \n\nSuccessful plans:\nValue: 17\n /tmp/tmpucn1tl62.soln 17 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s1233513275",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s1233513275.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp1lzf0yvd.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(board c0 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(debark c0 l0)\n \n4:\n(sail l0 l2)\n \n5:\n(board c1 l2)\n \n6:\n(sail l2 l1)\n \n7:\n(debark c1 l1)\n \n8:\n(sail l1 l0)\n \n9:\n(board c0 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmp1lzf0yvd.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s1276552257",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s1276552257.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpdr66qrdv.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(sail l0 l2)\n \n2:\n(board c0 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(sail l0 l1)\n \n6:\n(board c1 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(board c0 l0)\n \n10:\n(sail l0 l1)\n \n11:\n(debark c0 l1)\n \n12:\n(sail l1 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l1)\n \n15:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 15\nPlan valid\nFinal value: 15 \n\nSuccessful plans:\nValue: 15\n /tmp/tmpdr66qrdv.soln 15 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s1629930775",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s1629930775.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpggn59v_6.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(sail l1 l2)\n \n2:\n(board c1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmpggn59v_6.soln 7 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s163212191",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s163212191.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpy9vo6q46.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(sail l2 l1)\n \n2:\n(board c0 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(board c2 l0)\n \n6:\n(sail l0 l1)\n \n7:\n(debark c2 l1)\n \n8:\n(sail l1 l2)\n \n9:\n(board c1 l2)\n \n10:\n(sail l2 l0)\n \n11:\n(debark c1 l0)\n \n12:\n(board c0 l0)\n \n13:\n(sail l0 l1)\n \n14:\n(debark c0 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 14\nPlan valid\nFinal value: 14 \n\nSuccessful plans:\nValue: 14\n /tmp/tmpy9vo6q46.soln 14 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s1717270288",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s1717270288.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l0)\n(sail l0 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l0)\n(sail l0 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp92pi2ell.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(sail l2 l0)\n \n2:\n(sail l0 l2)\n \n3:\n(board c2 l2)\n \n4:\n(sail l2 l1)\n \n5:\n(debark c2 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 5\nPlan valid\nFinal value: 5 \n\nSuccessful plans:\nValue: 5\n /tmp/tmp92pi2ell.soln 5 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s1839902668",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s1839902668.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpo8bsof71.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(sail l2 l1)\n \n2:\n(board c2 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(board c1 l0)\n \n6:\n(sail l0 l1)\n \n7:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 7\nPlan valid\nFinal value: 7 \n\nSuccessful plans:\nValue: 7\n /tmp/tmpo8bsof71.soln 7 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s1889423928",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s1889423928.pddl"
+    },
+    {
+      "success": false,
+      "final_plan": "(board c1 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+      "actual_retries": 5,
+      "max_retries": 5,
+      "category": "precondition_violation",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c2 l0) ",
+          "validation_stdout": "Checking plan: /tmp/tmpcyxf4qno.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c1 l1)\n \n2:\n(sail l1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c2 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c2 l2)\n \n12:\n(sail l2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l2)\n \n15:\n(debark c1 l2)\n \n16:\n(board c2 l2)\n \n17:\n(sail l2 l0)\n \n18:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(board c2 l0)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c2 l0) has an unsatisfied precondition at time 9\n(Set (at c2 l0) to true)\n\n\nFailed plans:\n /tmp/tmpcyxf4qno.soln \n"
+        },
+        {
+          "attempt": 2,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 9)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(board c1 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c2 l0) ",
+          "validation_stdout": "Checking plan: /tmp/tmpzo6zas2u.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c1 l1)\n \n2:\n(sail l1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c2 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c2 l2)\n \n12:\n(sail l2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l2)\n \n15:\n(debark c1 l2)\n \n16:\n(board c2 l2)\n \n17:\n(sail l2 l0)\n \n18:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(board c2 l0)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c2 l0) has an unsatisfied precondition at time 9\n(Set (at c2 l0) to true)\n\n\nFailed plans:\n /tmp/tmpzo6zas2u.soln \n"
+        },
+        {
+          "attempt": 3,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 9)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(board c1 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c2 l0) ",
+          "validation_stdout": "Checking plan: /tmp/tmps6q08z2m.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c1 l1)\n \n2:\n(sail l1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c2 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c2 l2)\n \n12:\n(sail l2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l2)\n \n15:\n(debark c1 l2)\n \n16:\n(board c2 l2)\n \n17:\n(sail l2 l0)\n \n18:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(board c2 l0)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c2 l0) has an unsatisfied precondition at time 9\n(Set (at c2 l0) to true)\n\n\nFailed plans:\n /tmp/tmps6q08z2m.soln \n"
+        },
+        {
+          "attempt": 4,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 9)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(board c1 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c2 l0) ",
+          "validation_stdout": "Checking plan: /tmp/tmppjs4r8h8.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c1 l1)\n \n2:\n(sail l1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c2 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c2 l2)\n \n12:\n(sail l2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l2)\n \n15:\n(debark c1 l2)\n \n16:\n(board c2 l2)\n \n17:\n(sail l2 l0)\n \n18:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(board c2 l0)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c2 l0) has an unsatisfied precondition at time 9\n(Set (at c2 l0) to true)\n\n\nFailed plans:\n /tmp/tmppjs4r8h8.soln \n"
+        },
+        {
+          "attempt": 5,
+          "feedback_prompt": "Your plan failed due to an unsatisfied precondition.\nAction that failed: Checking next happening (time 9)\nError: Plan failed because of unsatisfied precondition in:\nPlease ensure all preconditions are satisfied before each action.",
+          "plan": "(board c1 l1)\n(sail l1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+          "is_valid": false,
+          "category": "precondition_violation",
+          "message": "Precondition violation: Plan failed because of unsatisfied precondition in: (board c2 l0) ",
+          "validation_stdout": "Checking plan: /tmp/tmprw9upq92.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c1 l1)\n \n2:\n(sail l1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c2 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c2 l2)\n \n12:\n(sail l2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l2)\n \n15:\n(debark c1 l2)\n \n16:\n(board c2 l2)\n \n17:\n(sail l2 l0)\n \n18:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(board c2 l0)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(board c2 l0) has an unsatisfied precondition at time 9\n(Set (at c2 l0) to true)\n\n\nFailed plans:\n /tmp/tmprw9upq92.soln \n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s876108538",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s876108538.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpy6dz9l4f.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(board c1 l0)\n \n2:\n(sail l0 l2)\n \n3:\n(debark c1 l2)\n \n4:\n(sail l2 l0)\n \n5:\n(board c2 l0)\n \n6:\n(sail l0 l1)\n \n7:\n(debark c2 l1)\n \n8:\n(sail l1 l2)\n \n9:\n(board c1 l2)\n \n10:\n(sail l2 l1)\n \n11:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpy6dz9l4f.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s925040939",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s925040939.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmptuzel66t.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l2 l1)\n \n2:\n(board c1 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(sail l0 l1)\n \n6:\n(board c0 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c0 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l1)\n \n11:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmptuzel66t.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l3-c3-s930630918",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l3-c3-s930630918.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c0 l3)\n(sail l3 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c0 l3)\n(sail l3 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpm4r4edfy.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(board c0 l3)\n \n2:\n(sail l3 l0)\n \n3:\n(debark c0 l0)\n \n4:\n(board c1 l0)\n \n5:\n(sail l0 l1)\n \n6:\n(debark c1 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(board c0 l0)\n \n9:\n(sail l0 l1)\n \n10:\n(debark c0 l1)\n \n11:\n(board c1 l1)\n \n12:\n(sail l1 l0)\n \n13:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 13\nPlan valid\nFinal value: 13 \n\nSuccessful plans:\nValue: 13\n /tmp/tmpm4r4edfy.soln 13 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s1271948264",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s1271948264.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpjsqvyf0y.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l0 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l2)\n \n4:\n(debark c1 l2)\n \n5:\n(sail l2 l1)\n \n6:\n(board c0 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c0 l0)\n \n9:\n(sail l0 l2)\n \n10:\n(board c1 l2)\n \n11:\n(sail l2 l1)\n \n12:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpjsqvyf0y.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s1435781105",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s1435781105.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l2)\n(debark c1 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l2)\n(debark c1 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp4jh184oj.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(sail l2 l3)\n \n2:\n(board c0 l3)\n \n3:\n(sail l3 l1)\n \n4:\n(debark c0 l1)\n \n5:\n(sail l1 l2)\n \n6:\n(board c1 l2)\n \n7:\n(sail l2 l1)\n \n8:\n(debark c1 l1)\n \n9:\n(board c0 l1)\n \n10:\n(sail l1 l0)\n \n11:\n(debark c0 l0)\n \n12:\n(sail l0 l1)\n \n13:\n(board c1 l1)\n \n14:\n(sail l1 l2)\n \n15:\n(debark c1 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 15\nPlan valid\nFinal value: 15 \n\nSuccessful plans:\nValue: 15\n /tmp/tmp4jh184oj.soln 15 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s1657178097",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s1657178097.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l3)\n(debark c1 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l3)\n(debark c1 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp6ydwmoqy.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(board c0 l3)\n \n2:\n(sail l3 l1)\n \n3:\n(debark c0 l1)\n \n4:\n(sail l1 l2)\n \n5:\n(board c1 l2)\n \n6:\n(sail l2 l0)\n \n7:\n(debark c1 l0)\n \n8:\n(sail l0 l1)\n \n9:\n(board c0 l1)\n \n10:\n(sail l1 l0)\n \n11:\n(debark c0 l0)\n \n12:\n(board c1 l0)\n \n13:\n(sail l0 l3)\n \n14:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 14\nPlan valid\nFinal value: 14 \n\nSuccessful plans:\nValue: 14\n /tmp/tmp6ydwmoqy.soln 14 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s195934009",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s195934009.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp9w6gec2x.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l0 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l2)\n \n4:\n(debark c1 l2)\n \n5:\n(sail l2 l3)\n \n6:\n(board c0 l3)\n \n7:\n(sail l3 l1)\n \n8:\n(debark c0 l1)\n \n9:\n(sail l1 l2)\n \n10:\n(board c1 l2)\n \n11:\n(sail l2 l0)\n \n12:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmp9w6gec2x.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s2043178023",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s2043178023.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l3)\n(board c0 l3)\n(sail l3 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l3)\n(board c0 l3)\n(sail l3 l0)\n(debark c0 l0)\n(sail l0 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpgit79okb.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(sail l1 l3)\n \n2:\n(board c0 l3)\n \n3:\n(sail l3 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(sail l0 l1)\n \n6:\n(board c1 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(board c0 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c0 l2)\n \n12:\n(sail l2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l1)\n \n15:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 15\nPlan valid\nFinal value: 15 \n\nSuccessful plans:\nValue: 15\n /tmp/tmpgit79okb.soln 15 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s342207544",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s342207544.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpi1n42i3g.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l2)\n \n4:\n(debark c1 l2)\n \n5:\n(sail l2 l0)\n \n6:\n(board c0 l0)\n \n7:\n(sail l0 l1)\n \n8:\n(debark c0 l1)\n \n9:\n(sail l1 l2)\n \n10:\n(board c1 l2)\n \n11:\n(sail l2 l0)\n \n12:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpi1n42i3g.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s370119389",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s370119389.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l3 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l3)\n(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l3)\n(debark c0 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l3 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l3)\n(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l3)\n(debark c0 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp8detn_ce.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(sail l3 l1)\n \n2:\n(sail l1 l3)\n \n3:\n(board c0 l3)\n \n4:\n(sail l3 l1)\n \n5:\n(debark c0 l1)\n \n6:\n(sail l1 l3)\n \n7:\n(board c1 l3)\n \n8:\n(sail l3 l0)\n \n9:\n(debark c1 l0)\n \n10:\n(sail l0 l1)\n \n11:\n(board c0 l1)\n \n12:\n(sail l1 l3)\n \n13:\n(debark c0 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 13\nPlan valid\nFinal value: 13 \n\nSuccessful plans:\nValue: 13\n /tmp/tmp8detn_ce.soln 13 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s540898527",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s540898527.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 l3)\n(board c1 l3)\n(sail l3 l1)\n(debark c1 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 l3)\n(board c1 l3)\n(sail l3 l1)\n(debark c1 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpvf68qhtn.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l0 l2)\n \n2:\n(board c0 l2)\n \n3:\n(sail l2 l3)\n \n4:\n(debark c0 l3)\n \n5:\n(board c1 l3)\n \n6:\n(sail l3 l1)\n \n7:\n(debark c1 l1)\n \n8:\n(sail l1 l3)\n \n9:\n(board c0 l3)\n \n10:\n(sail l3 l1)\n \n11:\n(debark c0 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpvf68qhtn.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s735896388",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s735896388.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l1)\n(sail l1 l3)\n(board c1 l3)\n(sail l3 l1)\n(sail l1 l2)\n(debark c1 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l1)\n(sail l1 l3)\n(board c1 l3)\n(sail l3 l1)\n(sail l1 l2)\n(debark c1 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpcapttvm9.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(sail l0 l1)\n \n2:\n(sail l1 l3)\n \n3:\n(board c1 l3)\n \n4:\n(sail l3 l1)\n \n5:\n(sail l1 l2)\n \n6:\n(debark c1 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /tmp/tmpcapttvm9.soln 6 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c2-s998903921",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c2-s998903921.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c2 l3)\n(sail l3 l2)\n(debark c2 l2)\n(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c2 l3)\n(sail l3 l2)\n(debark c2 l2)\n(sail l2 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l2)\n(board c2 l2)\n(sail l2 l1)\n(debark c2 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp85r8rtiv.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(board c2 l3)\n \n2:\n(sail l3 l2)\n \n3:\n(debark c2 l2)\n \n4:\n(sail l2 l1)\n \n5:\n(board c1 l1)\n \n6:\n(sail l1 l0)\n \n7:\n(debark c1 l0)\n \n8:\n(sail l0 l3)\n \n9:\n(board c0 l3)\n \n10:\n(sail l3 l1)\n \n11:\n(debark c0 l1)\n \n12:\n(sail l1 l2)\n \n13:\n(board c2 l2)\n \n14:\n(sail l2 l1)\n \n15:\n(debark c2 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 15\nPlan valid\nFinal value: 15 \n\nSuccessful plans:\nValue: 15\n /tmp/tmp85r8rtiv.soln 15 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c3-s120374661",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c3-s120374661.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c2 l3)\n(sail l3 l1)\n(sail l1 l0)\n(debark c2 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l1)\n(board c1 l1)\n(sail l1 l3)\n(debark c1 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c2 l3)\n(sail l3 l1)\n(sail l1 l0)\n(debark c2 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l1)\n(board c1 l1)\n(sail l1 l3)\n(debark c1 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpmb2t_4i1.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(board c2 l3)\n \n2:\n(sail l3 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l1)\n \n9:\n(board c1 l1)\n \n10:\n(sail l1 l3)\n \n11:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpmb2t_4i1.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c3-s1531920945",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c3-s1531920945.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l3)\n(board c2 l3)\n(sail l3 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l3)\n(board c2 l3)\n(sail l3 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c2 l0)\n(sail l0 l1)\n(debark c2 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpzefatxy_.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l1 l3)\n \n2:\n(board c2 l3)\n \n3:\n(sail l3 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(board c1 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c1 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c2 l0)\n \n10:\n(sail l0 l1)\n \n11:\n(debark c2 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpzefatxy_.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l4-c3-s752873261",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l4-c3-s752873261.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l4 l0)\n(sail l0 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l4)\n(debark c0 l4)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l4 l0)\n(sail l0 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l4)\n(debark c0 l4)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp4c6p_cyl.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(sail l4 l0)\n \n2:\n(sail l0 l4)\n \n3:\n(board c0 l4)\n \n4:\n(sail l4 l0)\n \n5:\n(debark c0 l0)\n \n6:\n(sail l0 l4)\n \n7:\n(board c1 l4)\n \n8:\n(sail l4 l2)\n \n9:\n(debark c1 l2)\n \n10:\n(sail l2 l0)\n \n11:\n(board c0 l0)\n \n12:\n(sail l0 l4)\n \n13:\n(debark c0 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (on c0)\nAdding (at c0 l4)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 13\nPlan valid\nFinal value: 13 \n\nSuccessful plans:\nValue: 13\n /tmp/tmp4c6p_cyl.soln 13 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1020267203",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1020267203.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l4)\n(board c0 l4)\n(sail l4 l3)\n(debark c0 l3)\n(sail l3 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l0)\n(debark c0 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l4)\n(board c0 l4)\n(sail l4 l3)\n(debark c0 l3)\n(sail l3 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l3)\n(board c0 l3)\n(sail l3 l0)\n(debark c0 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpeoraaohd.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l0 l4)\n \n2:\n(board c0 l4)\n \n3:\n(sail l4 l3)\n \n4:\n(debark c0 l3)\n \n5:\n(sail l3 l2)\n \n6:\n(board c1 l2)\n \n7:\n(sail l2 l1)\n \n8:\n(debark c1 l1)\n \n9:\n(sail l1 l3)\n \n10:\n(board c0 l3)\n \n11:\n(sail l3 l0)\n \n12:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpeoraaohd.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1203283041",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1203283041.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(sail l0 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 l0)\n(sail l0 l4)\n(debark c0 l4)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(sail l0 l2)\n(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c0 l0)\n(sail l0 l4)\n(debark c0 l4)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpb4yofgbx.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l2 l4)\n \n2:\n(board c0 l4)\n \n3:\n(sail l4 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(sail l0 l2)\n \n6:\n(board c1 l2)\n \n7:\n(sail l2 l1)\n \n8:\n(debark c1 l1)\n \n9:\n(sail l1 l0)\n \n10:\n(board c0 l0)\n \n11:\n(sail l0 l4)\n \n12:\n(debark c0 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c0)\nAdding (at c0 l4)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpb4yofgbx.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1486483801",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1486483801.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l3)\n(board c1 l3)\n(sail l3 l2)\n(sail l2 l4)\n(debark c1 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l3)\n(board c1 l3)\n(sail l3 l2)\n(sail l2 l4)\n(debark c1 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpwor7b9r0.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l2)\n \n4:\n(sail l2 l4)\n \n5:\n(debark c1 l4)\n \n6:\n(board c0 l4)\n \n7:\n(sail l4 l0)\n \n8:\n(debark c0 l0)\n \n9:\n(sail l0 l4)\n \n10:\n(board c1 l4)\n \n11:\n(sail l4 l1)\n \n12:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c1)\nAdding (at c1 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpwor7b9r0.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1557753488",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1557753488.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l3)\n(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l4)\n(debark c1 l4)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l3)\n(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l4)\n(debark c1 l4)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpy90pxtcv.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l2 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l1)\n \n7:\n(debark c0 l1)\n \n8:\n(sail l1 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l4)\n \n11:\n(debark c1 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l4)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpy90pxtcv.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1648736158",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1648736158.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l4 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l4)\n(debark c0 l4)\n(sail l4 l0)\n(board c1 l0)\n(sail l0 l4)\n(debark c1 l4)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l4 l1)\n(board c1 l1)\n(sail l1 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l4)\n(debark c0 l4)\n(sail l4 l0)\n(board c1 l0)\n(sail l0 l4)\n(debark c1 l4)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmppi876pf2.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l4 l1)\n \n2:\n(board c1 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(sail l0 l1)\n \n6:\n(board c0 l1)\n \n7:\n(sail l1 l4)\n \n8:\n(debark c0 l4)\n \n9:\n(sail l4 l0)\n \n10:\n(board c1 l0)\n \n11:\n(sail l0 l4)\n \n12:\n(debark c1 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l4)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmppi876pf2.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1722931696",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1722931696.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l4)\n(board c1 l4)\n(sail l4 l2)\n(sail l2 l0)\n(debark c1 l0)\n(sail l0 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l3)\n(debark c1 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l4)\n(board c1 l4)\n(sail l4 l2)\n(sail l2 l0)\n(debark c1 l0)\n(sail l0 l4)\n(board c0 l4)\n(sail l4 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l3)\n(debark c1 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpn4w7mbwe.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l4)\n \n2:\n(board c1 l4)\n \n3:\n(sail l4 l2)\n \n4:\n(sail l2 l0)\n \n5:\n(debark c1 l0)\n \n6:\n(sail l0 l4)\n \n7:\n(board c0 l4)\n \n8:\n(sail l4 l0)\n \n9:\n(debark c0 l0)\n \n10:\n(board c1 l0)\n \n11:\n(sail l0 l3)\n \n12:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpn4w7mbwe.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s1908900603",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s1908900603.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l2)\n(debark c1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l1)\n(debark c0 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpggmzqo9y.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l2)\n \n2:\n(board c0 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(sail l0 l4)\n \n6:\n(board c1 l4)\n \n7:\n(sail l4 l2)\n \n8:\n(debark c1 l2)\n \n9:\n(sail l2 l0)\n \n10:\n(board c0 l0)\n \n11:\n(sail l0 l1)\n \n12:\n(debark c0 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpggmzqo9y.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s195914911",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s195914911.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l4 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l3)\n(board c1 l3)\n(sail l3 l4)\n(debark c1 l4)\n(sail l4 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l4 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l3)\n(board c1 l3)\n(sail l3 l4)\n(debark c1 l4)\n(sail l4 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp59yltcb6.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l4 l1)\n \n2:\n(board c0 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(sail l0 l3)\n \n6:\n(board c1 l3)\n \n7:\n(sail l3 l4)\n \n8:\n(debark c1 l4)\n \n9:\n(sail l4 l0)\n \n10:\n(board c0 l0)\n \n11:\n(sail l0 l2)\n \n12:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmp59yltcb6.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s203901573",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s203901573.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l3 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l4)\n(debark c0 l4)\n(sail l4 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l3 l2)\n(board c1 l2)\n(sail l2 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l4)\n(debark c0 l4)\n(sail l4 l0)\n(board c1 l0)\n(sail l0 l1)\n(debark c1 l1)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp9yjan_9f.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l3 l2)\n \n2:\n(board c1 l2)\n \n3:\n(sail l2 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(sail l0 l2)\n \n6:\n(board c0 l2)\n \n7:\n(sail l2 l4)\n \n8:\n(debark c0 l4)\n \n9:\n(sail l4 l0)\n \n10:\n(board c1 l0)\n \n11:\n(sail l0 l1)\n \n12:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmp9yjan_9f.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s492364718",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s492364718.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l4)\n(board c1 l4)\n(sail l4 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l2)\n(debark c0 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l3)\n(board c0 l3)\n(sail l3 l1)\n(debark c0 l1)\n(sail l1 l4)\n(board c1 l4)\n(sail l4 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c0 l1)\n(sail l1 l2)\n(debark c0 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpjanbo3ye.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l2 l3)\n \n2:\n(board c0 l3)\n \n3:\n(sail l3 l1)\n \n4:\n(debark c0 l1)\n \n5:\n(sail l1 l4)\n \n6:\n(board c1 l4)\n \n7:\n(sail l4 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(sail l0 l1)\n \n10:\n(board c0 l1)\n \n11:\n(sail l1 l2)\n \n12:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpjanbo3ye.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s697087311",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s697087311.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l3 l4)\n(board c1 l4)\n(sail l4 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l3 l4)\n(board c1 l4)\n(sail l4 l0)\n(debark c1 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c0 l2)\n(sail l2 l0)\n(debark c0 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpc4wrkrky.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(sail l3 l4)\n \n2:\n(board c1 l4)\n \n3:\n(sail l4 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c0 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c0 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c1 l2)\n \n12:\n(board c0 l2)\n \n13:\n(sail l2 l0)\n \n14:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 14\nPlan valid\nFinal value: 14 \n\nSuccessful plans:\nValue: 14\n /tmp/tmpc4wrkrky.soln 14 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l5-c2-s7332136",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l5-c2-s7332136.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l4)\n(board c0 l4)\n(sail l4 l2)\n(debark c0 l2)\n(sail l2 l5)\n(board c1 l5)\n(sail l5 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l5)\n(debark c0 l5)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l4)\n(board c0 l4)\n(sail l4 l2)\n(debark c0 l2)\n(sail l2 l5)\n(board c1 l5)\n(sail l5 l0)\n(debark c1 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l5)\n(debark c0 l5)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp5wib4kr0.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l4)\n \n2:\n(board c0 l4)\n \n3:\n(sail l4 l2)\n \n4:\n(debark c0 l2)\n \n5:\n(sail l2 l5)\n \n6:\n(board c1 l5)\n \n7:\n(sail l5 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(sail l0 l2)\n \n10:\n(board c0 l2)\n \n11:\n(sail l2 l5)\n \n12:\n(debark c0 l5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l5)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l5)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l2)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c0)\nAdding (at c0 l5)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmp5wib4kr0.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c2-s569216723",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c2-s569216723.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l5)\n(board c0 l5)\n(sail l5 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c2 l4)\n(sail l4 l1)\n(debark c2 l1)\n(board c1 l1)\n(sail l1 l5)\n(debark c1 l5)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l2)\n(sail l2 l1)\n(debark c1 l1)\n(sail l1 l5)\n(board c0 l5)\n(sail l5 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c2 l4)\n(sail l4 l1)\n(debark c2 l1)\n(board c1 l1)\n(sail l1 l5)\n(debark c1 l5)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpjplb285a.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(board c1 l2)\n \n2:\n(sail l2 l1)\n \n3:\n(debark c1 l1)\n \n4:\n(sail l1 l5)\n \n5:\n(board c0 l5)\n \n6:\n(sail l5 l0)\n \n7:\n(debark c0 l0)\n \n8:\n(sail l0 l4)\n \n9:\n(board c2 l4)\n \n10:\n(sail l4 l1)\n \n11:\n(debark c2 l1)\n \n12:\n(board c1 l1)\n \n13:\n(sail l1 l5)\n \n14:\n(debark c1 l5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l2)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l1)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c0 l5)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l5)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l1)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (on c1)\nAdding (at c1 l5)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 14\nPlan valid\nFinal value: 14 \n\nSuccessful plans:\nValue: 14\n /tmp/tmpjplb285a.soln 14 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s13511674",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s13511674.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c2 l1)\n(sail l1 l3)\n(debark c2 l3)\n(sail l3 l0)\n(board c1 l0)\n(sail l0 l5)\n(debark c1 l5)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c2 l1)\n(sail l1 l3)\n(debark c2 l3)\n(sail l3 l0)\n(board c1 l0)\n(sail l0 l5)\n(debark c1 l5)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpqn6qghms.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(board c1 l3)\n \n2:\n(sail l3 l0)\n \n3:\n(debark c1 l0)\n \n4:\n(sail l0 l1)\n \n5:\n(board c2 l1)\n \n6:\n(sail l1 l3)\n \n7:\n(debark c2 l3)\n \n8:\n(sail l3 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l5)\n \n11:\n(debark c1 l5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l5)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 11\nPlan valid\nFinal value: 11 \n\nSuccessful plans:\nValue: 11\n /tmp/tmpqn6qghms.soln 11 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s1686484123",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s1686484123.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c0 l5)\n(sail l5 l1)\n(debark c0 l1)\n(sail l1 l4)\n(board c2 l4)\n(sail l4 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l3)\n(debark c2 l3)\n(sail l3 l1)\n(board c0 l1)\n(sail l1 l3)\n(debark c0 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c0 l5)\n(sail l5 l1)\n(debark c0 l1)\n(sail l1 l4)\n(board c2 l4)\n(sail l4 l2)\n(debark c2 l2)\n(sail l2 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)\n(board c2 l2)\n(sail l2 l3)\n(debark c2 l3)\n(sail l3 l1)\n(board c0 l1)\n(sail l1 l3)\n(debark c0 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpkg3por6l.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c0 l5)\n \n2:\n(sail l5 l1)\n \n3:\n(debark c0 l1)\n \n4:\n(sail l1 l4)\n \n5:\n(board c2 l4)\n \n6:\n(sail l4 l2)\n \n7:\n(debark c2 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c1 l2)\n \n12:\n(board c2 l2)\n \n13:\n(sail l2 l3)\n \n14:\n(debark c2 l3)\n \n15:\n(sail l3 l1)\n \n16:\n(board c0 l1)\n \n17:\n(sail l1 l3)\n \n18:\n(debark c0 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l5)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l5)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 17\nChecking next happening (time 18)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 18\nPlan valid\nFinal value: 18 \n\nSuccessful plans:\nValue: 18\n /tmp/tmpkg3por6l.soln 18 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s1860426268",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s1860426268.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l2 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l3)\n(debark c1 l3)\n(sail l3 l5)\n(board c2 l5)\n(sail l5 l0)\n(debark c2 l0)\n(board c0 l0)\n(sail l0 l3)\n(debark c0 l3)\n(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l3)\n(debark c2 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l2 l1)\n(board c0 l1)\n(sail l1 l0)\n(debark c0 l0)\n(sail l0 l4)\n(board c1 l4)\n(sail l4 l3)\n(debark c1 l3)\n(sail l3 l5)\n(board c2 l5)\n(sail l5 l0)\n(debark c2 l0)\n(board c0 l0)\n(sail l0 l3)\n(debark c0 l3)\n(board c1 l3)\n(sail l3 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l3)\n(debark c2 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmptoo7ky1v.soln\nPlan to validate:\n\nPlan size: 21\n1:\n(sail l2 l1)\n \n2:\n(board c0 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c0 l0)\n \n5:\n(sail l0 l4)\n \n6:\n(board c1 l4)\n \n7:\n(sail l4 l3)\n \n8:\n(debark c1 l3)\n \n9:\n(sail l3 l5)\n \n10:\n(board c2 l5)\n \n11:\n(sail l5 l0)\n \n12:\n(debark c2 l0)\n \n13:\n(board c0 l0)\n \n14:\n(sail l0 l3)\n \n15:\n(debark c0 l3)\n \n16:\n(board c1 l3)\n \n17:\n(sail l3 l0)\n \n18:\n(debark c1 l0)\n \n19:\n(board c2 l0)\n \n20:\n(sail l0 l3)\n \n21:\n(debark c2 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l1)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l3)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c2 l5)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l5)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 17\nChecking next happening (time 18)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 18\nChecking next happening (time 19)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 19\nChecking next happening (time 20)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 20\nChecking next happening (time 21)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 21\nPlan valid\nFinal value: 21 \n\nSuccessful plans:\nValue: 21\n /tmp/tmptoo7ky1v.soln 21 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s1951082535",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s1951082535.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(board c1 l4)\n(sail l4 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l4)\n(debark c2 l4)\n(sail l4 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 l3)\n(sail l3 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(board c1 l4)\n(sail l4 l1)\n(sail l1 l0)\n(debark c1 l0)\n(board c2 l0)\n(sail l0 l4)\n(debark c2 l4)\n(sail l4 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 l3)\n(sail l3 l1)\n(sail l1 l0)\n(board c1 l0)\n(sail l0 l2)\n(debark c1 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpkjcqsfre.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(board c1 l4)\n \n2:\n(sail l4 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c1 l0)\n \n5:\n(board c2 l0)\n \n6:\n(sail l0 l4)\n \n7:\n(debark c2 l4)\n \n8:\n(sail l4 l2)\n \n9:\n(board c0 l2)\n \n10:\n(sail l2 l3)\n \n11:\n(debark c0 l3)\n \n12:\n(sail l3 l1)\n \n13:\n(sail l1 l0)\n \n14:\n(board c1 l0)\n \n15:\n(sail l0 l2)\n \n16:\n(debark c1 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c2)\nAdding (at c2 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 16\nPlan valid\nFinal value: 16 \n\nSuccessful plans:\nValue: 16\n /tmp/tmpkjcqsfre.soln 16 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s2100915919",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s2100915919.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l3 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 l3)\n(sail l3 l4)\n(board c1 l4)\n(sail l4 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l3 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(sail l0 l2)\n(board c0 l2)\n(sail l2 l3)\n(debark c0 l3)\n(sail l3 l4)\n(board c1 l4)\n(sail l4 l1)\n(debark c1 l1)\n(sail l1 l0)\n(board c2 l0)\n(sail l0 l2)\n(debark c2 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp40lhudzl.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(sail l3 l1)\n \n2:\n(board c2 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(sail l0 l2)\n \n6:\n(board c0 l2)\n \n7:\n(sail l2 l3)\n \n8:\n(debark c0 l3)\n \n9:\n(sail l3 l4)\n \n10:\n(board c1 l4)\n \n11:\n(sail l4 l1)\n \n12:\n(debark c1 l1)\n \n13:\n(sail l1 l0)\n \n14:\n(board c2 l0)\n \n15:\n(sail l0 l2)\n \n16:\n(debark c2 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 16\nPlan valid\nFinal value: 16 \n\nSuccessful plans:\nValue: 16\n /tmp/tmp40lhudzl.soln 16 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s235526133",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s235526133.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l3 l2)\n(sail l2 l1)\n(board c2 l1)\n(sail l1 l2)\n(debark c2 l2)\n(sail l2 l0)\n(sail l0 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l3 l2)\n(sail l2 l1)\n(board c2 l1)\n(sail l1 l2)\n(debark c2 l2)\n(sail l2 l0)\n(sail l0 l2)\n(board c2 l2)\n(sail l2 l0)\n(debark c2 l0)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpugp0ef6d.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(sail l3 l2)\n \n2:\n(sail l2 l1)\n \n3:\n(board c2 l1)\n \n4:\n(sail l1 l2)\n \n5:\n(debark c2 l2)\n \n6:\n(sail l2 l0)\n \n7:\n(sail l0 l2)\n \n8:\n(board c2 l2)\n \n9:\n(sail l2 l0)\n \n10:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 10\nPlan valid\nFinal value: 10 \n\nSuccessful plans:\nValue: 10\n /tmp/tmpugp0ef6d.soln 10 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s41256426",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s41256426.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l0 l1)\n(board c2 l1)\n(sail l1 l3)\n(debark c2 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l5)\n(board c0 l5)\n(sail l5 l3)\n(debark c0 l3)\n(board c2 l3)\n(sail l3 l2)\n(debark c2 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l0 l1)\n(board c2 l1)\n(sail l1 l3)\n(debark c2 l3)\n(board c1 l3)\n(sail l3 l2)\n(debark c1 l2)\n(sail l2 l5)\n(board c0 l5)\n(sail l5 l3)\n(debark c0 l3)\n(board c2 l3)\n(sail l3 l2)\n(debark c2 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmp8ojhw7s3.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(sail l0 l1)\n \n2:\n(board c2 l1)\n \n3:\n(sail l1 l3)\n \n4:\n(debark c2 l3)\n \n5:\n(board c1 l3)\n \n6:\n(sail l3 l2)\n \n7:\n(debark c1 l2)\n \n8:\n(sail l2 l5)\n \n9:\n(board c0 l5)\n \n10:\n(sail l5 l3)\n \n11:\n(debark c0 l3)\n \n12:\n(board c2 l3)\n \n13:\n(sail l3 l2)\n \n14:\n(debark c2 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l2)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at c0 l5)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at-ferry l5)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 14\nPlan valid\nFinal value: 14 \n\nSuccessful plans:\nValue: 14\n /tmp/tmp8ojhw7s3.soln 14 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s541807747",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s541807747.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l3)\n(board c0 l3)\n(sail l3 l4)\n(sail l4 l2)\n(sail l2 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l4)\n(debark c1 l4)\n(board c2 l4)\n(sail l4 l1)\n(debark c2 l1)\n(sail l1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l3)\n(board c0 l3)\n(sail l3 l4)\n(sail l4 l2)\n(sail l2 l0)\n(debark c0 l0)\n(board c1 l0)\n(sail l0 l4)\n(debark c1 l4)\n(board c2 l4)\n(sail l4 l1)\n(debark c2 l1)\n(sail l1 l2)\n(sail l2 l0)\n(board c0 l0)\n(sail l0 l2)\n(debark c0 l2)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpusqchuwy.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(sail l1 l3)\n \n2:\n(board c0 l3)\n \n3:\n(sail l3 l4)\n \n4:\n(sail l4 l2)\n \n5:\n(sail l2 l0)\n \n6:\n(debark c0 l0)\n \n7:\n(board c1 l0)\n \n8:\n(sail l0 l4)\n \n9:\n(debark c1 l4)\n \n10:\n(board c2 l4)\n \n11:\n(sail l4 l1)\n \n12:\n(debark c2 l1)\n \n13:\n(sail l1 l2)\n \n14:\n(sail l2 l0)\n \n15:\n(board c0 l0)\n \n16:\n(sail l0 l2)\n \n17:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (on c1)\nAdding (at c1 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 15\nChecking next happening (time 16)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 16\nChecking next happening (time 17)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 17\nPlan valid\nFinal value: 17 \n\nSuccessful plans:\nValue: 17\n /tmp/tmpusqchuwy.soln 17 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s575279074",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s575279074.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l3 l4)\n(board c2 l4)\n(sail l4 l1)\n(debark c2 l1)\n(sail l1 l4)\n(board c1 l4)\n(sail l4 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l3)\n(debark c1 l3)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l3 l4)\n(board c2 l4)\n(sail l4 l1)\n(debark c2 l1)\n(sail l1 l4)\n(board c1 l4)\n(sail l4 l0)\n(debark c1 l0)\n(sail l0 l1)\n(board c2 l1)\n(sail l1 l0)\n(debark c2 l0)\n(board c1 l0)\n(sail l0 l3)\n(debark c1 l3)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpy8nb2l00.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(sail l3 l4)\n \n2:\n(board c2 l4)\n \n3:\n(sail l4 l1)\n \n4:\n(debark c2 l1)\n \n5:\n(sail l1 l4)\n \n6:\n(board c1 l4)\n \n7:\n(sail l4 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(sail l0 l1)\n \n10:\n(board c2 l1)\n \n11:\n(sail l1 l0)\n \n12:\n(debark c2 l0)\n \n13:\n(board c1 l0)\n \n14:\n(sail l0 l3)\n \n15:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 12\nChecking next happening (time 13)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 13\nChecking next happening (time 14)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 14\nChecking next happening (time 15)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 15\nPlan valid\nFinal value: 15 \n\nSuccessful plans:\nValue: 15\n /tmp/tmpy8nb2l00.soln 15 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s716558728",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s716558728.pddl"
+    },
+    {
+      "success": true,
+      "final_plan": "(sail l1 l4)\n(board c2 l4)\n(sail l4 l0)\n(debark c2 l0)\n(sail l0 l3)\n(board c0 l3)\n(sail l3 l5)\n(debark c0 l5)\n(sail l5 l0)\n(board c2 l0)\n(sail l0 l4)\n(debark c2 l4)",
+      "actual_retries": 1,
+      "max_retries": 5,
+      "category": "success_plans",
+      "attempts": [
+        {
+          "attempt": 1,
+          "feedback_prompt": null,
+          "plan": "(sail l1 l4)\n(board c2 l4)\n(sail l4 l0)\n(debark c2 l0)\n(sail l0 l3)\n(board c0 l3)\n(sail l3 l5)\n(debark c0 l5)\n(sail l5 l0)\n(board c2 l0)\n(sail l0 l4)\n(debark c2 l4)",
+          "is_valid": true,
+          "category": "success_plans",
+          "message": "Plan valid",
+          "validation_stdout": "Checking plan: /tmp/tmpy5m0yhlm.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l4)\n \n2:\n(board c2 l4)\n \n3:\n(sail l4 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(sail l0 l3)\n \n6:\n(board c0 l3)\n \n7:\n(sail l3 l5)\n \n8:\n(debark c0 l5)\n \n9:\n(sail l5 l0)\n \n10:\n(board c2 l0)\n \n11:\n(sail l0 l4)\n \n12:\n(debark c2 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 5\nChecking next happening (time 6)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 6\nChecking next happening (time 7)\nDeleting (at-ferry l3)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 7\nChecking next happening (time 8)\nDeleting (on c0)\nAdding (at c0 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 8\nChecking next happening (time 9)\nDeleting (at-ferry l5)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 9\nChecking next happening (time 10)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 10\nChecking next happening (time 11)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 11\nChecking next happening (time 12)\nDeleting (on c2)\nAdding (at c2 l4)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 12\nPlan valid\nFinal value: 12 \n\nSuccessful plans:\nValue: 12\n /tmp/tmpy5m0yhlm.soln 12 \n\n"
+        }
+      ],
+      "problem_name": "ferry-l6-c3-s788326529",
+      "problem_file": "/home/ubuntu/Safety-gen/pddl3/ferry/testing_problem50/ferry-l6-c3-s788326529.pddl"
+    }
+  ]
+}

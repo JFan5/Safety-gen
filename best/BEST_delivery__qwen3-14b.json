@@ -3,6 +3,7 @@
   "eval_id": "delivery_-jfan5-sft_models-qwen3_14b-delivery_symbolized_v3-1_50_20251215_165319",
   "method": "sft",
   "base_model_family": "qwen3-14b",
+  "eval_type": "PDDL",
   "main_metric": 48.0,
   "total_tests": 50,
   "success_count": 24,

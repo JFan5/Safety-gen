@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-01-25T16:51:49.222658",
+  "overall": {
+    "total_problems": 2,
+    "success_count": 2,
+    "success_rate": 100.0,
+    "total_time_seconds": 80.20626640319824,
+    "avg_time_per_problem": 40.10313320159912
+  },
+  "by_level": {
+    "ops4-n5": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 44.158381938934326
+    },
+    "ops3-n4": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 36.047884464263916
+    }
+  },
+  "categories": {
+    "success_plans": {
+      "count": 2,
+      "rate": 100.0
+    },
+    "plan_format_error": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "precondition_violation": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "safety_constraints_violation": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "goal_not_satisfied": {
+      "count": 0,
+      "rate": 0.0
+    }
+  }
+}

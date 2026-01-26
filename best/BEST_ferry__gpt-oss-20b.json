@@ -3,6 +3,7 @@
   "eval_id": "gpt_oss_20b-sft500_ferry_ferry_test_results",
   "method": "sft",
   "base_model_family": "gpt-oss-20b",
+  "eval_type": "PDDL",
   "main_metric": 4.0,
   "total_tests": 50,
   "success_count": 2,

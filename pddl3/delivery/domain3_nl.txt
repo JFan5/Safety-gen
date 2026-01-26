@@ -1,0 +1,22 @@
+## Domain Overview
+
+This domain involves trucks delivering packages across a grid of cells. Trucks navigate between adjacent cells, pick up packages, and drop them off at destination cells.
+
+## Actions
+
+The following actions are available. Use the exact syntax shown when creating plans.
+
+**pick-package** - Pick up a package with the truck
+  When: the package and truck are at the same cell, and the truck is empty
+  Result: the truck carries the package; the package is no longer at that cell; the truck is no longer empty
+  Syntax: (pick-package <truck> <package> <cell>)
+
+**drop-package** - Drop off the package
+  When: the truck is carrying a package
+  Result: the truck becomes empty; the package is at the truck's current cell
+  Syntax: (drop-package <truck> <package> <cell>)
+
+**move** - Move the truck to an adjacent cell
+  When: the cells are adjacent and different, and the truck is at the origin cell
+  Result: the truck is at the destination cell; the truck is no longer at the origin; the origin is recorded as last visited
+  Syntax: (move <truck> <from:cell> <to:cell>)

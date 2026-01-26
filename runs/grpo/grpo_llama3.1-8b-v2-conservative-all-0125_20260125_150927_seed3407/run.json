@@ -1,0 +1,39 @@
+{
+  "run_id": "grpo_llama3.1-8b-v2-conservative-all-0125_20260125_150927_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-25T15:09:27.350376",
+  "end_time": "2026-01-26T01:47:58.674632",
+  "config": {
+    "base_model": "/jfan5/grpo_models/llama3.1-8b-v2-conservative-all-0125/checkpoint-300/",
+    "dataset": "/jfan5/grpo_data/five_domain_0109/",
+    "output_dir": "/jfan5/grpo_models/llama3.1-8b-v2-conservative-all-0125",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-llama31-8b",
+    "run_name": "grpo_llama3.1-8b-v2-conservative-all-0125",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/abw01jc8"
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/llama3.1-8b-v2-conservative-all-0125"
+  },
+  "git": {
+    "commit": "10beda9043121fa4a472b809f8656e02e8855c56",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.02,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "Received signal: SIGINT"
+}

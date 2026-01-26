@@ -13,7 +13,9 @@ import sys
 
 # 添加 script 目录到路径，以便导入 utils
 sys.path.insert(0, str(Path(__file__).parent))
-from utils import _classify_result
+from utils import (
+    _classify_result,
+)
 
 # 错误类型列表（按顺序：Plan Format Error 最左边，依次 Precondition Violation, Safety Constraints Violation, Goal Not Satisfied, Success Plans）
 ERROR_CATEGORIES = [

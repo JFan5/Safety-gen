@@ -17,7 +17,10 @@ from typing import Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 from collections import defaultdict
-from utils import _classify_result, validate_solution
+from utils import (
+    _classify_result,
+    validate_solution,
+)
 import argparse
 
 try:
@@ -674,7 +677,7 @@ def test_api_model_on_testing_data(
 ):
     """
     在testing数据上测试API模型并计算成功率
-    
+
     Args:
         model_name: API模型名称（如 'gpt-4', 'gpt-3.5-turbo'）
         api_key: API密钥（如果为None，从环境变量获取）
@@ -687,6 +690,14 @@ def test_api_model_on_testing_data(
         one_shot: 是否使用one-shot模式
         provider: API提供商（'openai'等）
     """
+    # 某些 OpenAI 模型（如 gpt-5-nano, gpt-5-mini）只支持默认 temperature=1
+    # 在这些模型上，必须使用 temperature=None（不传参数）或 temperature=1.0
+    model_name_lower = model_name.lower()
+    if provider == "openai" and ("gpt-5-nano" in model_name_lower or "gpt-5-mini" in model_name_lower):
+        if temperature != 1.0:
+            print(f"Warning: Model {model_name} only supports temperature=1.0, overriding from {temperature}", flush=True)
+            temperature = None  # Don't pass temperature, let API use default
+
     print(f"Testing API model: {model_name}", flush=True)
     print(f"Provider: {provider}", flush=True)
     print(f"Problems dir: {problems_dir}", flush=True)

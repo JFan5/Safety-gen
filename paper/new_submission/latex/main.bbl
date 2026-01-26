@@ -1,0 +1,610 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{44}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Aeronautiques et~al\mbox{.}(1998)]%
+        {aeronautiques1998pddl}
+\bibfield{author}{\bibinfo{person}{Constructions Aeronautiques},
+  \bibinfo{person}{Adele Howe}, \bibinfo{person}{Craig Knoblock},
+  \bibinfo{person}{ISI~Drew McDermott}, \bibinfo{person}{Ashwin Ram},
+  \bibinfo{person}{Manuela Veloso}, \bibinfo{person}{Daniel Weld},
+  \bibinfo{person}{David~Wilkins Sri}, \bibinfo{person}{Anthony Barrett},
+  \bibinfo{person}{Dave Christianson}, {et~al\mbox{.}}}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{PDDL—the planning domain definition language}.
+\newblock \bibinfo{journal}{\emph{Technical Report, Tech. Rep.}}
+  (\bibinfo{year}{1998}).
+\newblock
+
+
+\bibitem[Bandi et~al\mbox{.}(2025)]%
+        {Bandi2025RiseOfAgenticAI}
+\bibfield{author}{\bibinfo{person}{A. Bandi}, \bibinfo{person}{B. Kongari},
+  \bibinfo{person}{R. Naguru}, \bibinfo{person}{S. Pasnoor}, {and}
+  \bibinfo{person}{S.~V. Vilipala}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{The Rise of Agentic AI: A Review of Definitions,
+  Frameworks, Architectures, Applications, Evaluation Metrics, and Challenges}.
+\newblock \bibinfo{journal}{\emph{Future Internet}} \bibinfo{volume}{17},
+  \bibinfo{number}{9} (\bibinfo{year}{2025}), \bibinfo{pages}{404}.
+\newblock
+\href{https://doi.org/10.3390/fi17090404}{doi:\nolinkurl{10.3390/fi17090404}}
+
+
+\bibitem[Benton et~al\mbox{.}(2012)]%
+        {benton2012temporal}
+\bibfield{author}{\bibinfo{person}{J Benton}, \bibinfo{person}{Amanda Coles},
+  {and} \bibinfo{person}{Andrew Coles}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Temporal planning with preferences and
+  time-dependent continuous costs}. In \bibinfo{booktitle}{\emph{Proceedings of
+  the International Conference on Automated Planning and Scheduling}},
+  Vol.~\bibinfo{volume}{22}. \bibinfo{pages}{2--10}.
+\newblock
+
+
+\bibitem[Bonassi et~al\mbox{.}(2021)]%
+        {bonassi2021planning}
+\bibfield{author}{\bibinfo{person}{Luigi Bonassi},
+  \bibinfo{person}{Alfonso~Emilio Gerevini}, \bibinfo{person}{Francesco
+  Percassi}, {and} \bibinfo{person}{Enrico Scala}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{On planning with qualitative state-trajectory
+  constraints in PDDL3 by compiling them away}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the International Conference on
+  Automated Planning and Scheduling}}, Vol.~\bibinfo{volume}{31}.
+  \bibinfo{pages}{46--50}.
+\newblock
+
+
+\bibitem[Cao et~al\mbox{.}(2025)]%
+        {cao2025large}
+\bibfield{author}{\bibinfo{person}{Pengfei Cao}, \bibinfo{person}{Tianyi Men},
+  \bibinfo{person}{Wencan Liu}, \bibinfo{person}{Jingwen Zhang},
+  \bibinfo{person}{Xuzhao Li}, \bibinfo{person}{Xixun Lin},
+  \bibinfo{person}{Dianbo Sui}, \bibinfo{person}{Yanan Cao},
+  \bibinfo{person}{Kang Liu}, {and} \bibinfo{person}{Jun Zhao}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Large language models for planning: A comprehensive
+  and systematic survey}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2505.19683}}
+  (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Daniel~Han and team(2023)]%
+        {unsloth}
+\bibfield{author}{\bibinfo{person}{Michael~Han Daniel~Han} {and}
+  \bibinfo{person}{Unsloth team}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Unsloth}}.
+\newblock
+\urldef\tempurl%
+\url{http://github.com/unslothai/unsloth}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Dettmers et~al\mbox{.}(2023)]%
+        {dettmers2023qlora}
+\bibfield{author}{\bibinfo{person}{Tim Dettmers}, \bibinfo{person}{Artidoro
+  Pagnoni}, \bibinfo{person}{Ari Holtzman}, {and} \bibinfo{person}{Luke
+  Zettlemoyer}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Qlora: Efficient finetuning of quantized llms}.
+\newblock \bibinfo{journal}{\emph{Advances in neural information processing
+  systems}}  \bibinfo{volume}{36} (\bibinfo{year}{2023}),
+  \bibinfo{pages}{10088--10115}.
+\newblock
+
+
+\bibitem[Fabiano et~al\mbox{.}(2023)]%
+        {Fabiano2023PlanSOFAI}
+\bibfield{author}{\bibinfo{person}{Francesco Fabiano}, \bibinfo{person}{Vishal
+  Pallagani}, {and} \bibinfo{person}{Marianna~B. Ganapini}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Plan-SOFAI: A Neuro-Symbolic Planning
+  Architecture}. In \bibinfo{booktitle}{\emph{NuCLeaR Workshop at AAAI 2024}}.
+\newblock
+\newblock
+\shownote{OpenReview preprint}.
+
+
+\bibitem[Geffner and Bonet(2013)]%
+        {geffner2013concise}
+\bibfield{author}{\bibinfo{person}{Hector Geffner} {and} \bibinfo{person}{Blai
+  Bonet}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{A Concise Introduction to Models and
+  Methods for Automated Planning}}.
+\newblock \bibinfo{publisher}{Morgan \& Claypool Publishers}.
+\newblock
+
+
+\bibitem[Gerevini and Long(2005)]%
+        {gerevini2005plan}
+\bibfield{author}{\bibinfo{person}{Alfonso Gerevini} {and}
+  \bibinfo{person}{Derek Long}.} \bibinfo{year}{2005}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Plan constraints and preferences in
+  PDDL3}}.
+\newblock \bibinfo{type}{{T}echnical {R}eport}. \bibinfo{institution}{Technical
+  Report 2005-08-07, Department of Electronics for Automation}.
+\newblock
+
+
+\bibitem[Ghallab et~al\mbox{.}(2004)]%
+        {ghallab2004automated}
+\bibfield{author}{\bibinfo{person}{Malik Ghallab}, \bibinfo{person}{Dana Nau},
+  {and} \bibinfo{person}{Paolo Traverso}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Automated Planning: Theory and Practice}}.
+\newblock \bibinfo{publisher}{Elsevier}.
+\newblock
+
+
+\bibitem[Haslum et~al\mbox{.}(2019)]%
+        {haslum2019introduction}
+\bibfield{author}{\bibinfo{person}{Patrik Haslum}, \bibinfo{person}{Nir
+  Lipovetzky}, \bibinfo{person}{Daniele Magazzeni}, \bibinfo{person}{Christian
+  Muise}, \bibinfo{person}{Ronald Brachman}, \bibinfo{person}{Francesca Rossi},
+  {and} \bibinfo{person}{Peter Stone}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{An introduction to the planning domain
+  definition language}}. Vol.~\bibinfo{volume}{13}.
+\newblock \bibinfo{publisher}{Springer}.
+\newblock
+
+
+\bibitem[Helmert(2006)]%
+        {helmert2006fast}
+\bibfield{author}{\bibinfo{person}{Malte Helmert}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{The Fast Downward planning system}.
+\newblock \bibinfo{journal}{\emph{Journal of Artificial Intelligence Research}}
+   \bibinfo{volume}{26} (\bibinfo{year}{2006}), \bibinfo{pages}{191--246}.
+\newblock
+
+
+\bibitem[Hoffmann and Nebel(2001)]%
+        {hoffmann2001ff}
+\bibfield{author}{\bibinfo{person}{J{\"o}rg Hoffmann} {and}
+  \bibinfo{person}{Bernhard Nebel}.} \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{The FF planning system: Fast plan generation
+  through heuristic search}.
+\newblock \bibinfo{journal}{\emph{Journal of Artificial Intelligence Research}}
+   \bibinfo{volume}{14} (\bibinfo{year}{2001}), \bibinfo{pages}{253--302}.
+\newblock
+
+
+\bibitem[Howey et~al\mbox{.}(2004)]%
+        {howey2004val}
+\bibfield{author}{\bibinfo{person}{Richard Howey}, \bibinfo{person}{Derek
+  Long}, {and} \bibinfo{person}{Maria Fox}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{VAL: Automatic plan validation, continuous effects
+  and mixed initiative planning using PDDL}. In \bibinfo{booktitle}{\emph{16th
+  IEEE International Conference on Tools with Artificial Intelligence}}. IEEE,
+  \bibinfo{pages}{294--301}.
+\newblock
+
+
+\bibitem[Hu et~al\mbox{.}(2022)]%
+        {hu2022lora}
+\bibfield{author}{\bibinfo{person}{Edward~J Hu}, \bibinfo{person}{Yelong Shen},
+  \bibinfo{person}{Phillip Wallis}, \bibinfo{person}{Zeyuan Allen-Zhu},
+  \bibinfo{person}{Yuanzhi Li}, \bibinfo{person}{Shean Wang},
+  \bibinfo{person}{Lu Wang}, \bibinfo{person}{Weizhu Chen}, {et~al\mbox{.}}}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Lora: Low-rank adaptation of large language
+  models.}
+\newblock \bibinfo{journal}{\emph{ICLR}} \bibinfo{volume}{1},
+  \bibinfo{number}{2} (\bibinfo{year}{2022}), \bibinfo{pages}{3}.
+\newblock
+
+
+\bibitem[Liang et~al\mbox{.}(2025)]%
+        {liang2025ai}
+\bibfield{author}{\bibinfo{person}{Baoyu Liang}, \bibinfo{person}{Yuchen Wang},
+  {and} \bibinfo{person}{Chao Tong}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{AI Reasoning in Deep Learning Era: From Symbolic AI
+  to Neural--Symbolic AI}.
+\newblock \bibinfo{journal}{\emph{Mathematics}} \bibinfo{volume}{13},
+  \bibinfo{number}{11} (\bibinfo{year}{2025}), \bibinfo{pages}{1707}.
+\newblock
+
+
+\bibitem[Lyu(2022)]%
+        {Lyu2022TrustworthyAI}
+\bibfield{author}{\bibinfo{person}{D. Lyu}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \emph{\bibinfo{title}{Towards Trustworthy Decision-Making in
+  Human-Machine Symbiosis}}.
+\newblock \bibinfo{thesistype}{Ph.\,D. Dissertation}. \bibinfo{school}{Auburn
+  University}.
+\newblock
+\urldef\tempurl%
+\url{https://etd.auburn.edu/bitstream/handle/10415/8193/Dissertation_for_PhD.pdf?sequence=4}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Moon and Lee(2019)]%
+        {Moon2019PDDL}
+\bibfield{author}{\bibinfo{person}{J. Moon} {and} \bibinfo{person}{B.~H. Lee}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{PDDL Planning with Natural Language-Based Scene
+  Understanding for UAV-UGV Cooperation}.
+\newblock \bibinfo{journal}{\emph{Applied Sciences}} \bibinfo{volume}{9},
+  \bibinfo{number}{18} (\bibinfo{year}{2019}), \bibinfo{pages}{3789}.
+\newblock
+\href{https://doi.org/10.3390/app9183789}{doi:\nolinkurl{10.3390/app9183789}}
+
+
+\bibitem[Muniyandy et~al\mbox{.}(2025)]%
+        {Muniyandy2025NSRL}
+\bibfield{author}{\bibinfo{person}{P. Muniyandy}, \bibinfo{person}{T.~D. Y.
+  A.~B. El}, {and} \bibinfo{person}{D.~D. N. P.~D. Ebiary}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Neuro-Symbolic Reinforcement Learning for
+  Context-Aware Decision Making in Safe Autonomous Vehicles}.
+\newblock \bibinfo{journal}{\emph{ResearchGate}} (\bibinfo{year}{2025}).
+\newblock
+\newblock
+\shownote{Available at
+  \url{https://www.researchgate.net/publication/392377131}}.
+
+
+\bibitem[Nau et~al\mbox{.}(2005)]%
+        {nau2005applications}
+\bibfield{author}{\bibinfo{person}{Dana Nau}, \bibinfo{person}{Tung Au},
+  \bibinfo{person}{Okhtay Ilghami}, \bibinfo{person}{Ugur Kuter},
+  \bibinfo{person}{J.~William Murdock}, \bibinfo{person}{Dan Wu}, {and}
+  \bibinfo{person}{Fusun Yaman}.} \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Applications of SHOP and SHOP2}.
+\newblock \bibinfo{journal}{\emph{IEEE Intelligent Systems}}
+  \bibinfo{volume}{20}, \bibinfo{number}{2} (\bibinfo{year}{2005}),
+  \bibinfo{pages}{34--41}.
+\newblock
+
+
+\bibitem[Obi et~al\mbox{.}(2025)]%
+        {obi2025safeplan}
+\bibfield{author}{\bibinfo{person}{Ike Obi}, \bibinfo{person}{Vishnunandan~LN
+  Venkatesh}, \bibinfo{person}{Weizheng Wang}, \bibinfo{person}{Ruiqi Wang},
+  \bibinfo{person}{Dayoon Suh}, \bibinfo{person}{Temitope~I Amosa},
+  \bibinfo{person}{Wonse Jo}, {and} \bibinfo{person}{Byung-Cheol Min}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Safeplan: Leveraging formal logic and
+  chain-of-thought reasoning for enhanced safety in llm-based robotic task
+  planning}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2503.06892}}
+  (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[OpenAI(2025)]%
+        {openai2025gptoss120bgptoss20bmodel}
+\bibfield{author}{\bibinfo{person}{OpenAI}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{gpt-oss-120b \& gpt-oss-20b Model Card}.
+\newblock
+\showeprint[arxiv]{2508.10925}~[cs.CL]
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2508.10925}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Ouyang et~al\mbox{.}(2022)]%
+        {ouyang2022training}
+\bibfield{author}{\bibinfo{person}{Long Ouyang}, \bibinfo{person}{Jeffrey Wu},
+  \bibinfo{person}{Xu Jiang}, \bibinfo{person}{Diogo Almeida},
+  \bibinfo{person}{Carroll Wainwright}, \bibinfo{person}{Pamela Mishkin},
+  \bibinfo{person}{Chong Zhang}, \bibinfo{person}{Sandhini Agarwal},
+  \bibinfo{person}{Katarina Slama}, \bibinfo{person}{Alex Ray},
+  {et~al\mbox{.}}} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Training language models to follow instructions
+  with human feedback}.
+\newblock \bibinfo{journal}{\emph{Advances in neural information processing
+  systems}}  \bibinfo{volume}{35} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{27730--27744}.
+\newblock
+
+
+\bibitem[Pan et~al\mbox{.}(2023)]%
+        {pan2023data}
+\bibfield{author}{\bibinfo{person}{Jiayi Pan}, \bibinfo{person}{Glen Chou},
+  {and} \bibinfo{person}{Dmitry Berenson}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Data-efficient learning of natural language to
+  linear temporal logic translators for robot task specification}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2303.08006}}
+  (\bibinfo{year}{2023}).
+\newblock
+
+
+\bibitem[Paszke et~al\mbox{.}(2019)]%
+        {paszke2019pytorch}
+\bibfield{author}{\bibinfo{person}{Adam Paszke}, \bibinfo{person}{Sam Gross},
+  \bibinfo{person}{Francisco Massa}, \bibinfo{person}{Adam Lerer},
+  \bibinfo{person}{James Bradbury}, \bibinfo{person}{Gregory Chanan},
+  \bibinfo{person}{Trevor Killeen}, \bibinfo{person}{Zeming Lin},
+  \bibinfo{person}{Natalia Gimelshein}, \bibinfo{person}{Luca Antiga},
+  {et~al\mbox{.}}} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Pytorch: An imperative style, high-performance deep
+  learning library}.
+\newblock \bibinfo{journal}{\emph{Advances in neural information processing
+  systems}}  \bibinfo{volume}{32} (\bibinfo{year}{2019}).
+\newblock
+
+
+\bibitem[Plaat et~al\mbox{.}(2024)]%
+        {plaat2024reasoning}
+\bibfield{author}{\bibinfo{person}{Aske Plaat}, \bibinfo{person}{Annie Wong},
+  \bibinfo{person}{Suzan Verberne}, \bibinfo{person}{Joost Broekens},
+  \bibinfo{person}{Niki van Stein}, {and} \bibinfo{person}{Thomas Back}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Reasoning with large language models, a survey}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2407.11511}}
+  (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Rafailov et~al\mbox{.}(2023)]%
+        {rafailov2023direct}
+\bibfield{author}{\bibinfo{person}{Rafael Rafailov}, \bibinfo{person}{Archit
+  Sharma}, \bibinfo{person}{Eric Mitchell}, \bibinfo{person}{Christopher~D
+  Manning}, \bibinfo{person}{Stefano Ermon}, {and} \bibinfo{person}{Chelsea
+  Finn}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Direct preference optimization: Your language model
+  is secretly a reward model}.
+\newblock \bibinfo{journal}{\emph{Advances in neural information processing
+  systems}}  \bibinfo{volume}{36} (\bibinfo{year}{2023}),
+  \bibinfo{pages}{53728--53741}.
+\newblock
+
+
+\bibitem[Sanyal(2025)]%
+        {Sanyal2025KnowledgeDriven}
+\bibfield{author}{\bibinfo{person}{S. Sanyal}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \emph{\bibinfo{title}{Towards Knowledge-Driven AI For Large-Scale
+  Optimization and Robot Learning}}.
+\newblock \bibinfo{thesistype}{Ph.\,D. Dissertation}. \bibinfo{school}{ProQuest
+  Dissertation Publishing}.
+\newblock
+\urldef\tempurl%
+\url{https://search.proquest.com/openview/7653ae7bd87932d5c6681400defe7ea4/1}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Seipp et~al\mbox{.}(2022)]%
+        {seipp-et-al-zenodo2022}
+\bibfield{author}{\bibinfo{person}{Jendrik Seipp}, \bibinfo{person}{{\'A}lvaro
+  Torralba}, {and} \bibinfo{person}{J{\"o}rg Hoffmann}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{{PDDL} Generators}.
+\newblock \bibinfo{howpublished}{\url{https://doi.org/10.5281/zenodo.6382173}}.
+\newblock
+
+
+\bibitem[Shivadekar(2025)]%
+        {Shivadekar2025CognitiveAI}
+\bibfield{author}{\bibinfo{person}{S. Shivadekar}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Artificial Intelligence for Cognitive
+  Systems: Deep Learning, Neuro-symbolic Integration, and Human-Centric
+  Intelligence}}.
+\newblock \bibinfo{publisher}{Springer}.
+\newblock
+\urldef\tempurl%
+\url{https://books.google.com/books?id=hZJqEQAAQBAJ}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Silver et~al\mbox{.}(2024)]%
+        {silver2024generalized}
+\bibfield{author}{\bibinfo{person}{Tom Silver}, \bibinfo{person}{Soham Dan},
+  \bibinfo{person}{Kavitha Srinivas}, \bibinfo{person}{Joshua~B Tenenbaum},
+  \bibinfo{person}{Leslie Kaelbling}, {and} \bibinfo{person}{Michael Katz}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Generalized planning in pddl domains with
+  pretrained large language models}. In \bibinfo{booktitle}{\emph{Proceedings
+  of the AAAI conference on artificial intelligence}},
+  Vol.~\bibinfo{volume}{38}. \bibinfo{pages}{20256--20264}.
+\newblock
+
+
+\bibitem[Taitler et~al\mbox{.}(2024)]%
+        {taitler20242023}
+\bibfield{author}{\bibinfo{person}{Ayal Taitler}, \bibinfo{person}{Ron Alford},
+  \bibinfo{person}{Joan Espasa}, \bibinfo{person}{Gregor Behnke},
+  \bibinfo{person}{Daniel Fi{\v{s}}er}, \bibinfo{person}{Michael Gimelfarb},
+  \bibinfo{person}{Florian Pommerening}, \bibinfo{person}{Scott Sanner},
+  \bibinfo{person}{Enrico Scala}, \bibinfo{person}{Dominik Schreiber},
+  {et~al\mbox{.}}} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{The 2023 international planning competition}.
+\newblock
+
+
+\bibitem[van~de Laar et~al\mbox{.}(2024)]%
+        {van2024vernacopter}
+\bibfield{author}{\bibinfo{person}{Teun van~de Laar}, \bibinfo{person}{Zengjie
+  Zhang}, \bibinfo{person}{Shuhao Qi}, \bibinfo{person}{Sofie Haesaert}, {and}
+  \bibinfo{person}{Zhiyong Sun}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Vernacopter: Disambiguated natural-language-driven
+  robot via formal specifications}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2409.09536}}
+  (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[von Werra et~al\mbox{.}(2020)]%
+        {vonwerra2022trl}
+\bibfield{author}{\bibinfo{person}{Leandro von Werra}, \bibinfo{person}{Younes
+  Belkada}, \bibinfo{person}{Lewis Tunstall}, \bibinfo{person}{Edward
+  Beeching}, \bibinfo{person}{Tristan Thrush}, \bibinfo{person}{Nathan
+  Lambert}, \bibinfo{person}{Shengyi Huang}, \bibinfo{person}{Kashif Rasul},
+  {and} \bibinfo{person}{Quentin Gallou{\'e}dec}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{{TRL: Transformer Reinforcement Learning}}.
+\newblock \bibinfo{howpublished}{\url{https://github.com/huggingface/trl}}.
+\newblock
+
+
+\bibitem[Wang and Trevizan(2025)]%
+        {wang2025leveraging}
+\bibfield{author}{\bibinfo{person}{Ryan~Xiao Wang} {and}
+  \bibinfo{person}{Felipe Trevizan}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Leveraging Action Relational Structures for
+  Integrated Learning and Planning}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2504.20318}}
+  (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Wang(2022)]%
+        {wang2022ensuring}
+\bibfield{author}{\bibinfo{person}{Xiao Wang}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Ensuring safety of learning-based motion planners
+  using control barrier functions}.
+\newblock \bibinfo{journal}{\emph{IEEE Robotics and Automation Letters}}
+  \bibinfo{volume}{7}, \bibinfo{number}{2} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{4773--4780}.
+\newblock
+
+
+\bibitem[Wolf et~al\mbox{.}(2020)]%
+        {wolf-etal-2020-transformers}
+\bibfield{author}{\bibinfo{person}{Thomas Wolf}, \bibinfo{person}{Lysandre
+  Debut}, \bibinfo{person}{Victor Sanh}, \bibinfo{person}{Julien Chaumond},
+  \bibinfo{person}{Clement Delangue}, \bibinfo{person}{Anthony Moi},
+  \bibinfo{person}{Pierric Cistac}, \bibinfo{person}{Tim Rault},
+  \bibinfo{person}{Rémi Louf}, \bibinfo{person}{Morgan Funtowicz},
+  \bibinfo{person}{Joe Davison}, \bibinfo{person}{Sam Shleifer},
+  \bibinfo{person}{Patrick von Platen}, \bibinfo{person}{Clara Ma},
+  \bibinfo{person}{Yacine Jernite}, \bibinfo{person}{Julien Plu},
+  \bibinfo{person}{Canwen Xu}, \bibinfo{person}{Teven~Le Scao},
+  \bibinfo{person}{Sylvain Gugger}, \bibinfo{person}{Mariama Drame},
+  \bibinfo{person}{Quentin Lhoest}, {and} \bibinfo{person}{Alexander~M. Rush}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Transformers: State-of-the-Art Natural Language
+  Processing}. In \bibinfo{booktitle}{\emph{Proceedings of the 2020 Conference
+  on Empirical Methods in Natural Language Processing: System Demonstrations}}.
+  \bibinfo{publisher}{Association for Computational Linguistics},
+  \bibinfo{address}{Online}, \bibinfo{pages}{38--45}.
+\newblock
+\urldef\tempurl%
+\url{https://www.aclweb.org/anthology/2020.emnlp-demos.6}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Wu and Or(2025)]%
+        {Wu2025HumanAI}
+\bibfield{author}{\bibinfo{person}{J. Wu} {and} \bibinfo{person}{C.~K.~L. Or}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Towards Open Complex Human-AI Agents Collaboration
+  System for Problem-Solving and Knowledge Management}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint}}
+  \bibinfo{volume}{arXiv:2505.00018} (\bibinfo{year}{2025}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2505.00018}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Yang et~al\mbox{.}(2024)]%
+        {yang2024fine}
+\bibfield{author}{\bibinfo{person}{Yunhao Yang}, \bibinfo{person}{Neel~P
+  Bhatt}, \bibinfo{person}{Tyler Ingebrand}, \bibinfo{person}{William Ward},
+  \bibinfo{person}{Steven Carr}, \bibinfo{person}{Atlas Wang}, {and}
+  \bibinfo{person}{Ufuk Topcu}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Fine-tuning language models using formal methods
+  feedback: A use case in autonomous systems}.
+\newblock \bibinfo{journal}{\emph{Proceedings of Machine Learning and Systems}}
+   \bibinfo{volume}{6} (\bibinfo{year}{2024}), \bibinfo{pages}{339--350}.
+\newblock
+
+
+\bibitem[Yang et~al\mbox{.}(2022)]%
+        {yang2022automaton}
+\bibfield{author}{\bibinfo{person}{Yunhao Yang},
+  \bibinfo{person}{Jean-Rapha{\"e}l Gaglione}, \bibinfo{person}{Cyrus Neary},
+  {and} \bibinfo{person}{Ufuk Topcu}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Automaton-based representations of task knowledge
+  from generative language models}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2212.01944}}
+  (\bibinfo{year}{2022}).
+\newblock
+
+
+\bibitem[Yin et~al\mbox{.}(2024)]%
+        {yin2024safeagentbench}
+\bibfield{author}{\bibinfo{person}{Sheng Yin}, \bibinfo{person}{Xianghe Pang},
+  \bibinfo{person}{Yuanzhuo Ding}, \bibinfo{person}{Menglan Chen},
+  \bibinfo{person}{Yutong Bi}, \bibinfo{person}{Yichen Xiong},
+  \bibinfo{person}{Wenhao Huang}, \bibinfo{person}{Zhen Xiang},
+  \bibinfo{person}{Jing Shao}, {and} \bibinfo{person}{Siheng Chen}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Safeagentbench: A benchmark for safe task planning
+  of embodied llm agents}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2412.13178}}
+  (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Yu et~al\mbox{.}(2021)]%
+        {yu2021learning}
+\bibfield{author}{\bibinfo{person}{Xiaoqiang Yu}, \bibinfo{person}{Ping Wang},
+  {and} \bibinfo{person}{Zexu Zhang}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Learning-based end-to-end path planning for lunar
+  rovers with safety constraints}.
+\newblock \bibinfo{journal}{\emph{Sensors}} \bibinfo{volume}{21},
+  \bibinfo{number}{3} (\bibinfo{year}{2021}), \bibinfo{pages}{796}.
+\newblock
+
+
+\bibitem[Zuo et~al\mbox{.}(2025)]%
+        {zuo2025planetarium}
+\bibfield{author}{\bibinfo{person}{Max Zuo},
+  \bibinfo{person}{Francisco~Piedrahita Velez}, \bibinfo{person}{Xiaochen Li},
+  \bibinfo{person}{Michael Littman}, {and} \bibinfo{person}{Stephen Bach}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Planetarium: A rigorous benchmark for translating
+  text to structured planning languages}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2025 Conference of the Nations
+  of the Americas Chapter of the Association for Computational Linguistics:
+  Human Language Technologies (Volume 1: Long Papers)}}.
+  \bibinfo{pages}{11223--11240}.
+\newblock
+
+
+\end{thebibliography}

@@ -1,0 +1,194 @@
+\section{Safe-Gen LLM}\label{IV}
+
+In this section, we present \emph{Safe-Gen LLM}, a safety-oriented framework for adapting LLMs to CPS task planning under formal constraints.
+The framework consists of two core components.
+First, we perform SFT on a curated dataset of safety-compliant plans, injecting domain knowledge and enforcing strict output formats.
+Second, we apply Direct Preference Optimization (DPO) to align the model with safety-critical preferences, explicitly distinguishing safe plans from unsafe or infeasible ones.
+
+\subsection{Supervised Fine-Tuning}\label{subsec:sft}
+SFT is a post-training method that adapts a pre-trained LLM to a specialized task by training it on task-specific instruction--response pairs.
+In our framework, SFT serves to:
+(i) encode domain and safety knowledge,
+(ii) enforce syntactic and semantic plan validity, and
+(iii) provide a stable reference policy for subsequent preference-based alignment.
+The SFT process consists of three steps:
+designing domain-specific safety knowledge, constructing the supervised dataset, and fine-tuning the model.
+
+\begin{table*}[h]
+  \centering
+  \caption{Brief introduction of the domains and their safety constraints.}
+  \label{tab:domain-introduction}
+  \begin{tabularx}{0.95\linewidth}{l|X|X}
+    \hline
+    \textbf{Domain} & \textbf{Description} & \textbf{Safety Constraints} \\
+    \hline
+    \textbf{Blocksworld} &
+    The agent must rearrange stacked blocks into a desired configuration using pick-and-place actions. &
+    Blocks must be stacked in a safe and stable order, e.g., a supporting block must be positioned before the blocks it supports. \\
+    \hline
+    \textbf{Ferry} &
+    The agent controls a ferry that transports cars between locations. &
+    The ferry must never be overloaded, and cars must safely reach their destinations before the ferry departs or returns. \\
+    \hline
+    \textbf{Grippers} &
+    A robot with two grippers must pick up and deliver all objects to a target room. &
+    Robots (or manipulators) must avoid operating simultaneously in the same narrow room, and certain grippers may be restricted for safety-critical objects. \\
+    \hline
+    \textbf{Spanner} &
+    A worker must collect spanners and tighten all nuts across connected locations. &
+    Bolts must be tightened in a safe sequence (e.g., foundation nuts before upper ones), and access to shared tools (e.g., entering the tool shed) is limited to prevent unsafe congestion. \\
+    \hline
+    \textbf{Delivery} &
+    A truck must pick up and deliver packages to specified destinations while moving over a grid of adjacent cells. &
+    The truck must follow safe and efficient routes, avoiding unnecessary back-and-forth traversals between the same cells that could cause congestion or collision risks in tight spaces. \\
+    \hline
+  \end{tabularx}
+\end{table*}
+
+\noindent\textbf{Domain-specific safety knowledge design.}
+We start by selecting five task-planning domains from the open-source PDDL2 problem generators~\cite{seipp-et-al-zenodo2022}.
+The domains are chosen using the following criteria:
+\begin{itemize}
+  \item relevance to real-world CPS task planning;
+  \item presence of safety-critical objects, locations, or actions;
+  \item availability of problem instances with varying difficulty.
+\end{itemize}
+Based on these criteria, we select five representative domains: Blocksworld, Ferry, Grippers, Spanner, and Delivery.
+A brief overview of each domain and its associated safety constraints is given in Table~\ref{tab:domain-introduction}.
+For each domain, we design additional domain-specific safety knowledge in the form of high-level constraints that mirror realistic CPS requirements (e.g., collision avoidance, load limits, safe ordering of operations).
+These constraints are subsequently encoded in PDDL3 \texttt{:constraints} format and used to generate safety-compliant plan demonstrations.
+
+\subsubsection{Dataset construction.}
+The pipeline for constructing the SFT dataset is illustrated in Figure~\ref{fig:dataset-construction}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\linewidth]{sft_diagram.pdf}
+  \caption{Pipeline for supervised fine-tuning dataset construction.}
+  \label{fig:dataset-construction}
+\end{figure}
+
+First, we generate planning problems for each domain using the PDDL2 problem generators.
+We remove isomorphic or trivially equivalent problems to reduce redundancy and employ a classical planner to ensure that the remaining problems are feasible.
+
+Second, we encode the domain-specific safety constraints from Table~\ref{tab:domain-introduction} into PDDL3 \texttt{:constraints}.
+We then use the temporal PDDL3 planner OPTIC~\cite{benton2012temporal} to solve the resulting constrained planning problems, and verify each candidate solution using the VAL tool~\cite{howey2004val}.
+Only solutions that are successfully validated by VAL (i.e., respect both domain preconditions and encoded safety constraints) are retained.
+
+Third, we convert each verified solution into an instruction--response pair.
+The instruction consists of a natural-language prompt that includes the planning domain, problem instance, and (when applicable) safety constraints; the response is the corresponding validated plan.
+Formally, we obtain a supervised dataset
+\[
+\mathcal{D}_{\text{SFT}} = \{(x_i, y_i)\}_{i=1}^{N},
+\]
+where $x_i$ is an input prompt and $y_i$ is the desired output plan.
+
+To enhance data diversity and reduce overfitting, we design ten instruction templates.
+For each problem, we randomly sample a fixed number of templates from this pool, which encourages variation in surface forms and prevents the model from simply memorizing a single prompt pattern.
+A representative template is shown below.
+
+\begin{userbox}
+  You are a planning expert. Your task is to generate a \textbf{valid plan} for the given domain and problem.
+  
+  \texttt{DOMAIN:}
+  \{\{domain\_content\}\}
+  
+  \texttt{PROBLEM:}
+  \{\{problem\_content\}\}
+  
+  \textbf{Output Requirements:}
+  \begin{itemize}
+    \item Return \textbf{ONLY} the plan steps, one per line.
+    \item Each line must follow the format: \texttt{(<ACTION\_NAME> <param1> <param2> ...)}.
+    \item Use only objects defined in the \texttt{PROBLEM}.
+    \item Do \textbf{NOT} include any explanations, comments, or headers.
+    \item Do \textbf{NOT} output anything except the plan lines.
+    \item The output must \textbf{NOT} contain natural language sentences.
+    \item If the \texttt{PROBLEM} includes constraints, the plan must satisfy all of them; otherwise, solve as a standard goal-directed task.
+    \item Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+  \end{itemize}
+  
+  \textbf{Plan:}
+\end{userbox}
+
+This template explicitly instructs the model to behave as a planning expert and to produce strictly formatted action sequences.
+By providing the domain and problem specifications in a structured form and enforcing strong output requirements (no extra text, strict syntax, constraint satisfaction), the template helps ensure that the generated plans remain syntactically correct, executable, and consistent with the safety constraints.
+
+\subsubsection{Supervised fine-tuning.}
+Given the constructed dataset $\mathcal{D}_{\text{SFT}}$, we adapt a pre-trained LLM to the planning task via standard supervised learning on instruction--response demonstrations.
+Formally,
+\[
+\mathcal{D}_{\text{SFT}}=\{(x_i, y_i)\}_{i=1}^{N},
+\]
+where $x_i$ denotes an input prompt and $y_i$ is the corresponding target plan generated by a verified planner.
+
+Supervised fine-tuning optimizes the model parameters $\theta$ by minimizing the negative log-likelihood of the target responses:
+\begin{equation}
+\mathcal{L}_{\text{SFT}}(\theta)=
+- \mathbb{E}_{(x,y)\sim\mathcal{D}_{\text{SFT}}}
+\left[ \log \pi_{\theta}(y\mid x) \right],
+\label{eq:sft_loss}
+\end{equation}
+where $\pi_{\theta}(y\mid x)$ denotes the model likelihood of producing the sequence $y$ given the input $x$.
+In practice, $y$ is a sequence of plan tokens and the loss is computed with teacher forcing over the full plan.
+
+By minimizing~\eqref{eq:sft_loss}, SFT encourages the model to reproduce planning behaviors that are syntactically valid, executable, and safety-compliant.
+Beyond learning \emph{what} plan to output, SFT also enforces \emph{how} to output it, such as adhering to strict action syntax and avoiding natural-language explanations.
+Moreover, the SFT model serves as a reference policy with coherent instruction-following behavior, which we later use as a stable baseline for preference-based safety alignment via DPO.
+
+\subsection{Direct Preference Optimization}
+Direct Preference Optimization (DPO)~\cite{rafailov2023direct} fine-tunes LLMs using paired preference data that specifies which of two candidate responses is preferred.
+In our framework, DPO is used to encode safety-critical preferences on top of the SFT model, biasing the policy toward plans that are not only feasible but also strictly aligned with formal safety constraints.
+We decompose this process into two stages: preference data design and model alignment.
+
+\subsubsection{Preference data design.}
+We first construct a preference dataset for each domain by generating and verifying candidate plans.
+For each plan produced by the LLM planner, we invoke VAL~\cite{howey2004val} to automatically check its behavior against the corresponding PDDL domain and problem (including PDDL3 \texttt{:constraints}).
+The verifier outputs are parsed to assess validity, executability, safety, and goal satisfaction.
+
+Based on these verification results, we categorize LLM-generated plans into five error and success types:
+\begin{itemize}
+  \item \textbf{Plan Format Error}: the plan is syntactically invalid or cannot be parsed and thus cannot be executed or evaluated.
+  \item \textbf{Precondition Violation}: one or more action preconditions fail during execution.
+  \item \textbf{Safety Constraint Violation}: the plan reaches the goal but violates at least one safety constraint along the execution trace.
+  \item \textbf{Goal Not Satisfied}: the plan executes safely but fails to achieve the goal.
+  \item \textbf{Success Plan}: the plan both satisfies all safety constraints and achieves the goal.
+\end{itemize}
+
+We assume that these categories follow an increasing order of preference, with \textbf{Success Plan} being strictly preferred over all other types, and plans that violate safety constraints being ranked particularly low.
+We assign relative preference scores accordingly and construct preference pairs $(y^{+}, y^{-})$ where $y^{+}$ belongs to a higher-ranked category than $y^{-}$.
+To ensure diversity and coverage, we sample candidate plans from the SFT model under multiple temperature settings, which induces variation in plan length, structure, and error types.
+
+To further emphasize safety, we additionally incorporate solutions from PDDL2-based problem solvers that \emph{ignore} our added safety constraints.
+These plans are feasible with respect to the original domain but violate the new safety constraints, and are therefore labeled as \textbf{Safety Constraint Violation} examples.
+By contrasting such unsafe-but-feasible plans with fully safe plans in the preference data, we explicitly teach the model to prefer safety-compliant behavior over merely goal-reaching behavior.
+
+\subsubsection{Model alignment.}
+Let $\mathcal{D}_{\text{DPO}}=\{(x, y^{+}, y^{-})\}$ denote the preference dataset constructed from the above procedure, where $x$ is an input prompt, $y^{+}$ is the preferred response, and $y^{-}$ is the disfavored response.
+Let $\pi_{\text{ref}}$ be a frozen reference policy, typically the SFT model trained on $\mathcal{D}_{\text{SFT}}$.
+DPO aims to align the current policy $\pi_{\theta}$ with the preference signals by directly shaping its likelihood ratios relative to $\pi_{\text{ref}}$.
+
+The DPO objective is given by:
+\begin{align}
+\mathcal{L}_{\text{DPO}}(\theta)
+&= - \mathbb{E}_{(x, y^{+}, y^{-}) \sim \mathcal{D}_{\text{DPO}}}
+\Bigg[
+\log \sigma \Bigg(
+\beta \Bigg(
+\log \frac{\pi_{\theta}(y^{+} \mid x)}{\pi_{\text{ref}}(y^{+} \mid x)}
+\nonumber\\
+&\qquad\qquad
+- \log \frac{\pi_{\theta}(y^{-} \mid x)}{\pi_{\text{ref}}(y^{-} \mid x)}
+\Bigg)\Bigg)
+\Bigg],
+\label{eq:dpo_loss}
+\end{align}
+where $\sigma(\cdot)$ is the sigmoid function and $\beta>0$ controls the sharpness of the preference separation.
+Both $\pi_{\theta}(y\mid x)$ and $\pi_{\text{ref}}(y\mid x)$ are computed as teacher-forcing log-likelihoods over the response sequences.
+
+Intuitively, the objective in~\eqref{eq:dpo_loss} encourages the model to increase the relative likelihood of preferred responses $y^{+}$ and decrease the relative likelihood of dispreferred responses $y^{-}$ compared to the reference policy.
+Unlike reinforcement-learning–based RLHF methods such as PPO~\cite{ouyang2022training}, DPO optimizes a closed-form objective without explicit reward modeling or on-policy rollouts, leading to a simpler and more stable training procedure.
+
+In our framework, DPO is used to encode \emph{safety-critical} preferences.
+By constructing preference pairs that explicitly contrast safe and unsafe plans (e.g., success vs. safety-violating plans, or safety-violating vs. precondition-violating plans), we guide the model toward a policy that favors safety-compliant behaviors while preserving the task competence acquired during SFT.
+The resulting Safe-Gen LLM is therefore both instruction-following and safety-aligned, and serves as the core component of our safety-aware CPS task-planning pipeline.
