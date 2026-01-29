@@ -1,0 +1,40 @@
+{
+  "run_id": "grpo_mistral_7b-curriculum_v2-all-0111-stl_20260111_184156_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-11T18:41:56.012945",
+  "end_time": "2026-01-11T18:41:56.094469",
+  "config": {
+    "base_model": "/jfan5/sft_models/mistral_7b/symbolized_v2",
+    "dataset": "/jfan5/grpo_data/five_domain_0109/",
+    "output_dir": null,
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-mistral7b",
+    "run_name": "grpo_mistral_7b-curriculum_v2-all-0111-stl",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.01,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "TypeError: expected str, bytes or os.PathLike object, not NoneType",
+  "model_type": "mistral"
+}

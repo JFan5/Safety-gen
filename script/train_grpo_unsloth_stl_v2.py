@@ -53,6 +53,7 @@ import argparse
 import logging
 import os
 import re
+import shutil
 from pathlib import Path
 from typing import Any, List, Optional
 
@@ -83,7 +84,8 @@ from utils import (
 from unsloth import is_bfloat16_supported as _unsloth_bf16_ok
 
 # Import run management utilities
-from utils.run_manager import RunContext
+from utils.run_manager import RunContext, write_config_snapshot
+from utils.reward import RewardConfig
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("grpo_unsloth_v2")
@@ -235,6 +237,57 @@ def run_training(args, run_ctx=None):
     """Core training logic with V2 data loading."""
     global LOGGING_STEPS
     LOGGING_STEPS = args.logging_steps
+
+    # === Save config snapshot with reward and curriculum parameters ===
+    if run_ctx is not None:
+        reward_cfg = RewardConfig()
+        extra_config = {
+            "reward_config": {
+                "success_reward": reward_cfg.success_reward,
+                "format_error_reward": reward_cfg.format_error_reward,
+                "empty_plan_reward": reward_cfg.empty_plan_reward,
+                "safety_violation_base": reward_cfg.safety_violation_base,
+                "safety_violation_scale": reward_cfg.safety_violation_scale,
+                "precondition_violation_base": reward_cfg.precondition_violation_base,
+                "precondition_violation_scale": reward_cfg.precondition_violation_scale,
+                "goal_not_satisfied_base": reward_cfg.goal_not_satisfied_base,
+                "goal_not_satisfied_scale": reward_cfg.goal_not_satisfied_scale,
+                "safety_fallback": reward_cfg.safety_fallback,
+                "precondition_fallback": reward_cfg.precondition_fallback,
+                "goal_fallback": reward_cfg.goal_fallback,
+                "goal_no_info_fallback": reward_cfg.goal_no_info_fallback,
+            },
+            "curriculum_schedule": {
+                "early_phase": {"threshold": 0.3, "weights": {"easy": 0.7, "medium": 0.25, "hard": 0.05}},
+                "mid_phase": {"threshold": 0.7, "weights": {"easy": 0.4, "medium": 0.4, "hard": 0.2}},
+                "late_phase": {"threshold": 1.0, "weights": {"easy": 0.2, "medium": 0.4, "hard": 0.4}},
+            },
+        }
+        write_config_snapshot(run_ctx.run_dir, args, extra_config)
+        logger.info(f"Saved config snapshot with reward and curriculum params to {run_ctx.run_dir}/config_snapshot.yaml")
+
+        # === Save code snapshot for reproducibility ===
+        code_snapshot_dir = run_ctx.run_dir / "code_snapshot"
+        code_snapshot_dir.mkdir(parents=True, exist_ok=True)
+
+        # Copy main training script
+        script_dir = Path(__file__).resolve().parent
+        main_script = Path(__file__).resolve()
+        shutil.copy2(main_script, code_snapshot_dir / main_script.name)
+
+        # Copy utils directory
+        utils_src = script_dir / "utils"
+        utils_dst = code_snapshot_dir / "utils"
+        if utils_src.exists():
+            if utils_dst.exists():
+                shutil.rmtree(utils_dst)
+            shutil.copytree(
+                utils_src,
+                utils_dst,
+                ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git")
+            )
+
+        logger.info(f"Saved code snapshot to {code_snapshot_dir}")
 
     if not os.path.exists(args.data_root):
         raise ValueError(f"Data root does not exist: {args.data_root}")
@@ -528,6 +581,11 @@ def main():
     parser.add_argument("--runs_root", type=str, default="./runs", help="Root directory for runs")
     parser.add_argument("--seed", type=int, default=3407, help="Random seed")
     parser.add_argument("--no_run_tracking", action="store_true", help="Disable run tracking")
+    parser.add_argument(
+        "--no_model_subfolder",
+        action="store_true",
+        help="Use old directory structure runs/{method}/{run_id} instead of runs/{model_type}/{method}/{run_id}"
+    )
 
     args = parser.parse_args()
 
@@ -556,6 +614,7 @@ def main():
                 "domains": args.domains,  # User-specified domains
             },
             redirect_logs=True,
+            use_model_subfolder=not args.no_model_subfolder,
         ) as run_ctx:
             run_training(args, run_ctx=run_ctx)
 

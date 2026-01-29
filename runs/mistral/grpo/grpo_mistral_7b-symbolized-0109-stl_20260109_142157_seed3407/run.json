@@ -1,0 +1,43 @@
+{
+  "run_id": "grpo_mistral_7b-symbolized-0109-stl_20260109_142157_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-09T14:21:57.838876",
+  "end_time": "2026-01-09T17:22:45.845920",
+  "config": {
+    "base_model": "/jfan5/sft_models/mistral_7b/symbolized_v2",
+    "dataset": "/jfan5/grpo_data/pddl3_symbolized_four_scenarios-v3/train_combined.jsonl",
+    "output_dir": "/jfan5/grpo_models/mistral_7b-symbolized-0109-stl-1000",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-mistral7b",
+    "run_name": "grpo_mistral_7b-symbolized-0109-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/ae29lkvd"
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/mistral_7b-symbolized-0109-stl-1000"
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8",
+      "main_metric": 70.0,
+      "timestamp": "2026-01-09T23:14:20.928480"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 4
+  },
+  "error": "Received signal: SIGINT",
+  "model_type": "mistral"
+}

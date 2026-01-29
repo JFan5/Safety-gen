@@ -26,6 +26,10 @@ def build_model_path_index(runs_dir: Path = None) -> Dict[str, Path]:
     - artifacts.model_path (final trained model)
     - config.output_dir (checkpoint directory during training)
 
+    Supports both directory structures:
+    - Old structure: runs/{method}/{run_id}
+    - New structure: runs/{model_type}/{method}/{run_id}
+
     Args:
         runs_dir: Path to runs directory
 
@@ -41,45 +45,69 @@ def build_model_path_index(runs_dir: Path = None) -> Dict[str, Path]:
 
     index = {}
 
-    # Iterate through method directories (sft, dpo, grpo, unknown)
-    for method_dir in runs_dir.iterdir():
-        if not method_dir.is_dir():
+    # Known method names (to distinguish old vs new structure)
+    method_names = {"sft", "dpo", "grpo", "unknown"}
+    # Special directories to skip
+    special_dirs = {"benchmark", "safepilot"}
+
+    def index_run_dir(run_dir: Path):
+        """Index a single run directory."""
+        run_json = run_dir / "run.json"
+        if not run_json.exists():
+            return
+
+        try:
+            with open(run_json) as f:
+                run_data = json.load(f)
+
+            # Get model path from artifacts (final model)
+            model_path = run_data.get("artifacts", {}).get("model_path")
+            if model_path:
+                # Normalize path (remove trailing slashes)
+                normalized = model_path.rstrip("/")
+                index[normalized] = run_dir
+
+                # Also index without checkpoint suffix for matching
+                if "/checkpoint-" in normalized:
+                    base_path = normalized.rsplit("/checkpoint-", 1)[0]
+                    if base_path not in index:
+                        index[base_path] = run_dir
+
+            # Also index config.output_dir (for matching checkpoints during training)
+            output_dir = run_data.get("config", {}).get("output_dir")
+            if output_dir:
+                normalized_output = output_dir.rstrip("/")
+                if normalized_output not in index:
+                    index[normalized_output] = run_dir
+
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    # Iterate through first-level directories
+    for first_level_dir in runs_dir.iterdir():
+        if not first_level_dir.is_dir():
             continue
 
-        for run_dir in method_dir.iterdir():
-            if not run_dir.is_dir():
-                continue
+        first_level_name = first_level_dir.name
 
-            run_json = run_dir / "run.json"
-            if not run_json.exists():
-                continue
+        # Skip special directories
+        if first_level_name in special_dirs:
+            continue
 
-            try:
-                with open(run_json) as f:
-                    run_data = json.load(f)
-
-                # Get model path from artifacts (final model)
-                model_path = run_data.get("artifacts", {}).get("model_path")
-                if model_path:
-                    # Normalize path (remove trailing slashes)
-                    normalized = model_path.rstrip("/")
-                    index[normalized] = run_dir
-
-                    # Also index without checkpoint suffix for matching
-                    if "/checkpoint-" in normalized:
-                        base_path = normalized.rsplit("/checkpoint-", 1)[0]
-                        if base_path not in index:
-                            index[base_path] = run_dir
-
-                # Also index config.output_dir (for matching checkpoints during training)
-                output_dir = run_data.get("config", {}).get("output_dir")
-                if output_dir:
-                    normalized_output = output_dir.rstrip("/")
-                    if normalized_output not in index:
-                        index[normalized_output] = run_dir
-
-            except (json.JSONDecodeError, KeyError):
-                continue
+        if first_level_name in method_names:
+            # Old structure: runs/{method}/{run_id}
+            for run_dir in first_level_dir.iterdir():
+                if run_dir.is_dir():
+                    index_run_dir(run_dir)
+        else:
+            # New structure: runs/{model_type}/{method}/{run_id}
+            # first_level_dir is model_type (mistral, qwen3, llama31_8b, etc.)
+            for method_dir in first_level_dir.iterdir():
+                if not method_dir.is_dir():
+                    continue
+                for run_dir in method_dir.iterdir():
+                    if run_dir.is_dir():
+                        index_run_dir(run_dir)
 
     return index
 

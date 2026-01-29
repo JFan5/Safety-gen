@@ -1,0 +1,53 @@
+{
+  "run_id": "20251206_211603_proj-pddl-finetune_method-sft_base-unknown_ds-unknown_seed-3407_knv0szgs",
+  "project": "pddl-finetune",
+  "wandb": {
+    "entity": "fjl2401-university-of-notre-dame",
+    "project": "pddl-finetune",
+    "run_id": "knv0szgs",
+    "run_name": "pddl_sft_four_scenarios500_randomized",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/knv0szgs",
+    "group": "",
+    "tags": []
+  },
+  "state": "finished",
+  "method": "sft",
+  "base_model": "mistral_7b",
+  "dataset": {
+    "dataset_id": "unknown",
+    "dataset_path": "/jfan5/sft_data/four_scenarios500_randomized/combined.hf",
+    "dataset_artifact": "unknown",
+    "status": "confirmed"
+  },
+  "train": {
+    "seed": 3407,
+    "lr": 0.0002,
+    "batch_size": 4,
+    "epochs": 3,
+    "max_steps": -1,
+    "other_hparams": {
+      "warmup_steps": 0,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.05,
+      "gradient_accumulation_steps": 2,
+      "max_grad_norm": 1,
+      "adam_epsilon": 1e-08,
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.999,
+      "lr_scheduler_type": "cosine",
+      "fp16": false,
+      "bf16": true,
+      "gradient_checkpointing": false
+    }
+  },
+  "code": {
+    "git_commit": "31d6360a2bef7645bd048734c3556620635199e5"
+  },
+  "created_at": "2025-12-06T21:16:03+00:00",
+  "updated_at": null,
+  "artifacts": {
+    "model_path": "/jfan5/sft_models/mistral_7b/four_scenarios500_randomized",
+    "model_path_status": "confirmed"
+  },
+  "model_type": "mistral"
+}

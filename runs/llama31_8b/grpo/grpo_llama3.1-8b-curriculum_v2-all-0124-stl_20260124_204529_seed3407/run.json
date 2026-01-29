@@ -1,0 +1,40 @@
+{
+  "run_id": "grpo_llama3.1-8b-curriculum_v2-all-0124-stl_20260124_204529_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-24T20:45:29.640681",
+  "end_time": "2026-01-25T00:22:57.703260",
+  "config": {
+    "base_model": "/jfan5/grpo_models/llama3.1-8b-curriculum_v2-all-0110-stl-1000",
+    "dataset": "/jfan5/grpo_data/five_domain_0109/",
+    "output_dir": "/jfan5/grpo_models/llama3.1-8b-curriculum_v2-all-0124-stl-1000",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-llama31-8b",
+    "run_name": "grpo_llama3.1-8b-curriculum_v2-all-0124-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/6eru1687"
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/llama3.1-8b-curriculum_v2-all-0124-stl-1000"
+  },
+  "git": {
+    "commit": "10beda9043121fa4a472b809f8656e02e8855c56",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.01,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "Received signal: SIGINT",
+  "model_type": "llama31_8b"
+}

@@ -1,0 +1,175 @@
+{
+  "run_id": "grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407",
+  "method": "grpo",
+  "status": "finished",
+  "start_time": "2026-01-11T01:52:53.891740",
+  "end_time": "2026-01-11T11:35:13.845915",
+  "config": {
+    "base_model": "/jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized",
+    "dataset": "/jfan5/grpo_data/five_domain_0109/",
+    "output_dir": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-qwen3-14b",
+    "run_name": "grpo_qwen3-14b-curriculum_v2-all-0111-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-qwen3-14b/runs/sg1t5m9m"
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000"
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8",
+      "main_metric": 76.8,
+      "timestamp": "2026-01-12T19:56:11.997985"
+    },
+    "solver_batch__temp0.6_max512_bs8_20260122_143526": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260122_143526",
+      "main_metric": 76.8,
+      "timestamp": "2026-01-22T14:43:41.023799"
+    },
+    "solver_batch_nl__temp0.6_max512_bs8_20260122_151226": {
+      "path": "eval/solver_batch_nl__temp0.6_max512_bs8_20260122_151226",
+      "main_metric": 42.0,
+      "timestamp": "2026-01-22T15:19:27.996344"
+    },
+    "solver_batch_nl__temp0.6_max512_bs8_20260122_155413": {
+      "path": "eval/solver_batch_nl__temp0.6_max512_bs8_20260122_155413",
+      "main_metric": 54.0,
+      "timestamp": "2026-01-22T16:00:35.612368"
+    },
+    "solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_162430": {
+      "path": "eval/solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_162430",
+      "main_metric": 78.0,
+      "timestamp": "2026-01-23T16:26:56.335153"
+    },
+    "solver__temp0.6_max1024_20260123_163721": {
+      "path": "eval/solver__temp0.6_max1024_20260123_163721",
+      "main_metric": 94.0,
+      "timestamp": "2026-01-23T16:37:21.665093"
+    },
+    "solver_batch_nl_grippers_temp0.6_max512_bs8_20260123_165710": {
+      "path": "eval/solver_batch_nl_grippers_temp0.6_max512_bs8_20260123_165710",
+      "main_metric": 92.0,
+      "timestamp": "2026-01-23T16:58:39.501417"
+    },
+    "solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_170053": {
+      "path": "eval/solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_170053",
+      "main_metric": 84.0,
+      "timestamp": "2026-01-23T17:01:58.485232"
+    },
+    "solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_170712": {
+      "path": "eval/solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_170712",
+      "main_metric": 58.0,
+      "timestamp": "2026-01-23T17:08:15.716369"
+    },
+    "solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_171850": {
+      "path": "eval/solver_batch_nl_spanner_temp0.6_max512_bs8_20260123_171850",
+      "main_metric": 86.0,
+      "timestamp": "2026-01-23T17:19:53.990035"
+    },
+    "solver_batch_nl__temp0.6_max512_bs8_20260124_140928": {
+      "path": "eval/solver_batch_nl__temp0.6_max512_bs8_20260124_140928",
+      "main_metric": 70.8,
+      "timestamp": "2026-01-24T14:18:17.221715"
+    },
+    "solver_batch__temp0.6_max512_bs4_20260124_143026": {
+      "path": "eval/solver_batch__temp0.6_max512_bs4_20260124_143026",
+      "main_metric": 100.0,
+      "timestamp": "2026-01-24T14:30:26.200157"
+    },
+    "solver_batch_nl__temp0.6_max512_bs8_20260124_143337": {
+      "path": "eval/solver_batch_nl__temp0.6_max512_bs8_20260124_143337",
+      "main_metric": 72.8,
+      "timestamp": "2026-01-24T14:40:17.287766"
+    },
+    "solver_batch_nl__temp0.6_max512_bs8_20260124_191616": {
+      "path": "eval/solver_batch_nl__temp0.6_max512_bs8_20260124_191616",
+      "main_metric": 71.2,
+      "timestamp": "2026-01-24T19:24:27.882422"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_200428": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_200428",
+      "main_metric": 71.6,
+      "timestamp": "2026-01-24T20:11:21.977519"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_202509": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_202509",
+      "main_metric": 71.6,
+      "timestamp": "2026-01-24T20:32:08.700591"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_203812": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260124_203812",
+      "main_metric": 72.4,
+      "timestamp": "2026-01-24T20:51:22.159012"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260125_010229": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260125_010229",
+      "main_metric": 15.2,
+      "timestamp": "2026-01-25T01:16:33.423921"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260125_013752": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260125_013752",
+      "main_metric": 54.0,
+      "timestamp": "2026-01-25T01:44:44.825542"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260125_020918": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260125_020918",
+      "main_metric": 69.6,
+      "timestamp": "2026-01-25T02:16:34.828137"
+    },
+    "solver_batch__temp0.6_max512_bs2_20260125_181016": {
+      "path": "eval/solver_batch__temp0.6_max512_bs2_20260125_181016",
+      "main_metric": 80.0,
+      "timestamp": "2026-01-25T18:10:16.614615"
+    },
+    "solver_batch_json_temp0.6_max512_bs4_20260125_181203": {
+      "path": "eval/solver_batch_json_temp0.6_max512_bs4_20260125_181203",
+      "main_metric": 72.0,
+      "timestamp": "2026-01-25T18:16:10.529037"
+    },
+    "solver_batch_json_temp0.6_max512_bs4_20260125_182038": {
+      "path": "eval/solver_batch_json_temp0.6_max512_bs4_20260125_182038",
+      "main_metric": 70.0,
+      "timestamp": "2026-01-25T18:24:53.677097"
+    },
+    "solver_batch__temp0.6_max512_bs2_20260125_183328": {
+      "path": "eval/solver_batch__temp0.6_max512_bs2_20260125_183328",
+      "main_metric": 80.0,
+      "timestamp": "2026-01-25T18:33:28.301603"
+    },
+    "solver_batch_json_temp0.6_max512_bs4_20260125_183415": {
+      "path": "eval/solver_batch_json_temp0.6_max512_bs4_20260125_183415",
+      "main_metric": 72.0,
+      "timestamp": "2026-01-25T18:38:36.890816"
+    },
+    "solver_batch_json_temp0.6_max512_bs4_20260125_191206": {
+      "path": "eval/solver_batch_json_temp0.6_max512_bs4_20260125_191206",
+      "main_metric": 82.5,
+      "timestamp": "2026-01-25T19:32:50.804147"
+    },
+    "solver_batch__temp0.6_max512_bs4_20260125_204601": {
+      "path": "eval/solver_batch__temp0.6_max512_bs4_20260125_204601",
+      "main_metric": 94.0,
+      "timestamp": "2026-01-25T20:46:01.213857"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.01,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "model_type": "qwen3"
+}

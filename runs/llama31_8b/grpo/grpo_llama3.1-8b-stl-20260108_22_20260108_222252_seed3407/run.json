@@ -1,0 +1,37 @@
+{
+  "run_id": "grpo_llama3.1-8b-stl-20260108_22_20260108_222252_seed3407",
+  "method": "grpo",
+  "status": "failed",
+  "start_time": "2026-01-08T22:22:52.629828",
+  "end_time": "2026-01-08T22:22:58.892077",
+  "config": {
+    "base_model": "/jfan5/sft_models/llama31_8b/symbolized",
+    "dataset": "/jfan5/grpo_data/five_domain_0108/combined.jsonl",
+    "output_dir": "/jfan5/grpo_models/llama31_8b-stl-20260108_22",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-llama31-8b",
+    "run_name": "grpo_llama3.1-8b-stl-20260108_22",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "/jfan5/grpo_models/llama31_8b-stl-20260108_22"
+  },
+  "git": {
+    "commit": "85bfc9463c9124831775b2233c2d8c70b83d30f6",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 4
+  },
+  "error": "Received signal: SIGINT",
+  "model_type": "llama31_8b"
+}

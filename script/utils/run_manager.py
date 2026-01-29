@@ -62,6 +62,35 @@ def get_git_info() -> Dict[str, Any]:
         return {}
 
 
+def extract_model_type(base_model: Optional[str]) -> str:
+    """
+    Extract model type from base_model path or name.
+
+    Args:
+        base_model: Path or name of the base model
+
+    Returns:
+        Model type string: 'mistral', 'qwen3', 'llama31_8b', or 'unknown'
+    """
+    if not base_model:
+        return "unknown"
+
+    normalized = base_model.lower().replace("-", "_").replace(".", "_")
+
+    patterns = [
+        (["llama_3_1_8b", "llama31_8b", "llama3_1_8b"], "llama31_8b"),
+        (["qwen3_14b", "qwen_3_14b", "qwen3"], "qwen3"),
+        (["mistral_7b", "mistral7b", "mistral"], "mistral"),
+    ]
+
+    for search_terms, model_type in patterns:
+        for term in search_terms:
+            if term in normalized:
+                return model_type
+
+    return "unknown"
+
+
 def generate_run_id(
     method: str,
     run_name: Optional[str] = None,
@@ -243,7 +272,9 @@ def create_run(
     wandb_project: Optional[str] = None,
     wandb_run_name: Optional[str] = None,
     extra_metadata: Optional[Dict[str, Any]] = None,
-    training_script: Optional[str] = None
+    training_script: Optional[str] = None,
+    model_type: Optional[str] = None,
+    use_model_subfolder: bool = True
 ) -> Tuple[Path, str, Dict[str, Any]]:
     """
     Create a new run directory with initial run.json.
@@ -261,6 +292,9 @@ def create_run(
         wandb_run_name: W&B run name
         extra_metadata: Additional metadata to include
         training_script: Path to training script to copy to run directory
+        model_type: Override model type (auto-detected from base_model if not provided)
+        use_model_subfolder: If True, create runs in runs/{model_type}/{method}/{run_id}
+                            If False, use old structure runs/{method}/{run_id}
 
     Returns:
         Tuple of (run_dir, run_id, run_data)
@@ -273,8 +307,14 @@ def create_run(
     # Generate run_id
     run_id = generate_run_id(method, run_name, seed)
 
+    # Detect or use provided model type
+    detected_model_type = model_type or extract_model_type(base_model)
+
     # Create run directory
-    run_dir = runs_root / method / run_id
+    if use_model_subfolder:
+        run_dir = runs_root / detected_model_type / method / run_id
+    else:
+        run_dir = runs_root / method / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
 
     # Create logs directory
@@ -291,6 +331,7 @@ def create_run(
     run_data = {
         "run_id": run_id,
         "method": method,
+        "model_type": detected_model_type,
         "status": "running",
         "start_time": datetime.now().isoformat(),
         "end_time": None,
@@ -471,8 +512,19 @@ def mark_unknown(run_dir: Path, runs_root: Optional[Path] = None) -> Optional[Pa
     run_dir = Path(run_dir)
 
     if runs_root is None:
-        # Infer from run_dir path (runs/<method>/<run_id>)
-        runs_root = run_dir.parent.parent
+        # Infer from run_dir path
+        # Could be old structure: runs/<method>/<run_id> (2 levels up)
+        # Or new structure: runs/<model_type>/<method>/<run_id> (3 levels up)
+        # Check by looking for run.json existence at candidate roots
+        candidate_2level = run_dir.parent.parent
+        candidate_3level = run_dir.parent.parent.parent
+
+        # Prefer 3-level if parent.parent looks like a method (sft/dpo/grpo)
+        parent_name = run_dir.parent.name.lower()
+        if parent_name in ("sft", "dpo", "grpo"):
+            runs_root = candidate_3level
+        else:
+            runs_root = candidate_2level
     runs_root = Path(runs_root)
 
     if not run_dir.exists():
@@ -536,7 +588,9 @@ class RunContext:
         wandb_run_name: Optional[str] = None,
         extra_metadata: Optional[Dict[str, Any]] = None,
         redirect_logs: bool = True,
-        training_script: Optional[str] = None
+        training_script: Optional[str] = None,
+        model_type: Optional[str] = None,
+        use_model_subfolder: bool = True
     ):
         self.method = method
         self.args = args
@@ -551,6 +605,8 @@ class RunContext:
         self.extra_metadata = extra_metadata
         self.redirect_logs = redirect_logs
         self.training_script = training_script
+        self.model_type = model_type
+        self.use_model_subfolder = use_model_subfolder
 
         self.run_dir: Optional[Path] = None
         self.run_id: Optional[str] = None
@@ -572,7 +628,9 @@ class RunContext:
             wandb_project=self.wandb_project,
             wandb_run_name=self.wandb_run_name,
             extra_metadata=self.extra_metadata,
-            training_script=self.training_script
+            training_script=self.training_script,
+            model_type=self.model_type,
+            use_model_subfolder=self.use_model_subfolder
         )
 
         # Set up log redirection
