@@ -12,8 +12,7 @@ cd /home/ubuntu/Safety-gen
 
 # Configuration
 MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-DATASET="/jfan5/sft_data/four_scenarios500/combined.hf"
-OUTPUT_DIR="/jfan5/sft_models/mistral_7b/four_scenarios500"
+DATASET="/jfan5/sft_data/four_scenarios_simple/combined.hf"
 
 # Training parameters
 NUM_EPOCHS=3
@@ -45,7 +44,6 @@ python3 pddl_finetune.py \
     --model "${MODEL}" \
     --family mistral \
     --dataset "${DATASET}" \
-    --output "${OUTPUT_DIR}" \
     --num-train-epochs ${NUM_EPOCHS} \
     --per-device-train-batch-size ${BATCH_SIZE} \
     --gradient-accumulation-steps ${GRADIENT_ACCUMULATION_STEPS} \

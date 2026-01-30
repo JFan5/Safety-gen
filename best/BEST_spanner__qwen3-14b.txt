@@ -2,18 +2,18 @@ BEST RESULT: spanner / qwen3-14b
 ============================================================
 
 Run ID:           20251212_155500_proj-pddl-finetune_method-sft_base-qwen3_14b_ds-unknown_seed-3407_ae96jbqy
-Eval ID:          -jfan5-sft_models-qwen3_14b-cross_domain_pddl3_symbolized_20251221_180320_spanner
+Eval ID:          solver_batch__temp0.6_max512_bs8_20260126_184501__spanner
 Method:           sft
 Base Model:       qwen3-14b
 
 Success Rate:     100.00%
-Success Count:    100/100
+Success Count:    50/50
 
 Model Path:       /jfan5/sft_models/qwen3_14b/cross_domain_pddl3_symbolized
 Dataset:          /jfan5/sft_data/pddl3_symbolized_four_scenarios/combined.hf
 W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/ae96jbqy
 
-Eval Timestamp:   2025-12-21T18:16:23.628365
+Eval Timestamp:   2026-01-26T18:57:20.370698
 Created At:       2025-12-12T15:55:00+00:00
 
 Category Breakdown:

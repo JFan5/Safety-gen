@@ -1,0 +1,24 @@
+BEST RESULT: blocksworld / safepilot
+============================================================
+
+Run ID:           safepilot__temp0.6_max512_20260126_140327
+Eval ID:          blocksworld__safepilot_multi
+Method:           safepilot
+Base Model:       safepilot
+
+Success Rate:     94.00%
+Success Count:    47/50
+
+Model Path:       
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   
+Created At:       
+
+Category Breakdown:
+  success_plans: 94.00%
+  precondition_violation: 4.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 2.00%
+  plan_format_error: 0.00%

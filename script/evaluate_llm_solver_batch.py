@@ -596,7 +596,8 @@ def test_model_on_testing_data(model_path,
                               nl_mode: bool = False,
                               domain_nl_mode: bool = False,
                               json_mode: bool = False,
-                              domain_json_mode: bool = False):
+                              domain_json_mode: bool = False,
+                              run_dir: Path = None):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
@@ -965,12 +966,20 @@ def test_model_on_testing_data(model_path,
 
         # Get eval output directory
         runs_dir_path = Path(runs_dir) if runs_dir else None
-        eval_output_dir, run_id = get_eval_output_dir(
-            model_path=model_path,
-            eval_id=eval_id,
-            runs_dir=runs_dir_path,
-            create=True
-        )
+        if run_dir:
+            # Directly use the known run_dir (avoids re-lookup when model_path not in index)
+            run_id = run_dir.name
+            eval_output_dir = run_dir / "eval" / eval_id
+            eval_output_dir.mkdir(parents=True, exist_ok=True)
+            (eval_output_dir / "scenarios").mkdir(exist_ok=True)
+        else:
+            # Fall back to looking up run by model path
+            eval_output_dir, run_id = get_eval_output_dir(
+                model_path=model_path,
+                eval_id=eval_id,
+                runs_dir=runs_dir_path,
+                create=True
+            )
 
         if eval_output_dir:
             print(f"[Runs Integration] run_id: {run_id}")
@@ -1192,6 +1201,7 @@ def main():
         domain_nl_mode=args.domain_nl_mode,
         json_mode=args.json_mode,
         domain_json_mode=args.domain_json_mode,
+        run_dir=run_dir_for_eval,
     )
 
 if __name__ == "__main__":

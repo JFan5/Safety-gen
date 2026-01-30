@@ -96,3 +96,42 @@ This requirement is stricter: the model must transfer abstract safety principles
 
 Together, these two levels specify what it means for an LLM-based planner to succeed under the CPS safety-aware formulation:
 it should produce goal-reaching plans that are safe by construction, and it should sustain this property across both unseen problems and unseen domains.
+
+\subsection{Post-Training Alignment Methods}
+We briefly review the post-training techniques used in this work.
+
+\subsubsection{Supervised Fine-Tuning (SFT)}
+Supervised fine-tuning adapts a pre-trained LLM to a specialized task by training on task-specific instruction--response pairs.
+Given a dataset $\mathcal{D}_{\text{SFT}}=\{(x_i, y_i)\}_{i=1}^{N}$, where $x_i$ is an input prompt and $y_i$ is the target response, SFT optimizes the model parameters $\theta$ by minimizing the negative log-likelihood:
+\begin{equation}
+\mathcal{L}_{\text{SFT}}(\theta)=
+- \mathbb{E}_{(x,y)\sim\mathcal{D}_{\text{SFT}}}
+\left[ \log \pi_{\theta}(y\mid x) \right],
+\label{eq:sft_loss}
+\end{equation}
+where $\pi_{\theta}(y\mid x)$ denotes the probability of producing $y$ given input $x$.
+
+\subsubsection{Direct Preference Optimization (DPO)}
+Direct Preference Optimization~\cite{rafailov2023direct} fine-tunes LLMs using paired preference data that specifies which of two candidate responses is preferred.
+Given a dataset $\mathcal{D}_{\text{DPO}}=\{(x, y^{+}, y^{-})\}$ where $y^{+}$ is preferred over $y^{-}$, and a frozen reference policy $\pi_{\text{ref}}$, DPO optimizes:
+\begin{align}
+\mathcal{L}_{\text{DPO}}(\theta)
+&= - \mathbb{E}_{(x, y^{+}, y^{-}) \sim \mathcal{D}_{\text{DPO}}}
+\Bigg[
+\log \sigma \Bigg(
+\beta \Bigg(
+\log \frac{\pi_{\theta}(y^{+} \mid x)}{\pi_{\text{ref}}(y^{+} \mid x)}
+\nonumber\\
+&\qquad\qquad
+- \log \frac{\pi_{\theta}(y^{-} \mid x)}{\pi_{\text{ref}}(y^{-} \mid x)}
+\Bigg)\Bigg)
+\Bigg],
+\label{eq:dpo_loss}
+\end{align}
+where $\sigma(\cdot)$ is the sigmoid function and $\beta>0$ controls the preference separation sharpness.
+Unlike RLHF methods such as PPO~\cite{ouyang2022training}, DPO does not require explicit reward modeling.
+
+\subsubsection{Group Relative Policy Optimization (GRPO)}
+While DPO relies on offline preference data, Group Relative Policy Optimization (GRPO)~\cite{shao2024deepseekmath} enables online reinforcement learning with verifiable rewards.
+GRPO samples multiple candidate responses for each prompt, evaluates them using a reward function, and optimizes the policy by comparing responses within each group.
+This allows the model to explore and learn from its own generated outputs, guided by programmatic reward signals rather than human-labeled preferences.

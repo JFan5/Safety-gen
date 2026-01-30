@@ -1,0 +1,24 @@
+BEST RESULT: blocksworld / gpt-5
+============================================================
+
+Run ID:           gpt-5_blocksworld_20260126_053114
+Eval ID:          blocksworld__openai_gpt-5
+Method:           api/openai
+Base Model:       gpt-5
+
+Success Rate:     0.00%
+Success Count:    0/1
+
+Model Path:       gpt-5-mini-2025-08-07
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   2026-01-26T05:31:44.237718
+Created At:       2026-01-26T05:31:14.001560
+
+Category Breakdown:
+  success_plans: 0.00%
+  plan_format_error: 100.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%

@@ -2,8 +2,8 @@
 
 #SBATCH --mail-user=jfan5@nd.edu
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --output=job_outputs/grpo_llama3_8b_stl_v2.o
-#SBATCH --job-name=grpo_llama3_8b_stl_v2
+#SBATCH --output=job_outputs/grpo_llama3_8b_stl_v2_continue.o
+#SBATCH --job-name=grpo_llama3_8b_stl_v2_continue
 #SBATCH --chdir=/home/ubuntu/Safety-gen
 
 conda activate llmstl
@@ -11,40 +11,27 @@ conda activate llmstl
 # Set working directory
 cd /home/ubuntu/Safety-gen
 
-# 单GPU配置
+# Single GPU configuration
 export CUDA_VISIBLE_DEVICES=0
 
 # ==========================================
-# Parse command line arguments
-# Usage:
-#   ./grpo_llama31_8b_stl_v2.sh                    # Train on all domains
-#   ./grpo_llama31_8b_stl_v2.sh blocksworld        # Train on single domain
-#   ./grpo_llama31_8b_stl_v2.sh blocksworld,ferry  # Train on multiple domains
+# GRPO V2 Resume Training Configuration
+# Resume from checkpoint-500 of interrupted run
 # ==========================================
-DOMAINS_ARG=""
-DOMAIN_SUFFIX="all"
-if [ -n "$1" ]; then
-    DOMAINS_ARG="--domains $1"
-    DOMAIN_SUFFIX=$(echo "$1" | tr ',' '_')
-    echo "Training on specified domains: $1"
-else
-    echo "Training on all available domains"
-fi
 
-# ==========================================
-# GRPO V2 Training Configuration
-# Curriculum Learning + Domain-Balanced Batching
-# ==========================================
-BASE_MODEL="/jfan5/grpo_models/llama3.1-8b-curriculum_v2-all-0110-stl-1000"
+# Original base model (NOT the interrupted run)
+BASE_MODEL="/jfan5/sft_models/llama31_8b/symbolized"
 
-# V2 uses multi-domain data directory instead of single JSONL
-# Expected structure: /jfan5/grpo_data/five_domain_0109/{blocksworld,ferry,grippers,spanner}.jsonl
+# Checkpoint to resume from
+CHECKPOINT_PATH="/home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model/checkpoint-500"
+
+# Output to same directory (trainer will detect and continue)
+OUTPUT_DIR="/home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model"
+
+# V2 uses multi-domain data directory
 DATA_ROOT="/jfan5/grpo_data/five_domain_0109/"
 
-# Training parameters
-# NOTE: batch_size MUST be divisible by num_domains
-# For single domain: any batch size works
-# For all domains (4): Valid batch sizes: 4, 8, 12, 16, 20, ...
+# Training parameters (must match original run from config_snapshot.yaml)
 BATCH_SIZE=8
 GRADIENT_ACCUMULATION_STEPS=4
 LEARNING_RATE=1e-5
@@ -59,57 +46,47 @@ BETA=0.01
 MAX_GRAD_NORM=1
 SEED=3407
 
-# ==========================================
-# Auto-generate RUN_NAME and OUTPUT_DIR
-# ==========================================
-DATE_TAG=$(date +%m%d)
-MODEL_TAG="llama3.1-8b"
-DATASET_TAG="curriculum_v2"
-
-# 自动生成 RUN_NAME 和 OUTPUT_DIR (包含domain信息)
-RUN_NAME="grpo_${MODEL_TAG}-${DATASET_TAG}-${DOMAIN_SUFFIX}-${DATE_TAG}-stl"
-OUTPUT_DIR="/jfan5/grpo_models/${MODEL_TAG}-${DATASET_TAG}-${DOMAIN_SUFFIX}-${DATE_TAG}-stl-${MAX_STEPS}"
+# Run name for W&B (continue the same run)
+RUN_NAME="grpo_llama3.1-8b-curriculum_v2-all-0129-stl-resumed"
 
 echo "=========================================="
-echo "GRPO V2 Training for Llama-3.1-8B"
-echo "Curriculum Learning + Domain Balancing"
+echo "GRPO V2 RESUME Training for Llama-3.1-8B"
+echo "Resuming from checkpoint-500"
 echo "=========================================="
 echo "Base model: ${BASE_MODEL}"
+echo "Checkpoint: ${CHECKPOINT_PATH}"
 echo "Data root: ${DATA_ROOT}"
-echo "Domains: ${DOMAIN_SUFFIX}"
 echo "Output: ${OUTPUT_DIR}"
 echo ""
-echo "Training parameters:"
+echo "Training parameters (matching original run):"
 echo "  Batch size: ${BATCH_SIZE}"
 echo "  Gradient accumulation: ${GRADIENT_ACCUMULATION_STEPS}"
 echo "  Learning rate: ${LEARNING_RATE}"
 echo "  Generations per prompt: ${NUM_GENERATIONS}"
 echo "  Max steps: ${MAX_STEPS}"
 echo "  Beta (KL penalty): ${BETA}"
+echo "  Seed: ${SEED}"
 echo ""
-echo "V2 Features:"
-echo "  ✓ Difficulty-based curriculum learning"
-echo "  ✓ Domain-balanced batching (guaranteed equal samples per domain)"
-echo "  ✓ Dynamic sampling from difficulty buckets"
-echo "  ✓ Curriculum schedule: early=70% easy → late=40% hard"
+echo "Resume Info:"
+echo "  Resuming from step 500 (50% complete)"
+echo "  Will continue to step 1000"
 echo "=========================================="
 echo ""
 
-# Optional: Test difficulty parsing first (quick validation)
-echo "Step 1: Testing difficulty parsing..."
-python3 script/test_difficulty_parsing.py | head -100
-echo ""
-echo "=========================================="
-echo "Step 2: Starting V2 Training..."
-echo "=========================================="
+# Verify checkpoint exists
+if [ ! -d "${CHECKPOINT_PATH}" ]; then
+    echo "ERROR: Checkpoint directory does not exist: ${CHECKPOINT_PATH}"
+    exit 1
+fi
+echo "Checkpoint verified: ${CHECKPOINT_PATH}"
 echo ""
 
-# Run GRPO V2 training
+# Run GRPO V2 training with resume
 python3 script/train_grpo_unsloth_stl_v2.py \
   --base_model "${BASE_MODEL}" \
   --data_root "${DATA_ROOT}" \
-  ${DOMAINS_ARG} \
   --output_dir "${OUTPUT_DIR}" \
+  --resume_from_checkpoint "${CHECKPOINT_PATH}" \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \
@@ -123,29 +100,25 @@ python3 script/train_grpo_unsloth_stl_v2.py \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
   --seed ${SEED} \
-  --run_name "${RUN_NAME}"
+  --run_name "${RUN_NAME}" \
+  --no_run_tracking
 
 EXIT_CODE=$?
 
 echo ""
 echo "=========================================="
 if [ $EXIT_CODE -eq 0 ]; then
-  echo "✓ GRPO V2 training completed successfully!"
+  echo "GRPO V2 resume training completed successfully!"
 else
-  echo "✗ GRPO V2 training failed with exit code: $EXIT_CODE"
+  echo "GRPO V2 resume training failed with exit code: $EXIT_CODE"
 fi
 echo "=========================================="
 echo "Model saved to: ${OUTPUT_DIR}"
 echo ""
 echo "Next steps:"
 echo "  1. Check W&B for training curves: ${WANDB_PROJECT}/${RUN_NAME}"
-echo "  2. Verify curriculum progression in logs"
-echo "  3. Validate domain balance in batch statistics"
-echo ""
-echo "V2 Advantages:"
-echo "  • Faster convergence via curriculum learning"
-echo "  • Better generalization via domain balancing"
-echo "  • Difficulty-aware sampling for efficient training"
+echo "  2. Verify training continued from step 500"
+echo "  3. Run evaluation on the completed model"
 echo ""
 
 exit $EXIT_CODE

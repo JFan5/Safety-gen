@@ -1,0 +1,24 @@
+BEST RESULT: grippers / gemini-3-pro
+============================================================
+
+Run ID:           gemini-3-pro-preview_grippers_20260125_205618
+Eval ID:          grippers__gemini_gemini-3-pro-preview
+Method:           api/gemini
+Base Model:       gemini-3-pro
+
+Success Rate:     98.00%
+Success Count:    49/50
+
+Model Path:       gemini-3-pro-preview
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   2026-01-25T21:00:03.317744
+Created At:       2026-01-25T20:56:18.566493
+
+Category Breakdown:
+  success_plans: 98.00%
+  plan_format_error: 2.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%

@@ -1,19 +1,19 @@
 BEST RESULT: spanner / llama31-8b
 ============================================================
 
-Run ID:           grpo_llama31_8b-symbolized-chat-0106_20260106_183508_seed3407
-Eval ID:          solver_batch__temp0.6_max512_bs8__spanner
+Run ID:           grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407
+Eval ID:          solver_batch__temp0.6_max512_bs8_20260129_203144__spanner
 Method:           grpo
 Base Model:       llama31-8b
 
 Success Rate:     100.00%
-Success Count:    50/50
+Success Count:    3/3
 
-Model Path:       /jfan5/grpo_models/llama31_8b-symbolized-chat-0106-1000
+Model Path:       /home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model/checkpoint-500
 Dataset:          
-W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/4xds4apy
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/03i9km13
 
-Eval Timestamp:   2026-01-07T00:59:12.746574
+Eval Timestamp:   2026-01-29T20:33:38.813903
 Created At:       
 
 Category Breakdown:

@@ -36,6 +36,23 @@ logger = logging.getLogger(__name__)
 
 
 # =============================================================================
+# Directory Structure Constants
+# =============================================================================
+
+# Special directory names that are not model families
+SPECIAL_DIRS = {"benchmark", "safepilot"}
+
+# Known model family directories
+MODEL_FAMILY_DIRS = {"llama31_8b", "mistral", "qwen3", "qwen3_14b", "qwen3_4b"}
+
+# Known training methods
+TRAINING_METHODS = {"sft", "dpo", "grpo", "ppo", "unknown"}
+
+# Benchmark providers
+BENCHMARK_PROVIDERS = {"openai", "gemini", "optic", "anthropic"}
+
+
+# =============================================================================
 # Base Model Family Normalization
 # =============================================================================
 
@@ -57,9 +74,27 @@ BASE_MODEL_PATTERNS = [
     # Qwen3 4B variants
     (r"qwen3[-_]?4b", "qwen3-4b"),
     (r"qwen[-_]?3[-_]?4[-_]?b", "qwen3-4b"),
-    # GPT variants
+    # GPT variants (local)
     (r"gpt[-_]?oss[-_]?20b", "gpt-oss-20b"),
+    # API models - GPT variants (must be before generic gpt-4 pattern)
+    (r"gpt[-_]?5\.?2", "gpt-5.2"),
+    (r"gpt[-_]?5\.?1", "gpt-5.1"),
+    (r"gpt[-_]?5(?![\.\d])", "gpt-5"),
+    (r"gpt[-_]?4o", "gpt-4o"),
     (r"gpt[-_]?4", "gpt-4"),
+    # API models - Gemini variants
+    (r"gemini[-_]?3[-_]?pro", "gemini-3-pro"),
+    (r"gemini[-_]?2\.?5[-_]?pro", "gemini-2.5-pro"),
+    (r"gemini[-_]?2\.?5[-_]?flash", "gemini-2.5-flash"),
+    (r"gemini[-_]?2", "gemini-2"),
+    # API models - OPTIC planner
+    (r"optic", "optic"),
+    # SafePilot
+    (r"safepilot", "safepilot"),
+    # Directory-based model families (for inferring from directory names)
+    (r"^llama31_8b$", "llama31-8b"),
+    (r"^mistral$", "mistral-7b"),
+    (r"^qwen3$", "qwen3-14b"),
 ]
 
 
@@ -588,44 +623,269 @@ def create_eval_record_from_new_format(
     )
 
 
-def scan_runs_directory(
-    runs_root: Path, include_unknown: bool = False
+# =============================================================================
+# Helper Functions for New Directory Structures
+# =============================================================================
+
+
+def extract_domain_from_benchmark_name(eval_run_name: str) -> str:
+    """
+    Extract domain from benchmark directory names.
+
+    Examples:
+        "gpt-5.2_blocksworld_20260126_200314" -> "blocksworld"
+        "gemini-3-pro_ferry_20260126_143055" -> "ferry"
+        "optic_spanner_20260126_210630" -> "spanner"
+    """
+    known_domains = {
+        "blocksworld",
+        "delivery",
+        "ferry",
+        "grippers",
+        "spanner",
+        "grid",
+        "rovers",
+    }
+
+    parts = eval_run_name.split("_")
+    for part in parts:
+        if part.lower() in known_domains:
+            return part.lower()
+
+    return "unknown"
+
+
+def extract_model_from_benchmark_name(eval_run_name: str) -> str:
+    """
+    Extract model name from benchmark directory names.
+
+    Examples:
+        "gpt-5.2_blocksworld_20260126_200314" -> "gpt-5.2"
+        "gemini-3-pro_ferry_20260126_143055" -> "gemini-3-pro"
+    """
+    # Model name is typically the first part before the domain
+    parts = eval_run_name.split("_")
+    if parts:
+        return parts[0]
+    return "unknown"
+
+
+def create_eval_record_from_benchmark(
+    provider: str,
+    eval_run_name: str,
+    run_config: Dict[str, Any],
+    summary: Dict[str, Any],
+) -> Optional[EvalRecord]:
+    """
+    Create an EvalRecord from benchmark run_config.json and summary.json.
+
+    Benchmark format:
+    - run_config.json: Has model, domain, solver_type
+    - summary.json: Has overall, categories (single domain)
+    """
+    # Extract info from run_config
+    model = run_config.get("model", extract_model_from_benchmark_name(eval_run_name))
+    domain = run_config.get("domain", extract_domain_from_benchmark_name(eval_run_name))
+
+    # Normalize base model family
+    base_model_family = normalize_base_model_family(model)
+
+    # Method is api/<provider>
+    method = f"api/{provider}"
+
+    # Extract metrics from summary
+    overall = summary.get("overall", {})
+    main_metric = overall.get("success_rate", 0.0)
+    total_tests = overall.get("total_problems", 0)
+    success_count = overall.get("success_count", 0)
+    eval_timestamp = summary.get("timestamp", "")
+
+    # Category rates from categories field
+    categories = summary.get("categories", {})
+    category_rates = {}
+    for cat_name, cat_data in categories.items():
+        if isinstance(cat_data, dict) and "rate" in cat_data:
+            category_rates[cat_name] = cat_data["rate"]
+
+    # Model path from run_config parameters
+    params = run_config.get("parameters", {})
+    model_path = params.get("actual_model_name", model)
+
+    # Scenario metrics
+    scenario_metrics = {domain: main_metric} if domain != "unknown" else {}
+
+    # Construct eval_id from domain and provider
+    eval_id = f"{domain}__{provider}_{model}"
+
+    return EvalRecord(
+        run_id=eval_run_name,
+        eval_id=eval_id,
+        method=method,
+        base_model_family=base_model_family,
+        eval_type="PDDL",
+        main_metric=main_metric,
+        total_tests=total_tests,
+        success_count=success_count,
+        eval_timestamp=eval_timestamp,
+        model_path=model_path,
+        output_dir="",
+        dataset_path="",
+        wandb_url="",
+        scenario_metrics=scenario_metrics,
+        category_rates=category_rates,
+        project=f"benchmark/{provider}",
+        seed=0,
+        created_at=run_config.get("timestamp", ""),
+    )
+
+
+def create_eval_record_from_safepilot_format_a(
+    eval_run_name: str,
+    run_json: Dict[str, Any],
+) -> Optional[EvalRecord]:
+    """
+    Create an EvalRecord from single-domain SafePilot run.json.
+
+    Format A: run.json with domain and summary fields.
+    """
+    domain = run_json.get("domain", "unknown")
+    summary = run_json.get("summary", {})
+
+    main_metric = summary.get("success_rate", 0.0)
+    total_tests = summary.get("total_problems", 0)
+    success_count = summary.get("success_count", 0)
+    eval_timestamp = run_json.get("timestamp", "")
+
+    # Category rates
+    category_rates = summary.get("category_rates", {})
+
+    # Model path from config
+    config = run_json.get("config", {})
+    model_path = config.get("model_path", run_json.get("model_path", ""))
+
+    # Infer base model family from model path
+    base_model_family = normalize_base_model_family(model_path)
+    if base_model_family == "unknown":
+        base_model_family = "safepilot"
+
+    # Scenario metrics
+    scenario_metrics = {domain: main_metric} if domain != "unknown" else {}
+
+    # Construct eval_id
+    eval_id = f"{domain}__safepilot"
+
+    return EvalRecord(
+        run_id=eval_run_name,
+        eval_id=eval_id,
+        method="safepilot",
+        base_model_family=base_model_family,
+        eval_type="PDDL",
+        main_metric=main_metric,
+        total_tests=total_tests,
+        success_count=success_count,
+        eval_timestamp=eval_timestamp,
+        model_path=model_path,
+        output_dir="",
+        dataset_path="",
+        wandb_url="",
+        scenario_metrics=scenario_metrics,
+        category_rates=category_rates,
+        project="safepilot",
+        seed=0,
+        created_at=eval_timestamp,
+    )
+
+
+def create_eval_records_from_safepilot_format_b(
+    eval_run_name: str,
+    metrics_json: Dict[str, Any],
 ) -> List[EvalRecord]:
     """
-    Scan the runs/ directory and collect all eval records.
+    Create multiple EvalRecords from multi-domain SafePilot metrics.json.
 
-    Supports two directory structures:
-    1. Old format: runs/<method>/<run_id>/evals/<eval_id>.json
-    2. New format: runs/<method>/<run_id>/eval/<eval_config>/metrics.json
-       with per_scenario and overall fields
+    Format B: metrics.json with scenarios and overall fields.
+    """
+    records = []
+    scenarios = metrics_json.get("scenarios", {})
+
+    for scenario, scenario_data in scenarios.items():
+        main_metric = scenario_data.get("success_rate", 0.0)
+        total_tests = scenario_data.get("total_problems", 0)
+        success_count = scenario_data.get("success_count", 0)
+
+        # Category rates
+        category_rates = scenario_data.get("category_rates", {})
+
+        # Scenario metrics
+        scenario_metrics = {scenario: main_metric}
+
+        # Construct eval_id
+        eval_id = f"{scenario}__safepilot_multi"
+
+        record = EvalRecord(
+            run_id=eval_run_name,
+            eval_id=eval_id,
+            method="safepilot",
+            base_model_family="safepilot",
+            eval_type="PDDL",
+            main_metric=main_metric,
+            total_tests=total_tests,
+            success_count=success_count,
+            eval_timestamp="",
+            model_path="",
+            output_dir="",
+            dataset_path="",
+            wandb_url="",
+            scenario_metrics=scenario_metrics,
+            category_rates=category_rates,
+            project="safepilot",
+            seed=0,
+            created_at="",
+        )
+        records.append(record)
+
+    return records
+
+
+# =============================================================================
+# Directory Scanning Functions
+# =============================================================================
+
+
+def scan_training_runs_directory(
+    runs_root: Path,
+    model_family: str,
+    stats: Dict,
+    include_unknown: bool = False,
+) -> List[EvalRecord]:
+    """
+    Scan training runs under runs/<model_family>/<method>/<run_id>/.
 
     Args:
         runs_root: Path to runs/ directory
-        include_unknown: Whether to include runs/unknown/ directory
+        model_family: Model family directory name (e.g., "llama31_8b")
+        stats: Statistics dictionary to update
+        include_unknown: Whether to include unknown methods
 
     Returns:
         List of EvalRecord objects
     """
     records = []
-    stats = {
-        "runs_scanned": 0,
-        "evals_found": 0,
-        "evals_parsed": 0,
-        "parse_errors": 0,
-        "methods": defaultdict(int),
-        "base_model_families": defaultdict(int),
-    }
+    model_family_dir = runs_root / model_family
 
-    # Methods to scan
-    methods = ["sft", "dpo", "grpo"]
-    if include_unknown:
-        methods.append("unknown")
+    if not model_family_dir.exists():
+        return records
 
-    for method in methods:
-        method_dir = runs_root / method
-        if not method_dir.exists():
-            logger.debug(f"Method directory not found: {method_dir}")
+    # Iterate over method directories
+    for method_dir in model_family_dir.iterdir():
+        if not method_dir.is_dir():
             continue
+
+        method = method_dir.name
+        if method not in TRAINING_METHODS:
+            if not include_unknown:
+                continue
+            method = "unknown"
 
         # Iterate over run directories
         for run_dir in method_dir.iterdir():
@@ -646,6 +906,10 @@ def scan_runs_directory(
                 stats["parse_errors"] += 1
                 continue
 
+            # Override method if available in run.json
+            if "method" in run_json:
+                method = run_json["method"]
+
             # Try both eval directory structures
 
             # Structure 1: evals/ directory with individual JSON files (old format)
@@ -656,15 +920,13 @@ def scan_runs_directory(
                         continue
 
                     stats["evals_found"] += 1
-                    eval_id = eval_file.stem  # filename without .json
+                    eval_id = eval_file.stem
 
-                    # Parse metrics.json
                     metrics_json = parse_metrics_json(eval_file)
                     if metrics_json is None:
                         stats["parse_errors"] += 1
                         continue
 
-                    # Check if this is new format (has per_scenario/overall)
                     if "per_scenario" in metrics_json or "overall" in metrics_json:
                         new_records = process_new_format_metrics(
                             run_id=run_id,
@@ -676,7 +938,6 @@ def scan_runs_directory(
                         )
                         records.extend(new_records)
                     else:
-                        # Old format: create single record
                         try:
                             record = create_eval_record(
                                 run_id=run_id,
@@ -700,24 +961,21 @@ def scan_runs_directory(
                     if not eval_config_dir.is_dir():
                         continue
 
-                    # Look for metrics.json in the config directory
                     metrics_file = eval_config_dir / "metrics.json"
                     if not metrics_file.exists():
                         continue
 
                     stats["evals_found"] += 1
-                    eval_id = eval_config_dir.name  # directory name as eval_id
+                    eval_id = eval_config_dir.name
 
                     metrics_json = parse_metrics_json(metrics_file)
                     if metrics_json is None:
                         stats["parse_errors"] += 1
                         continue
 
-                    # Use eval_id from metrics if available
                     if "eval_id" in metrics_json:
                         eval_id = metrics_json["eval_id"]
 
-                    # Process new format metrics
                     new_records = process_new_format_metrics(
                         run_id=run_id,
                         run_json=run_json,
@@ -727,6 +985,216 @@ def scan_runs_directory(
                         stats=stats,
                     )
                     records.extend(new_records)
+
+    return records
+
+
+def scan_benchmark_directory(
+    benchmark_root: Path,
+    stats: Dict,
+) -> List[EvalRecord]:
+    """
+    Scan benchmark runs under runs/benchmark/<provider>/<eval_run>/.
+
+    Args:
+        benchmark_root: Path to runs/benchmark/ directory
+        stats: Statistics dictionary to update
+
+    Returns:
+        List of EvalRecord objects
+    """
+    records = []
+
+    if not benchmark_root.exists():
+        return records
+
+    # Iterate over provider directories
+    for provider_dir in benchmark_root.iterdir():
+        if not provider_dir.is_dir():
+            continue
+
+        provider = provider_dir.name
+
+        # Iterate over eval run directories
+        for eval_run_dir in provider_dir.iterdir():
+            if not eval_run_dir.is_dir():
+                continue
+
+            stats["runs_scanned"] += 1
+            eval_run_name = eval_run_dir.name
+
+            # Read run_config.json
+            run_config_path = eval_run_dir / "run_config.json"
+            if not run_config_path.exists():
+                logger.debug(f"No run_config.json found in {eval_run_dir}")
+                continue
+
+            run_config = parse_run_json(run_config_path)
+            if run_config is None:
+                stats["parse_errors"] += 1
+                continue
+
+            # Read summary.json
+            summary_path = eval_run_dir / "summary.json"
+            if not summary_path.exists():
+                logger.debug(f"No summary.json found in {eval_run_dir}")
+                continue
+
+            summary = parse_metrics_json(summary_path)
+            if summary is None:
+                stats["parse_errors"] += 1
+                continue
+
+            stats["evals_found"] += 1
+
+            try:
+                record = create_eval_record_from_benchmark(
+                    provider=provider,
+                    eval_run_name=eval_run_name,
+                    run_config=run_config,
+                    summary=summary,
+                )
+                if record:
+                    records.append(record)
+                    stats["evals_parsed"] += 1
+                    stats["methods"][record.method] += 1
+                    stats["base_model_families"][record.base_model_family] += 1
+            except Exception as e:
+                logger.warning(f"Error creating record for {eval_run_dir}: {e}")
+                stats["parse_errors"] += 1
+
+    return records
+
+
+def scan_safepilot_directory(
+    safepilot_root: Path,
+    stats: Dict,
+) -> List[EvalRecord]:
+    """
+    Scan SafePilot runs under runs/safepilot/<eval_run>/.
+
+    Handles two formats:
+    - Format A (single domain): run.json with domain and summary
+    - Format B (multi-domain): metrics.json with scenarios
+
+    Args:
+        safepilot_root: Path to runs/safepilot/ directory
+        stats: Statistics dictionary to update
+
+    Returns:
+        List of EvalRecord objects
+    """
+    records = []
+
+    if not safepilot_root.exists():
+        return records
+
+    # Iterate over eval run directories
+    for eval_run_dir in safepilot_root.iterdir():
+        if not eval_run_dir.is_dir():
+            continue
+
+        stats["runs_scanned"] += 1
+        eval_run_name = eval_run_dir.name
+
+        # Try Format B first: metrics.json with scenarios
+        metrics_path = eval_run_dir / "metrics.json"
+        if metrics_path.exists():
+            metrics_json = parse_metrics_json(metrics_path)
+            if metrics_json and "scenarios" in metrics_json:
+                stats["evals_found"] += 1
+                try:
+                    new_records = create_eval_records_from_safepilot_format_b(
+                        eval_run_name=eval_run_name,
+                        metrics_json=metrics_json,
+                    )
+                    for record in new_records:
+                        records.append(record)
+                        stats["evals_parsed"] += 1
+                        stats["methods"]["safepilot"] += 1
+                        stats["base_model_families"][record.base_model_family] += 1
+                except Exception as e:
+                    logger.warning(f"Error creating records for {eval_run_dir}: {e}")
+                    stats["parse_errors"] += 1
+                continue
+
+        # Try Format A: run.json with domain and summary
+        run_json_path = eval_run_dir / "run.json"
+        if run_json_path.exists():
+            run_json = parse_run_json(run_json_path)
+            if run_json and "summary" in run_json:
+                stats["evals_found"] += 1
+                try:
+                    record = create_eval_record_from_safepilot_format_a(
+                        eval_run_name=eval_run_name,
+                        run_json=run_json,
+                    )
+                    if record:
+                        records.append(record)
+                        stats["evals_parsed"] += 1
+                        stats["methods"]["safepilot"] += 1
+                        stats["base_model_families"][record.base_model_family] += 1
+                except Exception as e:
+                    logger.warning(f"Error creating record for {eval_run_dir}: {e}")
+                    stats["parse_errors"] += 1
+
+    return records
+
+
+def scan_runs_directory(
+    runs_root: Path, include_unknown: bool = False
+) -> List[EvalRecord]:
+    """
+    Scan the runs/ directory and collect all eval records.
+
+    Supports three directory structures:
+    1. Training runs: runs/<model_family>/<method>/<run_id>/
+    2. Benchmark runs: runs/benchmark/<provider>/<eval_run>/
+    3. SafePilot runs: runs/safepilot/<eval_run>/
+
+    Args:
+        runs_root: Path to runs/ directory
+        include_unknown: Whether to include unknown methods in training runs
+
+    Returns:
+        List of EvalRecord objects
+    """
+    records = []
+    stats = {
+        "runs_scanned": 0,
+        "evals_found": 0,
+        "evals_parsed": 0,
+        "parse_errors": 0,
+        "methods": defaultdict(int),
+        "base_model_families": defaultdict(int),
+    }
+
+    # Iterate over top-level directories
+    for top_dir in runs_root.iterdir():
+        if not top_dir.is_dir():
+            continue
+
+        dir_name = top_dir.name
+
+        if dir_name == "benchmark":
+            # Scan benchmark runs: runs/benchmark/<provider>/<eval_run>/
+            benchmark_records = scan_benchmark_directory(top_dir, stats)
+            records.extend(benchmark_records)
+            logger.debug(f"Found {len(benchmark_records)} records in benchmark/")
+
+        elif dir_name == "safepilot":
+            # Scan SafePilot runs: runs/safepilot/<eval_run>/
+            safepilot_records = scan_safepilot_directory(top_dir, stats)
+            records.extend(safepilot_records)
+            logger.debug(f"Found {len(safepilot_records)} records in safepilot/")
+
+        elif dir_name not in SPECIAL_DIRS:
+            # Treat as model family directory: runs/<model_family>/<method>/<run_id>/
+            training_records = scan_training_runs_directory(
+                runs_root, dir_name, stats, include_unknown
+            )
+            records.extend(training_records)
+            logger.debug(f"Found {len(training_records)} records in {dir_name}/")
 
     # Log stats
     logger.info(f"Scan complete:")
@@ -1158,9 +1626,13 @@ Examples:
     parser.add_argument(
         "--only_method",
         type=str,
-        choices=["sft", "dpo", "grpo"],
+        choices=[
+            "sft", "dpo", "grpo", "ppo",
+            "api/openai", "api/gemini", "api/optic", "api/anthropic",
+            "safepilot",
+        ],
         default=None,
-        help="Filter to specific method",
+        help="Filter to specific method (training methods, api/<provider>, or safepilot)",
     )
     parser.add_argument(
         "--only_base_model_family",

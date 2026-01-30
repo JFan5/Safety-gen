@@ -110,3 +110,6 @@ temp_jobs/
 
 # Unknown experiment runs
 runs/unknown/
+
+# Trained models (large checkpoint files)
+runs/**/model/

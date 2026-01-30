@@ -321,8 +321,16 @@ def create_run(
     (run_dir / "logs").mkdir(exist_ok=True)
 
     # Validate paths
+    # Skip validation for HuggingFace model IDs (contain '/' but don't start with '/', './', or '~')
+    def is_hf_model_id(path_str: str) -> bool:
+        if not path_str:
+            return False
+        # HuggingFace model IDs look like "org/model-name" or "unsloth/mistral-7b-bnb-4bit"
+        # Local paths start with '/', './', '../', or '~'
+        return '/' in path_str and not path_str.startswith(('/', './', '../', '~'))
+
     invalid_paths = []
-    if base_model and not Path(base_model).exists():
+    if base_model and not is_hf_model_id(base_model) and not Path(base_model).exists():
         invalid_paths.append(("base_model", base_model))
     if dataset and not Path(dataset).exists():
         invalid_paths.append(("dataset", dataset))
@@ -460,14 +468,25 @@ def finalize_run(
         if final_model_path:
             run_data["artifacts"]["model_path"] = final_model_path
 
-            # Create symlink to model
-            model_path = Path(final_model_path)
-            if model_path.exists():
+            # Create symlink to model (skip if model is already inside run_dir)
+            model_path = Path(final_model_path).resolve()
+            run_dir_resolved = run_dir.resolve()
+
+            # Check if model is already inside run directory
+            try:
+                model_path.relative_to(run_dir_resolved)
+                is_inside_run_dir = True
+            except ValueError:
+                is_inside_run_dir = False
+
+            if is_inside_run_dir:
+                print(f"[run_manager] Model saved directly in run directory: {model_path}")
+            elif model_path.exists():
                 symlink_path = run_dir / "model"
                 if symlink_path.exists() or symlink_path.is_symlink():
                     symlink_path.unlink()
                 try:
-                    symlink_path.symlink_to(model_path.resolve())
+                    symlink_path.symlink_to(model_path)
                     print(f"[run_manager] Created symlink: model -> {model_path}")
                 except OSError as e:
                     print(f"[run_manager] Warning: Could not create model symlink: {e}", file=sys.stderr)

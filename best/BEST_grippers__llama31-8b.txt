@@ -1,26 +1,26 @@
 BEST RESULT: grippers / llama31-8b
 ============================================================
 
-Run ID:           20251217_233502_proj-pddl-finetune_method-sft_base-llama31_8b_ds-unknown_seed-3407_32f04d1x
-Eval ID:          -jfan5-sft_models-llama31_8b-symbolized_v4_20251218_003845_grippers
-Method:           sft
+Run ID:           grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407
+Eval ID:          solver_batch__temp0.6_max512_bs8_20260129_203144__grippers
+Method:           grpo
 Base Model:       llama31-8b
 
-Success Rate:     68.00%
-Success Count:    34/50
+Success Rate:     100.00%
+Success Count:    3/3
 
-Model Path:       /jfan5/sft_models/llama31_8b/symbolized_v4
-Dataset:          /jfan5/sft_data/pddl3_symbolized_four_scenarios_v4/combined.hf
-W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-finetune/runs/32f04d1x
+Model Path:       /home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model/checkpoint-500
+Dataset:          
+W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/03i9km13
 
-Eval Timestamp:   2025-12-18T00:42:38.671100
-Created At:       2025-12-17T23:35:02+00:00
+Eval Timestamp:   2026-01-29T20:33:38.813903
+Created At:       
 
 Category Breakdown:
-  success_plans: 68.00%
+  success_plans: 100.00%
   plan_format_error: 0.00%
-  precondition_violation: 22.00%
-  safety_constraints_violation: 4.00%
-  goal_not_satisfied: 6.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%
   generation_error: 0.00%
   others: 0.00%

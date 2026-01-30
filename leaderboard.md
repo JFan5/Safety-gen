@@ -1,35 +1,47 @@
 # PDDL Planning Leaderboard
 
-Generated: 2026-01-25 18:33:25
+Generated: 2026-01-29 21:10:57
 
-Total models: 61
-Total evaluation records: 330
-Domains: blocksworld, delivery, ferry, grid, grippers, rovers, spanner
+Total models: 59
+Total evaluation records: 344
+Domains: blocksworld, delivery, ferry, grid, grippers, spanner
 
 ## Table of Contents
 
-- [gpt-oss-20b](#gpt-oss-20b)
+- [gemini-3-pro](#gemini-3-pro)
+- [gpt-5](#gpt-5)
+- [gpt-5.2](#gpt-5.2)
 - [llama31-8b](#llama31-8b)
 - [mistral-7b](#mistral-7b)
 - [qwen3-14b](#qwen3-14b)
-- [qwen3-4b](#qwen3-4b)
-- [unknown](#unknown)
 
-## gpt-oss-20b
+## gemini-3-pro
 
 | Model | Method | Eval Type | Blocksworld | Delivery | Ferry | Grippers | Spanner | Avg |
 |-------|--------|----------|-----------:|-----------:|-----------:|-----------:|-----------:|----:|
-| `/jfan5/sft_models/gpt_oss_20b/four_scenarios500` | sft | PDDL | 2.0% | 2.0% | 4.0% | 10.0% | 60.0% | 15.6% |
+| `gemini-3-pro-preview` | api/gemini | PDDL | 100.0% | 88.0% | 100.0% | 98.0% | 100.0% | 97.2% |
+| `gemini-3-pro` | api/gemini | PDDL | 0.0% | - | - | - | - | 0.0% |
+
+## gpt-5
+
+| Model | Method | Eval Type | Blocksworld | Avg |
+|-------|--------|----------|-----------:|----:|
+| `gpt-5-mini-2025-08-07` | api/openai | PDDL | 0.0% | 0.0% |
+
+## gpt-5.2
+
+| Model | Method | Eval Type | Blocksworld | Delivery | Ferry | Grid | Grippers | Spanner | Avg |
+|-------|--------|----------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|----:|
+| `gpt-5.2-2025-12-11` | api/openai | PDDL | 100.0% | 100.0% | 100.0% | 95.8% | 100.0% | 100.0% | 99.3% |
 
 ## llama31-8b
 
 | Model | Method | Eval Type | Blocksworld | Delivery | Ferry | Grippers | Spanner | Avg |
 |-------|--------|----------|-----------:|-----------:|-----------:|-----------:|-----------:|----:|
+| `...l_20260129_153849_seed3407/model/checkpoint-500` | grpo | PDDL | 70.0% | 0.0% | 100.0% | 100.0% | 100.0% | 74.0% |
 | `...els/llama3.1-8b-curriculum_v2-all-0110-stl-1000` | grpo | PDDL | 58.0% | 0.0% | 82.0% | 66.0% | 94.0% | 60.0% |
 | `/jfan5/sft_models/llama31_8b/symbolized` | sft | PDDL | 52.0% | 0.0% | 80.0% | 66.0% | 92.0% | 58.0% |
 | `/jfan5/sft_models/llama31_8b/symbolized_v4` | sft | PDDL | 38.0% | 28.0% | 66.0% | 68.0% | 88.0% | 57.6% |
-| `...rpo_models/llama31_8b-symbolized-chat-0106-1000` | grpo | PDDL | 58.0% | 0.0% | 0.0% | 2.0% | 100.0% | 32.0% |
-| `...1_8b-stl-blocksworld-20260108_20/checkpoint-360` | grpo | PDDL | 58.0% | - | - | - | - | 58.0% |
 
 ## mistral-7b
 
@@ -64,10 +76,10 @@ Domains: blocksworld, delivery, ferry, grid, grippers, rovers, spanner
 | `/jfan5/grpo_models/mistral_7b-blocksworld-1207` | grpo | PDDL | 80.0% | - | - | - | - | - | 80.0% |
 | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-1207` | grpo | PDDL | 74.0% | - | - | - | - | - | 74.0% |
 | `/jfan5/grpo_models/mistral_7b-ferry-1129` | grpo | PDDL | - | - | 72.0% | - | - | - | 72.0% |
-| `/jfan5/dpo_models/mistral_7b-blocksworld-1206` | dpo | PDDL | 70.0% | - | - | - | - | - | 70.0% |
 | `...tral_7b-symbolized-0109-stl-1000/checkpoint-300` | grpo | PDDL | 70.0% | - | - | - | - | - | 70.0% |
-| `/jfan5/sft_models/mistral_variant-blocksworld` | sft | PDDL | 66.0% | - | - | - | - | - | 66.0% |
+| `/jfan5/dpo_models/mistral_7b-blocksworld-1206` | dpo | PDDL | 70.0% | - | - | - | - | - | 70.0% |
 | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-121` | grpo | PDDL | 66.0% | - | - | - | - | - | 66.0% |
+| `/jfan5/sft_models/mistral_variant-blocksworld` | sft | PDDL | 66.0% | - | - | - | - | - | 66.0% |
 | `/jfan5/dpo_models/mistral_7b-blocksworld-1206-1` | dpo | PDDL | 62.0% | - | - | - | - | - | 62.0% |
 | `/jfan5/grpo_models/mistral_variant-blocksworld` | sft | PDDL | 60.0% | - | - | - | - | - | 60.0% |
 | `/jfan5/grpo_models/mistral_7b-blocksworld-stl-1130` | grpo | PDDL | 54.0% | - | - | - | - | - | 54.0% |
@@ -82,26 +94,12 @@ Domains: blocksworld, delivery, ferry, grid, grippers, rovers, spanner
 
 | Model | Method | Eval Type | Blocksworld | Delivery | Ferry | Grid | Grippers | Spanner | Avg |
 |-------|--------|----------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|----:|
-| `..._models/qwen3_14b/cross_domain_pddl3_symbolized` | sft | PDDL | 76.0% | 6.0% | 90.0% | 0.0% | 92.0% | 100.0% | 60.7% |
-| `...odels/qwen3-14b-curriculum_v2-all-0111-stl-1000` | grpo | JSON, NL, PDDL | 88.0% | 16.0% | 98.0% | - | 98.0% | 100.0% | 80.0% |
+| `...odels/qwen3-14b-curriculum_v2-all-0111-stl-1000` | grpo | JSON, NL, PDDL | 100.0% | 16.0% | 98.0% | - | 100.0% | 100.0% | 82.8% |
+| `..._models/qwen3_14b/cross_domain_pddl3_symbolized` | sft | PDDL | 70.0% | 4.0% | 86.0% | - | 92.0% | 100.0% | 70.4% |
 | `.../grpo_models/qwen3_14b-symbolized-1221-stl-1000` | grpo | PDDL | 68.0% | 2.0% | 72.0% | - | 92.0% | 96.0% | 66.0% |
 | `/jfan5/grpo_models/qwen3_14b-symbolized-1218-1000` | grpo | PDDL | 70.0% | 2.0% | 78.0% | - | 86.0% | 50.0% | 57.2% |
-| `/jfan5/sft_models/qwen3-14b-1127` | sft | PDDL | 30.0% | 12.0% | 46.0% | - | 34.0% | 66.0% | 37.6% |
-| `...models/qwen3_14b/cross_domain_pddl3_symbolized/` | sft | PDDL | 62.0% | 8.0% | 80.0% | - | - | - | 50.0% |
+| `/jfan5/sft_models/qwen3-14b-1127` | sft | PDDL | 30.0% | 12.0% | 54.0% | - | 62.0% | 66.0% | 44.8% |
 | `...5/sft_models/qwen3_14b/delivery_symbolized_v3-1` | sft | PDDL | - | 48.0% | - | 0.0% | - | - | 24.0% |
 | `...dels/qwen3_14b/cross_domain_pddl3_symbolized-v5` | sft | PDDL | 22.0% | 8.0% | - | - | - | - | 15.0% |
 | `...t_models/qwen3_14b/blocksworld_pddl3_symbolized` | sft | PDDL | 62.0% | - | - | - | - | - | 62.0% |
 | `/jfan5/sft_models/qwen3_14b/delivery_symbolized_v4` | sft | PDDL | - | 38.0% | - | - | - | - | 38.0% |
-
-## qwen3-4b
-
-| Model | Method | Eval Type | Delivery | Grippers | Spanner | Avg |
-|-------|--------|----------|-----------:|-----------:|-----------:|----:|
-| `.../sft_models/qwen3-4b-thinking/four_scenarios500` | sft | PDDL | 0.0% | 24.0% | 58.0% | 27.3% |
-
-## unknown
-
-| Model | Method | Eval Type | Blocksworld | Delivery | Ferry | Grid | Grippers | Rovers | Spanner | Avg |
-|-------|--------|----------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|----:|
-| `/jfan5/sft_qwen3/bfgs-variant-500` | sft | PDDL | 12.0% | 12.0% | 12.0% | 4.0% | 14.0% | 0.0% | 50.0% | 14.9% |
-| `/jfan5/dpo_qwen3/bfgs-variant-500` | sft | PDDL | 2.0% | - | - | - | - | - | - | 2.0% |

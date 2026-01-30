@@ -1,0 +1,46 @@
+{
+  "run_id": "default_run_20260130_031327_seed3407",
+  "method": "sft",
+  "model_type": "mistral",
+  "status": "finished",
+  "start_time": "2026-01-30T03:13:27.611438",
+  "end_time": "2026-01-30T03:28:48.458645",
+  "config": {
+    "base_model": "unsloth/mistral-7b-instruct-v0.3-bnb-4bit",
+    "dataset": "/jfan5/sft_data/four_scenarios_simple/combined.hf",
+    "output_dir": "sft_models/default_run",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-finetune",
+    "run_name": "default_run",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "sft_models/default_run"
+  },
+  "git": {
+    "commit": "df702e7375249890013e250c0268d605563939e7",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8_20260130_033720": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260130_033720",
+      "main_metric": 67.2,
+      "timestamp": "2026-01-30T03:44:50.982418"
+    },
+    "solver_batch__temp0.6_max512_bs8_20260130_034640": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260130_034640",
+      "main_metric": 66.4,
+      "timestamp": "2026-01-30T03:53:00.644627"
+    }
+  },
+  "extra": {
+    "family": "mistral",
+    "val_ratio": 0.05,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05
+  }
+}

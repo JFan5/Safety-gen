@@ -67,9 +67,8 @@ DATE_TAG=$(date +%m%d)
 MODEL_TAG="llama3.1-8b"
 DATASET_TAG="curriculum_v2"
 
-# 自动生成 RUN_NAME 和 OUTPUT_DIR (包含domain信息)
+# 自动生成 RUN_NAME (OUTPUT_DIR 由 Python 脚本自动设置到 runs/ 目录下)
 RUN_NAME="grpo_${MODEL_TAG}-${DATASET_TAG}-${DOMAIN_SUFFIX}-${DATE_TAG}-stl"
-OUTPUT_DIR="/jfan5/grpo_models/${MODEL_TAG}-${DATASET_TAG}-${DOMAIN_SUFFIX}-${DATE_TAG}-stl-${MAX_STEPS}"
 
 echo "=========================================="
 echo "GRPO V2 Training for Llama-3.1-8B"
@@ -78,7 +77,7 @@ echo "=========================================="
 echo "Base model: ${BASE_MODEL}"
 echo "Data root: ${DATA_ROOT}"
 echo "Domains: ${DOMAIN_SUFFIX}"
-echo "Output: ${OUTPUT_DIR}"
+echo "Output: (auto-set to runs/ directory)"
 echo ""
 echo "Training parameters:"
 echo "  Batch size: ${BATCH_SIZE}"
@@ -110,7 +109,6 @@ python3 script/train_grpo_unsloth_stl_v2.py \
   --base_model "${BASE_MODEL}" \
   --data_root "${DATA_ROOT}" \
   ${DOMAINS_ARG} \
-  --output_dir "${OUTPUT_DIR}" \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \
@@ -137,7 +135,7 @@ else
   echo "✗ GRPO V2 training failed with exit code: $EXIT_CODE"
 fi
 echo "=========================================="
-echo "Model saved to: ${OUTPUT_DIR}"
+echo "Model saved to: runs/ directory (see logs for exact path)"
 echo ""
 echo "Next steps:"
 echo "  1. Check W&B for training curves: ${WANDB_PROJECT}/${RUN_NAME}"

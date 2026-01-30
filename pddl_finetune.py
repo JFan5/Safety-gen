@@ -9,6 +9,7 @@ import os
 import sys
 import random
 import re
+import shutil
 import torch
 import wandb
 from pathlib import Path
@@ -27,6 +28,7 @@ from script.utils.run_manager import (
     add_run_args,
     extract_run_args,
     update_wandb_url,
+    write_config_snapshot,
 )
 
 # 配置参数
@@ -200,6 +202,7 @@ def sft_train_pddl(
     lora_dropout: float = 0.05,
     lora_target_modules: Optional[List[str]] = None,
     reasoning_effort: str = None,
+    run_ctx: Optional["RunContext"] = None,
 ):
     """
     使用unsloth进行PDDL fine-tune训练（多场景）
@@ -215,8 +218,53 @@ def sft_train_pddl(
         lora_alpha: LoRA alpha scaling factor (default 64)
         lora_dropout: LoRA dropout 概率 (default 0.05)
         lora_target_modules: 需要注入 LoRA 的模块列表
+        run_ctx: Optional RunContext for run tracking
     """
-    
+
+    # === Auto-set output path to run directory if using run tracking ===
+    if run_ctx is not None:
+        output_note = str(run_ctx.run_dir / "model")
+        run_ctx.output_dir = output_note  # Update for finalize_run
+        print(f"Saving model directly to run directory: {output_note}")
+
+    # === Save config snapshot with training parameters ===
+    if run_ctx is not None:
+        extra_config = {
+            "family": family,
+            "max_seq_length": max_seq_length_override or max_seq_length,
+            "load_in_4bit": load_in_4bit_override if load_in_4bit_override is not None else load_in_4bit,
+            "val_ratio": val_ratio,
+            "lora_r": lora_r,
+            "lora_alpha": lora_alpha,
+            "lora_dropout": lora_dropout,
+            "lora_target_modules": lora_target_modules,
+        }
+        write_config_snapshot(run_ctx.run_dir, {}, extra_config)
+        print(f"Saved config snapshot to {run_ctx.run_dir}/config_snapshot.yaml")
+
+        # === Save code snapshot for reproducibility ===
+        code_snapshot_dir = run_ctx.run_dir / "code_snapshot"
+        code_snapshot_dir.mkdir(parents=True, exist_ok=True)
+
+        # Copy main training script
+        main_script = Path(__file__).resolve()
+        shutil.copy2(main_script, code_snapshot_dir / main_script.name)
+
+        # Copy script/utils directory if it exists
+        script_utils_dir = Path(__file__).resolve().parent / "script" / "utils"
+        if not script_utils_dir.exists():
+            script_utils_dir = Path(__file__).resolve().parent.parent / "script" / "utils"
+        if script_utils_dir.exists():
+            utils_dst = code_snapshot_dir / "utils"
+            if utils_dst.exists():
+                shutil.rmtree(utils_dst)
+            shutil.copytree(
+                script_utils_dir,
+                utils_dst,
+                ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git")
+            )
+        print(f"Saved code snapshot to {code_snapshot_dir}")
+
     print("="*60)
     print(f"PDDL Fine-tuning with {model_name}")
     print("="*60)
@@ -699,6 +747,11 @@ def main():
                        help="Random seed (default: 3407)")
     parser.add_argument("--no_run_tracking", action="store_true",
                        help="Disable run tracking (don't create run directory)")
+    parser.add_argument(
+        "--no_model_subfolder",
+        action="store_true",
+        help="Use old directory structure runs/{method}/{run_id} instead of runs/{model_type}/{method}/{run_id}"
+    )
 
     args = parser.parse_args()
     
@@ -794,6 +847,7 @@ def main():
                     "lora_dropout": args.lora_dropout,
                 },
                 redirect_logs=True,
+                use_model_subfolder=not args.no_model_subfolder,
             ) as run_ctx:
                 sft_train_pddl(
                     args.model,
@@ -809,6 +863,7 @@ def main():
                     lora_dropout=args.lora_dropout,
                     lora_target_modules=lora_target_modules,
                     reasoning_effort=args.reasoning,
+                    run_ctx=run_ctx,
                 )
 
                 # Update wandb URL if available

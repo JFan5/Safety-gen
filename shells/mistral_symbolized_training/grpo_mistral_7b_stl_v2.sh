@@ -45,8 +45,8 @@ DATA_ROOT="/jfan5/grpo_data/five_domain_0109/"
 # NOTE: batch_size MUST be divisible by num_domains
 # For single domain: any batch size works
 # For all domains (4): Valid batch sizes: 4, 8, 12, 16, 20, ...
-BATCH_SIZE=8
-GRADIENT_ACCUMULATION_STEPS=4
+BATCH_SIZE=32
+GRADIENT_ACCUMULATION_STEPS=1
 LEARNING_RATE=1e-5
 NUM_GENERATIONS=8
 TEMPERATURE=0.6
@@ -55,9 +55,10 @@ TOP_P=0.9
 LOGGING_STEPS=20
 SAVE_STEPS=100
 WANDB_PROJECT="pddl-grpo-mistral7b"
-BETA=0.01
-MAX_GRAD_NORM=1
+BETA=0.05
+MAX_GRAD_NORM=0.5
 SEED=3407
+max_new_tokens=256
 
 # ==========================================
 # Auto-generate RUN_NAME and OUTPUT_DIR
@@ -68,7 +69,6 @@ DATASET_TAG="curriculum_v2"
 
 # 自动生成 RUN_NAME 和 OUTPUT_DIR (包含domain信息)
 RUN_NAME="grpo_${MODEL_TAG}-${DATASET_TAG}-${DOMAIN_SUFFIX}-${DATE_TAG}-stl"
-OUTPUT_DIR="/jfan5/grpo_models/${RUN_NAME}"
 
 echo "=========================================="
 echo "GRPO V2 Training for Mistral-7B"
@@ -109,7 +109,6 @@ python3 script/train_grpo_unsloth_stl_v2.py \
   --base_model "${BASE_MODEL}" \
   --data_root "${DATA_ROOT}" \
   ${DOMAINS_ARG} \
-  --output_dir "${OUTPUT_DIR}" \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \
   --max_grad_norm ${MAX_GRAD_NORM} \
@@ -123,7 +122,8 @@ python3 script/train_grpo_unsloth_stl_v2.py \
   --save_steps ${SAVE_STEPS} \
   --wandb_project "${WANDB_PROJECT}" \
   --seed ${SEED} \
-  --run_name "${RUN_NAME}"
+  --run_name "${RUN_NAME}" \
+  --max_new_tokens ${max_new_tokens}
 
 EXIT_CODE=$?
 

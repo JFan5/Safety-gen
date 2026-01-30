@@ -1,0 +1,24 @@
+BEST RESULT: ferry / gemini-3-pro
+============================================================
+
+Run ID:           gemini-3-pro-preview_ferry_20260125_204533
+Eval ID:          ferry__gemini_gemini-3-pro-preview
+Method:           api/gemini
+Base Model:       gemini-3-pro
+
+Success Rate:     100.00%
+Success Count:    50/50
+
+Model Path:       gemini-3-pro-preview
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   2026-01-25T20:51:30.304464
+Created At:       2026-01-25T20:45:33.260585
+
+Category Breakdown:
+  success_plans: 100.00%
+  plan_format_error: 0.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%

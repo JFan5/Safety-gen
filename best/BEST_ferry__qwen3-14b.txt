@@ -1,9 +1,9 @@
 BEST RESULT: ferry / qwen3-14b
 ============================================================
 
-Run ID:           grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407
-Eval ID:          solver_batch__temp0.6_max512_bs8__ferry
-Method:           grpo
+Run ID:           safepilot_ferry_20260124_212338
+Eval ID:          ferry__safepilot
+Method:           safepilot
 Base Model:       qwen3-14b
 
 Success Rate:     98.00%
@@ -11,16 +11,14 @@ Success Count:    49/50
 
 Model Path:       /jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000
 Dataset:          
-W&B URL:          https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-qwen3-14b/runs/sg1t5m9m
+W&B URL:          
 
-Eval Timestamp:   2026-01-12T19:56:11.996482
-Created At:       
+Eval Timestamp:   2026-01-24T21:29:47.335442
+Created At:       2026-01-24T21:29:47.335442
 
 Category Breakdown:
   success_plans: 98.00%
-  plan_format_error: 0.00%
   precondition_violation: 2.00%
   safety_constraints_violation: 0.00%
   goal_not_satisfied: 0.00%
-  generation_error: 0.00%
-  others: 0.00%
+  plan_format_error: 0.00%

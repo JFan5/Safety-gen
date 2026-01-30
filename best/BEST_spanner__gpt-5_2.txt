@@ -1,0 +1,24 @@
+BEST RESULT: spanner / gpt-5.2
+============================================================
+
+Run ID:           gpt-5.2_spanner_20260126_202806
+Eval ID:          spanner__openai_gpt-5.2
+Method:           api/openai
+Base Model:       gpt-5.2
+
+Success Rate:     100.00%
+Success Count:    48/48
+
+Model Path:       gpt-5.2-2025-12-11
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   2026-01-26T20:36:23.594125
+Created At:       2026-01-26T20:28:06.877164
+
+Category Breakdown:
+  success_plans: 100.00%
+  plan_format_error: 0.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%

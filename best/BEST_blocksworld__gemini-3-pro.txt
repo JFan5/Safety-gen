@@ -1,0 +1,24 @@
+BEST RESULT: blocksworld / gemini-3-pro
+============================================================
+
+Run ID:           gemini-3-pro-preview_blocksworld_20260125_165105
+Eval ID:          blocksworld__gemini_gemini-3-pro-preview
+Method:           api/gemini
+Base Model:       gemini-3-pro
+
+Success Rate:     100.00%
+Success Count:    2/2
+
+Model Path:       gemini-3-pro-preview
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   2026-01-25T16:51:49.222658
+Created At:       2026-01-25T16:51:05.034887
+
+Category Breakdown:
+  success_plans: 100.00%
+  plan_format_error: 0.00%
+  precondition_violation: 0.00%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%

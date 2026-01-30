@@ -1,0 +1,24 @@
+BEST RESULT: grid / gpt-5.2
+============================================================
+
+Run ID:           gpt-5.2_grid_20260126_210630
+Eval ID:          grid__openai_gpt-5.2
+Method:           api/openai
+Base Model:       gpt-5.2
+
+Success Rate:     95.83%
+Success Count:    46/48
+
+Model Path:       gpt-5.2-2025-12-11
+Dataset:          
+W&B URL:          
+
+Eval Timestamp:   2026-01-26T21:48:48.327898
+Created At:       2026-01-26T21:06:30.085767
+
+Category Breakdown:
+  success_plans: 95.83%
+  plan_format_error: 0.00%
+  precondition_violation: 4.17%
+  safety_constraints_violation: 0.00%
+  goal_not_satisfied: 0.00%

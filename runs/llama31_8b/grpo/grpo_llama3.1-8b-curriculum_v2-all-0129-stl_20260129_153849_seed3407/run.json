@@ -1,0 +1,50 @@
+{
+  "run_id": "grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407",
+  "method": "grpo",
+  "model_type": "llama31_8b",
+  "status": "running",
+  "start_time": "2026-01-29T15:38:49.491098",
+  "end_time": null,
+  "config": {
+    "base_model": "/jfan5/sft_models/llama31_8b/symbolized",
+    "dataset": "/jfan5/grpo_data/five_domain_0109/",
+    "output_dir": null,
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-llama31-8b",
+    "run_name": "grpo_llama3.1-8b-curriculum_v2-all-0129-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-llama31-8b/runs/03i9km13"
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "df702e7375249890013e250c0268d605563939e7",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8_20260129_203144": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260129_203144",
+      "main_metric": 73.33,
+      "timestamp": "2026-01-29T20:33:38.815444"
+    },
+    "solver_batch__temp0.6_max512_bs8_20260129_203503": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260129_203503",
+      "main_metric": 65.2,
+      "timestamp": "2026-01-29T20:43:28.749884"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.01,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  }
+}
