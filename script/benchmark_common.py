@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 OPTIC = WORKSPACE_ROOT / "optic" / "release" / "optic" / "optic-clp"
-VALIDATOR = Path("/home/ubuntu/VAL/build/linux64/Release/bin/Validate")
+VALIDATOR = WORKSPACE_ROOT / "VAL" / "build" / "bin" / "Validate"
 PROMPT_PATH = PROJECT_ROOT / "prompt.txt"
 
 SCENARIOS: Tuple[str, ...] = (

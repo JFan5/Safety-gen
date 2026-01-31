@@ -127,7 +127,8 @@ def build_order_inversion_constraints(
     pairs.sort(reverse=True)
     chosen = pairs[:max_pairs]
 
-    cons = [f"(sometime-before (tightened {B}) (tightened {A}))" for _gap, A, B in chosen]
+    # A is later in plan, B is earlier. To invert, require A before B.
+    cons = [f"(sometime-before (tightened {A}) (tightened {B}))" for _gap, A, B in chosen]
     return cons
 
 def parse_plan_events(plan_text: str) -> List[Tuple[str, Tuple[str, ...]]]:

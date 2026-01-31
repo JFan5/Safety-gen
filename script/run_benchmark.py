@@ -557,11 +557,12 @@ def run_optic_benchmark(
             results = []
             for scenario_data in data.get("scenarios", {}).values():
                 for problem in scenario_data.get("problems", []):
+                    optic_data = problem.get("optic", {}) or {}
                     results.append({
-                        "problem_name": problem.get("name", ""),
-                        "is_valid": problem.get("status") == "success",
-                        "solve_time_seconds": problem.get("elapsed_seconds", 0),
-                        "category": problem.get("status", "unknown"),
+                        "problem_name": problem.get("problem", ""),  # Fixed: "problem" not "name"
+                        "is_valid": optic_data.get("validation") == "valid",  # Fixed: check optic.validation
+                        "solve_time_seconds": optic_data.get("elapsed_seconds", 0),  # Fixed: get from optic
+                        "category": optic_data.get("status", "unknown"),  # Fixed: get from optic
                     })
 
             level_stats = compute_level_statistics(results, domain)

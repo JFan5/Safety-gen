@@ -1,0 +1,485 @@
+{
+  "optic": {
+    "delivery/delivery_size10_packages1_seed10001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.01935258973389864,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size10_packages1_seed10001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size10_packages1_seed10001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:24.905300",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size10_packages1_seed10001.pddl"
+    },
+    "delivery/delivery_size19_packages1_seed19001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.07926633534952998,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size19_packages1_seed19001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size19_packages1_seed19001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:24.970943",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size19_packages1_seed19001.pddl"
+    },
+    "delivery/delivery_size14_packages1_seed14001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.10050996812060475,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size14_packages1_seed14001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size14_packages1_seed14001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:24.989524",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size14_packages1_seed14001.pddl"
+    },
+    "delivery/delivery_size3_packages1_seed3001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.012012168299406767,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size3_packages1_seed3001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size3_packages1_seed3001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:25.018087",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size3_packages1_seed3001.pddl"
+    },
+    "delivery/delivery_size29_packages1_seed29001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.1571227149106562,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size29_packages1_seed29001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size29_packages1_seed29001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:25.075548",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size29_packages1_seed29001.pddl"
+    },
+    "delivery/delivery_size11_packages1_seed11001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.19618864264339209,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size11_packages1_seed11001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size11_packages1_seed11001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:25.092867",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size11_packages1_seed11001.pddl"
+    },
+    "delivery/delivery_size23_packages1_seed23001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.23972723633050919,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size23_packages1_seed23001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size23_packages1_seed23001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:25.150038",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size23_packages1_seed23001.pddl"
+    },
+    "delivery/delivery_size16_packages1_seed16001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.6127926423214376,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size16_packages1_seed16001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size16_packages1_seed16001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:25.514971",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size16_packages1_seed16001.pddl"
+    },
+    "delivery/delivery_size28_packages1_seed28001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.972311673220247,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size28_packages1_seed28001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size28_packages1_seed28001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:25.892641",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size28_packages1_seed28001.pddl"
+    },
+    "delivery/delivery_size13_packages1_seed13001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.5378273529931903,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size13_packages1_seed13001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size13_packages1_seed13001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:27.445807",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size13_packages1_seed13001.pddl"
+    },
+    "delivery/delivery_size42_packages1_seed42001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.690222715958953,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size42_packages1_seed42001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size42_packages1_seed42001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:27.864022",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size42_packages1_seed42001.pddl"
+    },
+    "delivery/delivery_size12_packages1_seed12001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 3.9490859298966825,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size12_packages1_seed12001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size12_packages1_seed12001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:28.845264",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size12_packages1_seed12001.pddl"
+    },
+    "delivery/delivery_size20_packages1_seed20001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 9.066860081627965,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size20_packages1_seed20001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size20_packages1_seed20001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:33.961897",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size20_packages1_seed20001.pddl"
+    },
+    "delivery/delivery_size31_packages1_seed31001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 15.695092398207635,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size31_packages1_seed31001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size31_packages1_seed31001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:40.606007",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size31_packages1_seed31001.pddl"
+    },
+    "delivery/delivery_size4_packages1_seed4001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.025410096161067486,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size4_packages1_seed4001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size4_packages1_seed4001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:40.643412",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size4_packages1_seed4001.pddl"
+    },
+    "delivery/delivery_size30_packages1_seed30001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 26.314813036005944,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size30_packages1_seed30001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size30_packages1_seed30001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:51.221547",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size30_packages1_seed30001.pddl"
+    },
+    "delivery/delivery_size5_packages1_seed5001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.022390508092939854,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size5_packages1_seed5001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size5_packages1_seed5001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:51.251061",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size5_packages1_seed5001.pddl"
+    },
+    "delivery/delivery_size6_packages1_seed6001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.03836563974618912,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size6_packages1_seed6001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size6_packages1_seed6001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:51.305003",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size6_packages1_seed6001.pddl"
+    },
+    "delivery/delivery_size7_packages1_seed7001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.11992046004161239,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size7_packages1_seed7001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size7_packages1_seed7001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:51.436923",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size7_packages1_seed7001.pddl"
+    },
+    "delivery/delivery_size8_packages1_seed8001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.07961206370964646,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size8_packages1_seed8001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size8_packages1_seed8001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:51.526918",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size8_packages1_seed8001.pddl"
+    },
+    "delivery/delivery_size9_packages1_seed9001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.8401622781530023,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size9_packages1_seed9001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size9_packages1_seed9001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:52.374085",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size9_packages1_seed9001.pddl"
+    },
+    "delivery/delivery_size40_packages1_seed40001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 28.57900813082233,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size40_packages1_seed40001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size40_packages1_seed40001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:53.626992",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size40_packages1_seed40001.pddl"
+    },
+    "delivery/delivery_size48_packages1_seed48001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 28.16170210437849,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size48_packages1_seed48001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size48_packages1_seed48001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:57.060293",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size48_packages1_seed48001.pddl"
+    },
+    "delivery/delivery_size34_packages1_seed34001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 33.43859405675903,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size34_packages1_seed34001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size34_packages1_seed34001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:30:58.351865",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size34_packages1_seed34001.pddl"
+    },
+    "delivery/delivery_size50_packages1_seed50001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 21.427866362966597,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size50_packages1_seed50001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size50_packages1_seed50001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:02.130023",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size50_packages1_seed50001.pddl"
+    },
+    "delivery/delivery_size18_packages1_seed18001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 37.94367368193343,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size18_packages1_seed18001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size18_packages1_seed18001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:02.836937",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size18_packages1_seed18001.pddl"
+    },
+    "delivery/delivery_size41_packages1_seed41001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 46.211809513159096,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size41_packages1_seed41001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size41_packages1_seed41001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:11.321770",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size41_packages1_seed41001.pddl"
+    },
+    "delivery/delivery_size46_packages1_seed46001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 49.60942743206397,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size46_packages1_seed46001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size46_packages1_seed46001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:17.103374",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size46_packages1_seed46001.pddl"
+    },
+    "delivery/delivery_size39_packages1_seed39001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 63.99396021198481,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size39_packages1_seed39001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size39_packages1_seed39001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:28.996423",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size39_packages1_seed39001.pddl"
+    },
+    "delivery/delivery_size35_packages1_seed35001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 66.63547860784456,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size35_packages1_seed35001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size35_packages1_seed35001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:31.546235",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size35_packages1_seed35001.pddl"
+    },
+    "delivery/delivery_size43_packages1_seed43001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 70.84014876326546,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size43_packages1_seed43001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size43_packages1_seed43001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:36.031249",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size43_packages1_seed43001.pddl"
+    },
+    "delivery/delivery_size33_packages1_seed33001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 90.74924608599395,
+      "plan_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/delivery_size33_packages1_seed33001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size33_packages1_seed33001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:31:55.658398",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size33_packages1_seed33001.pddl"
+    },
+    "delivery/delivery_size24_packages1_seed24001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.0461132498458,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size24_packages1_seed24001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:04.929448",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size24_packages1_seed24001.pddl"
+    },
+    "delivery/delivery_size32_packages1_seed32001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.11693393578753,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size32_packages1_seed32001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.000791",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size32_packages1_seed32001.pddl"
+    },
+    "delivery/delivery_size36_packages1_seed36001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.11611745785922,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size36_packages1_seed36001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.002347",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size36_packages1_seed36001.pddl"
+    },
+    "delivery/delivery_size25_packages1_seed25001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.12360639404505,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size25_packages1_seed25001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.006482",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size25_packages1_seed25001.pddl"
+    },
+    "delivery/delivery_size26_packages1_seed26001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.12768446141854,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size26_packages1_seed26001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.010715",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size26_packages1_seed26001.pddl"
+    },
+    "delivery/delivery_size37_packages1_seed37001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.12609094008803,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size37_packages1_seed37001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.012208",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size37_packages1_seed37001.pddl"
+    },
+    "delivery/delivery_size27_packages1_seed27001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.13123830081895,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size27_packages1_seed27001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.014304",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size27_packages1_seed27001.pddl"
+    },
+    "delivery/delivery_size22_packages1_seed22001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.13320173928514,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size22_packages1_seed22001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.015676",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size22_packages1_seed22001.pddl"
+    },
+    "delivery/delivery_size38_packages1_seed38001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.11452000821009,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size38_packages1_seed38001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.019737",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size38_packages1_seed38001.pddl"
+    },
+    "delivery/delivery_size15_packages1_seed15001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.14264353504404,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size15_packages1_seed15001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.024429",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size15_packages1_seed15001.pddl"
+    },
+    "delivery/delivery_size21_packages1_seed21001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.14433431299403,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size21_packages1_seed21001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.026719",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size21_packages1_seed21001.pddl"
+    },
+    "delivery/delivery_size17_packages1_seed17001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.16133718099445,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size17_packages1_seed17001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.043045",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size17_packages1_seed17001.pddl"
+    },
+    "delivery/delivery_size44_packages1_seed44001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.11405527498573,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size44_packages1_seed44001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:05.629135",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size44_packages1_seed44001.pddl"
+    },
+    "delivery/delivery_size45_packages1_seed45001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.11188076110557,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size45_packages1_seed45001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:06.004956",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size45_packages1_seed45001.pddl"
+    },
+    "delivery/delivery_size47_packages1_seed47001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.11288984492421,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size47_packages1_seed47001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:07.970482",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size47_packages1_seed47001.pddl"
+    },
+    "delivery/delivery_size49_packages1_seed49001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 100.10922826593742,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/delivery_20260129_163024/delivery/optic_results/logs/delivery_size49_packages1_seed49001.stderr",
+      "notes": "",
+      "timestamp": "2026-01-29T21:32:14.071727",
+      "problem_path": "Safety-gen/benchmark_problems/delivery/delivery_size49_packages1_seed49001.pddl"
+    }
+  },
+  "llm": {}
+}

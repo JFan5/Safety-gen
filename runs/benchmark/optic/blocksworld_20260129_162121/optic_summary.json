@@ -1,0 +1,723 @@
+{
+  "parameters": {
+    "instances_per_parameter": 2,
+    "problems_per_scenario": 0,
+    "optic_time_limit": 100.0,
+    "llm_model": "unsloth/gpt-oss-20b-unsloth-bnb-4bit",
+    "llm_family": "gpt",
+    "llm_max_new_tokens": 8000,
+    "llm_hardest_only": false
+  },
+  "scenarios": {
+    "blocksworld": {
+      "problems": [
+        {
+          "problem": "bw_ops3_n03_seed3001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n03_seed3001.pddl",
+          "parameter_value": 3,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.01,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n03_seed3001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n03_seed3001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n04_seed4001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n04_seed4001.pddl",
+          "parameter_value": 4,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.022,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n04_seed4001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n04_seed4001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n05_seed5001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n05_seed5001.pddl",
+          "parameter_value": 5,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.01,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n05_seed5001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n05_seed5001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n06_seed6001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n06_seed6001.pddl",
+          "parameter_value": 6,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.014,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n06_seed6001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n06_seed6001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n07_seed7001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n07_seed7001.pddl",
+          "parameter_value": 7,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.036,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n07_seed7001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n07_seed7001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n08_seed8001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n08_seed8001.pddl",
+          "parameter_value": 8,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.059,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n08_seed8001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n08_seed8001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n09_seed9001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n09_seed9001.pddl",
+          "parameter_value": 9,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.058,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n09_seed9001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n09_seed9001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n10_seed10001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n10_seed10001.pddl",
+          "parameter_value": 10,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.389,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n10_seed10001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n10_seed10001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n11_seed11001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n11_seed11001.pddl",
+          "parameter_value": 11,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.254,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n11_seed11001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n11_seed11001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n12_seed12001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n12_seed12001.pddl",
+          "parameter_value": 12,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.645,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n12_seed12001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n12_seed12001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n13_seed13001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n13_seed13001.pddl",
+          "parameter_value": 13,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 39.793,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n13_seed13001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n13_seed13001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n14_seed14001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n14_seed14001.pddl",
+          "parameter_value": 14,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.111,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n14_seed14001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n14_seed14001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n15_seed15001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n15_seed15001.pddl",
+          "parameter_value": 15,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.274,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n15_seed15001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n15_seed15001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n16_seed16001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n16_seed16001.pddl",
+          "parameter_value": 16,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.362,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n16_seed16001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n16_seed16001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n17_seed17001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n17_seed17001.pddl",
+          "parameter_value": 17,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 69.483,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n18_seed18001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n18_seed18001.pddl",
+          "parameter_value": 18,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.191,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n18_seed18001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n18_seed18001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n19_seed19001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n19_seed19001.pddl",
+          "parameter_value": 19,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 60.601,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n20_seed20001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n20_seed20001.pddl",
+          "parameter_value": 20,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.55,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n20_seed20001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n20_seed20001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n21_seed21001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n21_seed21001.pddl",
+          "parameter_value": 21,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.087,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n21_seed21001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n22_seed22001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n22_seed22001.pddl",
+          "parameter_value": 22,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 49.078,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n23_seed23001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n23_seed23001.pddl",
+          "parameter_value": 23,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 3.017,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n23_seed23001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n23_seed23001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n24_seed24001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n24_seed24001.pddl",
+          "parameter_value": 24,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.065,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n24_seed24001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n25_seed25001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n25_seed25001.pddl",
+          "parameter_value": 25,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.077,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n25_seed25001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n26_seed26001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n26_seed26001.pddl",
+          "parameter_value": 26,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.039,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n26_seed26001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n27_seed27001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n27_seed27001.pddl",
+          "parameter_value": 27,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.057,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n27_seed27001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n28_seed28001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n28_seed28001.pddl",
+          "parameter_value": 28,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.042,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n28_seed28001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n29_seed29001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n29_seed29001.pddl",
+          "parameter_value": 29,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 7.939,
+            "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/bw_ops3_n29_seed29001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n29_seed29001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n30_seed30001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n30_seed30001.pddl",
+          "parameter_value": 30,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 53.885,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n31_seed31001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n31_seed31001.pddl",
+          "parameter_value": 31,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 64.631,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n32_seed32001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n32_seed32001.pddl",
+          "parameter_value": 32,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.084,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n32_seed32001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n33_seed33001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n33_seed33001.pddl",
+          "parameter_value": 33,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.006,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n33_seed33001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n34_seed34001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n34_seed34001.pddl",
+          "parameter_value": 34,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.06,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n34_seed34001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n35_seed35001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n35_seed35001.pddl",
+          "parameter_value": 35,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.965,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n35_seed35001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n36_seed36001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n36_seed36001.pddl",
+          "parameter_value": 36,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 74.285,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n37_seed37001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n37_seed37001.pddl",
+          "parameter_value": 37,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 101.024,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n37_seed37001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n38_seed38001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n38_seed38001.pddl",
+          "parameter_value": 38,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.885,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n38_seed38001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n39_seed39001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n39_seed39001.pddl",
+          "parameter_value": 39,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.866,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n39_seed39001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n40_seed40001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n40_seed40001.pddl",
+          "parameter_value": 40,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.813,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n40_seed40001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n41_seed41001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n41_seed41001.pddl",
+          "parameter_value": 41,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.701,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n41_seed41001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n42_seed42001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n42_seed42001.pddl",
+          "parameter_value": 42,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.688,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n42_seed42001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n43_seed43001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n43_seed43001.pddl",
+          "parameter_value": 43,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.507,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n43_seed43001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n44_seed44001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n44_seed44001.pddl",
+          "parameter_value": 44,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.395,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n44_seed44001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n45_seed45001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n45_seed45001.pddl",
+          "parameter_value": 45,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.128,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n45_seed45001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n46_seed46001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n46_seed46001.pddl",
+          "parameter_value": 46,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.123,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n46_seed46001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n47_seed47001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n47_seed47001.pddl",
+          "parameter_value": 47,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.126,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n47_seed47001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n48_seed48001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n48_seed48001.pddl",
+          "parameter_value": 48,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.136,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n48_seed48001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n49_seed49001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n49_seed49001.pddl",
+          "parameter_value": 49,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.156,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n49_seed49001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "bw_ops3_n50_seed50001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n50_seed50001.pddl",
+          "parameter_value": 50,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 100.138,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260129_162121/blocksworld/optic_results/logs/bw_ops3_n50_seed50001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        }
+      ],
+      "optic_summary": {
+        "total_problems": 48,
+        "success_count": 18,
+        "timeout_count": 24,
+        "failure_count": 6,
+        "success_rate_percent": 37.5,
+        "timeout_rate_percent": 50.0,
+        "failure_rate_percent": 12.5,
+        "avg_elapsed_seconds_success": 3.096
+      },
+      "llm_summary": null
+    }
+  },
+  "optic_summary": {
+    "blocksworld": {
+      "total_problems": 48,
+      "success_count": 18,
+      "timeout_count": 24,
+      "failure_count": 6,
+      "success_rate_percent": 37.5,
+      "timeout_rate_percent": 50.0,
+      "failure_rate_percent": 12.5,
+      "avg_elapsed_seconds_success": 3.096
+    },
+    "ALL": {
+      "total_problems": 48,
+      "success_count": 18,
+      "timeout_count": 24,
+      "failure_count": 6,
+      "success_rate_percent": 37.5,
+      "timeout_rate_percent": 50.0,
+      "failure_rate_percent": 12.5,
+      "avg_elapsed_seconds_success": 3.096
+    }
+  },
+  "llm_summary": null
+}

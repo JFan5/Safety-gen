@@ -8,7 +8,8 @@ Optionally generates a scatter chart showing time vs complexity with success/fai
 
 Usage:
     python script/generate_benchmark_table.py <benchmark_folder> [--format markdown|csv|latex] [--output <file>]
-    python script/generate_benchmark_table.py <benchmark_folder> --chart [--chart-output <file.png>]
+    python script/generate_benchmark_table.py <benchmark_folder> --no-chart  # disable chart generation
+    python script/generate_benchmark_table.py <benchmark_folder> --chart-output <file.png>  # custom chart path
 
 Example:
     python script/generate_benchmark_table.py runs/benchmark/openai/gpt-5.2_delivery_20260126_205348
@@ -16,7 +17,6 @@ Example:
 """
 
 import argparse
-import glob
 import json
 import re
 import sys
@@ -34,19 +34,105 @@ def load_summary(benchmark_folder: str) -> dict:
         return json.load(f)
 
 
+def extract_size_key_from_problem(problem_name: str) -> str:
+    """
+    Extract size_key from problem filename.
+
+    Examples:
+        'bw_ops3_n05_seed5001.pddl' -> 'ops3-n5'
+        'blocksworld/bw_ops3_n05_seed5001.pddl' -> 'ops3-n5'
+        'ferry_s3_p1_seed1001.pddl' -> 's3-p1'
+    """
+    # Get just the filename
+    name = Path(problem_name).stem
+
+    # Try to extract ops/n pattern (blocksworld)
+    ops_match = re.search(r'ops(\d+)', name)
+    n_match = re.search(r'_n(\d+)', name)
+    if ops_match and n_match:
+        return f"ops{ops_match.group(1)}-n{n_match.group(1)}"
+
+    # Try to extract s/p pattern (ferry, etc.)
+    s_match = re.search(r'_s(\d+)', name)
+    p_match = re.search(r'_p(\d+)', name)
+    if s_match and p_match:
+        return f"s{s_match.group(1)}-p{p_match.group(1)}"
+
+    # Try to extract n/l pattern (grippers, spanner)
+    n_match = re.search(r'_n(\d+)', name)
+    l_match = re.search(r'_l(\d+)', name)
+    if n_match and l_match:
+        return f"n{n_match.group(1)}-l{l_match.group(1)}"
+
+    # Fallback: return first numbers found
+    numbers = re.findall(r'\d+', name)
+    if numbers:
+        return '-'.join(numbers[:2]) if len(numbers) >= 2 else numbers[0]
+
+    return "unknown"
+
+
 def load_results(benchmark_folder: str) -> dict:
-    """Load detailed results_*.json from the benchmark folder."""
+    """Load detailed results from the benchmark folder.
+
+    Supports multiple formats:
+    - results_*.json (LLM benchmark format)
+    - solver_cache.json (OPTIC benchmark format)
+    """
     folder = Path(benchmark_folder)
+
+    # Try results_*.json first (LLM benchmark format)
     results_files = list(folder.glob("results_*.json"))
+    if results_files:
+        results_file = max(results_files, key=lambda p: p.stat().st_mtime)
+        with open(results_file, 'r') as f:
+            return json.load(f)
 
-    if not results_files:
-        raise FileNotFoundError(f"No results_*.json found in {benchmark_folder}")
+    # Try solver_cache.json (OPTIC benchmark format)
+    solver_cache = folder / "solver_cache.json"
+    if solver_cache.exists():
+        with open(solver_cache, 'r') as f:
+            cache_data = json.load(f)
 
-    # Use the most recent results file
-    results_file = max(results_files, key=lambda p: p.stat().st_mtime)
+        # Load run_config.json for metadata if available
+        run_config = folder / "run_config.json"
+        config_data = {}
+        if run_config.exists():
+            with open(run_config, 'r') as f:
+                config_data = json.load(f)
 
-    with open(results_file, 'r') as f:
-        return json.load(f)
+        # Convert solver_cache format to expected results format
+        results = []
+        solver_name = config_data.get("model", "unknown")
+
+        for solver, problems in cache_data.items():
+            if solver_name == "unknown":
+                solver_name = solver
+            for problem_key, problem_data in problems.items():
+                is_valid = problem_data.get("validation") == "valid"
+                results.append({
+                    "problem_name": Path(problem_key).name,
+                    "size_key": extract_size_key_from_problem(problem_key),
+                    "solve_time_seconds": problem_data.get("elapsed_seconds", 0),
+                    "is_valid": is_valid,
+                    "category": "success_plans" if is_valid else "failed",
+                    "status": problem_data.get("status", "unknown"),
+                })
+
+        # Sort by size_key for consistent ordering
+        results.sort(key=lambda x: natural_sort_key(x["size_key"]))
+
+        # Get scenario/domain from config or folder name
+        scenario = config_data.get("domain") or (folder.name.split("_")[0] if "_" in folder.name else folder.name)
+
+        return {
+            "results": results,
+            "scenario": scenario,
+            "model_name": solver_name.upper() if solver_name in ("optic", "lpg") else solver_name,
+            "problems_dir": str(folder),
+        }
+
+    raise FileNotFoundError(f"No results_*.json or solver_cache.json found in {benchmark_folder}")
 
 
 def natural_sort_key(key: str) -> tuple:
@@ -314,9 +400,9 @@ def main():
         help="Output file path for table (prints to stdout if not specified)"
     )
     parser.add_argument(
-        "--chart",
+        "--no-chart",
         action="store_true",
-        help="Generate a scatter chart showing time vs complexity"
+        help="Disable scatter chart generation (chart is generated by default)"
     )
     parser.add_argument(
         "--chart-output",
@@ -347,8 +433,8 @@ def main():
     else:
         print(table)
 
-    # Generate chart if requested
-    if args.chart:
+    # Generate chart by default (unless --no-chart is specified)
+    if not args.no_chart:
         try:
             results = load_results(args.benchmark_folder)
             chart_output = args.chart_output

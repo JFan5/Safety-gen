@@ -31,6 +31,71 @@ from benchmark_common import (
 )
 
 
+def convert_optic_output_to_strips(plan_path: Path) -> bool:
+    """Convert OPTIC temporal output to STRIPS format for VAL validation.
+
+    OPTIC outputs plans like:
+        Number of literals: 16
+        ...
+        0.000: (pickup b3)  [0.001]
+        0.001: (stack b3 b2)  [0.001]
+
+    VAL expects STRIPS format:
+        (pickup b3)
+        (stack b3 b2)
+
+    Args:
+        plan_path: Path to the plan file to convert (modified in-place)
+
+    Returns:
+        True if conversion successful (at least one action found), False otherwise
+    """
+    if not plan_path.exists():
+        return False
+
+    try:
+        with plan_path.open("r", encoding="utf-8") as f:
+            content = f.read()
+
+        lines = content.split('\n')
+        plan_actions = []
+
+        for line in lines:
+            line = line.strip()
+
+            # Skip empty lines and comments
+            if not line or line.startswith(';'):
+                continue
+
+            # Match timestamp format: "0.000: (action args) [0.001]"
+            if ':' in line and '(' in line and ')' in line:
+                parts = line.split(':', 1)
+                if len(parts) == 2:
+                    # Check if first part is a timestamp (digits and dots)
+                    timestamp_part = parts[0].strip()
+                    if timestamp_part.replace('.', '').isdigit():
+                        # Extract action from the rest
+                        action_part = parts[1].strip()
+                        # Find the action between ( and )
+                        start = action_part.find('(')
+                        end = action_part.find(')')
+                        if start != -1 and end != -1 and end > start:
+                            action = action_part[start:end+1]  # Include parentheses
+                            plan_actions.append(action)
+
+        if not plan_actions:
+            return False
+
+        # Write STRIPS format
+        with plan_path.open("w", encoding="utf-8") as f:
+            for action in plan_actions:
+                f.write(action + "\n")
+
+        return True
+    except Exception:
+        return False
+
+
 def format_elapsed(outcome: SolverOutcome) -> str:
     """Format elapsed time for CSV output."""
     if outcome.status == "timeout":
@@ -213,29 +278,39 @@ def run_optic_on_problem(
     final_plan_path = plan_path
 
     if status == "solved":
-        val_proc = subprocess.run(
-            [str(VALIDATOR), str(domain), str(problem), str(plan_path)],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=False,
-        )
-        if val_proc.returncode == 0:
-            validation = "valid"
-        else:
-            validation = "invalid"
+        # Convert OPTIC temporal format to STRIPS format for VAL validation
+        if not convert_optic_output_to_strips(plan_path):
             status = "invalid"
-            notes = "[VALIDATOR]\n" + (to_text(val_proc.stderr).strip() or to_text(val_proc.stdout).strip())
+            validation = "invalid"
+            notes = "[CONVERTER] Failed to extract plan actions from OPTIC output"
             invalid_plan = plan_path.with_suffix(".plan.invalid")
-            plan_path.rename(invalid_plan)
-            final_plan_path = invalid_plan
-            with log_path.open("a", encoding="utf-8") as fh:
-                val_stdout = to_text(val_proc.stdout).strip()
-                val_stderr = to_text(val_proc.stderr).strip()
-                if val_stdout:
-                    fh.write("[VALIDATOR STDOUT]\n" + val_stdout + "\n")
-                if val_stderr:
-                    fh.write("[VALIDATOR STDERR]\n" + val_stderr + "\n")
+            if plan_path.exists():
+                plan_path.rename(invalid_plan)
+                final_plan_path = invalid_plan
+        else:
+            val_proc = subprocess.run(
+                [str(VALIDATOR), str(domain), str(problem), str(plan_path)],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                check=False,
+            )
+            if val_proc.returncode == 0:
+                validation = "valid"
+            else:
+                validation = "invalid"
+                status = "invalid"
+                notes = "[VALIDATOR]\n" + (to_text(val_proc.stderr).strip() or to_text(val_proc.stdout).strip())
+                invalid_plan = plan_path.with_suffix(".plan.invalid")
+                plan_path.rename(invalid_plan)
+                final_plan_path = invalid_plan
+                with log_path.open("a", encoding="utf-8") as fh:
+                    val_stdout = to_text(val_proc.stdout).strip()
+                    val_stderr = to_text(val_proc.stderr).strip()
+                    if val_stdout:
+                        fh.write("[VALIDATOR STDOUT]\n" + val_stdout + "\n")
+                    if val_stderr:
+                        fh.write("[VALIDATOR STDERR]\n" + val_stderr + "\n")
 
     return SolverOutcome(
         status=status,
@@ -309,24 +384,64 @@ def _solve_single_problem_worker(args_tuple: Tuple[str, str, str, str, str, str,
     validation = ""
     notes = ""
     final_plan_path = plan_path
-    
+
     if status == "solved":
-        val_proc = subprocess.run(
-            [str(VALIDATOR), str(domain), str(problem), str(plan_path)],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=False,
-        )
-        if val_proc.returncode == 0:
-            validation = "valid"
-        else:
-            validation = "invalid"
+        # Convert OPTIC temporal format to STRIPS format for VAL validation
+        # (inline conversion to avoid multiprocessing import issues)
+        conversion_ok = False
+        try:
+            with plan_path.open("r", encoding="utf-8") as f:
+                content = f.read()
+            lines = content.split('\n')
+            plan_actions = []
+            for line in lines:
+                line = line.strip()
+                if not line or line.startswith(';'):
+                    continue
+                if ':' in line and '(' in line and ')' in line:
+                    parts = line.split(':', 1)
+                    if len(parts) == 2:
+                        timestamp_part = parts[0].strip()
+                        if timestamp_part.replace('.', '').isdigit():
+                            action_part = parts[1].strip()
+                            start = action_part.find('(')
+                            end = action_part.find(')')
+                            if start != -1 and end != -1 and end > start:
+                                action = action_part[start:end+1]
+                                plan_actions.append(action)
+            if plan_actions:
+                with plan_path.open("w", encoding="utf-8") as f:
+                    for action in plan_actions:
+                        f.write(action + "\n")
+                conversion_ok = True
+        except Exception:
+            pass
+
+        if not conversion_ok:
             status = "invalid"
-            notes = "[VALIDATOR]\n" + (to_text(val_proc.stderr).strip() or to_text(val_proc.stdout).strip())
+            validation = "invalid"
+            notes = "[CONVERTER] Failed to extract plan actions from OPTIC output"
             invalid_plan = plan_path.with_suffix(".plan.invalid")
-            plan_path.rename(invalid_plan)
-            final_plan_path = invalid_plan
+            if plan_path.exists():
+                plan_path.rename(invalid_plan)
+                final_plan_path = invalid_plan
+        else:
+            val_proc = subprocess.run(
+                [str(VALIDATOR), str(domain), str(problem), str(plan_path)],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                check=False,
+            )
+            if val_proc.returncode == 0:
+                validation = "valid"
+            else:
+                validation = "invalid"
+                status = "invalid"
+                notes = "[VALIDATOR]\n" + (to_text(val_proc.stderr).strip() or to_text(val_proc.stdout).strip())
+                invalid_plan = plan_path.with_suffix(".plan.invalid")
+                plan_path.rename(invalid_plan)
+                final_plan_path = invalid_plan
             with log_path.open("a", encoding="utf-8") as fh:
                 val_stdout = to_text(val_proc.stdout).strip()
                 val_stderr = to_text(val_proc.stderr).strip()

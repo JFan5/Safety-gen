@@ -1,0 +1,723 @@
+{
+  "parameters": {
+    "instances_per_parameter": 2,
+    "problems_per_scenario": 0,
+    "optic_time_limit": 100.0,
+    "llm_model": "unsloth/gpt-oss-20b-unsloth-bnb-4bit",
+    "llm_family": "gpt",
+    "llm_max_new_tokens": 8000,
+    "llm_hardest_only": false
+  },
+  "scenarios": {
+    "ferry": {
+      "problems": [
+        {
+          "problem": "ferry-l03-c02-s3001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l03-c02-s3001.pddl",
+          "parameter_value": 3,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.038,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l03-c02-s3001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l03-c02-s3001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l04-c03-s4001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l04-c03-s4001.pddl",
+          "parameter_value": 4,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.037,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l04-c03-s4001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l04-c03-s4001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l05-c03-s5001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l05-c03-s5001.pddl",
+          "parameter_value": 5,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.037,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l05-c03-s5001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l05-c03-s5001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l06-c04-s6001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l06-c04-s6001.pddl",
+          "parameter_value": 6,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.037,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l06-c04-s6001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l06-c04-s6001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l07-c04-s7001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l07-c04-s7001.pddl",
+          "parameter_value": 7,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.037,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l07-c04-s7001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l07-c04-s7001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l08-c05-s8001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l08-c05-s8001.pddl",
+          "parameter_value": 8,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.038,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l08-c05-s8001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l08-c05-s8001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l09-c05-s9001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l09-c05-s9001.pddl",
+          "parameter_value": 9,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.042,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l09-c05-s9001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l09-c05-s9001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l10-c06-s10001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l10-c06-s10001.pddl",
+          "parameter_value": 10,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.05,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l10-c06-s10001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l10-c06-s10001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l11-c06-s11001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l11-c06-s11001.pddl",
+          "parameter_value": 11,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.048,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l11-c06-s11001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l11-c06-s11001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l12-c07-s12001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l12-c07-s12001.pddl",
+          "parameter_value": 12,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.05,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l12-c07-s12001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l12-c07-s12001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l13-c07-s13001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l13-c07-s13001.pddl",
+          "parameter_value": 13,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.074,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l13-c07-s13001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l13-c07-s13001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l14-c08-s14001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l14-c08-s14001.pddl",
+          "parameter_value": 14,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.089,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l14-c08-s14001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l14-c08-s14001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l15-c08-s15001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l15-c08-s15001.pddl",
+          "parameter_value": 15,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.069,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l15-c08-s15001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l15-c08-s15001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l16-c09-s16001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l16-c09-s16001.pddl",
+          "parameter_value": 16,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.126,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l16-c09-s16001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l16-c09-s16001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l17-c09-s17001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l17-c09-s17001.pddl",
+          "parameter_value": 17,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.126,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l17-c09-s17001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l17-c09-s17001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l18-c10-s18001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l18-c10-s18001.pddl",
+          "parameter_value": 18,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.145,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l18-c10-s18001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l18-c10-s18001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l19-c10-s19001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l19-c10-s19001.pddl",
+          "parameter_value": 19,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.199,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l19-c10-s19001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l19-c10-s19001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l20-c11-s20001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l20-c11-s20001.pddl",
+          "parameter_value": 20,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.22,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l20-c11-s20001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l20-c11-s20001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l21-c11-s21001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l21-c11-s21001.pddl",
+          "parameter_value": 21,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.238,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l21-c11-s21001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l21-c11-s21001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l22-c12-s22001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l22-c12-s22001.pddl",
+          "parameter_value": 22,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.383,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l22-c12-s22001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l22-c12-s22001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l23-c12-s23001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l23-c12-s23001.pddl",
+          "parameter_value": 23,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.244,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l23-c12-s23001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l23-c12-s23001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l24-c13-s24001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l24-c13-s24001.pddl",
+          "parameter_value": 24,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.37,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l24-c13-s24001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l24-c13-s24001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l25-c13-s25001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l25-c13-s25001.pddl",
+          "parameter_value": 25,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.503,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l25-c13-s25001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l25-c13-s25001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l26-c14-s26001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l26-c14-s26001.pddl",
+          "parameter_value": 26,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.397,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l26-c14-s26001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l26-c14-s26001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l27-c14-s27001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l27-c14-s27001.pddl",
+          "parameter_value": 27,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.875,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l27-c14-s27001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l27-c14-s27001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l28-c15-s28001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l28-c15-s28001.pddl",
+          "parameter_value": 28,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.869,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l28-c15-s28001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l28-c15-s28001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l29-c15-s29001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l29-c15-s29001.pddl",
+          "parameter_value": 29,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.954,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l29-c15-s29001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l29-c15-s29001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l30-c16-s30001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l30-c16-s30001.pddl",
+          "parameter_value": 30,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 1.139,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l30-c16-s30001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l30-c16-s30001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l31-c16-s31001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l31-c16-s31001.pddl",
+          "parameter_value": 31,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 1.149,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l31-c16-s31001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l31-c16-s31001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l32-c17-s32001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l32-c17-s32001.pddl",
+          "parameter_value": 32,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 1.374,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l32-c17-s32001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l32-c17-s32001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l33-c17-s33001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l33-c17-s33001.pddl",
+          "parameter_value": 33,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 1.483,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l33-c17-s33001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l33-c17-s33001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l34-c18-s34001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l34-c18-s34001.pddl",
+          "parameter_value": 34,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.143,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l34-c18-s34001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l34-c18-s34001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l35-c18-s35001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l35-c18-s35001.pddl",
+          "parameter_value": 35,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.032,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l35-c18-s35001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l35-c18-s35001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l36-c19-s36001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l36-c19-s36001.pddl",
+          "parameter_value": 36,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 1.629,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l36-c19-s36001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l36-c19-s36001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l37-c19-s37001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l37-c19-s37001.pddl",
+          "parameter_value": 37,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.236,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l37-c19-s37001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l37-c19-s37001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l38-c20-s38001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l38-c20-s38001.pddl",
+          "parameter_value": 38,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.156,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l38-c20-s38001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l38-c20-s38001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l39-c20-s39001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l39-c20-s39001.pddl",
+          "parameter_value": 39,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.498,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l39-c20-s39001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l39-c20-s39001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l40-c21-s40001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l40-c21-s40001.pddl",
+          "parameter_value": 40,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 3.622,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l40-c21-s40001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l40-c21-s40001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l41-c21-s41001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l41-c21-s41001.pddl",
+          "parameter_value": 41,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.752,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l41-c21-s41001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l41-c21-s41001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l42-c22-s42001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l42-c22-s42001.pddl",
+          "parameter_value": 42,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 3.644,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l42-c22-s42001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l42-c22-s42001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l43-c22-s43001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l43-c22-s43001.pddl",
+          "parameter_value": 43,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 3.076,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l43-c22-s43001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l43-c22-s43001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l44-c23-s44001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l44-c23-s44001.pddl",
+          "parameter_value": 44,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 4.178,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l44-c23-s44001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l44-c23-s44001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l45-c23-s45001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l45-c23-s45001.pddl",
+          "parameter_value": 45,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 3.031,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l45-c23-s45001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l45-c23-s45001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l46-c24-s46001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l46-c24-s46001.pddl",
+          "parameter_value": 46,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 3.951,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l46-c24-s46001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l46-c24-s46001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l47-c24-s47001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l47-c24-s47001.pddl",
+          "parameter_value": 47,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 4.389,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l47-c24-s47001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l47-c24-s47001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l48-c25-s48001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l48-c25-s48001.pddl",
+          "parameter_value": 48,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 4.709,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l48-c25-s48001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l48-c25-s48001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l49-c25-s49001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l49-c25-s49001.pddl",
+          "parameter_value": 49,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 5.203,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l49-c25-s49001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l49-c25-s49001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "ferry-l50-c26-s50001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/ferry/ferry-l50-c26-s50001.pddl",
+          "parameter_value": 50,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 5.551,
+            "plan_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/ferry-l50-c26-s50001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/ferry_20260129_162355/ferry/optic_results/logs/ferry-l50-c26-s50001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        }
+      ],
+      "optic_summary": {
+        "total_problems": 48,
+        "success_count": 48,
+        "timeout_count": 0,
+        "failure_count": 0,
+        "success_rate_percent": 100.0,
+        "timeout_rate_percent": 0.0,
+        "failure_rate_percent": 0.0,
+        "avg_elapsed_seconds_success": 1.422
+      },
+      "llm_summary": null
+    }
+  },
+  "optic_summary": {
+    "ferry": {
+      "total_problems": 48,
+      "success_count": 48,
+      "timeout_count": 0,
+      "failure_count": 0,
+      "success_rate_percent": 100.0,
+      "timeout_rate_percent": 0.0,
+      "failure_rate_percent": 0.0,
+      "avg_elapsed_seconds_success": 1.422
+    },
+    "ALL": {
+      "total_problems": 48,
+      "success_count": 48,
+      "timeout_count": 0,
+      "failure_count": 0,
+      "success_rate_percent": 100.0,
+      "timeout_rate_percent": 0.0,
+      "failure_rate_percent": 0.0,
+      "avg_elapsed_seconds_success": 1.422
+    }
+  },
+  "llm_summary": null
+}
