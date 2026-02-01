@@ -11,9 +11,18 @@ Usage:
     python script/generate_benchmark_table.py <benchmark_folder> --no-chart  # disable chart generation
     python script/generate_benchmark_table.py <benchmark_folder> --chart-output <file.png>  # custom chart path
 
+    # Compare two benchmarks
+    python script/generate_benchmark_table.py <folder1> --compare <folder2>
+    python script/generate_benchmark_table.py <folder1> --compare <folder2> --aggregate-levels 5
+
 Example:
     python script/generate_benchmark_table.py runs/benchmark/openai/gpt-5.2_delivery_20260126_205348
     python script/generate_benchmark_table.py runs/benchmark/openai/gpt-5.2_delivery_20260126_205348 --chart
+
+    # Compare GPT-5.2 vs OPTIC on blocksworld
+    python script/generate_benchmark_table.py \\
+        runs/benchmark/openai/gpt-5.2_blocksworld_20260126_200314 \\
+        --compare runs/benchmark/optic/blocksworld_20260129_162121
 """
 
 import argparse
@@ -331,6 +340,356 @@ def generate_chart(results: dict, output_path: str = None) -> str:
     return output_path
 
 
+def align_results_by_size_key(results1: dict, results2: dict) -> tuple:
+    """
+    Align results from two benchmarks by common size_keys.
+
+    Args:
+        results1: First benchmark results dict
+        results2: Second benchmark results dict
+
+    Returns:
+        Tuple of (sorted_keys, rates1_dict, rates2_dict)
+        where rates dicts map size_key -> success_rate (0-100)
+    """
+    # Build success rate dicts by size_key
+    def build_rates(results: dict) -> dict:
+        """Build a dict of size_key -> success_rate from results."""
+        by_key = {}
+        for problem in results.get("results", []):
+            size_key = problem.get("size_key", "unknown")
+            is_success = problem.get("category") == "success_plans"
+            if size_key not in by_key:
+                by_key[size_key] = {"total": 0, "success": 0}
+            by_key[size_key]["total"] += 1
+            if is_success:
+                by_key[size_key]["success"] += 1
+
+        # Convert to success rates
+        rates = {}
+        for key, data in by_key.items():
+            if data["total"] > 0:
+                rates[key] = (data["success"] / data["total"]) * 100
+            else:
+                rates[key] = 0.0
+        return rates
+
+    rates1 = build_rates(results1)
+    rates2 = build_rates(results2)
+
+    # Find common keys and union of all keys
+    all_keys = set(rates1.keys()) | set(rates2.keys())
+    sorted_keys = sort_complexity_keys(list(all_keys))
+
+    return sorted_keys, rates1, rates2
+
+
+def aggregate_by_level_groups(size_keys: list, rates1: dict, rates2: dict, group_size: int) -> tuple:
+    """
+    Aggregate complexity levels into groups.
+
+    Args:
+        size_keys: List of sorted size_key strings
+        rates1: Dict of size_key -> success_rate for solver 1
+        rates2: Dict of size_key -> success_rate for solver 2
+        group_size: Number of complexity levels per group
+
+    Returns:
+        Tuple of (aggregated_labels, aggregated_rates1, aggregated_rates2)
+    """
+    if group_size <= 1:
+        # No aggregation
+        return size_keys, [rates1.get(k, 0) for k in size_keys], [rates2.get(k, 0) for k in size_keys]
+
+    aggregated_labels = []
+    aggregated_rates1 = []
+    aggregated_rates2 = []
+
+    for i in range(0, len(size_keys), group_size):
+        group_keys = size_keys[i:i + group_size]
+        if len(group_keys) == 0:
+            continue
+
+        # Create label for group
+        if len(group_keys) == 1:
+            label = group_keys[0]
+        else:
+            label = f"{group_keys[0]}..{group_keys[-1]}"
+
+        # Average rates for the group
+        group_rates1 = [rates1.get(k, 0) for k in group_keys if k in rates1]
+        group_rates2 = [rates2.get(k, 0) for k in group_keys if k in rates2]
+
+        avg1 = sum(group_rates1) / len(group_rates1) if group_rates1 else 0
+        avg2 = sum(group_rates2) / len(group_rates2) if group_rates2 else 0
+
+        aggregated_labels.append(label)
+        aggregated_rates1.append(avg1)
+        aggregated_rates2.append(avg2)
+
+    return aggregated_labels, aggregated_rates1, aggregated_rates2
+
+
+def generate_comparison_time_chart(results1: dict, results2: dict, output_path: str = None) -> str:
+    """
+    Generate a comparison chart showing solve time vs complexity for two solvers.
+    Similar to generate_chart but with two lines overlaid.
+
+    Args:
+        results1: First benchmark results dict
+        results2: Second benchmark results dict
+        output_path: Path to save the chart (optional)
+
+    Returns:
+        Path to the saved chart
+    """
+    try:
+        import matplotlib.pyplot as plt
+        import matplotlib
+        matplotlib.use('Agg')
+        from matplotlib.lines import Line2D
+    except ImportError:
+        raise ImportError("matplotlib is required for chart generation.")
+
+    # Get model names and scenario
+    model1 = results1.get("model_name", "Solver 1")
+    model2 = results2.get("model_name", "Solver 2")
+    scenario = results1.get("scenario", results2.get("scenario", "Unknown"))
+
+    # Build data points for each solver, keyed by size_key
+    def build_time_data(results: dict) -> dict:
+        """Build dict of size_key -> list of (time, success) tuples."""
+        by_key = {}
+        for problem in results.get("results", []):
+            size_key = problem.get("size_key", "unknown")
+            solve_time = problem.get("solve_time_seconds", 0)
+            is_success = problem.get("category") == "success_plans"
+            if size_key not in by_key:
+                by_key[size_key] = []
+            by_key[size_key].append((solve_time, is_success))
+        return by_key
+
+    data1 = build_time_data(results1)
+    data2 = build_time_data(results2)
+
+    # Get all unique size_keys and sort them
+    all_keys = set(data1.keys()) | set(data2.keys())
+    sorted_keys = sort_complexity_keys(list(all_keys))
+
+    # Compute average time per size_key for each solver
+    def get_avg_times(data: dict, keys: list) -> tuple:
+        """Return (times, success_rates) for each key."""
+        times = []
+        success_rates = []
+        for key in keys:
+            if key in data:
+                entries = data[key]
+                avg_time = sum(t for t, _ in entries) / len(entries)
+                success_rate = sum(1 for _, s in entries if s) / len(entries)
+                times.append(avg_time)
+                success_rates.append(success_rate)
+            else:
+                times.append(None)
+                success_rates.append(None)
+        return times, success_rates
+
+    times1, sr1 = get_avg_times(data1, sorted_keys)
+    times2, sr2 = get_avg_times(data2, sorted_keys)
+
+    # Create figure
+    fig_width = max(14, len(sorted_keys) * 0.4)
+    _fig, ax = plt.subplots(figsize=(fig_width, 6))
+
+    x_indices = list(range(len(sorted_keys)))
+
+    # Common color for both lines
+    line_color = '#2980b9'  # Blue
+
+    # Plot solver 1 (solid line)
+    valid_x1 = [i for i, t in enumerate(times1) if t is not None]
+    valid_times1 = [times1[i] for i in valid_x1]
+    valid_sr1 = [sr1[i] for i in valid_x1]
+    colors1 = ["#2ecc71" if sr == 1.0 else "#e74c3c" if sr == 0.0 else "#f39c12" for sr in valid_sr1]
+
+    ax.scatter(valid_x1, valid_times1, c=colors1, s=80, alpha=0.9, edgecolors=line_color, linewidths=2, zorder=3, marker='o')
+    ax.plot(valid_x1, valid_times1, color=line_color, linewidth=2, alpha=0.8, zorder=2, linestyle='-', label=model1)
+
+    # Plot solver 2 (dashed line)
+    valid_x2 = [i for i, t in enumerate(times2) if t is not None]
+    valid_times2 = [times2[i] for i in valid_x2]
+    valid_sr2 = [sr2[i] for i in valid_x2]
+    colors2 = ["#2ecc71" if sr == 1.0 else "#e74c3c" if sr == 0.0 else "#f39c12" for sr in valid_sr2]
+
+    ax.scatter(valid_x2, valid_times2, c=colors2, s=80, alpha=0.9, edgecolors=line_color, linewidths=2, zorder=3, marker='s')
+    ax.plot(valid_x2, valid_times2, color=line_color, linewidth=2, alpha=0.8, zorder=2, linestyle='--', label=model2)
+
+    # Customize axes
+    ax.set_xlabel("Problem Complexity", fontsize=12)
+    ax.set_ylabel("Solve Time (seconds)", fontsize=12)
+    ax.set_title(f"Benchmark Comparison: {scenario} - {model1} vs {model2}", fontsize=14)
+
+    # Set x-axis ticks
+    if len(sorted_keys) <= 30:
+        ax.set_xticks(x_indices)
+        ax.set_xticklabels(sorted_keys, rotation=45, ha='right')
+    else:
+        step = max(1, len(sorted_keys) // 25)
+        ax.set_xticks(x_indices[::step])
+        ax.set_xticklabels(sorted_keys[::step], rotation=45, ha='right')
+
+    # Add grid
+    ax.grid(True, alpha=0.3)
+
+    # Create legend with line styles and success/failure markers
+    legend_elements = [
+        Line2D([0], [0], color=line_color, linewidth=2, linestyle='-', marker='o',
+               markerfacecolor=line_color, markeredgecolor=line_color, markersize=8, label=f"{model1} (solid)"),
+        Line2D([0], [0], color=line_color, linewidth=2, linestyle='--', marker='s',
+               markerfacecolor=line_color, markeredgecolor=line_color, markersize=8, label=f"{model2} (dashed)"),
+        Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71', markersize=10, label='Success'),
+        Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c', markersize=10, label='Failure'),
+    ]
+    ax.legend(handles=legend_elements, loc='upper left')
+
+    # Calculate stats
+    total1 = sum(len(data1.get(k, [])) for k in sorted_keys)
+    success1 = sum(sum(1 for _, s in data1.get(k, []) if s) for k in sorted_keys)
+    avg_time1 = sum(t for t in valid_times1) / len(valid_times1) if valid_times1 else 0
+    rate1 = (success1 / total1 * 100) if total1 > 0 else 0
+
+    total2 = sum(len(data2.get(k, [])) for k in sorted_keys)
+    success2 = sum(sum(1 for _, s in data2.get(k, []) if s) for k in sorted_keys)
+    avg_time2 = sum(t for t in valid_times2) / len(valid_times2) if valid_times2 else 0
+    rate2 = (success2 / total2 * 100) if total2 > 0 else 0
+
+    # Add summary text
+    summary_text = (f"{model1}: {success1}/{total1} ({rate1:.1f}%), Avg: {avg_time1:.1f}s\n"
+                    f"{model2}: {success2}/{total2} ({rate2:.1f}%), Avg: {avg_time2:.1f}s")
+    ax.text(0.98, 0.98, summary_text, transform=ax.transAxes, fontsize=10,
+            verticalalignment='top', horizontalalignment='right',
+            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+    plt.tight_layout()
+
+    # Determine output path
+    if output_path is None:
+        output_path = f"comparison_{model1}_vs_{model2}_{scenario}.png".replace(" ", "_")
+
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
+
+    return output_path
+
+
+def generate_comparison_chart(results1: dict, results2: dict, output_path: str = None, aggregate_levels: int = 1, chart_style: str = "line") -> str:
+    """
+    Generate a comparison chart for two benchmark results.
+
+    Args:
+        results1: First benchmark results dict
+        results2: Second benchmark results dict
+        output_path: Path to save the chart (optional)
+        aggregate_levels: Number of complexity levels to aggregate (1 = no aggregation)
+        chart_style: "line" for line chart (default), "bar" for grouped bar chart
+
+    Returns:
+        Path to the saved chart
+    """
+    try:
+        import matplotlib.pyplot as plt
+        import matplotlib
+        matplotlib.use('Agg')  # Use non-interactive backend
+        import numpy as np
+    except ImportError:
+        raise ImportError("matplotlib and numpy are required for chart generation. Install with: pip install matplotlib numpy")
+
+    # Align results by size_key
+    sorted_keys, rates1, rates2 = align_results_by_size_key(results1, results2)
+
+    if not sorted_keys:
+        raise ValueError("No common size_keys found between the two benchmarks")
+
+    # Aggregate if requested
+    labels, values1, values2 = aggregate_by_level_groups(sorted_keys, rates1, rates2, aggregate_levels)
+
+    # Get model names
+    model1 = results1.get("model_name", "Solver 1")
+    model2 = results2.get("model_name", "Solver 2")
+    scenario = results1.get("scenario", results2.get("scenario", "Unknown"))
+
+    # Calculate overall averages
+    all_rates1 = [rates1.get(k, 0) for k in sorted_keys if k in rates1]
+    all_rates2 = [rates2.get(k, 0) for k in sorted_keys if k in rates2]
+    avg1 = sum(all_rates1) / len(all_rates1) if all_rates1 else 0
+    avg2 = sum(all_rates2) / len(all_rates2) if all_rates2 else 0
+
+    # Create figure
+    fig_width = max(12, len(labels) * 0.5)
+    fig, ax = plt.subplots(figsize=(fig_width, 6))
+
+    x = np.arange(len(labels))
+
+    if chart_style == "line":
+        # Line chart with markers
+        ax.plot(x, values1, marker='o', linewidth=2, markersize=8, label=model1,
+                color='#3498db', markerfacecolor='#3498db', markeredgecolor='white', markeredgewidth=1.5)
+        ax.plot(x, values2, marker='s', linewidth=2, markersize=8, label=model2,
+                color='#e67e22', markerfacecolor='#e67e22', markeredgecolor='white', markeredgewidth=1.5)
+
+        # Fill area under curves (optional, for visual effect)
+        ax.fill_between(x, values1, alpha=0.1, color='#3498db')
+        ax.fill_between(x, values2, alpha=0.1, color='#e67e22')
+
+    else:
+        # Grouped bar chart
+        width = 0.35
+        ax.bar(x - width / 2, values1, width, label=model1, color='#3498db', edgecolor='black', linewidth=0.5)
+        ax.bar(x + width / 2, values2, width, label=model2, color='#e67e22', edgecolor='black', linewidth=0.5)
+
+    # Customize axes
+    ax.set_xlabel("Problem Complexity", fontsize=12)
+    ax.set_ylabel("Success Rate (%)", fontsize=12)
+    ax.set_title(f"Comparison: {model1} vs {model2} on {scenario}", fontsize=14)
+
+    # Set x-axis ticks
+    if len(labels) <= 25:
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels, rotation=45, ha='right')
+    else:
+        # Show every Nth label for readability
+        step = max(1, len(labels) // 20)
+        ax.set_xticks(x[::step])
+        ax.set_xticklabels([labels[i] for i in range(0, len(labels), step)], rotation=45, ha='right')
+
+    # Set y-axis range
+    ax.set_ylim(0, 105)
+
+    # Add grid
+    ax.grid(True, alpha=0.3)
+    ax.set_axisbelow(True)
+
+    # Add legend
+    ax.legend(loc='upper right', fontsize=10)
+
+    # Add summary annotation
+    summary_text = f"Overall Avg: {model1}: {avg1:.1f}%  |  {model2}: {avg2:.1f}%"
+    ax.text(0.02, 0.98, summary_text, transform=ax.transAxes, fontsize=10,
+            verticalalignment='top', horizontalalignment='left',
+            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+    plt.tight_layout()
+
+    # Determine output path
+    if output_path is None:
+        output_path = f"comparison_{model1}_vs_{model2}_{scenario}.png".replace(" ", "_")
+
+    # Save the chart
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
+
+    return output_path
+
+
 def format_table_latex(summary: dict) -> str:
     """Generate a LaTeX table from summary."""
     lines = []
@@ -408,9 +767,71 @@ def main():
         "--chart-output",
         help="Output file path for chart (default: benchmark_chart_<scenario>.png in benchmark folder)"
     )
+    parser.add_argument(
+        "--compare",
+        metavar="FOLDER",
+        help="Second benchmark folder to compare against (generates comparison chart)"
+    )
+    parser.add_argument(
+        "--aggregate-levels",
+        type=int,
+        default=1,
+        help="Aggregate N complexity levels into groups for cleaner comparison charts (default: 1, no aggregation)"
+    )
+    parser.add_argument(
+        "--chart-style",
+        choices=["line", "bar"],
+        default="line",
+        help="Chart style for comparison: 'line' (default) or 'bar'"
+    )
+    parser.add_argument(
+        "--time-chart",
+        action="store_true",
+        help="Generate time-based comparison chart (like original benchmark chart with two curves)"
+    )
 
     args = parser.parse_args()
 
+    # Handle comparison mode
+    if args.compare:
+        try:
+            results1 = load_results(args.benchmark_folder)
+            results2 = load_results(args.compare)
+
+            # Validate same scenario (optional warning)
+            scenario1 = results1.get("scenario", "unknown")
+            scenario2 = results2.get("scenario", "unknown")
+            if scenario1 != scenario2:
+                print(f"Warning: Comparing different scenarios ({scenario1} vs {scenario2})", file=sys.stderr)
+
+            # Generate comparison chart
+            chart_output = args.chart_output
+            if chart_output is None:
+                model1 = results1.get("model_name", "solver1").replace(" ", "_")
+                model2 = results2.get("model_name", "solver2").replace(" ", "_")
+                chart_output = str(Path(args.benchmark_folder) / f"comparison_{model1}_vs_{model2}.png")
+
+            if args.time_chart:
+                chart_path = generate_comparison_time_chart(results1, results2, chart_output)
+            else:
+                chart_path = generate_comparison_chart(
+                    results1, results2, chart_output, args.aggregate_levels, args.chart_style
+                )
+            print(f"Comparison chart saved to: {chart_path}")
+
+        except FileNotFoundError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+        except ImportError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error: Failed to generate comparison chart - {e}", file=sys.stderr)
+            sys.exit(1)
+
+        return  # Exit after comparison mode
+
+    # Standard mode: generate table and chart
     try:
         summary = load_summary(args.benchmark_folder)
     except FileNotFoundError as e:

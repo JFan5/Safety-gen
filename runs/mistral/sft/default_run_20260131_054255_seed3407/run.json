@@ -1,0 +1,47 @@
+{
+  "run_id": "default_run_20260131_054255_seed3407",
+  "method": "sft",
+  "model_type": "mistral",
+  "status": "finished",
+  "start_time": "2026-01-31T05:42:55.322841",
+  "end_time": "2026-01-31T05:58:44.644934",
+  "config": {
+    "base_model": "unsloth/mistral-7b-instruct-v0.3-bnb-4bit",
+    "dataset": "/jfan5/sft_data/four_scenarios_simple_20260131_054117/combined.hf",
+    "output_dir": "sft_models/default_run",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-finetune",
+    "run_name": "default_run",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "runs/mistral/sft/default_run_20260131_054255_seed3407/model"
+  },
+  "git": {
+    "commit": "f8028f04a13f61e66d05e31c00e12417fbd62791",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8_20260131_060535": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260131_060535",
+      "main_metric": 24.0,
+      "timestamp": "2026-01-31T06:05:35.826070"
+    },
+    "solver_batch__temp0.6_max512_bs8_20260131_061143": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260131_061143",
+      "main_metric": 98.0,
+      "timestamp": "2026-01-31T06:11:43.137745"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "family": "mistral",
+    "val_ratio": 0.05,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05
+  }
+}

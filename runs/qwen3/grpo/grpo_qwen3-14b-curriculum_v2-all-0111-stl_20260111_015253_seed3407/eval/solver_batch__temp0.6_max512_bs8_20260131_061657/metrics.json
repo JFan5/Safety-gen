@@ -1,0 +1,81 @@
+{
+  "eval_id": "solver_batch__temp0.6_max512_bs8_20260131_061657",
+  "timestamp": "2026-01-31T06:16:57.583173",
+  "model_path": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000",
+  "per_scenario": {
+    "spanner": {
+      "total_tests": 50,
+      "success_count": 21,
+      "success_rate": 42.0,
+      "category_counts": {
+        "success_plans": 21,
+        "plan_format_error": 0,
+        "precondition_violation": 4,
+        "safety_constraints_violation": 25,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 42.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 8.0,
+        "safety_constraints_violation": 50.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s3-n2-l5": {
+          "total": 10,
+          "success": 10,
+          "success_rate": 100.0
+        },
+        "s4-n3-l5": {
+          "total": 10,
+          "success": 4,
+          "success_rate": 40.0
+        },
+        "s5-n4-l6": {
+          "total": 10,
+          "success": 4,
+          "success_rate": 40.0
+        },
+        "s5-n5-l7": {
+          "total": 10,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s6-n5-l8": {
+          "total": 10,
+          "success": 3,
+          "success_rate": 30.0
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 50,
+    "success_count": 21,
+    "success_rate": 42.0,
+    "num_scenarios": 1,
+    "category_counts": {
+      "success_plans": 21,
+      "plan_format_error": 0,
+      "precondition_violation": 4,
+      "safety_constraints_violation": 25,
+      "goal_not_satisfied": 0,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 42.0,
+      "plan_format_error": 0.0,
+      "precondition_violation": 8.0,
+      "safety_constraints_violation": 50.0,
+      "goal_not_satisfied": 0.0,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}
