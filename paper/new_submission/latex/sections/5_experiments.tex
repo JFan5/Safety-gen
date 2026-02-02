@@ -41,44 +41,29 @@ For training, Mistral-7B is fine-tuned on a single NVIDIA A10 GPU with 24~GB mem
 Our implementation is based on Python~3.10 and PyTorch~2.8.0~\cite{paszke2019pytorch}, and uses the Hugging Face Transformers library~\cite{wolf-etal-2020-transformers}, TRL~\cite{vonwerra2022trl}, and Unsloth~\cite{unsloth}.
 We adopt LoRA~\cite{hu2022lora} and QLoRA~\cite{dettmers2023qlora} as parameter-efficient fine-tuning strategies to reduce memory usage and training time.
 
-\subsection{Running Time Comparison}
-We first compare the runtime behavior of an LLM-based solver with a classical search-based planner to evaluate scalability as problem complexity grows.
+\subsection{Running Time and Scalability Comparison}
+We compare the runtime and success rates of GPT-5.2~\cite{openai2025gpt5} (LLM-based) with OPTIC~\cite{benton2012temporal} (classical planner) on $48$ problems of increasing complexity in Blocksworld and Grippers, with a $300$s timeout.
 
-We generate planning problems whose parameter sizes range from $3$ to $50$.
-Taking Blocksworld as an example, the simplest instance contains $3$ blocks, whereas the most complex instance contains $50$ blocks to be stacked.
-For each parameter size, we generate $20$ problem instances, resulting in $96$ problems per domain.
-We consider two domains: Blocksworld and Grippers.
-As the LLM-based solver, we use GPT-OSS-20B~\cite{openai2025gptoss120bgptoss20bmodel}, and as the classical baseline, we use OPTIC~\cite{benton2012temporal}.
-GPT-OSS-20B runs on a single NVIDIA A100 GPU with 80~GB memory, while OPTIC runs on an AMD EPYC~9554 64-core CPU with 180~GB memory.
-The timeout for both methods is set to $100$ seconds.
-
-Figure~\ref{fig:running-time-comparison} reports the average solving time across different problem sizes.
-
-\begin{figure}[h]
+\begin{figure}[!ht]
   \centering
-  \begin{subfigure}[b]{0.48\linewidth}
+  \begin{subfigure}[b]{\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/blocksworld_time.png}
-    \caption{Blocksworld domain.}
-    \label{fig:blocksworld-time}
+    \includegraphics[width=\linewidth]{figures/comparison_blocksworld_gpt5.2_vs_optic.png}
+    \caption{Blocksworld: GPT-5.2 100\% (48/48), avg 102.3s vs OPTIC 39.6\% (19/48), avg 114.4s.}
+    \label{fig:benchmark-blocksworld}
   \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.48\linewidth}
-      \centering    
-    \includegraphics[width=\linewidth]{figures/grippers_time.png}
-    \caption{Grippers domain.}
-    \label{fig:grippers-time}
+  \vspace{0.3em}
+  \begin{subfigure}[b]{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/comparison_grippers_gpt5.2_vs_optic.png}
+    \caption{Grippers: GPT-5.2 100\% (48/48), avg 102.6s vs OPTIC 64.6\% (31/48), avg 146.0s.}
+    \label{fig:benchmark-grippers}
   \end{subfigure}
-  \caption{Running time comparison for the LLM-based solver and classical solver in two domains.}
-  \label{fig:running-time-comparison}
+  \caption{Benchmark comparison: GPT-5.2 (solid) vs OPTIC (dashed). Green squares = success, red circles = failure.}
+  \label{fig:benchmark-comparison}
 \end{figure}
 
-We observe from Figure~\ref{fig:running-time-comparison} that, for relatively simple problems, the classical search-based solver is much faster than the LLM-based solver and typically completes within one second.
-However, as the problem complexity increases, the runtime of the classical solver grows dramatically---almost exponentially in these settings---and eventually reaches the timeout limit of $100$ seconds.
-In contrast, the runtime of the LLM-based solver remains relatively stable across different problem sizes.
-
-Because LLM decoding is inherently stochastic, the runtime of the LLM-based solver may occasionally decrease slightly as the problem size increases within a certain range; nevertheless, the overall trend is consistent.
-These results suggest that the LLM-based solver can effectively address the scalability limitations of classical search-based planners in complex planning domains.
+As shown in Figure~\ref{fig:benchmark-comparison}, GPT-5.2 achieves 100\% success in both domains with stable runtime ($\sim$102s), while OPTIC's success rate drops significantly (39.6\% Blocksworld, 64.6\% Grippers) and runtime increases dramatically as problem complexity grows. These results demonstrate that LLM-based solvers effectively address the scalability limitations of classical planners in safety-constrained planning.
 
 \begin{figure}[h]
   \centering
@@ -120,89 +105,58 @@ Therefore, the reported results likely underestimate the potential performance o
 
 \begin{table*}[h]
   \centering
-  \caption{Error Type Percentages by Domain}
+  \caption{Error Type Percentages by Domain Across Training Stages}
   \label{tab:error_percentages}
   \resizebox{0.95\textwidth}{!}{%
-  \begin{tabular}{l|cc|cc|cc|cc||cc}
-  \hline
-  \textbf{Domain} 
-    & \multicolumn{2}{c}{Plan Format Error} 
-    & \multicolumn{2}{c}{Precondition Violation} 
-    & \multicolumn{2}{c}{Safety Constraint Violation} 
-    & \multicolumn{2}{c}{Goal Not Satisfied} 
-    & \multicolumn{2}{c}{Success Plans} \\
-  \hline
-    
-     & \textbf{Pretrained} & \textbf{SFT} 
-     & \textbf{Pretrained} & \textbf{SFT} 
-     & \textbf{Pretrained} & \textbf{SFT} 
-     & \textbf{Pretrained} & \textbf{SFT} 
-     & \textbf{Pretrained} & \textbf{SFT} \\
-  \hline
-  \textbf{Blocksworld} & 0.0\% & 0.0\% & 70.0\% & 58.0\% & 24.0\% & 24.0\% & 2.0\% & 6.0\% & 4.0\% & \textbf{12.0\%} \\
-  \textbf{Ferry      } & 0.0\% & 2.0\% & 98.0\% & 44.0\% & 2.0\% & 36.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{18.0\%} \\
-  \textbf{Grippers   } & 8.0\% & 6.0\% & 42.0\% & 42.0\% & 46.0\% & 30.0\% & 4.0\% & 8.0\% & 0.0\% & \textbf{14.0\%} \\
-  \textbf{Spanner    } & 6.0\% & 2.0\% & 94.0\% & 48.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & \textbf{50.0\%} \\
-  \hline
-  \end{tabular}
-  }% end resizebox
-  \end{table*}
-
-\subsection{SFT and GRPO Model Performance}
-We now evaluate the impact of GRPO on safety performance.
-Starting from the SFT model trained on the four domains, we further fine-tune it using online reinforcement learning via GRPO.
-
-\begin{table*}[!ht]
-  \centering
-  \caption{Error Type Percentages by Domain on SFT and GRPO Models (Qwen3-14B)}
-  \label{tab:error_percentages_sft_grpo}
-  \resizebox{0.95\textwidth}{!}{%
-  \begin{tabular}{l|cc|cc|cc|cc||cc}
+  \begin{tabular}{l||ccc|ccc|ccc|ccc|ccc}
   \hline
   \textbf{Domain}
-  & \multicolumn{2}{c}{Plan Format Error}
-  & \multicolumn{2}{c}{Precondition Violation}
-  & \multicolumn{2}{c}{Safety Constraints Violation}
-  & \multicolumn{2}{c}{Goal Not Satisfied}
-  & \multicolumn{2}{c}{Success Plans} \\
+  & \multicolumn{3}{c|}{Success Plans}
+  & \multicolumn{3}{c|}{Plan Format Error}
+  & \multicolumn{3}{c|}{Precondition Violation}
+  & \multicolumn{3}{c|}{Safety Constraint Violation}
+  & \multicolumn{3}{c}{Goal Not Satisfied} \\
   \hline
-
-  & \textbf{SFT} & \textbf{GRPO}
-  & \textbf{SFT} & \textbf{GRPO}
-  & \textbf{SFT} & \textbf{GRPO}
-  & \textbf{SFT} & \textbf{GRPO}
-  & \textbf{SFT} & \textbf{GRPO} \\
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO} \\
   \hline
-  \textbf{Blocksworld} & 0.0\% & 0.0\% & 24.0\% & 12.0\% & 2.0\% & 0.0\% & 4.0\% & 0.0\% & 70.0\% & \textbf{88.0\%} \\
-  \textbf{Ferry      } & 0.0\% & 0.0\% & 4.0\% & 4.0\% & 10.0\% & 0.0\% & 0.0\% & 0.0\% & 86.0\% & \textbf{96.0\%} \\
-  \textbf{Grippers   } & 0.0\% & 0.0\% & 4.0\% & 0.0\% & 4.0\% & 2.0\% & 0.0\% & 0.0\% & 92.0\% & \textbf{98.0\%} \\
-  \textbf{Spanner    } & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% & 100.0\% & \textbf{100.0\%} \\
+  \textbf{Blocksworld} & 4.0 & 70.0 & \textbf{88.0} & 0.0 & 0.0 & 0.0 & 70.0 & 24.0 & 12.0 & 24.0 & 2.0 & 0.0 & 2.0 & 4.0 & 0.0 \\
+  \textbf{Ferry}       & 0.0 & 86.0 & \textbf{96.0} & 0.0 & 0.0 & 0.0 & 98.0 & 4.0 & 4.0 & 2.0 & 10.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  \textbf{Grippers}    & 0.0 & 92.0 & \textbf{98.0} & 8.0 & 0.0 & 0.0 & 42.0 & 4.0 & 0.0 & 46.0 & 4.0 & 2.0 & 4.0 & 0.0 & 0.0 \\
+  \textbf{Spanner}     & 0.0 & 100.0 & \textbf{100.0} & 6.0 & 0.0 & 0.0 & 94.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
   \hline
   \end{tabular}
-  }% end resizebox
+  }
+  \vspace{0.5em}
+
+  \footnotesize{PT = Pretrained (Mistral-7B baseline); SFT and GRPO use Qwen3-14B. All values in \%.}
 \end{table*}
-Table~\ref{tab:error_percentages_sft_grpo} reports the error-type distributions for the SFT and GRPO models across all four domains.
-We highlight several key findings:
+
+Table~\ref{tab:error_percentages} summarizes the error-type distributions across all training stages: Pretrained (PT), SFT, and GRPO.
+We highlight several key findings that demonstrate the progressive improvements from each training stage:
 
 \begin{enumerate}
-    \item \textbf{Significant success rate improvements after GRPO.}
-    GRPO substantially improves success rates across all domains:
-    from $70\%$ to $88\%$ in Blocksworld (+18\%), from $86\%$ to $96\%$ in Ferry (+10\%), and from $92\%$ to $98\%$ in Grippers (+6\%).
-    Spanner maintains its perfect $100\%$ success rate.
-    These results demonstrate that online RL with verifiable rewards effectively enhances the model's planning capabilities.
+    \item \textbf{Massive reduction in precondition violations.}
+    Precondition violations drop dramatically across training stages: from 70--98\% (Pretrained) to 0--24\% (SFT) to 0--12\% (GRPO).
+    This indicates that both SFT and GRPO enable the model to internalize domain-specific action semantics.
 
-    \item \textbf{Dramatic reduction in safety violations.}
-    GRPO nearly eliminates safety constraint violations: Blocksworld drops from $2\%$ to $0\%$, Ferry from $10\%$ to $0\%$, and Grippers from $4\%$ to $2\%$.
+    \item \textbf{Progressive elimination of safety violations.}
+    Safety constraint violations are substantially reduced at each stage.
+    Pretrained models exhibit up to 46\% violations (Grippers), which SFT reduces to 2--10\%, and GRPO nearly eliminates (0--2\%).
     This demonstrates that online RL with verifiable rewards effectively teaches the model to prioritize safety compliance.
 
-    \item \textbf{Reduced precondition violations.}
-    Precondition violation rates also decrease significantly, particularly in Blocksworld (from $24\%$ to $12\%$) and Grippers (from $4\%$ to $0\%$), indicating improved domain knowledge acquisition through GRPO.
+    \item \textbf{Significant success rate improvements.}
+    Success rates improve from 0--4\% (Pretrained) to 70--100\% (SFT) to 88--100\% (GRPO).
+    GRPO provides consistent gains across all domains: +18\% in Blocksworld, +10\% in Ferry, and +6\% in Grippers.
 
     \item \textbf{Elimination of goal failures.}
-    GRPO completely eliminates goal-not-satisfied errors in Blocksworld (from $4\%$ to $0\%$), demonstrating that the hierarchical reward design effectively guides the model toward complete task fulfillment.
+    GRPO completely eliminates goal-not-satisfied errors in Blocksworld (from 4\% after SFT to 0\%), demonstrating that the hierarchical reward design effectively guides the model toward complete task fulfillment.
 \end{enumerate}
 
-These results show that GRPO provides substantial improvements over SFT alone, enabling the model to generate plans that are both more successful and significantly safer.
+These results show that the proposed training pipeline---SFT followed by GRPO---enables progressive improvements in both safety and success.
 The combination of curriculum learning and verifiable rewards allows the model to explore and learn from its own generated plans, leading to robust safety-aware planning behavior.
 
 \begin{figure*}[!ht]

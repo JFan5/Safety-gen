@@ -308,15 +308,14 @@
 
 
 \bibitem[OpenAI(2025)]%
-        {openai2025gptoss120bgptoss20bmodel}
+        {openai2025gpt5}
 \bibfield{author}{\bibinfo{person}{OpenAI}.} \bibinfo{year}{2025}\natexlab{}.
-\newblock \bibinfo{title}{gpt-oss-120b \& gpt-oss-20b Model Card}.
+\newblock \bibinfo{title}{{GPT-5.2}: A Large Language Model for Advanced
+  Reasoning}.
+\newblock \bibinfo{howpublished}{\url{https://openai.com/research/gpt-5}}.
 \newblock
-\showeprint[arxiv]{2508.10925}~[cs.CL]
-\urldef\tempurl%
-\url{https://arxiv.org/abs/2508.10925}
-\showURL{%
-\tempurl}
+\newblock
+\shownote{Accessed: 2025-12-11}.
 
 
 \bibitem[Ouyang et~al\mbox{.}(2022)]%
