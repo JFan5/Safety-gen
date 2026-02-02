@@ -163,6 +163,16 @@
       "path": "eval/solver_batch__temp0.6_max512_bs8_20260131_061657",
       "main_metric": 42.0,
       "timestamp": "2026-01-31T06:16:57.584484"
+    },
+    "solver_batch_nl_dnl__temp0.6_max512_bs8_20260202_175235": {
+      "path": "eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260202_175235",
+      "main_metric": 69.2,
+      "timestamp": "2026-02-02T18:00:46.505041"
+    },
+    "solver_batch_json_temp0.6_max512_bs8_20260202_191429": {
+      "path": "eval/solver_batch_json_temp0.6_max512_bs8_20260202_191429",
+      "main_metric": 74.4,
+      "timestamp": "2026-02-02T19:21:11.622410"
     }
   },
   "invalid_paths": null,

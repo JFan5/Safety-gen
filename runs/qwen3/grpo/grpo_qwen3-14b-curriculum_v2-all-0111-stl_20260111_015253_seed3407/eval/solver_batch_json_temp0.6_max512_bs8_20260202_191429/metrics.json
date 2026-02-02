@@ -1,0 +1,301 @@
+{
+  "eval_id": "solver_batch_json_temp0.6_max512_bs8_20260202_191429",
+  "timestamp": "2026-02-02T19:21:11.620743",
+  "model_path": "/jfan5/grpo_models/qwen3-14b-curriculum_v2-all-0111-stl-1000",
+  "per_scenario": {
+    "blocksworld": {
+      "total_tests": 50,
+      "success_count": 40,
+      "success_rate": 80.0,
+      "category_counts": {
+        "success_plans": 40,
+        "plan_format_error": 0,
+        "precondition_violation": 4,
+        "safety_constraints_violation": 4,
+        "goal_not_satisfied": 2,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 80.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 8.0,
+        "safety_constraints_violation": 8.0,
+        "goal_not_satisfied": 4.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "ops3-n3": {
+          "total": 7,
+          "success": 6,
+          "success_rate": 85.71428571428571
+        },
+        "ops3-n4": {
+          "total": 7,
+          "success": 5,
+          "success_rate": 71.42857142857143
+        },
+        "ops3-n5": {
+          "total": 3,
+          "success": 3,
+          "success_rate": 100.0
+        },
+        "ops3-n6": {
+          "total": 7,
+          "success": 2,
+          "success_rate": 28.57142857142857
+        },
+        "ops4-n4": {
+          "total": 7,
+          "success": 6,
+          "success_rate": 85.71428571428571
+        },
+        "ops4-n5": {
+          "total": 10,
+          "success": 9,
+          "success_rate": 90.0
+        },
+        "ops4-n6": {
+          "total": 9,
+          "success": 9,
+          "success_rate": 100.0
+        }
+      }
+    },
+    "delivery": {
+      "total_tests": 50,
+      "success_count": 1,
+      "success_rate": 2.0,
+      "category_counts": {
+        "success_plans": 1,
+        "plan_format_error": 0,
+        "precondition_violation": 31,
+        "safety_constraints_violation": 18,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 2.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 62.0,
+        "safety_constraints_violation": 36.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s2-p1": {
+          "total": 9,
+          "success": 1,
+          "success_rate": 11.11111111111111
+        },
+        "s2-p2": {
+          "total": 9,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s3-p1": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s3-p2": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s4-p1": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        },
+        "s4-p2": {
+          "total": 8,
+          "success": 0,
+          "success_rate": 0.0
+        }
+      }
+    },
+    "ferry": {
+      "total_tests": 50,
+      "success_count": 48,
+      "success_rate": 96.0,
+      "category_counts": {
+        "success_plans": 48,
+        "plan_format_error": 0,
+        "precondition_violation": 1,
+        "safety_constraints_violation": 1,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 96.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 2.0,
+        "safety_constraints_violation": 2.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "l3-c2": {
+          "total": 2,
+          "success": 2,
+          "success_rate": 100.0
+        },
+        "l3-c3": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0
+        },
+        "l4-c2": {
+          "total": 10,
+          "success": 9,
+          "success_rate": 90.0
+        },
+        "l4-c3": {
+          "total": 3,
+          "success": 3,
+          "success_rate": 100.0
+        },
+        "l5-c2": {
+          "total": 12,
+          "success": 11,
+          "success_rate": 91.66666666666666
+        },
+        "l6-c2": {
+          "total": 1,
+          "success": 1,
+          "success_rate": 100.0
+        },
+        "l6-c3": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0
+        }
+      }
+    },
+    "grippers": {
+      "total_tests": 50,
+      "success_count": 49,
+      "success_rate": 98.0,
+      "category_counts": {
+        "success_plans": 49,
+        "plan_format_error": 0,
+        "precondition_violation": 1,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 98.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 2.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "n1-r3-o3": {
+          "total": 3,
+          "success": 3,
+          "success_rate": 100.0
+        },
+        "n1-r4-o3": {
+          "total": 22,
+          "success": 22,
+          "success_rate": 100.0
+        },
+        "n2-r3-o2": {
+          "total": 2,
+          "success": 2,
+          "success_rate": 100.0
+        },
+        "n2-r3-o3": {
+          "total": 20,
+          "success": 19,
+          "success_rate": 95.0
+        },
+        "n2-r4-o3": {
+          "total": 3,
+          "success": 3,
+          "success_rate": 100.0
+        }
+      }
+    },
+    "spanner": {
+      "total_tests": 50,
+      "success_count": 48,
+      "success_rate": 96.0,
+      "category_counts": {
+        "success_plans": 48,
+        "plan_format_error": 0,
+        "precondition_violation": 2,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "generation_error": 0,
+        "others": 0
+      },
+      "category_rates": {
+        "success_plans": 96.0,
+        "plan_format_error": 0.0,
+        "precondition_violation": 4.0,
+        "safety_constraints_violation": 0.0,
+        "goal_not_satisfied": 0.0,
+        "generation_error": 0.0,
+        "others": 0.0
+      },
+      "size_success_rates": {
+        "s2-n2-l3": {
+          "total": 17,
+          "success": 17,
+          "success_rate": 100.0
+        },
+        "s3-n2-l4": {
+          "total": 8,
+          "success": 8,
+          "success_rate": 100.0
+        },
+        "s3-n3-l4": {
+          "total": 9,
+          "success": 8,
+          "success_rate": 88.88888888888889
+        },
+        "s4-n3-l4": {
+          "total": 16,
+          "success": 15,
+          "success_rate": 93.75
+        }
+      }
+    }
+  },
+  "overall": {
+    "total_tests": 250,
+    "success_count": 186,
+    "success_rate": 74.4,
+    "num_scenarios": 5,
+    "category_counts": {
+      "success_plans": 186,
+      "plan_format_error": 0,
+      "precondition_violation": 39,
+      "safety_constraints_violation": 23,
+      "goal_not_satisfied": 2,
+      "generation_error": 0,
+      "others": 0
+    },
+    "category_rates": {
+      "success_plans": 74.4,
+      "plan_format_error": 0.0,
+      "precondition_violation": 15.6,
+      "safety_constraints_violation": 9.2,
+      "goal_not_satisfied": 0.8,
+      "generation_error": 0.0,
+      "others": 0.0
+    }
+  }
+}
