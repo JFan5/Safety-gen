@@ -1,0 +1,40 @@
+{
+  "run_id": "grpo_mistral_7b-curriculum_v2-all-0201-stl_20260201_214005_seed3407",
+  "method": "grpo",
+  "model_type": "mistral",
+  "status": "failed",
+  "start_time": "2026-02-01T21:40:05.267867",
+  "end_time": "2026-02-02T02:50:57.423219",
+  "config": {
+    "base_model": "runs/mistral/sft/default_run_20260201_184350_seed3407/model",
+    "dataset": "/jfan5/grpo_data/five_domain_20260201_205811",
+    "output_dir": null,
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-mistral7b",
+    "run_name": "grpo_mistral_7b-curriculum_v2-all-0201-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/qmnbce4p"
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "4957ea3d065689d27acf6f76d5af467f42f0eb01",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 6,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "Received signal: SIGINT"
+}

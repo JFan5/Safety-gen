@@ -1,0 +1,29 @@
+## Domain / Scenario
+Domain: delivery
+
+## Objects
+Cell: c_0_0, c_0_1, c_1_0, c_1_1
+Package: p1, p2
+Truck: t1
+
+## Initial State
+- Cell c_1_1 is adjacent to cell c_0_1.
+- Cell c_1_0 is adjacent to cell c_0_0.
+- Cell c_1_0 is adjacent to cell c_1_1.
+- Cell c_1_1 is adjacent to cell c_1_0.
+- Cell c_0_0 is adjacent to cell c_0_1.
+- Cell c_0_1 is adjacent to cell c_0_0.
+- Cell c_0_1 is adjacent to cell c_1_1.
+- Cell c_0_0 is adjacent to cell c_1_0.
+- T1 is at cell c_0_0.
+- P2 is at cell c_1_1.
+- P1 is at cell c_0_0.
+- Truck t1 is empty.
+
+## Goal
+All of the following must be true:
+  - P1 is at cell c_1_1.
+  - P2 is at cell c_1_1.
+
+## Constraints
+- At all times during the plan, it is not the case that truck t1 was last at cell c_0_1 and t1 is at cell c_1_1 and it is not the case that truck t1 was last at cell c_1_1 and t1 is at cell c_0_1 must hold.

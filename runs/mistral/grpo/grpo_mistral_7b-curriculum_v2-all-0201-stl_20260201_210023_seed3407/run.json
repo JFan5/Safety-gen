@@ -1,0 +1,40 @@
+{
+  "run_id": "grpo_mistral_7b-curriculum_v2-all-0201-stl_20260201_210023_seed3407",
+  "method": "grpo",
+  "model_type": "mistral",
+  "status": "failed",
+  "start_time": "2026-02-01T21:00:23.528366",
+  "end_time": "2026-02-01T21:00:24.709613",
+  "config": {
+    "base_model": "/home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260201_184350_seed3407",
+    "dataset": "/jfan5/grpo_data/five_domain_20260201_205811",
+    "output_dir": null,
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-mistral7b",
+    "run_name": "grpo_mistral_7b-curriculum_v2-all-0201-stl",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "4957ea3d065689d27acf6f76d5af467f42f0eb01",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "OSError: Error no file named pytorch_model.bin, model.safetensors, tf_model.h5, model.ckpt.index or flax_model.msgpack found in directory /home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260201_184350_seed3407."
+}

@@ -75,21 +75,22 @@ def read_file(file_path: Path) -> str:
 
 
 def process_scenario(scenario: str, pddl3_dir: Path, max_problems: Optional[int] = None,
-                     prompt_template: Optional[str] = None) -> List[Dict]:
-    """从 grpo_500 目录读取问题并生成训练数据
+                     prompt_template: Optional[str] = None, problems_subdir: str = "grpo_500") -> List[Dict]:
+    """从指定子目录读取问题并生成训练数据
 
     Args:
         scenario: 场景名称
         pddl3_dir: pddl3 目录路径
         max_problems: 最大问题数量
         prompt_template: 外部 prompt 模板（如果为 None，使用简单模板）
+        problems_subdir: 问题子目录名称（默认 grpo_500）
     """
     print(f"\n{'='*80}")
     print(f"Processing scenario: {scenario}")
     print(f"{'='*80}")
 
     # 路径
-    grpo_500_dir = pddl3_dir / scenario / "grpo_500"
+    grpo_500_dir = pddl3_dir / scenario / problems_subdir
     domain3_file = pddl3_dir / scenario / "domain3.pddl"
 
     if not grpo_500_dir.exists():
@@ -123,7 +124,7 @@ def process_scenario(scenario: str, pddl3_dir: Path, max_problems: Optional[int]
         problem_id = pddl_file.stem
 
         # 相对路径（用于 meta）
-        problem_rel = f"pddl3/{scenario}/grpo_500/{pddl_file.name}"
+        problem_rel = f"pddl3/{scenario}/{problems_subdir}/{pddl_file.name}"
 
         # 读取问题
         problem_pddl = read_file(pddl_file)
@@ -193,6 +194,8 @@ def main():
                         help="Prompt template mode: 'simple' uses built-in template, 'file' reads from prompt file (default: simple)")
     parser.add_argument("--prompt-file", type=str, default="/home/ubuntu/Safety-gen/prompt.txt",
                         help="Path to prompt template file (used when --prompt-mode=file)")
+    parser.add_argument("--problems-subdir", type=str, default="grpo_500",
+                        help="Subdirectory name under each scenario containing problems (default: grpo_500)")
     args = parser.parse_args()
 
     pddl3_dir = Path(args.pddl3_dir)
@@ -201,6 +204,7 @@ def main():
     max_problems = args.max_problems
     prompt_mode = args.prompt_mode
     prompt_file = Path(args.prompt_file)
+    problems_subdir = args.problems_subdir
 
     # 加载 prompt 模板
     prompt_template = None
@@ -220,6 +224,7 @@ def main():
     print("  - Note: No plan/response - GRPO generates online and evaluates via reward function")
     print(f"\nScenarios: {scenarios}")
     print(f"Max problems per scenario: {max_problems}")
+    print(f"Problems subdirectory: {problems_subdir}")
     print(f"Prompt mode: {prompt_mode}" + (f" ({prompt_file})" if prompt_mode == "file" else " (built-in)"))
 
     all_data = []
@@ -229,7 +234,7 @@ def main():
     # 处理每个场景
     for scenario in scenarios:
         try:
-            scenario_data = process_scenario(scenario, pddl3_dir, max_problems, prompt_template)
+            scenario_data = process_scenario(scenario, pddl3_dir, max_problems, prompt_template, problems_subdir)
 
             if scenario_data:
                 # 保存单场景 JSONL

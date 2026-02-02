@@ -10,9 +10,11 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 cd "${REPO_ROOT}"
 
 # Configuration
-SCENARIOS=(blocksworld spanner ferry  grippers)
+SCENARIOS=(blocksworld spanner ferry  grippers delivery)
 MAX_PROBLEMS=500
-OUTPUT_DIR="/jfan5/grpo_data/five_domain_0111"
+PROBLEMS_SUBDIR="grpo_500_hard"  # Configurable subdirectory (e.g., grpo_500, grpo_500_hard)
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+OUTPUT_DIR="/jfan5/grpo_data/five_domain_${TIMESTAMP}"
 PDDL3_DIR="${REPO_ROOT}/pddl3"
 GENERATE_SCRIPT="${REPO_ROOT}/script/generate_grpo_500.py"
 
@@ -23,6 +25,7 @@ echo ""
 echo "Configuration:"
 echo "  Scenarios: ${SCENARIOS[*]}"
 echo "  Max problems per scenario: ${MAX_PROBLEMS}"
+echo "  Problems subdirectory: ${PROBLEMS_SUBDIR}"
 echo "  Output directory: ${OUTPUT_DIR}"
 echo "  PDDL3 directory: ${PDDL3_DIR}"
 echo ""
@@ -39,15 +42,15 @@ if [[ ! -d "${PDDL3_DIR}" ]]; then
     exit 1
 fi
 
-# Pre-check: Verify grpo_500 directories exist for all scenarios
-echo "Pre-checking grpo_500 directories..."
+# Pre-check: Verify problems directories exist for all scenarios
+echo "Pre-checking ${PROBLEMS_SUBDIR} directories..."
 missing_dirs=()
 for scenario in "${SCENARIOS[@]}"; do
-    grpo_dir="${PDDL3_DIR}/${scenario}/grpo_500"
+    grpo_dir="${PDDL3_DIR}/${scenario}/${PROBLEMS_SUBDIR}"
     domain_file="${PDDL3_DIR}/${scenario}/domain3.pddl"
 
     if [[ ! -d "${grpo_dir}" ]]; then
-        missing_dirs+=("${scenario}: grpo_500 directory missing")
+        missing_dirs+=("${scenario}: ${PROBLEMS_SUBDIR} directory missing")
     elif [[ ! -f "${domain_file}" ]]; then
         missing_dirs+=("${scenario}: domain3.pddl missing")
     else
@@ -83,7 +86,8 @@ python3 "${GENERATE_SCRIPT}" \
     --pddl3-dir "${PDDL3_DIR}" \
     --scenarios "${SCENARIOS[@]}" \
     --prompt-mode "file" \
-    --max-problems "${MAX_PROBLEMS}"
+    --max-problems "${MAX_PROBLEMS}" \
+    --problems-subdir "${PROBLEMS_SUBDIR}"
 
 # Post-check: Verify output files
 echo ""

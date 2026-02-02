@@ -1,0 +1,37 @@
+{
+  "run_id": "default_run_20260202_025244_seed3407",
+  "method": "sft",
+  "model_type": "qwen3",
+  "status": "failed",
+  "start_time": "2026-02-02T02:52:44.605664",
+  "end_time": "2026-02-02T02:53:19.688607",
+  "config": {
+    "base_model": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+    "dataset": "/jfan5/sft_data/four_scenarios_simple_20260201_182111",
+    "output_dir": "sft_models/default_run",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-finetune",
+    "run_name": "default_run",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "/home/ubuntu/Safety-gen/runs/qwen3/sft/default_run_20260202_025244_seed3407/model"
+  },
+  "git": {
+    "commit": "4957ea3d065689d27acf6f76d5af467f42f0eb01",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "family": "qwen",
+    "val_ratio": 0.05,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05
+  },
+  "error": "FileNotFoundError: Directory /jfan5/sft_data/four_scenarios_simple_20260201_182111 is neither a `Dataset` directory nor a `DatasetDict` directory."
+}

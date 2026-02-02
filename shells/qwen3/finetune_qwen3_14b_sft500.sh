@@ -11,8 +11,7 @@ cd /home/ubuntu/Safety-gen
 
 # Configuration
 MODEL="unsloth/Qwen3-14B-unsloth-bnb-4bit"
-DATASET="/jfan5/sft_data/four_scenarios500/combined.hf"
-OUTPUT_DIR="/jfan5/sft_models/qwen3_14b/four_scenarios500"
+DATASET="/jfan5/sft_data/four_scenarios_simple_20260201_182111/combined.hf"
 
 # Training parameters
 NUM_EPOCHS=3
@@ -20,7 +19,7 @@ BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=2
 LEARNING_RATE=2e-4
 SEED=3407
-MAX_SEQ_LENGTH=4096
+MAX_SEQ_LENGTH=1576
 
 echo "=========================================="
 echo "Fine-tuning Qwen3-14B"
@@ -44,7 +43,6 @@ python3 pddl_finetune.py \
     --model "${MODEL}" \
     --family qwen \
     --dataset "${DATASET}" \
-    --output "${OUTPUT_DIR}" \
     --num-train-epochs ${NUM_EPOCHS} \
     --per-device-train-batch-size ${BATCH_SIZE} \
     --gradient-accumulation-steps ${GRADIENT_ACCUMULATION_STEPS} \

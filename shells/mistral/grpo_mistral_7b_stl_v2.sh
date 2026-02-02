@@ -35,20 +35,20 @@ fi
 # GRPO V2 Training Configuration
 # Curriculum Learning + Domain-Balanced Batching
 # ==========================================
-BASE_MODEL="/jfan5/sft_models/mistral_7b/symbolized_v2"
+BASE_MODEL="runs/mistral/sft/default_run_20260201_184350_seed3407/model"
 
 # V2 uses multi-domain data directory instead of single JSONL
 # Expected structure: /jfan5/grpo_data/five_domain_0109/{blocksworld,ferry,grippers,spanner}.jsonl
-DATA_ROOT="/jfan5/grpo_data/five_domain_0109/"
+DATA_ROOT="/jfan5/grpo_data/five_domain_20260201_205811"
 
 # Training parameters
 # NOTE: batch_size MUST be divisible by num_domains
 # For single domain: any batch size works
 # For all domains (4): Valid batch sizes: 4, 8, 12, 16, 20, ...
-BATCH_SIZE=32
+BATCH_SIZE=30
 GRADIENT_ACCUMULATION_STEPS=1
 LEARNING_RATE=1e-5
-NUM_GENERATIONS=8
+NUM_GENERATIONS=6
 TEMPERATURE=0.6
 MAX_STEPS=1000
 TOP_P=0.9

@@ -1,0 +1,40 @@
+{
+  "run_id": "grpo_mistral_7b-curriculum_v2-all-0201-stl_20260201_213533_seed3407",
+  "method": "grpo",
+  "model_type": "mistral",
+  "status": "failed",
+  "start_time": "2026-02-01T21:35:33.903404",
+  "end_time": "2026-02-01T21:35:41.576896",
+  "config": {
+    "base_model": "runs/mistral/sft/default_run_20260201_184350_seed3407/model",
+    "dataset": "/jfan5/grpo_data/five_domain_20260201_205811",
+    "output_dir": null,
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-mistral7b",
+    "run_name": "grpo_mistral_7b-curriculum_v2-all-0201-stl",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "4957ea3d065689d27acf6f76d5af467f42f0eb01",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 8,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "ValueError: batch_size (32) must be divisible by num_domains (5). Domains: ['blocksworld', 'delivery', 'ferry', 'grippers', 'spanner']"
+}

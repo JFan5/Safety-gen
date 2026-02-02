@@ -1,0 +1,11 @@
+batch_size: 8
+eval_id: solver_batch__temp0.6_max512_bs8_20260201_202845
+eval_type: solver_batch
+load_in_4bit: true
+max_new_tokens: 512
+max_problems: 50
+model_path: sft_models/default_run/checkpoint-714
+num_workers: 8
+one_shot: false
+temperature: 0.6
+timestamp: '2026-02-01T20:28:45.892668'
