@@ -111,7 +111,7 @@ def build_order_inversion_constraints(
     if len(order) <= 1:
         return []
 
-    # 生成所有 “逆序” pair：在 plan 中 indexB < indexA，则要求 A 在 B 之前
+    # 生成所有 "逆序" pair：在 plan 中 indexB < indexA，则要求 A 在 B 之前
     idx = {n: i for i, n in enumerate(order)}
     pairs = []
     for i in range(len(order)):
@@ -130,6 +130,46 @@ def build_order_inversion_constraints(
     # A is later in plan, B is earlier. To invert, require A before B.
     cons = [f"(sometime-before (tightened {A}) (tightened {B}))" for _gap, A, B in chosen]
     return cons
+
+
+def build_spanner_invalidating_constraints(
+    problem_text: str,
+    plan_text: Optional[str]
+) -> List[str]:
+    """
+    Build constraints that invalidate the PDDL2 solution for spanner domain.
+
+    1. Parses the PDDL2 solution to get nut tightening order
+    2. Generates 'always imply' constraint that REVERSES the first pair's order
+       Format: (always (imply (not (tightened later_in_plan)) (not (tightened earlier_in_plan))))
+       This means: earlier_in_plan cannot be tightened until later_in_plan is tightened
+    3. Always includes (forall (?m - man) (at-most-once (at ?m shed)))
+
+    Returns empty list if plan_text is None or less than 2 nuts tightened.
+    """
+    constraints = []
+
+    # Always add at-most-once shed constraint
+    constraints.append("(forall (?m - man) (at-most-once (at ?m shed)))")
+
+    if not plan_text:
+        return constraints
+
+    tighten_order = extract_nut_tighten_order_from_plan(plan_text)
+    if len(tighten_order) < 2:
+        return constraints
+
+    # Get first two nuts in plan's tighten order
+    earlier_in_plan = tighten_order[0]  # tightened first in PDDL2 plan
+    later_in_plan = tighten_order[1]    # tightened second in PDDL2 plan
+
+    # Require later_in_plan BEFORE earlier_in_plan to invalidate PDDL2 solution
+    # (always (imply (not (tightened later)) (not (tightened earlier))))
+    # Meaning: until later is tightened, earlier cannot be tightened
+    c = f"(always (imply (not (tightened {later_in_plan})) (not (tightened {earlier_in_plan}))))"
+    constraints.append(c)
+
+    return constraints
 
 def parse_plan_events(plan_text: str) -> List[Tuple[str, Tuple[str, ...]]]:
     events: List[Tuple[str, Tuple[str, ...]]] = []
@@ -409,8 +449,9 @@ def convert_one(
     portfolio_size: int,
     difficulty: str,
     seed_arg: Optional[int],
-     invert_order_from_plan: bool,
+    invert_order_from_plan: bool,
     invert_count: int,
+    constraint_style: str = "default",
 ) -> bool:
     try:
         prob = read_file(problem_path)
@@ -418,6 +459,20 @@ def convert_one(
         plan = read_file(plan_path) if plan_path else None
 
         constraints: List[str] = []
+
+        # NEW: spanner-invalidating constraint style
+        # Takes priority over other modes when specified
+        if constraint_style == "spanner-invalidating":
+            cons_inv = build_spanner_invalidating_constraints(prob, plan)
+            if cons_inv:
+                constraints.extend(cons_inv)
+                out = insert_constraints_block(prob, constraints)
+                write_file(output_path, out)
+                return True
+            else:
+                # No plan or not enough nuts - skip this problem
+                print(f"[SKIP] {problem_path}: no plan or <2 nuts tightened")
+                return False
 
         # 0) portfolio
         if safety_mode == "portfolio":
@@ -430,7 +485,7 @@ def convert_one(
                 out = insert_constraints_block(prob, constraints, footer_meta=f"{difficulty}:{portfolio_size}:{sig}")
                 write_file(output_path, out)
                 return True
-        # NEW: 基于 plan 的“反转顺序”约束（仅当开启开关且 nuts>2）
+        # NEW: 基于 plan 的"反转顺序"约束（仅当开启开关且 nuts>2）
         if invert_order_from_plan:
             cons_inv = build_order_inversion_constraints(prob, plan, invert_count)
             constraints.extend(cons_inv)
@@ -480,6 +535,7 @@ def convert_dir(
     seed_arg: Optional[int],
     invert_order_from_plan: bool,
     invert_count: int,
+    constraint_style: str = "default",
 ) -> Tuple[int, int]:
     ok = 0
     fail = 0
@@ -497,7 +553,8 @@ def convert_dir(
         if convert_one(src, dst, add_aw_legacy, default_k, invalidate_aw,
                        inject_capacity, capacity_scope_unused, man_name_unused,
                        assume_drop_after_tighten, safety_mode, portfolio_size,
-                       difficulty, seed_arg,invert_order_from_plan,invert_count):
+                       difficulty, seed_arg, invert_order_from_plan, invert_count,
+                       constraint_style):
             ok += 1
         else:
             fail += 1
@@ -537,6 +594,11 @@ def main():
     ap.add_argument("--invert-count", type=int, default=1,
                     help="How many inverted order constraints to add (default: 1)")
 
+    # constraint style
+    ap.add_argument("--constraint-style", choices=["default", "spanner-invalidating"], default="default",
+                    help="Constraint generation style. 'spanner-invalidating' uses always-imply to reverse "
+                         "nut tightening order and adds at-most-once shed constraint.")
+
     args = ap.parse_args()
 
     inp = args.input
@@ -547,7 +609,9 @@ def main():
             raise SystemExit("If --input is a directory, --output must be a directory.")
         ok, fail = convert_dir(inp, outp, args.add_aw, args.k, args.invalidate_aw,
                                args.inject_capacity, "", None, args.assume_drop,
-                               args.safety_mode, args.portfolio_size, args.difficulty, args.seed,args.invert_order_from_plan,args.invert_count)
+                               args.safety_mode, args.portfolio_size, args.difficulty, args.seed,
+                               args.invert_order_from_plan, args.invert_count,
+                               args.constraint_style)
         print(f"Converted: ok={ok}, fail={fail} -> {outp}")
     else:
         is_dir = os.path.isdir(outp) or (not os.path.exists(outp) and not outp.lower().endswith(".pddl"))
@@ -564,7 +628,9 @@ def main():
             dst = outp
         ok = convert_one(inp, dst, args.add_aw, args.k, args.invalidate_aw,
                          args.inject_capacity, "", None, args.assume_drop,
-                         args.safety_mode, args.portfolio_size, args.difficulty, args.seed,args.invert_order_from_plan,args.invert_count)
+                         args.safety_mode, args.portfolio_size, args.difficulty, args.seed,
+                         args.invert_order_from_plan, args.invert_count,
+                         args.constraint_style)
         print(f"Converted: {inp} -> {dst} ({'ok' if ok else 'fail'})")
 
 if __name__ == "__main__":

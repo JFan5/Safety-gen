@@ -1,0 +1,879 @@
+{
+  "timestamp": "2026-02-01T17:29:08.431568",
+  "domain": "grippers",
+  "level_statistics": {
+    "n1-r10-o8": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r10-o8-s8001.pddl"
+      ],
+      "total_solve_time_seconds": 0.086,
+      "avg_solve_time_seconds": 0.086,
+      "min_solve_time_seconds": 0.086,
+      "max_solve_time_seconds": 0.086
+    },
+    "n1-r11-o9": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r11-o9-s9001.pddl"
+      ],
+      "total_solve_time_seconds": 0.106,
+      "avg_solve_time_seconds": 0.106,
+      "min_solve_time_seconds": 0.106,
+      "max_solve_time_seconds": 0.106
+    },
+    "n1-r5-o3": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r5-o3-s3001.pddl"
+      ],
+      "total_solve_time_seconds": 0.085,
+      "avg_solve_time_seconds": 0.085,
+      "min_solve_time_seconds": 0.085,
+      "max_solve_time_seconds": 0.085
+    },
+    "n1-r6-o4": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r6-o4-s4001.pddl"
+      ],
+      "total_solve_time_seconds": 0.054,
+      "avg_solve_time_seconds": 0.054,
+      "min_solve_time_seconds": 0.054,
+      "max_solve_time_seconds": 0.054
+    },
+    "n1-r7-o5": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r7-o5-s5001.pddl"
+      ],
+      "total_solve_time_seconds": 0.085,
+      "avg_solve_time_seconds": 0.085,
+      "min_solve_time_seconds": 0.085,
+      "max_solve_time_seconds": 0.085
+    },
+    "n1-r8-o6": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r8-o6-s6001.pddl"
+      ],
+      "total_solve_time_seconds": 0.125,
+      "avg_solve_time_seconds": 0.125,
+      "min_solve_time_seconds": 0.125,
+      "max_solve_time_seconds": 0.125
+    },
+    "n1-r9-o7": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n1-r9-o7-s7001.pddl"
+      ],
+      "total_solve_time_seconds": 0.115,
+      "avg_solve_time_seconds": 0.115,
+      "min_solve_time_seconds": 0.115,
+      "max_solve_time_seconds": 0.115
+    },
+    "n2-r12-o10": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r12-o10-s10001.pddl"
+      ],
+      "total_solve_time_seconds": 0.267,
+      "avg_solve_time_seconds": 0.267,
+      "min_solve_time_seconds": 0.267,
+      "max_solve_time_seconds": 0.267
+    },
+    "n2-r13-o11": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r13-o11-s11001.pddl"
+      ],
+      "total_solve_time_seconds": 0.568,
+      "avg_solve_time_seconds": 0.568,
+      "min_solve_time_seconds": 0.568,
+      "max_solve_time_seconds": 0.568
+    },
+    "n2-r14-o12": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r14-o12-s12001.pddl"
+      ],
+      "total_solve_time_seconds": 0.952,
+      "avg_solve_time_seconds": 0.952,
+      "min_solve_time_seconds": 0.952,
+      "max_solve_time_seconds": 0.952
+    },
+    "n2-r15-o13": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r15-o13-s13001.pddl"
+      ],
+      "total_solve_time_seconds": 0.723,
+      "avg_solve_time_seconds": 0.723,
+      "min_solve_time_seconds": 0.723,
+      "max_solve_time_seconds": 0.723
+    },
+    "n2-r16-o14": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r16-o14-s14001.pddl"
+      ],
+      "total_solve_time_seconds": 1.616,
+      "avg_solve_time_seconds": 1.616,
+      "min_solve_time_seconds": 1.616,
+      "max_solve_time_seconds": 1.616
+    },
+    "n2-r17-o15": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r17-o15-s15001.pddl"
+      ],
+      "total_solve_time_seconds": 0.897,
+      "avg_solve_time_seconds": 0.897,
+      "min_solve_time_seconds": 0.897,
+      "max_solve_time_seconds": 0.897
+    },
+    "n2-r18-o16": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r18-o16-s16001.pddl"
+      ],
+      "total_solve_time_seconds": 2.233,
+      "avg_solve_time_seconds": 2.233,
+      "min_solve_time_seconds": 2.233,
+      "max_solve_time_seconds": 2.233
+    },
+    "n2-r19-o17": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r19-o17-s17001.pddl"
+      ],
+      "total_solve_time_seconds": 2.947,
+      "avg_solve_time_seconds": 2.947,
+      "min_solve_time_seconds": 2.947,
+      "max_solve_time_seconds": 2.947
+    },
+    "n2-r20-o18": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r20-o18-s18001.pddl"
+      ],
+      "total_solve_time_seconds": 6.941,
+      "avg_solve_time_seconds": 6.941,
+      "min_solve_time_seconds": 6.941,
+      "max_solve_time_seconds": 6.941
+    },
+    "n2-r21-o19": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n2-r21-o19-s19001.pddl"
+      ],
+      "total_solve_time_seconds": 2.544,
+      "avg_solve_time_seconds": 2.544,
+      "min_solve_time_seconds": 2.544,
+      "max_solve_time_seconds": 2.544
+    },
+    "n3-r22-o20": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r22-o20-s20001.pddl"
+      ],
+      "total_solve_time_seconds": 18.071,
+      "avg_solve_time_seconds": 18.071,
+      "min_solve_time_seconds": 18.071,
+      "max_solve_time_seconds": 18.071
+    },
+    "n3-r23-o21": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r23-o21-s21001.pddl"
+      ],
+      "total_solve_time_seconds": 19.621,
+      "avg_solve_time_seconds": 19.621,
+      "min_solve_time_seconds": 19.621,
+      "max_solve_time_seconds": 19.621
+    },
+    "n3-r24-o22": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r24-o22-s22001.pddl"
+      ],
+      "total_solve_time_seconds": 84.709,
+      "avg_solve_time_seconds": 84.709,
+      "min_solve_time_seconds": 84.709,
+      "max_solve_time_seconds": 84.709
+    },
+    "n3-r25-o23": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r25-o23-s23001.pddl"
+      ],
+      "total_solve_time_seconds": 83.501,
+      "avg_solve_time_seconds": 83.501,
+      "min_solve_time_seconds": 83.501,
+      "max_solve_time_seconds": 83.501
+    },
+    "n3-r26-o24": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r26-o24-s24001.pddl"
+      ],
+      "total_solve_time_seconds": 117.144,
+      "avg_solve_time_seconds": 117.144,
+      "min_solve_time_seconds": 117.144,
+      "max_solve_time_seconds": 117.144
+    },
+    "n3-r27-o25": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r27-o25-s25001.pddl"
+      ],
+      "total_solve_time_seconds": 143.74,
+      "avg_solve_time_seconds": 143.74,
+      "min_solve_time_seconds": 143.74,
+      "max_solve_time_seconds": 143.74
+    },
+    "n3-r28-o26": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r28-o26-s26001.pddl"
+      ],
+      "total_solve_time_seconds": 89.129,
+      "avg_solve_time_seconds": 89.129,
+      "min_solve_time_seconds": 89.129,
+      "max_solve_time_seconds": 89.129
+    },
+    "n3-r29-o27": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r29-o27-s27001.pddl"
+      ],
+      "total_solve_time_seconds": 105.361,
+      "avg_solve_time_seconds": 105.361,
+      "min_solve_time_seconds": 105.361,
+      "max_solve_time_seconds": 105.361
+    },
+    "n3-r30-o28": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r30-o28-s28001.pddl"
+      ],
+      "total_solve_time_seconds": 244.633,
+      "avg_solve_time_seconds": 244.633,
+      "min_solve_time_seconds": 244.633,
+      "max_solve_time_seconds": 244.633
+    },
+    "n3-r31-o29": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r31-o29-s29001.pddl"
+      ],
+      "total_solve_time_seconds": 115.092,
+      "avg_solve_time_seconds": 115.092,
+      "min_solve_time_seconds": 115.092,
+      "max_solve_time_seconds": 115.092
+    },
+    "n3-r32-o30": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r32-o30-s30001.pddl"
+      ],
+      "total_solve_time_seconds": 214.932,
+      "avg_solve_time_seconds": 214.932,
+      "min_solve_time_seconds": 214.932,
+      "max_solve_time_seconds": 214.932
+    },
+    "n3-r33-o31": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r33-o31-s31001.pddl"
+      ],
+      "total_solve_time_seconds": 229.525,
+      "avg_solve_time_seconds": 229.525,
+      "min_solve_time_seconds": 229.525,
+      "max_solve_time_seconds": 229.525
+    },
+    "n3-r34-o32": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r34-o32-s32001.pddl"
+      ],
+      "total_solve_time_seconds": 157.115,
+      "avg_solve_time_seconds": 157.115,
+      "min_solve_time_seconds": 157.115,
+      "max_solve_time_seconds": 157.115
+    },
+    "n3-r35-o33": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r35-o33-s33001.pddl"
+      ],
+      "total_solve_time_seconds": 300.13,
+      "avg_solve_time_seconds": 300.13,
+      "min_solve_time_seconds": 300.13,
+      "max_solve_time_seconds": 300.13
+    },
+    "n3-r36-o34": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r36-o34-s34001.pddl"
+      ],
+      "total_solve_time_seconds": 300.124,
+      "avg_solve_time_seconds": 300.124,
+      "min_solve_time_seconds": 300.124,
+      "max_solve_time_seconds": 300.124
+    },
+    "n3-r37-o35": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "grippers-n3-r37-o35-s35001.pddl"
+      ],
+      "total_solve_time_seconds": 264.566,
+      "avg_solve_time_seconds": 264.566,
+      "min_solve_time_seconds": 264.566,
+      "max_solve_time_seconds": 264.566
+    },
+    "n3-r38-o36": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r38-o36-s36001.pddl"
+      ],
+      "total_solve_time_seconds": 300.137,
+      "avg_solve_time_seconds": 300.137,
+      "min_solve_time_seconds": 300.137,
+      "max_solve_time_seconds": 300.137
+    },
+    "n3-r39-o37": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r39-o37-s37001.pddl"
+      ],
+      "total_solve_time_seconds": 300.12,
+      "avg_solve_time_seconds": 300.12,
+      "min_solve_time_seconds": 300.12,
+      "max_solve_time_seconds": 300.12
+    },
+    "n3-r40-o38": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r40-o38-s38001.pddl"
+      ],
+      "total_solve_time_seconds": 300.126,
+      "avg_solve_time_seconds": 300.126,
+      "min_solve_time_seconds": 300.126,
+      "max_solve_time_seconds": 300.126
+    },
+    "n3-r41-o39": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r41-o39-s39001.pddl"
+      ],
+      "total_solve_time_seconds": 300.119,
+      "avg_solve_time_seconds": 300.119,
+      "min_solve_time_seconds": 300.119,
+      "max_solve_time_seconds": 300.119
+    },
+    "n3-r42-o40": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r42-o40-s40001.pddl"
+      ],
+      "total_solve_time_seconds": 300.103,
+      "avg_solve_time_seconds": 300.103,
+      "min_solve_time_seconds": 300.103,
+      "max_solve_time_seconds": 300.103
+    },
+    "n3-r43-o41": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r43-o41-s41001.pddl"
+      ],
+      "total_solve_time_seconds": 300.115,
+      "avg_solve_time_seconds": 300.115,
+      "min_solve_time_seconds": 300.115,
+      "max_solve_time_seconds": 300.115
+    },
+    "n3-r44-o42": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r44-o42-s42001.pddl"
+      ],
+      "total_solve_time_seconds": 300.119,
+      "avg_solve_time_seconds": 300.119,
+      "min_solve_time_seconds": 300.119,
+      "max_solve_time_seconds": 300.119
+    },
+    "n3-r45-o43": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r45-o43-s43001.pddl"
+      ],
+      "total_solve_time_seconds": 300.119,
+      "avg_solve_time_seconds": 300.119,
+      "min_solve_time_seconds": 300.119,
+      "max_solve_time_seconds": 300.119
+    },
+    "n3-r46-o44": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r46-o44-s44001.pddl"
+      ],
+      "total_solve_time_seconds": 300.115,
+      "avg_solve_time_seconds": 300.115,
+      "min_solve_time_seconds": 300.115,
+      "max_solve_time_seconds": 300.115
+    },
+    "n3-r47-o45": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r47-o45-s45001.pddl"
+      ],
+      "total_solve_time_seconds": 300.066,
+      "avg_solve_time_seconds": 300.066,
+      "min_solve_time_seconds": 300.066,
+      "max_solve_time_seconds": 300.066
+    },
+    "n3-r48-o46": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r48-o46-s46001.pddl"
+      ],
+      "total_solve_time_seconds": 300.116,
+      "avg_solve_time_seconds": 300.116,
+      "min_solve_time_seconds": 300.116,
+      "max_solve_time_seconds": 300.116
+    },
+    "n3-r49-o47": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r49-o47-s47001.pddl"
+      ],
+      "total_solve_time_seconds": 300.11,
+      "avg_solve_time_seconds": 300.11,
+      "min_solve_time_seconds": 300.11,
+      "max_solve_time_seconds": 300.11
+    },
+    "n3-r50-o48": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r50-o48-s48001.pddl"
+      ],
+      "total_solve_time_seconds": 300.05,
+      "avg_solve_time_seconds": 300.05,
+      "min_solve_time_seconds": 300.05,
+      "max_solve_time_seconds": 300.05
+    },
+    "n3-r51-o49": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r51-o49-s49001.pddl"
+      ],
+      "total_solve_time_seconds": 300.114,
+      "avg_solve_time_seconds": 300.114,
+      "min_solve_time_seconds": 300.114,
+      "max_solve_time_seconds": 300.114
+    },
+    "n3-r52-o50": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "grippers-n3-r52-o50-s50001.pddl"
+      ],
+      "total_solve_time_seconds": 300.154,
+      "avg_solve_time_seconds": 300.154,
+      "min_solve_time_seconds": 300.154,
+      "max_solve_time_seconds": 300.154
+    }
+  },
+  "overall_statistics": {
+    "total_problems": 48,
+    "success_count": 31,
+    "success_rate": 64.58333333333334,
+    "total_time_seconds": 7009.42,
+    "avg_time_per_problem": 146.02958333333333
+  },
+  "results": [
+    {
+      "problem_name": "grippers-n1-r10-o8-s8001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.086,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n1-r11-o9-s9001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.106,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n1-r5-o3-s3001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.085,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n1-r6-o4-s4001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.054,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n1-r7-o5-s5001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.085,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n1-r8-o6-s6001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.125,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n1-r9-o7-s7001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.115,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r12-o10-s10001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.267,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r13-o11-s11001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.568,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r14-o12-s12001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.952,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r15-o13-s13001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.723,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r16-o14-s14001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.616,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r17-o15-s15001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.897,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r18-o16-s16001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.233,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r19-o17-s17001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.947,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r20-o18-s18001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 6.941,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n2-r21-o19-s19001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.544,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r22-o20-s20001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 18.071,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r23-o21-s21001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 19.621,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r24-o22-s22001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 84.709,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r25-o23-s23001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 83.501,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r26-o24-s24001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 117.144,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r27-o25-s25001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 143.74,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r28-o26-s26001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 89.129,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r29-o27-s27001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 105.361,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r30-o28-s28001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 244.633,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r31-o29-s29001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 115.092,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r32-o30-s30001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 214.932,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r33-o31-s31001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 229.525,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r34-o32-s32001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 157.115,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r35-o33-s33001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.13,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r36-o34-s34001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.124,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r37-o35-s35001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 264.566,
+      "category": "solved"
+    },
+    {
+      "problem_name": "grippers-n3-r38-o36-s36001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.137,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r39-o37-s37001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.12,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r40-o38-s38001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.126,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r41-o39-s39001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.119,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r42-o40-s40001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.103,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r43-o41-s41001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.115,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r44-o42-s42001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.119,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r45-o43-s43001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.119,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r46-o44-s44001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.115,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r47-o45-s45001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.066,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r48-o46-s46001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.116,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r49-o47-s47001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.11,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r50-o48-s48001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.05,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r51-o49-s49001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.114,
+      "category": "timeout"
+    },
+    {
+      "problem_name": "grippers-n3-r52-o50-s50001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.154,
+      "category": "timeout"
+    }
+  ]
+}

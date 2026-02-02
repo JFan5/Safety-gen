@@ -1,0 +1,485 @@
+{
+  "optic": {
+    "blocksworld/bw_ops3_n03_seed3001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.007845928892493248,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n03_seed3001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n03_seed3001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.103065",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n03_seed3001.pddl"
+    },
+    "blocksworld/bw_ops3_n06_seed6001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.01610525604337454,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n06_seed6001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n06_seed6001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.111922",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n06_seed6001.pddl"
+    },
+    "blocksworld/bw_ops3_n05_seed5001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.010562876239418983,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n05_seed5001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n05_seed5001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.114940",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n05_seed5001.pddl"
+    },
+    "blocksworld/bw_ops3_n04_seed4001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.022453671786934137,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n04_seed4001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n04_seed4001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.115320",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n04_seed4001.pddl"
+    },
+    "blocksworld/bw_ops3_n07_seed7001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.036104004830121994,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n07_seed7001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n07_seed7001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.129440",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n07_seed7001.pddl"
+    },
+    "blocksworld/bw_ops3_n08_seed8001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.057685201056301594,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n08_seed8001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n08_seed8001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.151335",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n08_seed8001.pddl"
+    },
+    "blocksworld/bw_ops3_n09_seed9001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.06483586691319942,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n09_seed9001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n09_seed9001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.161904",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n09_seed9001.pddl"
+    },
+    "blocksworld/bw_ops3_n14_seed14001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.10635232599452138,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n14_seed14001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n14_seed14001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.201396",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n14_seed14001.pddl"
+    },
+    "blocksworld/bw_ops3_n18_seed18001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.2056901496835053,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n18_seed18001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n18_seed18001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.300724",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n18_seed18001.pddl"
+    },
+    "blocksworld/bw_ops3_n11_seed11001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.2473908830434084,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n11_seed11001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n11_seed11001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.342658",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n11_seed11001.pddl"
+    },
+    "blocksworld/bw_ops3_n15_seed15001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.2642197269015014,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n15_seed15001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n15_seed15001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.367969",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n15_seed15001.pddl"
+    },
+    "blocksworld/bw_ops3_n16_seed16001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.3590738791972399,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n16_seed16001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n16_seed16001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.454605",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n16_seed16001.pddl"
+    },
+    "blocksworld/bw_ops3_n20_seed20001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.6291262391023338,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n20_seed20001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n20_seed20001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.725518",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n20_seed20001.pddl"
+    },
+    "blocksworld/bw_ops3_n12_seed12001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.7065670788288116,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n12_seed12001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n12_seed12001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:41.801257",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n12_seed12001.pddl"
+    },
+    "blocksworld/bw_ops3_n10_seed10001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.392814711201936,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n10_seed10001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n10_seed10001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:43.497857",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n10_seed10001.pddl"
+    },
+    "blocksworld/bw_ops3_n23_seed23001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.5315909958444536,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n23_seed23001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n23_seed23001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:43.628032",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n23_seed23001.pddl"
+    },
+    "blocksworld/bw_ops3_n29_seed29001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 7.1265188860706985,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n29_seed29001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n29_seed29001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:06:48.223768",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n29_seed29001.pddl"
+    },
+    "blocksworld/bw_ops3_n13_seed13001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 41.59890071442351,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n13_seed13001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n13_seed13001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:22.715446",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n13_seed13001.pddl"
+    },
+    "blocksworld/bw_ops3_n22_seed22001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 48.6693664859049,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:29.766697",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n22_seed22001.pddl"
+    },
+    "blocksworld/bw_ops3_n30_seed30001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 54.38873325334862,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:35.485952",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n30_seed30001.pddl"
+    },
+    "blocksworld/bw_ops3_n31_seed31001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 58.871096272952855,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:39.978443",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n31_seed31001.pddl"
+    },
+    "blocksworld/bw_ops3_n19_seed19001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 63.38249919610098,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:44.480567",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n19_seed19001.pddl"
+    },
+    "blocksworld/bw_ops3_n17_seed17001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 67.78661299403757,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:48.882852",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n17_seed17001.pddl"
+    },
+    "blocksworld/bw_ops3_n36_seed36001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 74.56670169625431,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:07:55.722438",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n36_seed36001.pddl"
+    },
+    "blocksworld/bw_ops3_n32_seed32001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 79.54818192310631,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:00.660637",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n32_seed32001.pddl"
+    },
+    "blocksworld/bw_ops3_n34_seed34001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 86.21008457476273,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:07.328773",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n34_seed34001.pddl"
+    },
+    "blocksworld/bw_ops3_n37_seed37001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 96.03695082291961,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:17.208359",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n37_seed37001.pddl"
+    },
+    "blocksworld/bw_ops3_n21_seed21001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 106.25281159998849,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:27.347697",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n21_seed21001.pddl"
+    },
+    "blocksworld/bw_ops3_n25_seed25001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 112.50259216409177,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:33.597548",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n25_seed25001.pddl"
+    },
+    "blocksworld/bw_ops3_n24_seed24001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 121.88917276076972,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:42.983742",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n24_seed24001.pddl"
+    },
+    "blocksworld/bw_ops3_n40_seed40001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 128.2129406700842,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:49.560616",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n40_seed40001.pddl"
+    },
+    "blocksworld/bw_ops3_n39_seed39001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 135.1296214251779,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:56.435343",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n39_seed39001.pddl"
+    },
+    "blocksworld/bw_ops3_n42_seed42001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 137.6271200743504,
+      "plan_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/bw_ops3_n42_seed42001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n42_seed42001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:08:59.093399",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n42_seed42001.pddl"
+    },
+    "blocksworld/bw_ops3_n44_seed44001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 151.2085990831256,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:09:13.013462",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n44_seed44001.pddl"
+    },
+    "blocksworld/bw_ops3_n27_seed27001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 189.29704317217693,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:09:50.392287",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n27_seed27001.pddl"
+    },
+    "blocksworld/bw_ops3_n45_seed45001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 203.03762499894947,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:10:06.534691",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n45_seed45001.pddl"
+    },
+    "blocksworld/bw_ops3_n26_seed26001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 246.25386373326182,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:10:47.354947",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n26_seed26001.pddl"
+    },
+    "blocksworld/bw_ops3_n47_seed47001.pddl": {
+      "status": "error:-9",
+      "validation": "",
+      "elapsed_seconds": 271.644760848023,
+      "plan_path": null,
+      "log_path": null,
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:19.874249",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n47_seed47001.pddl"
+    },
+    "blocksworld/bw_ops3_n38_seed38001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2296232036315,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n38_seed38001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:41.436720",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n38_seed38001.pddl"
+    },
+    "blocksworld/bw_ops3_n35_seed35001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.30693036178127,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n35_seed35001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:41.438181",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n35_seed35001.pddl"
+    },
+    "blocksworld/bw_ops3_n33_seed33001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.3241929789074,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n33_seed33001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:41.438968",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n33_seed33001.pddl"
+    },
+    "blocksworld/bw_ops3_n28_seed28001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.3599804691039,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n28_seed28001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:41.452836",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n28_seed28001.pddl"
+    },
+    "blocksworld/bw_ops3_n41_seed41001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1957834926434,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n41_seed41001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:41.560425",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n41_seed41001.pddl"
+    },
+    "blocksworld/bw_ops3_n43_seed43001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1322057778016,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n43_seed43001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:41.857801",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n43_seed43001.pddl"
+    },
+    "blocksworld/bw_ops3_n46_seed46001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1293101091869,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n46_seed46001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:11:43.758940",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n46_seed46001.pddl"
+    },
+    "blocksworld/bw_ops3_n48_seed48001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.19535076478496,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n48_seed48001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:12:22.913727",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n48_seed48001.pddl"
+    },
+    "blocksworld/bw_ops3_n49_seed49001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.20441792998463,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n49_seed49001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:12:29.967740",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n49_seed49001.pddl"
+    },
+    "blocksworld/bw_ops3_n50_seed50001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1844421867281,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/blocksworld_20260201_170641/blocksworld/optic_results/logs/bw_ops3_n50_seed50001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:12:35.672748",
+      "problem_path": "Safety-gen/benchmark_problems/blocksworld/bw_ops3_n50_seed50001.pddl"
+    }
+  },
+  "llm": {}
+}

@@ -49,29 +49,49 @@ def extract_size_key_from_problem(problem_name: str) -> str:
 
     Examples:
         'bw_ops3_n05_seed5001.pddl' -> 'ops3-n5'
-        'blocksworld/bw_ops3_n05_seed5001.pddl' -> 'ops3-n5'
-        'ferry_s3_p1_seed1001.pddl' -> 's3-p1'
+        'ferry-l03-c02-s3001.pddl' -> 'l3-c2'
+        'delivery_size10_packages1_seed10001.pddl' -> 's10-p1'
+        'grid_x10_y10_sh3_k6_l6_s10001.pddl' -> 'x10-y10-sh3-k6-l6'
+        'grippers-n1-r5-o3-s3001.pddl' -> 'n1-r5-o3'
+        'spanner-s3-n2-l5-s3001.pddl' -> 's3-n2-l5'
     """
-    # Get just the filename
     name = Path(problem_name).stem
 
-    # Try to extract ops/n pattern (blocksworld)
+    # Blocksworld: bw_ops3_n05_seed5001 -> ops3-n5
     ops_match = re.search(r'ops(\d+)', name)
     n_match = re.search(r'_n(\d+)', name)
     if ops_match and n_match:
-        return f"ops{ops_match.group(1)}-n{n_match.group(1)}"
+        return f"ops{ops_match.group(1)}-n{int(n_match.group(1))}"
 
-    # Try to extract s/p pattern (ferry, etc.)
-    s_match = re.search(r'_s(\d+)', name)
-    p_match = re.search(r'_p(\d+)', name)
-    if s_match and p_match:
-        return f"s{s_match.group(1)}-p{p_match.group(1)}"
+    # Ferry: ferry-l03-c02-s3001 -> l3-c2
+    l_match = re.search(r'-l(\d+)', name)
+    c_match = re.search(r'-c(\d+)', name)
+    if l_match and c_match:
+        return f"l{int(l_match.group(1))}-c{int(c_match.group(1))}"
 
-    # Try to extract n/l pattern (grippers, spanner)
-    n_match = re.search(r'_n(\d+)', name)
-    l_match = re.search(r'_l(\d+)', name)
-    if n_match and l_match:
-        return f"n{n_match.group(1)}-l{l_match.group(1)}"
+    # Delivery: delivery_size10_packages1_seed10001 -> s10-p1
+    size_match = re.search(r'size(\d+)', name)
+    pkg_match = re.search(r'packages(\d+)', name)
+    if size_match and pkg_match:
+        return f"s{int(size_match.group(1))}-p{int(pkg_match.group(1))}"
+
+    # Grid: grid_x10_y10_sh3_k6_l6_s10001 -> x10-y10-sh3-k6-l6
+    grid_match = re.search(r'x(\d+)_y(\d+)_sh(\d+)_k(\d+)_l(\d+)', name)
+    if grid_match:
+        x, y, sh, k, l = [int(g) for g in grid_match.groups()]
+        return f"x{x}-y{y}-sh{sh}-k{k}-l{l}"
+
+    # Grippers: grippers-n1-r5-o3-s3001 -> n1-r5-o3
+    grip_match = re.search(r'-n(\d+)-r(\d+)-o(\d+)', name)
+    if grip_match:
+        n, r, o = [int(g) for g in grip_match.groups()]
+        return f"n{n}-r{r}-o{o}"
+
+    # Spanner: spanner-s3-n2-l5-s3001 -> s3-n2-l5
+    span_match = re.search(r'-s(\d+)-n(\d+)-l(\d+)', name)
+    if span_match:
+        s, n, l = [int(g) for g in span_match.groups()]
+        return f"s{s}-n{n}-l{l}"
 
     # Fallback: return first numbers found
     numbers = re.findall(r'\d+', name)
@@ -312,7 +332,7 @@ def generate_chart(results: dict, output_path: str = None) -> str:
         Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71', markersize=10, label='Success'),
         Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c', markersize=10, label='Failure'),
     ]
-    ax.legend(handles=legend_elements, loc='upper left')
+    ax.legend(handles=legend_elements, loc='upper left', fontsize=16)
 
     # Add summary text
     total = len(data_points)
@@ -320,8 +340,8 @@ def generate_chart(results: dict, output_path: str = None) -> str:
     success_rate = (success_count / total * 100) if total > 0 else 0
     avg_time = sum(y_times) / total if total > 0 else 0
     summary_text = f"Total: {total} | Success: {success_count} ({success_rate:.1f}%) | Avg Time: {avg_time:.2f}s"
-    ax.text(0.98, 0.98, summary_text, transform=ax.transAxes, fontsize=10,
-            verticalalignment='top', horizontalalignment='right',
+    ax.text(0.98, 0.02, summary_text, transform=ax.transAxes, fontsize=16,
+            verticalalignment='bottom', horizontalalignment='right',
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
 
     plt.tight_layout()
@@ -549,7 +569,7 @@ def generate_comparison_time_chart(results1: dict, results2: dict, output_path: 
         Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71', markersize=10, label='Success'),
         Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c', markersize=10, label='Failure'),
     ]
-    ax.legend(handles=legend_elements, loc='upper left')
+    ax.legend(handles=legend_elements, loc='upper left', fontsize=16)
 
     # Calculate stats
     total1 = sum(len(data1.get(k, [])) for k in sorted_keys)
@@ -565,8 +585,8 @@ def generate_comparison_time_chart(results1: dict, results2: dict, output_path: 
     # Add summary text
     summary_text = (f"{model1}: {success1}/{total1} ({rate1:.1f}%), Avg: {avg_time1:.1f}s\n"
                     f"{model2}: {success2}/{total2} ({rate2:.1f}%), Avg: {avg_time2:.1f}s")
-    ax.text(0.98, 0.98, summary_text, transform=ax.transAxes, fontsize=10,
-            verticalalignment='top', horizontalalignment='right',
+    ax.text(0.98, 0.02, summary_text, transform=ax.transAxes, fontsize=16,
+            verticalalignment='bottom', horizontalalignment='right',
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
 
     plt.tight_layout()

@@ -1,0 +1,723 @@
+{
+  "parameters": {
+    "instances_per_parameter": 2,
+    "problems_per_scenario": 0,
+    "optic_time_limit": 300.0,
+    "llm_model": "unsloth/gpt-oss-20b-unsloth-bnb-4bit",
+    "llm_family": "gpt",
+    "llm_max_new_tokens": 8000,
+    "llm_hardest_only": false
+  },
+  "scenarios": {
+    "spanner": {
+      "problems": [
+        {
+          "problem": "spanner-s10-n9-l15-s10001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s10-n9-l15-s10001.pddl",
+          "parameter_value": 10,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.694,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s10-n9-l15-s10001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s11-n10-l16-s11001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s11-n10-l16-s11001.pddl",
+          "parameter_value": 11,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.686,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s11-n10-l16-s11001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s12-n11-l18-s12001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s12-n11-l18-s12001.pddl",
+          "parameter_value": 12,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.669,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s12-n11-l18-s12001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s13-n12-l19-s13001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s13-n12-l19-s13001.pddl",
+          "parameter_value": 13,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.679,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s13-n12-l19-s13001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s14-n13-l21-s14001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s14-n13-l21-s14001.pddl",
+          "parameter_value": 14,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.611,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s14-n13-l21-s14001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s15-n14-l22-s15001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s15-n14-l22-s15001.pddl",
+          "parameter_value": 15,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.681,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s15-n14-l22-s15001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s16-n15-l24-s16001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s16-n15-l24-s16001.pddl",
+          "parameter_value": 16,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.675,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s16-n15-l24-s16001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s17-n16-l25-s17001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s17-n16-l25-s17001.pddl",
+          "parameter_value": 17,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.655,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s17-n16-l25-s17001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s18-n17-l27-s18001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s18-n17-l27-s18001.pddl",
+          "parameter_value": 18,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.67,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s18-n17-l27-s18001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s19-n18-l28-s19001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s19-n18-l28-s19001.pddl",
+          "parameter_value": 19,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.676,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s19-n18-l28-s19001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s20-n19-l30-s20001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s20-n19-l30-s20001.pddl",
+          "parameter_value": 20,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.685,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s20-n19-l30-s20001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s21-n20-l31-s21001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s21-n20-l31-s21001.pddl",
+          "parameter_value": 21,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.691,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s21-n20-l31-s21001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s22-n21-l33-s22001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s22-n21-l33-s22001.pddl",
+          "parameter_value": 22,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.689,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s22-n21-l33-s22001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s23-n22-l34-s23001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s23-n22-l34-s23001.pddl",
+          "parameter_value": 23,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.666,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s23-n22-l34-s23001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s24-n23-l36-s24001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s24-n23-l36-s24001.pddl",
+          "parameter_value": 24,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.683,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s24-n23-l36-s24001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s25-n24-l37-s25001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s25-n24-l37-s25001.pddl",
+          "parameter_value": 25,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.651,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s25-n24-l37-s25001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s26-n25-l39-s26001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s26-n25-l39-s26001.pddl",
+          "parameter_value": 26,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.653,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s26-n25-l39-s26001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s27-n26-l40-s27001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s27-n26-l40-s27001.pddl",
+          "parameter_value": 27,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.661,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s27-n26-l40-s27001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s28-n27-l42-s28001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s28-n27-l42-s28001.pddl",
+          "parameter_value": 28,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.633,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s28-n27-l42-s28001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s29-n28-l43-s29001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s29-n28-l43-s29001.pddl",
+          "parameter_value": 29,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.69,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s29-n28-l43-s29001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s3-n2-l5-s3001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s3-n2-l5-s3001.pddl",
+          "parameter_value": 3,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.013,
+            "plan_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/spanner-s3-n2-l5-s3001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s3-n2-l5-s3001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s30-n29-l45-s30001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s30-n29-l45-s30001.pddl",
+          "parameter_value": 30,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.657,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s30-n29-l45-s30001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s31-n30-l46-s31001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s31-n30-l46-s31001.pddl",
+          "parameter_value": 31,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.684,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s31-n30-l46-s31001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s32-n31-l48-s32001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s32-n31-l48-s32001.pddl",
+          "parameter_value": 32,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.638,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s32-n31-l48-s32001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s33-n32-l49-s33001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s33-n32-l49-s33001.pddl",
+          "parameter_value": 33,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.662,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s33-n32-l49-s33001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s34-n33-l51-s34001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s34-n33-l51-s34001.pddl",
+          "parameter_value": 34,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.644,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s34-n33-l51-s34001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s35-n34-l52-s35001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s35-n34-l52-s35001.pddl",
+          "parameter_value": 35,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.688,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s35-n34-l52-s35001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s36-n35-l54-s36001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s36-n35-l54-s36001.pddl",
+          "parameter_value": 36,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.661,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s36-n35-l54-s36001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s37-n36-l55-s37001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s37-n36-l55-s37001.pddl",
+          "parameter_value": 37,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 302.616,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s37-n36-l55-s37001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s38-n37-l57-s38001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s38-n37-l57-s38001.pddl",
+          "parameter_value": 38,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 30.922,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s39-n38-l58-s39001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s39-n38-l58-s39001.pddl",
+          "parameter_value": 39,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 41.87,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s4-n3-l6-s4001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s4-n3-l6-s4001.pddl",
+          "parameter_value": 4,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.087,
+            "plan_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/spanner-s4-n3-l6-s4001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s4-n3-l6-s4001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s40-n39-l60-s40001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s40-n39-l60-s40001.pddl",
+          "parameter_value": 40,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.641,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s40-n39-l60-s40001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s41-n40-l61-s41001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s41-n40-l61-s41001.pddl",
+          "parameter_value": 41,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 76.292,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s42-n41-l63-s42001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s42-n41-l63-s42001.pddl",
+          "parameter_value": 42,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.638,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s42-n41-l63-s42001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s43-n42-l64-s43001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s43-n42-l64-s43001.pddl",
+          "parameter_value": 43,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 36.021,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s44-n43-l66-s44001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s44-n43-l66-s44001.pddl",
+          "parameter_value": 44,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.629,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s44-n43-l66-s44001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s45-n44-l67-s45001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s45-n44-l67-s45001.pddl",
+          "parameter_value": 45,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 51.448,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s46-n45-l69-s46001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s46-n45-l69-s46001.pddl",
+          "parameter_value": 46,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.622,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s46-n45-l69-s46001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s47-n46-l70-s47001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s47-n46-l70-s47001.pddl",
+          "parameter_value": 47,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.619,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s47-n46-l70-s47001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s48-n47-l72-s48001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s48-n47-l72-s48001.pddl",
+          "parameter_value": 48,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.602,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s48-n47-l72-s48001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s49-n48-l73-s49001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s49-n48-l73-s49001.pddl",
+          "parameter_value": 49,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.61,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s49-n48-l73-s49001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s5-n4-l7-s5001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s5-n4-l7-s5001.pddl",
+          "parameter_value": 5,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 0.217,
+            "plan_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/spanner-s5-n4-l7-s5001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s5-n4-l7-s5001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s50-n49-l75-s50001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s50-n49-l75-s50001.pddl",
+          "parameter_value": 50,
+          "optic": {
+            "status": "timeout",
+            "validation": "",
+            "elapsed_seconds": 300.608,
+            "plan_path": null,
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s50-n49-l75-s50001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s6-n5-l9-s6001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s6-n5-l9-s6001.pddl",
+          "parameter_value": 6,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 2.017,
+            "plan_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/spanner-s6-n5-l9-s6001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s6-n5-l9-s6001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s7-n6-l10-s7001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s7-n6-l10-s7001.pddl",
+          "parameter_value": 7,
+          "optic": {
+            "status": "solved",
+            "validation": "valid",
+            "elapsed_seconds": 8.628,
+            "plan_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/spanner-s7-n6-l10-s7001.plan",
+            "log_path": "Safety-gen/runs/benchmark/optic/spanner_20260201_171241/spanner/optic_results/logs/spanner-s7-n6-l10-s7001.stderr",
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s8-n7-l12-s8001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s8-n7-l12-s8001.pddl",
+          "parameter_value": 8,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 64.617,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        },
+        {
+          "problem": "spanner-s9-n8-l13-s9001.pddl",
+          "problem_path": "Safety-gen/benchmark_problems/spanner/spanner-s9-n8-l13-s9001.pddl",
+          "parameter_value": 9,
+          "optic": {
+            "status": "error:-9",
+            "validation": "",
+            "elapsed_seconds": 16.393,
+            "plan_path": null,
+            "log_path": null,
+            "notes": ""
+          },
+          "llm": null
+        }
+      ],
+      "optic_summary": {
+        "total_problems": 48,
+        "success_count": 5,
+        "timeout_count": 36,
+        "failure_count": 7,
+        "success_rate_percent": 10.416666666666668,
+        "timeout_rate_percent": 75.0,
+        "failure_rate_percent": 14.583333333333334,
+        "avg_elapsed_seconds_success": 2.192
+      },
+      "llm_summary": null
+    }
+  },
+  "optic_summary": {
+    "spanner": {
+      "total_problems": 48,
+      "success_count": 5,
+      "timeout_count": 36,
+      "failure_count": 7,
+      "success_rate_percent": 10.416666666666668,
+      "timeout_rate_percent": 75.0,
+      "failure_rate_percent": 14.583333333333334,
+      "avg_elapsed_seconds_success": 2.192
+    },
+    "ALL": {
+      "total_problems": 48,
+      "success_count": 5,
+      "timeout_count": 36,
+      "failure_count": 7,
+      "success_rate_percent": 10.416666666666668,
+      "timeout_rate_percent": 75.0,
+      "failure_rate_percent": 14.583333333333334,
+      "avg_elapsed_seconds_success": 2.192
+    }
+  },
+  "llm_summary": null
+}

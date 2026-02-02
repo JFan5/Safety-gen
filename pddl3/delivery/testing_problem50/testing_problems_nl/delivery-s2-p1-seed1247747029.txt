@@ -9,12 +9,8 @@ Truck: t1
 ## Initial State
 - Cell c_0_0 is adjacent to cell c_1_0.
 - Cell c_1_1 is adjacent to cell c_0_1.
-- Cell c_1_0 is adjacent to cell c_0_0.
 - Cell c_0_0 is adjacent to cell c_0_1.
 - Cell c_1_0 is adjacent to cell c_1_1.
-- Cell c_1_1 is adjacent to cell c_1_0.
-- Cell c_0_1 is adjacent to cell c_0_0.
-- Cell c_0_1 is adjacent to cell c_1_1.
 - T1 is at cell c_1_1.
 - P1 is at cell c_0_1.
 - Truck t1 is empty.

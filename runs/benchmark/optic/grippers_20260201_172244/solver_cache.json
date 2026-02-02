@@ -1,0 +1,485 @@
+{
+  "optic": {
+    "grippers/grippers-n1-r6-o4-s4001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.054461303167045116,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r6-o4-s4001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r6-o4-s4001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.814918",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r6-o4-s4001.pddl"
+    },
+    "grippers/grippers-n1-r10-o8-s8001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.08614670345559716,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r10-o8-s8001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r10-o8-s8001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.831590",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r10-o8-s8001.pddl"
+    },
+    "grippers/grippers-n1-r5-o3-s3001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.08513948181644082,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r5-o3-s3001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r5-o3-s3001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.832081",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r5-o3-s3001.pddl"
+    },
+    "grippers/grippers-n1-r7-o5-s5001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.08548250515013933,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r7-o5-s5001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r7-o5-s5001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.837797",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r7-o5-s5001.pddl"
+    },
+    "grippers/grippers-n1-r11-o9-s9001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.1058434396982193,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r11-o9-s9001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r11-o9-s9001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.853697",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r11-o9-s9001.pddl"
+    },
+    "grippers/grippers-n1-r9-o7-s7001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.11464465456083417,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r9-o7-s7001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r9-o7-s7001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.877010",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r9-o7-s7001.pddl"
+    },
+    "grippers/grippers-n1-r8-o6-s6001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.12482239538803697,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n1-r8-o6-s6001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n1-r8-o6-s6001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:44.883720",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n1-r8-o6-s6001.pddl"
+    },
+    "grippers/grippers-n2-r12-o10-s10001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.2674694708548486,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r12-o10-s10001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r12-o10-s10001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:45.020193",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r12-o10-s10001.pddl"
+    },
+    "grippers/grippers-n2-r13-o11-s11001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.5678101531229913,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r13-o11-s11001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r13-o11-s11001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:45.321859",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r13-o11-s11001.pddl"
+    },
+    "grippers/grippers-n2-r15-o13-s13001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.7232958092354238,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r15-o13-s13001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r15-o13-s13001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:45.491556",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r15-o13-s13001.pddl"
+    },
+    "grippers/grippers-n2-r17-o15-s15001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.8971867980435491,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r17-o15-s15001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r17-o15-s15001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:45.647499",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r17-o15-s15001.pddl"
+    },
+    "grippers/grippers-n2-r14-o12-s12001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.9516387325711548,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r14-o12-s12001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r14-o12-s12001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:45.701887",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r14-o12-s12001.pddl"
+    },
+    "grippers/grippers-n2-r16-o14-s14001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 1.6163008301518857,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r16-o14-s14001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r16-o14-s14001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:46.375136",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r16-o14-s14001.pddl"
+    },
+    "grippers/grippers-n2-r18-o16-s16001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.2330972962081432,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r18-o16-s16001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r18-o16-s16001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:46.988361",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r18-o16-s16001.pddl"
+    },
+    "grippers/grippers-n2-r21-o19-s19001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.543822576291859,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r21-o19-s19001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r21-o19-s19001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:47.301203",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r21-o19-s19001.pddl"
+    },
+    "grippers/grippers-n2-r19-o17-s17001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.9468362596817315,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r19-o17-s17001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r19-o17-s17001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:47.695445",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r19-o17-s17001.pddl"
+    },
+    "grippers/grippers-n2-r20-o18-s18001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 6.941226752940565,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n2-r20-o18-s18001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n2-r20-o18-s18001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:22:51.692127",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n2-r20-o18-s18001.pddl"
+    },
+    "grippers/grippers-n3-r22-o20-s20001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 18.071220194920897,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r22-o20-s20001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r22-o20-s20001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:23:02.834585",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r22-o20-s20001.pddl"
+    },
+    "grippers/grippers-n3-r23-o21-s21001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 19.620944444090128,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r23-o21-s21001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r23-o21-s21001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:23:04.384532",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r23-o21-s21001.pddl"
+    },
+    "grippers/grippers-n3-r25-o23-s23001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 83.50084967399016,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r25-o23-s23001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r25-o23-s23001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:24:08.263961",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r25-o23-s23001.pddl"
+    },
+    "grippers/grippers-n3-r24-o22-s22001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 84.70902102999389,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r24-o22-s22001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r24-o22-s22001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:24:09.470950",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r24-o22-s22001.pddl"
+    },
+    "grippers/grippers-n3-r28-o26-s26001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 89.12899136729538,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r28-o26-s26001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r28-o26-s26001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:24:13.881035",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r28-o26-s26001.pddl"
+    },
+    "grippers/grippers-n3-r29-o27-s27001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 105.36097072996199,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r29-o27-s27001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r29-o27-s27001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:24:30.113406",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r29-o27-s27001.pddl"
+    },
+    "grippers/grippers-n3-r31-o29-s29001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 115.09240984916687,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r31-o29-s29001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r31-o29-s29001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:24:39.847256",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r31-o29-s29001.pddl"
+    },
+    "grippers/grippers-n3-r26-o24-s24001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 117.14393341075629,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r26-o24-s24001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r26-o24-s24001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:24:41.892865",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r26-o24-s24001.pddl"
+    },
+    "grippers/grippers-n3-r27-o25-s25001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 143.73968807514757,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r27-o25-s25001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r27-o25-s25001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:25:08.491972",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r27-o25-s25001.pddl"
+    },
+    "grippers/grippers-n3-r34-o32-s32001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 157.11460133362561,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r34-o32-s32001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r34-o32-s32001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:25:21.954565",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r34-o32-s32001.pddl"
+    },
+    "grippers/grippers-n3-r32-o30-s30001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 214.93177521182224,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r32-o30-s30001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r32-o30-s30001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:26:19.682368",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r32-o30-s30001.pddl"
+    },
+    "grippers/grippers-n3-r33-o31-s31001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 229.52547378093004,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r33-o31-s31001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r33-o31-s31001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:26:34.341590",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r33-o31-s31001.pddl"
+    },
+    "grippers/grippers-n3-r30-o28-s28001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 244.63283264497295,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r30-o28-s28001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r30-o28-s28001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:26:49.384184",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r30-o28-s28001.pddl"
+    },
+    "grippers/grippers-n3-r37-o35-s35001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 264.56633591419086,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/grippers-n3-r37-o35-s35001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r37-o35-s35001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:09.427421",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r37-o35-s35001.pddl"
+    },
+    "grippers/grippers-n3-r36-o34-s34001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1241601672955,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r36-o34-s34001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:44.964886",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r36-o34-s34001.pddl"
+    },
+    "grippers/grippers-n3-r35-o33-s33001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1303840740584,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r35-o33-s33001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:44.965274",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r35-o33-s33001.pddl"
+    },
+    "grippers/grippers-n3-r39-o37-s37001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.11966975592077,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r39-o37-s37001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.003914",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r39-o37-s37001.pddl"
+    },
+    "grippers/grippers-n3-r38-o36-s36001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.13694851193577,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r38-o36-s36001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.014348",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r38-o36-s36001.pddl"
+    },
+    "grippers/grippers-n3-r40-o38-s38001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1256620339118,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r40-o38-s38001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.144596",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r40-o38-s38001.pddl"
+    },
+    "grippers/grippers-n3-r41-o39-s39001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.11884363926947,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r41-o39-s39001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.440720",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r41-o39-s39001.pddl"
+    },
+    "grippers/grippers-n3-r42-o40-s40001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1029983269982,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r42-o40-s40001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.596142",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r42-o40-s40001.pddl"
+    },
+    "grippers/grippers-n3-r43-o41-s41001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1154598831199,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r43-o41-s41001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.764304",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r43-o41-s41001.pddl"
+    },
+    "grippers/grippers-n3-r44-o42-s42001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1191623439081,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r44-o42-s42001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:45.821155",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r44-o42-s42001.pddl"
+    },
+    "grippers/grippers-n3-r45-o43-s43001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.11902095517144,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r45-o43-s43001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:46.491349",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r45-o43-s43001.pddl"
+    },
+    "grippers/grippers-n3-r46-o44-s44001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.115357989911,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r46-o44-s44001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:47.099231",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r46-o44-s44001.pddl"
+    },
+    "grippers/grippers-n3-r47-o45-s45001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.06601111916825,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r47-o45-s45001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:47.368697",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r47-o45-s45001.pddl"
+    },
+    "grippers/grippers-n3-r48-o46-s46001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1155981947668,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r48-o46-s46001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:47.812456",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r48-o46-s46001.pddl"
+    },
+    "grippers/grippers-n3-r49-o47-s47001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1099217920564,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r49-o47-s47001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:27:51.803770",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r49-o47-s47001.pddl"
+    },
+    "grippers/grippers-n3-r50-o48-s48001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.04975384799764,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r50-o48-s48001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:28:02.882480",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r50-o48-s48001.pddl"
+    },
+    "grippers/grippers-n3-r51-o49-s49001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1143578910269,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r51-o49-s49001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:28:04.498991",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r51-o49-s49001.pddl"
+    },
+    "grippers/grippers-n3-r52-o50-s50001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1536535122432,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grippers_20260201_172244/grippers/optic_results/logs/grippers-n3-r52-o50-s50001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-01T22:29:08.415100",
+      "problem_path": "Safety-gen/benchmark_problems/grippers/grippers-n3-r52-o50-s50001.pddl"
+    }
+  },
+  "llm": {}
+}

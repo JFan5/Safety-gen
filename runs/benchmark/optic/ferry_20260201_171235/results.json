@@ -1,0 +1,879 @@
+{
+  "timestamp": "2026-02-01T17:12:41.329385",
+  "domain": "ferry",
+  "level_statistics": {
+    "l3-c2": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l03-c02-s3001.pddl"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l4-c3": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l04-c03-s4001.pddl"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l5-c3": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l05-c03-s5001.pddl"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l6-c4": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l06-c04-s6001.pddl"
+      ],
+      "total_solve_time_seconds": 0.035,
+      "avg_solve_time_seconds": 0.035,
+      "min_solve_time_seconds": 0.035,
+      "max_solve_time_seconds": 0.035
+    },
+    "l7-c4": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l07-c04-s7001.pddl"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l8-c5": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l08-c05-s8001.pddl"
+      ],
+      "total_solve_time_seconds": 0.032,
+      "avg_solve_time_seconds": 0.032,
+      "min_solve_time_seconds": 0.032,
+      "max_solve_time_seconds": 0.032
+    },
+    "l9-c5": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l09-c05-s9001.pddl"
+      ],
+      "total_solve_time_seconds": 0.034,
+      "avg_solve_time_seconds": 0.034,
+      "min_solve_time_seconds": 0.034,
+      "max_solve_time_seconds": 0.034
+    },
+    "l10-c6": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l10-c06-s10001.pddl"
+      ],
+      "total_solve_time_seconds": 0.044,
+      "avg_solve_time_seconds": 0.044,
+      "min_solve_time_seconds": 0.044,
+      "max_solve_time_seconds": 0.044
+    },
+    "l11-c6": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l11-c06-s11001.pddl"
+      ],
+      "total_solve_time_seconds": 0.048,
+      "avg_solve_time_seconds": 0.048,
+      "min_solve_time_seconds": 0.048,
+      "max_solve_time_seconds": 0.048
+    },
+    "l12-c7": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l12-c07-s12001.pddl"
+      ],
+      "total_solve_time_seconds": 0.049,
+      "avg_solve_time_seconds": 0.049,
+      "min_solve_time_seconds": 0.049,
+      "max_solve_time_seconds": 0.049
+    },
+    "l13-c7": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l13-c07-s13001.pddl"
+      ],
+      "total_solve_time_seconds": 0.062,
+      "avg_solve_time_seconds": 0.062,
+      "min_solve_time_seconds": 0.062,
+      "max_solve_time_seconds": 0.062
+    },
+    "l14-c8": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l14-c08-s14001.pddl"
+      ],
+      "total_solve_time_seconds": 0.082,
+      "avg_solve_time_seconds": 0.082,
+      "min_solve_time_seconds": 0.082,
+      "max_solve_time_seconds": 0.082
+    },
+    "l15-c8": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l15-c08-s15001.pddl"
+      ],
+      "total_solve_time_seconds": 0.067,
+      "avg_solve_time_seconds": 0.067,
+      "min_solve_time_seconds": 0.067,
+      "max_solve_time_seconds": 0.067
+    },
+    "l16-c9": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l16-c09-s16001.pddl"
+      ],
+      "total_solve_time_seconds": 0.11,
+      "avg_solve_time_seconds": 0.11,
+      "min_solve_time_seconds": 0.11,
+      "max_solve_time_seconds": 0.11
+    },
+    "l17-c9": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l17-c09-s17001.pddl"
+      ],
+      "total_solve_time_seconds": 0.139,
+      "avg_solve_time_seconds": 0.139,
+      "min_solve_time_seconds": 0.139,
+      "max_solve_time_seconds": 0.139
+    },
+    "l18-c10": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l18-c10-s18001.pddl"
+      ],
+      "total_solve_time_seconds": 0.145,
+      "avg_solve_time_seconds": 0.145,
+      "min_solve_time_seconds": 0.145,
+      "max_solve_time_seconds": 0.145
+    },
+    "l19-c10": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l19-c10-s19001.pddl"
+      ],
+      "total_solve_time_seconds": 0.18,
+      "avg_solve_time_seconds": 0.18,
+      "min_solve_time_seconds": 0.18,
+      "max_solve_time_seconds": 0.18
+    },
+    "l20-c11": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l20-c11-s20001.pddl"
+      ],
+      "total_solve_time_seconds": 0.203,
+      "avg_solve_time_seconds": 0.203,
+      "min_solve_time_seconds": 0.203,
+      "max_solve_time_seconds": 0.203
+    },
+    "l21-c11": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l21-c11-s21001.pddl"
+      ],
+      "total_solve_time_seconds": 0.204,
+      "avg_solve_time_seconds": 0.204,
+      "min_solve_time_seconds": 0.204,
+      "max_solve_time_seconds": 0.204
+    },
+    "l22-c12": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l22-c12-s22001.pddl"
+      ],
+      "total_solve_time_seconds": 0.428,
+      "avg_solve_time_seconds": 0.428,
+      "min_solve_time_seconds": 0.428,
+      "max_solve_time_seconds": 0.428
+    },
+    "l23-c12": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l23-c12-s23001.pddl"
+      ],
+      "total_solve_time_seconds": 0.289,
+      "avg_solve_time_seconds": 0.289,
+      "min_solve_time_seconds": 0.289,
+      "max_solve_time_seconds": 0.289
+    },
+    "l24-c13": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l24-c13-s24001.pddl"
+      ],
+      "total_solve_time_seconds": 0.419,
+      "avg_solve_time_seconds": 0.419,
+      "min_solve_time_seconds": 0.419,
+      "max_solve_time_seconds": 0.419
+    },
+    "l25-c13": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l25-c13-s25001.pddl"
+      ],
+      "total_solve_time_seconds": 0.554,
+      "avg_solve_time_seconds": 0.554,
+      "min_solve_time_seconds": 0.554,
+      "max_solve_time_seconds": 0.554
+    },
+    "l26-c14": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l26-c14-s26001.pddl"
+      ],
+      "total_solve_time_seconds": 0.45,
+      "avg_solve_time_seconds": 0.45,
+      "min_solve_time_seconds": 0.45,
+      "max_solve_time_seconds": 0.45
+    },
+    "l27-c14": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l27-c14-s27001.pddl"
+      ],
+      "total_solve_time_seconds": 0.891,
+      "avg_solve_time_seconds": 0.891,
+      "min_solve_time_seconds": 0.891,
+      "max_solve_time_seconds": 0.891
+    },
+    "l28-c15": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l28-c15-s28001.pddl"
+      ],
+      "total_solve_time_seconds": 0.634,
+      "avg_solve_time_seconds": 0.634,
+      "min_solve_time_seconds": 0.634,
+      "max_solve_time_seconds": 0.634
+    },
+    "l29-c15": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l29-c15-s29001.pddl"
+      ],
+      "total_solve_time_seconds": 0.874,
+      "avg_solve_time_seconds": 0.874,
+      "min_solve_time_seconds": 0.874,
+      "max_solve_time_seconds": 0.874
+    },
+    "l30-c16": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l30-c16-s30001.pddl"
+      ],
+      "total_solve_time_seconds": 1.248,
+      "avg_solve_time_seconds": 1.248,
+      "min_solve_time_seconds": 1.248,
+      "max_solve_time_seconds": 1.248
+    },
+    "l31-c16": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l31-c16-s31001.pddl"
+      ],
+      "total_solve_time_seconds": 0.96,
+      "avg_solve_time_seconds": 0.96,
+      "min_solve_time_seconds": 0.96,
+      "max_solve_time_seconds": 0.96
+    },
+    "l32-c17": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l32-c17-s32001.pddl"
+      ],
+      "total_solve_time_seconds": 1.392,
+      "avg_solve_time_seconds": 1.392,
+      "min_solve_time_seconds": 1.392,
+      "max_solve_time_seconds": 1.392
+    },
+    "l33-c17": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l33-c17-s33001.pddl"
+      ],
+      "total_solve_time_seconds": 1.659,
+      "avg_solve_time_seconds": 1.659,
+      "min_solve_time_seconds": 1.659,
+      "max_solve_time_seconds": 1.659
+    },
+    "l34-c18": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l34-c18-s34001.pddl"
+      ],
+      "total_solve_time_seconds": 1.342,
+      "avg_solve_time_seconds": 1.342,
+      "min_solve_time_seconds": 1.342,
+      "max_solve_time_seconds": 1.342
+    },
+    "l35-c18": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l35-c18-s35001.pddl"
+      ],
+      "total_solve_time_seconds": 1.948,
+      "avg_solve_time_seconds": 1.948,
+      "min_solve_time_seconds": 1.948,
+      "max_solve_time_seconds": 1.948
+    },
+    "l36-c19": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l36-c19-s36001.pddl"
+      ],
+      "total_solve_time_seconds": 1.557,
+      "avg_solve_time_seconds": 1.557,
+      "min_solve_time_seconds": 1.557,
+      "max_solve_time_seconds": 1.557
+    },
+    "l37-c19": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l37-c19-s37001.pddl"
+      ],
+      "total_solve_time_seconds": 2.387,
+      "avg_solve_time_seconds": 2.387,
+      "min_solve_time_seconds": 2.387,
+      "max_solve_time_seconds": 2.387
+    },
+    "l38-c20": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l38-c20-s38001.pddl"
+      ],
+      "total_solve_time_seconds": 2.034,
+      "avg_solve_time_seconds": 2.034,
+      "min_solve_time_seconds": 2.034,
+      "max_solve_time_seconds": 2.034
+    },
+    "l39-c20": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l39-c20-s39001.pddl"
+      ],
+      "total_solve_time_seconds": 2.222,
+      "avg_solve_time_seconds": 2.222,
+      "min_solve_time_seconds": 2.222,
+      "max_solve_time_seconds": 2.222
+    },
+    "l40-c21": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l40-c21-s40001.pddl"
+      ],
+      "total_solve_time_seconds": 3.493,
+      "avg_solve_time_seconds": 3.493,
+      "min_solve_time_seconds": 3.493,
+      "max_solve_time_seconds": 3.493
+    },
+    "l41-c21": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l41-c21-s41001.pddl"
+      ],
+      "total_solve_time_seconds": 2.978,
+      "avg_solve_time_seconds": 2.978,
+      "min_solve_time_seconds": 2.978,
+      "max_solve_time_seconds": 2.978
+    },
+    "l42-c22": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l42-c22-s42001.pddl"
+      ],
+      "total_solve_time_seconds": 3.579,
+      "avg_solve_time_seconds": 3.579,
+      "min_solve_time_seconds": 3.579,
+      "max_solve_time_seconds": 3.579
+    },
+    "l43-c22": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l43-c22-s43001.pddl"
+      ],
+      "total_solve_time_seconds": 3.789,
+      "avg_solve_time_seconds": 3.789,
+      "min_solve_time_seconds": 3.789,
+      "max_solve_time_seconds": 3.789
+    },
+    "l44-c23": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l44-c23-s44001.pddl"
+      ],
+      "total_solve_time_seconds": 3.513,
+      "avg_solve_time_seconds": 3.513,
+      "min_solve_time_seconds": 3.513,
+      "max_solve_time_seconds": 3.513
+    },
+    "l45-c23": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l45-c23-s45001.pddl"
+      ],
+      "total_solve_time_seconds": 3.623,
+      "avg_solve_time_seconds": 3.623,
+      "min_solve_time_seconds": 3.623,
+      "max_solve_time_seconds": 3.623
+    },
+    "l46-c24": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l46-c24-s46001.pddl"
+      ],
+      "total_solve_time_seconds": 4.293,
+      "avg_solve_time_seconds": 4.293,
+      "min_solve_time_seconds": 4.293,
+      "max_solve_time_seconds": 4.293
+    },
+    "l47-c24": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l47-c24-s47001.pddl"
+      ],
+      "total_solve_time_seconds": 4.77,
+      "avg_solve_time_seconds": 4.77,
+      "min_solve_time_seconds": 4.77,
+      "max_solve_time_seconds": 4.77
+    },
+    "l48-c25": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l48-c25-s48001.pddl"
+      ],
+      "total_solve_time_seconds": 4.402,
+      "avg_solve_time_seconds": 4.402,
+      "min_solve_time_seconds": 4.402,
+      "max_solve_time_seconds": 4.402
+    },
+    "l49-c25": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l49-c25-s49001.pddl"
+      ],
+      "total_solve_time_seconds": 4.314,
+      "avg_solve_time_seconds": 4.314,
+      "min_solve_time_seconds": 4.314,
+      "max_solve_time_seconds": 4.314
+    },
+    "l50-c26": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l50-c26-s50001.pddl"
+      ],
+      "total_solve_time_seconds": 5.28,
+      "avg_solve_time_seconds": 5.28,
+      "min_solve_time_seconds": 5.28,
+      "max_solve_time_seconds": 5.28
+    }
+  },
+  "overall_statistics": {
+    "total_problems": 48,
+    "success_count": 48,
+    "success_rate": 100.0,
+    "total_time_seconds": 66.88,
+    "avg_time_per_problem": 1.3933333333333333
+  },
+  "results": [
+    {
+      "problem_name": "ferry-l03-c02-s3001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l04-c03-s4001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l05-c03-s5001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l06-c04-s6001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.035,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l07-c04-s7001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l08-c05-s8001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.032,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l09-c05-s9001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.034,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l10-c06-s10001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.044,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l11-c06-s11001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.048,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l12-c07-s12001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.049,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l13-c07-s13001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.062,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l14-c08-s14001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.082,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l15-c08-s15001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.067,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l16-c09-s16001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.11,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l17-c09-s17001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.139,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l18-c10-s18001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.145,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l19-c10-s19001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.18,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l20-c11-s20001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.203,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l21-c11-s21001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.204,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l22-c12-s22001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.428,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l23-c12-s23001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.289,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l24-c13-s24001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.419,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l25-c13-s25001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.554,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l26-c14-s26001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.45,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l27-c14-s27001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.891,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l28-c15-s28001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.634,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l29-c15-s29001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.874,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l30-c16-s30001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.248,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l31-c16-s31001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 0.96,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l32-c17-s32001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.392,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l33-c17-s33001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.659,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l34-c18-s34001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.342,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l35-c18-s35001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.948,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l36-c19-s36001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 1.557,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l37-c19-s37001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.387,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l38-c20-s38001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.034,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l39-c20-s39001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.222,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l40-c21-s40001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 3.493,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l41-c21-s41001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 2.978,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l42-c22-s42001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 3.579,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l43-c22-s43001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 3.789,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l44-c23-s44001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 3.513,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l45-c23-s45001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 3.623,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l46-c24-s46001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 4.293,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l47-c24-s47001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 4.77,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l48-c25-s48001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 4.402,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l49-c25-s49001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 4.314,
+      "category": "solved"
+    },
+    {
+      "problem_name": "ferry-l50-c26-s50001.pddl",
+      "is_valid": true,
+      "solve_time_seconds": 5.28,
+      "category": "solved"
+    }
+  ]
+}

@@ -538,6 +538,13 @@ class NLTemplates:
         "delivery": DELIVERY,
     }
 
+    # Predicates where argument order doesn't matter semantically
+    # (e.g., not-eq(A,B) and not-eq(B,A) mean the same thing)
+    SYMMETRIC_PREDICATES = {
+        "ferry": ["not-eq"],
+        "delivery": ["adjacent"],
+    }
+
     # Domain overview descriptions (natural language)
     DOMAIN_DESCRIPTIONS = {
         "blocksworld": (
@@ -1243,12 +1250,26 @@ class NLDocumentGenerator:
         return ', '.join(all_objects) if all_objects else "None"
 
     def _format_init(self, init: List[Tuple[str, List[str]]]) -> str:
-        """Format initial state as bullet list."""
+        """Format initial state as bullet list, deduplicating symmetric predicates."""
         if not init:
             return "- (empty initial state)"
 
+        # Get symmetric predicates for this domain
+        symmetric_preds = NLTemplates.SYMMETRIC_PREDICATES.get(self.domain_name, [])
+        seen_symmetric = set()  # Track (predicate, canonical_args_tuple)
+
         lines = []
         for pred_name, args in init:
+            pred_lower = pred_name.lower()
+
+            # Check if this is a symmetric predicate
+            if pred_lower in symmetric_preds and len(args) >= 2:
+                # Create canonical key with sorted args
+                canonical_key = (pred_lower, tuple(sorted(args)))
+                if canonical_key in seen_symmetric:
+                    continue  # Skip duplicate
+                seen_symmetric.add(canonical_key)
+
             nl = NLTemplates.predicate_to_nl(self.domain_name, pred_name, args, with_period=True)
             lines.append(f"- {nl}")
         return '\n'.join(lines)
