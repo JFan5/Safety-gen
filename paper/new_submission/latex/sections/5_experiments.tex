@@ -123,16 +123,16 @@ Therefore, the reported results likely underestimate the potential performance o
   & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
   & \textbf{PT} & \textbf{SFT} & \textbf{GRPO} \\
   \hline
-  \textbf{Blocksworld} & 4.0 & 70.0 & \textbf{88.0} & 0.0 & 0.0 & 0.0 & 70.0 & 24.0 & 12.0 & 24.0 & 2.0 & 0.0 & 2.0 & 4.0 & 0.0 \\
-  \textbf{Ferry}       & 0.0 & 86.0 & \textbf{96.0} & 0.0 & 0.0 & 0.0 & 98.0 & 4.0 & 4.0 & 2.0 & 10.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
-  \textbf{Grippers}    & 0.0 & 92.0 & \textbf{98.0} & 8.0 & 0.0 & 0.0 & 42.0 & 4.0 & 0.0 & 46.0 & 4.0 & 2.0 & 4.0 & 0.0 & 0.0 \\
-  \textbf{Spanner}     & 0.0 & 100.0 & \textbf{100.0} & 6.0 & 0.0 & 0.0 & 94.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  \textbf{Blocksworld} & 4.0 & 70.0 & \textbf{88.0} & 0.0 & 0.0 & 0.0 & 70.0 & 24.0 & 12.0 & 0.0 & 2.0 & 0.0 & 26.0 & 4.0 & 0.0 \\
+  \textbf{Ferry}       & 0.0 & 86.0 & \textbf{96.0} & 0.0 & 0.0 & 0.0 & 98.0 & 4.0 & 4.0 & 0.0 & 10.0 & 0.0 & 2.0 & 0.0 & 0.0 \\
+  \textbf{Grippers}    & 0.0 & 92.0 & \textbf{98.0} & 0.0 & 0.0 & 0.0 & 40.0 & 4.0 & 0.0 & 48.0 & 4.0 & 2.0 & 12.0 & 0.0 & 0.0 \\
+  \textbf{Spanner}     & 0.0 & 100.0 & \textbf{100.0} & 0.0 & 0.0 & 0.0 & 94.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 6.0 & 0.0 & 0.0 \\
   \hline
   \end{tabular}
   }
   \vspace{0.5em}
 
-  \footnotesize{PT = Pretrained (Mistral-7B baseline); SFT and GRPO use Qwen3-14B. All values in \%.}
+  \footnotesize{PT = Pretrained; SFT = Supervised Fine-Tuning; GRPO = Group Relative Policy Optimization. All use Qwen3-14B. Values in \%.}
 \end{table*}
 
 Table~\ref{tab:error_percentages} summarizes the error-type distributions across all training stages: Pretrained (PT), SFT, and GRPO.
@@ -145,7 +145,7 @@ We highlight several key findings that demonstrate the progressive improvements 
 
     \item \textbf{Progressive elimination of safety violations.}
     Safety constraint violations are substantially reduced at each stage.
-    Pretrained models exhibit up to 46\% violations (Grippers), which SFT reduces to 2--10\%, and GRPO nearly eliminates (0--2\%).
+    Pretrained models exhibit up to 48\% violations (Grippers), which SFT reduces to 2--10\%, and GRPO nearly eliminates (0--2\%).
     This demonstrates that online RL with verifiable rewards effectively teaches the model to prioritize safety compliance.
 
     \item \textbf{Significant success rate improvements.}
@@ -158,6 +158,38 @@ We highlight several key findings that demonstrate the progressive improvements 
 
 These results show that the proposed training pipeline---SFT followed by GRPO---enables progressive improvements in both safety and success.
 The combination of curriculum learning and verifiable rewards allows the model to explore and learn from its own generated plans, leading to robust safety-aware planning behavior.
+
+\subsection{Input Format Comparison: Symbolic vs Natural Language}
+
+To evaluate the robustness of our framework to different input representations, we compare model performance when problems are specified in symbolic PDDL3 format versus natural language (NL) descriptions.
+For the NL setting, we convert the PDDL3 problem specifications into human-readable natural language prompts while preserving the semantic content, including initial states, goal conditions, and safety constraints.
+
+\begin{table}[t]
+\centering
+\caption{Performance comparison: Symbolic (PDDL3) vs Natural Language input}
+\label{tab:input_format_comparison}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{l|cc|cc|cc|cc}
+\hline
+\textbf{Domain} & \multicolumn{2}{c|}{Success Plans $\uparrow$} & \multicolumn{2}{c|}{Precondition Violation} & \multicolumn{2}{c|}{Safety Constraint Violation} & \multicolumn{2}{c}{Goal Not Satisfied} \\
+ & PDDL3 & NL & PDDL3 & NL & PDDL3 & NL & PDDL3 & NL \\
+\hline
+Blocksworld & \textbf{88.0\%} & 76.0\% & \textbf{12.0\%} & 16.0\% & \textbf{0.0\%} & 6.0\% & \textbf{0.0\%} & 2.0\% \\
+Ferry & \textbf{96.0\%} & 90.0\% & 4.0\% & 4.0\% & \textbf{0.0\%} & 6.0\% & 0.0\% & 0.0\% \\
+Grippers & \textbf{98.0\%} & 90.0\% & \textbf{0.0\%} & 6.0\% & \textbf{2.0\%} & 4.0\% & 0.0\% & 0.0\% \\
+Spanner & \textbf{100.0\%} & 92.0\% & \textbf{0.0\%} & 8.0\% & 0.0\% & 0.0\% & 0.0\% & 0.0\% \\
+\hline
+\textbf{Overall} & \textbf{95.5\%} & 87.0\% & \textbf{4.0\%} & 8.5\% & \textbf{0.5\%} & 4.0\% & \textbf{0.0\%} & 0.5\% \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+Table~\ref{tab:input_format_comparison} reports the results across four domains.
+We observe that the model achieves strong performance with both input formats, though symbolic PDDL3 input yields higher overall success rates (95.5\% vs 87.0\%).
+The performance gap is consistent across all domains, with success rates dropping by 6--12\% when using natural language input.
+This degradation is primarily attributed to increased precondition violations (4.0\% vs 8.5\%) and safety constraint violations (0.5\% vs 4.0\%), suggesting that the natural language interface introduces some ambiguity in state and constraint interpretation.
+Overall, these results demonstrate that our framework generalizes well to natural language interfaces, enabling practical deployment in scenarios where users prefer to specify planning problems in human-readable form.
 
 \begin{figure*}[!ht]
   \centering

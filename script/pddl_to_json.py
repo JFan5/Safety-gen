@@ -36,7 +36,8 @@ class PDDLToJSONConverter:
     Convert PDDL AST structures to JSON-serializable dictionaries.
 
     Handles:
-    - Predicates: {"pred": "name", "args": [...], "negated": false}
+    - Predicates: {"pred": "name", "args": [...]}
+    - Negated predicates: {"not": {"pred": "name", "args": [...]}}
     - Logical operators: {"and": [...]}, {"or": [...]}, {"not": {...}}
     - Quantifiers: {"forall": {"vars": [...], "body": {...}}}
     - PDDL3 constraints: {"always": {...}}, {"sometime_before": [{...}, {...}]}
@@ -59,21 +60,13 @@ class PDDLToJSONConverter:
         if expr.expr_type == ExprType.PREDICATE:
             return {
                 "pred": expr.predicate_name,
-                "args": expr.args,
-                "negated": False
+                "args": expr.args
             }
 
         elif expr.expr_type == ExprType.NOT:
             if expr.children:
                 inner = expr.children[0]
-                # Special case: (not (predicate ...)) -> predicate with negated=true
-                if inner.expr_type == ExprType.PREDICATE:
-                    return {
-                        "pred": inner.predicate_name,
-                        "args": inner.args,
-                        "negated": True
-                    }
-                # Otherwise, wrap in "not" operator
+                # Wrap in "not" operator (including for predicates)
                 return {"not": self.expr_to_json(inner)}
             return {"not": None}
 
@@ -186,12 +179,11 @@ class PDDLToJSONConverter:
                 return expr.predicate_name
         return 0
 
-    def predicate_to_json(self, pred_name: str, args: List[str], negated: bool = False) -> Dict[str, Any]:
+    def predicate_to_json(self, pred_name: str, args: List[str]) -> Dict[str, Any]:
         """Convert a simple predicate tuple to JSON format."""
         return {
             "pred": pred_name,
-            "args": args,
-            "negated": negated
+            "args": args
         }
 
     def init_to_json(self, init: List[Tuple[str, List[str]]]) -> List[Dict[str, Any]]:
@@ -308,7 +300,7 @@ class PDDLToJSONConverter:
 
         if token != '(':
             # Bare atom - treat as predicate
-            return {"pred": token.lower(), "args": [], "negated": False}, pos + 1
+            return {"pred": token.lower(), "args": []}, pos + 1
 
         # Skip '('
         pos += 1
@@ -332,9 +324,6 @@ class PDDLToJSONConverter:
             inner, pos = self._parse_effect_tokens(tokens, pos)
             if pos < len(tokens) and tokens[pos] == ')':
                 pos += 1
-            if inner and "pred" in inner:
-                inner["negated"] = True
-                return inner, pos
             return {"not": inner}, pos
 
         elif op == 'when':
@@ -385,7 +374,7 @@ class PDDLToJSONConverter:
                 pos += 1
             if pos < len(tokens) and tokens[pos] == ')':
                 pos += 1
-            return {"pred": op, "args": args, "negated": False}, pos
+            return {"pred": op, "args": args}, pos
 
     def domain_to_json(self, domain: PDDLDomain) -> Dict[str, Any]:
         """

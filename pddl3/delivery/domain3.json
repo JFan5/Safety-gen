@@ -1,1 +1,283 @@
-{"type": "domain", "name": "delivery", "requirements": ["typing", "equality", "negative-preconditions", "constraints"], "types": {"cell": "object", "locatable": "object", "package": "locatable", "truck": "locatable"}, "constants": {}, "predicates": [{"name": "at", "parameters": [{"var": "?x1", "type": "locatable"}, {"var": "?x2", "type": "cell"}]}, {"name": "carrying", "parameters": [{"var": "?x1", "type": "truck"}, {"var": "?x2", "type": "package"}]}, {"name": "empty", "parameters": [{"var": "?x1", "type": "truck"}]}, {"name": "adjacent", "parameters": [{"var": "?x1", "type": "cell"}, {"var": "?x2", "type": "cell"}]}, {"name": "last", "parameters": [{"var": "?t", "type": "truck"}, {"var": "?c", "type": "cell"}]}], "actions": [{"name": "pick-package", "parameters": [{"var": "?t", "type": "truck"}, {"var": "?p", "type": "package"}, {"var": "?x", "type": "cell"}], "precondition": {"and": [{"pred": "at", "args": ["?p", "?x"], "negated": false}, {"pred": "at", "args": ["?t", "?x"], "negated": false}, {"pred": "empty", "args": ["?t"], "negated": false}]}, "effect": {"and": [{"pred": "at", "args": ["?p", "?x"], "negated": true}, {"pred": "empty", "args": ["?t"], "negated": true}, {"pred": "carrying", "args": ["?t", "?p"], "negated": false}]}}, {"name": "drop-package", "parameters": [{"var": "?t", "type": "truck"}, {"var": "?p", "type": "package"}, {"var": "?x", "type": "cell"}], "precondition": {"and": [{"pred": "at", "args": ["?t", "?x"], "negated": false}, {"pred": "carrying", "args": ["?t", "?p"], "negated": false}]}, "effect": {"and": [{"pred": "empty", "args": ["?t"], "negated": false}, {"pred": "carrying", "args": ["?t", "?p"], "negated": true}, {"pred": "at", "args": ["?p", "?x"], "negated": false}]}}, {"name": "move", "parameters": [{"var": "?t", "type": "truck"}, {"var": "?from", "type": "cell"}, {"var": "?to", "type": "cell"}], "precondition": {"and": [{"pred": "adjacent", "args": ["?from", "?to"], "negated": false}, {"pred": "at", "args": ["?t", "?from"], "negated": false}, {"pred": "=", "args": ["?from", "?to"], "negated": true}]}, "effect": {"and": [{"pred": "at", "args": ["?t", "?from"], "negated": true}, {"pred": "at", "args": ["?t", "?to"], "negated": false}, {"pred": "last", "args": ["?t", "?from"], "negated": false}]}}]}
+{
+  "type": "domain",
+  "name": "delivery",
+  "requirements": [
+    "typing",
+    "equality",
+    "negative-preconditions",
+    "constraints"
+  ],
+  "types": {
+    "cell": "object",
+    "locatable": "object",
+    "package": "locatable",
+    "truck": "locatable"
+  },
+  "constants": {},
+  "predicates": [
+    {
+      "name": "at",
+      "parameters": [
+        {
+          "var": "?x1",
+          "type": "locatable"
+        },
+        {
+          "var": "?x2",
+          "type": "cell"
+        }
+      ]
+    },
+    {
+      "name": "carrying",
+      "parameters": [
+        {
+          "var": "?x1",
+          "type": "truck"
+        },
+        {
+          "var": "?x2",
+          "type": "package"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "parameters": [
+        {
+          "var": "?x1",
+          "type": "truck"
+        }
+      ]
+    },
+    {
+      "name": "adjacent",
+      "parameters": [
+        {
+          "var": "?x1",
+          "type": "cell"
+        },
+        {
+          "var": "?x2",
+          "type": "cell"
+        }
+      ]
+    },
+    {
+      "name": "last",
+      "parameters": [
+        {
+          "var": "?t",
+          "type": "truck"
+        },
+        {
+          "var": "?c",
+          "type": "cell"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "pick-package",
+      "parameters": [
+        {
+          "var": "?t",
+          "type": "truck"
+        },
+        {
+          "var": "?p",
+          "type": "package"
+        },
+        {
+          "var": "?x",
+          "type": "cell"
+        }
+      ],
+      "precondition": {
+        "and": [
+          {
+            "pred": "at",
+            "args": [
+              "?p",
+              "?x"
+            ]
+          },
+          {
+            "pred": "at",
+            "args": [
+              "?t",
+              "?x"
+            ]
+          },
+          {
+            "pred": "empty",
+            "args": [
+              "?t"
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "not": {
+              "pred": "at",
+              "args": [
+                "?p",
+                "?x"
+              ]
+            }
+          },
+          {
+            "not": {
+              "pred": "empty",
+              "args": [
+                "?t"
+              ]
+            }
+          },
+          {
+            "pred": "carrying",
+            "args": [
+              "?t",
+              "?p"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "drop-package",
+      "parameters": [
+        {
+          "var": "?t",
+          "type": "truck"
+        },
+        {
+          "var": "?p",
+          "type": "package"
+        },
+        {
+          "var": "?x",
+          "type": "cell"
+        }
+      ],
+      "precondition": {
+        "and": [
+          {
+            "pred": "at",
+            "args": [
+              "?t",
+              "?x"
+            ]
+          },
+          {
+            "pred": "carrying",
+            "args": [
+              "?t",
+              "?p"
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "pred": "empty",
+            "args": [
+              "?t"
+            ]
+          },
+          {
+            "not": {
+              "pred": "carrying",
+              "args": [
+                "?t",
+                "?p"
+              ]
+            }
+          },
+          {
+            "pred": "at",
+            "args": [
+              "?p",
+              "?x"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "move",
+      "parameters": [
+        {
+          "var": "?t",
+          "type": "truck"
+        },
+        {
+          "var": "?from",
+          "type": "cell"
+        },
+        {
+          "var": "?to",
+          "type": "cell"
+        }
+      ],
+      "precondition": {
+        "and": [
+          {
+            "pred": "adjacent",
+            "args": [
+              "?from",
+              "?to"
+            ]
+          },
+          {
+            "pred": "at",
+            "args": [
+              "?t",
+              "?from"
+            ]
+          },
+          {
+            "not": {
+              "pred": "=",
+              "args": [
+                "?from",
+                "?to"
+              ]
+            }
+          }
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "not": {
+              "pred": "at",
+              "args": [
+                "?t",
+                "?from"
+              ]
+            }
+          },
+          {
+            "pred": "at",
+            "args": [
+              "?t",
+              "?to"
+            ]
+          },
+          {
+            "pred": "last",
+            "args": [
+              "?t",
+              "?from"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

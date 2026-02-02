@@ -1,1 +1,302 @@
-{"type": "domain", "name": "blocksworld", "requirements": ["strips", "constraints", "negative-preconditions"], "types": {}, "constants": {}, "predicates": [{"name": "clear", "parameters": [{"var": "?x", "type": "object"}]}, {"name": "on-table", "parameters": [{"var": "?x", "type": "object"}]}, {"name": "arm-empty", "parameters": []}, {"name": "holding", "parameters": [{"var": "?x", "type": "object"}]}, {"name": "on", "parameters": [{"var": "?x", "type": "object"}, {"var": "?y", "type": "object"}]}], "actions": [{"name": "pickup", "parameters": [{"var": "?ob", "type": "object"}], "precondition": {"and": [{"pred": "clear", "args": ["?ob"], "negated": false}, {"pred": "on-table", "args": ["?ob"], "negated": false}, {"pred": "arm-empty", "args": [], "negated": false}]}, "effect": {"and": [{"pred": "holding", "args": ["?ob"], "negated": false}, {"pred": "clear", "args": ["?ob"], "negated": true}, {"pred": "on-table", "args": ["?ob"], "negated": true}, {"pred": "arm-empty", "args": [], "negated": true}]}}, {"name": "putdown", "parameters": [{"var": "?ob", "type": "object"}], "precondition": {"pred": "holding", "args": ["?ob"], "negated": false}, "effect": {"and": [{"pred": "clear", "args": ["?ob"], "negated": false}, {"pred": "arm-empty", "args": [], "negated": false}, {"pred": "on-table", "args": ["?ob"], "negated": false}, {"pred": "holding", "args": ["?ob"], "negated": true}]}}, {"name": "stack", "parameters": [{"var": "?ob", "type": "object"}, {"var": "?underob", "type": "object"}], "precondition": {"and": [{"pred": "clear", "args": ["?underob"], "negated": false}, {"pred": "holding", "args": ["?ob"], "negated": false}]}, "effect": {"and": [{"pred": "arm-empty", "args": [], "negated": false}, {"pred": "clear", "args": ["?ob"], "negated": false}, {"pred": "on", "args": ["?ob", "?underob"], "negated": false}, {"pred": "clear", "args": ["?underob"], "negated": true}, {"pred": "holding", "args": ["?ob"], "negated": true}]}}, {"name": "unstack", "parameters": [{"var": "?ob", "type": "object"}, {"var": "?underob", "type": "object"}], "precondition": {"and": [{"pred": "on", "args": ["?ob", "?underob"], "negated": false}, {"pred": "clear", "args": ["?ob"], "negated": false}, {"pred": "arm-empty", "args": [], "negated": false}]}, "effect": {"and": [{"pred": "holding", "args": ["?ob"], "negated": false}, {"pred": "clear", "args": ["?underob"], "negated": false}, {"pred": "on", "args": ["?ob", "?underob"], "negated": true}, {"pred": "clear", "args": ["?ob"], "negated": true}, {"pred": "arm-empty", "args": [], "negated": true}]}}]}
+{
+  "type": "domain",
+  "name": "blocksworld",
+  "requirements": [
+    "strips",
+    "constraints",
+    "negative-preconditions"
+  ],
+  "types": {},
+  "constants": {},
+  "predicates": [
+    {
+      "name": "clear",
+      "parameters": [
+        {
+          "var": "?x",
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "name": "on-table",
+      "parameters": [
+        {
+          "var": "?x",
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "name": "arm-empty",
+      "parameters": []
+    },
+    {
+      "name": "holding",
+      "parameters": [
+        {
+          "var": "?x",
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "name": "on",
+      "parameters": [
+        {
+          "var": "?x",
+          "type": "object"
+        },
+        {
+          "var": "?y",
+          "type": "object"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "pickup",
+      "parameters": [
+        {
+          "var": "?ob",
+          "type": "object"
+        }
+      ],
+      "precondition": {
+        "and": [
+          {
+            "pred": "clear",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "pred": "on-table",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "pred": "arm-empty",
+            "args": []
+          }
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "pred": "holding",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "not": {
+              "pred": "clear",
+              "args": [
+                "?ob"
+              ]
+            }
+          },
+          {
+            "not": {
+              "pred": "on-table",
+              "args": [
+                "?ob"
+              ]
+            }
+          },
+          {
+            "not": {
+              "pred": "arm-empty",
+              "args": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "putdown",
+      "parameters": [
+        {
+          "var": "?ob",
+          "type": "object"
+        }
+      ],
+      "precondition": {
+        "pred": "holding",
+        "args": [
+          "?ob"
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "pred": "clear",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "pred": "arm-empty",
+            "args": []
+          },
+          {
+            "pred": "on-table",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "not": {
+              "pred": "holding",
+              "args": [
+                "?ob"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "stack",
+      "parameters": [
+        {
+          "var": "?ob",
+          "type": "object"
+        },
+        {
+          "var": "?underob",
+          "type": "object"
+        }
+      ],
+      "precondition": {
+        "and": [
+          {
+            "pred": "clear",
+            "args": [
+              "?underob"
+            ]
+          },
+          {
+            "pred": "holding",
+            "args": [
+              "?ob"
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "pred": "arm-empty",
+            "args": []
+          },
+          {
+            "pred": "clear",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "pred": "on",
+            "args": [
+              "?ob",
+              "?underob"
+            ]
+          },
+          {
+            "not": {
+              "pred": "clear",
+              "args": [
+                "?underob"
+              ]
+            }
+          },
+          {
+            "not": {
+              "pred": "holding",
+              "args": [
+                "?ob"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unstack",
+      "parameters": [
+        {
+          "var": "?ob",
+          "type": "object"
+        },
+        {
+          "var": "?underob",
+          "type": "object"
+        }
+      ],
+      "precondition": {
+        "and": [
+          {
+            "pred": "on",
+            "args": [
+              "?ob",
+              "?underob"
+            ]
+          },
+          {
+            "pred": "clear",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "pred": "arm-empty",
+            "args": []
+          }
+        ]
+      },
+      "effect": {
+        "and": [
+          {
+            "pred": "holding",
+            "args": [
+              "?ob"
+            ]
+          },
+          {
+            "pred": "clear",
+            "args": [
+              "?underob"
+            ]
+          },
+          {
+            "not": {
+              "pred": "on",
+              "args": [
+                "?ob",
+                "?underob"
+              ]
+            }
+          },
+          {
+            "not": {
+              "pred": "clear",
+              "args": [
+                "?ob"
+              ]
+            }
+          },
+          {
+            "not": {
+              "pred": "arm-empty",
+              "args": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
