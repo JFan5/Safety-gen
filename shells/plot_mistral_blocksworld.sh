@@ -14,11 +14,11 @@ GRPO="/home/jfan5/Safety-gen/runs/mistral/grpo/20251221_145922_proj-pddl-grpo-mi
 OUTPUT_DIR="${PROJECT_ROOT}/paper_plots/mistral_blocksworld"
 
 # Run the plotting script
-# Note: Using --dpo for GRPO data (label will show as DPO)
+# Note: Using --GRPO for GRPO data (label will show as GRPO)
 python "${PROJECT_ROOT}/script/plot_model_category.py" \
     --baseline "$BASELINE" \
     --sft "$SFT" \
-    --dpo "$GRPO" \
+    --GRPO "$GRPO" \
     --output "$OUTPUT_DIR" \
     --model-name "Mistral-7B" \
     --domain "Blocksworld"

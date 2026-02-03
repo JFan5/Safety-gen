@@ -17,14 +17,15 @@ mkdir -p "$OUTPUT_DIR"
 echo "=== Generating SafePilot Comparison Tables ==="
 echo ""
 
-# Generate compact comparison table (Success + Safety only)
-echo "1. Generating compact comparison table (Success + Safety)..."
+# Generate compact comparison table (vertical layout)
+echo "1. Generating compact comparison table (vertical layout)..."
 python "${PROJECT_ROOT}/script/generate_safepilot_table.py" \
     --compare \
     --pretrained "$PRETRAINED" \
     --grpo "$GRPO" \
     --grpo-workflow "$GRPO_WORKFLOW" \
     --format latex \
+    --vertical \
     --output "${OUTPUT_DIR}/safepilot_comparison.tex"
 
 echo ""

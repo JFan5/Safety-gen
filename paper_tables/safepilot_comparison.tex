@@ -5,16 +5,27 @@
 \small
 \begin{tabular}{lcccccc}
 \toprule
-\multirow{2}{*}{\textbf{Domain}} & \multicolumn{2}{c}{\textbf{Pretrained}} & \multicolumn{2}{c}{\textbf{GRPO}} & \multicolumn{2}{c}{\textbf{GRPO+SafePilot}} \\
- & \textbf{Succ$\uparrow$} & \textbf{Safety$\downarrow$} & \textbf{Succ$\uparrow$} & \textbf{Safety$\downarrow$} & \textbf{Succ$\uparrow$} & \textbf{Safety$\downarrow$} \\
+\textbf{Model} & \textbf{Block} & \textbf{Ferry} & \textbf{Gripp} & \textbf{Spann} & \textbf{Deliv} & \textbf{Overall} \\
 \midrule
-Blocksworld & 50.0 & 0.0 & 88.0 & 0.0 & 94.0 & 0.0 \\
-Ferry & 0.0 & 0.0 & 96.0 & 0.0 & 98.0 & 0.0 \\
-Grippers & 50.0 & 0.0 & 98.0 & 2.0 & 98.0 & 2.0 \\
-Spanner & 0.0 & 0.0 & 100.0 & 0.0 & 100.0 & 0.0 \\
-Delivery & 50.0 & 50.0 & 2.0 & 22.0 & 6.0 & 18.0 \\
+\multicolumn{7}{l}{\textit{Success Rate (\%) $\uparrow$}} \\
+Pretrained & 50.0 & 0.0 & 50.0 & 0.0 & 50.0 & \textbf{30.0} \\
+GRPO & 88.0 & 96.0 & 98.0 & 100.0 & 2.0 & \textbf{76.8} \\
+GRPO+SafePilot & 94.0 & 98.0 & 98.0 & 100.0 & 6.0 & \textbf{79.2} \\
 \midrule
-\textbf{Overall} & \textbf{30.0} & \textbf{10.0} & \textbf{76.8} & \textbf{4.8} & \textbf{79.2} & \textbf{4.0} \\
+\multicolumn{7}{l}{\textit{Safety Violation (\%) $\downarrow$}} \\
+Pretrained & 0.0 & 0.0 & 0.0 & 0.0 & 50.0 & \textbf{10.0} \\
+GRPO & 0.0 & 0.0 & 2.0 & 0.0 & 22.0 & \textbf{4.8} \\
+GRPO+SafePilot & 0.0 & 0.0 & 2.0 & 0.0 & 18.0 & \textbf{4.0} \\
+\midrule
+\multicolumn{7}{l}{\textit{Avg. Retries $\downarrow$}} \\
+Pretrained & 3.50 & 5.00 & 3.00 & 5.00 & 4.50 & \textbf{4.20} \\
+GRPO & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & \textbf{1.00} \\
+GRPO+SafePilot & 1.36 & 1.12 & 1.14 & 1.00 & 4.76 & \textbf{1.88} \\
+\midrule
+\multicolumn{7}{l}{\textit{Avg. Time (s) $\downarrow$}} \\
+Pretrained & - & - & - & - & - & \textbf{-} \\
+GRPO & 1.24 & 1.18 & 1.12 & 0.73 & 1.40 & \textbf{1.75} \\
+GRPO+SafePilot & - & - & - & - & - & \textbf{-} \\
 \bottomrule
 \end{tabular}
 \end{table}

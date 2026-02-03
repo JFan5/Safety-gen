@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Compare three model types (baseline, dpo, sft) across five error categories.
+Compare three model types (baseline, GRPO, sft) across five error categories.
 Publication-quality grouped bar chart with academic styling (NeurIPS/ICLR style).
 
 Usage:
-    python plot_model_category.py --baseline baseline.json --dpo dpo.json --sft sft.json --output paper_plots
-    python plot_model_category.py --baseline baseline.json --dpo dpo.json --sft sft.json
+    python plot_model_category.py --baseline baseline.json --GRPO GRPO.json --sft sft.json --output paper_plots
+    python plot_model_category.py --baseline baseline.json --GRPO GRPO.json --sft sft.json
 """
 
 import json
@@ -61,8 +61,8 @@ def parse_args():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python plot_model_category.py --baseline baseline.json --dpo dpo.json --sft sft.json
-  python plot_model_category.py --baseline baseline.json --dpo dpo.json --sft sft.json --output paper_plots
+  python plot_model_category.py --baseline baseline.json --GRPO GRPO.json --sft sft.json
+  python plot_model_category.py --baseline baseline.json --GRPO GRPO.json --sft sft.json --output paper_plots
         """
     )
     parser.add_argument(
@@ -72,10 +72,10 @@ Examples:
         help="Path to baseline model JSON results file"
     )
     parser.add_argument(
-        "--dpo",
+        "--GRPO",
         type=str,
         required=True,
-        help="Path to DPO model JSON results file"
+        help="Path to GRPO model JSON results file"
     )
     parser.add_argument(
         "--sft",
@@ -109,11 +109,11 @@ def main():
 
     # File paths
     baseline_file = Path(args.baseline)
-    dpo_file = Path(args.dpo)
+    GRPO_file = Path(args.GRPO)
     sft_file = Path(args.sft)
 
     # Validate files exist
-    for name, file_path in [("Baseline", baseline_file), ("DPO", dpo_file), ("SFT", sft_file)]:
+    for name, file_path in [("Baseline", baseline_file), ("GRPO", GRPO_file), ("SFT", sft_file)]:
         if not file_path.exists():
             raise FileNotFoundError(f"{name} file not found: {file_path}")
 
@@ -160,7 +160,7 @@ def main():
     # Load data
     print("Loading JSON files...")
     baseline_data = load_json(baseline_file)
-    dpo_data = load_json(dpo_file)
+    GRPO_data = load_json(GRPO_file)
     sft_data = load_json(sft_file)
 
     # Use category_counts if available, otherwise parse from results
@@ -172,12 +172,12 @@ def main():
         baseline_counts = parse_results(baseline_data["results"])
         print("Parsing baseline results...")
     
-    if "category_counts" in dpo_data:
-        dpo_counts = dpo_data["category_counts"]
-        print("Using category_counts from DPO data")
+    if "category_counts" in GRPO_data:
+        GRPO_counts = GRPO_data["category_counts"]
+        print("Using category_counts from GRPO data")
     else:
-        dpo_counts = parse_results(dpo_data["results"])
-        print("Parsing DPO results...")
+        GRPO_counts = parse_results(GRPO_data["results"])
+        print("Parsing GRPO results...")
     
     if "category_counts" in sft_data:
         sft_counts = sft_data["category_counts"]
@@ -187,7 +187,7 @@ def main():
         print("Parsing SFT results...")
     
     print("\nBaseline counts:", baseline_counts)
-    print("DPO counts:", dpo_counts)
+    print("GRPO counts:", GRPO_counts)
     print("SFT counts:", sft_counts)
     
     # Define five categories in order: errors first, success last
@@ -199,15 +199,15 @@ def main():
         "success_plans"
     ]
 
-    # Prepare data - order: Pretrained, SFT, DPO
-    models = ["Pretrained", "SFT", "DPO"]
+    # Prepare data - order: Pretrained, SFT, GRPO
+    models = ["Pretrained", "SFT", "GRPO"]
     total_tests = baseline_data.get("total_tests", 50)
 
     # Calculate percentages for Y-axis display
     percentages = {
         "Pretrained": [baseline_counts.get(cat, 0) / total_tests * 100 for cat in error_categories],
         "SFT": [sft_counts.get(cat, 0) / total_tests * 100 for cat in error_categories],
-        "DPO": [dpo_counts.get(cat, 0) / total_tests * 100 for cat in error_categories]
+        "GRPO": [GRPO_counts.get(cat, 0) / total_tests * 100 for cat in error_categories]
     }
 
     # Use percentages as data
@@ -217,7 +217,7 @@ def main():
     counts = {
         "Pretrained": [baseline_counts.get(cat, 0) for cat in error_categories],
         "SFT": [sft_counts.get(cat, 0) for cat in error_categories],
-        "DPO": [dpo_counts.get(cat, 0) for cat in error_categories]
+        "GRPO": [GRPO_counts.get(cat, 0) for cat in error_categories]
     }
 
     # Create figure
@@ -231,14 +231,14 @@ def main():
     colors = {
         "Pretrained": "#a6cee3",  # Pastel blue
         "SFT": "#b2df8a",         # Pastel green
-        "DPO": "#fdbf6f"          # Pastel orange
+        "GRPO": "#fdbf6f"          # Pastel orange
     }
 
     # Distinct hatch patterns for accessibility
     hatches = {
         "Pretrained": "",      # Solid fill
         "SFT": "//",           # Diagonal lines
-        "DPO": "xx"            # Cross-hatch
+        "GRPO": "xx"            # Cross-hatch
     }
 
     # Draw bars with hatches and black edges
@@ -248,8 +248,8 @@ def main():
     bars2 = ax.bar(x, data["SFT"], width, label="SFT",
                    color=colors["SFT"], hatch=hatches["SFT"],
                    edgecolor='black', linewidth=0.8)
-    bars3 = ax.bar(x + width, data["DPO"], width, label="DPO",
-                   color=colors["DPO"], hatch=hatches["DPO"],
+    bars3 = ax.bar(x + width, data["GRPO"], width, label="GRPO",
+                   color=colors["GRPO"], hatch=hatches["GRPO"],
                    edgecolor='black', linewidth=0.8)
     
     # Set labels and title (academic style - no bold)
@@ -309,7 +309,7 @@ def main():
     
     add_value_labels(bars1, percentages["Pretrained"], counts["Pretrained"])
     add_value_labels(bars2, percentages["SFT"], counts["SFT"])
-    add_value_labels(bars3, percentages["DPO"], counts["DPO"])
+    add_value_labels(bars3, percentages["GRPO"], counts["GRPO"])
 
     plt.tight_layout()
 
@@ -323,18 +323,18 @@ def main():
     print("\n" + "="*60)
     print("STATISTICAL SUMMARY")
     print("="*60)
-    print(f"{'Category':<30} {'Pretrained':<12} {'SFT':<12} {'DPO':<12}")
+    print(f"{'Category':<30} {'Pretrained':<12} {'SFT':<12} {'GRPO':<12}")
     print("-"*60)
     for cat in error_categories:
         print(f"{cat.replace('_', ' ').title():<30} "
               f"{baseline_counts.get(cat, 0):<12} "
               f"{sft_counts.get(cat, 0):<12} "
-              f"{dpo_counts.get(cat, 0):<12}")
+              f"{GRPO_counts.get(cat, 0):<12}")
     print("-"*60)
     print(f"{'Success Plans':<30} "
           f"{baseline_counts.get('success_plans', 0):<12} "
           f"{sft_counts.get('success_plans', 0):<12} "
-          f"{dpo_counts.get('success_plans', 0):<12}")
+          f"{GRPO_counts.get('success_plans', 0):<12}")
     print("="*60)
 
 if __name__ == "__main__":

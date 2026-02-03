@@ -73,7 +73,55 @@ def load_metrics(eval_folder: str) -> dict:
         return json.load(f)
 
 
-def normalize_metrics(metrics: dict) -> dict:
+def load_scenario_timing(eval_folder: str) -> dict:
+    """Load timing data from scenario JSON files."""
+    eval_path = Path(eval_folder)
+    scenarios_dir = eval_path / "scenarios"
+
+    timing_data = {"scenarios": {}, "overall": {}}
+
+    if not scenarios_dir.exists():
+        return timing_data
+
+    total_time = 0.0
+    total_problems = 0
+
+    for scenario_file in scenarios_dir.glob("*.json"):
+        scenario_name = scenario_file.stem
+        try:
+            with open(scenario_file, 'r') as f:
+                data = json.load(f)
+
+            # Extract timing if available
+            if "timing" in data:
+                timing = data["timing"]
+                avg_time = timing.get("avg_generation_time_seconds", 0.0)
+                total_scenario_time = timing.get("total_time_seconds", 0.0)
+                num_problems = data.get("total_tests", 0)
+
+                timing_data["scenarios"][scenario_name] = {
+                    "avg_time": avg_time,
+                    "total_time": total_scenario_time,
+                    "num_problems": num_problems
+                }
+
+                total_time += total_scenario_time
+                total_problems += num_problems
+        except (json.JSONDecodeError, KeyError):
+            continue
+
+    # Calculate overall average
+    if total_problems > 0:
+        timing_data["overall"] = {
+            "avg_time": total_time / total_problems,
+            "total_time": total_time,
+            "num_problems": total_problems
+        }
+
+    return timing_data
+
+
+def normalize_metrics(metrics: dict, timing_data: dict = None) -> dict:
     """Normalize metrics to a common format."""
     # Handle different key names: "scenarios" vs "per_scenario"
     if "scenarios" in metrics:
@@ -95,7 +143,12 @@ def normalize_metrics(metrics: dict) -> dict:
             "avg_retries": data.get("avg_retries", 0),
             "category_counts": data.get("category_counts", {}),
             "category_rates": data.get("category_rates", {}),
+            "avg_time": 0.0,
         }
+
+        # Add timing if available
+        if timing_data and scenario in timing_data.get("scenarios", {}):
+            normalized["scenarios"][scenario]["avg_time"] = timing_data["scenarios"][scenario].get("avg_time", 0.0)
 
     # Overall
     overall = metrics.get("overall", {})
@@ -105,7 +158,12 @@ def normalize_metrics(metrics: dict) -> dict:
         "avg_retries": overall.get("avg_retries", 0),
         "category_counts": overall.get("category_counts", {}),
         "category_rates": overall.get("category_rates", {}),
+        "avg_time": 0.0,
     }
+
+    # Add overall timing
+    if timing_data and "overall" in timing_data:
+        normalized["overall"]["avg_time"] = timing_data["overall"].get("avg_time", 0.0)
 
     return normalized
 
@@ -286,15 +344,30 @@ def format_table_latex(metrics: dict) -> str:
     return "\n".join(lines)
 
 
-def format_comparison_latex(all_metrics: dict, model_names: list) -> str:
+def format_comparison_latex_vertical(all_metrics: dict, model_names: list, include_retries: bool = True, include_time: bool = True) -> str:
     """
-    Generate a publication-quality LaTeX comparison table.
+    Generate a vertical layout LaTeX comparison table (models as rows).
 
     Args:
         all_metrics: dict mapping model_name -> normalized metrics
         model_names: list of model names in display order
+        include_retries: whether to include retry column
+        include_time: whether to include average time column
     """
     lines = []
+
+    # Check which models have retry data and timing data
+    has_retries = {}
+    has_timing = {}
+    for name in model_names:
+        metrics = all_metrics.get(name, {})
+        overall = metrics.get("overall", {})
+        has_retries[name] = overall.get("avg_retries", 0) > 0
+        has_timing[name] = overall.get("avg_time", 0) > 0
+
+    # Only show time column if at least one model has timing data
+    any_has_timing = any(has_timing.values())
+    include_time = include_time and any_has_timing
 
     # Table header
     lines.append("\\begin{table}[t]")
@@ -303,23 +376,165 @@ def format_comparison_latex(all_metrics: dict, model_names: list) -> str:
     lines.append("\\label{tab:model_comparison}")
     lines.append("\\small")
 
-    # Column spec: Scenario + (Success, Safety) for each model
-    num_models = len(model_names)
-    col_spec = "l" + "cc" * num_models
+    # Column spec: Model + metrics for each domain + Overall
+    num_domains = len(SCENARIO_ORDER)
+    col_spec = "l" + "c" * (num_domains + 1)  # +1 for Overall
     lines.append(f"\\begin{{tabular}}{{{col_spec}}}")
     lines.append("\\toprule")
 
-    # Header row 1: Model names spanning 2 columns each
+    # Header row: Domain names
+    header = "\\textbf{Model}"
+    for scenario in SCENARIO_ORDER:
+        display_name = SCENARIO_DISPLAY.get(scenario, scenario.capitalize())
+        # Shorten names for compact display
+        short_name = display_name[:5] if len(display_name) > 5 else display_name
+        header += f" & \\textbf{{{short_name}}}"
+    header += " & \\textbf{Overall} \\\\"
+    lines.append(header)
+    lines.append("\\midrule")
+
+    # Success rate rows
+    lines.append("\\multicolumn{" + str(num_domains + 2) + "}{l}{\\textit{Success Rate (\\%) $\\uparrow$}} \\\\")
+    for model_name in model_names:
+        metrics = all_metrics.get(model_name, {})
+        scenarios = metrics.get("scenarios", {})
+        overall = metrics.get("overall", {})
+
+        row = model_name
+        for scenario in SCENARIO_ORDER:
+            data = scenarios.get(scenario, {})
+            rates = data.get("category_rates", {})
+            success_rate = rates.get("success_plans", 0.0)
+            row += f" & {success_rate:.1f}"
+
+        overall_rates = overall.get("category_rates", {})
+        overall_success = overall_rates.get("success_plans", 0.0)
+        row += f" & \\textbf{{{overall_success:.1f}}} \\\\"
+        lines.append(row)
+
+    lines.append("\\midrule")
+
+    # Safety violation rows
+    lines.append("\\multicolumn{" + str(num_domains + 2) + "}{l}{\\textit{Safety Violation (\\%) $\\downarrow$}} \\\\")
+    for model_name in model_names:
+        metrics = all_metrics.get(model_name, {})
+        scenarios = metrics.get("scenarios", {})
+        overall = metrics.get("overall", {})
+
+        row = model_name
+        for scenario in SCENARIO_ORDER:
+            data = scenarios.get(scenario, {})
+            rates = data.get("category_rates", {})
+            safety_rate = rates.get("safety_constraints_violation", 0.0)
+            row += f" & {safety_rate:.1f}"
+
+        overall_rates = overall.get("category_rates", {})
+        overall_safety = overall_rates.get("safety_constraints_violation", 0.0)
+        row += f" & \\textbf{{{overall_safety:.1f}}} \\\\"
+        lines.append(row)
+
+    # Retry rows (if enabled)
+    if include_retries:
+        lines.append("\\midrule")
+        lines.append("\\multicolumn{" + str(num_domains + 2) + "}{l}{\\textit{Avg. Retries $\\downarrow$}} \\\\")
+        for model_name in model_names:
+            metrics = all_metrics.get(model_name, {})
+            scenarios = metrics.get("scenarios", {})
+            overall = metrics.get("overall", {})
+
+            row = model_name
+            for scenario in SCENARIO_ORDER:
+                data = scenarios.get(scenario, {})
+                avg_retries = data.get("avg_retries", 0.0)
+                if has_retries[model_name] and avg_retries > 0:
+                    row += f" & {avg_retries:.2f}"
+                else:
+                    row += " & 1.00"
+
+            overall_retries = overall.get("avg_retries", 0.0)
+            if has_retries[model_name] and overall_retries > 0:
+                row += f" & \\textbf{{{overall_retries:.2f}}} \\\\"
+            else:
+                row += " & \\textbf{1.00} \\\\"
+            lines.append(row)
+
+    # Time rows (if enabled and data available)
+    if include_time:
+        lines.append("\\midrule")
+        lines.append("\\multicolumn{" + str(num_domains + 2) + "}{l}{\\textit{Avg. Time (s) $\\downarrow$}} \\\\")
+        for model_name in model_names:
+            metrics = all_metrics.get(model_name, {})
+            scenarios = metrics.get("scenarios", {})
+            overall = metrics.get("overall", {})
+
+            row = model_name
+            for scenario in SCENARIO_ORDER:
+                data = scenarios.get(scenario, {})
+                avg_time = data.get("avg_time", 0.0)
+                if has_timing[model_name] and avg_time > 0:
+                    row += f" & {avg_time:.2f}"
+                else:
+                    row += " & -"
+
+            overall_time = overall.get("avg_time", 0.0)
+            if has_timing[model_name] and overall_time > 0:
+                row += f" & \\textbf{{{overall_time:.2f}}} \\\\"
+            else:
+                row += " & \\textbf{-} \\\\"
+            lines.append(row)
+
+    lines.append("\\bottomrule")
+    lines.append("\\end{tabular}")
+    lines.append("\\end{table}")
+
+    return "\n".join(lines)
+
+
+def format_comparison_latex(all_metrics: dict, model_names: list, include_retries: bool = True) -> str:
+    """
+    Generate a publication-quality LaTeX comparison table.
+
+    Args:
+        all_metrics: dict mapping model_name -> normalized metrics
+        model_names: list of model names in display order
+        include_retries: whether to include retry column for workflow models
+    """
+    lines = []
+
+    # Check which models have retry data
+    has_retries = {}
+    for name in model_names:
+        metrics = all_metrics.get(name, {})
+        overall = metrics.get("overall", {})
+        has_retries[name] = overall.get("avg_retries", 0) > 0
+
+    # Table header
+    lines.append("\\begin{table}[t]")
+    lines.append("\\centering")
+    lines.append("\\caption{Comparison of Planning Success and Safety Violation Rates (\\%).}")
+    lines.append("\\label{tab:model_comparison}")
+    lines.append("\\small")
+
+    # Column spec: Scenario + (Success, Safety, [Retry]) for each model
+    num_models = len(model_names)
+    cols_per_model = 3 if include_retries else 2  # Succ, Safety, [Retry]
+    col_spec = "l" + "c" * cols_per_model * num_models
+    lines.append(f"\\begin{{tabular}}{{{col_spec}}}")
+    lines.append("\\toprule")
+
+    # Header row 1: Model names spanning columns
     header1 = "\\multirow{2}{*}{\\textbf{Domain}}"
     for name in model_names:
-        header1 += f" & \\multicolumn{{2}}{{c}}{{\\textbf{{{name}}}}}"
+        header1 += f" & \\multicolumn{{{cols_per_model}}}{{c}}{{\\textbf{{{name}}}}}"
     header1 += " \\\\"
     lines.append(header1)
 
-    # Header row 2: Succ / Safety for each model
+    # Header row 2: Succ / Safety / Retry for each model
     header2 = ""
-    for _ in model_names:
+    for name in model_names:
         header2 += " & \\textbf{Succ$\\uparrow$} & \\textbf{Safety$\\downarrow$}"
+        if include_retries:
+            header2 += " & \\textbf{Retry$\\downarrow$}"
     header2 += " \\\\"
     lines.append(header2)
     lines.append("\\midrule")
@@ -337,8 +552,14 @@ def format_comparison_latex(all_metrics: dict, model_names: list) -> str:
             rates = data.get("category_rates", {})
             success_rate = rates.get("success_plans", 0.0)
             safety_rate = rates.get("safety_constraints_violation", 0.0)
+            avg_retries = data.get("avg_retries", 0.0)
 
             row += f" & {success_rate:.1f} & {safety_rate:.1f}"
+            if include_retries:
+                if has_retries[model_name] and avg_retries > 0:
+                    row += f" & {avg_retries:.2f}"
+                else:
+                    row += " & 1.00"  # Single-shot models have 1 attempt
 
         row += " \\\\"
         lines.append(row)
@@ -354,8 +575,14 @@ def format_comparison_latex(all_metrics: dict, model_names: list) -> str:
         rates = overall.get("category_rates", {})
         success_rate = rates.get("success_plans", 0.0)
         safety_rate = rates.get("safety_constraints_violation", 0.0)
+        avg_retries = overall.get("avg_retries", 0.0)
 
         row += f" & \\textbf{{{success_rate:.1f}}} & \\textbf{{{safety_rate:.1f}}}"
+        if include_retries:
+            if has_retries[model_name] and avg_retries > 0:
+                row += f" & \\textbf{{{avg_retries:.2f}}}"
+            else:
+                row += " & \\textbf{1.00}"
 
     row += " \\\\"
     lines.append(row)
@@ -367,19 +594,29 @@ def format_comparison_latex(all_metrics: dict, model_names: list) -> str:
     return "\n".join(lines)
 
 
-def format_comparison_full_latex(all_metrics: dict, model_names: list) -> str:
+def format_comparison_full_latex(all_metrics: dict, model_names: list, include_retries: bool = True) -> str:
     """
     Generate a full comparison LaTeX table with all error categories.
 
     Args:
         all_metrics: dict mapping model_name -> normalized metrics
         model_names: list of model names in display order
+        include_retries: whether to include retry column
     """
     lines = []
+
+    # Check which models have retry data
+    has_retries = {}
+    for name in model_names:
+        metrics = all_metrics.get(name, {})
+        overall = metrics.get("overall", {})
+        has_retries[name] = overall.get("avg_retries", 0) > 0
 
     # Categories to show
     categories = ["success_plans", "precondition_violation", "safety_constraints_violation", "goal_not_satisfied"]
     cat_headers = ["Succ$\\uparrow$", "Precond$\\downarrow$", "Safety$\\downarrow$", "Goal$\\downarrow$"]
+    if include_retries:
+        cat_headers.append("Retry$\\downarrow$")
 
     lines.append("\\begin{table*}[t]")
     lines.append("\\centering")
@@ -389,15 +626,15 @@ def format_comparison_full_latex(all_metrics: dict, model_names: list) -> str:
 
     # Column spec
     num_models = len(model_names)
-    num_cats = len(categories)
-    col_spec = "l" + ("c" * num_cats) * num_models
+    num_cols_per_model = len(categories) + (1 if include_retries else 0)
+    col_spec = "l" + ("c" * num_cols_per_model) * num_models
     lines.append(f"\\begin{{tabular}}{{{col_spec}}}")
     lines.append("\\toprule")
 
     # Header row 1: Model names
     header1 = "\\multirow{2}{*}{\\textbf{Domain}}"
     for name in model_names:
-        header1 += f" & \\multicolumn{{{num_cats}}}{{c}}{{\\textbf{{{name}}}}}"
+        header1 += f" & \\multicolumn{{{num_cols_per_model}}}{{c}}{{\\textbf{{{name}}}}}"
     header1 += " \\\\"
     lines.append(header1)
 
@@ -419,10 +656,17 @@ def format_comparison_full_latex(all_metrics: dict, model_names: list) -> str:
             scenarios = metrics.get("scenarios", {})
             data = scenarios.get(scenario, {})
             rates = data.get("category_rates", {})
+            avg_retries = data.get("avg_retries", 0.0)
 
             for cat in categories:
                 rate = rates.get(cat, 0.0)
                 row += f" & {rate:.1f}"
+
+            if include_retries:
+                if has_retries[model_name] and avg_retries > 0:
+                    row += f" & {avg_retries:.2f}"
+                else:
+                    row += " & 1.00"
 
         row += " \\\\"
         lines.append(row)
@@ -435,10 +679,17 @@ def format_comparison_full_latex(all_metrics: dict, model_names: list) -> str:
         metrics = all_metrics.get(model_name, {})
         overall = metrics.get("overall", {})
         rates = overall.get("category_rates", {})
+        avg_retries = overall.get("avg_retries", 0.0)
 
         for cat in categories:
             rate = rates.get(cat, 0.0)
             row += f" & \\textbf{{{rate:.1f}}}"
+
+        if include_retries:
+            if has_retries[model_name] and avg_retries > 0:
+                row += f" & \\textbf{{{avg_retries:.2f}}}"
+            else:
+                row += " & \\textbf{1.00}"
 
     row += " \\\\"
     lines.append(row)
@@ -486,6 +737,21 @@ def main():
         action="store_true",
         help="Generate full table with all error categories (comparison mode only)"
     )
+    parser.add_argument(
+        "--no-retries",
+        action="store_true",
+        help="Exclude retry column from comparison table"
+    )
+    parser.add_argument(
+        "--vertical",
+        action="store_true",
+        help="Use vertical layout (models as rows) instead of horizontal"
+    )
+    parser.add_argument(
+        "--no-time",
+        action="store_true",
+        help="Exclude average time column from comparison table"
+    )
 
     # Common options
     parser.add_argument(
@@ -515,7 +781,8 @@ def main():
         if args.pretrained:
             try:
                 metrics = load_metrics(args.pretrained)
-                all_metrics["Pretrained"] = normalize_metrics(metrics)
+                timing = load_scenario_timing(args.pretrained)
+                all_metrics["Pretrained"] = normalize_metrics(metrics, timing)
                 model_names.append("Pretrained")
                 print(f"Loaded Pretrained from: {args.pretrained}", file=sys.stderr)
             except FileNotFoundError as e:
@@ -524,7 +791,8 @@ def main():
         if args.grpo:
             try:
                 metrics = load_metrics(args.grpo)
-                all_metrics["GRPO"] = normalize_metrics(metrics)
+                timing = load_scenario_timing(args.grpo)
+                all_metrics["GRPO"] = normalize_metrics(metrics, timing)
                 model_names.append("GRPO")
                 print(f"Loaded GRPO from: {args.grpo}", file=sys.stderr)
             except FileNotFoundError as e:
@@ -533,7 +801,8 @@ def main():
         if args.grpo_workflow:
             try:
                 metrics = load_metrics(args.grpo_workflow)
-                all_metrics["GRPO+SafePilot"] = normalize_metrics(metrics)
+                timing = load_scenario_timing(args.grpo_workflow)
+                all_metrics["GRPO+SafePilot"] = normalize_metrics(metrics, timing)
                 model_names.append("GRPO+SafePilot")
                 print(f"Loaded GRPO+SafePilot from: {args.grpo_workflow}", file=sys.stderr)
             except FileNotFoundError as e:
@@ -544,11 +813,15 @@ def main():
             sys.exit(1)
 
         # Generate comparison table
+        include_retries = not args.no_retries
+        include_time = not args.no_time
         if args.format == "latex":
             if args.full:
-                table = format_comparison_full_latex(all_metrics, model_names)
+                table = format_comparison_full_latex(all_metrics, model_names, include_retries)
+            elif args.vertical:
+                table = format_comparison_latex_vertical(all_metrics, model_names, include_retries, include_time)
             else:
-                table = format_comparison_latex(all_metrics, model_names)
+                table = format_comparison_latex(all_metrics, model_names, include_retries)
         else:
             # For non-latex formats, generate simple markdown/csv comparison
             lines = [f"# Model Comparison\n"]

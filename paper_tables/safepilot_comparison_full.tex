@@ -3,18 +3,18 @@
 \caption{Detailed Comparison of Planning Results by Error Category (\%).}
 \label{tab:model_comparison_full}
 \small
-\begin{tabular}{lcccccccccccc}
+\begin{tabular}{lccccccccccccccc}
 \toprule
-\multirow{2}{*}{\textbf{Domain}} & \multicolumn{4}{c}{\textbf{Pretrained}} & \multicolumn{4}{c}{\textbf{GRPO}} & \multicolumn{4}{c}{\textbf{GRPO+SafePilot}} \\
- & \textbf{Succ$\uparrow$} & \textbf{Precond$\downarrow$} & \textbf{Safety$\downarrow$} & \textbf{Goal$\downarrow$} & \textbf{Succ$\uparrow$} & \textbf{Precond$\downarrow$} & \textbf{Safety$\downarrow$} & \textbf{Goal$\downarrow$} & \textbf{Succ$\uparrow$} & \textbf{Precond$\downarrow$} & \textbf{Safety$\downarrow$} & \textbf{Goal$\downarrow$} \\
+\multirow{2}{*}{\textbf{Domain}} & \multicolumn{5}{c}{\textbf{Pretrained}} & \multicolumn{5}{c}{\textbf{GRPO}} & \multicolumn{5}{c}{\textbf{GRPO+SafePilot}} \\
+ & \textbf{Succ$\uparrow$} & \textbf{Precond$\downarrow$} & \textbf{Safety$\downarrow$} & \textbf{Goal$\downarrow$} & \textbf{Retry$\downarrow$} & \textbf{Succ$\uparrow$} & \textbf{Precond$\downarrow$} & \textbf{Safety$\downarrow$} & \textbf{Goal$\downarrow$} & \textbf{Retry$\downarrow$} & \textbf{Succ$\uparrow$} & \textbf{Precond$\downarrow$} & \textbf{Safety$\downarrow$} & \textbf{Goal$\downarrow$} & \textbf{Retry$\downarrow$} \\
 \midrule
-Blocksworld & 50.0 & 0.0 & 0.0 & 0.0 & 88.0 & 12.0 & 0.0 & 0.0 & 94.0 & 4.0 & 0.0 & 2.0 \\
-Ferry & 0.0 & 50.0 & 0.0 & 0.0 & 96.0 & 4.0 & 0.0 & 0.0 & 98.0 & 2.0 & 0.0 & 0.0 \\
-Grippers & 50.0 & 50.0 & 0.0 & 0.0 & 98.0 & 0.0 & 2.0 & 0.0 & 98.0 & 0.0 & 2.0 & 0.0 \\
-Spanner & 0.0 & 50.0 & 0.0 & 50.0 & 100.0 & 0.0 & 0.0 & 0.0 & 100.0 & 0.0 & 0.0 & 0.0 \\
-Delivery & 50.0 & 0.0 & 50.0 & 0.0 & 2.0 & 76.0 & 22.0 & 0.0 & 6.0 & 76.0 & 18.0 & 0.0 \\
+Blocksworld & 50.0 & 0.0 & 0.0 & 0.0 & 3.50 & 88.0 & 12.0 & 0.0 & 0.0 & 1.00 & 94.0 & 4.0 & 0.0 & 2.0 & 1.36 \\
+Ferry & 0.0 & 50.0 & 0.0 & 0.0 & 5.00 & 96.0 & 4.0 & 0.0 & 0.0 & 1.00 & 98.0 & 2.0 & 0.0 & 0.0 & 1.12 \\
+Grippers & 50.0 & 50.0 & 0.0 & 0.0 & 3.00 & 98.0 & 0.0 & 2.0 & 0.0 & 1.00 & 98.0 & 0.0 & 2.0 & 0.0 & 1.14 \\
+Spanner & 0.0 & 50.0 & 0.0 & 50.0 & 5.00 & 100.0 & 0.0 & 0.0 & 0.0 & 1.00 & 100.0 & 0.0 & 0.0 & 0.0 & 1.00 \\
+Delivery & 50.0 & 0.0 & 50.0 & 0.0 & 4.50 & 2.0 & 76.0 & 22.0 & 0.0 & 1.00 & 6.0 & 76.0 & 18.0 & 0.0 & 4.76 \\
 \midrule
-\textbf{Overall} & \textbf{30.0} & \textbf{30.0} & \textbf{10.0} & \textbf{10.0} & \textbf{76.8} & \textbf{18.4} & \textbf{4.8} & \textbf{0.0} & \textbf{79.2} & \textbf{16.4} & \textbf{4.0} & \textbf{0.4} \\
+\textbf{Overall} & \textbf{30.0} & \textbf{30.0} & \textbf{10.0} & \textbf{10.0} & \textbf{4.20} & \textbf{76.8} & \textbf{18.4} & \textbf{4.8} & \textbf{0.0} & \textbf{1.00} & \textbf{79.2} & \textbf{16.4} & \textbf{4.0} & \textbf{0.4} & \textbf{1.88} \\
 \bottomrule
 \end{tabular}
 \end{table*}

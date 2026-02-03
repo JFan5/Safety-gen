@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1770057108 "main.aux" "main.bbl" "main" 1770057110
+["bibtex main"] 1770068537 "main.aux" "main.bbl" "main" 1770068539
   "./ACM-Reference-Format.bst" 1769460409 93560 12e0ced1522ea2bfa9b2fb12855c7e9e ""
-  "main.aux" 1770057109 15289 73ff3394bd8c904bd2fd929208063cbe "pdflatex"
+  "main.aux" 1770068539 16196 ff4521d8ca656851c2251aa7f1b48e03 "pdflatex"
   "sample-base.bib" 1770052923 15453 b5ddc686970ff14d5b021afb97de44e6 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1770057108 "/home/jfan5/Safety-gen/paper/new_submission/latex/main.tex" "main.pdf" "main" 1770057110
+["pdflatex"] 1770068538 "/home/jfan5/Safety-gen/paper/new_submission/latex/main.tex" "main.pdf" "main" 1770068539
   "/etc/texmf/web2c/texmf.cnf" 1740580872 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jfan5/Safety-gen/paper/new_submission/latex/main.tex" 1770057107 5404 21e8a13e038f82f513db62721f338940 ""
+  "/home/jfan5/Safety-gen/paper/new_submission/latex/main.tex" 1770062935 5448 6a32f95e35904f4cd3c93da90845488c ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc" 1558214095 7693 0f2dce6d313c82989ec3a67fc24df2a0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
@@ -247,6 +247,7 @@
   "/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg" 1635714533 5928 73817a3576c87e17bcff2a717017f3ec ""
   "/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg" 1635714533 5593 428f02443ecf7ba7329e84a32c80d72c ""
   "/usr/share/texlive/texmf-dist/tex/latex/mmap/oml.cmap" 1215649417 1866 c1c12138091b4a8edd4a24a940e6f792 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty" 1615845910 6149 2398eec4faa1ee24ff761581e580ecf1 ""
   "/usr/share/texlive/texmf-dist/tex/latex/mweights/mweights.sty" 1490909540 4953 67f29a12ea26221103fce6bae3433e60 ""
   "/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty" 1644012257 45458 f1c6cb3edd91174e966cbbaf88993bcf ""
   "/usr/share/texlive/texmf-dist/tex/latex/ncctools/manyfoot.sty" 1564869456 12626 1a53db73f820034b2ec9e401e205b159 ""
@@ -296,16 +297,16 @@
   "figures/blocksworld_model_comparison.png" 1770052665 306509 2c9b9a58d6e689f3d4db7cf79980e302 ""
   "figures/comparison_blocksworld_gpt5.2_vs_optic.png" 1770047064 321996 f863780e60f4f89fc92082a05ce3d0a8 ""
   "figures/comparison_grippers_gpt5.2_vs_optic.png" 1770047064 296456 9be3e15207e97206b0ec9306ebe2f472 ""
-  "main.aux" 1770057109 15289 73ff3394bd8c904bd2fd929208063cbe "pdflatex"
-  "main.bbl" 1770057108 26200 c058d178f82e14d970d984c73b71cbec "bibtex main"
-  "main.out" 1770057109 4505 45a07d738eb50fdbdcce2ba704b9b7a4 "pdflatex"
-  "main.tex" 1770057107 5404 21e8a13e038f82f513db62721f338940 ""
+  "main.aux" 1770068539 16196 ff4521d8ca656851c2251aa7f1b48e03 "pdflatex"
+  "main.bbl" 1770068538 26200 c058d178f82e14d970d984c73b71cbec "bibtex main"
+  "main.out" 1770068539 4834 f2cf49983a9f98d39757501393b7aaef "pdflatex"
+  "main.tex" 1770062935 5448 6a32f95e35904f4cd3c93da90845488c ""
   "sections/0_abstract.tex" 1770049176 883 74157cb0e0358860a7a723b5cb3aa337 ""
   "sections/1_introduction.tex" 1770049401 7315 bed912957e0d8e6db7c42327edddea64 ""
   "sections/2_relatedwork.tex" 1769460409 4705 e9769293566043974938dc228068467e ""
   "sections/3_preliminaries.tex" 1769796103 11327 1027c0746e908b3b02492a5822b5d240 ""
   "sections/4_approach.tex" 1769796103 12406 27e24b9f4de22f6502f3497c6aa529ea ""
-  "sections/5_experiments.tex" 1770057100 16401 b2fcda244b934a0d11cd8fd796fd6600 ""
+  "sections/5_experiments.tex" 1770068536 18896 764eba027625e55cd4611c5c90aaea83 ""
   "sections/6_conclusion.tex" 1769460409 1483 b137b6f9da9ad955a602ac02f48087ac ""
   "sft_diagram.pdf" 1770046844 81658 c7406bbbbaf8b52e737f68dd96c598f0 ""
   (generated)

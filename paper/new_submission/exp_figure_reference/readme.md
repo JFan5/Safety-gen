@@ -21,7 +21,10 @@ GRPO: /home/jfan5/Safety-gen/runs/qwen3/grpo/grpo_qwen3-14b-curriculum_v2-all-01
 ## table 3, different format input 
 pddl3:  /home/jfan5/Safety-gen/runs/qwen3/grpo/grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407/eval/solver_batch__temp0.6_max512_bs8_20260122_143526
 NL: runs/qwen3/grpo/grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407/eval/solver_batch_nl_dnl__temp0.6_max512_bs8_20260202_175235
-JSON:
+JSON: /home/ubuntu/Safety-gen/runs/qwen3/grpo/grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407/eval/solver_batch_json_temp0.6_max512_bs8_20260202_191429
+
+
+shells/different_input_compare.sh
 
 
 ## table 4 
@@ -30,10 +33,12 @@ pretrained: /home/jfan5/Safety-gen/runs/safepilot/safepilot__temp0.6_max512_2026
 GRPO:   /home/jfan5/Safety-gen/runs/qwen3/grpo/grpo_qwen3-14b-curriculum_v2-all-0111-stl_20260111_015253_seed3407/eval/solver_batch__temp0.6_max512_bs8_20260122_143526
 GRPO+workflow:  /home/jfan5/Safety-gen/runs/safepilot/safepilot__temp0.6_max512_20260126_140327
  
+script/generate_input_format_table.py
 
 
 ## table 5
 shells/generate_safepilot_comparison_table.sh
 
+./shells/generate_safepilot_comparison_table.sh
 
 ## 
