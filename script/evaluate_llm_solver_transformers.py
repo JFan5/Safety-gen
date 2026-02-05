@@ -22,7 +22,7 @@ from transformers import (
 )
 
 from utils import (
-    _classify_result,
+    classify_result,
     validate_solution,
 )
 
@@ -365,7 +365,7 @@ def test_model_on_testing_data(
                 if not _looks_like_valid_plan(raw_solution):
                     category = "plan_format_error"
                 else:
-                    category = _classify_result(stdout)
+                    category = classify_result(stdout)
             else:
                 category = "plan_format_error"
                 validation_message = "Empty solution generated"

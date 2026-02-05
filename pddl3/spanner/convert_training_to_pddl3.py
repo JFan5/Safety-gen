@@ -146,18 +146,18 @@ def build_spanner_invalidating_constraints(
     3. Always includes (forall (?m - man) (at-most-once (at ?m shed)))
 
     Returns empty list if plan_text is None or less than 2 nuts tightened.
+    This causes the problem to be SKIPPED (every problem must have both constraints).
     """
-    constraints = []
-
-    # Always add at-most-once shed constraint
-    constraints.append("(forall (?m - man) (at-most-once (at ?m shed)))")
-
+    # IMPORTANT: Return empty list if we can't generate BOTH constraints
+    # This will cause the problem to be skipped
     if not plan_text:
-        return constraints
+        return []
 
     tighten_order = extract_nut_tighten_order_from_plan(plan_text)
     if len(tighten_order) < 2:
-        return constraints
+        return []
+
+    constraints = []
 
     # Get first two nuts in plan's tighten order
     earlier_in_plan = tighten_order[0]  # tightened first in PDDL2 plan
@@ -168,6 +168,9 @@ def build_spanner_invalidating_constraints(
     # Meaning: until later is tightened, earlier cannot be tightened
     c = f"(always (imply (not (tightened {later_in_plan})) (not (tightened {earlier_in_plan}))))"
     constraints.append(c)
+
+    # Add at-most-once shed constraint
+    constraints.append("(forall (?m - man) (at-most-once (at ?m shed)))")
 
     return constraints
 

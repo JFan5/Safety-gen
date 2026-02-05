@@ -57,6 +57,7 @@ from utils.benchmark_output import (
     print_benchmark_summary,
     DEFAULT_BENCHMARK_DIR,
 )
+from utils.validation import classify_result
 
 # Domain configurations
 DOMAINS = ["blocksworld", "ferry", "spanner", "grippers", "delivery", "grid"]
@@ -558,11 +559,15 @@ def run_optic_benchmark(
             for scenario_data in data.get("scenarios", {}).values():
                 for problem in scenario_data.get("problems", []):
                     optic_data = problem.get("optic", {}) or {}
+                    # Use classify_result to determine validity based on validation stdout
+                    validation_stdout = optic_data.get("validation_stdout", "")
+                    category = classify_result(validation_stdout)
+                    is_valid = (category == "success_plans")
                     results.append({
-                        "problem_name": problem.get("problem", ""),  # Fixed: "problem" not "name"
-                        "is_valid": optic_data.get("validation") == "valid",  # Fixed: check optic.validation
-                        "solve_time_seconds": optic_data.get("elapsed_seconds", 0),  # Fixed: get from optic
-                        "category": optic_data.get("status", "unknown"),  # Fixed: get from optic
+                        "problem_name": problem.get("problem", ""),
+                        "is_valid": is_valid,
+                        "solve_time_seconds": optic_data.get("elapsed_seconds", 0),
+                        "category": category,
                     })
 
             level_stats = compute_level_statistics(results, domain)

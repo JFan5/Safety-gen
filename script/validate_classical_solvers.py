@@ -5,7 +5,7 @@ Validate solutions produced by classical solvers.
 Usage:
   # Default mode: validates all three scenarios (blocksworld, logistics, delivery)
   python validate_classical_solvers.py
-  
+
   # Custom mode: validate specific scenario
   python validate_classical_solvers.py \
     --domain logistics/domain.pddl \
@@ -14,12 +14,17 @@ Usage:
 """
 import os
 import re
+import sys
 import argparse
 import subprocess
 import json
 from pathlib import Path
 from datetime import datetime
 from typing import Tuple, Dict, List, Optional, Set
+
+# Add script directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+from utils.validation import classify_result
 
 
 def validate_solution(domain_file: str, problem_file: str, solution_file: str, timeout_sec: int = 30) -> Tuple[bool, str, Dict]:
@@ -344,22 +349,39 @@ def validate_single_scenario(
         print(f"Error: solutions_dir not found: {solutions_path}")
         return
 
-    solution_files = sorted([p for p in solutions_path.glob("*.soln")])
-    if not solution_files:
-        print(f"No .soln files found in {solutions_path}")
+    # Iterate over problem files (not solutions) to handle different problem/solution directories
+    problem_files = sorted([p for p in problems_path.glob("*.pddl")])
+    if not problem_files:
+        print(f"No .pddl files found in {problems_path}")
         return
 
     print(f"Domain: {domain_path}")
     print(f"Problems dir: {problems_path}")
     print(f"Solutions dir: {solutions_path}")
-    print(f"Found {len(solution_files)} solution files")
+    print(f"Found {len(problem_files)} problem files")
 
     valid = 0
     invalid = 0
     missing = 0
-    
-    # Data structure to store validation results
+
+    # Detailed classification counters
+    classification_counts = {
+        "success_plans": 0,
+        "plan_format_error": 0,
+        "precondition_violation": 0,
+        "safety_constraints_violation": 0,
+        "goal_not_satisfied": 0,
+        "missing_solution": 0,
+        "pddl3_constraint_violation": 0,  # Local PDDL3 check (sometime-before, always-not)
+    }
+
+    # Build command string for documentation
+    command_str = f"python3 validate_classical_solvers.py --domain {domain_path} --problems_dir {problems_path} --solutions_dir {solutions_path} --timeout {timeout_sec}"
+
+    # Data structure to store validation results (summary first, then metadata, then results)
     validation_results = {
+        "summary": {},  # Will be filled after validation
+        "command": command_str,
         "metadata": {
             "timestamp": datetime.now().isoformat(),
             "scenario_name": scenario_name or "custom",
@@ -367,68 +389,87 @@ def validate_single_scenario(
             "problems_directory": str(problems_path),
             "solutions_directory": str(solutions_path),
             "timeout_seconds": timeout_sec,
-            "total_solutions": len(solution_files)
+            "total_problems": len(problem_files)
         },
         "results": []
     }
 
-    for i, sol in enumerate(solution_files, 1):
-        stem = sol.stem
-        problem_file = problems_path / f"{stem}.pddl"
-        print(f"[{i}/{len(solution_files)}] {sol.name}")
+    for i, prob in enumerate(problem_files, 1):
+        stem = prob.stem
+        solution_file = solutions_path / f"{stem}.soln"
+        print(f"[{i}/{len(problem_files)}] {prob.name}")
 
         result_entry = {
-            "solution_file": sol.name,
-            "problem_file": f"{stem}.pddl",
-            "solution_path": str(sol),
-            "problem_path": str(problem_file)
+            "problem_file": prob.name,
+            "solution_file": f"{stem}.soln",
+            "problem_path": str(prob),
+            "solution_path": str(solution_file)
         }
 
-        if not problem_file.exists():
-            print(f"  ✗ Problem not found: {problem_file.name}")
+        if not solution_file.exists():
+            print(f"  ✗ Solution not found: {solution_file.name}")
             missing += 1
-            result_entry["status"] = "missing_problem"
+            classification_counts["missing_solution"] += 1
+            result_entry["status"] = "missing_solution"
+            result_entry["classification"] = "missing_solution"
             result_entry["valid"] = False
-            result_entry["message"] = f"Problem file not found: {problem_file.name}"
+            result_entry["message"] = f"Solution file not found: {solution_file.name}"
         else:
-            ok, msg, execution_info = validate_solution(str(domain_path), str(problem_file), str(sol), timeout_sec=timeout_sec)
+            ok, msg, execution_info = validate_solution(str(domain_path), str(prob), str(solution_file), timeout_sec=timeout_sec)
+
+            # Classify the result using validation stdout
+            stdout_text = execution_info.get("stdout", "")
+            classification = classify_result(stdout_text)
 
             # Enforce PDDL3 constraints locally if present (covers sometime-before and always-not at debark states)
+            pddl3_violated = False
             try:
-                with open(problem_file, 'r', encoding='utf-8') as pf:
+                with open(prob, 'r', encoding='utf-8') as pf:
                     problem_text = pf.read()
-                pddl3_ok, pddl3_msg = enforce_pddl3_constraints_if_present(problem_text, str(sol))
+                pddl3_ok, pddl3_msg = enforce_pddl3_constraints_if_present(problem_text, str(solution_file))
                 if ok and not pddl3_ok:
                     ok = False
                     msg = pddl3_msg or "PDDL3 constraints violated"
-                    # reflect as if validator failed; keep execution_info for external validator
+                    pddl3_violated = True
+                    classification = "pddl3_constraint_violation"
             except Exception as _e:
                 # If local enforcement fails, do not mask external validator result
                 pass
+
             result_entry["valid"] = ok
             result_entry["message"] = msg
+            result_entry["classification"] = classification
             result_entry["execution_info"] = execution_info
-            
+
             if ok:
                 print("  ✓ Plan valid")
                 valid += 1
                 result_entry["status"] = "valid"
+                classification_counts["success_plans"] += 1
             else:
-                print(f"  ✗ Invalid: {msg}")
+                print(f"  ✗ Invalid: {msg} [{classification}]")
                 invalid += 1
                 result_entry["status"] = "invalid"
-        
+                # Update classification counts
+                if pddl3_violated:
+                    classification_counts["pddl3_constraint_violation"] += 1
+                elif classification in classification_counts:
+                    classification_counts[classification] += 1
+                else:
+                    classification_counts["plan_format_error"] += 1
+
         validation_results["results"].append(result_entry)
 
-    total = len(solution_files)
-    
-    # Add summary statistics to validation results
+    total = len(problem_files)
+
+    # Update summary statistics (placed at beginning of JSON)
     validation_results["summary"] = {
-        "total_solutions": total,
+        "total_problems": total,
         "valid": valid,
         "invalid": invalid,
-        "missing_problems": missing,
-        "success_rate": (valid / total * 100) if total > 0 else 0.0
+        "missing_solutions": missing,
+        "success_rate": (valid / total * 100) if total > 0 else 0.0,
+        "classification_breakdown": classification_counts
     }
     
     # Save results to JSON file
@@ -458,12 +499,19 @@ def validate_single_scenario(
         print(f"Error saving JSON results: {e}")
     
     print("-" * 50)
-    print(f"Total solutions: {total}")
+    print(f"Total problems: {total}")
     print(f"Valid: {valid}")
     print(f"Invalid: {invalid}")
-    print(f"Missing problems: {missing}")
+    print(f"Missing solutions: {missing}")
     if total > 0:
         print(f"Success rate: {valid / total * 100:.1f}%")
+
+    # Print detailed classification breakdown
+    print("\nClassification breakdown:")
+    for cls, count in sorted(classification_counts.items()):
+        if count > 0:
+            pct = count / total * 100 if total > 0 else 0
+            print(f"  {cls}: {count} ({pct:.1f}%)")
 
 
 if __name__ == "__main__":

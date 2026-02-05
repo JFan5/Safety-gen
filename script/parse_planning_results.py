@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import Dict, Optional
 from utils import (
-    _classify_result,
+    classify_result,
 )
 
 
@@ -67,7 +67,7 @@ def _summarize_results(items):
             stdout_text = it.get("validation_stdout", "")
             if not stdout_text:
                 stdout_text = it.get("execution_info", {}).get("stdout", "")
-            cat = _classify_result(stdout_text)
+            cat = classify_result(stdout_text)
         
         categories[cat].append(name)
         

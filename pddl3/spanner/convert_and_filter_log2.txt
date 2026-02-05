@@ -1,0 +1,33 @@
+Skipping conversion, found 0 PDDL3 problems in /home/jfan5/Safety-gen/pddl3/spanner/all_problems3
+
+======================================================================
+Step 3: Solve all candidate problems with OPTIC (parallel)
+======================================================================
+
+OPTIC solving results:
+  Solved: 0
+  Failed to solve: 0
+
+======================================================================
+Step 4: Validate all OPTIC solutions (parallel)
+======================================================================
+Validating 0 solutions...
+
+Validation results:
+  Valid solutions: 0
+  Invalid solutions: 0
+
+Removing invalid problem-solution pairs...
+
+======================================================================
+FINAL SUMMARY
+======================================================================
+Original problems: 7000
+After PDDL3 conversion: 0
+After filtering (PDDL2 fails): 0
+After OPTIC solving: 0
+After validation: 0
+
+Final all_problems3 contains 0 valid PDDL3 problems
+
+Summary saved to /home/jfan5/Safety-gen/pddl3/spanner/all_problems3/conversion_summary.json

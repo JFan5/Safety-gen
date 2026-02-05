@@ -1,0 +1,61 @@
+Skipping conversion, found 7000 PDDL3 problems in /home/jfan5/Safety-gen/pddl3/spanner/all_problems3
+
+======================================================================
+Step 3: Solve all candidate problems with OPTIC (parallel)
+======================================================================
+  Progress: 500/7000, solved: 500
+  Progress: 1000/7000, solved: 1000
+  Progress: 1500/7000, solved: 1500
+  Progress: 2000/7000, solved: 2000
+  Progress: 2500/7000, solved: 2500
+  Progress: 3000/7000, solved: 3000
+  Progress: 3500/7000, solved: 3500
+  Progress: 4000/7000, solved: 4000
+  Progress: 4500/7000, solved: 4500
+  Progress: 5000/7000, solved: 5000
+  Progress: 5500/7000, solved: 5500
+  Progress: 6000/7000, solved: 6000
+  Progress: 6500/7000, solved: 6500
+  Progress: 7000/7000, solved: 7000
+
+OPTIC solving results:
+  Solved: 7000
+  Failed to solve: 0
+
+======================================================================
+Step 4: Validate all OPTIC solutions (parallel)
+======================================================================
+Validating 7000 solutions...
+  Progress: 500/7000, valid: 191
+  Progress: 1000/7000, valid: 382
+  Progress: 1500/7000, valid: 563
+  Progress: 2000/7000, valid: 763
+  Progress: 2500/7000, valid: 945
+  Progress: 3000/7000, valid: 1155
+  Progress: 3500/7000, valid: 1329
+  Progress: 4000/7000, valid: 1546
+  Progress: 4500/7000, valid: 1731
+  Progress: 5000/7000, valid: 1946
+  Progress: 5500/7000, valid: 2141
+  Progress: 6000/7000, valid: 2352
+  Progress: 6500/7000, valid: 2543
+  Progress: 7000/7000, valid: 2722
+
+Validation results:
+  Valid solutions: 2722
+  Invalid solutions: 4278
+
+Removing invalid problem-solution pairs...
+
+======================================================================
+FINAL SUMMARY
+======================================================================
+Original problems: 7000
+After PDDL3 conversion: 7000
+After filtering (PDDL2 fails): 7000
+After OPTIC solving: 7000
+After validation: 2722
+
+Final all_problems3 contains 2722 valid PDDL3 problems
+
+Summary saved to /home/jfan5/Safety-gen/pddl3/spanner/all_problems3/conversion_summary.json

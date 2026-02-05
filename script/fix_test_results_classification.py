@@ -2,7 +2,7 @@
 """
 修复测试结果 JSON 文件中的分类错误。
 
-根据 evaluate_llm_solver.py 中的 _classify_result 函数重新分类所有结果。
+根据 evaluate_llm_solver.py 中的 classify_result 函数重新分类所有结果。
 """
 
 import json
@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 
-def _classify_result(stdout_text: str) -> str:
+def classify_result(stdout_text: str) -> str:
     """
     根据 validation_stdout 分类结果。
     这是从 evaluate_llm_solver.py 复制过来的分类函数，但做了小幅改进以处理更多格式。
@@ -75,7 +75,7 @@ def fix_json_file(json_path: Path) -> Dict[str, Any]:
         stdout = result.get("validation_stdout", "")
         
         try:
-            new_category = _classify_result(stdout)
+            new_category = classify_result(stdout)
             
             if old_category != new_category:
                 result["category"] = new_category

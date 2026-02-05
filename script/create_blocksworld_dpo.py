@@ -23,7 +23,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Dict, Iterable, List
 from utils import (
-    _classify_result,  # 通过这个来鉴定
+    classify_result,  # 通过这个来鉴定
 )
 
 
@@ -43,7 +43,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from construct_dpo_dataset import construct_dpo  # type: ignore  # noqa: E402
-# _classify_result already imported above
+# classify_result already imported above
 
 
 SCORE_MAP = {
@@ -146,7 +146,7 @@ def _build_reject_entries(
         is_valid, msg, stdout, stderr, cmd = validate_solution(
             str(domain_file), str(problem_path), solution_text
         )
-        classification = _classify_result(stdout)
+        classification = classify_result(stdout)
         raw_score = SCORE_MAP.get(classification, 1)
 
         if raw_score == 5:

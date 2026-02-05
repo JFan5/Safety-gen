@@ -38,7 +38,7 @@ python "/users/jfan5/jfan5/Safety-gen/script/construct_dpo_dataset.py" \
     --all-pairs
 
 echo "[4/4] Sampling 500 Blocksworld pairs -> /users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b/blocksworld/pddl3_dpo-500.jsonl"
-python "/users/jfan5/jfan5/Safety-gen/pick_dpo_data.py" \
+python "/users/jfan5/jfan5/Safety-gen/script/pick_dpo_data.py" \
     --datasets-dir "/users/jfan5/jfan5/Safety-gen/data/dpo/mistral_7b" \
     --scenarios "blocksworld" \
     --per-scenario 500 \

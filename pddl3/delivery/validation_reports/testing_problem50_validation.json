@@ -1,0 +1,871 @@
+{
+  "summary": {
+    "total_problems": 50,
+    "valid": 0,
+    "invalid": 50,
+    "missing_solutions": 0,
+    "success_rate": 0.0
+  },
+  "command": "python3 validate_classical_solvers.py --domain /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl --problems_dir /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50 --solutions_dir /home/jfan5/Safety-gen/pddl3/delivery/all_problems --timeout 30",
+  "metadata": {
+    "timestamp": "2026-02-04T09:29:09.956799",
+    "scenario_name": "custom",
+    "domain_file": "/home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl",
+    "problems_directory": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50",
+    "solutions_directory": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems",
+    "timeout_seconds": 30,
+    "total_problems": 50
+  },
+  "results": [
+    {
+      "problem_file": "delivery-s2-p1-seed1247747029.pddl",
+      "solution_file": "delivery-s2-p1-seed1247747029.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed1247747029.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed1247747029.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed1247747029.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(move t1 c_1_1 c_0_1)\n \n2:\n(pick-package t1 p1 c_0_1)\n \n3:\n(move t1 c_0_1 c_0_0)\n \n4:\n(move t1 c_0_0 c_1_0)\n \n5:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at p1 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_0_0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed1247747029.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed1247747029.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed1247747029.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed136367703.pddl",
+      "solution_file": "delivery-s2-p1-seed136367703.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed136367703.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed136367703.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed136367703.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p1 c_1_0)\n \n2:\n(move t1 c_1_0 c_0_0)\n \n3:\n(move t1 c_0_0 c_0_1)\n \n4:\n(drop-package t1 p1 c_0_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at p1 c_1_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_0_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 4)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed136367703.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed136367703.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed136367703.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed287514704.pddl",
+      "solution_file": "delivery-s2-p1-seed287514704.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed287514704.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed287514704.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed287514704.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_1_1 c_0_1)\n \n2:\n(move t1 c_0_1 c_0_0)\n \n3:\n(pick-package t1 p1 c_0_0)\n \n4:\n(move t1 c_0_0 c_0_1)\n \n5:\n(move t1 c_0_1 c_1_1)\n \n6:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed287514704.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed287514704.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed287514704.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed45379556.pddl",
+      "solution_file": "delivery-s2-p1-seed45379556.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed45379556.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed45379556.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed45379556.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(move t1 c_1_0 c_1_1)\n \n2:\n(pick-package t1 p1 c_1_1)\n \n3:\n(move t1 c_1_1 c_0_1)\n \n4:\n(move t1 c_0_1 c_0_0)\n \n5:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at p1 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed45379556.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed45379556.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed45379556.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed541946351.pddl",
+      "solution_file": "delivery-s2-p1-seed541946351.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed541946351.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed541946351.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed541946351.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(move t1 c_1_1 c_1_0)\n \n2:\n(pick-package t1 p1 c_1_0)\n \n3:\n(move t1 c_1_0 c_0_0)\n \n4:\n(move t1 c_0_0 c_0_1)\n \n5:\n(drop-package t1 p1 c_0_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_0)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at p1 c_1_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_0_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 5)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed541946351.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed541946351.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed541946351.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed662957416.pddl",
+      "solution_file": "delivery-s2-p1-seed662957416.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed662957416.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed662957416.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed662957416.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p1 c_0_1)\n \n2:\n(move t1 c_0_1 c_0_0)\n \n3:\n(move t1 c_0_0 c_1_0)\n \n4:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at p1 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_0_0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed662957416.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed662957416.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed662957416.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed904036921.pddl",
+      "solution_file": "delivery-s2-p1-seed904036921.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed904036921.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed904036921.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed904036921.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p1 c_1_1)\n \n2:\n(move t1 c_1_1 c_0_1)\n \n3:\n(move t1 c_0_1 c_0_0)\n \n4:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at p1 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed904036921.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed904036921.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed904036921.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed947218077.pddl",
+      "solution_file": "delivery-s2-p1-seed947218077.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed947218077.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed947218077.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed947218077.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_1_0 c_0_0)\n \n2:\n(move t1 c_0_0 c_0_1)\n \n3:\n(pick-package t1 p1 c_0_1)\n \n4:\n(move t1 c_0_1 c_0_0)\n \n5:\n(move t1 c_0_0 c_1_0)\n \n6:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_0_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at p1 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed947218077.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed947218077.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed947218077.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p1-seed992606367.pddl",
+      "solution_file": "delivery-s2-p1-seed992606367.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed992606367.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed992606367.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed992606367.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p1 c_0_0)\n \n2:\n(move t1 c_0_0 c_0_1)\n \n3:\n(move t1 c_0_1 c_1_1)\n \n4:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed992606367.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p1-seed992606367.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p1-seed992606367.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed1082682542.pddl",
+      "solution_file": "delivery-s2-p2-seed1082682542.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed1082682542.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1082682542.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1082682542.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_1_1 c_0_1)\n \n2:\n(move t1 c_0_1 c_0_0)\n \n3:\n(pick-package t1 p1 c_0_0)\n \n4:\n(move t1 c_0_0 c_0_1)\n \n5:\n(move t1 c_0_1 c_1_1)\n \n6:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1082682542.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed1082682542.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1082682542.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed1439765037.pddl",
+      "solution_file": "delivery-s2-p2-seed1439765037.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed1439765037.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1439765037.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1439765037.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick-package t1 p2 c_1_1)\n \n2:\n(move t1 c_1_1 c_0_1)\n \n3:\n(move t1 c_0_1 c_0_0)\n \n4:\n(drop-package t1 p2 c_0_0)\n \n5:\n(move t1 c_0_0 c_0_1)\n \n6:\n(move t1 c_0_1 c_1_1)\n \n7:\n(pick-package t1 p1 c_1_1)\n \n8:\n(move t1 c_1_1 c_0_1)\n \n9:\n(move t1 c_0_1 c_0_0)\n \n10:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at p2 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1439765037.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed1439765037.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1439765037.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed1973155328.pddl",
+      "solution_file": "delivery-s2-p2-seed1973155328.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed1973155328.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1973155328.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1973155328.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move t1 c_0_1 c_1_1)\n \n2:\n(pick-package t1 p2 c_1_1)\n \n3:\n(move t1 c_1_1 c_1_0)\n \n4:\n(drop-package t1 p2 c_1_0)\n \n5:\n(move t1 c_1_0 c_0_0)\n \n6:\n(move t1 c_0_0 c_0_1)\n \n7:\n(pick-package t1 p1 c_0_1)\n \n8:\n(move t1 c_0_1 c_0_0)\n \n9:\n(move t1 c_0_0 c_1_0)\n \n10:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at p2 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_0)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 4)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_1_0)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_0_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1973155328.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed1973155328.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed1973155328.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed2045959943.pddl",
+      "solution_file": "delivery-s2-p2-seed2045959943.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed2045959943.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed2045959943.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed2045959943.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p2 c_1_1)\n \n2:\n(move t1 c_1_1 c_0_1)\n \n3:\n(move t1 c_0_1 c_0_0)\n \n4:\n(drop-package t1 p2 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at p2 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed2045959943.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed2045959943.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed2045959943.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed364436820.pddl",
+      "solution_file": "delivery-s2-p2-seed364436820.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed364436820.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed364436820.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed364436820.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move t1 c_0_0 c_1_0)\n \n2:\n(pick-package t1 p1 c_1_0)\n \n3:\n(move t1 c_1_0 c_1_1)\n \n4:\n(drop-package t1 p1 c_1_1)\n \n5:\n(move t1 c_1_1 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_0)\n \n7:\n(pick-package t1 p2 c_0_0)\n \n8:\n(move t1 c_0_0 c_0_1)\n \n9:\n(move t1 c_0_1 c_1_1)\n \n10:\n(drop-package t1 p2 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at p1 c_1_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed364436820.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed364436820.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed364436820.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed383045595.pddl",
+      "solution_file": "delivery-s2-p2-seed383045595.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed383045595.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed383045595.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed383045595.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick-package t1 p2 c_0_1)\n \n2:\n(move t1 c_0_1 c_0_0)\n \n3:\n(move t1 c_0_0 c_1_0)\n \n4:\n(drop-package t1 p2 c_1_0)\n \n5:\n(move t1 c_1_0 c_0_0)\n \n6:\n(move t1 c_0_0 c_0_1)\n \n7:\n(pick-package t1 p1 c_0_1)\n \n8:\n(move t1 c_0_1 c_0_0)\n \n9:\n(move t1 c_0_0 c_1_0)\n \n10:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at p2 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_0_0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed383045595.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed383045595.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed383045595.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed495156751.pddl",
+      "solution_file": "delivery-s2-p2-seed495156751.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed495156751.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed495156751.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed495156751.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move t1 c_1_1 c_1_0)\n \n2:\n(pick-package t1 p2 c_1_0)\n \n3:\n(move t1 c_1_0 c_1_1)\n \n4:\n(drop-package t1 p2 c_1_1)\n \n5:\n(move t1 c_1_1 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_0)\n \n7:\n(pick-package t1 p1 c_0_0)\n \n8:\n(move t1 c_0_0 c_0_1)\n \n9:\n(move t1 c_0_1 c_1_1)\n \n10:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_0)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at p2 c_1_0)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_1_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed495156751.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed495156751.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed495156751.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed716675527.pddl",
+      "solution_file": "delivery-s2-p2-seed716675527.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed716675527.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed716675527.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed716675527.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p1 c_0_0)\n \n2:\n(move t1 c_0_0 c_0_1)\n \n3:\n(move t1 c_0_1 c_1_1)\n \n4:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed716675527.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed716675527.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed716675527.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s2-p2-seed971005610.pddl",
+      "solution_file": "delivery-s2-p2-seed971005610.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed971005610.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed971005610.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed971005610.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move t1 c_1_0 c_1_1)\n \n2:\n(pick-package t1 p2 c_1_1)\n \n3:\n(move t1 c_1_1 c_0_1)\n \n4:\n(move t1 c_0_1 c_0_0)\n \n5:\n(drop-package t1 p2 c_0_0)\n \n6:\n(move t1 c_0_0 c_0_1)\n \n7:\n(move t1 c_0_1 c_1_1)\n \n8:\n(pick-package t1 p1 c_1_1)\n \n9:\n(move t1 c_1_1 c_0_1)\n \n10:\n(move t1 c_0_1 c_0_0)\n \n11:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at p2 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed971005610.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s2-p2-seed971005610.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s2-p2-seed971005610.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed1432395817.pddl",
+      "solution_file": "delivery-s3-p1-seed1432395817.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1432395817.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1432395817.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1432395817.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_0_2 c_1_2)\n \n2:\n(move t1 c_1_2 c_2_2)\n \n3:\n(pick-package t1 p1 c_2_2)\n \n4:\n(move t1 c_2_2 c_2_1)\n \n5:\n(move t1 c_2_1 c_2_0)\n \n6:\n(drop-package t1 p1 c_2_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 3)\nDeleting (at p1 c_2_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nFailure to satisfy: ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_0)\nAdding (last t1 c_2_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1432395817.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1432395817.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1432395817.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed1540434855.pddl",
+      "solution_file": "delivery-s3-p1-seed1540434855.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1540434855.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1540434855.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1540434855.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move t1 c_2_0 c_2_1)\n \n2:\n(move t1 c_2_1 c_2_2)\n \n3:\n(pick-package t1 p1 c_2_2)\n \n4:\n(move t1 c_2_2 c_1_2)\n \n5:\n(move t1 c_1_2 c_1_1)\n \n6:\n(move t1 c_1_1 c_1_0)\n \n7:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_0)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_2)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 3)\nDeleting (at p1 c_2_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 4)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 6)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_0)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nFailure to satisfy: ((NOT ((last t1 c_1_0) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_1_0))))\nChecking next happening (time 7)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1540434855.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1540434855.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1540434855.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed1830215457.pddl",
+      "solution_file": "delivery-s3-p1-seed1830215457.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1830215457.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1830215457.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1830215457.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move t1 c_0_2 c_0_1)\n \n2:\n(move t1 c_0_1 c_0_0)\n \n3:\n(pick-package t1 p1 c_0_0)\n \n4:\n(move t1 c_0_0 c_0_1)\n \n5:\n(move t1 c_0_1 c_0_2)\n \n6:\n(move t1 c_0_2 c_1_2)\n \n7:\n(move t1 c_1_2 c_2_2)\n \n8:\n(drop-package t1 p1 c_2_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 7)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_1_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1830215457.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1830215457.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1830215457.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed1846793036.pddl",
+      "solution_file": "delivery-s3-p1-seed1846793036.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1846793036.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1846793036.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1846793036.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move t1 c_1_2 c_1_1)\n \n2:\n(move t1 c_1_1 c_1_0)\n \n3:\n(move t1 c_1_0 c_2_0)\n \n4:\n(pick-package t1 p1 c_2_0)\n \n5:\n(move t1 c_2_0 c_1_0)\n \n6:\n(move t1 c_1_0 c_0_0)\n \n7:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_2_0))) AND (NOT ((last t1 c_2_0) AND (at t1 c_1_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_2_0))) AND (NOT ((last t1 c_2_0) AND (at t1 c_1_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_0)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_2_0))) AND (NOT ((last t1 c_2_0) AND (at t1 c_1_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_2_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_1_0) AND (at t1 c_2_0))) AND (NOT ((last t1 c_2_0) AND (at t1 c_1_0))))\nFailure to satisfy: ((NOT ((last t1 c_1_0) AND (at t1 c_2_0))) AND (NOT ((last t1 c_2_0) AND (at t1 c_1_0))))\nChecking next happening (time 4)\nDeleting (at p1 c_2_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1846793036.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed1846793036.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed1846793036.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed259502993.pddl",
+      "solution_file": "delivery-s3-p1-seed259502993.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed259502993.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed259502993.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed259502993.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move t1 c_2_1 c_1_1)\n \n2:\n(move t1 c_1_1 c_0_1)\n \n3:\n(move t1 c_0_1 c_0_0)\n \n4:\n(pick-package t1 p1 c_0_0)\n \n5:\n(move t1 c_0_0 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_2)\n \n7:\n(move t1 c_0_2 c_1_2)\n \n8:\n(drop-package t1 p1 c_1_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 4)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 7)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 8)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed259502993.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed259502993.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed259502993.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed38753764.pddl",
+      "solution_file": "delivery-s3-p1-seed38753764.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed38753764.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed38753764.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed38753764.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_0_1 c_0_0)\n \n2:\n(pick-package t1 p1 c_0_0)\n \n3:\n(move t1 c_0_0 c_0_1)\n \n4:\n(move t1 c_0_1 c_0_2)\n \n5:\n(move t1 c_0_2 c_1_2)\n \n6:\n(drop-package t1 p1 c_1_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 6)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed38753764.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed38753764.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed38753764.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed737235253.pddl",
+      "solution_file": "delivery-s3-p1-seed737235253.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed737235253.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed737235253.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed737235253.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_2_0 c_2_1)\n \n2:\n(move t1 c_2_1 c_2_2)\n \n3:\n(pick-package t1 p1 c_2_2)\n \n4:\n(move t1 c_2_2 c_2_1)\n \n5:\n(move t1 c_2_1 c_2_0)\n \n6:\n(drop-package t1 p1 c_2_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_0)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_2)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nFailure to satisfy: ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 3)\nDeleting (at p1 c_2_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed737235253.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed737235253.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed737235253.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p1-seed838621842.pddl",
+      "solution_file": "delivery-s3-p1-seed838621842.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed838621842.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed838621842.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed838621842.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move t1 c_2_2 c_1_2)\n \n2:\n(move t1 c_1_2 c_1_1)\n \n3:\n(move t1 c_1_1 c_0_1)\n \n4:\n(pick-package t1 p1 c_0_1)\n \n5:\n(move t1 c_0_1 c_0_0)\n \n6:\n(move t1 c_0_0 c_1_0)\n \n7:\n(drop-package t1 p1 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 4)\nDeleting (at p1 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nFailure to satisfy: ((NOT ((last t1 c_0_0) AND (at t1 c_0_1))) AND (NOT ((last t1 c_0_1) AND (at t1 c_0_0))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_0_0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed838621842.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p1-seed838621842.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p1-seed838621842.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed1183080754.pddl",
+      "solution_file": "delivery-s3-p2-seed1183080754.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed1183080754.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1183080754.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1183080754.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move t1 c_1_0 c_1_1)\n \n2:\n(move t1 c_1_1 c_1_2)\n \n3:\n(move t1 c_1_2 c_2_2)\n \n4:\n(pick-package t1 p1 c_2_2)\n \n5:\n(move t1 c_2_2 c_1_2)\n \n6:\n(move t1 c_1_2 c_1_1)\n \n7:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_2)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nFailure to satisfy: ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nChecking next happening (time 4)\nDeleting (at p1 c_2_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1183080754.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed1183080754.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1183080754.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed124520608.pddl",
+      "solution_file": "delivery-s3-p2-seed124520608.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed124520608.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed124520608.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed124520608.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(move t1 c_2_2 c_1_2)\n \n2:\n(move t1 c_1_2 c_1_1)\n \n3:\n(move t1 c_1_1 c_1_0)\n \n4:\n(pick-package t1 p2 c_1_0)\n \n5:\n(move t1 c_1_0 c_1_1)\n \n6:\n(move t1 c_1_1 c_1_2)\n \n7:\n(move t1 c_1_2 c_2_2)\n \n8:\n(drop-package t1 p2 c_2_2)\n \n9:\n(move t1 c_2_2 c_1_2)\n \n10:\n(move t1 c_1_2 c_1_1)\n \n11:\n(move t1 c_1_1 c_1_0)\n \n12:\n(pick-package t1 p1 c_1_0)\n \n13:\n(move t1 c_1_0 c_1_1)\n \n14:\n(move t1 c_1_1 c_1_2)\n \n15:\n(move t1 c_1_2 c_2_2)\n \n16:\n(drop-package t1 p1 c_2_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nFailure to satisfy: ((NOT ((last t1 c_1_2) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_1_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed124520608.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed124520608.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed124520608.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed1247166328.pddl",
+      "solution_file": "delivery-s3-p2-seed1247166328.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed1247166328.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1247166328.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1247166328.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(move t1 c_0_1 c_1_1)\n \n2:\n(move t1 c_1_1 c_1_2)\n \n3:\n(pick-package t1 p2 c_1_2)\n \n4:\n(move t1 c_1_2 c_1_1)\n \n5:\n(move t1 c_1_1 c_2_1)\n \n6:\n(drop-package t1 p2 c_2_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_2)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 3)\nDeleting (at p2 c_1_2)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_2_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nFailure to satisfy: ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 6)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_2_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1247166328.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed1247166328.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1247166328.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed1736138945.pddl",
+      "solution_file": "delivery-s3-p2-seed1736138945.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed1736138945.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1736138945.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1736138945.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move t1 c_1_0 c_1_1)\n \n2:\n(move t1 c_1_1 c_2_1)\n \n3:\n(pick-package t1 p1 c_2_1)\n \n4:\n(move t1 c_2_1 c_1_1)\n \n5:\n(move t1 c_1_1 c_0_1)\n \n6:\n(drop-package t1 p1 c_0_1)\n \n7:\n(move t1 c_0_1 c_0_0)\n \n8:\n(pick-package t1 p2 c_0_0)\n \n9:\n(move t1 c_0_0 c_0_1)\n \n10:\n(drop-package t1 p2 c_0_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_2_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nFailure to satisfy: ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 3)\nDeleting (at p1 c_2_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1736138945.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed1736138945.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed1736138945.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed362508701.pddl",
+      "solution_file": "delivery-s3-p2-seed362508701.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed362508701.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed362508701.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed362508701.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(move t1 c_2_1 c_2_0)\n \n2:\n(pick-package t1 p2 c_2_0)\n \n3:\n(move t1 c_2_0 c_1_0)\n \n4:\n(move t1 c_1_0 c_0_0)\n \n5:\n(drop-package t1 p2 c_0_0)\n \n6:\n(move t1 c_0_0 c_0_1)\n \n7:\n(move t1 c_0_1 c_0_2)\n \n8:\n(move t1 c_0_2 c_1_2)\n \n9:\n(pick-package t1 p1 c_1_2)\n \n10:\n(move t1 c_1_2 c_0_2)\n \n11:\n(move t1 c_0_2 c_0_1)\n \n12:\n(move t1 c_0_1 c_0_0)\n \n13:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_0)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at p2 c_2_0)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_2_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_2_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 4)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_0_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 5)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_0_0)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 7)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 8)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 8\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 9)\nDeleting (at p1 c_1_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed362508701.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed362508701.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed362508701.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed530304101.pddl",
+      "solution_file": "delivery-s3-p2-seed530304101.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed530304101.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed530304101.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed530304101.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move t1 c_2_0 c_1_0)\n \n2:\n(move t1 c_1_0 c_1_1)\n \n3:\n(pick-package t1 p2 c_1_1)\n \n4:\n(move t1 c_1_1 c_0_1)\n \n5:\n(move t1 c_0_1 c_0_0)\n \n6:\n(drop-package t1 p2 c_0_0)\n \n7:\n(move t1 c_0_0 c_0_1)\n \n8:\n(move t1 c_0_1 c_1_1)\n \n9:\n(pick-package t1 p1 c_1_1)\n \n10:\n(move t1 c_1_1 c_0_1)\n \n11:\n(move t1 c_0_1 c_0_0)\n \n12:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_0)\nAdding (at t1 c_1_0)\nAdding (last t1 c_2_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at p2 c_1_1)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed530304101.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed530304101.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed530304101.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed630996905.pddl",
+      "solution_file": "delivery-s3-p2-seed630996905.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed630996905.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed630996905.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed630996905.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-package t1 p2 c_0_2)\n \n2:\n(move t1 c_0_2 c_1_2)\n \n3:\n(move t1 c_1_2 c_2_2)\n \n4:\n(drop-package t1 p2 c_2_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at p2 c_0_2)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_1_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed630996905.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed630996905.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed630996905.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s3-p2-seed95191393.pddl",
+      "solution_file": "delivery-s3-p2-seed95191393.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed95191393.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed95191393.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed95191393.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move t1 c_0_2 c_1_2)\n \n2:\n(move t1 c_1_2 c_2_2)\n \n3:\n(move t1 c_2_2 c_2_1)\n \n4:\n(move t1 c_2_1 c_2_0)\n \n5:\n(pick-package t1 p2 c_2_0)\n \n6:\n(move t1 c_2_0 c_2_1)\n \n7:\n(move t1 c_2_1 c_2_2)\n \n8:\n(drop-package t1 p2 c_2_2)\n \n9:\n(move t1 c_2_2 c_1_2)\n \n10:\n(pick-package t1 p1 c_1_2)\n \n11:\n(move t1 c_1_2 c_2_2)\n \n12:\n(drop-package t1 p1 c_2_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nFailure to satisfy: ((NOT ((last t1 c_2_1) AND (at t1 c_2_2))) AND (NOT ((last t1 c_2_2) AND (at t1 c_2_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_0)\nAdding (last t1 c_2_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed95191393.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s3-p2-seed95191393.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s3-p2-seed95191393.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed1347216993.pddl",
+      "solution_file": "delivery-s4-p1-seed1347216993.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1347216993.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1347216993.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1347216993.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move t1 c_2_0 c_2_1)\n \n2:\n(move t1 c_2_1 c_1_1)\n \n3:\n(move t1 c_1_1 c_0_1)\n \n4:\n(pick-package t1 p1 c_0_1)\n \n5:\n(move t1 c_0_1 c_1_1)\n \n6:\n(move t1 c_1_1 c_2_1)\n \n7:\n(move t1 c_2_1 c_3_1)\n \n8:\n(drop-package t1 p1 c_3_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_0)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (at p1 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1347216993.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1347216993.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1347216993.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed1545838925.pddl",
+      "solution_file": "delivery-s4-p1-seed1545838925.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1545838925.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1545838925.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1545838925.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move t1 c_3_2 c_2_2)\n \n2:\n(move t1 c_2_2 c_2_1)\n \n3:\n(move t1 c_2_1 c_2_0)\n \n4:\n(pick-package t1 p1 c_2_0)\n \n5:\n(move t1 c_2_0 c_2_1)\n \n6:\n(move t1 c_2_1 c_2_2)\n \n7:\n(move t1 c_2_2 c_2_3)\n \n8:\n(move t1 c_2_3 c_3_3)\n \n9:\n(drop-package t1 p1 c_3_3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_3_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_3_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_0)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 4)\nDeleting (at p1 c_2_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 5)\nDeleting (at t1 c_2_0)\nAdding (at t1 c_2_1)\nAdding (last t1 c_2_0)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 6)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_2)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 7)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_2_3)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nFailure to satisfy: ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 8)\nDeleting (at t1 c_2_3)\nAdding (at t1 c_3_3)\nAdding (last t1 c_2_3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1545838925.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1545838925.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1545838925.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed1562375397.pddl",
+      "solution_file": "delivery-s4-p1-seed1562375397.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1562375397.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1562375397.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1562375397.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move t1 c_2_2 c_2_3)\n \n2:\n(move t1 c_2_3 c_3_3)\n \n3:\n(move t1 c_3_3 c_3_2)\n \n4:\n(move t1 c_3_2 c_3_1)\n \n5:\n(move t1 c_3_1 c_3_0)\n \n6:\n(pick-package t1 p1 c_3_0)\n \n7:\n(move t1 c_3_0 c_3_1)\n \n8:\n(move t1 c_3_1 c_3_2)\n \n9:\n(move t1 c_3_2 c_3_3)\n \n10:\n(drop-package t1 p1 c_3_3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_3_2) AND (at t1 c_3_3))) AND (NOT ((last t1 c_3_3) AND (at t1 c_3_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_2_3)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_3_2) AND (at t1 c_3_3))) AND (NOT ((last t1 c_3_3) AND (at t1 c_3_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_3)\nAdding (at t1 c_3_3)\nAdding (last t1 c_2_3)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_3_2) AND (at t1 c_3_3))) AND (NOT ((last t1 c_3_3) AND (at t1 c_3_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_3_3)\nAdding (at t1 c_3_2)\nAdding (last t1 c_3_3)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_3_2) AND (at t1 c_3_3))) AND (NOT ((last t1 c_3_3) AND (at t1 c_3_2))))\nFailure to satisfy: ((NOT ((last t1 c_3_2) AND (at t1 c_3_3))) AND (NOT ((last t1 c_3_3) AND (at t1 c_3_2))))\nChecking next happening (time 4)\nDeleting (at t1 c_3_2)\nAdding (at t1 c_3_1)\nAdding (last t1 c_3_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1562375397.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1562375397.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1562375397.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed1684117974.pddl",
+      "solution_file": "delivery-s4-p1-seed1684117974.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1684117974.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1684117974.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1684117974.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move t1 c_0_0 c_0_1)\n \n2:\n(move t1 c_0_1 c_1_1)\n \n3:\n(move t1 c_1_1 c_2_1)\n \n4:\n(pick-package t1 p1 c_2_1)\n \n5:\n(move t1 c_2_1 c_1_1)\n \n6:\n(move t1 c_1_1 c_1_2)\n \n7:\n(move t1 c_1_2 c_1_3)\n \n8:\n(drop-package t1 p1 c_1_3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_2_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nFailure to satisfy: ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 4)\nDeleting (at p1 c_2_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1684117974.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1684117974.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1684117974.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed1769317174.pddl",
+      "solution_file": "delivery-s4-p1-seed1769317174.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1769317174.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1769317174.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1769317174.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move t1 c_0_3 c_0_2)\n \n2:\n(move t1 c_0_2 c_0_1)\n \n3:\n(move t1 c_0_1 c_0_0)\n \n4:\n(pick-package t1 p1 c_0_0)\n \n5:\n(move t1 c_0_0 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_2)\n \n7:\n(move t1 c_0_2 c_1_2)\n \n8:\n(move t1 c_1_2 c_2_2)\n \n9:\n(drop-package t1 p1 c_2_2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_3)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_3)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 4)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 7)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_1_2))) AND (NOT ((last t1 c_1_2) AND (at t1 c_0_2))))\nChecking next happening (time 8)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_1_2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1769317174.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1769317174.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1769317174.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed1988802712.pddl",
+      "solution_file": "delivery-s4-p1-seed1988802712.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1988802712.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1988802712.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1988802712.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move t1 c_3_2 c_2_2)\n \n2:\n(move t1 c_2_2 c_1_2)\n \n3:\n(move t1 c_1_2 c_0_2)\n \n4:\n(move t1 c_0_2 c_0_1)\n \n5:\n(pick-package t1 p1 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_2)\n \n7:\n(move t1 c_0_2 c_0_3)\n \n8:\n(move t1 c_0_3 c_1_3)\n \n9:\n(drop-package t1 p1 c_1_3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 1)\nDeleting (at t1 c_3_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_3_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_0_2)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 5)\nDeleting (at p1 c_0_1)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 7)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_3)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 8)\nDeleting (at t1 c_0_3)\nAdding (at t1 c_1_3)\nAdding (last t1 c_0_3)\n\nChecking trajectory constraints at 8\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nFailure to satisfy: ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 9)\nDeleting (carrying t1 p1)\nAdding (empty t1)\nAdding (at p1 c_1_3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1988802712.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed1988802712.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed1988802712.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed628077153.pddl",
+      "solution_file": "delivery-s4-p1-seed628077153.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed628077153.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed628077153.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed628077153.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move t1 c_3_3 c_2_3)\n \n2:\n(move t1 c_2_3 c_2_2)\n \n3:\n(pick-package t1 p1 c_2_2)\n \n4:\n(move t1 c_2_2 c_1_2)\n \n5:\n(move t1 c_1_2 c_0_2)\n \n6:\n(move t1 c_0_2 c_0_1)\n \n7:\n(move t1 c_0_1 c_0_0)\n \n8:\n(drop-package t1 p1 c_0_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_3_3)\nAdding (at t1 c_2_3)\nAdding (last t1 c_3_3)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_3)\nAdding (at t1 c_2_2)\nAdding (last t1 c_2_3)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at p1 c_2_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_0_2)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_0_2))) AND (NOT ((last t1 c_0_2) AND (at t1 c_0_1))))\nChecking next happening (time 7)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed628077153.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed628077153.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed628077153.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p1-seed730456513.pddl",
+      "solution_file": "delivery-s4-p1-seed730456513.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed730456513.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed730456513.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed730456513.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move t1 c_0_1 c_0_2)\n \n2:\n(pick-package t1 p1 c_0_2)\n \n3:\n(move t1 c_0_2 c_0_1)\n \n4:\n(move t1 c_0_1 c_1_1)\n \n5:\n(move t1 c_1_1 c_2_1)\n \n6:\n(move t1 c_2_1 c_3_1)\n \n7:\n(drop-package t1 p1 c_3_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at p1 c_0_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_1_1)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_2_1)\nAdding (last t1 c_1_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed730456513.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p1-seed730456513.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p1-seed730456513.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed1051531914.pddl",
+      "solution_file": "delivery-s4-p2-seed1051531914.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1051531914.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1051531914.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1051531914.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(move t1 c_1_0 c_0_0)\n \n2:\n(pick-package t1 p1 c_0_0)\n \n3:\n(move t1 c_0_0 c_0_1)\n \n4:\n(move t1 c_0_1 c_0_2)\n \n5:\n(move t1 c_0_2 c_0_3)\n \n6:\n(move t1 c_0_3 c_1_3)\n \n7:\n(move t1 c_1_3 c_2_3)\n \n8:\n(move t1 c_2_3 c_3_3)\n \n9:\n(drop-package t1 p1 c_3_3)\n \n10:\n(move t1 c_3_3 c_2_3)\n \n11:\n(move t1 c_2_3 c_1_3)\n \n12:\n(pick-package t1 p2 c_1_3)\n \n13:\n(move t1 c_1_3 c_2_3)\n \n14:\n(move t1 c_2_3 c_3_3)\n \n15:\n(drop-package t1 p2 c_3_3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_0_0)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 2)\nDeleting (at p1 c_0_0)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_0)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_0)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 4)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_3)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_3)\nAdding (at t1 c_1_3)\nAdding (last t1 c_0_3)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nFailure to satisfy: ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 7)\nDeleting (at t1 c_1_3)\nAdding (at t1 c_2_3)\nAdding (last t1 c_1_3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1051531914.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1051531914.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1051531914.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed1396576446.pddl",
+      "solution_file": "delivery-s4-p2-seed1396576446.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1396576446.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1396576446.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1396576446.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(move t1 c_2_1 c_2_2)\n \n2:\n(move t1 c_2_2 c_3_2)\n \n3:\n(pick-package t1 p1 c_3_2)\n \n4:\n(move t1 c_3_2 c_2_2)\n \n5:\n(move t1 c_2_2 c_1_2)\n \n6:\n(move t1 c_1_2 c_1_1)\n \n7:\n(move t1 c_1_1 c_2_1)\n \n8:\n(drop-package t1 p1 c_2_1)\n \n9:\n(move t1 c_2_1 c_1_1)\n \n10:\n(move t1 c_1_1 c_1_0)\n \n11:\n(pick-package t1 p2 c_1_0)\n \n12:\n(move t1 c_1_0 c_1_1)\n \n13:\n(move t1 c_1_1 c_2_1)\n \n14:\n(drop-package t1 p2 c_2_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_2)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_3_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 3)\nDeleting (at p1 c_3_2)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 4)\nDeleting (at t1 c_3_2)\nAdding (at t1 c_2_2)\nAdding (last t1 c_3_2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 6)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nFailure to satisfy: ((NOT ((last t1 c_1_1) AND (at t1 c_2_1))) AND (NOT ((last t1 c_2_1) AND (at t1 c_1_1))))\nChecking next happening (time 7)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_2_1)\nAdding (last t1 c_1_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1396576446.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1396576446.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1396576446.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed1820408511.pddl",
+      "solution_file": "delivery-s4-p2-seed1820408511.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1820408511.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1820408511.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1820408511.soln\nPlan to validate:\n\nPlan size: 21\n1:\n(move t1 c_1_1 c_1_2)\n \n2:\n(move t1 c_1_2 c_1_3)\n \n3:\n(move t1 c_1_3 c_0_3)\n \n4:\n(pick-package t1 p1 c_0_3)\n \n5:\n(move t1 c_0_3 c_1_3)\n \n6:\n(move t1 c_1_3 c_1_2)\n \n7:\n(move t1 c_1_2 c_1_1)\n \n8:\n(move t1 c_1_1 c_1_0)\n \n9:\n(drop-package t1 p1 c_1_0)\n \n10:\n(move t1 c_1_0 c_1_1)\n \n11:\n(move t1 c_1_1 c_1_2)\n \n12:\n(move t1 c_1_2 c_1_3)\n \n13:\n(move t1 c_1_3 c_2_3)\n \n14:\n(move t1 c_2_3 c_3_3)\n \n15:\n(pick-package t1 p2 c_3_3)\n \n16:\n(move t1 c_3_3 c_2_3)\n \n17:\n(move t1 c_2_3 c_1_3)\n \n18:\n(move t1 c_1_3 c_1_2)\n \n19:\n(move t1 c_1_2 c_1_1)\n \n20:\n(move t1 c_1_1 c_1_0)\n \n21:\n(drop-package t1 p2 c_1_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 1)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_2)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_3)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_3)\nAdding (at t1 c_0_3)\nAdding (last t1 c_1_3)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nFailure to satisfy: ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 4)\nDeleting (at p1 c_0_3)\nDeleting (empty t1)\nAdding (carrying t1 p1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1820408511.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1820408511.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1820408511.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed182859895.pddl",
+      "solution_file": "delivery-s4-p2-seed182859895.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed182859895.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed182859895.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed182859895.soln\nPlan to validate:\n\nPlan size: 16\n1:\n(pick-package t1 p2 c_0_3)\n \n2:\n(move t1 c_0_3 c_0_2)\n \n3:\n(move t1 c_0_2 c_0_1)\n \n4:\n(drop-package t1 p2 c_0_1)\n \n5:\n(move t1 c_0_1 c_0_2)\n \n6:\n(move t1 c_0_2 c_0_3)\n \n7:\n(move t1 c_0_3 c_1_3)\n \n8:\n(move t1 c_1_3 c_2_3)\n \n9:\n(move t1 c_2_3 c_3_3)\n \n10:\n(pick-package t1 p1 c_3_3)\n \n11:\n(move t1 c_3_3 c_2_3)\n \n12:\n(move t1 c_2_3 c_1_3)\n \n13:\n(move t1 c_1_3 c_0_3)\n \n14:\n(move t1 c_0_3 c_0_2)\n \n15:\n(move t1 c_0_2 c_0_1)\n \n16:\n(drop-package t1 p1 c_0_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 1)\nDeleting (at p2 c_0_3)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_3)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_3)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 3)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_1)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 4)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_0_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 5)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_3)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 7)\nDeleting (at t1 c_0_3)\nAdding (at t1 c_1_3)\nAdding (last t1 c_0_3)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nFailure to satisfy: ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 8)\nDeleting (at t1 c_1_3)\nAdding (at t1 c_2_3)\nAdding (last t1 c_1_3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed182859895.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed182859895.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed182859895.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed1947211953.pddl",
+      "solution_file": "delivery-s4-p2-seed1947211953.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1947211953.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1947211953.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1947211953.soln\nPlan to validate:\n\nPlan size: 19\n1:\n(move t1 c_2_2 c_1_2)\n \n2:\n(move t1 c_1_2 c_1_1)\n \n3:\n(move t1 c_1_1 c_1_0)\n \n4:\n(pick-package t1 p2 c_1_0)\n \n5:\n(move t1 c_1_0 c_1_1)\n \n6:\n(move t1 c_1_1 c_1_2)\n \n7:\n(move t1 c_1_2 c_1_3)\n \n8:\n(move t1 c_1_3 c_2_3)\n \n9:\n(drop-package t1 p2 c_2_3)\n \n10:\n(move t1 c_2_3 c_1_3)\n \n11:\n(move t1 c_1_3 c_0_3)\n \n12:\n(move t1 c_0_3 c_0_2)\n \n13:\n(move t1 c_0_2 c_0_1)\n \n14:\n(pick-package t1 p1 c_0_1)\n \n15:\n(move t1 c_0_1 c_0_2)\n \n16:\n(move t1 c_0_2 c_0_3)\n \n17:\n(move t1 c_0_3 c_1_3)\n \n18:\n(move t1 c_1_3 c_2_3)\n \n19:\n(drop-package t1 p1 c_2_3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 2)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_0)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 4)\nDeleting (at p2 c_1_0)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_0)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_0)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 6)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_1_2)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 6\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 7)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_3)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 7\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 8)\nDeleting (at t1 c_1_3)\nAdding (at t1 c_2_3)\nAdding (last t1 c_1_3)\n\nChecking trajectory constraints at 8\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 9)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_2_3)\n\nChecking trajectory constraints at 9\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 10)\nDeleting (at t1 c_2_3)\nAdding (at t1 c_1_3)\nAdding (last t1 c_2_3)\n\nChecking trajectory constraints at 10\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 11)\nDeleting (at t1 c_1_3)\nAdding (at t1 c_0_3)\nAdding (last t1 c_1_3)\n\nChecking trajectory constraints at 11\nChecking ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nFailure to satisfy: ((NOT ((last t1 c_0_3) AND (at t1 c_1_3))) AND (NOT ((last t1 c_1_3) AND (at t1 c_0_3))))\nChecking next happening (time 12)\nDeleting (at t1 c_0_3)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1947211953.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed1947211953.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed1947211953.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed2070575735.pddl",
+      "solution_file": "delivery-s4-p2-seed2070575735.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed2070575735.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed2070575735.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed2070575735.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(move t1 c_0_1 c_0_2)\n \n2:\n(move t1 c_0_2 c_0_3)\n \n3:\n(pick-package t1 p2 c_0_3)\n \n4:\n(move t1 c_0_3 c_0_2)\n \n5:\n(move t1 c_0_2 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_0)\n \n7:\n(move t1 c_0_0 c_1_0)\n \n8:\n(move t1 c_1_0 c_2_0)\n \n9:\n(drop-package t1 p2 c_2_0)\n \n10:\n(move t1 c_2_0 c_1_0)\n \n11:\n(pick-package t1 p1 c_1_0)\n \n12:\n(move t1 c_1_0 c_2_0)\n \n13:\n(drop-package t1 p1 c_2_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_0_3))) AND (NOT ((last t1 c_0_3) AND (at t1 c_0_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_2)\nAdding (last t1 c_0_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_0_3))) AND (NOT ((last t1 c_0_3) AND (at t1 c_0_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_0_3)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_2) AND (at t1 c_0_3))) AND (NOT ((last t1 c_0_3) AND (at t1 c_0_2))))\nFailure to satisfy: ((NOT ((last t1 c_0_2) AND (at t1 c_0_3))) AND (NOT ((last t1 c_0_3) AND (at t1 c_0_2))))\nChecking next happening (time 3)\nDeleting (at p2 c_0_3)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed2070575735.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed2070575735.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed2070575735.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed230005236.pddl",
+      "solution_file": "delivery-s4-p2-seed230005236.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed230005236.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed230005236.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed230005236.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move t1 c_0_2 c_1_2)\n \n2:\n(pick-package t1 p2 c_1_2)\n \n3:\n(move t1 c_1_2 c_1_1)\n \n4:\n(drop-package t1 p2 c_1_1)\n \n5:\n(move t1 c_1_1 c_0_1)\n \n6:\n(move t1 c_0_1 c_0_0)\n \n7:\n(pick-package t1 p1 c_0_0)\n \n8:\n(move t1 c_0_0 c_0_1)\n \n9:\n(move t1 c_0_1 c_1_1)\n \n10:\n(drop-package t1 p1 c_1_1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 1)\nDeleting (at t1 c_0_2)\nAdding (at t1 c_1_2)\nAdding (last t1 c_0_2)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 2)\nDeleting (at p2 c_1_2)\nDeleting (empty t1)\nAdding (carrying t1 p2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 3)\nDeleting (at t1 c_1_2)\nAdding (at t1 c_1_1)\nAdding (last t1 c_1_2)\n\nChecking trajectory constraints at 3\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 4)\nDeleting (carrying t1 p2)\nAdding (empty t1)\nAdding (at p2 c_1_1)\n\nChecking trajectory constraints at 4\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 5)\nDeleting (at t1 c_1_1)\nAdding (at t1 c_0_1)\nAdding (last t1 c_1_1)\n\nChecking trajectory constraints at 5\nChecking ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nFailure to satisfy: ((NOT ((last t1 c_0_1) AND (at t1 c_1_1))) AND (NOT ((last t1 c_1_1) AND (at t1 c_0_1))))\nChecking next happening (time 6)\nDeleting (at t1 c_0_1)\nAdding (at t1 c_0_0)\nAdding (last t1 c_0_1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed230005236.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed230005236.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed230005236.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "delivery-s4-p2-seed835728185.pddl",
+      "solution_file": "delivery-s4-p2-seed835728185.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed835728185.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed835728185.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking pick-package\n...action passes type checking.\nType-checking drop-package\n...action passes type checking.\nType-checking move\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed835728185.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(move t1 c_2_1 c_2_2)\n \n2:\n(move t1 c_2_2 c_2_3)\n \n3:\n(move t1 c_2_3 c_1_3)\n \n4:\n(pick-package t1 p1 c_1_3)\n \n5:\n(move t1 c_1_3 c_2_3)\n \n6:\n(move t1 c_2_3 c_2_2)\n \n7:\n(move t1 c_2_2 c_2_1)\n \n8:\n(move t1 c_2_1 c_2_0)\n \n9:\n(drop-package t1 p1 c_2_0)\n \n10:\n(move t1 c_2_0 c_2_1)\n \n11:\n(move t1 c_2_1 c_2_2)\n \n12:\n(move t1 c_2_2 c_2_3)\n \n13:\n(pick-package t1 p2 c_2_3)\n \n14:\n(move t1 c_2_3 c_2_2)\n \n15:\n(move t1 c_2_2 c_2_1)\n \n16:\n(move t1 c_2_1 c_2_0)\n \n17:\n(drop-package t1 p2 c_2_0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 1)\nDeleting (at t1 c_2_1)\nAdding (at t1 c_2_2)\nAdding (last t1 c_2_1)\n\nChecking trajectory constraints at 1\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 2)\nDeleting (at t1 c_2_2)\nAdding (at t1 c_2_3)\nAdding (last t1 c_2_2)\n\nChecking trajectory constraints at 2\nChecking ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nFailure to satisfy: ((NOT ((last t1 c_2_2) AND (at t1 c_2_3))) AND (NOT ((last t1 c_2_3) AND (at t1 c_2_2))))\nChecking next happening (time 3)\nDeleting (at t1 c_2_3)\nAdding (at t1 c_1_3)\nAdding (last t1 c_2_3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed835728185.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/delivery/domain3.pddl /home/jfan5/Safety-gen/pddl3/delivery/testing_problem50/delivery-s4-p2-seed835728185.pddl /home/jfan5/Safety-gen/pddl3/delivery/all_problems/delivery-s4-p2-seed835728185.soln"
+      },
+      "status": "invalid"
+    }
+  ]
+}

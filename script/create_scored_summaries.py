@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
 
 from utils import (
-    _classify_result,
+    classify_result,
 )
 def _load_unsloth_candidates(path: Path, scenario: str) -> Dict[str, List[dict]]:
     """Group UnsLoTH scored JSONL entries by <scenario>/<problem_name>."""
@@ -188,7 +188,7 @@ def _load_and_validate_pddl2_solutions(
         )
         
         # 分类验证结果
-        classification = _classify_result(stdout)
+        classification = classify_result(stdout)
         
         # 获取分数（1-5，然后映射到 0-100）
         raw_score = SCORE_MAP.get(classification, 1)

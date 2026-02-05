@@ -5,7 +5,7 @@ Utility modules for evaluation, training, and run management.
 # Original validation utilities (from utils.py)
 from .validation import (
     extract_llm_output,
-    _classify_result,
+    classify_result,
     validate_solution,
     compute_reward,
     log_reward_batch_stats,
@@ -151,7 +151,7 @@ __all__ = [
     "DEFAULT_BENCHMARK_DIR",
     # validation (original utils.py)
     "extract_llm_output",
-    "_classify_result",
+    "classify_result",
     "validate_solution",
     "compute_reward",
     "log_reward_batch_stats",

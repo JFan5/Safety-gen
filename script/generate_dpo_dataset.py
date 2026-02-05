@@ -117,7 +117,7 @@ def _resolve_validate_path():
     return "Validate"
 
 
-def _classify_result(stdout_text: str) -> str:
+def classify_result(stdout_text: str) -> str:
     """Classify result based on VAL validation output."""
     text = stdout_text.lower() if stdout_text else ""
 
@@ -212,7 +212,7 @@ def verify_plan(problem_file: str, plan_text: str, domain_file: str = None) -> i
     stdout, stderr = _validate_solution_with_val(domain_file, problem_file, plan_text)
 
     # Classify result
-    category = _classify_result(stdout)
+    category = classify_result(stdout)
 
     # Map category to score
     score_map = {

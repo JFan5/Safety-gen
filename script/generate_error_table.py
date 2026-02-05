@@ -14,7 +14,7 @@ import sys
 # 添加 script 目录到路径，以便导入 utils
 sys.path.insert(0, str(Path(__file__).parent))
 from utils import (
-    _classify_result,
+    classify_result,
 )
 
 # 错误类型列表（按顺序：Plan Format Error 最左边，依次 Precondition Violation, Safety Constraints Violation, Goal Not Satisfied, Success Plans）
@@ -87,9 +87,9 @@ def load_pretrained_data(filepath):
             if result.get('is_valid', False):
                 category_counts['success_plans'] = category_counts.get('success_plans', 0) + 1
             else:
-                # 使用 _classify_result 分类
+                # 使用 classify_result 分类
                 stdout = result.get('validation_stdout', '')
-                category = _classify_result(stdout)
+                category = classify_result(stdout)
                 # 只统计我们需要的类别
                 if category in ERROR_CATEGORIES:
                     category_counts[category] = category_counts.get(category, 0) + 1

@@ -1,0 +1,871 @@
+{
+  "summary": {
+    "total_problems": 50,
+    "valid": 5,
+    "invalid": 45,
+    "missing_solutions": 0,
+    "success_rate": 10.0
+  },
+  "command": "python3 validate_classical_solvers.py --domain /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl --problems_dir /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50 --solutions_dir /home/jfan5/Safety-gen/pddl3/grippers/all_problems --timeout 30",
+  "metadata": {
+    "timestamp": "2026-02-04T09:29:09.776785",
+    "scenario_name": "custom",
+    "domain_file": "/home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl",
+    "problems_directory": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50",
+    "solutions_directory": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems",
+    "timeout_seconds": 30,
+    "total_problems": 50
+  },
+  "results": [
+    {
+      "problem_file": "grippers-n1-r3-o3-s1221792278.pddl",
+      "solution_file": "grippers-n1-r3-o3-s1221792278.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1221792278.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1221792278.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1221792278.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot1 ball3 room1 lgripper1)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball3 room2 lgripper1)\n \n5:\n(pick robot1 ball2 room2 rgripper1)\n \n6:\n(move robot1 room2 room3)\n \n7:\n(drop robot1 ball2 room3 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball3 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at ball2 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1221792278.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1221792278.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1221792278.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r3-o3-s1252456773.pddl",
+      "solution_file": "grippers-n1-r3-o3-s1252456773.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1252456773.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1252456773.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1252456773.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball2 room3 lgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball2 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1252456773.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s1252456773.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s1252456773.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r3-o3-s2084957908.pddl",
+      "solution_file": "grippers-n1-r3-o3-s2084957908.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s2084957908.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s2084957908.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s2084957908.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball1 room3 lgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(pick robot1 ball2 room2 rgripper1)\n \n5:\n(move robot1 room2 room3)\n \n6:\n(drop robot1 ball2 room3 rgripper1)\n \n7:\n(move robot1 room3 room1)\n \n8:\n(drop robot1 ball1 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball2 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s2084957908.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r3-o3-s2084957908.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r3-o3-s2084957908.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1022927068.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1022927068.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1022927068.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1022927068.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1022927068.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball2 room4 lgripper1)\n \n3:\n(move robot1 room4 room2)\n \n4:\n(drop robot1 ball2 room2 lgripper1)\n \n5:\n(pick robot1 ball1 room2 rgripper1)\n \n6:\n(move robot1 room2 room4)\n \n7:\n(drop robot1 ball1 room4 rgripper1)\n \n8:\n(move robot1 room4 room3)\n \n9:\n(pick robot1 ball3 room3 lgripper1)\n \n10:\n(move robot1 room3 room2)\n \n11:\n(drop robot1 ball3 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1022927068.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1022927068.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1022927068.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1057770687.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1057770687.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1057770687.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1057770687.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1057770687.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room3 room4)\n \n2:\n(pick robot1 ball3 room4 lgripper1)\n \n3:\n(move robot1 room4 room2)\n \n4:\n(pick robot1 ball2 room2 rgripper1)\n \n5:\n(move robot1 room2 room3)\n \n6:\n(drop robot1 ball3 room3 lgripper1)\n \n7:\n(move robot1 room3 room2)\n \n8:\n(pick robot1 ball1 room2 lgripper1)\n \n9:\n(move robot1 room2 room1)\n \n10:\n(drop robot1 ball2 room1 rgripper1)\n \n11:\n(move robot1 room1 room3)\n \n12:\n(drop robot1 ball1 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1057770687.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1057770687.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1057770687.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s136367703.pddl",
+      "solution_file": "grippers-n1-r4-o3-s136367703.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s136367703.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s136367703.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s136367703.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball2 room1 lgripper1)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(drop robot1 ball2 room3 lgripper1)\n \n4:\n(pick robot1 ball3 room3 rgripper1)\n \n5:\n(move robot1 room3 room2)\n \n6:\n(drop robot1 ball3 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball3 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s136367703.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s136367703.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s136367703.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1488819945.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1488819945.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1488819945.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1488819945.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1488819945.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move robot1 room2 room4)\n \n2:\n(move robot1 room4 room3)\n \n3:\n(pick robot1 ball2 room3 lgripper1)\n \n4:\n(move robot1 room3 room4)\n \n5:\n(drop robot1 ball2 room4 lgripper1)\n \n6:\n(move robot1 room4 room3)\n \n7:\n(move robot1 room3 room1)\n \n8:\n(pick robot1 ball3 room1 lgripper1)\n \n9:\n(move robot1 room1 room3)\n \n10:\n(drop robot1 ball3 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at ball2 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 4)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1488819945.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1488819945.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1488819945.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1497857246.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1497857246.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1497857246.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1497857246.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1497857246.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room2 room4)\n \n2:\n(pick robot1 ball3 room4 lgripper1)\n \n3:\n(move robot1 room4 room3)\n \n4:\n(pick robot1 ball1 room3 rgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(drop robot1 ball3 room1 lgripper1)\n \n7:\n(move robot1 room1 room2)\n \n8:\n(drop robot1 ball1 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (at ball1 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1497857246.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1497857246.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1497857246.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s159345425.pddl",
+      "solution_file": "grippers-n1-r4-o3-s159345425.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s159345425.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s159345425.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s159345425.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot1 room2 room4)\n \n2:\n(pick robot1 ball1 room4 lgripper1)\n \n3:\n(move robot1 room4 room3)\n \n4:\n(drop robot1 ball1 room3 lgripper1)\n \n5:\n(move robot1 room3 room4)\n \n6:\n(move robot1 room4 room1)\n \n7:\n(pick robot1 ball3 room1 lgripper1)\n \n8:\n(pick robot1 ball2 room1 rgripper1)\n \n9:\n(move robot1 room1 room4)\n \n10:\n(drop robot1 ball3 room4 lgripper1)\n \n11:\n(drop robot1 ball2 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s159345425.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s159345425.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s159345425.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1662697139.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1662697139.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1662697139.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1662697139.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1662697139.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room3 room4)\n \n2:\n(pick robot1 ball2 room4 lgripper1)\n \n3:\n(move robot1 room4 room2)\n \n4:\n(drop robot1 ball2 room2 lgripper1)\n \n5:\n(move robot1 room2 room1)\n \n6:\n(pick robot1 ball1 room1 lgripper1)\n \n7:\n(move robot1 room1 room3)\n \n8:\n(drop robot1 ball1 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1662697139.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1662697139.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1662697139.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1717705964.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1717705964.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1717705964.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1717705964.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1717705964.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room2 room4)\n \n2:\n(pick robot1 ball2 room4 lgripper1)\n \n3:\n(move robot1 room4 room3)\n \n4:\n(pick robot1 ball3 room3 rgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(drop robot1 ball3 room1 rgripper1)\n \n7:\n(move robot1 room1 room2)\n \n8:\n(drop robot1 ball2 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1717705964.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1717705964.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1717705964.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1733309123.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1733309123.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1733309123.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1733309123.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1733309123.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball3 room4 lgripper1)\n \n3:\n(move robot1 room4 room1)\n \n4:\n(drop robot1 ball3 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1733309123.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1733309123.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1733309123.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1778896040.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1778896040.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1778896040.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1778896040.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1778896040.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(move robot1 room1 room3)\n \n2:\n(pick robot1 ball3 room3 lgripper1)\n \n3:\n(pick robot1 ball2 room3 rgripper1)\n \n4:\n(move robot1 room3 room1)\n \n5:\n(drop robot1 ball2 room1 rgripper1)\n \n6:\n(drop robot1 ball3 room1 lgripper1)\n \n7:\n(move robot1 room1 room3)\n \n8:\n(pick robot1 ball1 room3 lgripper1)\n \n9:\n(move robot1 room3 room1)\n \n10:\n(drop robot1 ball1 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at ball2 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball2 rgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1778896040.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1778896040.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1778896040.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1811869323.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1811869323.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1811869323.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1811869323.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1811869323.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball2 room4 lgripper1)\n \n2:\n(move robot1 room4 room3)\n \n3:\n(drop robot1 ball2 room3 lgripper1)\n \n4:\n(move robot1 room3 room2)\n \n5:\n(move robot1 room2 room1)\n \n6:\n(pick robot1 ball3 room1 lgripper1)\n \n7:\n(pick robot1 ball1 room1 rgripper1)\n \n8:\n(move robot1 room1 room2)\n \n9:\n(drop robot1 ball3 room2 lgripper1)\n \n10:\n(drop robot1 ball1 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball2 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1811869323.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1811869323.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1811869323.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1899086852.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1899086852.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1899086852.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1899086852.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1899086852.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move robot1 room3 room2)\n \n2:\n(pick robot1 ball3 room2 lgripper1)\n \n3:\n(move robot1 room2 room4)\n \n4:\n(move robot1 room4 room1)\n \n5:\n(pick robot1 ball2 room1 rgripper1)\n \n6:\n(move robot1 room1 room4)\n \n7:\n(drop robot1 ball2 room4 rgripper1)\n \n8:\n(move robot1 room4 room3)\n \n9:\n(drop robot1 ball3 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1899086852.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1899086852.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1899086852.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s1900228426.pddl",
+      "solution_file": "grippers-n1-r4-o3-s1900228426.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1900228426.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1900228426.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1900228426.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(move robot1 room3 room2)\n \n2:\n(pick robot1 ball3 room2 lgripper1)\n \n3:\n(move robot1 room2 room1)\n \n4:\n(drop robot1 ball3 room1 lgripper1)\n \n5:\n(pick robot1 ball2 room1 rgripper1)\n \n6:\n(move robot1 room1 room3)\n \n7:\n(drop robot1 ball2 room3 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball3 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1900228426.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s1900228426.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s1900228426.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s2099476676.pddl",
+      "solution_file": "grippers-n1-r4-o3-s2099476676.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s2099476676.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s2099476676.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s2099476676.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball1 room4 lgripper1)\n \n3:\n(move robot1 room4 room1)\n \n4:\n(drop robot1 ball1 room1 lgripper1)\n \n5:\n(move robot1 room1 room4)\n \n6:\n(move robot1 room4 room3)\n \n7:\n(pick robot1 ball3 room3 lgripper1)\n \n8:\n(pick robot1 ball2 room3 rgripper1)\n \n9:\n(move robot1 room3 room4)\n \n10:\n(drop robot1 ball2 room4 rgripper1)\n \n11:\n(move robot1 room4 room2)\n \n12:\n(drop robot1 ball3 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s2099476676.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s2099476676.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s2099476676.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s211856952.pddl",
+      "solution_file": "grippers-n1-r4-o3-s211856952.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s211856952.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s211856952.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s211856952.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball2 room4 lgripper1)\n \n2:\n(move robot1 room4 room1)\n \n3:\n(drop robot1 ball2 room1 lgripper1)\n \n4:\n(move robot1 room1 room2)\n \n5:\n(pick robot1 ball3 room2 lgripper1)\n \n6:\n(pick robot1 ball1 room2 rgripper1)\n \n7:\n(move robot1 room2 room1)\n \n8:\n(drop robot1 ball3 room1 lgripper1)\n \n9:\n(move robot1 room1 room4)\n \n10:\n(drop robot1 ball1 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball2 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s211856952.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s211856952.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s211856952.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s380821212.pddl",
+      "solution_file": "grippers-n1-r4-o3-s380821212.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s380821212.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s380821212.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s380821212.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot1 ball1 room3 lgripper1)\n \n2:\n(move robot1 room3 room2)\n \n3:\n(move robot1 room2 room1)\n \n4:\n(drop robot1 ball1 room1 lgripper1)\n \n5:\n(pick robot1 ball2 room1 rgripper1)\n \n6:\n(move robot1 room1 room2)\n \n7:\n(drop robot1 ball2 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s380821212.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s380821212.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s380821212.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s649006019.pddl",
+      "solution_file": "grippers-n1-r4-o3-s649006019.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s649006019.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s649006019.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s649006019.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(move robot1 room2 room3)\n \n2:\n(pick robot1 ball1 room3 lgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(drop robot1 ball1 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s649006019.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s649006019.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s649006019.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s751429623.pddl",
+      "solution_file": "grippers-n1-r4-o3-s751429623.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s751429623.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s751429623.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s751429623.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move robot1 room1 room4)\n \n2:\n(move robot1 room4 room3)\n \n3:\n(pick robot1 ball1 room3 lgripper1)\n \n4:\n(move robot1 room3 room4)\n \n5:\n(move robot1 room4 room2)\n \n6:\n(drop robot1 ball1 room2 lgripper1)\n \n7:\n(pick robot1 ball3 room2 rgripper1)\n \n8:\n(move robot1 room2 room4)\n \n9:\n(drop robot1 ball3 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 3)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 4)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 4\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 5)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 5\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 6)\nDeleting (carry robot1 ball1 lgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 6\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 7)\nDeleting (at ball3 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball3 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b rgripper1)))\n\nChecking next happening (time 8)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s751429623.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s751429623.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s751429623.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s822055517.pddl",
+      "solution_file": "grippers-n1-r4-o3-s822055517.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s822055517.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s822055517.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s822055517.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball1 room4 lgripper1)\n \n3:\n(move robot1 room4 room2)\n \n4:\n(drop robot1 ball1 room2 lgripper1)\n \n5:\n(move robot1 room2 room4)\n \n6:\n(move robot1 room4 room3)\n \n7:\n(pick robot1 ball3 room3 lgripper1)\n \n8:\n(pick robot1 ball2 room3 rgripper1)\n \n9:\n(move robot1 room3 room4)\n \n10:\n(drop robot1 ball3 room4 lgripper1)\n \n11:\n(move robot1 room4 room1)\n \n12:\n(drop robot1 ball2 room1 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball1 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s822055517.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s822055517.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s822055517.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s839780497.pddl",
+      "solution_file": "grippers-n1-r4-o3-s839780497.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s839780497.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s839780497.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s839780497.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball1 room4 lgripper1)\n \n2:\n(move robot1 room4 room3)\n \n3:\n(drop robot1 ball1 room3 lgripper1)\n \n4:\n(pick robot1 ball2 room3 rgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(pick robot1 ball3 room1 lgripper1)\n \n7:\n(move robot1 room1 room3)\n \n8:\n(drop robot1 ball3 room3 lgripper1)\n \n9:\n(move robot1 room3 room4)\n \n10:\n(drop robot1 ball2 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball1 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s839780497.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s839780497.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s839780497.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s895376760.pddl",
+      "solution_file": "grippers-n1-r4-o3-s895376760.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s895376760.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s895376760.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s895376760.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot1 ball1 room2 lgripper1)\n \n2:\n(move robot1 room2 room4)\n \n3:\n(move robot1 room4 room1)\n \n4:\n(drop robot1 ball1 room1 lgripper1)\n \n5:\n(pick robot1 ball3 room1 rgripper1)\n \n6:\n(move robot1 room1 room4)\n \n7:\n(drop robot1 ball3 room4 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at ball1 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s895376760.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s895376760.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s895376760.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n1-r4-o3-s908405235.pddl",
+      "solution_file": "grippers-n1-r4-o3-s908405235.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s908405235.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s908405235.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s908405235.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(move robot1 room1 room4)\n \n2:\n(pick robot1 ball2 room4 lgripper1)\n \n3:\n(move robot1 room4 room2)\n \n4:\n(drop robot1 ball2 room2 lgripper1)\n \n5:\n(pick robot1 ball3 room2 rgripper1)\n \n6:\n(move robot1 room2 room4)\n \n7:\n(move robot1 room4 room3)\n \n8:\n(drop robot1 ball3 room3 rgripper1)\n \n9:\n(pick robot1 ball1 room3 lgripper1)\n \n10:\n(move robot1 room3 room4)\n \n11:\n(drop robot1 ball1 room4 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 1\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 2)\nDeleting (at ball2 room4)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nFailure to satisfy: (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nChecking next happening (time 3)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s908405235.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n1-r4-o3-s908405235.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n1-r4-o3-s908405235.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o2-s1918311056.pddl",
+      "solution_file": "grippers-n2-r3-o2-s1918311056.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s1918311056.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s1918311056.soln",
+      "valid": true,
+      "message": "Plan valid",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s1918311056.soln\nPlan to validate:\n\nPlan size: 0\n\nPlan executed successfully - checking goal\nChecking trajectory constraints at 0\nChecking (forall (?b - object ) (not (carry robot1 ?b lgripper1)))\n\nPlan valid\nFinal value: 0 \n\nSuccessful plans:\nValue: 0\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s1918311056.soln 0 \n\n",
+        "stderr": "",
+        "returncode": 0,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s1918311056.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s1918311056.soln"
+      },
+      "status": "valid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o2-s808087104.pddl",
+      "solution_file": "grippers-n2-r3-o2-s808087104.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s808087104.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s808087104.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s808087104.soln\nPlan to validate:\n\nPlan size: 3\n1:\n(pick robot2 ball2 room2 lgripper2)\n \n2:\n(move robot2 room2 room1)\n \n3:\n(drop robot2 ball2 room1 lgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 1)\nDeleting (at ball2 room2)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nFailure to satisfy: (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 3)\nDeleting (carry robot2 ball2 lgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 lgripper2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s808087104.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o2-s808087104.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o2-s808087104.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1057770687.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1057770687.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1057770687.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1057770687.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1057770687.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot2 ball1 room2 lgripper2)\n \n2:\n(pick robot1 ball2 room3 lgripper1)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(move robot2 room2 room1)\n \n5:\n(drop robot1 ball2 room2 lgripper1)\n \n6:\n(drop robot2 ball1 room1 lgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 1)\nDeleting (at ball1 room2)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball1 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 2)\nDeleting (at ball2 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nFailure to satisfy: (NOT ((at-robby robot1 room2) AND (at-robby robot2 room2)))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1057770687.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1057770687.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1057770687.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1131035916.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1131035916.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1131035916.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1131035916.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1131035916.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot2 ball2 room3 lgripper2)\n \n2:\n(pick robot1 ball3 room1 lgripper1)\n \n3:\n(move robot1 room1 room3)\n \n4:\n(move robot2 room3 room1)\n \n5:\n(drop robot1 ball3 room3 lgripper1)\n \n6:\n(drop robot2 ball2 room1 lgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball3 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1131035916.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1131035916.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1131035916.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1297036785.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1297036785.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1297036785.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1297036785.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1297036785.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball2 room2 lgripper1)\n \n2:\n(pick robot1 ball1 room2 rgripper1)\n \n3:\n(move robot1 room2 room3)\n \n4:\n(drop robot1 ball2 room3 lgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(drop robot1 ball1 room1 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 1)\nDeleting (at ball2 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 4)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nFailure to satisfy: (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 6)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room1)\nAdding (free robot1 rgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1297036785.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1297036785.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1297036785.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1330494389.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1330494389.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1330494389.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1330494389.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1330494389.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot1 ball3 room2 lgripper1)\n \n2:\n(pick robot1 ball1 room2 rgripper1)\n \n3:\n(move robot1 room2 room3)\n \n4:\n(drop robot1 ball1 room3 rgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(drop robot1 ball3 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 1)\nDeleting (at ball3 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 2)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 4)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nFailure to satisfy: (NOT ((at-robby robot1 room1) AND (at-robby robot2 room1)))\nChecking next happening (time 6)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room1)\nAdding (free robot1 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1330494389.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1330494389.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1330494389.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1446958690.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1446958690.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1446958690.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1446958690.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1446958690.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(move robot1 room3 room2)\n \n2:\n(move robot2 room3 room2)\n \n3:\n(pick robot1 ball1 room2 lgripper1)\n \n4:\n(move robot2 room2 room1)\n \n5:\n(move robot1 room2 room3)\n \n6:\n(pick robot2 ball3 room1 lgripper2)\n \n7:\n(drop robot1 ball1 room3 lgripper1)\n \n8:\n(move robot2 room1 room2)\n \n9:\n(drop robot2 ball3 room2 lgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nFailure to satisfy: (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1446958690.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1446958690.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1446958690.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1517599610.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1517599610.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1517599610.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1517599610.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1517599610.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball1 room3 lgripper1)\n \n2:\n(move robot2 room3 room2)\n \n3:\n(move robot1 room3 room2)\n \n4:\n(pick robot2 ball2 room2 lgripper2)\n \n5:\n(drop robot1 ball1 room2 lgripper1)\n \n6:\n(move robot2 room2 room1)\n \n7:\n(drop robot2 ball2 room1 lgripper2)\n \n8:\n(pick robot2 ball3 room1 rgripper2)\n \n9:\n(move robot2 room1 room2)\n \n10:\n(drop robot2 ball3 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room2))\nFailure to satisfy: (NOT (at-robby robot1 room2))\nChecking next happening (time 4)\nDeleting (at ball2 room2)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1517599610.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1517599610.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1517599610.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1637528212.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1637528212.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1637528212.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1637528212.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1637528212.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(pick robot1 ball3 room3 lgripper1)\n \n2:\n(pick robot2 ball2 room3 lgripper2)\n \n3:\n(pick robot1 ball1 room3 rgripper1)\n \n4:\n(move robot2 room3 room2)\n \n5:\n(move robot1 room3 room2)\n \n6:\n(drop robot1 ball3 room2 lgripper1)\n \n7:\n(drop robot2 ball2 room2 lgripper2)\n \n8:\n(drop robot1 ball1 room2 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at ball3 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at ball2 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 3)\nDeleting (at ball1 room3)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 5)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room2))\nFailure to satisfy: (NOT (at-robby robot1 room2))\nChecking next happening (time 6)\nDeleting (carry robot1 ball3 lgripper1)\nAdding (at ball3 room2)\nAdding (free robot1 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1637528212.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1637528212.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1637528212.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1643431373.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1643431373.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1643431373.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1643431373.soln",
+      "valid": true,
+      "message": "Plan valid",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1643431373.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(move robot1 room2 room1)\n \n2:\n(move robot2 room3 room2)\n \n3:\n(pick robot1 ball2 room1 lgripper1)\n \n4:\n(move robot1 room1 room2)\n \n5:\n(drop robot1 ball2 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at ball2 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room2)\nAdding (free robot1 lgripper1)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 5 \n\nSuccessful plans:\nValue: 5\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1643431373.soln 5 \n\n",
+        "stderr": "",
+        "returncode": 0,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1643431373.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1643431373.soln"
+      },
+      "status": "valid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1711313322.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1711313322.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1711313322.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1711313322.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1711313322.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(pick robot2 ball2 room3 lgripper2)\n \n2:\n(pick robot2 ball1 room3 rgripper2)\n \n3:\n(pick robot1 ball3 room1 lgripper1)\n \n4:\n(move robot1 room1 room3)\n \n5:\n(move robot2 room3 room2)\n \n6:\n(drop robot1 ball3 room3 lgripper1)\n \n7:\n(drop robot2 ball2 room2 lgripper2)\n \n8:\n(drop robot2 ball1 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball1 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball1 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at ball3 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1711313322.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1711313322.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1711313322.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1766112433.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1766112433.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1766112433.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1766112433.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1766112433.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room3 room2)\n \n2:\n(move robot2 room1 room3)\n \n3:\n(pick robot1 ball2 room2 lgripper1)\n \n4:\n(pick robot1 ball1 room2 rgripper1)\n \n5:\n(move robot1 room2 room1)\n \n6:\n(drop robot1 ball2 room1 lgripper1)\n \n7:\n(move robot1 room1 room3)\n \n8:\n(drop robot1 ball1 room3 rgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at ball2 room2)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (at ball1 room2)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 4\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 5)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room1)\n\nChecking trajectory constraints at 5\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 6)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room1)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 6\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 7)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 7\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nFailure to satisfy: (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 8)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room3)\nAdding (free robot1 rgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1766112433.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1766112433.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1766112433.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1793534370.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1793534370.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1793534370.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1793534370.soln",
+      "valid": true,
+      "message": "Plan valid",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1793534370.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(pick robot2 ball2 room3 lgripper2)\n \n2:\n(pick robot1 ball1 room1 lgripper1)\n \n3:\n(move robot1 room1 room2)\n \n4:\n(move robot2 room3 room1)\n \n5:\n(drop robot1 ball1 room2 lgripper1)\n \n6:\n(drop robot2 ball2 room1 lgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball1 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (carry robot1 ball1 lgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (carry robot2 ball2 lgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 lgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1793534370.soln 6 \n\n",
+        "stderr": "",
+        "returncode": 0,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1793534370.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1793534370.soln"
+      },
+      "status": "valid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1812969061.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1812969061.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1812969061.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1812969061.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1812969061.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(pick robot2 ball3 room3 lgripper2)\n \n2:\n(pick robot2 ball2 room3 rgripper2)\n \n3:\n(pick robot1 ball1 room1 lgripper1)\n \n4:\n(move robot1 room1 room3)\n \n5:\n(move robot2 room3 room2)\n \n6:\n(drop robot1 ball1 room3 lgripper1)\n \n7:\n(drop robot2 ball3 room2 lgripper2)\n \n8:\n(drop robot2 ball2 room2 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball3 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball3 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at ball1 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1812969061.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1812969061.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1812969061.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s1828172190.pddl",
+      "solution_file": "grippers-n2-r3-o3-s1828172190.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1828172190.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1828172190.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1828172190.soln\nPlan to validate:\n\nPlan size: 3\n1:\n(pick robot1 ball2 room1 lgripper1)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(drop robot1 ball2 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1828172190.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s1828172190.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s1828172190.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s484801279.pddl",
+      "solution_file": "grippers-n2-r3-o3-s484801279.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s484801279.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s484801279.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s484801279.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot2 ball3 room2 lgripper2)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(move robot2 room2 room1)\n \n4:\n(pick robot1 ball2 room3 lgripper1)\n \n5:\n(drop robot2 ball3 room1 lgripper2)\n \n6:\n(move robot1 room3 room1)\n \n7:\n(drop robot1 ball2 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball3 room2)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball3 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s484801279.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s484801279.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s484801279.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s57572298.pddl",
+      "solution_file": "grippers-n2-r3-o3-s57572298.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s57572298.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s57572298.soln",
+      "valid": true,
+      "message": "Plan valid",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s57572298.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(pick robot2 ball3 room2 lgripper2)\n \n2:\n(pick robot1 ball1 room1 lgripper1)\n \n3:\n(move robot1 room1 room2)\n \n4:\n(move robot2 room2 room3)\n \n5:\n(drop robot1 ball1 room2 lgripper1)\n \n6:\n(pick robot2 ball2 room3 rgripper2)\n \n7:\n(move robot2 room3 room1)\n \n8:\n(drop robot2 ball3 room1 lgripper2)\n \n9:\n(drop robot2 ball2 room1 rgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball3 room2)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball3 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball1 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (carry robot1 ball1 lgripper1)\nAdding (at ball1 room2)\nAdding (free robot1 lgripper1)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at ball2 room3)\nDeleting (free robot2 rgripper2)\nAdding (carry robot2 ball2 rgripper2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 8)\nDeleting (carry robot2 ball3 lgripper2)\nAdding (at ball3 room1)\nAdding (free robot2 lgripper2)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 9)\nDeleting (carry robot2 ball2 rgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 rgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 9\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 9 \n\nSuccessful plans:\nValue: 9\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s57572298.soln 9 \n\n",
+        "stderr": "",
+        "returncode": 0,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s57572298.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s57572298.soln"
+      },
+      "status": "valid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s658342220.pddl",
+      "solution_file": "grippers-n2-r3-o3-s658342220.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s658342220.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s658342220.soln",
+      "valid": true,
+      "message": "Plan valid",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s658342220.soln\nPlan to validate:\n\nPlan size: 3\n1:\n(pick robot2 ball2 room3 lgripper2)\n \n2:\n(move robot2 room3 room1)\n \n3:\n(drop robot2 ball2 room1 lgripper2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot2 ball2 lgripper2)\nAdding (at ball2 room1)\nAdding (free robot2 lgripper2)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nPlan valid\nFinal value: 3 \n\nSuccessful plans:\nValue: 3\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s658342220.soln 3 \n\n",
+        "stderr": "",
+        "returncode": 0,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s658342220.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s658342220.soln"
+      },
+      "status": "valid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s689232796.pddl",
+      "solution_file": "grippers-n2-r3-o3-s689232796.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s689232796.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s689232796.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s689232796.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot2 ball2 room2 lgripper2)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(move robot2 room2 room3)\n \n4:\n(pick robot1 ball1 room3 lgripper1)\n \n5:\n(move robot1 room3 room2)\n \n6:\n(drop robot2 ball2 room3 lgripper2)\n \n7:\n(drop robot1 ball1 room2 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at ball2 room2)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nFailure to satisfy: (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (at ball1 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball1 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s689232796.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s689232796.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s689232796.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s815517783.pddl",
+      "solution_file": "grippers-n2-r3-o3-s815517783.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s815517783.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s815517783.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s815517783.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(move robot1 room3 room2)\n \n2:\n(move robot2 room3 room2)\n \n3:\n(pick robot1 ball1 room2 lgripper1)\n \n4:\n(move robot1 room2 room3)\n \n5:\n(drop robot1 ball1 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room2))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room3)\nAdding (at-robby robot1 room2)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room2))\nFailure to satisfy: (NOT (at-robby robot1 room2))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s815517783.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s815517783.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s815517783.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s908405235.pddl",
+      "solution_file": "grippers-n2-r3-o3-s908405235.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s908405235.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s908405235.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s908405235.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room1 room3)\n \n2:\n(move robot2 room2 room3)\n \n3:\n(pick robot1 ball3 room3 lgripper1)\n \n4:\n(pick robot1 ball1 room3 rgripper1)\n \n5:\n(move robot1 room3 room2)\n \n6:\n(drop robot1 ball1 room2 rgripper1)\n \n7:\n(move robot1 room2 room1)\n \n8:\n(drop robot1 ball3 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room2)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nFailure to satisfy: (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at ball3 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s908405235.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s908405235.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s908405235.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r3-o3-s933037160.pddl",
+      "solution_file": "grippers-n2-r3-o3-s933037160.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s933037160.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s933037160.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s933037160.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(move robot1 room1 room3)\n \n2:\n(move robot2 room1 room3)\n \n3:\n(pick robot1 ball3 room3 lgripper1)\n \n4:\n(pick robot1 ball1 room3 rgripper1)\n \n5:\n(move robot1 room3 room2)\n \n6:\n(drop robot1 ball1 room2 rgripper1)\n \n7:\n(move robot1 room2 room1)\n \n8:\n(drop robot1 ball3 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s933037160.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r3-o3-s933037160.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r3-o3-s933037160.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r4-o3-s1528658263.pddl",
+      "solution_file": "grippers-n2-r4-o3-s1528658263.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s1528658263.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s1528658263.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s1528658263.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(pick robot2 ball2 room1 lgripper2)\n \n2:\n(move robot1 room2 room3)\n \n3:\n(move robot2 room1 room3)\n \n4:\n(pick robot1 ball3 room3 lgripper1)\n \n5:\n(move robot1 room3 room1)\n \n6:\n(drop robot2 ball2 room3 lgripper2)\n \n7:\n(drop robot1 ball3 room1 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball2 lgripper2)\n\nChecking trajectory constraints at 1\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room2)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room1)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nFailure to satisfy: (NOT ((at-robby robot1 room3) AND (at-robby robot2 room3)))\nChecking next happening (time 4)\nDeleting (at ball3 room3)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball3 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s1528658263.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s1528658263.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s1528658263.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r4-o3-s423089722.pddl",
+      "solution_file": "grippers-n2-r4-o3-s423089722.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s423089722.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s423089722.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s423089722.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(pick robot1 ball2 room1 lgripper1)\n \n2:\n(pick robot1 ball1 room1 rgripper1)\n \n3:\n(move robot2 room4 room3)\n \n4:\n(move robot1 room1 room4)\n \n5:\n(pick robot2 ball3 room3 lgripper2)\n \n6:\n(move robot2 room3 room2)\n \n7:\n(drop robot1 ball1 room4 rgripper1)\n \n8:\n(move robot1 room4 room3)\n \n9:\n(drop robot2 ball3 room2 lgripper2)\n \n10:\n(drop robot1 ball2 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at ball1 room1)\nDeleting (free robot1 rgripper1)\nAdding (carry robot1 ball1 rgripper1)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (at-robby robot2 room4)\nAdding (at-robby robot2 room3)\n\nChecking trajectory constraints at 3\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 4)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room4)\n\nChecking trajectory constraints at 4\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 5)\nDeleting (at ball3 room3)\nDeleting (free robot2 lgripper2)\nAdding (carry robot2 ball3 lgripper2)\n\nChecking trajectory constraints at 5\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 6)\nDeleting (at-robby robot2 room3)\nAdding (at-robby robot2 room2)\n\nChecking trajectory constraints at 6\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 7)\nDeleting (carry robot1 ball1 rgripper1)\nAdding (at ball1 room4)\nAdding (free robot1 rgripper1)\n\nChecking trajectory constraints at 7\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 8)\nDeleting (at-robby robot1 room4)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 8\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 9)\nDeleting (carry robot2 ball3 lgripper2)\nAdding (at ball3 room2)\nAdding (free robot2 lgripper2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s423089722.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s423089722.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s423089722.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "grippers-n2-r4-o3-s911520678.pddl",
+      "solution_file": "grippers-n2-r4-o3-s911520678.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s911520678.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s911520678.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Type-checking move\n...action passes type checking.\nType-checking pick\n...action passes type checking.\nType-checking drop\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s911520678.soln\nPlan to validate:\n\nPlan size: 3\n1:\n(pick robot1 ball2 room1 lgripper1)\n \n2:\n(move robot1 room1 room3)\n \n3:\n(drop robot1 ball2 room3 lgripper1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 1)\nDeleting (at ball2 room1)\nDeleting (free robot1 lgripper1)\nAdding (carry robot1 ball2 lgripper1)\n\nChecking trajectory constraints at 1\nChecking (NOT (at-robby robot1 room3))\nChecking next happening (time 2)\nDeleting (at-robby robot1 room1)\nAdding (at-robby robot1 room3)\n\nChecking trajectory constraints at 2\nChecking (NOT (at-robby robot1 room3))\nFailure to satisfy: (NOT (at-robby robot1 room3))\nChecking next happening (time 3)\nDeleting (carry robot1 ball2 lgripper1)\nAdding (at ball2 room3)\nAdding (free robot1 lgripper1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s911520678.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl /home/jfan5/Safety-gen/pddl3/grippers/testing_problem50/grippers-n2-r4-o3-s911520678.pddl /home/jfan5/Safety-gen/pddl3/grippers/all_problems/grippers-n2-r4-o3-s911520678.soln"
+      },
+      "status": "invalid"
+    }
+  ]
+}

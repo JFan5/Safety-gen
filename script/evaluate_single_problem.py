@@ -16,7 +16,7 @@ from datetime import datetime
 import re
 from typing import List, Optional
 from utils import (
-    _classify_result,
+    classify_result,
 )
 
 # 配置参数
@@ -352,7 +352,7 @@ def evaluate_single_problem_with_temperature(
         if not _looks_like_valid_plan(raw_solution):
             category = "plan_format_error"
         else:
-            category = _classify_result(stdout)
+            category = classify_result(stdout)
         
         is_valid = (category == "success_plans")
     else:

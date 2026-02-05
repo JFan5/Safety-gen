@@ -56,9 +56,9 @@ else
 fi
 
 # Check if generation is running
-if pgrep -f "generate_dpo_dataset.py" > /dev/null; then
+if pgrep -f "script/generate_dpo_dataset.py" > /dev/null; then
     echo -e "${GREEN}Status:${NC} Generation is RUNNING"
-    PID=$(pgrep -f "generate_dpo_dataset.py")
+    PID=$(pgrep -f "script/generate_dpo_dataset.py")
     echo -e "${GREEN}PID:${NC} $PID"
     echo ""
 

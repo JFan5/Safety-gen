@@ -105,7 +105,7 @@ def validate_solution(domain_file: str, problem_file: str, solution_text: str):
 
 def classify_from_val(is_valid: bool, validation_stdout: str) -> str:
     """
-    与你“解析输出结果”脚本的 _classify_result 逻辑保持一致，返回六类之一：
+    与你“解析输出结果”脚本的 classify_result 逻辑保持一致，返回六类之一：
     success_plans / plan_format_error / precondition_violation /
     safety_constraints_violation / goal_not_satisfied / others
     """

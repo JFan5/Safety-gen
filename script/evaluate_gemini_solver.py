@@ -18,7 +18,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
 from collections import defaultdict
 from utils import (
-    _classify_result,
+    classify_result,
     validate_solution,
 )
 import argparse
@@ -643,7 +643,7 @@ def test_gemini_model_on_testing_data(
                     with print_lock:
                         print(f"[Step 3/3] Validation result for {problem_name}: Plan format error", flush=True)
                 else:
-                    category = _classify_result(stdout)
+                    category = classify_result(stdout)
                     with print_lock:
                         print(f"[Step 3/3] Validation result for {problem_name}: {category}", flush=True)
             else:
@@ -1042,7 +1042,7 @@ PROBLEM:
             if not _looks_like_valid_plan(raw_solution):
                 category = "plan_format_error"
             else:
-                category = _classify_result(stdout)
+                category = classify_result(stdout)
         else:
             category = "plan_format_error"
             validation_message = "Empty solution generated"

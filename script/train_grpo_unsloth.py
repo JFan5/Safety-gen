@@ -28,7 +28,7 @@ from trl import GRPOConfig, GRPOTrainer
 
 from unsloth import FastLanguageModel
 from utils import (
-    _classify_result,
+    classify_result,
     log_reward_batch_stats,
     validate_solution,
 )
@@ -77,7 +77,7 @@ def compute_reward(class_label: str) -> float:
 
 
 def classify_with_validator(meta: Any, response_text: str) -> Optional[str]:
-    """Run VAL validation and classify using utils._classify_result."""
+    """Run VAL validation and classify using utils.classify_result."""
     if not isinstance(meta, dict):
         return None
     domain_rel = meta.get("domain_file")
@@ -89,7 +89,7 @@ def classify_with_validator(meta: Any, response_text: str) -> Optional[str]:
     if not domain_path.exists() or not problem_path.exists():
         return None
     _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), response_text)
-    return _classify_result(stdout)
+    return classify_result(stdout)
 
 
 DEBUG_FILE = "reward_debug.log"

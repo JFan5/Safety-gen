@@ -1,0 +1,871 @@
+{
+  "summary": {
+    "total_problems": 50,
+    "valid": 0,
+    "invalid": 50,
+    "missing_solutions": 0,
+    "success_rate": 0.0
+  },
+  "command": "python3 validate_classical_solvers.py --domain /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl --problems_dir /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard --solutions_dir /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard --timeout 30",
+  "metadata": {
+    "timestamp": "2026-02-04T10:05:43.267871",
+    "scenario_name": "custom",
+    "domain_file": "/home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl",
+    "problems_directory": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard",
+    "solutions_directory": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard",
+    "timeout_seconds": 30,
+    "total_problems": 50
+  },
+  "results": [
+    {
+      "problem_file": "ferry-l4-c3-s1016063479.pddl",
+      "solution_file": "ferry-l4-c3-s1016063479.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1016063479.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1016063479.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1016063479.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(sail l2 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(board c1 l0)\n \n4:\n(sail l0 l1)\n \n5:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 5\n(at c1 l1) satisfied without (at-ferry l3) sometime before\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(No advice for conjunction!)\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1016063479.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1016063479.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1016063479.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s1118305119.pddl",
+      "solution_file": "ferry-l4-c3-s1118305119.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1118305119.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118305119.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118305119.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(sail l2 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l1)\n \n4:\n(debark c1 l1)\n \n5:\n(sail l1 l3)\n \n6:\n(sail l3 l0)\n \n7:\n(board c2 l0)\n \n8:\n(sail l0 l3)\n \n9:\n(debark c2 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l1) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118305119.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1118305119.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118305119.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s1118651296.pddl",
+      "solution_file": "ferry-l4-c3-s1118651296.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1118651296.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118651296.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118651296.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(sail l2 l1)\n \n2:\n(board c2 l1)\n \n3:\n(sail l1 l0)\n \n4:\n(debark c2 l0)\n \n5:\n(sail l0 l3)\n \n6:\n(sail l3 l1)\n \n7:\n(board c1 l1)\n \n8:\n(sail l1 l3)\n \n9:\n(debark c1 l3)\n \n10:\n(sail l3 l1)\n \n11:\n(board c0 l1)\n \n12:\n(sail l1 l2)\n \n13:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c2 l0) satisfied without (at-ferry l3) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118651296.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1118651296.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1118651296.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s137327824.pddl",
+      "solution_file": "ferry-l4-c3-s137327824.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s137327824.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s137327824.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s137327824.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(board c0 l3)\n \n2:\n(sail l3 l0)\n \n3:\n(debark c0 l0)\n \n4:\n(sail l0 l2)\n \n5:\n(board c1 l2)\n \n6:\n(sail l2 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c1 l0)\n \n9:\n(sail l0 l1)\n \n10:\n(board c2 l1)\n \n11:\n(sail l1 l0)\n \n12:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c0 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s137327824.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s137327824.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s137327824.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s1379280514.pddl",
+      "solution_file": "ferry-l4-c3-s1379280514.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1379280514.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1379280514.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1379280514.soln\nPlan to validate:\n\nPlan size: 5\n1:\n(sail l1 l2)\n \n2:\n(sail l2 l0)\n \n3:\n(board c2 l0)\n \n4:\n(sail l0 l2)\n \n5:\n(debark c2 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l2)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 5\n(at c2 l2) satisfied without (at-ferry l3) sometime before\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(No advice for conjunction!)\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1379280514.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1379280514.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1379280514.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s1389938978.pddl",
+      "solution_file": "ferry-l4-c3-s1389938978.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1389938978.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1389938978.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1389938978.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(board c0 l0)\n \n2:\n(sail l0 l3)\n \n3:\n(debark c0 l3)\n \n4:\n(sail l3 l2)\n \n5:\n(board c2 l2)\n \n6:\n(sail l2 l0)\n \n7:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c0 l3) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1389938978.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s1389938978.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s1389938978.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s191188818.pddl",
+      "solution_file": "ferry-l4-c3-s191188818.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s191188818.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s191188818.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s191188818.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l1 l3)\n \n2:\n(board c0 l3)\n \n3:\n(sail l3 l1)\n \n4:\n(debark c0 l1)\n \n5:\n(sail l1 l2)\n \n6:\n(board c2 l2)\n \n7:\n(sail l2 l3)\n \n8:\n(debark c2 l3)\n \n9:\n(sail l3 l2)\n \n10:\n(board c1 l2)\n \n11:\n(sail l2 l1)\n \n12:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l3)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c0 l1) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s191188818.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s191188818.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s191188818.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s421414441.pddl",
+      "solution_file": "ferry-l4-c3-s421414441.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s421414441.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s421414441.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s421414441.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(sail l3 l1)\n \n2:\n(board c1 l1)\n \n3:\n(sail l1 l3)\n \n4:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l1)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\n(at c1 l3) satisfied without (at-ferry l0) sometime before\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(No advice for conjunction!)\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s421414441.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s421414441.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s421414441.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s607383551.pddl",
+      "solution_file": "ferry-l4-c3-s607383551.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s607383551.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s607383551.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s607383551.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(sail l2 l3)\n \n2:\n(sail l3 l1)\n \n3:\n(board c2 l1)\n \n4:\n(sail l1 l3)\n \n5:\n(debark c2 l3)\n \n6:\n(sail l3 l1)\n \n7:\n(board c0 l1)\n \n8:\n(sail l1 l0)\n \n9:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\n(at c2 l3) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 6)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s607383551.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s607383551.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s607383551.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l4-c3-s999353524.pddl",
+      "solution_file": "ferry-l4-c3-s999353524.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s999353524.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s999353524.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s999353524.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(board c2 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(debark c2 l0)\n \n4:\n(board c1 l0)\n \n5:\n(sail l0 l2)\n \n6:\n(debark c1 l2)\n \n7:\n(sail l2 l1)\n \n8:\n(board c0 l1)\n \n9:\n(sail l1 l2)\n \n10:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c2 l0) satisfied without (at-ferry l2) sometime before\nChecking next happening (time 4)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s999353524.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l4-c3-s999353524.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l4-c3-s999353524.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1037401126.pddl",
+      "solution_file": "ferry-l5-c3-s1037401126.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1037401126.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1037401126.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1037401126.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l3 l4)\n \n2:\n(board c0 l4)\n \n3:\n(sail l4 l1)\n \n4:\n(debark c0 l1)\n \n5:\n(board c2 l1)\n \n6:\n(sail l1 l4)\n \n7:\n(debark c2 l4)\n \n8:\n(sail l4 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l4)\n \n11:\n(debark c1 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c0 l1) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1037401126.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1037401126.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1037401126.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1260272560.pddl",
+      "solution_file": "ferry-l5-c3-s1260272560.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1260272560.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1260272560.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1260272560.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(sail l2 l4)\n \n2:\n(board c1 l4)\n \n3:\n(sail l4 l3)\n \n4:\n(debark c1 l3)\n \n5:\n(sail l3 l1)\n \n6:\n(board c0 l1)\n \n7:\n(sail l1 l3)\n \n8:\n(debark c0 l3)\n \n9:\n(sail l3 l0)\n \n10:\n(board c2 l0)\n \n11:\n(sail l0 l2)\n \n12:\n(debark c2 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l3) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1260272560.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1260272560.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1260272560.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1396837097.pddl",
+      "solution_file": "ferry-l5-c3-s1396837097.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1396837097.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1396837097.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1396837097.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(sail l4 l3)\n \n2:\n(sail l3 l2)\n \n3:\n(board c2 l2)\n \n4:\n(sail l2 l3)\n \n5:\n(debark c2 l3)\n \n6:\n(sail l3 l2)\n \n7:\n(board c1 l2)\n \n8:\n(sail l2 l1)\n \n9:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l2)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\n(at c2 l3) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 6)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1396837097.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1396837097.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1396837097.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1506773109.pddl",
+      "solution_file": "ferry-l5-c3-s1506773109.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1506773109.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1506773109.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1506773109.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l3 l4)\n \n2:\n(board c1 l4)\n \n3:\n(sail l4 l2)\n \n4:\n(debark c1 l2)\n \n5:\n(board c0 l2)\n \n6:\n(sail l2 l4)\n \n7:\n(debark c0 l4)\n \n8:\n(sail l4 l1)\n \n9:\n(board c2 l1)\n \n10:\n(sail l1 l0)\n \n11:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l2) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1506773109.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1506773109.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1506773109.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1625986655.pddl",
+      "solution_file": "ferry-l5-c3-s1625986655.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1625986655.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1625986655.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1625986655.soln\nPlan to validate:\n\nPlan size: 9\n1:\n(sail l4 l1)\n \n2:\n(board c2 l1)\n \n3:\n(sail l1 l4)\n \n4:\n(debark c2 l4)\n \n5:\n(sail l4 l2)\n \n6:\n(sail l2 l1)\n \n7:\n(board c0 l1)\n \n8:\n(sail l1 l2)\n \n9:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c2 l4) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1625986655.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1625986655.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1625986655.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1630178593.pddl",
+      "solution_file": "ferry-l5-c3-s1630178593.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1630178593.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1630178593.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1630178593.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(board c2 l4)\n \n2:\n(sail l4 l3)\n \n3:\n(sail l3 l2)\n \n4:\n(debark c2 l2)\n \n5:\n(sail l2 l3)\n \n6:\n(board c0 l3)\n \n7:\n(sail l3 l1)\n \n8:\n(debark c0 l1)\n \n9:\n(sail l1 l3)\n \n10:\n(sail l3 l0)\n \n11:\n(board c1 l0)\n \n12:\n(sail l0 l3)\n \n13:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c2 l2) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1630178593.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1630178593.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1630178593.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1691327887.pddl",
+      "solution_file": "ferry-l5-c3-s1691327887.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1691327887.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1691327887.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1691327887.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l0 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l4)\n \n4:\n(debark c1 l4)\n \n5:\n(sail l4 l2)\n \n6:\n(board c0 l2)\n \n7:\n(sail l2 l1)\n \n8:\n(debark c0 l1)\n \n9:\n(board c2 l1)\n \n10:\n(sail l1 l0)\n \n11:\n(debark c2 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l4) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1691327887.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1691327887.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1691327887.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s1743774548.pddl",
+      "solution_file": "ferry-l5-c3-s1743774548.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1743774548.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1743774548.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1743774548.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(sail l0 l4)\n \n2:\n(sail l4 l3)\n \n3:\n(board c2 l3)\n \n4:\n(sail l3 l4)\n \n5:\n(debark c2 l4)\n \n6:\n(sail l4 l3)\n \n7:\n(sail l3 l2)\n \n8:\n(board c0 l2)\n \n9:\n(sail l2 l3)\n \n10:\n(debark c0 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\n(at c2 l4) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 6)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1743774548.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s1743774548.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s1743774548.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s247782074.pddl",
+      "solution_file": "ferry-l5-c3-s247782074.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s247782074.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s247782074.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s247782074.soln\nPlan to validate:\n\nPlan size: 4\n1:\n(sail l1 l0)\n \n2:\n(board c0 l0)\n \n3:\n(sail l0 l1)\n \n4:\n(debark c0 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l0)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l1)\nAdding (empty-ferry)\nPlan executed successfully - checking goal\nChecking trajectory constraints at 4\n(at c0 l1) satisfied without (at-ferry l2) sometime before\nGoal not satisfied\nPlan invalid\n\nPlan Repair Advice:\n\nThe goal is not satisfied\n(No advice for conjunction!)\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s247782074.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s247782074.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s247782074.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c3-s923297524.pddl",
+      "solution_file": "ferry-l5-c3-s923297524.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s923297524.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s923297524.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s923297524.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(board c2 l4)\n \n2:\n(sail l4 l0)\n \n3:\n(debark c2 l0)\n \n4:\n(sail l0 l3)\n \n5:\n(board c1 l3)\n \n6:\n(sail l3 l0)\n \n7:\n(debark c1 l0)\n \n8:\n(sail l0 l3)\n \n9:\n(sail l3 l1)\n \n10:\n(board c0 l1)\n \n11:\n(sail l1 l3)\n \n12:\n(debark c0 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c2 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s923297524.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c3-s923297524.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c3-s923297524.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s1035081447.pddl",
+      "solution_file": "ferry-l5-c4-s1035081447.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1035081447.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1035081447.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1035081447.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(sail l0 l3)\n \n2:\n(board c3 l3)\n \n3:\n(sail l3 l1)\n \n4:\n(debark c3 l1)\n \n5:\n(sail l1 l3)\n \n6:\n(board c2 l3)\n \n7:\n(sail l3 l0)\n \n8:\n(debark c2 l0)\n \n9:\n(sail l0 l3)\n \n10:\n(board c1 l3)\n \n11:\n(sail l3 l0)\n \n12:\n(debark c1 l0)\n \n13:\n(sail l0 l3)\n \n14:\n(sail l3 l2)\n \n15:\n(board c0 l2)\n \n16:\n(sail l2 l3)\n \n17:\n(debark c0 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l3)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l1) satisfied without (at-ferry l2) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1035081447.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1035081447.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1035081447.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s1070088061.pddl",
+      "solution_file": "ferry-l5-c4-s1070088061.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1070088061.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1070088061.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1070088061.soln\nPlan to validate:\n\nPlan size: 19\n1:\n(sail l2 l4)\n \n2:\n(board c0 l4)\n \n3:\n(sail l4 l2)\n \n4:\n(debark c0 l2)\n \n5:\n(sail l2 l4)\n \n6:\n(sail l4 l3)\n \n7:\n(board c3 l3)\n \n8:\n(sail l3 l0)\n \n9:\n(debark c3 l0)\n \n10:\n(sail l0 l4)\n \n11:\n(sail l4 l3)\n \n12:\n(board c2 l3)\n \n13:\n(sail l3 l1)\n \n14:\n(debark c2 l1)\n \n15:\n(sail l1 l4)\n \n16:\n(sail l4 l3)\n \n17:\n(board c1 l3)\n \n18:\n(sail l3 l4)\n \n19:\n(debark c1 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c0)\nAdding (at c0 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c0 l2) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1070088061.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1070088061.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1070088061.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s1139446274.pddl",
+      "solution_file": "ferry-l5-c4-s1139446274.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1139446274.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1139446274.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1139446274.soln\nPlan to validate:\n\nPlan size: 6\n1:\n(board c0 l4)\n \n2:\n(sail l4 l3)\n \n3:\n(debark c0 l3)\n \n4:\n(board c2 l3)\n \n5:\n(sail l3 l1)\n \n6:\n(debark c2 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l4)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c0 l3) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1139446274.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1139446274.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1139446274.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s1714781087.pddl",
+      "solution_file": "ferry-l5-c4-s1714781087.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1714781087.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1714781087.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1714781087.soln\nPlan to validate:\n\nPlan size: 10\n1:\n(sail l4 l3)\n \n2:\n(board c1 l3)\n \n3:\n(sail l3 l1)\n \n4:\n(debark c1 l1)\n \n5:\n(board c2 l1)\n \n6:\n(sail l1 l3)\n \n7:\n(debark c2 l3)\n \n8:\n(board c0 l3)\n \n9:\n(sail l3 l1)\n \n10:\n(debark c0 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l1) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1714781087.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1714781087.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1714781087.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s1799961951.pddl",
+      "solution_file": "ferry-l5-c4-s1799961951.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1799961951.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1799961951.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1799961951.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(board c3 l3)\n \n2:\n(sail l3 l4)\n \n3:\n(sail l4 l2)\n \n4:\n(debark c3 l2)\n \n5:\n(board c0 l2)\n \n6:\n(sail l2 l0)\n \n7:\n(debark c0 l0)\n \n8:\n(board c2 l0)\n \n9:\n(sail l0 l4)\n \n10:\n(debark c2 l4)\n \n11:\n(board c1 l4)\n \n12:\n(sail l4 l0)\n \n13:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c3 l3)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l2) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1799961951.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1799961951.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1799961951.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s1894559594.pddl",
+      "solution_file": "ferry-l5-c4-s1894559594.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1894559594.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1894559594.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1894559594.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(board c3 l2)\n \n2:\n(sail l2 l3)\n \n3:\n(debark c3 l3)\n \n4:\n(sail l3 l4)\n \n5:\n(board c2 l4)\n \n6:\n(sail l4 l1)\n \n7:\n(sail l1 l0)\n \n8:\n(debark c2 l0)\n \n9:\n(sail l0 l1)\n \n10:\n(sail l1 l2)\n \n11:\n(board c1 l2)\n \n12:\n(sail l2 l1)\n \n13:\n(debark c1 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c3 l2)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l2)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c3)\nAdding (at c3 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c3 l3) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1894559594.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s1894559594.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s1894559594.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s259575922.pddl",
+      "solution_file": "ferry-l5-c4-s259575922.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s259575922.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s259575922.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s259575922.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(sail l2 l4)\n \n2:\n(board c3 l4)\n \n3:\n(sail l4 l0)\n \n4:\n(debark c3 l0)\n \n5:\n(sail l0 l4)\n \n6:\n(board c1 l4)\n \n7:\n(sail l4 l2)\n \n8:\n(debark c1 l2)\n \n9:\n(sail l2 l4)\n \n10:\n(sail l4 l1)\n \n11:\n(board c2 l1)\n \n12:\n(sail l1 l4)\n \n13:\n(debark c2 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s259575922.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s259575922.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s259575922.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s334560594.pddl",
+      "solution_file": "ferry-l5-c4-s334560594.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s334560594.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s334560594.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s334560594.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(sail l0 l4)\n \n2:\n(board c3 l4)\n \n3:\n(sail l4 l1)\n \n4:\n(debark c3 l1)\n \n5:\n(sail l1 l4)\n \n6:\n(board c2 l4)\n \n7:\n(sail l4 l3)\n \n8:\n(sail l3 l0)\n \n9:\n(debark c2 l0)\n \n10:\n(sail l0 l3)\n \n11:\n(board c1 l3)\n \n12:\n(sail l3 l0)\n \n13:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l1)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l1) satisfied without (at-ferry l2) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s334560594.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s334560594.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s334560594.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s643241036.pddl",
+      "solution_file": "ferry-l5-c4-s643241036.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s643241036.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s643241036.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s643241036.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(sail l1 l4)\n \n2:\n(board c2 l4)\n \n3:\n(sail l4 l2)\n \n4:\n(debark c2 l2)\n \n5:\n(sail l2 l4)\n \n6:\n(board c0 l4)\n \n7:\n(sail l4 l1)\n \n8:\n(debark c0 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l1)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c2 l2) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s643241036.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s643241036.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s643241036.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l5-c4-s95190769.pddl",
+      "solution_file": "ferry-l5-c4-s95190769.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s95190769.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s95190769.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s95190769.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l2 l4)\n \n2:\n(board c3 l4)\n \n3:\n(sail l4 l0)\n \n4:\n(debark c3 l0)\n \n5:\n(board c1 l0)\n \n6:\n(sail l0 l2)\n \n7:\n(debark c1 l2)\n \n8:\n(sail l2 l0)\n \n9:\n(board c0 l0)\n \n10:\n(sail l0 l2)\n \n11:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 5)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s95190769.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l5-c4-s95190769.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l5-c4-s95190769.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s1275747992.pddl",
+      "solution_file": "ferry-l6-c4-s1275747992.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s1275747992.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1275747992.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1275747992.soln\nPlan to validate:\n\nPlan size: 17\n1:\n(sail l5 l4)\n \n2:\n(board c1 l4)\n \n3:\n(sail l4 l3)\n \n4:\n(debark c1 l3)\n \n5:\n(sail l3 l4)\n \n6:\n(board c0 l4)\n \n7:\n(sail l4 l3)\n \n8:\n(sail l3 l5)\n \n9:\n(debark c0 l5)\n \n10:\n(sail l5 l2)\n \n11:\n(board c2 l2)\n \n12:\n(sail l2 l3)\n \n13:\n(debark c2 l3)\n \n14:\n(sail l3 l0)\n \n15:\n(board c3 l0)\n \n16:\n(sail l0 l5)\n \n17:\n(debark c3 l5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l5)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c1 l4)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l3) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1275747992.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s1275747992.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1275747992.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s1764389918.pddl",
+      "solution_file": "ferry-l6-c4-s1764389918.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s1764389918.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1764389918.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1764389918.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(board c1 l0)\n \n2:\n(sail l0 l5)\n \n3:\n(debark c1 l5)\n \n4:\n(board c0 l5)\n \n5:\n(sail l5 l4)\n \n6:\n(sail l4 l1)\n \n7:\n(debark c0 l1)\n \n8:\n(sail l1 l4)\n \n9:\n(board c3 l4)\n \n10:\n(sail l4 l2)\n \n11:\n(debark c3 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c1 l5) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at c0 l5)\nDeleting (empty-ferry)\nAdding (on c0)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1764389918.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s1764389918.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1764389918.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s1909167880.pddl",
+      "solution_file": "ferry-l6-c4-s1909167880.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s1909167880.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1909167880.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1909167880.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(board c2 l3)\n \n2:\n(sail l3 l5)\n \n3:\n(debark c2 l5)\n \n4:\n(sail l5 l2)\n \n5:\n(board c3 l2)\n \n6:\n(sail l2 l1)\n \n7:\n(sail l1 l3)\n \n8:\n(debark c3 l3)\n \n9:\n(sail l3 l1)\n \n10:\n(board c0 l1)\n \n11:\n(sail l1 l0)\n \n12:\n(debark c0 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c2 l5) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l5)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1909167880.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s1909167880.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s1909167880.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s194805871.pddl",
+      "solution_file": "ferry-l6-c4-s194805871.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s194805871.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s194805871.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s194805871.soln\nPlan to validate:\n\nPlan size: 13\n1:\n(board c2 l3)\n \n2:\n(sail l3 l2)\n \n3:\n(debark c2 l2)\n \n4:\n(sail l2 l4)\n \n5:\n(board c3 l4)\n \n6:\n(sail l4 l2)\n \n7:\n(sail l2 l0)\n \n8:\n(debark c3 l0)\n \n9:\n(sail l0 l2)\n \n10:\n(sail l2 l3)\n \n11:\n(board c0 l3)\n \n12:\n(sail l3 l2)\n \n13:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l3)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l2)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l2)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c2 l2) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s194805871.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s194805871.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s194805871.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s2033659786.pddl",
+      "solution_file": "ferry-l6-c4-s2033659786.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s2033659786.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s2033659786.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s2033659786.soln\nPlan to validate:\n\nPlan size: 15\n1:\n(sail l5 l4)\n \n2:\n(board c3 l4)\n \n3:\n(sail l4 l3)\n \n4:\n(sail l3 l5)\n \n5:\n(debark c3 l5)\n \n6:\n(sail l5 l3)\n \n7:\n(sail l3 l2)\n \n8:\n(board c0 l2)\n \n9:\n(sail l2 l3)\n \n10:\n(debark c0 l3)\n \n11:\n(sail l3 l2)\n \n12:\n(sail l2 l1)\n \n13:\n(board c2 l1)\n \n14:\n(sail l1 l2)\n \n15:\n(debark c2 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l5)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c3)\nAdding (at c3 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\n(at c3 l5) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 6)\nDeleting (at-ferry l5)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s2033659786.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s2033659786.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s2033659786.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s478328243.pddl",
+      "solution_file": "ferry-l6-c4-s478328243.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s478328243.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s478328243.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s478328243.soln\nPlan to validate:\n\nPlan size: 7\n1:\n(board c0 l2)\n \n2:\n(sail l2 l4)\n \n3:\n(debark c0 l4)\n \n4:\n(sail l4 l3)\n \n5:\n(board c3 l3)\n \n6:\n(sail l3 l1)\n \n7:\n(debark c3 l1)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l2)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l2)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c0 l4) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l4)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s478328243.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s478328243.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s478328243.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s487152372.pddl",
+      "solution_file": "ferry-l6-c4-s487152372.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s487152372.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s487152372.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s487152372.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c3 l4)\n \n2:\n(sail l4 l5)\n \n3:\n(debark c3 l5)\n \n4:\n(sail l5 l2)\n \n5:\n(board c2 l2)\n \n6:\n(sail l2 l5)\n \n7:\n(debark c2 l5)\n \n8:\n(sail l5 l3)\n \n9:\n(sail l3 l2)\n \n10:\n(board c0 l2)\n \n11:\n(sail l2 l3)\n \n12:\n(sail l3 l4)\n \n13:\n(debark c0 l4)\n \n14:\n(sail l4 l3)\n \n15:\n(sail l3 l1)\n \n16:\n(board c1 l1)\n \n17:\n(sail l1 l3)\n \n18:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l4)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c3)\nAdding (at c3 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c3 l5) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l5)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s487152372.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s487152372.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s487152372.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s49233816.pddl",
+      "solution_file": "ferry-l6-c4-s49233816.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s49233816.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s49233816.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s49233816.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c0 l0)\n \n2:\n(sail l0 l4)\n \n3:\n(debark c0 l4)\n \n4:\n(sail l4 l2)\n \n5:\n(board c2 l2)\n \n6:\n(sail l2 l5)\n \n7:\n(debark c2 l5)\n \n8:\n(sail l5 l4)\n \n9:\n(sail l4 l2)\n \n10:\n(board c1 l2)\n \n11:\n(sail l2 l4)\n \n12:\n(sail l4 l0)\n \n13:\n(debark c1 l0)\n \n14:\n(sail l0 l4)\n \n15:\n(sail l4 l1)\n \n16:\n(board c3 l1)\n \n17:\n(sail l1 l4)\n \n18:\n(debark c3 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c0 l4) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l4)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s49233816.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s49233816.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s49233816.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s816936351.pddl",
+      "solution_file": "ferry-l6-c4-s816936351.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s816936351.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s816936351.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s816936351.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(board c1 l3)\n \n2:\n(sail l3 l0)\n \n3:\n(debark c1 l0)\n \n4:\n(sail l0 l2)\n \n5:\n(sail l2 l3)\n \n6:\n(board c0 l3)\n \n7:\n(sail l3 l2)\n \n8:\n(debark c0 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c1)\nAdding (at c1 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c1 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l2)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s816936351.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s816936351.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s816936351.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l6-c4-s849071420.pddl",
+      "solution_file": "ferry-l6-c4-s849071420.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s849071420.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s849071420.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s849071420.soln\nPlan to validate:\n\nPlan size: 14\n1:\n(sail l0 l5)\n \n2:\n(sail l5 l4)\n \n3:\n(board c2 l4)\n \n4:\n(sail l4 l5)\n \n5:\n(debark c2 l5)\n \n6:\n(sail l5 l3)\n \n7:\n(board c1 l3)\n \n8:\n(sail l3 l1)\n \n9:\n(debark c1 l1)\n \n10:\n(sail l1 l3)\n \n11:\n(sail l3 l2)\n \n12:\n(board c3 l2)\n \n13:\n(sail l2 l3)\n \n14:\n(debark c3 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l0)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l5)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c2 l4)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l4)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c2)\nAdding (at c2 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\n(at c2 l5) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 6)\nDeleting (at-ferry l5)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s849071420.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l6-c4-s849071420.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l6-c4-s849071420.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s1325691929.pddl",
+      "solution_file": "ferry-l7-c5-s1325691929.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1325691929.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1325691929.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1325691929.soln\nPlan to validate:\n\nPlan size: 20\n1:\n(board c0 l0)\n \n2:\n(sail l0 l5)\n \n3:\n(debark c0 l5)\n \n4:\n(board c1 l5)\n \n5:\n(sail l5 l6)\n \n6:\n(sail l6 l4)\n \n7:\n(debark c1 l4)\n \n8:\n(board c4 l4)\n \n9:\n(sail l4 l0)\n \n10:\n(debark c4 l0)\n \n11:\n(sail l0 l6)\n \n12:\n(sail l6 l1)\n \n13:\n(board c3 l1)\n \n14:\n(sail l1 l6)\n \n15:\n(debark c3 l6)\n \n16:\n(sail l6 l4)\n \n17:\n(sail l4 l1)\n \n18:\n(board c2 l1)\n \n19:\n(sail l1 l4)\n \n20:\n(debark c2 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c0 l0)\nDeleting (empty-ferry)\nAdding (on c0)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c0)\nAdding (at c0 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c0 l5) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at c1 l5)\nDeleting (empty-ferry)\nAdding (on c1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1325691929.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1325691929.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1325691929.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s1508539932.pddl",
+      "solution_file": "ferry-l7-c5-s1508539932.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1508539932.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1508539932.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1508539932.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(board c4 l0)\n \n2:\n(sail l0 l4)\n \n3:\n(debark c4 l4)\n \n4:\n(board c3 l4)\n \n5:\n(sail l4 l0)\n \n6:\n(debark c3 l0)\n \n7:\n(sail l0 l4)\n \n8:\n(board c2 l4)\n \n9:\n(sail l4 l3)\n \n10:\n(sail l3 l1)\n \n11:\n(debark c2 l1)\n \n12:\n(board c0 l1)\n \n13:\n(sail l1 l0)\n \n14:\n(debark c0 l0)\n \n15:\n(sail l0 l3)\n \n16:\n(board c1 l3)\n \n17:\n(sail l3 l0)\n \n18:\n(debark c1 l0)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c4 l0)\nDeleting (empty-ferry)\nAdding (on c4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c4)\nAdding (at c4 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c4 l4) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1508539932.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1508539932.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1508539932.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s1526534693.pddl",
+      "solution_file": "ferry-l7-c5-s1526534693.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1526534693.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1526534693.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1526534693.soln\nPlan to validate:\n\nPlan size: 20\n1:\n(sail l4 l6)\n \n2:\n(sail l6 l3)\n \n3:\n(board c1 l3)\n \n4:\n(sail l3 l6)\n \n5:\n(debark c1 l6)\n \n6:\n(sail l6 l3)\n \n7:\n(sail l3 l1)\n \n8:\n(board c3 l1)\n \n9:\n(sail l1 l3)\n \n10:\n(sail l3 l2)\n \n11:\n(debark c3 l2)\n \n12:\n(sail l2 l3)\n \n13:\n(sail l3 l0)\n \n14:\n(board c2 l0)\n \n15:\n(sail l0 l3)\n \n16:\n(debark c2 l3)\n \n17:\n(sail l3 l0)\n \n18:\n(board c0 l0)\n \n19:\n(sail l0 l3)\n \n20:\n(debark c0 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l6)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l6)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at c1 l3)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (at-ferry l3)\nAdding (at-ferry l6)\n\nChecking trajectory constraints at 4\nChecking next happening (time 5)\nDeleting (on c1)\nAdding (at c1 l6)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 5\n(at c1 l6) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 6)\nDeleting (at-ferry l6)\nAdding (at-ferry l3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1526534693.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1526534693.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1526534693.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s1812435113.pddl",
+      "solution_file": "ferry-l7-c5-s1812435113.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1812435113.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1812435113.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1812435113.soln\nPlan to validate:\n\nPlan size: 18\n1:\n(sail l3 l4)\n \n2:\n(board c3 l4)\n \n3:\n(sail l4 l0)\n \n4:\n(debark c3 l0)\n \n5:\n(board c4 l0)\n \n6:\n(sail l0 l4)\n \n7:\n(sail l4 l2)\n \n8:\n(debark c4 l2)\n \n9:\n(sail l2 l4)\n \n10:\n(board c2 l4)\n \n11:\n(sail l4 l1)\n \n12:\n(debark c2 l1)\n \n13:\n(board c0 l1)\n \n14:\n(sail l1 l4)\n \n15:\n(debark c0 l4)\n \n16:\n(board c1 l4)\n \n17:\n(sail l4 l3)\n \n18:\n(debark c1 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l3)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l4)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l4)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 5)\nDeleting (at c4 l0)\nDeleting (empty-ferry)\nAdding (on c4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1812435113.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1812435113.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1812435113.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s1921389600.pddl",
+      "solution_file": "ferry-l7-c5-s1921389600.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1921389600.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1921389600.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1921389600.soln\nPlan to validate:\n\nPlan size: 19\n1:\n(board c2 l0)\n \n2:\n(sail l0 l3)\n \n3:\n(debark c2 l3)\n \n4:\n(board c3 l3)\n \n5:\n(sail l3 l5)\n \n6:\n(sail l5 l4)\n \n7:\n(debark c3 l4)\n \n8:\n(board c4 l4)\n \n9:\n(sail l4 l2)\n \n10:\n(debark c4 l2)\n \n11:\n(sail l2 l5)\n \n12:\n(sail l5 l4)\n \n13:\n(board c1 l4)\n \n14:\n(sail l4 l5)\n \n15:\n(debark c1 l5)\n \n16:\n(sail l5 l0)\n \n17:\n(board c0 l0)\n \n18:\n(sail l0 l5)\n \n19:\n(debark c0 l5)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l0)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l3)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c2 l3) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 4)\nDeleting (at c3 l3)\nDeleting (empty-ferry)\nAdding (on c3)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1921389600.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s1921389600.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s1921389600.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s2034878305.pddl",
+      "solution_file": "ferry-l7-c5-s2034878305.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s2034878305.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s2034878305.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s2034878305.soln\nPlan to validate:\n\nPlan size: 11\n1:\n(sail l6 l3)\n \n2:\n(board c3 l3)\n \n3:\n(sail l3 l0)\n \n4:\n(debark c3 l0)\n \n5:\n(board c4 l0)\n \n6:\n(sail l0 l3)\n \n7:\n(debark c4 l3)\n \n8:\n(sail l3 l0)\n \n9:\n(board c1 l0)\n \n10:\n(sail l0 l6)\n \n11:\n(debark c1 l6)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l6)\nAdding (at-ferry l3)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c3 l3)\nDeleting (empty-ferry)\nAdding (on c3)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l3)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c3)\nAdding (at c3 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c3 l0) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 5)\nDeleting (at c4 l0)\nDeleting (empty-ferry)\nAdding (on c4)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s2034878305.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s2034878305.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s2034878305.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s473909339.pddl",
+      "solution_file": "ferry-l7-c5-s473909339.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s473909339.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s473909339.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s473909339.soln\nPlan to validate:\n\nPlan size: 21\n1:\n(board c4 l1)\n \n2:\n(sail l1 l5)\n \n3:\n(debark c4 l5)\n \n4:\n(board c1 l5)\n \n5:\n(sail l5 l4)\n \n6:\n(debark c1 l4)\n \n7:\n(sail l4 l5)\n \n8:\n(board c0 l5)\n \n9:\n(sail l5 l4)\n \n10:\n(sail l4 l1)\n \n11:\n(debark c0 l1)\n \n12:\n(sail l1 l4)\n \n13:\n(sail l4 l3)\n \n14:\n(board c3 l3)\n \n15:\n(sail l3 l0)\n \n16:\n(debark c3 l0)\n \n17:\n(sail l0 l4)\n \n18:\n(sail l4 l3)\n \n19:\n(board c2 l3)\n \n20:\n(sail l3 l4)\n \n21:\n(debark c2 l4)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c4 l1)\nDeleting (empty-ferry)\nAdding (on c4)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c4)\nAdding (at c4 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c4 l5) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 4)\nDeleting (at c1 l5)\nDeleting (empty-ferry)\nAdding (on c1)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s473909339.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s473909339.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s473909339.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s485259136.pddl",
+      "solution_file": "ferry-l7-c5-s485259136.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s485259136.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s485259136.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s485259136.soln\nPlan to validate:\n\nPlan size: 8\n1:\n(sail l4 l6)\n \n2:\n(board c4 l6)\n \n3:\n(sail l6 l4)\n \n4:\n(debark c4 l4)\n \n5:\n(sail l4 l6)\n \n6:\n(board c3 l6)\n \n7:\n(sail l6 l3)\n \n8:\n(debark c3 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at-ferry l4)\nAdding (at-ferry l6)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at c4 l6)\nDeleting (empty-ferry)\nAdding (on c4)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l6)\nAdding (at-ferry l4)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c4)\nAdding (at c4 l4)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c4 l4) satisfied without (at-ferry l0) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l4)\nAdding (at-ferry l6)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s485259136.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s485259136.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s485259136.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s564095100.pddl",
+      "solution_file": "ferry-l7-c5-s564095100.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s564095100.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s564095100.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s564095100.soln\nPlan to validate:\n\nPlan size: 24\n1:\n(board c2 l1)\n \n2:\n(sail l1 l0)\n \n3:\n(debark c2 l0)\n \n4:\n(sail l0 l6)\n \n5:\n(board c4 l6)\n \n6:\n(sail l6 l5)\n \n7:\n(sail l5 l4)\n \n8:\n(debark c4 l4)\n \n9:\n(sail l4 l5)\n \n10:\n(sail l5 l3)\n \n11:\n(board c1 l3)\n \n12:\n(sail l3 l5)\n \n13:\n(debark c1 l5)\n \n14:\n(sail l5 l3)\n \n15:\n(sail l3 l2)\n \n16:\n(board c0 l2)\n \n17:\n(sail l2 l3)\n \n18:\n(sail l3 l0)\n \n19:\n(debark c0 l0)\n \n20:\n(sail l0 l3)\n \n21:\n(sail l3 l1)\n \n22:\n(board c3 l1)\n \n23:\n(sail l1 l3)\n \n24:\n(debark c3 l3)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c2 l1)\nDeleting (empty-ferry)\nAdding (on c2)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l1)\nAdding (at-ferry l0)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (on c2)\nAdding (at c2 l0)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 3\n(at c2 l0) satisfied without (at-ferry l2) sometime before\nChecking next happening (time 4)\nDeleting (at-ferry l0)\nAdding (at-ferry l6)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s564095100.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s564095100.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s564095100.soln"
+      },
+      "status": "invalid"
+    },
+    {
+      "problem_file": "ferry-l7-c5-s830425102.pddl",
+      "solution_file": "ferry-l7-c5-s830425102.soln",
+      "problem_path": "/home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s830425102.pddl",
+      "solution_path": "/home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s830425102.soln",
+      "valid": false,
+      "message": "Validation error",
+      "execution_info": {
+        "stdout": "Checking plan: /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s830425102.soln\nPlan to validate:\n\nPlan size: 12\n1:\n(board c1 l0)\n \n2:\n(sail l0 l6)\n \n3:\n(sail l6 l5)\n \n4:\n(debark c1 l5)\n \n5:\n(sail l5 l6)\n \n6:\n(board c0 l6)\n \n7:\n(sail l6 l4)\n \n8:\n(debark c0 l4)\n \n9:\n(sail l4 l3)\n \n10:\n(board c4 l3)\n \n11:\n(sail l3 l2)\n \n12:\n(debark c4 l2)\n \n\nPlan Validation details\n-----------------------\n\nChecking trajectory constraints at 0\nChecking next happening (time 1)\nDeleting (at c1 l0)\nDeleting (empty-ferry)\nAdding (on c1)\n\nChecking trajectory constraints at 1\nChecking next happening (time 2)\nDeleting (at-ferry l0)\nAdding (at-ferry l6)\n\nChecking trajectory constraints at 2\nChecking next happening (time 3)\nDeleting (at-ferry l6)\nAdding (at-ferry l5)\n\nChecking trajectory constraints at 3\nChecking next happening (time 4)\nDeleting (on c1)\nAdding (at c1 l5)\nAdding (empty-ferry)\n\nChecking trajectory constraints at 4\n(at c1 l5) satisfied without (at-ferry l1) sometime before\nChecking next happening (time 5)\nDeleting (at-ferry l5)\nAdding (at-ferry l6)\n\nPlan failed to execute\n\n\nFailed plans:\n /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s830425102.soln \n",
+        "stderr": "",
+        "returncode": 1,
+        "timeout": false,
+        "exception": null,
+        "command": "Validate -v /home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl /home/jfan5/Safety-gen/pddl3/ferry/testing_problem50_hard/ferry-l7-c5-s830425102.pddl /home/jfan5/Safety-gen/pddl3/ferry/all_problems_hard/ferry-l7-c5-s830425102.soln"
+      },
+      "status": "invalid"
+    }
+  ]
+}

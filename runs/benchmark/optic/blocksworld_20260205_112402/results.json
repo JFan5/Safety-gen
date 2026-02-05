@@ -1,0 +1,879 @@
+{
+  "timestamp": "2026-02-05T11:30:42.826370",
+  "domain": "blocksworld",
+  "level_statistics": {
+    "ops3-n3": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n03_seed3001.pddl"
+      ],
+      "total_solve_time_seconds": 0.008,
+      "avg_solve_time_seconds": 0.008,
+      "min_solve_time_seconds": 0.008,
+      "max_solve_time_seconds": 0.008
+    },
+    "ops3-n4": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n04_seed4001.pddl"
+      ],
+      "total_solve_time_seconds": 0.023,
+      "avg_solve_time_seconds": 0.023,
+      "min_solve_time_seconds": 0.023,
+      "max_solve_time_seconds": 0.023
+    },
+    "ops3-n5": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n05_seed5001.pddl"
+      ],
+      "total_solve_time_seconds": 0.01,
+      "avg_solve_time_seconds": 0.01,
+      "min_solve_time_seconds": 0.01,
+      "max_solve_time_seconds": 0.01
+    },
+    "ops3-n6": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n06_seed6001.pddl"
+      ],
+      "total_solve_time_seconds": 0.014,
+      "avg_solve_time_seconds": 0.014,
+      "min_solve_time_seconds": 0.014,
+      "max_solve_time_seconds": 0.014
+    },
+    "ops3-n7": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n07_seed7001.pddl"
+      ],
+      "total_solve_time_seconds": 0.035,
+      "avg_solve_time_seconds": 0.035,
+      "min_solve_time_seconds": 0.035,
+      "max_solve_time_seconds": 0.035
+    },
+    "ops3-n8": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n08_seed8001.pddl"
+      ],
+      "total_solve_time_seconds": 0.061,
+      "avg_solve_time_seconds": 0.061,
+      "min_solve_time_seconds": 0.061,
+      "max_solve_time_seconds": 0.061
+    },
+    "ops3-n9": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n09_seed9001.pddl"
+      ],
+      "total_solve_time_seconds": 0.061,
+      "avg_solve_time_seconds": 0.061,
+      "min_solve_time_seconds": 0.061,
+      "max_solve_time_seconds": 0.061
+    },
+    "ops3-n10": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n10_seed10001.pddl"
+      ],
+      "total_solve_time_seconds": 2.258,
+      "avg_solve_time_seconds": 2.258,
+      "min_solve_time_seconds": 2.258,
+      "max_solve_time_seconds": 2.258
+    },
+    "ops3-n11": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n11_seed11001.pddl"
+      ],
+      "total_solve_time_seconds": 0.252,
+      "avg_solve_time_seconds": 0.252,
+      "min_solve_time_seconds": 0.252,
+      "max_solve_time_seconds": 0.252
+    },
+    "ops3-n12": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n12_seed12001.pddl"
+      ],
+      "total_solve_time_seconds": 0.603,
+      "avg_solve_time_seconds": 0.603,
+      "min_solve_time_seconds": 0.603,
+      "max_solve_time_seconds": 0.603
+    },
+    "ops3-n13": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n13_seed13001.pddl"
+      ],
+      "total_solve_time_seconds": 35.227,
+      "avg_solve_time_seconds": 35.227,
+      "min_solve_time_seconds": 35.227,
+      "max_solve_time_seconds": 35.227
+    },
+    "ops3-n14": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n14_seed14001.pddl"
+      ],
+      "total_solve_time_seconds": 0.096,
+      "avg_solve_time_seconds": 0.096,
+      "min_solve_time_seconds": 0.096,
+      "max_solve_time_seconds": 0.096
+    },
+    "ops3-n15": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n15_seed15001.pddl"
+      ],
+      "total_solve_time_seconds": 0.249,
+      "avg_solve_time_seconds": 0.249,
+      "min_solve_time_seconds": 0.249,
+      "max_solve_time_seconds": 0.249
+    },
+    "ops3-n16": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n16_seed16001.pddl"
+      ],
+      "total_solve_time_seconds": 0.354,
+      "avg_solve_time_seconds": 0.354,
+      "min_solve_time_seconds": 0.354,
+      "max_solve_time_seconds": 0.354
+    },
+    "ops3-n17": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n17_seed17001.pddl"
+      ],
+      "total_solve_time_seconds": 127.675,
+      "avg_solve_time_seconds": 127.675,
+      "min_solve_time_seconds": 127.675,
+      "max_solve_time_seconds": 127.675
+    },
+    "ops3-n18": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n18_seed18001.pddl"
+      ],
+      "total_solve_time_seconds": 0.222,
+      "avg_solve_time_seconds": 0.222,
+      "min_solve_time_seconds": 0.222,
+      "max_solve_time_seconds": 0.222
+    },
+    "ops3-n19": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n19_seed19001.pddl"
+      ],
+      "total_solve_time_seconds": 113.388,
+      "avg_solve_time_seconds": 113.388,
+      "min_solve_time_seconds": 113.388,
+      "max_solve_time_seconds": 113.388
+    },
+    "ops3-n20": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n20_seed20001.pddl"
+      ],
+      "total_solve_time_seconds": 0.573,
+      "avg_solve_time_seconds": 0.573,
+      "min_solve_time_seconds": 0.573,
+      "max_solve_time_seconds": 0.573
+    },
+    "ops3-n21": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n21_seed21001.pddl"
+      ],
+      "total_solve_time_seconds": 259.158,
+      "avg_solve_time_seconds": 259.158,
+      "min_solve_time_seconds": 259.158,
+      "max_solve_time_seconds": 259.158
+    },
+    "ops3-n22": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n22_seed22001.pddl"
+      ],
+      "total_solve_time_seconds": 49.747,
+      "avg_solve_time_seconds": 49.747,
+      "min_solve_time_seconds": 49.747,
+      "max_solve_time_seconds": 49.747
+    },
+    "ops3-n23": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n23_seed23001.pddl"
+      ],
+      "total_solve_time_seconds": 2.865,
+      "avg_solve_time_seconds": 2.865,
+      "min_solve_time_seconds": 2.865,
+      "max_solve_time_seconds": 2.865
+    },
+    "ops3-n24": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n24_seed24001.pddl"
+      ],
+      "total_solve_time_seconds": 300.407,
+      "avg_solve_time_seconds": 300.407,
+      "min_solve_time_seconds": 300.407,
+      "max_solve_time_seconds": 300.407
+    },
+    "ops3-n25": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n25_seed25001.pddl"
+      ],
+      "total_solve_time_seconds": 191.075,
+      "avg_solve_time_seconds": 191.075,
+      "min_solve_time_seconds": 191.075,
+      "max_solve_time_seconds": 191.075
+    },
+    "ops3-n26": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n26_seed26001.pddl"
+      ],
+      "total_solve_time_seconds": 300.509,
+      "avg_solve_time_seconds": 300.509,
+      "min_solve_time_seconds": 300.509,
+      "max_solve_time_seconds": 300.509
+    },
+    "ops3-n27": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n27_seed27001.pddl"
+      ],
+      "total_solve_time_seconds": 300.51,
+      "avg_solve_time_seconds": 300.51,
+      "min_solve_time_seconds": 300.51,
+      "max_solve_time_seconds": 300.51
+    },
+    "ops3-n28": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n28_seed28001.pddl"
+      ],
+      "total_solve_time_seconds": 300.469,
+      "avg_solve_time_seconds": 300.469,
+      "min_solve_time_seconds": 300.469,
+      "max_solve_time_seconds": 300.469
+    },
+    "ops3-n29": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n29_seed29001.pddl"
+      ],
+      "total_solve_time_seconds": 7.883,
+      "avg_solve_time_seconds": 7.883,
+      "min_solve_time_seconds": 7.883,
+      "max_solve_time_seconds": 7.883
+    },
+    "ops3-n30": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n30_seed30001.pddl"
+      ],
+      "total_solve_time_seconds": 99.608,
+      "avg_solve_time_seconds": 99.608,
+      "min_solve_time_seconds": 99.608,
+      "max_solve_time_seconds": 99.608
+    },
+    "ops3-n31": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n31_seed31001.pddl"
+      ],
+      "total_solve_time_seconds": 300.505,
+      "avg_solve_time_seconds": 300.505,
+      "min_solve_time_seconds": 300.505,
+      "max_solve_time_seconds": 300.505
+    },
+    "ops3-n32": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n32_seed32001.pddl"
+      ],
+      "total_solve_time_seconds": 300.528,
+      "avg_solve_time_seconds": 300.528,
+      "min_solve_time_seconds": 300.528,
+      "max_solve_time_seconds": 300.528
+    },
+    "ops3-n33": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n33_seed33001.pddl"
+      ],
+      "total_solve_time_seconds": 300.416,
+      "avg_solve_time_seconds": 300.416,
+      "min_solve_time_seconds": 300.416,
+      "max_solve_time_seconds": 300.416
+    },
+    "ops3-n34": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n34_seed34001.pddl"
+      ],
+      "total_solve_time_seconds": 237.884,
+      "avg_solve_time_seconds": 237.884,
+      "min_solve_time_seconds": 237.884,
+      "max_solve_time_seconds": 237.884
+    },
+    "ops3-n35": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n35_seed35001.pddl"
+      ],
+      "total_solve_time_seconds": 300.392,
+      "avg_solve_time_seconds": 300.392,
+      "min_solve_time_seconds": 300.392,
+      "max_solve_time_seconds": 300.392
+    },
+    "ops3-n36": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n36_seed36001.pddl"
+      ],
+      "total_solve_time_seconds": 187.212,
+      "avg_solve_time_seconds": 187.212,
+      "min_solve_time_seconds": 187.212,
+      "max_solve_time_seconds": 187.212
+    },
+    "ops3-n37": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n37_seed37001.pddl"
+      ],
+      "total_solve_time_seconds": 300.449,
+      "avg_solve_time_seconds": 300.449,
+      "min_solve_time_seconds": 300.449,
+      "max_solve_time_seconds": 300.449
+    },
+    "ops3-n38": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n38_seed38001.pddl"
+      ],
+      "total_solve_time_seconds": 300.328,
+      "avg_solve_time_seconds": 300.328,
+      "min_solve_time_seconds": 300.328,
+      "max_solve_time_seconds": 300.328
+    },
+    "ops3-n39": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n39_seed39001.pddl"
+      ],
+      "total_solve_time_seconds": 300.358,
+      "avg_solve_time_seconds": 300.358,
+      "min_solve_time_seconds": 300.358,
+      "max_solve_time_seconds": 300.358
+    },
+    "ops3-n40": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n40_seed40001.pddl"
+      ],
+      "total_solve_time_seconds": 300.333,
+      "avg_solve_time_seconds": 300.333,
+      "min_solve_time_seconds": 300.333,
+      "max_solve_time_seconds": 300.333
+    },
+    "ops3-n41": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n41_seed41001.pddl"
+      ],
+      "total_solve_time_seconds": 300.255,
+      "avg_solve_time_seconds": 300.255,
+      "min_solve_time_seconds": 300.255,
+      "max_solve_time_seconds": 300.255
+    },
+    "ops3-n42": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n42_seed42001.pddl"
+      ],
+      "total_solve_time_seconds": 196.717,
+      "avg_solve_time_seconds": 196.717,
+      "min_solve_time_seconds": 196.717,
+      "max_solve_time_seconds": 196.717
+    },
+    "ops3-n43": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n43_seed43001.pddl"
+      ],
+      "total_solve_time_seconds": 300.128,
+      "avg_solve_time_seconds": 300.128,
+      "min_solve_time_seconds": 300.128,
+      "max_solve_time_seconds": 300.128
+    },
+    "ops3-n44": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n44_seed44001.pddl"
+      ],
+      "total_solve_time_seconds": 300.167,
+      "avg_solve_time_seconds": 300.167,
+      "min_solve_time_seconds": 300.167,
+      "max_solve_time_seconds": 300.167
+    },
+    "ops3-n45": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n45_seed45001.pddl"
+      ],
+      "total_solve_time_seconds": 300.102,
+      "avg_solve_time_seconds": 300.102,
+      "min_solve_time_seconds": 300.102,
+      "max_solve_time_seconds": 300.102
+    },
+    "ops3-n46": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n46_seed46001.pddl"
+      ],
+      "total_solve_time_seconds": 300.125,
+      "avg_solve_time_seconds": 300.125,
+      "min_solve_time_seconds": 300.125,
+      "max_solve_time_seconds": 300.125
+    },
+    "ops3-n47": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n47_seed47001.pddl"
+      ],
+      "total_solve_time_seconds": 300.166,
+      "avg_solve_time_seconds": 300.166,
+      "min_solve_time_seconds": 300.166,
+      "max_solve_time_seconds": 300.166
+    },
+    "ops3-n48": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n48_seed48001.pddl"
+      ],
+      "total_solve_time_seconds": 300.176,
+      "avg_solve_time_seconds": 300.176,
+      "min_solve_time_seconds": 300.176,
+      "max_solve_time_seconds": 300.176
+    },
+    "ops3-n49": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n49_seed49001.pddl"
+      ],
+      "total_solve_time_seconds": 300.206,
+      "avg_solve_time_seconds": 300.206,
+      "min_solve_time_seconds": 300.206,
+      "max_solve_time_seconds": 300.206
+    },
+    "ops3-n50": {
+      "total_problems": 1,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "problems": [
+        "bw_ops3_n50_seed50001.pddl"
+      ],
+      "total_solve_time_seconds": 300.238,
+      "avg_solve_time_seconds": 300.238,
+      "min_solve_time_seconds": 300.238,
+      "max_solve_time_seconds": 300.238
+    }
+  },
+  "overall_statistics": {
+    "total_problems": 48,
+    "success_count": 0,
+    "success_rate": 0.0,
+    "total_time_seconds": 7820.025,
+    "avg_time_per_problem": 162.91718749999998
+  },
+  "results": [
+    {
+      "problem_name": "bw_ops3_n03_seed3001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.008,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n04_seed4001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.023,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n05_seed5001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.01,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n06_seed6001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.014,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n07_seed7001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.035,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n08_seed8001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.061,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n09_seed9001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.061,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n10_seed10001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 2.258,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n11_seed11001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.252,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n12_seed12001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.603,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n13_seed13001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 35.227,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n14_seed14001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.096,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n15_seed15001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.249,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n16_seed16001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.354,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n17_seed17001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 127.675,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n18_seed18001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.222,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n19_seed19001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 113.388,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n20_seed20001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 0.573,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n21_seed21001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 259.158,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n22_seed22001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 49.747,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n23_seed23001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 2.865,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n24_seed24001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.407,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n25_seed25001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 191.075,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n26_seed26001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.509,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n27_seed27001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.51,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n28_seed28001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.469,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n29_seed29001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 7.883,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n30_seed30001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 99.608,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n31_seed31001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.505,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n32_seed32001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.528,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n33_seed33001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.416,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n34_seed34001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 237.884,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n35_seed35001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.392,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n36_seed36001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 187.212,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n37_seed37001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.449,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n38_seed38001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.328,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n39_seed39001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.358,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n40_seed40001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.333,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n41_seed41001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.255,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n42_seed42001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 196.717,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n43_seed43001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.128,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n44_seed44001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.167,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n45_seed45001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.102,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n46_seed46001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.125,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n47_seed47001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.166,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n48_seed48001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.176,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n49_seed49001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.206,
+      "category": "plan_format_error"
+    },
+    {
+      "problem_name": "bw_ops3_n50_seed50001.pddl",
+      "is_valid": false,
+      "solve_time_seconds": 300.238,
+      "category": "plan_format_error"
+    }
+  ]
+}

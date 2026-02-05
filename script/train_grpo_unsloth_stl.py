@@ -38,7 +38,7 @@ import wandb  # type: ignore
 from trl import GRPOConfig, GRPOTrainer  # type: ignore
 
 from utils import (
-    _classify_result,
+    classify_result,
     extract_llm_output,
     log_reward_batch_stats,
     validate_solution,
@@ -83,7 +83,7 @@ REWARD_TYPE = "dense"
 # -----------------------------------------------------------------------------
 def classify_with_validator(meta: Any, response_text: str) -> tuple[Optional[str], str]:
     """
-    Run VAL validation and classify using utils._classify_result.
+    Run VAL validation and classify using utils.classify_result.
 
     Returns:
         (class_label, validation_stdout) tuple
@@ -103,7 +103,7 @@ def classify_with_validator(meta: Any, response_text: str) -> tuple[Optional[str
     # Align with offline evaluator: strip any non-plan text and keep only trailing "(...)" lines.
     cleaned_plan = extract_llm_output(response_text, family=MODEL_FAMILY_FOR_EXTRACTION)
     _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), cleaned_plan)
-    return _classify_result(stdout), stdout
+    return classify_result(stdout), stdout
 
 
 DEBUG_FILE = "reward_debug.log"

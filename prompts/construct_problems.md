@@ -1,12 +1,11 @@
 现在创建用于SFT和GRPO的数据集流程如下：
 
 
-阶段一：生成unique training and testing problems， /home/jfan5/Safety-gen/pddl3/spanner/generate_spanner_training_unique.sh
-阶段2： 求解所有的pddl2问题，确保问题可以求解：script/solve_problems_optic.py
-阶段3：将问题转换为pddl3的:  /home/jfan5/Safety-gen/pddl3/spanner/convert_training_to_pddl3.py，为他们添加约束
-阶段4：验证pddl3问题有解且无法被pddl2问题的solution求解:python script/validate_classical_solvers.py 
-阶段5: 将总的问题，挑选500个作为sft，500个作为grpo，200个作为测试。同时，我需要让问题的难度尽可能均匀分布
+阶段一：生成unique problems /home/jfan5/Safety-gen/pddl3/spanner/generate_spanner_training_unique.sh，放在all_problems目录下，统计问题生成的数量
+阶段2： 求解所有的pddl2问题，确保问题可以求解：script/solve_problems_optic.py, 确保问题可以求解，同时运用validate_classical_solver.py 确保所有的solution都是有效的。
+阶段3：将all_problems下的问题转换为pddl3的:  /home/jfan5/Safety-gen/pddl3/spanner/convert_training_to_pddl3.py，为他们添加约束，将结果保存在all_problems3目录下。确保每个问题都有约束。
+阶段4：验证pddl3问题有解且无法被pddl2问题的solution求解:python script/validate_classical_solvers.py  用all_problems下的solution验证all_problems3下的每个问题。确保问题的验证结果都是 safety_constraints_violation的。删除all_problems3下可以用all_problems的solution求解的问题和solution。
+阶段5：将问题进行split，按照问题的复杂度进行均匀分布，挑选500个作为sft，500个作为grpo，200个作为测试。同时，我需要让问题的难度尽可能均匀分布
 
 我需要你阅读/home/jfan5/Safety-gen/pddl3/spanner下的文件，然后帮我实现上述流程。
-原因：现在生成的问题，太简单了， 训练好的模型一下就到100%的成功率了。
 输出：我需要你生成sft_500, grpo_500，以及all_problems all_problems3文件夹

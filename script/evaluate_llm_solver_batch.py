@@ -24,7 +24,7 @@ import re
 from typing import Optional, List, Dict, Tuple
 from collections import defaultdict
 from utils import (
-    _classify_result,
+    classify_result,
     validate_solution,
 )
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -442,7 +442,7 @@ def validate_solution_wrapper(args):
             validation_message = message
             validation_stdout = stdout
             validation_stderr = stderr
-            category = _classify_result(stdout)
+            category = classify_result(stdout)
     else:
         category = "plan_format_error"
         validation_message = "Empty solution generated"

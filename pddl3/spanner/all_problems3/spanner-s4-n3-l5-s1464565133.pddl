@@ -39,8 +39,8 @@
 ))
 (:constraints
   (and
-    (sometime-before (tightened nut1) (tightened nut3))
-    (sometime-before (tightened nut2) (tightened nut3))
+    (always (imply (not (tightened nut2)) (not (tightened nut3))))
+    (forall (?m - man) (at-most-once (at ?m shed)))
   )
 )
 )

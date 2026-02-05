@@ -413,8 +413,16 @@ def extract_llm_output(output, family="mistral"):
 
     return text
 
-def _classify_result(stdout_text: str) -> str:
-    """根据 validation_stdout 分类结果。"""
+def classify_result(stdout_text: str) -> str:
+    """根据 validation_stdout 分类结果。
+
+    Returns one of:
+      - "success_plans": Plan is valid
+      - "plan_format_error": Bad operator, type problem, etc.
+      - "precondition_violation": Action precondition not satisfied
+      - "safety_constraints_violation": PDDL3 constraint violated
+      - "goal_not_satisfied": Plan executed but goal not achieved
+    """
     text = stdout_text.lower() if stdout_text else ""
 
     if not text:

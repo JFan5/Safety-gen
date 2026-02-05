@@ -80,7 +80,7 @@ def _looks_like_valid_plan(plan_text: str) -> bool:
     return all(line.startswith("(") and line.endswith(")") for line in lines)
 
 
-def _classify_result(item: dict) -> str:
+def classify_result(item: dict) -> str:
     """根据 is_valid 和 validation_stdout 分类结果。"""
     is_valid = item.get("is_valid")
     if is_valid is None:
@@ -133,7 +133,7 @@ def _summarize_results(items):
 
     for it in items:
         name = it.get("problem_name") or it.get("solution_file") or "unknown"
-        cat = _classify_result(it)
+        cat = classify_result(it)
         categories[cat].append(name)
 
     summary = {k: len(v) for k, v in categories.items()}

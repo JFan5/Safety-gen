@@ -252,7 +252,7 @@ run_full_generation() {
     START_TIME=$(date +%s)
 
     # Run generation
-    if python3 generate_dpo_dataset.py --sft_model_path "$MODEL_PATH" 2>&1 | tee -a "$LOG_FILE"; then
+    if python3 script/generate_dpo_dataset.py --sft_model_path "$MODEL_PATH" 2>&1 | tee -a "$LOG_FILE"; then
         END_TIME=$(date +%s)
         DURATION=$((END_TIME - START_TIME))
         HOURS=$((DURATION / 3600))

@@ -10,7 +10,7 @@ from unsloth import FastLanguageModel
 # 导入原脚本中的关键函数
 from evaluate_llm_solver import (
     template_input, extract_llm_output, validate_solution,
-    _load_problems_from_dir, _classify_result, _looks_like_valid_plan,
+    _load_problems_from_dir, classify_result, _looks_like_valid_plan,
     MODEL_FAMILY_MAP, max_seq_length, MAX_NEW_TOKENS, dtype
 )
 
@@ -107,7 +107,7 @@ def eval_pddl_accuracy(model, tokenizer, test_data, domain_file, temperature, fa
         
         # 检查是否成功
         if valid:
-            category = _classify_result(stdout)
+            category = classify_result(stdout)
             if category == "success_plans":
                 success_count += 1
     

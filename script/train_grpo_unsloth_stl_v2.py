@@ -67,7 +67,7 @@ from trl import GRPOConfig, GRPOTrainer  # type: ignore
 
 # Import from consolidated utils module
 from utils import (
-    _classify_result,
+    classify_result,
     extract_llm_output,
     log_reward_batch_stats,
     validate_solution,
@@ -110,7 +110,7 @@ PROMPT_LENGTH_FILE = "prompt_lengths.txt"
 # =============================================================================
 
 def classify_with_validator(meta: Any, response_text: str) -> tuple[Optional[str], str]:
-    """Run VAL validation and classify using utils._classify_result."""
+    """Run VAL validation and classify using utils.classify_result."""
     if not isinstance(meta, dict):
         return None, ""
     domain_rel = meta.get("domain_file")
@@ -123,7 +123,7 @@ def classify_with_validator(meta: Any, response_text: str) -> tuple[Optional[str
         raise ValueError(f"Domain or problem file does not exist: {domain_path} or {problem_path}")
     cleaned_plan = extract_llm_output(response_text, family=MODEL_FAMILY_FOR_EXTRACTION)
     _, _, stdout, _, _ = validate_solution(str(domain_path), str(problem_path), cleaned_plan)
-    return _classify_result(stdout), stdout
+    return classify_result(stdout), stdout
 
 
 def grpo_reward_func(

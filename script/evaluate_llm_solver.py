@@ -24,7 +24,7 @@ import re
 from typing import Optional
 from collections import defaultdict
 from utils import (
-    _classify_result,
+    classify_result,
     validate_solution,
 )
 
@@ -683,7 +683,7 @@ def test_model_on_testing_data(model_path,
                     category = "plan_format_error"
                 else:
                     # 根据 stdout 分类
-                    category = _classify_result(stdout)
+                    category = classify_result(stdout)
             else:
                 category = "plan_format_error"
                 validation_message = "Empty solution generated"
