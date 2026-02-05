@@ -1,4 +1,3 @@
-; params: python3 /home/jfan5/Safety-gen/pddl3/spanner/spanner-generator.py 3 2 5 --seed 216737426 --problem-name spanner-s3-n2-l5-s216737426
 (define (problem spanner-s3-n2-l5-s216737426)
  (:domain spanner)
  (:objects 

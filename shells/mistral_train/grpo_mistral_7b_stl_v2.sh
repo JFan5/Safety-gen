@@ -10,6 +10,7 @@ conda activate llmstl
 
 # Set working directory
 cd /home/ubuntu/Safety-gen
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
 # 单GPU配置
 export CUDA_VISIBLE_DEVICES=0
@@ -35,11 +36,11 @@ fi
 # GRPO V2 Training Configuration
 # Curriculum Learning + Domain-Balanced Batching
 # ==========================================
-BASE_MODEL="runs/mistral/sft/default_run_20260201_184350_seed3407/model"
+BASE_MODEL="/home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260205_170724_seed3407/model"
 
 # V2 uses multi-domain data directory instead of single JSONL
 # Expected structure: /jfan5/grpo_data/five_domain_0109/{blocksworld,ferry,grippers,spanner}.jsonl
-DATA_ROOT="/jfan5/grpo_data/five_domain_20260201_205811"
+DATA_ROOT="/jfan5/grpo_data/five_domain_20260205_173256"
 
 # Training parameters
 # NOTE: batch_size MUST be divisible by num_domains

@@ -17,7 +17,7 @@ python3 script/collect_sft_data.py \
   --domains blocksworld ferry grippers spanner delivery \
   --save_hf \
   --only-original \
-  --problems_subdir sft_500_hard
+  --problems_subdir sft_500
 
 echo ""
 echo "Finished. Check output directory for JSONL files and config.json"

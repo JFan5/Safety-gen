@@ -1,0 +1,61 @@
+base_model: /home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260205_170724_seed3407/model
+batch_size: 30
+beta: 0.05
+curriculum_schedule:
+  early_phase:
+    threshold: 0.3
+    weights:
+      easy: 0.7
+      hard: 0.05
+      medium: 0.25
+  late_phase:
+    threshold: 1.0
+    weights:
+      easy: 0.2
+      hard: 0.4
+      medium: 0.4
+  mid_phase:
+    threshold: 0.7
+    weights:
+      easy: 0.4
+      hard: 0.2
+      medium: 0.4
+data_root: /jfan5/grpo_data/five_domain_20260205_173256
+domains: null
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-05
+logging_steps: 20
+max_grad_norm: 0.5
+max_new_tokens: 256
+max_prompt_length: 1576
+max_steps: 1000
+no_4bit: false
+no_model_subfolder: false
+no_run_tracking: false
+no_wandb: false
+num_generations: 6
+output_dir: runs/mistral/grpo/grpo_mistral_7b-curriculum_v2-all-0205-stl_20260205_173445_seed3407/model
+resume_from_checkpoint: null
+reward_config:
+  empty_plan_reward: -1.0
+  format_error_reward: -1.0
+  goal_fallback: -0.25
+  goal_no_info_fallback: -0.4
+  goal_not_satisfied_base: -0.4
+  goal_not_satisfied_scale: 0.3
+  precondition_fallback: -0.45
+  precondition_violation_base: -0.6
+  precondition_violation_scale: 0.3
+  safety_fallback: -0.75
+  safety_violation_base: -0.9
+  safety_violation_scale: 0.3
+  success_reward: 1.0
+run_name: grpo_mistral_7b-curriculum_v2-all-0205-stl
+runs_root: ./runs
+save_steps: 100
+seed: 3407
+temperature: 0.6
+top_k: 50
+top_p: 0.9
+use_gradient_checkpointing: false
+wandb_project: pddl-grpo-mistral7b

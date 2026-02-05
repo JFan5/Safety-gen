@@ -50,7 +50,7 @@ echo "=========================================="
 echo ""
 
 # Run GRPO training
-python3 script/train_grpo_unsloth_copy.py \
+python3 script/train_grpo_unsloth_stl.py \
   --base_model "${BASE_MODEL}" \
   --dataset "${DATASET}" \
   --output_dir "${OUTPUT_DIR}" \

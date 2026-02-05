@@ -26,14 +26,13 @@ BASE_MODEL="/jfan5/sft_models/llama31_8b/symbolized"
 CHECKPOINT_PATH="/home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model/checkpoint-500"
 
 # Output to same directory (trainer will detect and continue)
-OUTPUT_DIR="/home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model"
 
 # V2 uses multi-domain data directory
 DATA_ROOT="/jfan5/grpo_data/five_domain_0109/"
 
 # Training parameters (must match original run from config_snapshot.yaml)
-BATCH_SIZE=8
-GRADIENT_ACCUMULATION_STEPS=4
+BATCH_SIZE=32
+GRADIENT_ACCUMULATION_STEPS=1
 LEARNING_RATE=1e-5
 NUM_GENERATIONS=8
 TEMPERATURE=0.6
@@ -85,7 +84,6 @@ echo ""
 python3 script/train_grpo_unsloth_stl_v2.py \
   --base_model "${BASE_MODEL}" \
   --data_root "${DATA_ROOT}" \
-  --output_dir "${OUTPUT_DIR}" \
   --resume_from_checkpoint "${CHECKPOINT_PATH}" \
   --batch_size ${BATCH_SIZE} \
   --beta ${BETA} \

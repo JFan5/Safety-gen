@@ -1,0 +1,40 @@
+{
+  "run_id": "grpo_mistral_7b-curriculum_v2-all-0205-stl_20260205_173948_seed3407",
+  "method": "grpo",
+  "model_type": "mistral",
+  "status": "failed",
+  "start_time": "2026-02-05T17:39:48.132837",
+  "end_time": "2026-02-05T20:56:27.135626",
+  "config": {
+    "base_model": "/home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260205_170724_seed3407/model",
+    "dataset": "/jfan5/grpo_data/five_domain_20260205_173256",
+    "output_dir": null,
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-grpo-mistral7b",
+    "run_name": "grpo_mistral_7b-curriculum_v2-all-0205-stl",
+    "url": "https://wandb.ai/fjl2401-university-of-notre-dame/pddl-grpo-mistral7b/runs/raevaubo"
+  },
+  "artifacts": {
+    "model_path": null
+  },
+  "git": {
+    "commit": "1a39582a5ea69829ad718819c16c993050afe3b4",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "reward_type": "dense",
+    "beta": 0.05,
+    "temperature": 0.6,
+    "max_steps": 1000,
+    "num_generations": 6,
+    "curriculum_learning": true,
+    "version": "v2",
+    "domains": null
+  },
+  "error": "Received signal: SIGINT"
+}

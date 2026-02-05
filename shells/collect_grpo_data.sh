@@ -12,7 +12,7 @@ cd "${REPO_ROOT}"
 # Configuration
 SCENARIOS=(blocksworld spanner ferry  grippers delivery)
 MAX_PROBLEMS=500
-PROBLEMS_SUBDIR="grpo_500_hard"  # Configurable subdirectory (e.g., grpo_500, grpo_500_hard)
+PROBLEMS_SUBDIR="grpo_500"  # Configurable subdirectory (e.g., grpo_500, grpo_500_hard)
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 OUTPUT_DIR="/jfan5/grpo_data/five_domain_${TIMESTAMP}"
 PDDL3_DIR="${REPO_ROOT}/pddl3"

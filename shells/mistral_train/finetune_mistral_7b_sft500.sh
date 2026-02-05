@@ -9,10 +9,11 @@ conda activate llmstl
 
 # Set working directory
 cd /home/ubuntu/Safety-gen
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
 # Configuration
 MODEL="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"
-DATASET="/jfan5/sft_data/four_scenarios_simple_20260201_182111/combined.hf"
+DATASET="/jfan5/sft_data/four_scenarios_simple_20260205_165931/combined.hf"
 
 # Training parameters
 NUM_EPOCHS=3
@@ -20,14 +21,13 @@ BATCH_SIZE=4
 GRADIENT_ACCUMULATION_STEPS=2
 LEARNING_RATE=2e-4
 SEED=3407
-MAX_SEQ_LENGTH=4096
+MAX_SEQ_LENGTH=2048
 
 echo "=========================================="
 echo "Fine-tuning Mistral-7B"
 echo "=========================================="
 echo "Model: ${MODEL}"
 echo "Dataset: ${DATASET}"
-echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
 echo "  Epochs: ${NUM_EPOCHS}"
@@ -39,7 +39,7 @@ echo "=========================================="
 echo ""
 
 # Run fine-tuning
-python3 pddl_finetune.py \
+python3 script/pddl_finetune.py \
     --mode train \
     --model "${MODEL}" \
     --family mistral \

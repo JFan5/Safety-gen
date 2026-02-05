@@ -1,0 +1,37 @@
+{
+  "run_id": "default_run_20260205_190744_seed3407",
+  "method": "sft",
+  "model_type": "qwen3",
+  "status": "failed",
+  "start_time": "2026-02-05T19:07:44.124681",
+  "end_time": "2026-02-05T19:36:45.184461",
+  "config": {
+    "base_model": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+    "dataset": "/jfan5/sft_data/four_scenarios_simple_20260205_165931/combined.hf",
+    "output_dir": "sft_models/default_run",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-finetune",
+    "run_name": "default_run",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "/home/ubuntu/Safety-gen/runs/qwen3/sft/default_run_20260205_190744_seed3407/model"
+  },
+  "git": {
+    "commit": "1a39582a5ea69829ad718819c16c993050afe3b4",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {},
+  "invalid_paths": null,
+  "extra": {
+    "family": "qwen",
+    "val_ratio": 0.05,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05
+  },
+  "error": "OutOfMemoryError: CUDA out of memory. Tried to allocate 136.00 MiB. GPU 0 has a total capacity of 79.11 GiB of which 125.38 MiB is free. Process 47554 has 24.75 GiB memory in use. Including non-PyTorch memory, this process has 54.18 GiB memory in use. Of the allocated memory 52.96 GiB is allocated by PyTorch, and 512.54 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+}

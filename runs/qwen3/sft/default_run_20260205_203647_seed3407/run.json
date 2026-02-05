@@ -1,0 +1,42 @@
+{
+  "run_id": "default_run_20260205_203647_seed3407",
+  "method": "sft",
+  "model_type": "qwen3",
+  "status": "finished",
+  "start_time": "2026-02-05T20:36:47.429160",
+  "end_time": "2026-02-05T21:18:27.657212",
+  "config": {
+    "base_model": "unsloth/Qwen3-14B-unsloth-bnb-4bit",
+    "dataset": "/jfan5/sft_data/four_scenarios_simple_20260205_165931/combined.hf",
+    "output_dir": "sft_models/default_run",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-finetune",
+    "run_name": "default_run",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "/home/ubuntu/Safety-gen/runs/qwen3/sft/default_run_20260205_203647_seed3407/model"
+  },
+  "git": {
+    "commit": "1a39582a5ea69829ad718819c16c993050afe3b4",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch__temp0.6_max512_bs8_20260205_212107": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260205_212107",
+      "main_metric": 79.2,
+      "timestamp": "2026-02-05T21:30:35.084504"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "family": "qwen",
+    "val_ratio": 0.05,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05
+  }
+}

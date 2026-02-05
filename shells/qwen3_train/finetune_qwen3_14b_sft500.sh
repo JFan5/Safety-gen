@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Fine-tune unsloth/Qwen3-14B-unsloth-bnb-4bit on combined SFT dataset
-# Dataset: /jfan5/sft_data/four_scenarios500/combined.hf
+# Dataset: /jfan5/sft_data/four_scenarios_simple_20260205_165931/combined.hf
 # Contains: 4 scenarios × 500 problems × 5 variants = 10,000 entries
 
 conda activate llmstl
 
 # Set working directory
 cd /home/ubuntu/Safety-gen
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 
 # Configuration
 MODEL="unsloth/Qwen3-14B-unsloth-bnb-4bit"
-DATASET="/jfan5/sft_data/four_scenarios_simple_20260201_182111/combined.hf"
-
+DATASET="/jfan5/sft_data/four_scenarios_simple_20260205_165931/combined.hf"
 # Training parameters
 NUM_EPOCHS=3
 BATCH_SIZE=4
@@ -26,7 +26,6 @@ echo "Fine-tuning Qwen3-14B"
 echo "=========================================="
 echo "Model: ${MODEL}"
 echo "Dataset: ${DATASET}"
-echo "Output: ${OUTPUT_DIR}"
 echo ""
 echo "Training parameters:"
 echo "  Epochs: ${NUM_EPOCHS}"
@@ -38,7 +37,7 @@ echo "=========================================="
 echo ""
 
 # Run fine-tuning
-python3 pddl_finetune.py \
+python3 script/pddl_finetune.py \
     --mode train \
     --model "${MODEL}" \
     --family qwen \
@@ -59,5 +58,5 @@ echo ""
 echo "=========================================="
 echo "Fine-tuning completed!"
 echo "=========================================="
-echo "Model saved to: ${OUTPUT_DIR}"
+echo "Fine-tuning done."
 

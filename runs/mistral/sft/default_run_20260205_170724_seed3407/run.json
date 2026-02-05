@@ -1,0 +1,47 @@
+{
+  "run_id": "default_run_20260205_170724_seed3407",
+  "method": "sft",
+  "model_type": "mistral",
+  "status": "finished",
+  "start_time": "2026-02-05T17:07:24.964346",
+  "end_time": "2026-02-05T17:27:00.994771",
+  "config": {
+    "base_model": "unsloth/mistral-7b-instruct-v0.3-bnb-4bit",
+    "dataset": "/jfan5/sft_data/four_scenarios_simple_20260205_165931/combined.hf",
+    "output_dir": "sft_models/default_run",
+    "seed": 3407
+  },
+  "wandb": {
+    "project": "pddl-finetune",
+    "run_name": "default_run",
+    "url": null
+  },
+  "artifacts": {
+    "model_path": "/home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260205_170724_seed3407/model"
+  },
+  "git": {
+    "commit": "1a39582a5ea69829ad718819c16c993050afe3b4",
+    "dirty": true,
+    "branch": "main"
+  },
+  "evals": {
+    "solver_batch_json_temp0.6_max512_bs8_20260205_173237": {
+      "path": "eval/solver_batch_json_temp0.6_max512_bs8_20260205_173237",
+      "main_metric": 56.0,
+      "timestamp": "2026-02-05T17:38:16.133638"
+    },
+    "solver_batch__temp0.6_max512_bs8_20260205_182310": {
+      "path": "eval/solver_batch__temp0.6_max512_bs8_20260205_182310",
+      "main_metric": 64.8,
+      "timestamp": "2026-02-05T18:35:33.139362"
+    }
+  },
+  "invalid_paths": null,
+  "extra": {
+    "family": "mistral",
+    "val_ratio": 0.05,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05
+  }
+}

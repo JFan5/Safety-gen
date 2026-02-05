@@ -1,0 +1,11 @@
+batch_size: 8
+eval_id: solver_batch__temp0.6_max512_bs8_20260205_182310
+eval_type: solver_batch
+load_in_4bit: true
+max_new_tokens: 512
+max_problems: 50
+model_path: /home/ubuntu/Safety-gen/runs/mistral/sft/default_run_20260205_170724_seed3407/model
+num_workers: 8
+one_shot: false
+temperature: 0.6
+timestamp: '2026-02-05T18:35:33.130616'
