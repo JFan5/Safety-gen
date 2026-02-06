@@ -262,7 +262,8 @@ def _load_one_shot_example(scenario: str, repo_root: Path = None) -> Optional[di
 
 def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool = False,
                            nl_mode: bool = False, domain_nl_mode: bool = False,
-                           json_mode: bool = False, domain_json_mode: bool = False) -> list:
+                           json_mode: bool = False, domain_json_mode: bool = False,
+                           prompt_template_path: str = None) -> list:
     """从指定目录加载所有 problem 文件
 
     Args:
@@ -273,6 +274,7 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         domain_nl_mode: If True, use domain NL file instead of PDDL domain (requires nl_mode)
         json_mode: If True, load .json files for JSON prompting (requires .pddl files for validation)
         domain_json_mode: If True, use domain JSON file instead of PDDL domain (requires json_mode)
+        prompt_template_path: If provided, override the default prompt template file
     """
     problems_path = Path(problems_dir)
     if not problems_path.exists():
@@ -343,6 +345,11 @@ def _load_problems_from_dir(problems_dir: str, domain_file: str, one_shot: bool 
         problem_files = sorted(problems_path.glob('*.pddl'))
         problem_files = [f for f in problem_files if 'domain' not in f.name.lower()]
         prompt_template_file = 'prompt_oneshot.txt' if one_shot else 'prompt.txt'
+
+    # Override with user-specified prompt template if provided
+    if prompt_template_path:
+        prompt_template_file = prompt_template_path
+        print(f"Using custom prompt template: {prompt_template_file}")
 
     if not problem_files:
         file_type = ".json" if json_mode else (".txt" if nl_mode else ".pddl")
@@ -597,7 +604,8 @@ def test_model_on_testing_data(model_path,
                               domain_nl_mode: bool = False,
                               json_mode: bool = False,
                               domain_json_mode: bool = False,
-                              run_dir: Path = None):
+                              run_dir: Path = None,
+                              prompt_template_path: str = None):
     """
     在testing数据上测试模型并计算成功率（批处理版本）
 
@@ -621,6 +629,7 @@ def test_model_on_testing_data(model_path,
         domain_nl_mode: 是否使用自然语言域文件代替 PDDL 域文件
         json_mode: 是否使用 JSON (.json) 文件进行提示
         domain_json_mode: 是否使用 JSON 域文件代替 PDDL 域文件
+        prompt_template_path: 自定义 prompt 模板文件路径（默认自动选择）
     """
     print(f"Testing model: {model_path}")
     print(f"Problems dir: {problems_dir}")
@@ -666,7 +675,8 @@ def test_model_on_testing_data(model_path,
     # 加载测试数据
     test_data = _load_problems_from_dir(problems_dir, domain_file, one_shot=one_shot,
                                          nl_mode=nl_mode, domain_nl_mode=domain_nl_mode,
-                                         json_mode=json_mode, domain_json_mode=domain_json_mode)
+                                         json_mode=json_mode, domain_json_mode=domain_json_mode,
+                                         prompt_template_path=prompt_template_path)
     if max_problems and max_problems > 0 and len(test_data) > max_problems:
         random.seed(42)
         test_data = random.sample(test_data, max_problems)
@@ -1142,6 +1152,12 @@ def main():
         action="store_true",
         help="Use domain JSON file (domain3.json) instead of PDDL domain file (requires --json-mode)",
     )
+    parser.add_argument(
+        "--prompt-template",
+        type=str,
+        default=None,
+        help="Path to prompt template file (default: auto-select based on mode, e.g. prompt.txt)",
+    )
 
     args = parser.parse_args()
 
@@ -1202,6 +1218,7 @@ def main():
         json_mode=args.json_mode,
         domain_json_mode=args.domain_json_mode,
         run_dir=run_dir_for_eval,
+        prompt_template_path=args.prompt_template,
     )
 
 if __name__ == "__main__":
