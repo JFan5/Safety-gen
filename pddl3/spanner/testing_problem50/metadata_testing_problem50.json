@@ -1,0 +1,79 @@
+{
+  "scenario": "spanner",
+  "split": "testing_problem50",
+  "total_problems": 50,
+  "difficulty_stats": {
+    "total": 50,
+    "by_s": {
+      "2": 17,
+      "3": 17,
+      "4": 16
+    },
+    "by_n": {
+      "2": 25,
+      "3": 25
+    },
+    "by_l": {
+      "3": 17,
+      "4": 33
+    },
+    "by_config": {
+      "s=2,n=2,l=3": 17,
+      "s=4,n=3,l=4": 16,
+      "s=3,n=3,l=4": 9,
+      "s=3,n=2,l=4": 8
+    }
+  },
+  "problems": [
+    "spanner-s2-n2-l3-s1008927885.pddl",
+    "spanner-s2-n2-l3-s1099301123.pddl",
+    "spanner-s2-n2-l3-s1099599438.pddl",
+    "spanner-s2-n2-l3-s1114620682.pddl",
+    "spanner-s2-n2-l3-s1412633132.pddl",
+    "spanner-s2-n2-l3-s1479856642.pddl",
+    "spanner-s2-n2-l3-s1534908174.pddl",
+    "spanner-s2-n2-l3-s1675852422.pddl",
+    "spanner-s2-n2-l3-s1764829590.pddl",
+    "spanner-s2-n2-l3-s2022956640.pddl",
+    "spanner-s2-n2-l3-s2045959943.pddl",
+    "spanner-s2-n2-l3-s320501427.pddl",
+    "spanner-s2-n2-l3-s471145000.pddl",
+    "spanner-s2-n2-l3-s505718082.pddl",
+    "spanner-s2-n2-l3-s539958480.pddl",
+    "spanner-s2-n2-l3-s939697269.pddl",
+    "spanner-s2-n2-l3-s969740647.pddl",
+    "spanner-s3-n2-l4-s1155764533.pddl",
+    "spanner-s3-n2-l4-s1411582236.pddl",
+    "spanner-s3-n2-l4-s1870772539.pddl",
+    "spanner-s3-n2-l4-s1921499499.pddl",
+    "spanner-s3-n2-l4-s248055973.pddl",
+    "spanner-s3-n2-l4-s456537937.pddl",
+    "spanner-s3-n2-l4-s689567152.pddl",
+    "spanner-s3-n2-l4-s906101878.pddl",
+    "spanner-s3-n3-l4-s1159660481.pddl",
+    "spanner-s3-n3-l4-s1263911266.pddl",
+    "spanner-s3-n3-l4-s1397002195.pddl",
+    "spanner-s3-n3-l4-s1414521989.pddl",
+    "spanner-s3-n3-l4-s1660803341.pddl",
+    "spanner-s3-n3-l4-s1708025821.pddl",
+    "spanner-s3-n3-l4-s517535427.pddl",
+    "spanner-s3-n3-l4-s904190215.pddl",
+    "spanner-s3-n3-l4-s94883964.pddl",
+    "spanner-s4-n3-l4-s1116568052.pddl",
+    "spanner-s4-n3-l4-s1142426307.pddl",
+    "spanner-s4-n3-l4-s1157532698.pddl",
+    "spanner-s4-n3-l4-s1187605912.pddl",
+    "spanner-s4-n3-l4-s1641566893.pddl",
+    "spanner-s4-n3-l4-s169458712.pddl",
+    "spanner-s4-n3-l4-s1702556085.pddl",
+    "spanner-s4-n3-l4-s1712593064.pddl",
+    "spanner-s4-n3-l4-s1824187062.pddl",
+    "spanner-s4-n3-l4-s1887275733.pddl",
+    "spanner-s4-n3-l4-s1950101976.pddl",
+    "spanner-s4-n3-l4-s1970346877.pddl",
+    "spanner-s4-n3-l4-s424429476.pddl",
+    "spanner-s4-n3-l4-s439858146.pddl",
+    "spanner-s4-n3-l4-s492774995.pddl",
+    "spanner-s4-n3-l4-s814317121.pddl"
+  ]
+}

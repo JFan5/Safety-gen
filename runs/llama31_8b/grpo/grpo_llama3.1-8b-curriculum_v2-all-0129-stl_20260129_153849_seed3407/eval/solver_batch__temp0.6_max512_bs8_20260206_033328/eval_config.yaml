@@ -1,0 +1,11 @@
+batch_size: 8
+eval_id: solver_batch__temp0.6_max512_bs8_20260206_033328
+eval_type: solver_batch
+load_in_4bit: false
+max_new_tokens: 512
+max_problems: 50
+model_path: /home/ubuntu/Safety-gen/runs/llama31_8b/grpo/grpo_llama3.1-8b-curriculum_v2-all-0129-stl_20260129_153849_seed3407/model/checkpoint-1000
+num_workers: 8
+one_shot: false
+temperature: 0.6
+timestamp: '2026-02-06T03:33:28.788829'
