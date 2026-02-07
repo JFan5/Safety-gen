@@ -1,0 +1,72 @@
+\appendix
+
+\subsection{Training Configurations}\label{app:training-details}
+
+All models are fine-tuned on a single NVIDIA H100 GPU with 80~GB memory.
+Our implementation is based on Python~3.10 and PyTorch~2.8.0~\cite{paszke2019pytorch}, and uses the Hugging Face Transformers library~\cite{wolf-etal-2020-transformers}, TRL~\cite{vonwerra2022trl}, and Unsloth~\cite{unsloth}.
+We adopt Low-Rank Adaptation (LoRA)~\cite{hu2022lora} and Quantized LoRA (QLoRA)~\cite{dettmers2023qlora} as parameter-efficient fine-tuning strategies to reduce memory usage and training time.
+Table~\ref{tab:hyperparameters} summarizes the key hyperparameters for both training stages.
+Tables~\ref{tab:reward-config} and~\ref{tab:curriculum-config} detail the reward function and curriculum learning settings used in GRPO training.
+
+\begin{table}[h]
+  \centering
+  \caption{Training hyperparameters for SFT and GRPO.}
+  \label{tab:hyperparameters}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{lcc}
+    \hline
+    \textbf{Hyperparameter} & \textbf{SFT} & \textbf{GRPO} \\
+    \hline
+    Learning rate         & $2 \times 10^{-4}$  & $1 \times 10^{-5}$ \\
+    LR scheduler          & Cosine               & Cosine \\
+    Batch size            & 4                    & 8 \\
+    Gradient accumulation & 2                    & 4 \\
+    Effective batch size  & 8                    & 32 \\
+    Training duration     & 3 epochs             & 1{,}000 steps \\
+    Warmup ratio          & 0.1                  & --- \\
+    Weight decay          & 0.05                 & --- \\
+    KL penalty ($\beta$)  & ---                  & 0.01 \\
+    Generations per prompt ($K$) & ---            & 8 \\
+    Sampling temperature  & ---                  & 0.6 \\
+    LoRA rank / alpha     & 32 / 64              & 32 / 64 \\
+    LoRA dropout          & 0.05                 & 0.05 \\
+    Max sequence length   & 4{,}096              & 2{,}048 \\
+    Precision             & bfloat16             & bfloat16 \\
+    \hline
+  \end{tabular}%
+  }
+\end{table}
+
+\subsection{Reward and Curriculum Settings}\label{app:reward-curriculum}
+
+\begin{table}[h]
+  \centering
+  \caption{Reward intervals for each validation category.}
+  \label{tab:reward-config}
+  \begin{tabular}{lc}
+    \hline
+    \textbf{Category} & \textbf{Reward range} \\
+    \hline
+    Success ($c_5$)                 & $+1.0$ (fixed) \\
+    Goal not satisfied ($c_4$)      & $[-0.4,\;-0.1]$ \\
+    Precondition violation ($c_3$)  & $[-0.6,\;-0.3]$ \\
+    Safety violation ($c_2$)        & $[-0.9,\;-0.6]$ \\
+    Format error ($c_1$)            & $-1.0$ (fixed) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \caption{Curriculum schedule: sampling probabilities by training phase.}
+  \label{tab:curriculum-config}
+  \begin{tabular}{lcccc}
+    \hline
+    \textbf{Phase} & \textbf{Progress} & \textbf{Easy} & \textbf{Medium} & \textbf{Hard} \\
+    \hline
+    Early & 0--30\%   & 70\% & 25\% & 5\% \\
+    Mid   & 30--70\%  & 40\% & 40\% & 20\% \\
+    Late  & 70--100\% & 20\% & 40\% & 40\% \\
+    \hline
+  \end{tabular}
+\end{table}

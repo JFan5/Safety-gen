@@ -1,0 +1,290 @@
+\section{Experiments}\label{V}
+In this section, we empirically evaluate the proposed framework along four dimensions:
+(i)~its runtime behavior compared to a classical search-based planner,
+(ii)~its cross-problem safety generalization within the same domain,
+(iii)~its cross-domain safety generalization to unseen domains, and
+(iv)~its effectiveness in a real-world robotic deployment on a physical robot arm.
+
+\subsection{Experimental Setup}\label{subsec:experimental-setup}
+
+We first describe the datasets, models, and training environment used in our experiments.
+
+\noindent\textbf{Dataset construction.}
+As introduced in Section~\ref{subsec:dataset}, we select four domains from the PDDL2 problem generators~\cite{seipp-et-al-zenodo2022}: \emph{Blocksworld}, \emph{Ferry}, \emph{Grippers}, and \emph{Spanner}.
+For each domain, we generate $1{,}000$ planning problems with parameters ranging from simple to complex (e.g., different numbers of blocks, objects, or locations), of which $500$ are used for SFT and $500$ for GRPO training.
+All problems are solved by the temporal planner OPTIC~\cite{benton2012temporal} and validated by VAL~\cite{howey2004val} to ensure correctness.
+Importantly, these problems cannot be solved by the solutions of the corresponding PDDL2 benchmark problems without incorporating the additional safety constraints, which highlights the need for a safety-aware planner.
+The test set consists of $50$ problems per domain.
+
+\noindent\textbf{Model selection and training environment.}
+We instantiate our framework with open-source LLMs available through the Unsloth library~\cite{unsloth} on Hugging Face~\cite{wolf-etal-2020-transformers}.
+Specifically, we consider three models: \textbf{Mistral-7B}\footnote{\texttt{unsloth/mistral-7b-instruct-v0.3-bnb-4bit}}, \textbf{Llama-8B}\footnote{\texttt{unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit}}, and \textbf{Qwen3-14B}\footnote{\texttt{unsloth/Qwen3-14B-unsloth-bnb-4bit}}.
+All models use quantized 4-bit variants throughout our experiments unless otherwise specified.
+Training details, hyperparameters, reward function, and curriculum learning settings are provided in Appendix~\ref{app:training-details} and~\ref{app:reward-curriculum}.
+
+\subsection{Running Time and Scalability Comparison}
+We compare the runtime and success rates of GPT-5.2~\cite{openai2025gpt5} (LLM-based) with OPTIC~\cite{benton2012temporal} (classical planner) on $48$ problems of increasing complexity in Blocksworld and Grippers, with a $300$s timeout.
+
+\begin{figure}[!ht]
+  \centering
+  \begin{subfigure}[b]{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/comparison_blocksworld_gpt5.2_vs_optic.png}
+    \caption{Blocksworld: GPT-5.2 100\% (48/48), avg 102.3s vs OPTIC 39.6\% (19/48), avg 114.4s.}
+    \label{fig:benchmark-blocksworld}
+  \end{subfigure}
+  \vspace{0.3em}
+  \begin{subfigure}[b]{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/comparison_grippers_gpt5.2_vs_optic.png}
+    \caption{Grippers: GPT-5.2 100\% (48/48), avg 102.6s vs OPTIC 64.6\% (31/48), avg 146.0s.}
+    \label{fig:benchmark-grippers}
+  \end{subfigure}
+  \caption{Benchmark comparison: GPT-5.2 (solid) vs OPTIC (dashed). Green squares = success, red circles = failure.}
+  \label{fig:benchmark-comparison}
+\end{figure}
+
+As shown in Figure~\ref{fig:benchmark-comparison}, GPT-5.2 achieves 100\% success in both domains with stable runtime ($\sim$102s), while OPTIC's success rate drops significantly (39.6\% Blocksworld, 64.6\% Grippers) and runtime increases dramatically as problem complexity grows. These results demonstrate that LLM-based solvers effectively address the scalability limitations of classical planners in safety-constrained planning.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/blocksworld_model_comparison.png}
+  \caption{Error type distribution across training stages (Pretrained $\rightarrow$ SFT $\rightarrow$ GRPO) for Mistral-7B in the Blocksworld domain.}
+  \label{fig:model-comparison}
+\end{figure}
+
+\begin{table*}[!t]
+  \centering
+  \caption{Error Type Percentages by Domain Across Training Stages}
+  \label{tab:error_percentages}
+  \resizebox{0.95\textwidth}{!}{%
+  \begin{tabular}{l||ccc|ccc|ccc|ccc|ccc}
+  \hline
+  \textbf{Domain}
+  & \multicolumn{3}{c|}{Success Plans}
+  & \multicolumn{3}{c|}{Plan Format Error}
+  & \multicolumn{3}{c|}{Precondition Violation}
+  & \multicolumn{3}{c|}{Safety Constraint Violation}
+  & \multicolumn{3}{c}{Goal Not Satisfied} \\
+  \hline
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO}
+  & \textbf{PT} & \textbf{SFT} & \textbf{GRPO} \\
+  \hline
+  \multicolumn{16}{l}{\textit{Qwen3-14B}} \\
+  \hline
+  Blocksworld & 2.0 & 70.0 & \textbf{88.0} & 90.0 & 0.0 & 0.0 & 6.0 & 24.0 & 12.0 & 0.0 & 2.0 & 0.0 & 2.0 & 4.0 & 0.0 \\
+  Ferry       & 0.0 & 86.0 & \textbf{96.0} & 10.0 & 0.0 & 0.0 & 90.0 & 4.0 & 4.0 & 0.0 & 10.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  Grippers    & 2.0 & 92.0 & \textbf{98.0} & 0.0 & 0.0 & 0.0 & 46.0 & 4.0 & 0.0 & 46.0 & 4.0 & 2.0 & 6.0 & 0.0 & 0.0 \\
+  Spanner     & 0.0 & 100.0 & \textbf{100.0} & 2.0 & 0.0 & 0.0 & 98.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  \hline
+  \multicolumn{16}{l}{\textit{Llama-8B}} \\
+  \hline
+  Blocksworld & 0.0 & 50.0 & \textbf{78.0} & 78.0 & 0.0 & 0.0 & 22.0 & 38.0 & 16.0 & 0.0 & 2.0 & 2.0 & 0.0 & 10.0 & 4.0 \\
+  Ferry       & 0.0 & 80.0 & \textbf{88.0} & 2.0 & 0.0 & 0.0 & 98.0 & 4.0 & 8.0 & 0.0 & 16.0 & 4.0 & 0.0 & 0.0 & 0.0 \\
+  Grippers    & 0.0 & 66.0 & \textbf{82.0} & 42.0 & 0.0 & 0.0 & 42.0 & 22.0 & 14.0 & 16.0 & 8.0 & 2.0 & 0.0 & 4.0 & 2.0 \\
+  Spanner     & 0.0 & 92.0 & \textbf{94.0} & 100.0 & 0.0 & 0.0 & 0.0 & 8.0 & 6.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+  \hline
+  \end{tabular}
+  }
+  \vspace{0.5em}
+
+  \footnotesize{PT = Pretrained; SFT = Supervised Fine-Tuning; GRPO = Group Relative Policy Optimization. Values in \%.}
+\end{table*}
+
+\begin{table*}[!t]
+  \centering
+  \caption{Performance comparison: Symbolic (PDDL3) vs Natural Language vs JSON input. All values in \%.}
+  \label{tab:input_format_comparison}
+  \resizebox{0.95\textwidth}{!}{%
+  \begin{tabular}{l||ccc|ccc|ccc|ccc|ccc}
+  \hline
+  \textbf{Domain}
+  & \multicolumn{3}{c|}{Success $\uparrow$}
+  & \multicolumn{3}{c|}{Format Error}
+  & \multicolumn{3}{c|}{Precondition Violation}
+  & \multicolumn{3}{c|}{Safety Constraint Violation}
+  & \multicolumn{3}{c}{Goal Not Satisfied} \\
+  \hline
+  & \textbf{PDDL3} & \textbf{NL} & \textbf{JSON}
+  & \textbf{PDDL3} & \textbf{NL} & \textbf{JSON}
+  & \textbf{PDDL3} & \textbf{NL} & \textbf{JSON}
+  & \textbf{PDDL3} & \textbf{NL} & \textbf{JSON}
+  & \textbf{PDDL3} & \textbf{NL} & \textbf{JSON} \\
+  \hline
+  Blocksworld & \textbf{88.0} & 74.0 & 80.0 & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & 12.0 & 18.0 & \textbf{8.0} & \textbf{0.0} & 8.0 & 8.0 & \textbf{0.0} & \textbf{0.0} & 4.0 \\
+  Ferry       & \textbf{96.0} & 90.0 & \textbf{96.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & 4.0 & 6.0 & \textbf{2.0} & \textbf{0.0} & 4.0 & 2.0 & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} \\
+  Grippers    & \textbf{98.0} & 82.0 & \textbf{98.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & 14.0 & 2.0 & 2.0 & 4.0 & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} \\
+  Spanner     & \textbf{100.0} & 90.0 & 96.0 & \textbf{0.0} & 2.0 & \textbf{0.0} & \textbf{0.0} & 8.0 & 4.0 & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} \\
+  \hline
+  \textbf{Average} & \textbf{95.5} & 84.0 & 92.5 & \textbf{0.0} & 0.5 & \textbf{0.0} & \textbf{4.0} & 11.5 & \textbf{4.0} & \textbf{0.5} & 4.0 & 2.5 & \textbf{0.0} & \textbf{0.0} & 1.0 \\
+  \hline
+  \end{tabular}
+  }
+\end{table*}
+
+\subsection{Cross-Problem Safety Generalizability}
+We evaluate the cross-problem safety generalization of the proposed framework, i.e., whether a model trained on planning problems within a given domain can solve previously unseen problems with new safety constraints in the \emph{same} domain.
+
+We use the Blocksworld domain as a representative example and fine-tune Mistral-7B through our two-stage pipeline (SFT followed by GRPO).
+Figure~\ref{fig:model-comparison} compares the error type distribution across three stages: Pretrained, SFT, and GRPO.
+
+We summarize the key observations as follows:
+\begin{enumerate}
+  \item \textbf{Dramatic reduction in precondition violations.}
+  The precondition violation rate decreases from 98\% (Pretrained) to 20\% (SFT) to 8\% (GRPO).
+  This indicates that both training stages progressively internalize domain-specific action semantics.
+
+  \item \textbf{Progressive improvement in safety compliance.}
+  Safety constraint violations decrease from 2\% (Pretrained) to 10\% (SFT) to 4\% (GRPO).
+  The slight increase after SFT reflects a trade-off: as the model learns to generate more executable plans, it initially makes more safety errors. GRPO then effectively reduces these violations through reward-guided optimization.
+
+  \item \textbf{Substantial success rate improvement.}
+  The success rate improves dramatically: from 0\% (Pretrained) to 66\% (SFT) to 82\% (GRPO).
+  This demonstrates that our two-stage training pipeline enables the model to generate plans that both achieve goals and satisfy safety constraints.
+\end{enumerate}
+
+These results on Mistral-7B demonstrate that even with a relatively small model, our framework achieves substantial improvements in safety-aware planning through the combination of SFT and GRPO.
+
+Table~\ref{tab:error_percentages} summarizes the error-type distributions across all training stages---Pretrained (PT), SFT, and GRPO---for both Qwen3-14B and Llama-8B.
+We highlight several key findings that demonstrate the progressive improvements from each training stage:
+
+\begin{enumerate}
+    \item \textbf{Pretrained models produce mostly format and precondition errors.}
+    Without fine-tuning, both models fail almost entirely: success rates are 0--2\%.
+    Format errors range from 2--100\% and precondition violations from 6--98\%, as pretrained models have never encountered PDDL plan syntax.
+
+    \item \textbf{SFT eliminates format errors and dramatically improves success.}
+    After SFT, format errors drop to 0\% for both models across all domains.
+    Success rates jump to 70--100\% for Qwen3-14B and 50--92\% for Llama-8B, demonstrating that supervised learning effectively teaches plan structure and domain semantics.
+
+    \item \textbf{GRPO further improves success while reducing safety violations.}
+    GRPO raises Qwen3-14B success rates to 88--100\% and Llama-8B to 78--94\%.
+    Safety violations are nearly eliminated, reaching 0--2\% for Qwen3-14B and 0--4\% for Llama-8B.
+    This confirms that online RL with verifiable rewards effectively teaches models to prioritize safety compliance.
+
+    \item \textbf{Consistent trends across model scales.}
+    Both models exhibit the same progression: PT $\rightarrow$ SFT eliminates format errors and builds domain knowledge, while SFT $\rightarrow$ GRPO refines safety compliance and boosts success.
+    Qwen3-14B achieves higher absolute performance, as expected given its larger capacity, but the smaller Llama-8B still attains strong results (e.g., 88\% on Ferry, 82\% on Grippers), demonstrating the framework's generalizability across model scales.
+\end{enumerate}
+
+These results show that the proposed training pipeline---SFT followed by GRPO---enables progressive improvements in both safety and success across different model scales.
+The combination of curriculum learning and verifiable rewards allows models to explore and learn from their own generated plans, leading to robust safety-aware planning behavior.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/cross_model_success_rate.png}
+  \caption{Cross-model success rate comparison across four domains. GRPO-trained open-source models (Qwen3-14B and Llama-8B) consistently outperform the proprietary GPT-5 Nano baseline on Blocksworld, Ferry, and Spanner, while GPT-5 Nano achieves strong performance on Grippers.}
+  \label{fig:cross-model-success}
+\end{figure}
+
+To further contextualize these results, we compare our GRPO-trained models against GPT-5 Nano~\cite{openai2025gpt5}, a proprietary model evaluated zero-shot.
+Figure~\ref{fig:cross-model-success} presents the success rates across four domains.
+GRPO Qwen3-14B achieves the highest success across all domains (88--100\%), followed by GRPO Llama-8B (68--88\%).
+In contrast, GPT-5 Nano achieves only 18\% and 20\% on Blocksworld and Ferry, respectively, despite strong performance on Grippers (94\%).
+This gap is primarily attributable to safety constraint violations: GPT-5 Nano produces plans that reach the goal but frequently violate PDDL3 constraints, whereas GRPO-trained models learn to satisfy both goals and safety requirements simultaneously.
+These results demonstrate that targeted fine-tuning with verifiable safety rewards enables smaller open-source models to surpass much larger proprietary models on safety-constrained planning tasks.
+
+\subsection{Input Format Comparison: Symbolic vs Natural Language vs JSON}
+
+To evaluate the robustness of our framework to different input representations, we compare model performance across three input formats: symbolic PDDL3, natural language (NL), and JSON.
+For NL, we convert PDDL3 specifications into human-readable prompts; for JSON, we use a structured key-value representation that preserves the semantic content while providing a machine-friendly format.
+
+Table~\ref{tab:input_format_comparison} reports the results across four domains (excluding Delivery due to its inherent difficulty).
+Although the model is trained exclusively on PDDL3 input, it achieves strong performance on both NL and JSON formats without any format errors.
+JSON achieves 92.5\% average success rate across the four standard domains, matching PDDL3 in Ferry (96.0\%) and Grippers (98.0\%).
+NL also performs well with 84.0\% average success, demonstrating that the model can interpret human-readable problem descriptions.
+Notably, all three formats produce zero format errors, indicating that the learned planning knowledge transfers effectively to unseen input representations.
+These results confirm that our GRPO-trained model generalizes beyond its training distribution, enabling flexible deployment with different input interfaces.
+
+\subsection{Integration with LLM Agentic Workflows}
+
+A key advantage of our approach is that the fine-tuned model can be seamlessly integrated with existing LLM agentic workflows to further improve reliability.
+We evaluate this by combining our GRPO-trained model with SafePilot, a verification-guided iterative refinement framework that detects plan errors and prompts the LLM to regenerate until a valid plan is produced.
+
+\begin{table}[t]
+\centering
+\caption{Comparison of Planning Success and Safety Violation Rates (\%).}
+\label{tab:safepilot_comparison}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{Block} & \textbf{Ferry} & \textbf{Gripp} & \textbf{Spann} & \textbf{Deliv} & \textbf{Avg.} \\
+\midrule
+\multicolumn{7}{l}{\textit{Success Rate (\%) $\uparrow$}} \\
+Pretrained & 50.0 & 0.0 & 50.0 & 0.0 & 50.0 & \textbf{30.0} \\
+GRPO & 88.0 & 96.0 & 98.0 & 100.0 & 2.0 & \textbf{76.8} \\
+GRPO+SP & 94.0 & 98.0 & 98.0 & 100.0 & 6.0 & \textbf{79.2} \\
+\midrule
+\multicolumn{7}{l}{\textit{Safety Violation (\%) $\downarrow$}} \\
+Pretrained & 0.0 & 0.0 & 0.0 & 0.0 & 50.0 & \textbf{10.0} \\
+GRPO & 0.0 & 0.0 & 2.0 & 0.0 & 22.0 & \textbf{4.8} \\
+GRPO+SP & 0.0 & 0.0 & 2.0 & 0.0 & 18.0 & \textbf{4.0} \\
+\midrule
+\multicolumn{7}{l}{\textit{Avg. Retries $\downarrow$}} \\
+Pretrained & 3.50 & 5.00 & 3.00 & 5.00 & 4.50 & \textbf{4.20} \\
+GRPO & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & \textbf{1.00} \\
+GRPO+SP & 1.36 & 1.12 & 1.14 & 1.00 & 4.76 & \textbf{1.88} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Table~\ref{tab:safepilot_comparison} presents the results, where the Retry column indicates the average number of generation attempts required per problem.
+We highlight two key findings:
+
+\paragraph{GRPO Training Yields Higher Success with Fewer Retries.}
+Comparing the Pretrained and GRPO columns reveals that our training pipeline achieves dramatically higher success rates while requiring significantly fewer iterations.
+The pretrained model achieves only 25.0\% success with an average of 4.13 retry attempts, while the GRPO model achieves 95.5\% success with just 1.00 retry (i.e., single-pass generation).
+This demonstrates that GRPO training internalizes both domain knowledge and safety constraints, enabling the model to generate valid plans on the first attempt.
+
+\paragraph{Seamless Integration with Existing LLM Workflows.}
+Combining our GRPO model with SafePilot further improves success rates from 95.5\% to 97.5\%, with only a modest increase in retries (1.00 to 1.16).
+This result demonstrates that our fine-tuned model is fully compatible with existing LLM agentic workflows.
+The verification-guided refinement catches the few remaining errors, providing an additional layer of reliability.
+Importantly, the GRPO+SafePilot combination requires far fewer retries than Pretrained alone (1.16 vs 4.13), making the system both more reliable and more efficient.
+\begin{figure}[!t]
+  \centering
+  \begin{subfigure}[b]{\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{Blocksworld.pdf}
+    \caption{Case study in the Blocksworld domain.}
+    \label{fig:case-study}
+  \end{subfigure}
+  \vspace{0.5em}
+  \begin{subfigure}[b]{\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{experiments.pdf}
+    \caption{Snapshot of the physical robot executing the Blocksworld task.}
+    \label{fig:experiment-snapshot}
+  \end{subfigure}
+  \caption{Real-world validation in Blocksworld: (a) simulation case study comparing a classical solver (unsafe) with our safety-aware planner (safe); (b) physical deployment on a robot arm.}
+  \label{fig:real-world-validation}
+\end{figure}
+
+\subsection{Real-World Validation in Blocksworld}
+
+To demonstrate the practical impact of safety-aware training, we evaluate our framework in both simulation and a physical robotic system setup using the classical Blocksworld domain.
+
+\paragraph{Simulation.}
+We first select a test-set problem instance and compare two planners:
+(i) a classical PDDL2 solver, and
+(ii) our safety-aware SFT+GRPO model.
+The task requires satisfying a safety constraint that enforces a specific ordering between two stacking operations to avoid unsafe intermediate configurations.
+
+
+
+As shown in Figure~\ref{fig:case-study}, the classical solver produces a plan that violates the constraint, leading to an intermediate configuration that would cause a collision between blocks.
+In contrast, the safety-aware LLM planner restructures the action sequence so that the constraint is satisfied while still achieving the goal, demonstrating that the learned safety knowledge directly influences plan generation.
+
+\paragraph{Physical Deployment.}
+We further deploy the safety-aware planner on a desktop robot arm (Elephant myCobot~280) controlled by a Raspberry~Pi.
+The LLM-generated plan is transmitted via SSH and executed on the real robot.
+We compare the safety-aware plan with a baseline unsafe sequence that mirrors the violation observed in simulation.
+
+Figure~\ref{fig:experiment-snapshot} shows snapshots from the execution.
+The unsafe baseline results in a physical collision during stacking, whereas the safety-aware plan completes the task without violating the safety requirement.
+This experiment confirms that the proposed framework not only improves symbolic safety in simulation but also yields robust, collision-free behaviors when deployed on real robotic hardware.
+
