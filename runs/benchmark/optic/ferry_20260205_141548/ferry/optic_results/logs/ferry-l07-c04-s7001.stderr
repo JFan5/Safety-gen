@@ -1,0 +1,126 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260205_141548/ferry/optic_results/ferry-l07-c04-s7001.plan
+Plan to validate:
+
+Plan size: 15
+1:
+(sail l0 l6)
+ 
+2:
+(board c0 l6)
+ 
+3:
+(sail l6 l1)
+ 
+4:
+(debark c0 l1)
+ 
+5:
+(sail l1 l6)
+ 
+6:
+(sail l6 l4)
+ 
+7:
+(board c1 l4)
+ 
+8:
+(sail l4 l6)
+ 
+9:
+(sail l6 l0)
+ 
+10:
+(debark c1 l0)
+ 
+11:
+(sail l0 l6)
+ 
+12:
+(sail l6 l2)
+ 
+13:
+(board c2 l2)
+ 
+14:
+(sail l2 l6)
+ 
+15:
+(debark c2 l6)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at-ferry l0)
+Adding (at-ferry l6)
+
+Checking next happening (time 2)
+Deleting (at c0 l6)
+Deleting (empty-ferry)
+Adding (on c0)
+
+Checking next happening (time 3)
+Deleting (at-ferry l6)
+Adding (at-ferry l1)
+
+Checking next happening (time 4)
+Deleting (on c0)
+Adding (at c0 l1)
+Adding (empty-ferry)
+
+Checking next happening (time 5)
+Deleting (at-ferry l1)
+Adding (at-ferry l6)
+
+Checking next happening (time 6)
+Deleting (at-ferry l6)
+Adding (at-ferry l4)
+
+Checking next happening (time 7)
+Deleting (at c1 l4)
+Deleting (empty-ferry)
+Adding (on c1)
+
+Checking next happening (time 8)
+Deleting (at-ferry l4)
+Adding (at-ferry l6)
+
+Checking next happening (time 9)
+Deleting (at-ferry l6)
+Adding (at-ferry l0)
+
+Checking next happening (time 10)
+Deleting (on c1)
+Adding (at c1 l0)
+Adding (empty-ferry)
+
+Checking next happening (time 11)
+Deleting (at-ferry l0)
+Adding (at-ferry l6)
+
+Checking next happening (time 12)
+Deleting (at-ferry l6)
+Adding (at-ferry l2)
+
+Checking next happening (time 13)
+Deleting (at c2 l2)
+Deleting (empty-ferry)
+Adding (on c2)
+
+Checking next happening (time 14)
+Deleting (at-ferry l2)
+Adding (at-ferry l6)
+
+Checking next happening (time 15)
+Deleting (on c2)
+Adding (at c2 l6)
+Adding (empty-ferry)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 15 
+
+Successful plans:
+Value: 15
+ /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260205_141548/ferry/optic_results/ferry-l07-c04-s7001.plan 15

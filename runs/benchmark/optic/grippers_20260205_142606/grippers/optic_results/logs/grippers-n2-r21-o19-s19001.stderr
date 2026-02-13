@@ -1,0 +1,505 @@
+[VALIDATOR STDOUT]
+Type-checking move
+...action passes type checking.
+Type-checking pick
+...action passes type checking.
+Type-checking drop
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/grippers_20260205_142606/grippers/optic_results/grippers-n2-r21-o19-s19001.plan
+Plan to validate:
+
+Plan size: 64
+1:
+(pick robot2 ball8 room8 lgripper2)
+ 
+2:
+(pick robot2 ball2 room8 rgripper2)
+ 
+3:
+(pick robot1 ball19 room12 lgripper1)
+ 
+4:
+(pick robot1 ball17 room12 rgripper1)
+ 
+5:
+(move robot2 room8 room9)
+ 
+6:
+(move robot1 room12 room7)
+ 
+7:
+(drop robot2 ball2 room9 rgripper2)
+ 
+8:
+(drop robot1 ball19 room7 lgripper1)
+ 
+9:
+(move robot2 room9 room7)
+ 
+10:
+(move robot1 room7 room6)
+ 
+11:
+(drop robot2 ball8 room7 lgripper2)
+ 
+12:
+(pick robot2 ball14 room7 rgripper2)
+ 
+13:
+(move robot1 room6 room9)
+ 
+14:
+(move robot2 room7 room5)
+ 
+15:
+(move robot1 room9 room4)
+ 
+16:
+(drop robot2 ball14 room5 rgripper2)
+ 
+17:
+(pick robot2 ball6 room5 lgripper2)
+ 
+18:
+(move robot1 room4 room10)
+ 
+19:
+(pick robot2 ball5 room5 rgripper2)
+ 
+20:
+(drop robot1 ball17 room10 rgripper1)
+ 
+21:
+(pick robot1 ball3 room10 lgripper1)
+ 
+22:
+(move robot2 room5 room2)
+ 
+23:
+(move robot1 room10 room8)
+ 
+24:
+(drop robot2 ball6 room2 lgripper2)
+ 
+25:
+(drop robot1 ball3 room8 lgripper1)
+ 
+26:
+(pick robot1 ball18 room8 rgripper1)
+ 
+27:
+(move robot2 room2 room1)
+ 
+28:
+(move robot1 room8 room15)
+ 
+29:
+(drop robot2 ball5 room1 rgripper2)
+ 
+30:
+(drop robot1 ball18 room15 rgripper1)
+ 
+31:
+(pick robot1 ball7 room15 lgripper1)
+ 
+32:
+(move robot1 room15 room6)
+ 
+33:
+(move robot2 room1 room4)
+ 
+34:
+(drop robot1 ball7 room6 lgripper1)
+ 
+35:
+(move robot2 room4 room9)
+ 
+36:
+(move robot1 room6 room12)
+ 
+37:
+(move robot2 room9 room19)
+ 
+38:
+(pick robot1 ball15 room12 lgripper1)
+ 
+39:
+(pick robot2 ball9 room19 lgripper2)
+ 
+40:
+(pick robot2 ball4 room19 rgripper2)
+ 
+41:
+(move robot1 room12 room10)
+ 
+42:
+(move robot2 room19 room9)
+ 
+43:
+(drop robot1 ball15 room10 lgripper1)
+ 
+44:
+(drop robot2 ball4 room9 rgripper2)
+ 
+45:
+(move robot2 room9 room14)
+ 
+46:
+(move robot1 room10 room19)
+ 
+47:
+(drop robot2 ball9 room14 lgripper2)
+ 
+48:
+(pick robot1 ball12 room19 lgripper1)
+ 
+49:
+(pick robot1 ball10 room19 rgripper1)
+ 
+50:
+(move robot1 room19 room4)
+ 
+51:
+(move robot2 room14 room17)
+ 
+52:
+(drop robot1 ball10 room4 rgripper1)
+ 
+53:
+(pick robot2 ball16 room17 lgripper2)
+ 
+54:
+(pick robot2 ball13 room17 rgripper2)
+ 
+55:
+(move robot2 room17 room16)
+ 
+56:
+(move robot1 room4 room21)
+ 
+57:
+(drop robot1 ball12 room21 lgripper1)
+ 
+58:
+(drop robot2 ball13 room16 rgripper2)
+ 
+59:
+(move robot2 room16 room13)
+ 
+60:
+(move robot1 room21 room16)
+ 
+61:
+(drop robot2 ball16 room13 lgripper2)
+ 
+62:
+(pick robot2 ball1 room13 rgripper2)
+ 
+63:
+(move robot2 room13 room16)
+ 
+64:
+(drop robot2 ball1 room16 rgripper2)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at ball8 room8)
+Deleting (free robot2 lgripper2)
+Adding (carry robot2 ball8 lgripper2)
+
+Checking next happening (time 2)
+Deleting (at ball2 room8)
+Deleting (free robot2 rgripper2)
+Adding (carry robot2 ball2 rgripper2)
+
+Checking next happening (time 3)
+Deleting (at ball19 room12)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball19 lgripper1)
+
+Checking next happening (time 4)
+Deleting (at ball17 room12)
+Deleting (free robot1 rgripper1)
+Adding (carry robot1 ball17 rgripper1)
+
+Checking next happening (time 5)
+Deleting (at-robby robot2 room8)
+Adding (at-robby robot2 room9)
+
+Checking next happening (time 6)
+Deleting (at-robby robot1 room12)
+Adding (at-robby robot1 room7)
+
+Checking next happening (time 7)
+Deleting (carry robot2 ball2 rgripper2)
+Adding (at ball2 room9)
+Adding (free robot2 rgripper2)
+
+Checking next happening (time 8)
+Deleting (carry robot1 ball19 lgripper1)
+Adding (at ball19 room7)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 9)
+Deleting (at-robby robot2 room9)
+Adding (at-robby robot2 room7)
+
+Checking next happening (time 10)
+Deleting (at-robby robot1 room7)
+Adding (at-robby robot1 room6)
+
+Checking next happening (time 11)
+Deleting (carry robot2 ball8 lgripper2)
+Adding (at ball8 room7)
+Adding (free robot2 lgripper2)
+
+Checking next happening (time 12)
+Deleting (at ball14 room7)
+Deleting (free robot2 rgripper2)
+Adding (carry robot2 ball14 rgripper2)
+
+Checking next happening (time 13)
+Deleting (at-robby robot1 room6)
+Adding (at-robby robot1 room9)
+
+Checking next happening (time 14)
+Deleting (at-robby robot2 room7)
+Adding (at-robby robot2 room5)
+
+Checking next happening (time 15)
+Deleting (at-robby robot1 room9)
+Adding (at-robby robot1 room4)
+
+Checking next happening (time 16)
+Deleting (carry robot2 ball14 rgripper2)
+Adding (at ball14 room5)
+Adding (free robot2 rgripper2)
+
+Checking next happening (time 17)
+Deleting (at ball6 room5)
+Deleting (free robot2 lgripper2)
+Adding (carry robot2 ball6 lgripper2)
+
+Checking next happening (time 18)
+Deleting (at-robby robot1 room4)
+Adding (at-robby robot1 room10)
+
+Checking next happening (time 19)
+Deleting (at ball5 room5)
+Deleting (free robot2 rgripper2)
+Adding (carry robot2 ball5 rgripper2)
+
+Checking next happening (time 20)
+Deleting (carry robot1 ball17 rgripper1)
+Adding (at ball17 room10)
+Adding (free robot1 rgripper1)
+
+Checking next happening (time 21)
+Deleting (at ball3 room10)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball3 lgripper1)
+
+Checking next happening (time 22)
+Deleting (at-robby robot2 room5)
+Adding (at-robby robot2 room2)
+
+Checking next happening (time 23)
+Deleting (at-robby robot1 room10)
+Adding (at-robby robot1 room8)
+
+Checking next happening (time 24)
+Deleting (carry robot2 ball6 lgripper2)
+Adding (at ball6 room2)
+Adding (free robot2 lgripper2)
+
+Checking next happening (time 25)
+Deleting (carry robot1 ball3 lgripper1)
+Adding (at ball3 room8)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 26)
+Deleting (at ball18 room8)
+Deleting (free robot1 rgripper1)
+Adding (carry robot1 ball18 rgripper1)
+
+Checking next happening (time 27)
+Deleting (at-robby robot2 room2)
+Adding (at-robby robot2 room1)
+
+Checking next happening (time 28)
+Deleting (at-robby robot1 room8)
+Adding (at-robby robot1 room15)
+
+Checking next happening (time 29)
+Deleting (carry robot2 ball5 rgripper2)
+Adding (at ball5 room1)
+Adding (free robot2 rgripper2)
+
+Checking next happening (time 30)
+Deleting (carry robot1 ball18 rgripper1)
+Adding (at ball18 room15)
+Adding (free robot1 rgripper1)
+
+Checking next happening (time 31)
+Deleting (at ball7 room15)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball7 lgripper1)
+
+Checking next happening (time 32)
+Deleting (at-robby robot1 room15)
+Adding (at-robby robot1 room6)
+
+Checking next happening (time 33)
+Deleting (at-robby robot2 room1)
+Adding (at-robby robot2 room4)
+
+Checking next happening (time 34)
+Deleting (carry robot1 ball7 lgripper1)
+Adding (at ball7 room6)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 35)
+Deleting (at-robby robot2 room4)
+Adding (at-robby robot2 room9)
+
+Checking next happening (time 36)
+Deleting (at-robby robot1 room6)
+Adding (at-robby robot1 room12)
+
+Checking next happening (time 37)
+Deleting (at-robby robot2 room9)
+Adding (at-robby robot2 room19)
+
+Checking next happening (time 38)
+Deleting (at ball15 room12)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball15 lgripper1)
+
+Checking next happening (time 39)
+Deleting (at ball9 room19)
+Deleting (free robot2 lgripper2)
+Adding (carry robot2 ball9 lgripper2)
+
+Checking next happening (time 40)
+Deleting (at ball4 room19)
+Deleting (free robot2 rgripper2)
+Adding (carry robot2 ball4 rgripper2)
+
+Checking next happening (time 41)
+Deleting (at-robby robot1 room12)
+Adding (at-robby robot1 room10)
+
+Checking next happening (time 42)
+Deleting (at-robby robot2 room19)
+Adding (at-robby robot2 room9)
+
+Checking next happening (time 43)
+Deleting (carry robot1 ball15 lgripper1)
+Adding (at ball15 room10)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 44)
+Deleting (carry robot2 ball4 rgripper2)
+Adding (at ball4 room9)
+Adding (free robot2 rgripper2)
+
+Checking next happening (time 45)
+Deleting (at-robby robot2 room9)
+Adding (at-robby robot2 room14)
+
+Checking next happening (time 46)
+Deleting (at-robby robot1 room10)
+Adding (at-robby robot1 room19)
+
+Checking next happening (time 47)
+Deleting (carry robot2 ball9 lgripper2)
+Adding (at ball9 room14)
+Adding (free robot2 lgripper2)
+
+Checking next happening (time 48)
+Deleting (at ball12 room19)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball12 lgripper1)
+
+Checking next happening (time 49)
+Deleting (at ball10 room19)
+Deleting (free robot1 rgripper1)
+Adding (carry robot1 ball10 rgripper1)
+
+Checking next happening (time 50)
+Deleting (at-robby robot1 room19)
+Adding (at-robby robot1 room4)
+
+Checking next happening (time 51)
+Deleting (at-robby robot2 room14)
+Adding (at-robby robot2 room17)
+
+Checking next happening (time 52)
+Deleting (carry robot1 ball10 rgripper1)
+Adding (at ball10 room4)
+Adding (free robot1 rgripper1)
+
+Checking next happening (time 53)
+Deleting (at ball16 room17)
+Deleting (free robot2 lgripper2)
+Adding (carry robot2 ball16 lgripper2)
+
+Checking next happening (time 54)
+Deleting (at ball13 room17)
+Deleting (free robot2 rgripper2)
+Adding (carry robot2 ball13 rgripper2)
+
+Checking next happening (time 55)
+Deleting (at-robby robot2 room17)
+Adding (at-robby robot2 room16)
+
+Checking next happening (time 56)
+Deleting (at-robby robot1 room4)
+Adding (at-robby robot1 room21)
+
+Checking next happening (time 57)
+Deleting (carry robot1 ball12 lgripper1)
+Adding (at ball12 room21)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 58)
+Deleting (carry robot2 ball13 rgripper2)
+Adding (at ball13 room16)
+Adding (free robot2 rgripper2)
+
+Checking next happening (time 59)
+Deleting (at-robby robot2 room16)
+Adding (at-robby robot2 room13)
+
+Checking next happening (time 60)
+Deleting (at-robby robot1 room21)
+Adding (at-robby robot1 room16)
+
+Checking next happening (time 61)
+Deleting (carry robot2 ball16 lgripper2)
+Adding (at ball16 room13)
+Adding (free robot2 lgripper2)
+
+Checking next happening (time 62)
+Deleting (at ball1 room13)
+Deleting (free robot2 rgripper2)
+Adding (carry robot2 ball1 rgripper2)
+
+Checking next happening (time 63)
+Deleting (at-robby robot2 room13)
+Adding (at-robby robot2 room16)
+
+Checking next happening (time 64)
+Deleting (carry robot2 ball1 rgripper2)
+Adding (at ball1 room16)
+Adding (free robot2 rgripper2)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 64 
+
+Successful plans:
+Value: 64
+ /home/jfan5/Safety-gen/runs/benchmark/optic/grippers_20260205_142606/grippers/optic_results/grippers-n2-r21-o19-s19001.plan 64

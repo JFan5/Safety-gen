@@ -1,0 +1,110 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260205_140901/blocksworld/optic_results/bw_ops3_n05_seed5001.plan
+Plan to validate:
+
+Plan size: 10
+1:
+(unstack b2 b1)
+ 
+2:
+(putdown b2)
+ 
+3:
+(unstack b1 b4)
+ 
+4:
+(putdown b1)
+ 
+5:
+(unstack b4 b5)
+ 
+6:
+(putdown b4)
+ 
+7:
+(pickup b5)
+ 
+8:
+(stack b5 b3)
+ 
+9:
+(pickup b2)
+ 
+10:
+(stack b2 b5)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (on b2 b1)
+Deleting (clear b2)
+Deleting (arm-empty)
+Adding (holding b2)
+Adding (clear b1)
+
+Checking next happening (time 2)
+Deleting (holding b2)
+Adding (clear b2)
+Adding (arm-empty)
+Adding (on-table b2)
+
+Checking next happening (time 3)
+Deleting (on b1 b4)
+Deleting (clear b1)
+Deleting (arm-empty)
+Adding (holding b1)
+Adding (clear b4)
+
+Checking next happening (time 4)
+Deleting (holding b1)
+Adding (clear b1)
+Adding (arm-empty)
+Adding (on-table b1)
+
+Checking next happening (time 5)
+Deleting (on b4 b5)
+Deleting (clear b4)
+Deleting (arm-empty)
+Adding (holding b4)
+Adding (clear b5)
+
+Checking next happening (time 6)
+Deleting (holding b4)
+Adding (clear b4)
+Adding (arm-empty)
+Adding (on-table b4)
+
+Checking next happening (time 7)
+Deleting (clear b5)
+Deleting (on-table b5)
+Deleting (arm-empty)
+Adding (holding b5)
+
+Checking next happening (time 8)
+Deleting (clear b3)
+Deleting (holding b5)
+Adding (arm-empty)
+Adding (clear b5)
+Adding (on b5 b3)
+
+Checking next happening (time 9)
+Deleting (clear b2)
+Deleting (on-table b2)
+Deleting (arm-empty)
+Adding (holding b2)
+
+Checking next happening (time 10)
+Deleting (clear b5)
+Deleting (holding b2)
+Adding (arm-empty)
+Adding (clear b2)
+Adding (on b2 b5)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 10 
+
+Successful plans:
+Value: 10
+ /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260205_140901/blocksworld/optic_results/bw_ops3_n05_seed5001.plan 10

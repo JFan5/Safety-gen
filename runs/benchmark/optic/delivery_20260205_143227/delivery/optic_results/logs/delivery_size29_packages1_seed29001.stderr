@@ -1,0 +1,226 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260205_143227/delivery/optic_results/delivery_size29_packages1_seed29001.plan
+Plan to validate:
+
+Plan size: 29
+1:
+(move t1 c_25_9 c_25_10)
+ 
+2:
+(move t1 c_25_10 c_25_11)
+ 
+3:
+(move t1 c_25_11 c_25_12)
+ 
+4:
+(move t1 c_25_12 c_25_13)
+ 
+5:
+(move t1 c_25_13 c_24_13)
+ 
+6:
+(move t1 c_24_13 c_24_14)
+ 
+7:
+(move t1 c_24_14 c_24_15)
+ 
+8:
+(move t1 c_24_15 c_24_16)
+ 
+9:
+(move t1 c_24_16 c_24_17)
+ 
+10:
+(move t1 c_24_17 c_24_18)
+ 
+11:
+(move t1 c_24_18 c_24_19)
+ 
+12:
+(move t1 c_24_19 c_24_20)
+ 
+13:
+(move t1 c_24_20 c_24_21)
+ 
+14:
+(move t1 c_24_21 c_24_22)
+ 
+15:
+(move t1 c_24_22 c_24_23)
+ 
+16:
+(pick-package t1 p1 c_24_23)
+ 
+17:
+(move t1 c_24_23 c_24_22)
+ 
+18:
+(move t1 c_24_22 c_24_21)
+ 
+19:
+(move t1 c_24_21 c_24_20)
+ 
+20:
+(move t1 c_24_20 c_24_19)
+ 
+21:
+(move t1 c_24_19 c_24_18)
+ 
+22:
+(move t1 c_24_18 c_24_17)
+ 
+23:
+(move t1 c_24_17 c_24_16)
+ 
+24:
+(move t1 c_24_16 c_24_15)
+ 
+25:
+(move t1 c_24_15 c_24_14)
+ 
+26:
+(move t1 c_24_14 c_24_13)
+ 
+27:
+(move t1 c_24_13 c_25_13)
+ 
+28:
+(move t1 c_25_13 c_26_13)
+ 
+29:
+(drop-package t1 p1 c_26_13)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_25_9)
+Adding (at t1 c_25_10)
+
+Checking next happening (time 2)
+Deleting (at t1 c_25_10)
+Adding (at t1 c_25_11)
+
+Checking next happening (time 3)
+Deleting (at t1 c_25_11)
+Adding (at t1 c_25_12)
+
+Checking next happening (time 4)
+Deleting (at t1 c_25_12)
+Adding (at t1 c_25_13)
+
+Checking next happening (time 5)
+Deleting (at t1 c_25_13)
+Adding (at t1 c_24_13)
+
+Checking next happening (time 6)
+Deleting (at t1 c_24_13)
+Adding (at t1 c_24_14)
+
+Checking next happening (time 7)
+Deleting (at t1 c_24_14)
+Adding (at t1 c_24_15)
+
+Checking next happening (time 8)
+Deleting (at t1 c_24_15)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 9)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_24_17)
+
+Checking next happening (time 10)
+Deleting (at t1 c_24_17)
+Adding (at t1 c_24_18)
+
+Checking next happening (time 11)
+Deleting (at t1 c_24_18)
+Adding (at t1 c_24_19)
+
+Checking next happening (time 12)
+Deleting (at t1 c_24_19)
+Adding (at t1 c_24_20)
+
+Checking next happening (time 13)
+Deleting (at t1 c_24_20)
+Adding (at t1 c_24_21)
+
+Checking next happening (time 14)
+Deleting (at t1 c_24_21)
+Adding (at t1 c_24_22)
+
+Checking next happening (time 15)
+Deleting (at t1 c_24_22)
+Adding (at t1 c_24_23)
+
+Checking next happening (time 16)
+Deleting (at p1 c_24_23)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 17)
+Deleting (at t1 c_24_23)
+Adding (at t1 c_24_22)
+
+Checking next happening (time 18)
+Deleting (at t1 c_24_22)
+Adding (at t1 c_24_21)
+
+Checking next happening (time 19)
+Deleting (at t1 c_24_21)
+Adding (at t1 c_24_20)
+
+Checking next happening (time 20)
+Deleting (at t1 c_24_20)
+Adding (at t1 c_24_19)
+
+Checking next happening (time 21)
+Deleting (at t1 c_24_19)
+Adding (at t1 c_24_18)
+
+Checking next happening (time 22)
+Deleting (at t1 c_24_18)
+Adding (at t1 c_24_17)
+
+Checking next happening (time 23)
+Deleting (at t1 c_24_17)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 24)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_24_15)
+
+Checking next happening (time 25)
+Deleting (at t1 c_24_15)
+Adding (at t1 c_24_14)
+
+Checking next happening (time 26)
+Deleting (at t1 c_24_14)
+Adding (at t1 c_24_13)
+
+Checking next happening (time 27)
+Deleting (at t1 c_24_13)
+Adding (at t1 c_25_13)
+
+Checking next happening (time 28)
+Deleting (at t1 c_25_13)
+Adding (at t1 c_26_13)
+
+Checking next happening (time 29)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_26_13)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 29 
+
+Successful plans:
+Value: 29
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260205_143227/delivery/optic_results/delivery_size29_packages1_seed29001.plan 29

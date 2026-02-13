@@ -556,13 +556,25 @@ def run_optic_benchmark(
 
             # Convert to standard format
             results = []
+            category_counts = {}
             for scenario_data in data.get("scenarios", {}).values():
                 for problem in scenario_data.get("problems", []):
                     optic_data = problem.get("optic", {}) or {}
-                    # Use classify_result to determine validity based on validation stdout
+                    # Read validation_stdout (new field), fall back to simple validation field
                     validation_stdout = optic_data.get("validation_stdout", "")
-                    category = classify_result(validation_stdout)
+                    if validation_stdout:
+                        category = classify_result(validation_stdout)
+                    else:
+                        # Fallback for old data without validation_stdout
+                        val_field = optic_data.get("validation", "")
+                        if val_field == "valid":
+                            category = "success_plans"
+                        elif optic_data.get("status") == "timeout":
+                            category = "plan_format_error"  # timeout = no plan
+                        else:
+                            category = "plan_format_error"
                     is_valid = (category == "success_plans")
+                    category_counts[category] = category_counts.get(category, 0) + 1
                     results.append({
                         "problem_name": problem.get("problem", ""),
                         "is_valid": is_valid,
@@ -575,9 +587,9 @@ def run_optic_benchmark(
 
             # Save standardized results
             save_results_with_levels(run_dir, results, domain)
-            save_summary(run_dir, overall_stats, level_stats)
+            save_summary(run_dir, overall_stats, level_stats, category_counts=category_counts)
 
-            print_benchmark_summary(overall_stats, level_stats)
+            print_benchmark_summary(overall_stats, level_stats, category_counts=category_counts)
 
             return {
                 "run_dir": str(run_dir),

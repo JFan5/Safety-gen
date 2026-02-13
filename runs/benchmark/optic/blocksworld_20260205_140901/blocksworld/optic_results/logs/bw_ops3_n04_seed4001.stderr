@@ -1,0 +1,148 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260205_140901/blocksworld/optic_results/bw_ops3_n04_seed4001.plan
+Plan to validate:
+
+Plan size: 14
+1:
+(unstack b3 b2)
+ 
+2:
+(putdown b3)
+ 
+3:
+(unstack b2 b4)
+ 
+4:
+(putdown b2)
+ 
+5:
+(pickup b3)
+ 
+6:
+(stack b3 b2)
+ 
+7:
+(pickup b1)
+ 
+8:
+(stack b1 b4)
+ 
+9:
+(unstack b3 b2)
+ 
+10:
+(putdown b3)
+ 
+11:
+(pickup b2)
+ 
+12:
+(stack b2 b1)
+ 
+13:
+(pickup b3)
+ 
+14:
+(stack b3 b2)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (on b3 b2)
+Deleting (clear b3)
+Deleting (arm-empty)
+Adding (holding b3)
+Adding (clear b2)
+
+Checking next happening (time 2)
+Deleting (holding b3)
+Adding (clear b3)
+Adding (arm-empty)
+Adding (on-table b3)
+
+Checking next happening (time 3)
+Deleting (on b2 b4)
+Deleting (clear b2)
+Deleting (arm-empty)
+Adding (holding b2)
+Adding (clear b4)
+
+Checking next happening (time 4)
+Deleting (holding b2)
+Adding (clear b2)
+Adding (arm-empty)
+Adding (on-table b2)
+
+Checking next happening (time 5)
+Deleting (clear b3)
+Deleting (on-table b3)
+Deleting (arm-empty)
+Adding (holding b3)
+
+Checking next happening (time 6)
+Deleting (clear b2)
+Deleting (holding b3)
+Adding (arm-empty)
+Adding (clear b3)
+Adding (on b3 b2)
+
+Checking next happening (time 7)
+Deleting (clear b1)
+Deleting (on-table b1)
+Deleting (arm-empty)
+Adding (holding b1)
+
+Checking next happening (time 8)
+Deleting (clear b4)
+Deleting (holding b1)
+Adding (arm-empty)
+Adding (clear b1)
+Adding (on b1 b4)
+
+Checking next happening (time 9)
+Deleting (on b3 b2)
+Deleting (clear b3)
+Deleting (arm-empty)
+Adding (holding b3)
+Adding (clear b2)
+
+Checking next happening (time 10)
+Deleting (holding b3)
+Adding (clear b3)
+Adding (arm-empty)
+Adding (on-table b3)
+
+Checking next happening (time 11)
+Deleting (clear b2)
+Deleting (on-table b2)
+Deleting (arm-empty)
+Adding (holding b2)
+
+Checking next happening (time 12)
+Deleting (clear b1)
+Deleting (holding b2)
+Adding (arm-empty)
+Adding (clear b2)
+Adding (on b2 b1)
+
+Checking next happening (time 13)
+Deleting (clear b3)
+Deleting (on-table b3)
+Deleting (arm-empty)
+Adding (holding b3)
+
+Checking next happening (time 14)
+Deleting (clear b2)
+Deleting (holding b3)
+Adding (arm-empty)
+Adding (clear b3)
+Adding (on b3 b2)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 14 
+
+Successful plans:
+Value: 14
+ /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260205_140901/blocksworld/optic_results/bw_ops3_n04_seed4001.plan 14

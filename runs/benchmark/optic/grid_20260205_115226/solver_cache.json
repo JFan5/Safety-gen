@@ -1,0 +1,485 @@
+{
+  "optic": {
+    "grid/grid_x10_y10_sh3_k6_l6_s10001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 32.338609751997865,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x10_y10_sh3_k6_l6_s10001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x10_y10_sh3_k6_l6_s10001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:52:58.771127",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x10_y10_sh3_k6_l6_s10001.pddl"
+    },
+    "grid/grid_x11_y11_sh3_k6_l6_s11001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 48.678983073012205,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x11_y11_sh3_k6_l6_s11001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x11_y11_sh3_k6_l6_s11001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:53:15.101290",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x11_y11_sh3_k6_l6_s11001.pddl"
+    },
+    "grid/grid_x22_y22_sh5_k10_l10_s22001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.17752382899926,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x22_y22_sh5_k10_l10_s22001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.588431",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x22_y22_sh5_k10_l10_s22001.pddl"
+    },
+    "grid/grid_x21_y21_sh5_k10_l10_s21001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.17937034800707,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x21_y21_sh5_k10_l10_s21001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.590150",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x21_y21_sh5_k10_l10_s21001.pddl"
+    },
+    "grid/grid_x20_y20_sh5_k10_l10_s20001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.17996530800883,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x20_y20_sh5_k10_l10_s20001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.590665",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x20_y20_sh5_k10_l10_s20001.pddl"
+    },
+    "grid/grid_x17_y17_sh4_k8_l8_s17001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1928761010058,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x17_y17_sh4_k8_l8_s17001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.606975",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x17_y17_sh4_k8_l8_s17001.pddl"
+    },
+    "grid/grid_x24_y24_sh5_k10_l10_s24001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.19210705399746,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x24_y24_sh5_k10_l10_s24001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.607209",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x24_y24_sh5_k10_l10_s24001.pddl"
+    },
+    "grid/grid_x23_y23_sh5_k10_l10_s23001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1925102410023,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x23_y23_sh5_k10_l10_s23001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.607587",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x23_y23_sh5_k10_l10_s23001.pddl"
+    },
+    "grid/grid_x19_y19_sh4_k8_l8_s19001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1954732669983,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x19_y19_sh4_k8_l8_s19001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.607920",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x19_y19_sh4_k8_l8_s19001.pddl"
+    },
+    "grid/grid_x18_y18_sh4_k8_l8_s18001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.19663605699316,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x18_y18_sh4_k8_l8_s18001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.608130",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x18_y18_sh4_k8_l8_s18001.pddl"
+    },
+    "grid/grid_x16_y16_sh4_k8_l8_s16001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.19765236999956,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x16_y16_sh4_k8_l8_s16001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.608363",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x16_y16_sh4_k8_l8_s16001.pddl"
+    },
+    "grid/grid_x15_y15_sh4_k8_l8_s15001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.19803147300263,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x15_y15_sh4_k8_l8_s15001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.608563",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x15_y15_sh4_k8_l8_s15001.pddl"
+    },
+    "grid/grid_x26_y26_sh6_k12_l12_s26001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.21346158000233,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x26_y26_sh6_k12_l12_s26001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.625023",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x26_y26_sh6_k12_l12_s26001.pddl"
+    },
+    "grid/grid_x25_y25_sh6_k12_l12_s25001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2135570849932,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x25_y25_sh6_k12_l12_s25001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.625489",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x25_y25_sh6_k12_l12_s25001.pddl"
+    },
+    "grid/grid_x28_y28_sh6_k12_l12_s28001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2190128490038,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x28_y28_sh6_k12_l12_s28001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.632788",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x28_y28_sh6_k12_l12_s28001.pddl"
+    },
+    "grid/grid_x14_y14_sh3_k6_l6_s14001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.22283705399605,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x14_y14_sh3_k6_l6_s14001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.633203",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x14_y14_sh3_k6_l6_s14001.pddl"
+    },
+    "grid/grid_x27_y27_sh6_k12_l12_s27001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.22323485600646,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x27_y27_sh6_k12_l12_s27001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.634815",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x27_y27_sh6_k12_l12_s27001.pddl"
+    },
+    "grid/grid_x29_y29_sh6_k12_l12_s29001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2270975949941,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x29_y29_sh6_k12_l12_s29001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.639157",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x29_y29_sh6_k12_l12_s29001.pddl"
+    },
+    "grid/grid_x30_y30_sh6_k12_l12_s30001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.23370091299876,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x30_y30_sh6_k12_l12_s30001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.645385",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x30_y30_sh6_k12_l12_s30001.pddl"
+    },
+    "grid/grid_x3_y3_sh2_k4_l4_s3001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.057806682991213165,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x3_y3_sh2_k4_l4_s3001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x3_y3_sh2_k4_l4_s3001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.652900",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x3_y3_sh2_k4_l4_s3001.pddl"
+    },
+    "grid/grid_x31_y31_sh6_k12_l12_s31001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2417087969952,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x31_y31_sh6_k12_l12_s31001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.653421",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x31_y31_sh6_k12_l12_s31001.pddl"
+    },
+    "grid/grid_x32_y32_sh6_k12_l12_s32001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2422873839969,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x32_y32_sh6_k12_l12_s32001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.653841",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x32_y32_sh6_k12_l12_s32001.pddl"
+    },
+    "grid/grid_x33_y33_sh6_k12_l12_s33001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2455855679873,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x33_y33_sh6_k12_l12_s33001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.657505",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x33_y33_sh6_k12_l12_s33001.pddl"
+    },
+    "grid/grid_x34_y34_sh6_k12_l12_s34001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.24984404801216,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x34_y34_sh6_k12_l12_s34001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.661685",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x34_y34_sh6_k12_l12_s34001.pddl"
+    },
+    "grid/grid_x35_y35_sh6_k12_l12_s35001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2552544469945,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x35_y35_sh6_k12_l12_s35001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.667456",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x35_y35_sh6_k12_l12_s35001.pddl"
+    },
+    "grid/grid_x36_y36_sh6_k12_l12_s36001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2568087700056,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x36_y36_sh6_k12_l12_s36001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.669436",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x36_y36_sh6_k12_l12_s36001.pddl"
+    },
+    "grid/grid_x37_y37_sh6_k12_l12_s37001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.26012884499505,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x37_y37_sh6_k12_l12_s37001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.673752",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x37_y37_sh6_k12_l12_s37001.pddl"
+    },
+    "grid/grid_x12_y12_sh3_k6_l6_s12001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.27482509099355,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x12_y12_sh3_k6_l6_s12001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.684954",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x12_y12_sh3_k6_l6_s12001.pddl"
+    },
+    "grid/grid_x13_y13_sh3_k6_l6_s13001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.2762078149972,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x13_y13_sh3_k6_l6_s13001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.685899",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x13_y13_sh3_k6_l6_s13001.pddl"
+    },
+    "grid/grid_x5_y5_sh2_k4_l4_s5001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.15978947399707977,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x5_y5_sh2_k4_l4_s5001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x5_y5_sh2_k4_l4_s5001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.796819",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x5_y5_sh2_k4_l4_s5001.pddl"
+    },
+    "grid/grid_x4_y4_sh2_k4_l4_s4001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.22205484699225053,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x4_y4_sh2_k4_l4_s4001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x4_y4_sh2_k4_l4_s4001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:26.852376",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x4_y4_sh2_k4_l4_s4001.pddl"
+    },
+    "grid/grid_x9_y9_sh2_k4_l4_s9001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.5632332719978876,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x9_y9_sh2_k4_l4_s9001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x9_y9_sh2_k4_l4_s9001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:27.222571",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x9_y9_sh2_k4_l4_s9001.pddl"
+    },
+    "grid/grid_x8_y8_sh2_k4_l4_s8001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 0.8785407090035733,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x8_y8_sh2_k4_l4_s8001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x8_y8_sh2_k4_l4_s8001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:27.530140",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x8_y8_sh2_k4_l4_s8001.pddl"
+    },
+    "grid/grid_x6_y6_sh2_k4_l4_s6001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 1.222663727006875,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x6_y6_sh2_k4_l4_s6001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x6_y6_sh2_k4_l4_s6001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:27.862596",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x6_y6_sh2_k4_l4_s6001.pddl"
+    },
+    "grid/grid_x7_y7_sh2_k4_l4_s7001.pddl": {
+      "status": "solved",
+      "validation": "valid",
+      "elapsed_seconds": 2.6345889849908417,
+      "plan_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/grid_x7_y7_sh2_k4_l4_s7001.plan",
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x7_y7_sh2_k4_l4_s7001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:29.279318",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x7_y7_sh2_k4_l4_s7001.pddl"
+    },
+    "grid/grid_x38_y38_sh6_k12_l12_s38001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.13079147100507,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x38_y38_sh6_k12_l12_s38001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:57:58.898374",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x38_y38_sh6_k12_l12_s38001.pddl"
+    },
+    "grid/grid_x39_y39_sh6_k12_l12_s39001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.14272323600017,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x39_y39_sh6_k12_l12_s39001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T16:58:15.240272",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x39_y39_sh6_k12_l12_s39001.pddl"
+    },
+    "grid/grid_x42_y42_sh6_k12_l12_s42001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.0802131119999,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x42_y42_sh6_k12_l12_s42001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.684025",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x42_y42_sh6_k12_l12_s42001.pddl"
+    },
+    "grid/grid_x48_y48_sh6_k12_l12_s48001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.08122096199077,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x48_y48_sh6_k12_l12_s48001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.689802",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x48_y48_sh6_k12_l12_s48001.pddl"
+    },
+    "grid/grid_x45_y45_sh6_k12_l12_s45001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.08824549400015,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x45_y45_sh6_k12_l12_s45001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.694588",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x45_y45_sh6_k12_l12_s45001.pddl"
+    },
+    "grid/grid_x50_y50_sh6_k12_l12_s50001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.0988328289968,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x50_y50_sh6_k12_l12_s50001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.729895",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x50_y50_sh6_k12_l12_s50001.pddl"
+    },
+    "grid/grid_x40_y40_sh6_k12_l12_s40001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1568031189963,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x40_y40_sh6_k12_l12_s40001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.748034",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x40_y40_sh6_k12_l12_s40001.pddl"
+    },
+    "grid/grid_x41_y41_sh6_k12_l12_s41001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.16133742401144,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x41_y41_sh6_k12_l12_s41001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.752888",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x41_y41_sh6_k12_l12_s41001.pddl"
+    },
+    "grid/grid_x43_y43_sh6_k12_l12_s43001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.159747357,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x43_y43_sh6_k12_l12_s43001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.763350",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x43_y43_sh6_k12_l12_s43001.pddl"
+    },
+    "grid/grid_x44_y44_sh6_k12_l12_s44001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.16030179600057,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x44_y44_sh6_k12_l12_s44001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.764589",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x44_y44_sh6_k12_l12_s44001.pddl"
+    },
+    "grid/grid_x46_y46_sh6_k12_l12_s46001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1640414880094,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x46_y46_sh6_k12_l12_s46001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.771348",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x46_y46_sh6_k12_l12_s46001.pddl"
+    },
+    "grid/grid_x47_y47_sh6_k12_l12_s47001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.1692893099971,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x47_y47_sh6_k12_l12_s47001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.777285",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x47_y47_sh6_k12_l12_s47001.pddl"
+    },
+    "grid/grid_x49_y49_sh6_k12_l12_s49001.pddl": {
+      "status": "timeout",
+      "validation": "",
+      "elapsed_seconds": 300.161775968998,
+      "plan_path": null,
+      "log_path": "Safety-gen/runs/benchmark/optic/grid_20260205_115226/grid/optic_results/logs/grid_x49_y49_sh6_k12_l12_s49001.stderr",
+      "notes": "",
+      "timestamp": "2026-02-05T17:02:26.786887",
+      "problem_path": "Safety-gen/benchmark_problems/grid/grid_x49_y49_sh6_k12_l12_s49001.pddl"
+    }
+  },
+  "llm": {}
+}

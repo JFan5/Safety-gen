@@ -1,0 +1,495 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260205_140901/blocksworld/optic_results/bw_ops3_n12_seed12001.plan
+Plan to validate:
+
+Plan size: 50
+1:
+(unstack b2 b10)
+ 
+2:
+(putdown b2)
+ 
+3:
+(unstack b1 b11)
+ 
+4:
+(putdown b1)
+ 
+5:
+(unstack b11 b4)
+ 
+6:
+(stack b11 b2)
+ 
+7:
+(pickup b1)
+ 
+8:
+(stack b1 b11)
+ 
+9:
+(unstack b4 b7)
+ 
+10:
+(putdown b4)
+ 
+11:
+(unstack b7 b9)
+ 
+12:
+(stack b7 b10)
+ 
+13:
+(unstack b9 b3)
+ 
+14:
+(stack b9 b1)
+ 
+15:
+(unstack b3 b12)
+ 
+16:
+(stack b3 b4)
+ 
+17:
+(unstack b12 b6)
+ 
+18:
+(putdown b12)
+ 
+19:
+(unstack b6 b8)
+ 
+20:
+(putdown b6)
+ 
+21:
+(unstack b8 b5)
+ 
+22:
+(stack b8 b7)
+ 
+23:
+(pickup b12)
+ 
+24:
+(stack b12 b5)
+ 
+25:
+(unstack b3 b4)
+ 
+26:
+(putdown b3)
+ 
+27:
+(pickup b4)
+ 
+28:
+(stack b4 b6)
+ 
+29:
+(pickup b3)
+ 
+30:
+(stack b3 b4)
+ 
+31:
+(unstack b12 b5)
+ 
+32:
+(putdown b12)
+ 
+33:
+(pickup b5)
+ 
+34:
+(stack b5 b3)
+ 
+35:
+(pickup b12)
+ 
+36:
+(stack b12 b5)
+ 
+37:
+(unstack b8 b7)
+ 
+38:
+(putdown b8)
+ 
+39:
+(unstack b7 b10)
+ 
+40:
+(putdown b7)
+ 
+41:
+(pickup b8)
+ 
+42:
+(stack b8 b7)
+ 
+43:
+(pickup b10)
+ 
+44:
+(stack b10 b12)
+ 
+45:
+(unstack b8 b7)
+ 
+46:
+(putdown b8)
+ 
+47:
+(pickup b7)
+ 
+48:
+(stack b7 b10)
+ 
+49:
+(pickup b8)
+ 
+50:
+(stack b8 b7)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (on b2 b10)
+Deleting (clear b2)
+Deleting (arm-empty)
+Adding (holding b2)
+Adding (clear b10)
+
+Checking next happening (time 2)
+Deleting (holding b2)
+Adding (clear b2)
+Adding (arm-empty)
+Adding (on-table b2)
+
+Checking next happening (time 3)
+Deleting (on b1 b11)
+Deleting (clear b1)
+Deleting (arm-empty)
+Adding (holding b1)
+Adding (clear b11)
+
+Checking next happening (time 4)
+Deleting (holding b1)
+Adding (clear b1)
+Adding (arm-empty)
+Adding (on-table b1)
+
+Checking next happening (time 5)
+Deleting (on b11 b4)
+Deleting (clear b11)
+Deleting (arm-empty)
+Adding (holding b11)
+Adding (clear b4)
+
+Checking next happening (time 6)
+Deleting (clear b2)
+Deleting (holding b11)
+Adding (arm-empty)
+Adding (clear b11)
+Adding (on b11 b2)
+
+Checking next happening (time 7)
+Deleting (clear b1)
+Deleting (on-table b1)
+Deleting (arm-empty)
+Adding (holding b1)
+
+Checking next happening (time 8)
+Deleting (clear b11)
+Deleting (holding b1)
+Adding (arm-empty)
+Adding (clear b1)
+Adding (on b1 b11)
+
+Checking next happening (time 9)
+Deleting (on b4 b7)
+Deleting (clear b4)
+Deleting (arm-empty)
+Adding (holding b4)
+Adding (clear b7)
+
+Checking next happening (time 10)
+Deleting (holding b4)
+Adding (clear b4)
+Adding (arm-empty)
+Adding (on-table b4)
+
+Checking next happening (time 11)
+Deleting (on b7 b9)
+Deleting (clear b7)
+Deleting (arm-empty)
+Adding (holding b7)
+Adding (clear b9)
+
+Checking next happening (time 12)
+Deleting (clear b10)
+Deleting (holding b7)
+Adding (arm-empty)
+Adding (clear b7)
+Adding (on b7 b10)
+
+Checking next happening (time 13)
+Deleting (on b9 b3)
+Deleting (clear b9)
+Deleting (arm-empty)
+Adding (holding b9)
+Adding (clear b3)
+
+Checking next happening (time 14)
+Deleting (clear b1)
+Deleting (holding b9)
+Adding (arm-empty)
+Adding (clear b9)
+Adding (on b9 b1)
+
+Checking next happening (time 15)
+Deleting (on b3 b12)
+Deleting (clear b3)
+Deleting (arm-empty)
+Adding (holding b3)
+Adding (clear b12)
+
+Checking next happening (time 16)
+Deleting (clear b4)
+Deleting (holding b3)
+Adding (arm-empty)
+Adding (clear b3)
+Adding (on b3 b4)
+
+Checking next happening (time 17)
+Deleting (on b12 b6)
+Deleting (clear b12)
+Deleting (arm-empty)
+Adding (holding b12)
+Adding (clear b6)
+
+Checking next happening (time 18)
+Deleting (holding b12)
+Adding (clear b12)
+Adding (arm-empty)
+Adding (on-table b12)
+
+Checking next happening (time 19)
+Deleting (on b6 b8)
+Deleting (clear b6)
+Deleting (arm-empty)
+Adding (holding b6)
+Adding (clear b8)
+
+Checking next happening (time 20)
+Deleting (holding b6)
+Adding (clear b6)
+Adding (arm-empty)
+Adding (on-table b6)
+
+Checking next happening (time 21)
+Deleting (on b8 b5)
+Deleting (clear b8)
+Deleting (arm-empty)
+Adding (holding b8)
+Adding (clear b5)
+
+Checking next happening (time 22)
+Deleting (clear b7)
+Deleting (holding b8)
+Adding (arm-empty)
+Adding (clear b8)
+Adding (on b8 b7)
+
+Checking next happening (time 23)
+Deleting (clear b12)
+Deleting (on-table b12)
+Deleting (arm-empty)
+Adding (holding b12)
+
+Checking next happening (time 24)
+Deleting (clear b5)
+Deleting (holding b12)
+Adding (arm-empty)
+Adding (clear b12)
+Adding (on b12 b5)
+
+Checking next happening (time 25)
+Deleting (on b3 b4)
+Deleting (clear b3)
+Deleting (arm-empty)
+Adding (holding b3)
+Adding (clear b4)
+
+Checking next happening (time 26)
+Deleting (holding b3)
+Adding (clear b3)
+Adding (arm-empty)
+Adding (on-table b3)
+
+Checking next happening (time 27)
+Deleting (clear b4)
+Deleting (on-table b4)
+Deleting (arm-empty)
+Adding (holding b4)
+
+Checking next happening (time 28)
+Deleting (clear b6)
+Deleting (holding b4)
+Adding (arm-empty)
+Adding (clear b4)
+Adding (on b4 b6)
+
+Checking next happening (time 29)
+Deleting (clear b3)
+Deleting (on-table b3)
+Deleting (arm-empty)
+Adding (holding b3)
+
+Checking next happening (time 30)
+Deleting (clear b4)
+Deleting (holding b3)
+Adding (arm-empty)
+Adding (clear b3)
+Adding (on b3 b4)
+
+Checking next happening (time 31)
+Deleting (on b12 b5)
+Deleting (clear b12)
+Deleting (arm-empty)
+Adding (holding b12)
+Adding (clear b5)
+
+Checking next happening (time 32)
+Deleting (holding b12)
+Adding (clear b12)
+Adding (arm-empty)
+Adding (on-table b12)
+
+Checking next happening (time 33)
+Deleting (clear b5)
+Deleting (on-table b5)
+Deleting (arm-empty)
+Adding (holding b5)
+
+Checking next happening (time 34)
+Deleting (clear b3)
+Deleting (holding b5)
+Adding (arm-empty)
+Adding (clear b5)
+Adding (on b5 b3)
+
+Checking next happening (time 35)
+Deleting (clear b12)
+Deleting (on-table b12)
+Deleting (arm-empty)
+Adding (holding b12)
+
+Checking next happening (time 36)
+Deleting (clear b5)
+Deleting (holding b12)
+Adding (arm-empty)
+Adding (clear b12)
+Adding (on b12 b5)
+
+Checking next happening (time 37)
+Deleting (on b8 b7)
+Deleting (clear b8)
+Deleting (arm-empty)
+Adding (holding b8)
+Adding (clear b7)
+
+Checking next happening (time 38)
+Deleting (holding b8)
+Adding (clear b8)
+Adding (arm-empty)
+Adding (on-table b8)
+
+Checking next happening (time 39)
+Deleting (on b7 b10)
+Deleting (clear b7)
+Deleting (arm-empty)
+Adding (holding b7)
+Adding (clear b10)
+
+Checking next happening (time 40)
+Deleting (holding b7)
+Adding (clear b7)
+Adding (arm-empty)
+Adding (on-table b7)
+
+Checking next happening (time 41)
+Deleting (clear b8)
+Deleting (on-table b8)
+Deleting (arm-empty)
+Adding (holding b8)
+
+Checking next happening (time 42)
+Deleting (clear b7)
+Deleting (holding b8)
+Adding (arm-empty)
+Adding (clear b8)
+Adding (on b8 b7)
+
+Checking next happening (time 43)
+Deleting (clear b10)
+Deleting (on-table b10)
+Deleting (arm-empty)
+Adding (holding b10)
+
+Checking next happening (time 44)
+Deleting (clear b12)
+Deleting (holding b10)
+Adding (arm-empty)
+Adding (clear b10)
+Adding (on b10 b12)
+
+Checking next happening (time 45)
+Deleting (on b8 b7)
+Deleting (clear b8)
+Deleting (arm-empty)
+Adding (holding b8)
+Adding (clear b7)
+
+Checking next happening (time 46)
+Deleting (holding b8)
+Adding (clear b8)
+Adding (arm-empty)
+Adding (on-table b8)
+
+Checking next happening (time 47)
+Deleting (clear b7)
+Deleting (on-table b7)
+Deleting (arm-empty)
+Adding (holding b7)
+
+Checking next happening (time 48)
+Deleting (clear b10)
+Deleting (holding b7)
+Adding (arm-empty)
+Adding (clear b7)
+Adding (on b7 b10)
+
+Checking next happening (time 49)
+Deleting (clear b8)
+Deleting (on-table b8)
+Deleting (arm-empty)
+Adding (holding b8)
+
+Checking next happening (time 50)
+Deleting (clear b7)
+Deleting (holding b8)
+Adding (arm-empty)
+Adding (clear b8)
+Adding (on b8 b7)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 50 
+
+Successful plans:
+Value: 50
+ /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260205_140901/blocksworld/optic_results/bw_ops3_n12_seed12001.plan 50

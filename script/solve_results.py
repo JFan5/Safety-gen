@@ -203,6 +203,7 @@ def outcome_to_json(outcome: Optional[SolverOutcome]) -> Optional[Dict[str, Unio
         "plan_path": path_to_workspace_str(outcome.plan_path),
         "log_path": path_to_workspace_str(outcome.log_path),
         "notes": outcome.notes or "",
+        "validation_stdout": outcome.validation_stdout or "",
     }
 
 

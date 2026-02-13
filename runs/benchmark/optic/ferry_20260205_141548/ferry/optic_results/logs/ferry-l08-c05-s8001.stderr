@@ -1,0 +1,128 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260205_141548/ferry/optic_results/ferry-l08-c05-s8001.plan
+Plan to validate:
+
+Plan size: 15
+1:
+(sail l4 l6)
+ 
+2:
+(board c2 l6)
+ 
+3:
+(sail l6 l5)
+ 
+4:
+(debark c2 l5)
+ 
+5:
+(board c4 l5)
+ 
+6:
+(sail l5 l3)
+ 
+7:
+(debark c4 l3)
+ 
+8:
+(board c1 l3)
+ 
+9:
+(sail l3 l5)
+ 
+10:
+(sail l5 l2)
+ 
+11:
+(debark c1 l2)
+ 
+12:
+(sail l2 l5)
+ 
+13:
+(board c3 l5)
+ 
+14:
+(sail l5 l4)
+ 
+15:
+(debark c3 l4)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at-ferry l4)
+Adding (at-ferry l6)
+
+Checking next happening (time 2)
+Deleting (at c2 l6)
+Deleting (empty-ferry)
+Adding (on c2)
+
+Checking next happening (time 3)
+Deleting (at-ferry l6)
+Adding (at-ferry l5)
+
+Checking next happening (time 4)
+Deleting (on c2)
+Adding (at c2 l5)
+Adding (empty-ferry)
+
+Checking next happening (time 5)
+Deleting (at c4 l5)
+Deleting (empty-ferry)
+Adding (on c4)
+
+Checking next happening (time 6)
+Deleting (at-ferry l5)
+Adding (at-ferry l3)
+
+Checking next happening (time 7)
+Deleting (on c4)
+Adding (at c4 l3)
+Adding (empty-ferry)
+
+Checking next happening (time 8)
+Deleting (at c1 l3)
+Deleting (empty-ferry)
+Adding (on c1)
+
+Checking next happening (time 9)
+Deleting (at-ferry l3)
+Adding (at-ferry l5)
+
+Checking next happening (time 10)
+Deleting (at-ferry l5)
+Adding (at-ferry l2)
+
+Checking next happening (time 11)
+Deleting (on c1)
+Adding (at c1 l2)
+Adding (empty-ferry)
+
+Checking next happening (time 12)
+Deleting (at-ferry l2)
+Adding (at-ferry l5)
+
+Checking next happening (time 13)
+Deleting (at c3 l5)
+Deleting (empty-ferry)
+Adding (on c3)
+
+Checking next happening (time 14)
+Deleting (at-ferry l5)
+Adding (at-ferry l4)
+
+Checking next happening (time 15)
+Deleting (on c3)
+Adding (at c3 l4)
+Adding (empty-ferry)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 15 
+
+Successful plans:
+Value: 15
+ /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260205_141548/ferry/optic_results/ferry-l08-c05-s8001.plan 15

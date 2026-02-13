@@ -1,0 +1,51 @@
+\section{Introduction}
+
+Robotic systems tightly integrate computation, communication, and physical processes, and are widely deployed in safety-critical domains such as autonomous driving, industrial automation, and warehouse logistics. Unlike conventional computing systems, robotic systems interact directly with the physical world, where unsafe decisions may lead to irreversible consequences. For instance, in autonomous driving, a planning error can result in collisions; in industrial automation, unsafe operations may damage equipment or harm workers. These examples highlight that robotic task planning must go beyond efficiency and task completion: it must ensure \emph{verifiable safety} under diverse and dynamic operating conditions.
+
+Task planning is a core capability for robotic systems, endowing agents with the ability to organize and execute long-horizon tasks in constrained environments. Traditional task planners are predominantly search-based and operate on formal models expressed in the Planning Domain Definition Language (PDDL). Planners such as Fast Downward~\cite{helmert2006fast} and Metric-FF~\cite{hoffmann2001ff} employ heuristic search over symbolic state spaces to generate plans that can be verified against the underlying model.
+
+% classcial plalner's limitation
+However, classical planners exhibit fundamental limitations: (i) \emph{poor scalability}---solving time grows exponentially as problem complexity increases, and (ii) \emph{rigid input/output formats}---requiring substantial domain engineering and hand-crafted heuristics~\cite{geffner2013concise,ghallab2004automated}. When additional factors such as resource limits or safety constraints are introduced, these heuristics and search operators may no longer capture the relevant problem dynamics, leading to degraded performance or infeasible plans.
+
+
+% RL planner's limitations
+Learning-based planners~\cite{wang2022ensuring,yu2021learning} attempt to alleviate these issues by using deep learning or reinforcement learning (RL) to learn heuristics or policies directly from data. Such methods can, in principle, incorporate safety constraints into the learning objective and generate safety-aware policies. However, RL-based planners also face critical limitations: (i) \emph{limited generalization}---trained policies typically handle only a single planning task \cite{packer2018assessing,kansky2017schema}, and (ii) \emph{high data and interaction cost}—achieving reliable performance often requires extensive environment interactions and large numbers of rollouts for training and evaluation~\cite{shivadekar2025artificial, dulac2020empirical}. As a result, their applicability in mission-critical robotic systems is fundamentally constrained.
+
+Recently, large language models (LLMs) have emerged as powerful general-purpose reasoning engines capable of capturing knowledge, following instructions, and generalizing across domains~\cite{cao2025large,plaat2024reasoning,liang2025ai}. LLMs offer high potential for robotic task planning because pretrained models can handle diverse and flexible input formats, from natural-language descriptions to symbolic PDDL specifications. Early studies show that LLMs can generate plausible plans from natural-language or symbolic inputs~\cite{yang2022automaton}, translate instructions into temporal logic specifications~\cite{pan2023data,van2024vernacopter}, or directly solve PDDL planning tasks under few-shot prompting~\cite{silver2024generalized}.
+
+% current llm planenr's limitation
+However, base models without post-training exhibit critical deficiencies: they show low planning success rates and cannot guarantee safety. Without domain-specific safety knowledge and alignment with safety-critical decision preferences, LLMs may produce plans that are semantically incorrect, action-infeasible, or violate safety constraints, potentially leading to hazardous behaviors in real-world deployments.
+
+To address these challenges, we propose \emph{SafeGen-LLM}, a post-training framework that enables Large Language Models to perform safety-aware task planning in robotic systems by incorporating verifiable safety knowledge into the training process. As illustrated in Figure~\ref{fig:safe-gen-llm}, the framework consists of three key components:
+\begin{enumerate}
+    \item \textbf{Safety-aware planning dataset construction}: We introduce a planning dataset that incorporates explicit safety constraints, enabling systematic training and evaluation of safety-aware planning models.
+    \item \textbf{Stage I: Supervised Fine-Tuning (SFT)}: Built upon the proposed dataset, we apply SFT to enable the model to learn planning grammar and semantics.
+    \item \textbf{Stage II: Group Relative Policy Optimization (GRPO) with fine-grained reward machines}:  We devise a verifiable and fine-grained reward machine to guide GRPO ~\cite{shao2024deepseekmath} training, encouraging the LLM to achieve planning goals while maintaining safety alignment.
+\end{enumerate}
+To ensure stable training, we adopt curriculum learning by progressively introducing planning problems with increasing complexity, improving both training stability and effectiveness.
+
+\begin{figure*}[htbp!]
+  \centering
+  \includegraphics[width=0.9\textwidth]{diagram.pdf}
+  \caption{Overview of the proposed SafeGen-LLM framework. Stage I performs SFT on formally verified, safety-constrained plans. Stage II applies GRPO using fine-grained reward signals derived from formal verification to enforce safety alignment.}
+  \label{fig:safe-gen-llm}
+\end{figure*}
+
+Our main contributions are summarized as follows:
+\begin{itemize}
+    \item \textbf{A unified benchmark for safety-aware PDDL planning.}
+    We introduce a dataset benchmark covering multiple robotics-inspired task-planning domains with explicitly defined  safety constraints, enabling systematic training and evaluation of safety compliance and generalization in planning tasks.
+
+    \item \textbf{A systematic post-training framework for safe planning LLMs.}
+    We propose a systematic two-stage post-training framework combining SFT and GRPO with fine-grained reward machines derived from formal verification. This approach improves the safety generalization of LLM-based planners, leading to higher planning success rates and more consistent safety compliance across multiple domains.
+
+    \item \textbf{Cross-domain safety generalization with superior performance.}
+    Through extensive experiments, we demonstrate that our trained models achieve strong planning performance across multiple domains with diverse safety constraints, effectively solving new problems for each domain while \textbf{outperforming frontier models with orders of magnitude more parameters} in safety-aware planning.
+\end{itemize}
+
+% The remainder of this paper is organized as follows.
+% Section~\ref{sec:related} reviews related work on classical task planning, AI-based planners, and LLM-based planning.
+% Section~\ref{sec:preliminaries} introduces preliminaries on classical planning and PDDL, and formulates the safety-aware and safety-generalizable planning problems.
+% Section~\ref{IV} presents the proposed SafeGen-LLM framework.
+% Section~\ref{V} describes the experimental setup and results.
+% Finally, Section~\ref{VI} concludes with a discussion of limitations and future research directions.

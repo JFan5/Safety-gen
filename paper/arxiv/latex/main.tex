@@ -1,0 +1,81 @@
+\documentclass[letterpaper, 10pt, conference]{ieeeconf}
+
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
+
+% Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{algorithmic}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{cite}
+\usepackage{url}
+
+\tcbuselibrary{listings, breakable}
+
+\newtcolorbox{userbox}{
+  colback=gray!3!white,
+  colframe=gray!40!black,
+  title=Prompt Template,
+  fonttitle=\bfseries,
+  breakable
+}
+
+\lstdefinelanguage{PDDL}{
+  morekeywords={define,domain,requirements,types,predicates,action,parameters,
+                precondition,effect,init,goal,problem,when,not,and,or},
+  sensitive=false
+}
+
+\lstdefinestyle{lispstyle}{
+  language=PDDL,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\color{blue!60!black},
+  commentstyle=\itshape\color{gray!80!black},
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  frame=single,
+  rulecolor=\color{black!20},
+  backgroundcolor=\color{gray!3},
+  frameround=tttt,
+  breaklines=true,
+  captionpos=b,
+  xleftmargin=1em, xrightmargin=1em
+}
+
+\title{\LARGE \bf
+SafeGen-LLM: Enhancing Safety Generalization in Task Planning for Robotic Systems
+}
+
+\author{Anonymous Authors}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\input{sections/0_abstract}
+
+\input{sections/1_introduction}
+\input{sections/2_relatedwork}
+\input{sections/3_preliminaries}
+\input{sections/4_approach}
+\input{sections/5_experiments}
+\input{sections/6_conclusion}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{sample-base}
+\newpage
+\input{sections/appendix}
+
+\end{document}

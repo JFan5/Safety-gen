@@ -49,6 +49,7 @@ class SolverOutcome:
     plan_path: Optional[Path] = None
     log_path: Optional[Path] = None
     notes: str = ""
+    validation_stdout: str = ""
 
 
 def to_text(value: Optional[Union[str, bytes]]) -> str:
@@ -118,6 +119,7 @@ def outcome_to_cache_dict(outcome: SolverOutcome, problem_path: Path) -> Dict[st
         "plan_path": path_to_workspace_str(outcome.plan_path),
         "log_path": path_to_workspace_str(outcome.log_path),
         "notes": outcome.notes,
+        "validation_stdout": outcome.validation_stdout or "",
         "timestamp": datetime.utcnow().isoformat(),
         "problem_path": path_to_workspace_str(problem_path),
     }
@@ -132,6 +134,7 @@ def cache_dict_to_outcome(cache_entry: Dict[str, Any]) -> SolverOutcome:
         plan_path=workspace_str_to_path(cache_entry.get("plan_path")),
         log_path=workspace_str_to_path(cache_entry.get("log_path")),
         notes=cache_entry.get("notes", ""),
+        validation_stdout=cache_entry.get("validation_stdout", ""),
     )
 
 

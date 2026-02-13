@@ -1,0 +1,792 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260205_143227/delivery/optic_results/delivery_size27_packages1_seed27001.plan
+Plan to validate:
+
+Plan size: 109
+1:
+(move t1 c_9_11 c_10_11)
+ 
+2:
+(move t1 c_10_11 c_10_12)
+ 
+3:
+(move t1 c_10_12 c_10_13)
+ 
+4:
+(move t1 c_10_13 c_10_14)
+ 
+5:
+(move t1 c_10_14 c_10_15)
+ 
+6:
+(move t1 c_10_15 c_10_16)
+ 
+7:
+(move t1 c_10_16 c_10_17)
+ 
+8:
+(move t1 c_10_17 c_10_18)
+ 
+9:
+(move t1 c_10_18 c_11_18)
+ 
+10:
+(move t1 c_11_18 c_12_18)
+ 
+11:
+(move t1 c_12_18 c_13_18)
+ 
+12:
+(move t1 c_13_18 c_14_18)
+ 
+13:
+(move t1 c_14_18 c_15_18)
+ 
+14:
+(move t1 c_15_18 c_16_18)
+ 
+15:
+(pick-package t1 p2 c_16_18)
+ 
+16:
+(move t1 c_16_18 c_16_19)
+ 
+17:
+(move t1 c_16_19 c_16_20)
+ 
+18:
+(move t1 c_16_20 c_16_21)
+ 
+19:
+(move t1 c_16_21 c_16_22)
+ 
+20:
+(drop-package t1 p2 c_16_22)
+ 
+21:
+(move t1 c_16_22 c_16_21)
+ 
+22:
+(pick-package t1 p3 c_16_21)
+ 
+23:
+(move t1 c_16_21 c_16_22)
+ 
+24:
+(move t1 c_16_22 c_16_23)
+ 
+25:
+(move t1 c_16_23 c_17_23)
+ 
+26:
+(move t1 c_17_23 c_18_23)
+ 
+27:
+(move t1 c_18_23 c_19_23)
+ 
+28:
+(move t1 c_19_23 c_20_23)
+ 
+29:
+(move t1 c_20_23 c_21_23)
+ 
+30:
+(move t1 c_21_23 c_22_23)
+ 
+31:
+(drop-package t1 p3 c_22_23)
+ 
+32:
+(move t1 c_22_23 c_21_23)
+ 
+33:
+(move t1 c_21_23 c_20_23)
+ 
+34:
+(move t1 c_20_23 c_19_23)
+ 
+35:
+(move t1 c_19_23 c_18_23)
+ 
+36:
+(move t1 c_18_23 c_17_23)
+ 
+37:
+(move t1 c_17_23 c_16_23)
+ 
+38:
+(move t1 c_16_23 c_16_22)
+ 
+39:
+(pick-package t1 p2 c_16_22)
+ 
+40:
+(move t1 c_16_22 c_16_23)
+ 
+41:
+(move t1 c_16_23 c_17_23)
+ 
+42:
+(move t1 c_17_23 c_18_23)
+ 
+43:
+(move t1 c_18_23 c_19_23)
+ 
+44:
+(move t1 c_19_23 c_20_23)
+ 
+45:
+(move t1 c_20_23 c_21_23)
+ 
+46:
+(move t1 c_21_23 c_22_23)
+ 
+47:
+(drop-package t1 p2 c_22_23)
+ 
+48:
+(move t1 c_22_23 c_21_23)
+ 
+49:
+(move t1 c_21_23 c_20_23)
+ 
+50:
+(move t1 c_20_23 c_19_23)
+ 
+51:
+(move t1 c_19_23 c_18_23)
+ 
+52:
+(move t1 c_18_23 c_17_23)
+ 
+53:
+(move t1 c_17_23 c_16_23)
+ 
+54:
+(move t1 c_16_23 c_15_23)
+ 
+55:
+(move t1 c_15_23 c_14_23)
+ 
+56:
+(move t1 c_14_23 c_13_23)
+ 
+57:
+(move t1 c_13_23 c_12_23)
+ 
+58:
+(move t1 c_12_23 c_11_23)
+ 
+59:
+(move t1 c_11_23 c_10_23)
+ 
+60:
+(move t1 c_10_23 c_10_22)
+ 
+61:
+(move t1 c_10_22 c_10_21)
+ 
+62:
+(move t1 c_10_21 c_10_20)
+ 
+63:
+(move t1 c_10_20 c_10_19)
+ 
+64:
+(move t1 c_10_19 c_10_18)
+ 
+65:
+(move t1 c_10_18 c_10_17)
+ 
+66:
+(move t1 c_10_17 c_10_16)
+ 
+67:
+(move t1 c_10_16 c_10_15)
+ 
+68:
+(move t1 c_10_15 c_9_15)
+ 
+69:
+(move t1 c_9_15 c_8_15)
+ 
+70:
+(move t1 c_8_15 c_7_15)
+ 
+71:
+(move t1 c_7_15 c_6_15)
+ 
+72:
+(move t1 c_6_15 c_5_15)
+ 
+73:
+(move t1 c_5_15 c_4_15)
+ 
+74:
+(move t1 c_4_15 c_3_15)
+ 
+75:
+(move t1 c_3_15 c_2_15)
+ 
+76:
+(move t1 c_2_15 c_1_15)
+ 
+77:
+(move t1 c_1_15 c_0_15)
+ 
+78:
+(pick-package t1 p1 c_0_15)
+ 
+79:
+(move t1 c_0_15 c_0_16)
+ 
+80:
+(move t1 c_0_16 c_0_17)
+ 
+81:
+(move t1 c_0_17 c_0_18)
+ 
+82:
+(move t1 c_0_18 c_0_19)
+ 
+83:
+(move t1 c_0_19 c_0_20)
+ 
+84:
+(move t1 c_0_20 c_0_21)
+ 
+85:
+(move t1 c_0_21 c_0_22)
+ 
+86:
+(move t1 c_0_22 c_0_23)
+ 
+87:
+(move t1 c_0_23 c_1_23)
+ 
+88:
+(move t1 c_1_23 c_2_23)
+ 
+89:
+(move t1 c_2_23 c_3_23)
+ 
+90:
+(move t1 c_3_23 c_4_23)
+ 
+91:
+(move t1 c_4_23 c_5_23)
+ 
+92:
+(move t1 c_5_23 c_6_23)
+ 
+93:
+(move t1 c_6_23 c_7_23)
+ 
+94:
+(move t1 c_7_23 c_8_23)
+ 
+95:
+(move t1 c_8_23 c_9_23)
+ 
+96:
+(move t1 c_9_23 c_10_23)
+ 
+97:
+(move t1 c_10_23 c_11_23)
+ 
+98:
+(move t1 c_11_23 c_12_23)
+ 
+99:
+(move t1 c_12_23 c_13_23)
+ 
+100:
+(move t1 c_13_23 c_14_23)
+ 
+101:
+(move t1 c_14_23 c_15_23)
+ 
+102:
+(move t1 c_15_23 c_16_23)
+ 
+103:
+(move t1 c_16_23 c_17_23)
+ 
+104:
+(move t1 c_17_23 c_18_23)
+ 
+105:
+(move t1 c_18_23 c_19_23)
+ 
+106:
+(move t1 c_19_23 c_20_23)
+ 
+107:
+(move t1 c_20_23 c_21_23)
+ 
+108:
+(move t1 c_21_23 c_22_23)
+ 
+109:
+(drop-package t1 p1 c_22_23)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_9_11)
+Adding (at t1 c_10_11)
+
+Checking next happening (time 2)
+Deleting (at t1 c_10_11)
+Adding (at t1 c_10_12)
+
+Checking next happening (time 3)
+Deleting (at t1 c_10_12)
+Adding (at t1 c_10_13)
+
+Checking next happening (time 4)
+Deleting (at t1 c_10_13)
+Adding (at t1 c_10_14)
+
+Checking next happening (time 5)
+Deleting (at t1 c_10_14)
+Adding (at t1 c_10_15)
+
+Checking next happening (time 6)
+Deleting (at t1 c_10_15)
+Adding (at t1 c_10_16)
+
+Checking next happening (time 7)
+Deleting (at t1 c_10_16)
+Adding (at t1 c_10_17)
+
+Checking next happening (time 8)
+Deleting (at t1 c_10_17)
+Adding (at t1 c_10_18)
+
+Checking next happening (time 9)
+Deleting (at t1 c_10_18)
+Adding (at t1 c_11_18)
+
+Checking next happening (time 10)
+Deleting (at t1 c_11_18)
+Adding (at t1 c_12_18)
+
+Checking next happening (time 11)
+Deleting (at t1 c_12_18)
+Adding (at t1 c_13_18)
+
+Checking next happening (time 12)
+Deleting (at t1 c_13_18)
+Adding (at t1 c_14_18)
+
+Checking next happening (time 13)
+Deleting (at t1 c_14_18)
+Adding (at t1 c_15_18)
+
+Checking next happening (time 14)
+Deleting (at t1 c_15_18)
+Adding (at t1 c_16_18)
+
+Checking next happening (time 15)
+Deleting (at p2 c_16_18)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 16)
+Deleting (at t1 c_16_18)
+Adding (at t1 c_16_19)
+
+Checking next happening (time 17)
+Deleting (at t1 c_16_19)
+Adding (at t1 c_16_20)
+
+Checking next happening (time 18)
+Deleting (at t1 c_16_20)
+Adding (at t1 c_16_21)
+
+Checking next happening (time 19)
+Deleting (at t1 c_16_21)
+Adding (at t1 c_16_22)
+
+Checking next happening (time 20)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_16_22)
+
+Checking next happening (time 21)
+Deleting (at t1 c_16_22)
+Adding (at t1 c_16_21)
+
+Checking next happening (time 22)
+Deleting (at p3 c_16_21)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 23)
+Deleting (at t1 c_16_21)
+Adding (at t1 c_16_22)
+
+Checking next happening (time 24)
+Deleting (at t1 c_16_22)
+Adding (at t1 c_16_23)
+
+Checking next happening (time 25)
+Deleting (at t1 c_16_23)
+Adding (at t1 c_17_23)
+
+Checking next happening (time 26)
+Deleting (at t1 c_17_23)
+Adding (at t1 c_18_23)
+
+Checking next happening (time 27)
+Deleting (at t1 c_18_23)
+Adding (at t1 c_19_23)
+
+Checking next happening (time 28)
+Deleting (at t1 c_19_23)
+Adding (at t1 c_20_23)
+
+Checking next happening (time 29)
+Deleting (at t1 c_20_23)
+Adding (at t1 c_21_23)
+
+Checking next happening (time 30)
+Deleting (at t1 c_21_23)
+Adding (at t1 c_22_23)
+
+Checking next happening (time 31)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_22_23)
+
+Checking next happening (time 32)
+Deleting (at t1 c_22_23)
+Adding (at t1 c_21_23)
+
+Checking next happening (time 33)
+Deleting (at t1 c_21_23)
+Adding (at t1 c_20_23)
+
+Checking next happening (time 34)
+Deleting (at t1 c_20_23)
+Adding (at t1 c_19_23)
+
+Checking next happening (time 35)
+Deleting (at t1 c_19_23)
+Adding (at t1 c_18_23)
+
+Checking next happening (time 36)
+Deleting (at t1 c_18_23)
+Adding (at t1 c_17_23)
+
+Checking next happening (time 37)
+Deleting (at t1 c_17_23)
+Adding (at t1 c_16_23)
+
+Checking next happening (time 38)
+Deleting (at t1 c_16_23)
+Adding (at t1 c_16_22)
+
+Checking next happening (time 39)
+Deleting (at p2 c_16_22)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 40)
+Deleting (at t1 c_16_22)
+Adding (at t1 c_16_23)
+
+Checking next happening (time 41)
+Deleting (at t1 c_16_23)
+Adding (at t1 c_17_23)
+
+Checking next happening (time 42)
+Deleting (at t1 c_17_23)
+Adding (at t1 c_18_23)
+
+Checking next happening (time 43)
+Deleting (at t1 c_18_23)
+Adding (at t1 c_19_23)
+
+Checking next happening (time 44)
+Deleting (at t1 c_19_23)
+Adding (at t1 c_20_23)
+
+Checking next happening (time 45)
+Deleting (at t1 c_20_23)
+Adding (at t1 c_21_23)
+
+Checking next happening (time 46)
+Deleting (at t1 c_21_23)
+Adding (at t1 c_22_23)
+
+Checking next happening (time 47)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_22_23)
+
+Checking next happening (time 48)
+Deleting (at t1 c_22_23)
+Adding (at t1 c_21_23)
+
+Checking next happening (time 49)
+Deleting (at t1 c_21_23)
+Adding (at t1 c_20_23)
+
+Checking next happening (time 50)
+Deleting (at t1 c_20_23)
+Adding (at t1 c_19_23)
+
+Checking next happening (time 51)
+Deleting (at t1 c_19_23)
+Adding (at t1 c_18_23)
+
+Checking next happening (time 52)
+Deleting (at t1 c_18_23)
+Adding (at t1 c_17_23)
+
+Checking next happening (time 53)
+Deleting (at t1 c_17_23)
+Adding (at t1 c_16_23)
+
+Checking next happening (time 54)
+Deleting (at t1 c_16_23)
+Adding (at t1 c_15_23)
+
+Checking next happening (time 55)
+Deleting (at t1 c_15_23)
+Adding (at t1 c_14_23)
+
+Checking next happening (time 56)
+Deleting (at t1 c_14_23)
+Adding (at t1 c_13_23)
+
+Checking next happening (time 57)
+Deleting (at t1 c_13_23)
+Adding (at t1 c_12_23)
+
+Checking next happening (time 58)
+Deleting (at t1 c_12_23)
+Adding (at t1 c_11_23)
+
+Checking next happening (time 59)
+Deleting (at t1 c_11_23)
+Adding (at t1 c_10_23)
+
+Checking next happening (time 60)
+Deleting (at t1 c_10_23)
+Adding (at t1 c_10_22)
+
+Checking next happening (time 61)
+Deleting (at t1 c_10_22)
+Adding (at t1 c_10_21)
+
+Checking next happening (time 62)
+Deleting (at t1 c_10_21)
+Adding (at t1 c_10_20)
+
+Checking next happening (time 63)
+Deleting (at t1 c_10_20)
+Adding (at t1 c_10_19)
+
+Checking next happening (time 64)
+Deleting (at t1 c_10_19)
+Adding (at t1 c_10_18)
+
+Checking next happening (time 65)
+Deleting (at t1 c_10_18)
+Adding (at t1 c_10_17)
+
+Checking next happening (time 66)
+Deleting (at t1 c_10_17)
+Adding (at t1 c_10_16)
+
+Checking next happening (time 67)
+Deleting (at t1 c_10_16)
+Adding (at t1 c_10_15)
+
+Checking next happening (time 68)
+Deleting (at t1 c_10_15)
+Adding (at t1 c_9_15)
+
+Checking next happening (time 69)
+Deleting (at t1 c_9_15)
+Adding (at t1 c_8_15)
+
+Checking next happening (time 70)
+Deleting (at t1 c_8_15)
+Adding (at t1 c_7_15)
+
+Checking next happening (time 71)
+Deleting (at t1 c_7_15)
+Adding (at t1 c_6_15)
+
+Checking next happening (time 72)
+Deleting (at t1 c_6_15)
+Adding (at t1 c_5_15)
+
+Checking next happening (time 73)
+Deleting (at t1 c_5_15)
+Adding (at t1 c_4_15)
+
+Checking next happening (time 74)
+Deleting (at t1 c_4_15)
+Adding (at t1 c_3_15)
+
+Checking next happening (time 75)
+Deleting (at t1 c_3_15)
+Adding (at t1 c_2_15)
+
+Checking next happening (time 76)
+Deleting (at t1 c_2_15)
+Adding (at t1 c_1_15)
+
+Checking next happening (time 77)
+Deleting (at t1 c_1_15)
+Adding (at t1 c_0_15)
+
+Checking next happening (time 78)
+Deleting (at p1 c_0_15)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 79)
+Deleting (at t1 c_0_15)
+Adding (at t1 c_0_16)
+
+Checking next happening (time 80)
+Deleting (at t1 c_0_16)
+Adding (at t1 c_0_17)
+
+Checking next happening (time 81)
+Deleting (at t1 c_0_17)
+Adding (at t1 c_0_18)
+
+Checking next happening (time 82)
+Deleting (at t1 c_0_18)
+Adding (at t1 c_0_19)
+
+Checking next happening (time 83)
+Deleting (at t1 c_0_19)
+Adding (at t1 c_0_20)
+
+Checking next happening (time 84)
+Deleting (at t1 c_0_20)
+Adding (at t1 c_0_21)
+
+Checking next happening (time 85)
+Deleting (at t1 c_0_21)
+Adding (at t1 c_0_22)
+
+Checking next happening (time 86)
+Deleting (at t1 c_0_22)
+Adding (at t1 c_0_23)
+
+Checking next happening (time 87)
+Deleting (at t1 c_0_23)
+Adding (at t1 c_1_23)
+
+Checking next happening (time 88)
+Deleting (at t1 c_1_23)
+Adding (at t1 c_2_23)
+
+Checking next happening (time 89)
+Deleting (at t1 c_2_23)
+Adding (at t1 c_3_23)
+
+Checking next happening (time 90)
+Deleting (at t1 c_3_23)
+Adding (at t1 c_4_23)
+
+Checking next happening (time 91)
+Deleting (at t1 c_4_23)
+Adding (at t1 c_5_23)
+
+Checking next happening (time 92)
+Deleting (at t1 c_5_23)
+Adding (at t1 c_6_23)
+
+Checking next happening (time 93)
+Deleting (at t1 c_6_23)
+Adding (at t1 c_7_23)
+
+Checking next happening (time 94)
+Deleting (at t1 c_7_23)
+Adding (at t1 c_8_23)
+
+Checking next happening (time 95)
+Deleting (at t1 c_8_23)
+Adding (at t1 c_9_23)
+
+Checking next happening (time 96)
+Deleting (at t1 c_9_23)
+Adding (at t1 c_10_23)
+
+Checking next happening (time 97)
+Deleting (at t1 c_10_23)
+Adding (at t1 c_11_23)
+
+Checking next happening (time 98)
+Deleting (at t1 c_11_23)
+Adding (at t1 c_12_23)
+
+Checking next happening (time 99)
+Deleting (at t1 c_12_23)
+Adding (at t1 c_13_23)
+
+Checking next happening (time 100)
+Deleting (at t1 c_13_23)
+Adding (at t1 c_14_23)
+
+Checking next happening (time 101)
+Deleting (at t1 c_14_23)
+Adding (at t1 c_15_23)
+
+Checking next happening (time 102)
+Deleting (at t1 c_15_23)
+Adding (at t1 c_16_23)
+
+Checking next happening (time 103)
+Deleting (at t1 c_16_23)
+Adding (at t1 c_17_23)
+
+Checking next happening (time 104)
+Deleting (at t1 c_17_23)
+Adding (at t1 c_18_23)
+
+Checking next happening (time 105)
+Deleting (at t1 c_18_23)
+Adding (at t1 c_19_23)
+
+Checking next happening (time 106)
+Deleting (at t1 c_19_23)
+Adding (at t1 c_20_23)
+
+Checking next happening (time 107)
+Deleting (at t1 c_20_23)
+Adding (at t1 c_21_23)
+
+Checking next happening (time 108)
+Deleting (at t1 c_21_23)
+Adding (at t1 c_22_23)
+
+Checking next happening (time 109)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_22_23)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 109 
+
+Successful plans:
+Value: 109
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260205_143227/delivery/optic_results/delivery_size27_packages1_seed27001.plan 109

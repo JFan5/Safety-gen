@@ -1,0 +1,51 @@
+\section{Related Work}\label{sec:related}
+This section introduces the related work on classical task planning, AI-based planners, and LLM-based planning.
+
+\subsection{Classical Task Planning}
+
+Classical task planning is a mature area in automated reasoning, with planners such as
+Fast Downward \cite{helmert2006fast}, Metric-FF \cite{hoffmann2001ff}, and OPTIC \cite{benton2012temporal},
+solving symbolic planning problems by heuristic search over PDDL models.
+Extensions including Hierarchical Task Networks (HTN) \cite{nau2005applications} and other model-based planners \cite{geffner2013concise} improve scalability through structural decomposition and domain-specific abstractions.
+
+Despite their success, classical planners exhibit several well-recognized limitations. They rely heavily on expert-designed domain models and heuristic functions \cite{geffner2013concise}, making the modeling pipeline labor-intensive and brittle to environmental variations \cite{ghallab2004automated}. Moreover, as search-based methods, their computational cost often scales poorly with problem size, leading to rapidly increasing planning time as task complexity grows \cite{benton2012temporal}. These constraints motivate the shift toward more flexible,
+data-driven planning paradigms.
+
+
+\subsection{Learning-based Planners}
+To address the rigidity of classical planners, a broad line of learning-driven
+approaches has emerged. Early work focuses on learning heuristics or search guidance
+from data \cite{yoon2008learning,shivashankar2015hierarchical}, enabling planners
+to approximate expert reasoning without relying on manually crafted heuristics.
+RL-based methods have also been explored to derive task policies from
+environment interaction. However, RL-based planners often suffer from poor scalability due
+to state and action space explosion, require extensive rollout-based data collection, and
+exhibit limited generalization to novel goals or task configurations~ \cite{shivadekar2025artificial}. Neuro-symbolic \cite{acharya2023neurosymbolic} and hybrid approaches \cite{lyu2022towards} have explored integrating symbolic reasoning with learned components , but often remain domain-specific and require substantial manual engineering.
+
+Overall, despite substantial progress, existing learning-based planners do not achieve
+the joint requirements of (i) strong generalization across tasks and domains and
+(ii) verifiable adherence to formal safety constraints—two properties that are essential
+for robotic deployment.
+
+
+\subsection{LLM-based Planning}
+Recent work has investigated LLMs as planners that directly
+generate or reason over plans for robotic and task planning.
+For embodied agents, LLMs have demonstrated strong few-shot planning capabilities by
+generating and updating plans grounded in environmental observations~\cite{song2023llm}.
+LLMs have also been explored as generalized planners that synthesize domain-level planning
+programs from a small number of training tasks, enabling efficient plan generation and
+within-domain generalization~\cite{silver2024generalized}. To improve plan feasibility and correctness, several methods incorporate external
+validation or refinement mechanisms.
+ISR-LLM adopts an iterative self-refinement process with validation feedback to enhance
+long-horizon planning performance~\cite{zhou2024isr}, while hybrid approaches combine LLM-based
+reasoning with classical heuristic search planners for long-horizon or multi-agent
+planning~\cite{zhang2025lamma}.
+Recent benchmark studies further indicate that LLM planning performance can be
+overestimated under simplistic settings, as introducing fine-grained constraints exposes
+robustness and safety limitations~\cite{huang2025language}.
+
+
+Overall, although recent LLM-based planners show promising planning performance, most approaches rely on frozen or lightly adapted models and external validation, and do not intrinsically learn safety-aware planning behavior or systematically generalize safety constraints across tasks and domains.
+
+

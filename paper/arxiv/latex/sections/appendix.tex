@@ -3,7 +3,7 @@
 \subsection{Training Configurations}\label{app:training-details}
 
 All models are fine-tuned on a single NVIDIA H100 GPU with 80~GB memory.
-Our implementation is based on Python~3.10 and PyTorch~2.8.0~\cite{paszke2019pytorch}, and uses the Hugging Face Transformers library~\cite{wolf-etal-2020-transformers}, TRL~\cite{vonwerra2022trl}, and Unsloth~\cite{unsloth}.
+Our implementation is based on Python~3.10 and PyTorch~2.8.0~\cite{paszke2019pytorch}, and uses the Hugging Face Transformers library~\cite{wolf2020transformers}, TRL~\cite{vonwerra2022trl}, and Unsloth~\cite{unsloth}.
 We adopt Low-Rank Adaptation (LoRA)~\cite{hu2022lora} and Quantized LoRA (QLoRA)~\cite{dettmers2023qlora} as parameter-efficient fine-tuning strategies to reduce memory usage and training time.
 Table~\ref{tab:hyperparameters} summarizes the key hyperparameters for both training stages.
 Tables~\ref{tab:reward-config} and~\ref{tab:curriculum-config} detail the reward function and curriculum learning settings used in GRPO training.

@@ -1,0 +1,435 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/grid_20260205_143735/grid/optic_results/grid_x6_y6_sh2_k4_l4_s6001.plan
+Plan to validate:
+
+Plan size: 58
+1:
+(move pos5-1 pos5-2)
+ 
+2:
+(move pos5-2 pos4-2)
+ 
+3:
+(move pos4-2 pos4-1)
+ 
+4:
+(move pos4-1 pos4-0)
+ 
+5:
+(move pos4-0 pos5-0)
+ 
+6:
+(pickup pos5-0 key0)
+ 
+7:
+(move pos5-0 pos4-0)
+ 
+8:
+(move pos4-0 pos4-1)
+ 
+9:
+(move pos4-1 pos4-2)
+ 
+10:
+(move pos4-2 pos4-3)
+ 
+11:
+(move pos4-3 pos5-3)
+ 
+12:
+(putdown pos5-3 key0)
+ 
+13:
+(move pos5-3 pos5-4)
+ 
+14:
+(pickup pos5-4 key2)
+ 
+15:
+(move pos5-4 pos5-3)
+ 
+16:
+(pickup-and-loose pos5-3 key0 key2)
+ 
+17:
+(move pos5-3 pos4-3)
+ 
+18:
+(move pos4-3 pos4-4)
+ 
+19:
+(move pos4-4 pos4-5)
+ 
+20:
+(putdown pos4-5 key0)
+ 
+21:
+(move pos4-5 pos4-4)
+ 
+22:
+(move pos4-4 pos4-3)
+ 
+23:
+(move pos4-3 pos4-2)
+ 
+24:
+(move pos4-2 pos3-2)
+ 
+25:
+(move pos3-2 pos2-2)
+ 
+26:
+(move pos2-2 pos1-2)
+ 
+27:
+(move pos1-2 pos1-1)
+ 
+28:
+(move pos1-1 pos1-0)
+ 
+29:
+(pickup pos1-0 key1)
+ 
+30:
+(move pos1-0 pos1-1)
+ 
+31:
+(move pos1-1 pos1-2)
+ 
+32:
+(move pos1-2 pos2-2)
+ 
+33:
+(move pos2-2 pos3-2)
+ 
+34:
+(move pos3-2 pos4-2)
+ 
+35:
+(move pos4-2 pos4-3)
+ 
+36:
+(move pos4-3 pos5-3)
+ 
+37:
+(pickup-and-loose pos5-3 key2 key1)
+ 
+38:
+(move pos5-3 pos4-3)
+ 
+39:
+(move pos4-3 pos4-2)
+ 
+40:
+(move pos4-2 pos3-2)
+ 
+41:
+(putdown pos3-2 key2)
+ 
+42:
+(move pos3-2 pos4-2)
+ 
+43:
+(move pos4-2 pos4-3)
+ 
+44:
+(pickup pos4-3 key3)
+ 
+45:
+(move pos4-3 pos4-2)
+ 
+46:
+(move pos4-2 pos3-2)
+ 
+47:
+(move pos3-2 pos2-2)
+ 
+48:
+(move pos2-2 pos1-2)
+ 
+49:
+(move pos1-2 pos1-1)
+ 
+50:
+(putdown pos1-1 key3)
+ 
+51:
+(move pos1-1 pos1-2)
+ 
+52:
+(move pos1-2 pos2-2)
+ 
+53:
+(move pos2-2 pos3-2)
+ 
+54:
+(pickup pos3-2 key2)
+ 
+55:
+(move pos3-2 pos2-2)
+ 
+56:
+(move pos2-2 pos1-2)
+ 
+57:
+(move pos1-2 pos0-2)
+ 
+58:
+(putdown pos0-2 key2)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at-robot pos5-1)
+Adding (at-robot pos5-2)
+
+Checking next happening (time 2)
+Deleting (at-robot pos5-2)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 3)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos4-1)
+
+Checking next happening (time 4)
+Deleting (at-robot pos4-1)
+Adding (at-robot pos4-0)
+
+Checking next happening (time 5)
+Deleting (at-robot pos4-0)
+Adding (at-robot pos5-0)
+
+Checking next happening (time 6)
+Deleting (at key0 pos5-0)
+Deleting (arm-empty)
+Adding (holding key0)
+
+Checking next happening (time 7)
+Deleting (at-robot pos5-0)
+Adding (at-robot pos4-0)
+
+Checking next happening (time 8)
+Deleting (at-robot pos4-0)
+Adding (at-robot pos4-1)
+
+Checking next happening (time 9)
+Deleting (at-robot pos4-1)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 10)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos4-3)
+
+Checking next happening (time 11)
+Deleting (at-robot pos4-3)
+Adding (at-robot pos5-3)
+
+Checking next happening (time 12)
+Deleting (holding key0)
+Adding (arm-empty)
+Adding (at key0 pos5-3)
+
+Checking next happening (time 13)
+Deleting (at-robot pos5-3)
+Adding (at-robot pos5-4)
+
+Checking next happening (time 14)
+Deleting (at key2 pos5-4)
+Deleting (arm-empty)
+Adding (holding key2)
+
+Checking next happening (time 15)
+Deleting (at-robot pos5-4)
+Adding (at-robot pos5-3)
+
+Checking next happening (time 16)
+Deleting (holding key2)
+Deleting (at key0 pos5-3)
+Adding (holding key0)
+Adding (at key2 pos5-3)
+
+Checking next happening (time 17)
+Deleting (at-robot pos5-3)
+Adding (at-robot pos4-3)
+
+Checking next happening (time 18)
+Deleting (at-robot pos4-3)
+Adding (at-robot pos4-4)
+
+Checking next happening (time 19)
+Deleting (at-robot pos4-4)
+Adding (at-robot pos4-5)
+
+Checking next happening (time 20)
+Deleting (holding key0)
+Adding (arm-empty)
+Adding (at key0 pos4-5)
+
+Checking next happening (time 21)
+Deleting (at-robot pos4-5)
+Adding (at-robot pos4-4)
+
+Checking next happening (time 22)
+Deleting (at-robot pos4-4)
+Adding (at-robot pos4-3)
+
+Checking next happening (time 23)
+Deleting (at-robot pos4-3)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 24)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos3-2)
+
+Checking next happening (time 25)
+Deleting (at-robot pos3-2)
+Adding (at-robot pos2-2)
+
+Checking next happening (time 26)
+Deleting (at-robot pos2-2)
+Adding (at-robot pos1-2)
+
+Checking next happening (time 27)
+Deleting (at-robot pos1-2)
+Adding (at-robot pos1-1)
+
+Checking next happening (time 28)
+Deleting (at-robot pos1-1)
+Adding (at-robot pos1-0)
+
+Checking next happening (time 29)
+Deleting (at key1 pos1-0)
+Deleting (arm-empty)
+Adding (holding key1)
+
+Checking next happening (time 30)
+Deleting (at-robot pos1-0)
+Adding (at-robot pos1-1)
+
+Checking next happening (time 31)
+Deleting (at-robot pos1-1)
+Adding (at-robot pos1-2)
+
+Checking next happening (time 32)
+Deleting (at-robot pos1-2)
+Adding (at-robot pos2-2)
+
+Checking next happening (time 33)
+Deleting (at-robot pos2-2)
+Adding (at-robot pos3-2)
+
+Checking next happening (time 34)
+Deleting (at-robot pos3-2)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 35)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos4-3)
+
+Checking next happening (time 36)
+Deleting (at-robot pos4-3)
+Adding (at-robot pos5-3)
+
+Checking next happening (time 37)
+Deleting (holding key1)
+Deleting (at key2 pos5-3)
+Adding (holding key2)
+Adding (at key1 pos5-3)
+
+Checking next happening (time 38)
+Deleting (at-robot pos5-3)
+Adding (at-robot pos4-3)
+
+Checking next happening (time 39)
+Deleting (at-robot pos4-3)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 40)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos3-2)
+
+Checking next happening (time 41)
+Deleting (holding key2)
+Adding (arm-empty)
+Adding (at key2 pos3-2)
+
+Checking next happening (time 42)
+Deleting (at-robot pos3-2)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 43)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos4-3)
+
+Checking next happening (time 44)
+Deleting (at key3 pos4-3)
+Deleting (arm-empty)
+Adding (holding key3)
+
+Checking next happening (time 45)
+Deleting (at-robot pos4-3)
+Adding (at-robot pos4-2)
+
+Checking next happening (time 46)
+Deleting (at-robot pos4-2)
+Adding (at-robot pos3-2)
+
+Checking next happening (time 47)
+Deleting (at-robot pos3-2)
+Adding (at-robot pos2-2)
+
+Checking next happening (time 48)
+Deleting (at-robot pos2-2)
+Adding (at-robot pos1-2)
+
+Checking next happening (time 49)
+Deleting (at-robot pos1-2)
+Adding (at-robot pos1-1)
+
+Checking next happening (time 50)
+Deleting (holding key3)
+Adding (arm-empty)
+Adding (at key3 pos1-1)
+
+Checking next happening (time 51)
+Deleting (at-robot pos1-1)
+Adding (at-robot pos1-2)
+
+Checking next happening (time 52)
+Deleting (at-robot pos1-2)
+Adding (at-robot pos2-2)
+
+Checking next happening (time 53)
+Deleting (at-robot pos2-2)
+Adding (at-robot pos3-2)
+
+Checking next happening (time 54)
+Deleting (at key2 pos3-2)
+Deleting (arm-empty)
+Adding (holding key2)
+
+Checking next happening (time 55)
+Deleting (at-robot pos3-2)
+Adding (at-robot pos2-2)
+
+Checking next happening (time 56)
+Deleting (at-robot pos2-2)
+Adding (at-robot pos1-2)
+
+Checking next happening (time 57)
+Deleting (at-robot pos1-2)
+Adding (at-robot pos0-2)
+
+Checking next happening (time 58)
+Deleting (holding key2)
+Adding (arm-empty)
+Adding (at key2 pos0-2)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 58 
+
+Successful plans:
+Value: 58
+ /home/jfan5/Safety-gen/runs/benchmark/optic/grid_20260205_143735/grid/optic_results/grid_x6_y6_sh2_k4_l4_s6001.plan 58

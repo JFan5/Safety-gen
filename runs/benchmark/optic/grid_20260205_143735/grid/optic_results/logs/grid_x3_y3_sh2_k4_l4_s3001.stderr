@@ -1,0 +1,260 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/grid_20260205_143735/grid/optic_results/grid_x3_y3_sh2_k4_l4_s3001.plan
+Plan to validate:
+
+Plan size: 33
+1:
+(pickup pos1-0 key2)
+ 
+2:
+(move pos1-0 pos0-0)
+ 
+3:
+(unlock pos0-0 pos0-1 key2 shape1)
+ 
+4:
+(move pos0-0 pos1-0)
+ 
+5:
+(pickup-and-loose pos1-0 key1 key2)
+ 
+6:
+(move pos1-0 pos0-0)
+ 
+7:
+(move pos0-0 pos0-1)
+ 
+8:
+(unlock pos0-1 pos0-2 key1 shape1)
+ 
+9:
+(move pos0-1 pos0-0)
+ 
+10:
+(pickup-and-loose pos0-0 key0 key1)
+ 
+11:
+(move pos0-0 pos0-1)
+ 
+12:
+(putdown pos0-1 key0)
+ 
+13:
+(move pos0-1 pos0-0)
+ 
+14:
+(pickup pos0-0 key3)
+ 
+15:
+(move pos0-0 pos1-0)
+ 
+16:
+(move pos1-0 pos2-0)
+ 
+17:
+(unlock pos2-0 pos2-1 key3 shape1)
+ 
+18:
+(putdown pos2-0 key3)
+ 
+19:
+(move pos2-0 pos1-0)
+ 
+20:
+(pickup pos1-0 key2)
+ 
+21:
+(move pos1-0 pos0-0)
+ 
+22:
+(pickup-and-loose pos0-0 key1 key2)
+ 
+23:
+(move pos0-0 pos0-1)
+ 
+24:
+(move pos0-1 pos0-2)
+ 
+25:
+(putdown pos0-2 key1)
+ 
+26:
+(move pos0-2 pos0-1)
+ 
+27:
+(move pos0-1 pos0-0)
+ 
+28:
+(pickup pos0-0 key2)
+ 
+29:
+(move pos0-0 pos0-1)
+ 
+30:
+(move pos0-1 pos0-2)
+ 
+31:
+(move pos0-2 pos1-2)
+ 
+32:
+(move pos1-2 pos2-2)
+ 
+33:
+(putdown pos2-2 key2)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at key2 pos1-0)
+Deleting (arm-empty)
+Adding (holding key2)
+
+Checking next happening (time 2)
+Deleting (at-robot pos1-0)
+Adding (at-robot pos0-0)
+
+Checking next happening (time 3)
+Deleting (locked pos0-1)
+Adding (open pos0-1)
+
+Checking next happening (time 4)
+Deleting (at-robot pos0-0)
+Adding (at-robot pos1-0)
+
+Checking next happening (time 5)
+Deleting (holding key2)
+Deleting (at key1 pos1-0)
+Adding (holding key1)
+Adding (at key2 pos1-0)
+
+Checking next happening (time 6)
+Deleting (at-robot pos1-0)
+Adding (at-robot pos0-0)
+
+Checking next happening (time 7)
+Deleting (at-robot pos0-0)
+Adding (at-robot pos0-1)
+
+Checking next happening (time 8)
+Deleting (locked pos0-2)
+Adding (open pos0-2)
+
+Checking next happening (time 9)
+Deleting (at-robot pos0-1)
+Adding (at-robot pos0-0)
+
+Checking next happening (time 10)
+Deleting (holding key1)
+Deleting (at key0 pos0-0)
+Adding (holding key0)
+Adding (at key1 pos0-0)
+
+Checking next happening (time 11)
+Deleting (at-robot pos0-0)
+Adding (at-robot pos0-1)
+
+Checking next happening (time 12)
+Deleting (holding key0)
+Adding (arm-empty)
+Adding (at key0 pos0-1)
+
+Checking next happening (time 13)
+Deleting (at-robot pos0-1)
+Adding (at-robot pos0-0)
+
+Checking next happening (time 14)
+Deleting (at key3 pos0-0)
+Deleting (arm-empty)
+Adding (holding key3)
+
+Checking next happening (time 15)
+Deleting (at-robot pos0-0)
+Adding (at-robot pos1-0)
+
+Checking next happening (time 16)
+Deleting (at-robot pos1-0)
+Adding (at-robot pos2-0)
+
+Checking next happening (time 17)
+Deleting (locked pos2-1)
+Adding (open pos2-1)
+
+Checking next happening (time 18)
+Deleting (holding key3)
+Adding (arm-empty)
+Adding (at key3 pos2-0)
+
+Checking next happening (time 19)
+Deleting (at-robot pos2-0)
+Adding (at-robot pos1-0)
+
+Checking next happening (time 20)
+Deleting (at key2 pos1-0)
+Deleting (arm-empty)
+Adding (holding key2)
+
+Checking next happening (time 21)
+Deleting (at-robot pos1-0)
+Adding (at-robot pos0-0)
+
+Checking next happening (time 22)
+Deleting (holding key2)
+Deleting (at key1 pos0-0)
+Adding (holding key1)
+Adding (at key2 pos0-0)
+
+Checking next happening (time 23)
+Deleting (at-robot pos0-0)
+Adding (at-robot pos0-1)
+
+Checking next happening (time 24)
+Deleting (at-robot pos0-1)
+Adding (at-robot pos0-2)
+
+Checking next happening (time 25)
+Deleting (holding key1)
+Adding (arm-empty)
+Adding (at key1 pos0-2)
+
+Checking next happening (time 26)
+Deleting (at-robot pos0-2)
+Adding (at-robot pos0-1)
+
+Checking next happening (time 27)
+Deleting (at-robot pos0-1)
+Adding (at-robot pos0-0)
+
+Checking next happening (time 28)
+Deleting (at key2 pos0-0)
+Deleting (arm-empty)
+Adding (holding key2)
+
+Checking next happening (time 29)
+Deleting (at-robot pos0-0)
+Adding (at-robot pos0-1)
+
+Checking next happening (time 30)
+Deleting (at-robot pos0-1)
+Adding (at-robot pos0-2)
+
+Checking next happening (time 31)
+Deleting (at-robot pos0-2)
+Adding (at-robot pos1-2)
+
+Checking next happening (time 32)
+Deleting (at-robot pos1-2)
+Adding (at-robot pos2-2)
+
+Checking next happening (time 33)
+Deleting (holding key2)
+Adding (arm-empty)
+Adding (at key2 pos2-2)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 33 
+
+Successful plans:
+Value: 33
+ /home/jfan5/Safety-gen/runs/benchmark/optic/grid_20260205_143735/grid/optic_results/grid_x3_y3_sh2_k4_l4_s3001.plan 33

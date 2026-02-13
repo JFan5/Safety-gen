@@ -1,7 +1,7 @@
 
 
 
-\section{Safe-Gen LLM}\label{IV}
+\section{SafeGen-LLM}\label{IV}
 
 Our framework consists of three stages: dataset construction (Section~\ref{subsec:dataset}), SFT (Section~\ref{subsec:sft}), and online RL via GRPO (Section~\ref{subsec:grpo}).
 
@@ -11,7 +11,7 @@ We construct a unified safety-oriented dataset that is used for both SFT and as 
 The construction process involves three steps: domain selection and safety knowledge design, constrained problem generation and solving, and instruction--response formatting.
 
 \noindent\textbf{Domain-specific safety knowledge design.}
-We start by selecting four task-planning domains from the open-source PDDL2 problem generators~\cite{seipp-et-al-zenodo2022}.
+We start by selecting four task-planning domains from the open-source PDDL2 problem generators~\cite{seipp2022pddl}.
 The domains are chosen using the following criteria:
 \begin{itemize}
   \item relevance to real-world robotic task planning;
@@ -171,6 +171,7 @@ where $t_v$ is the plan step at which the first violation occurs, $L_{\text{ref}
 \noindent\textbf{Design rationale.}
 Three principles guide the reward design.
 \emph{First}, the strict separation (Eq.~\ref{eq:separation}) encodes a severity hierarchy (safety $>$ precondition $>$ goal), ensuring that the model learns to prioritize constraint compliance over goal achievement.
+We rank safety violations as most severe because they correspond to explicitly specified domain-level invariants; precondition violations indicate local action misuse but do not necessarily imply unsafe states.
 \emph{Second}, the progress-based interpolation (Eq.~\ref{eq:reward}) provides dense gradient signals within each failure category, encouraging the model to generate progressively longer valid prefixes rather than receiving a single uninformative penalty.
 \emph{Third}, the denominator $L_{\text{ref}}$ in Eq.~\ref{eq:progress} uses the reference solution length rather than the length of the generated plan.
 This reference-anchored normalization prevents \textbf{reward hacking}: without it, a model could inflate its progress ratio by generating shorter (and likely incorrect) plans.

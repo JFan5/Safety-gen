@@ -1,0 +1,533 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260205_141548/ferry/optic_results/ferry-l27-c14-s27001.plan
+Plan to validate:
+
+Plan size: 70
+1:
+(sail l13 l9)
+ 
+2:
+(sail l9 l8)
+ 
+3:
+(board c9 l8)
+ 
+4:
+(sail l8 l15)
+ 
+5:
+(debark c9 l15)
+ 
+6:
+(sail l15 l8)
+ 
+7:
+(board c8 l8)
+ 
+8:
+(sail l8 l22)
+ 
+9:
+(debark c8 l22)
+ 
+10:
+(board c13 l22)
+ 
+11:
+(sail l22 l9)
+ 
+12:
+(sail l9 l15)
+ 
+13:
+(debark c13 l15)
+ 
+14:
+(sail l15 l9)
+ 
+15:
+(sail l9 l8)
+ 
+16:
+(board c6 l8)
+ 
+17:
+(sail l8 l3)
+ 
+18:
+(debark c6 l3)
+ 
+19:
+(sail l3 l9)
+ 
+20:
+(sail l9 l8)
+ 
+21:
+(board c3 l8)
+ 
+22:
+(sail l8 l9)
+ 
+23:
+(sail l9 l25)
+ 
+24:
+(debark c3 l25)
+ 
+25:
+(board c5 l25)
+ 
+26:
+(sail l25 l9)
+ 
+27:
+(sail l9 l1)
+ 
+28:
+(debark c5 l1)
+ 
+29:
+(board c4 l1)
+ 
+30:
+(sail l1 l9)
+ 
+31:
+(sail l9 l4)
+ 
+32:
+(debark c4 l4)
+ 
+33:
+(sail l4 l9)
+ 
+34:
+(sail l9 l7)
+ 
+35:
+(board c12 l7)
+ 
+36:
+(sail l7 l9)
+ 
+37:
+(sail l9 l19)
+ 
+38:
+(debark c12 l19)
+ 
+39:
+(board c1 l19)
+ 
+40:
+(sail l19 l9)
+ 
+41:
+(sail l9 l26)
+ 
+42:
+(debark c1 l26)
+ 
+43:
+(sail l26 l9)
+ 
+44:
+(sail l9 l5)
+ 
+45:
+(board c11 l5)
+ 
+46:
+(sail l5 l9)
+ 
+47:
+(sail l9 l11)
+ 
+48:
+(debark c11 l11)
+ 
+49:
+(sail l11 l9)
+ 
+50:
+(sail l9 l2)
+ 
+51:
+(board c2 l2)
+ 
+52:
+(sail l2 l9)
+ 
+53:
+(sail l9 l12)
+ 
+54:
+(debark c2 l12)
+ 
+55:
+(sail l12 l9)
+ 
+56:
+(sail l9 l18)
+ 
+57:
+(board c7 l18)
+ 
+58:
+(sail l18 l9)
+ 
+59:
+(debark c7 l9)
+ 
+60:
+(sail l9 l6)
+ 
+61:
+(sail l6 l18)
+ 
+62:
+(board c0 l18)
+ 
+63:
+(sail l18 l6)
+ 
+64:
+(sail l6 l20)
+ 
+65:
+(debark c0 l20)
+ 
+66:
+(sail l20 l6)
+ 
+67:
+(sail l6 l16)
+ 
+68:
+(board c10 l16)
+ 
+69:
+(sail l16 l6)
+ 
+70:
+(debark c10 l6)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at-ferry l13)
+Adding (at-ferry l9)
+
+Checking next happening (time 2)
+Deleting (at-ferry l9)
+Adding (at-ferry l8)
+
+Checking next happening (time 3)
+Deleting (at c9 l8)
+Deleting (empty-ferry)
+Adding (on c9)
+
+Checking next happening (time 4)
+Deleting (at-ferry l8)
+Adding (at-ferry l15)
+
+Checking next happening (time 5)
+Deleting (on c9)
+Adding (at c9 l15)
+Adding (empty-ferry)
+
+Checking next happening (time 6)
+Deleting (at-ferry l15)
+Adding (at-ferry l8)
+
+Checking next happening (time 7)
+Deleting (at c8 l8)
+Deleting (empty-ferry)
+Adding (on c8)
+
+Checking next happening (time 8)
+Deleting (at-ferry l8)
+Adding (at-ferry l22)
+
+Checking next happening (time 9)
+Deleting (on c8)
+Adding (at c8 l22)
+Adding (empty-ferry)
+
+Checking next happening (time 10)
+Deleting (at c13 l22)
+Deleting (empty-ferry)
+Adding (on c13)
+
+Checking next happening (time 11)
+Deleting (at-ferry l22)
+Adding (at-ferry l9)
+
+Checking next happening (time 12)
+Deleting (at-ferry l9)
+Adding (at-ferry l15)
+
+Checking next happening (time 13)
+Deleting (on c13)
+Adding (at c13 l15)
+Adding (empty-ferry)
+
+Checking next happening (time 14)
+Deleting (at-ferry l15)
+Adding (at-ferry l9)
+
+Checking next happening (time 15)
+Deleting (at-ferry l9)
+Adding (at-ferry l8)
+
+Checking next happening (time 16)
+Deleting (at c6 l8)
+Deleting (empty-ferry)
+Adding (on c6)
+
+Checking next happening (time 17)
+Deleting (at-ferry l8)
+Adding (at-ferry l3)
+
+Checking next happening (time 18)
+Deleting (on c6)
+Adding (at c6 l3)
+Adding (empty-ferry)
+
+Checking next happening (time 19)
+Deleting (at-ferry l3)
+Adding (at-ferry l9)
+
+Checking next happening (time 20)
+Deleting (at-ferry l9)
+Adding (at-ferry l8)
+
+Checking next happening (time 21)
+Deleting (at c3 l8)
+Deleting (empty-ferry)
+Adding (on c3)
+
+Checking next happening (time 22)
+Deleting (at-ferry l8)
+Adding (at-ferry l9)
+
+Checking next happening (time 23)
+Deleting (at-ferry l9)
+Adding (at-ferry l25)
+
+Checking next happening (time 24)
+Deleting (on c3)
+Adding (at c3 l25)
+Adding (empty-ferry)
+
+Checking next happening (time 25)
+Deleting (at c5 l25)
+Deleting (empty-ferry)
+Adding (on c5)
+
+Checking next happening (time 26)
+Deleting (at-ferry l25)
+Adding (at-ferry l9)
+
+Checking next happening (time 27)
+Deleting (at-ferry l9)
+Adding (at-ferry l1)
+
+Checking next happening (time 28)
+Deleting (on c5)
+Adding (at c5 l1)
+Adding (empty-ferry)
+
+Checking next happening (time 29)
+Deleting (at c4 l1)
+Deleting (empty-ferry)
+Adding (on c4)
+
+Checking next happening (time 30)
+Deleting (at-ferry l1)
+Adding (at-ferry l9)
+
+Checking next happening (time 31)
+Deleting (at-ferry l9)
+Adding (at-ferry l4)
+
+Checking next happening (time 32)
+Deleting (on c4)
+Adding (at c4 l4)
+Adding (empty-ferry)
+
+Checking next happening (time 33)
+Deleting (at-ferry l4)
+Adding (at-ferry l9)
+
+Checking next happening (time 34)
+Deleting (at-ferry l9)
+Adding (at-ferry l7)
+
+Checking next happening (time 35)
+Deleting (at c12 l7)
+Deleting (empty-ferry)
+Adding (on c12)
+
+Checking next happening (time 36)
+Deleting (at-ferry l7)
+Adding (at-ferry l9)
+
+Checking next happening (time 37)
+Deleting (at-ferry l9)
+Adding (at-ferry l19)
+
+Checking next happening (time 38)
+Deleting (on c12)
+Adding (at c12 l19)
+Adding (empty-ferry)
+
+Checking next happening (time 39)
+Deleting (at c1 l19)
+Deleting (empty-ferry)
+Adding (on c1)
+
+Checking next happening (time 40)
+Deleting (at-ferry l19)
+Adding (at-ferry l9)
+
+Checking next happening (time 41)
+Deleting (at-ferry l9)
+Adding (at-ferry l26)
+
+Checking next happening (time 42)
+Deleting (on c1)
+Adding (at c1 l26)
+Adding (empty-ferry)
+
+Checking next happening (time 43)
+Deleting (at-ferry l26)
+Adding (at-ferry l9)
+
+Checking next happening (time 44)
+Deleting (at-ferry l9)
+Adding (at-ferry l5)
+
+Checking next happening (time 45)
+Deleting (at c11 l5)
+Deleting (empty-ferry)
+Adding (on c11)
+
+Checking next happening (time 46)
+Deleting (at-ferry l5)
+Adding (at-ferry l9)
+
+Checking next happening (time 47)
+Deleting (at-ferry l9)
+Adding (at-ferry l11)
+
+Checking next happening (time 48)
+Deleting (on c11)
+Adding (at c11 l11)
+Adding (empty-ferry)
+
+Checking next happening (time 49)
+Deleting (at-ferry l11)
+Adding (at-ferry l9)
+
+Checking next happening (time 50)
+Deleting (at-ferry l9)
+Adding (at-ferry l2)
+
+Checking next happening (time 51)
+Deleting (at c2 l2)
+Deleting (empty-ferry)
+Adding (on c2)
+
+Checking next happening (time 52)
+Deleting (at-ferry l2)
+Adding (at-ferry l9)
+
+Checking next happening (time 53)
+Deleting (at-ferry l9)
+Adding (at-ferry l12)
+
+Checking next happening (time 54)
+Deleting (on c2)
+Adding (at c2 l12)
+Adding (empty-ferry)
+
+Checking next happening (time 55)
+Deleting (at-ferry l12)
+Adding (at-ferry l9)
+
+Checking next happening (time 56)
+Deleting (at-ferry l9)
+Adding (at-ferry l18)
+
+Checking next happening (time 57)
+Deleting (at c7 l18)
+Deleting (empty-ferry)
+Adding (on c7)
+
+Checking next happening (time 58)
+Deleting (at-ferry l18)
+Adding (at-ferry l9)
+
+Checking next happening (time 59)
+Deleting (on c7)
+Adding (at c7 l9)
+Adding (empty-ferry)
+
+Checking next happening (time 60)
+Deleting (at-ferry l9)
+Adding (at-ferry l6)
+
+Checking next happening (time 61)
+Deleting (at-ferry l6)
+Adding (at-ferry l18)
+
+Checking next happening (time 62)
+Deleting (at c0 l18)
+Deleting (empty-ferry)
+Adding (on c0)
+
+Checking next happening (time 63)
+Deleting (at-ferry l18)
+Adding (at-ferry l6)
+
+Checking next happening (time 64)
+Deleting (at-ferry l6)
+Adding (at-ferry l20)
+
+Checking next happening (time 65)
+Deleting (on c0)
+Adding (at c0 l20)
+Adding (empty-ferry)
+
+Checking next happening (time 66)
+Deleting (at-ferry l20)
+Adding (at-ferry l6)
+
+Checking next happening (time 67)
+Deleting (at-ferry l6)
+Adding (at-ferry l16)
+
+Checking next happening (time 68)
+Deleting (at c10 l16)
+Deleting (empty-ferry)
+Adding (on c10)
+
+Checking next happening (time 69)
+Deleting (at-ferry l16)
+Adding (at-ferry l6)
+
+Checking next happening (time 70)
+Deleting (on c10)
+Adding (at c10 l6)
+Adding (empty-ferry)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 70 
+
+Successful plans:
+Value: 70
+ /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260205_141548/ferry/optic_results/ferry-l27-c14-s27001.plan 70

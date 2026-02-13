@@ -206,10 +206,11 @@ def load_solved_from_summary(
                 plan_path_str = optic_data.get("plan_path")
                 log_path_str = optic_data.get("log_path")
                 notes = optic_data.get("notes", "")
-                
+                validation_stdout = optic_data.get("validation_stdout", "")
+
                 plan_path = workspace_str_to_path(plan_path_str) if plan_path_str else None
                 log_path = workspace_str_to_path(log_path_str) if log_path_str else None
-                
+
                 outcome = SolverOutcome(
                     status=status,
                     validation=validation,
@@ -217,6 +218,7 @@ def load_solved_from_summary(
                     plan_path=plan_path,
                     log_path=log_path,
                     notes=notes,
+                    validation_stdout=validation_stdout,
                 )
                 
                 results[(scenario_name, problem_name)] = outcome
@@ -276,6 +278,7 @@ def run_optic_on_problem(
     validation = ""
     notes = ""
     final_plan_path = plan_path
+    val_stdout_text = ""
 
     if status == "solved":
         # Convert OPTIC temporal format to STRIPS format for VAL validation
@@ -289,28 +292,31 @@ def run_optic_on_problem(
                 final_plan_path = invalid_plan
         else:
             val_proc = subprocess.run(
-                [str(VALIDATOR), str(domain), str(problem), str(plan_path)],
+                [str(VALIDATOR), "-v", str(domain), str(problem), str(plan_path)],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
                 check=False,
             )
+            val_stdout_text = to_text(val_proc.stdout).strip()
+            val_stderr_text = to_text(val_proc.stderr).strip()
+
+            # Always write validation output to log
+            with log_path.open("a", encoding="utf-8") as fh:
+                if val_stdout_text:
+                    fh.write("[VALIDATOR STDOUT]\n" + val_stdout_text + "\n")
+                if val_stderr_text:
+                    fh.write("[VALIDATOR STDERR]\n" + val_stderr_text + "\n")
+
             if val_proc.returncode == 0:
                 validation = "valid"
             else:
                 validation = "invalid"
                 status = "invalid"
-                notes = "[VALIDATOR]\n" + (to_text(val_proc.stderr).strip() or to_text(val_proc.stdout).strip())
+                notes = "[VALIDATOR]\n" + (val_stderr_text or val_stdout_text)
                 invalid_plan = plan_path.with_suffix(".plan.invalid")
                 plan_path.rename(invalid_plan)
                 final_plan_path = invalid_plan
-                with log_path.open("a", encoding="utf-8") as fh:
-                    val_stdout = to_text(val_proc.stdout).strip()
-                    val_stderr = to_text(val_proc.stderr).strip()
-                    if val_stdout:
-                        fh.write("[VALIDATOR STDOUT]\n" + val_stdout + "\n")
-                    if val_stderr:
-                        fh.write("[VALIDATOR STDERR]\n" + val_stderr + "\n")
 
     return SolverOutcome(
         status=status,
@@ -319,6 +325,7 @@ def run_optic_on_problem(
         plan_path=final_plan_path if final_plan_path.exists() else None,
         log_path=log_path if log_path.exists() else None,
         notes=notes,
+        validation_stdout=val_stdout_text,
     )
 
 
@@ -384,6 +391,7 @@ def _solve_single_problem_worker(args_tuple: Tuple[str, str, str, str, str, str,
     validation = ""
     notes = ""
     final_plan_path = plan_path
+    val_stdout_text = ""
 
     if status == "solved":
         # Convert OPTIC temporal format to STRIPS format for VAL validation
@@ -427,29 +435,32 @@ def _solve_single_problem_worker(args_tuple: Tuple[str, str, str, str, str, str,
                 final_plan_path = invalid_plan
         else:
             val_proc = subprocess.run(
-                [str(VALIDATOR), str(domain), str(problem), str(plan_path)],
+                [str(VALIDATOR), "-v", str(domain), str(problem), str(plan_path)],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
                 check=False,
             )
+            val_stdout_text = to_text(val_proc.stdout).strip()
+            val_stderr_text = to_text(val_proc.stderr).strip()
+
+            # Always write validation output to log
+            with log_path.open("a", encoding="utf-8") as fh:
+                if val_stdout_text:
+                    fh.write("[VALIDATOR STDOUT]\n" + val_stdout_text + "\n")
+                if val_stderr_text:
+                    fh.write("[VALIDATOR STDERR]\n" + val_stderr_text + "\n")
+
             if val_proc.returncode == 0:
                 validation = "valid"
             else:
                 validation = "invalid"
                 status = "invalid"
-                notes = "[VALIDATOR]\n" + (to_text(val_proc.stderr).strip() or to_text(val_proc.stdout).strip())
+                notes = "[VALIDATOR]\n" + (val_stderr_text or val_stdout_text)
                 invalid_plan = plan_path.with_suffix(".plan.invalid")
                 plan_path.rename(invalid_plan)
                 final_plan_path = invalid_plan
-            with log_path.open("a", encoding="utf-8") as fh:
-                val_stdout = to_text(val_proc.stdout).strip()
-                val_stderr = to_text(val_proc.stderr).strip()
-                if val_stdout:
-                    fh.write("[VALIDATOR STDOUT]\n" + val_stdout + "\n")
-                if val_stderr:
-                    fh.write("[VALIDATOR STDERR]\n" + val_stderr + "\n")
-    
+
     # Return serializable data
     outcome_dict = {
         "status": status,
@@ -458,6 +469,7 @@ def _solve_single_problem_worker(args_tuple: Tuple[str, str, str, str, str, str,
         "plan_path": str(final_plan_path) if final_plan_path.exists() else None,
         "log_path": str(log_path) if log_path.exists() else None,
         "notes": notes,
+        "validation_stdout": val_stdout_text,
     }
     
     return (scenario, problem_name, outcome_dict)
@@ -648,6 +660,7 @@ def solve_with_optic(
                             plan_path=Path(outcome_dict["plan_path"]) if outcome_dict["plan_path"] else None,
                             log_path=Path(outcome_dict["log_path"]) if outcome_dict["log_path"] else None,
                             notes=outcome_dict["notes"],
+                            validation_stdout=outcome_dict.get("validation_stdout", ""),
                         )
                         
                         scenario_results[key] = outcome
