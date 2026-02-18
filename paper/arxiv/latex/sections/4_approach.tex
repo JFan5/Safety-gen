@@ -148,11 +148,11 @@ For each generated plan, the validation pipeline classifies it into one of five 
 \noindent\textbf{Hierarchical reward with progress-based interpolation.}
 We assign each category $c_k$ a reward interval $[r_k^{-}, r_k^{+}]$ satisfying the \emph{strict separation} constraint:
 \begin{equation}\label{eq:separation}
-  r_1^{+} \;\leq\; r_2^{-} \;<\; r_2^{+} \;\leq\; r_3^{-} \;<\; r_3^{+} \;\leq\; r_4^{-} \;<\; r_4^{+} \;<\; r_5^{-} = r_5^{+},
+  r_1 \;\leq\; r_2^{-} \;<\; r_2^{+} \;\leq\; r_3^{-} \;<\; r_3^{+} \;\leq\; r_4^{-} \;<\; r_4^{+} \;\leq\; r_5,
 \end{equation}
 which guarantees that any plan in a more severe failure category always receives a lower reward than any plan in a less severe category, regardless of within-category progress.
 
-For the two anchor categories, the reward is fixed: $r(x,y) = r_5^{+}$ for success and $r(x,y) = r_1^{-}$ for format errors.
+For the two anchor categories, the reward is fixed: $r(x,y) = r_5$ for success and $r(x,y) = r_1$ for format errors.
 For intermediate failure categories $c_k$ ($k \in \{2,3,4\}$), we interpolate using a \emph{progress function} $\rho_k(x, y) \in [0, 1]$:
 \begin{equation}\label{eq:reward}
   r(x, y) = r_k^{-} + (r_k^{+} - r_k^{-}) \cdot \rho_k(x, y).

@@ -16,7 +16,9 @@ Recently, large language models (LLMs) have emerged as powerful general-purpose 
 % current llm planenr's limitation
 However, base models without post-training exhibit critical deficiencies: they show low planning success rates and cannot guarantee safety. Without domain-specific safety knowledge and alignment with safety-critical decision preferences, LLMs may produce plans that are semantically incorrect, action-infeasible, or violate safety constraints, potentially leading to hazardous behaviors in real-world deployments.
 
-To address these challenges, we propose \emph{SafeGen-LLM}, a post-training framework that enables Large Language Models to perform safety-aware task planning in robotic systems by incorporating verifiable safety knowledge into the training process. As illustrated in Figure~\ref{fig:safe-gen-llm}, the framework consists of three key components:
+These limitations raise a fundamental question: how can we systematically align LLMs to generate verifiably safe task plans with strong \emph{safety generalization} across domains?
+
+To address these challenges, we propose \emph{SafeGen-LLM} (Safety-Generalizable LLM), a post-training framework that, a post-training framework that enables Large Language Models to perform safety-aware task planning in robotic systems by incorporating verifiable safety knowledge into the training process. As illustrated in Figure~\ref{fig:safe-gen-llm}, the framework consists of three key components:
 \begin{enumerate}
     \item \textbf{Safety-aware planning dataset construction}: We introduce a planning dataset that incorporates explicit safety constraints, enabling systematic training and evaluation of safety-aware planning models.
     \item \textbf{Stage I: Supervised Fine-Tuning (SFT)}: Built upon the proposed dataset, we apply SFT to enable the model to learn planning grammar and semantics.

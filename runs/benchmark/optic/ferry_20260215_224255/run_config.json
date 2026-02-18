@@ -1,0 +1,15 @@
+{
+  "command": "script/run_benchmark.py --solver optic --domain all --time-limit 300",
+  "timestamp": "2026-02-15T22:42:55.196057",
+  "solver_type": "optic",
+  "model": "optic",
+  "domain": "ferry",
+  "parameters": {
+    "domain": "ferry",
+    "domain_file": "/home/jfan5/Safety-gen/pddl3/ferry/domain3.pddl",
+    "problems_dir": "/home/jfan5/Safety-gen/benchmark_problems/ferry",
+    "selected_problems_count": 48,
+    "time_limit": 300.0,
+    "max_problems": 0
+  }
+}

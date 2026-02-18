@@ -1,0 +1,2570 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size44_packages1_seed44001.plan
+Plan to validate:
+
+Plan size: 349
+1:
+(move t1 c_18_20 c_17_20)
+ 
+2:
+(move t1 c_17_20 c_16_20)
+ 
+3:
+(move t1 c_16_20 c_15_20)
+ 
+4:
+(move t1 c_15_20 c_15_21)
+ 
+5:
+(move t1 c_15_21 c_15_22)
+ 
+6:
+(move t1 c_15_22 c_15_23)
+ 
+7:
+(move t1 c_15_23 c_15_24)
+ 
+8:
+(move t1 c_15_24 c_15_25)
+ 
+9:
+(move t1 c_15_25 c_15_26)
+ 
+10:
+(move t1 c_15_26 c_15_27)
+ 
+11:
+(move t1 c_15_27 c_15_28)
+ 
+12:
+(move t1 c_15_28 c_15_29)
+ 
+13:
+(move t1 c_15_29 c_15_30)
+ 
+14:
+(move t1 c_15_30 c_15_31)
+ 
+15:
+(move t1 c_15_31 c_15_32)
+ 
+16:
+(move t1 c_15_32 c_15_33)
+ 
+17:
+(move t1 c_15_33 c_15_34)
+ 
+18:
+(move t1 c_15_34 c_15_35)
+ 
+19:
+(move t1 c_15_35 c_15_36)
+ 
+20:
+(move t1 c_15_36 c_15_37)
+ 
+21:
+(move t1 c_15_37 c_15_38)
+ 
+22:
+(move t1 c_15_38 c_15_39)
+ 
+23:
+(move t1 c_15_39 c_15_40)
+ 
+24:
+(move t1 c_15_40 c_15_41)
+ 
+25:
+(move t1 c_15_41 c_15_42)
+ 
+26:
+(move t1 c_15_42 c_16_42)
+ 
+27:
+(move t1 c_16_42 c_17_42)
+ 
+28:
+(move t1 c_17_42 c_18_42)
+ 
+29:
+(pick-package t1 p3 c_18_42)
+ 
+30:
+(move t1 c_18_42 c_17_42)
+ 
+31:
+(move t1 c_17_42 c_16_42)
+ 
+32:
+(move t1 c_16_42 c_15_42)
+ 
+33:
+(move t1 c_15_42 c_15_41)
+ 
+34:
+(move t1 c_15_41 c_14_41)
+ 
+35:
+(move t1 c_14_41 c_13_41)
+ 
+36:
+(move t1 c_13_41 c_12_41)
+ 
+37:
+(move t1 c_12_41 c_11_41)
+ 
+38:
+(drop-package t1 p3 c_11_41)
+ 
+39:
+(move t1 c_11_41 c_10_41)
+ 
+40:
+(move t1 c_10_41 c_9_41)
+ 
+41:
+(move t1 c_9_41 c_8_41)
+ 
+42:
+(move t1 c_8_41 c_7_41)
+ 
+43:
+(move t1 c_7_41 c_6_41)
+ 
+44:
+(move t1 c_6_41 c_5_41)
+ 
+45:
+(pick-package t1 p2 c_5_41)
+ 
+46:
+(move t1 c_5_41 c_6_41)
+ 
+47:
+(move t1 c_6_41 c_7_41)
+ 
+48:
+(move t1 c_7_41 c_8_41)
+ 
+49:
+(move t1 c_8_41 c_9_41)
+ 
+50:
+(move t1 c_9_41 c_10_41)
+ 
+51:
+(move t1 c_10_41 c_11_41)
+ 
+52:
+(move t1 c_11_41 c_11_40)
+ 
+53:
+(drop-package t1 p2 c_11_40)
+ 
+54:
+(move t1 c_11_40 c_11_41)
+ 
+55:
+(pick-package t1 p3 c_11_41)
+ 
+56:
+(move t1 c_11_41 c_11_40)
+ 
+57:
+(move t1 c_11_40 c_11_39)
+ 
+58:
+(drop-package t1 p3 c_11_39)
+ 
+59:
+(move t1 c_11_39 c_11_40)
+ 
+60:
+(pick-package t1 p2 c_11_40)
+ 
+61:
+(move t1 c_11_40 c_11_39)
+ 
+62:
+(move t1 c_11_39 c_11_38)
+ 
+63:
+(drop-package t1 p2 c_11_38)
+ 
+64:
+(move t1 c_11_38 c_11_39)
+ 
+65:
+(pick-package t1 p3 c_11_39)
+ 
+66:
+(move t1 c_11_39 c_11_38)
+ 
+67:
+(move t1 c_11_38 c_11_37)
+ 
+68:
+(drop-package t1 p3 c_11_37)
+ 
+69:
+(move t1 c_11_37 c_11_38)
+ 
+70:
+(pick-package t1 p2 c_11_38)
+ 
+71:
+(move t1 c_11_38 c_11_37)
+ 
+72:
+(move t1 c_11_37 c_11_36)
+ 
+73:
+(drop-package t1 p2 c_11_36)
+ 
+74:
+(move t1 c_11_36 c_11_37)
+ 
+75:
+(pick-package t1 p3 c_11_37)
+ 
+76:
+(move t1 c_11_37 c_11_36)
+ 
+77:
+(move t1 c_11_36 c_11_35)
+ 
+78:
+(drop-package t1 p3 c_11_35)
+ 
+79:
+(move t1 c_11_35 c_11_36)
+ 
+80:
+(pick-package t1 p2 c_11_36)
+ 
+81:
+(move t1 c_11_36 c_11_35)
+ 
+82:
+(move t1 c_11_35 c_11_34)
+ 
+83:
+(drop-package t1 p2 c_11_34)
+ 
+84:
+(move t1 c_11_34 c_11_35)
+ 
+85:
+(pick-package t1 p3 c_11_35)
+ 
+86:
+(move t1 c_11_35 c_11_34)
+ 
+87:
+(move t1 c_11_34 c_11_33)
+ 
+88:
+(drop-package t1 p3 c_11_33)
+ 
+89:
+(move t1 c_11_33 c_11_34)
+ 
+90:
+(pick-package t1 p2 c_11_34)
+ 
+91:
+(move t1 c_11_34 c_11_33)
+ 
+92:
+(move t1 c_11_33 c_11_32)
+ 
+93:
+(drop-package t1 p2 c_11_32)
+ 
+94:
+(move t1 c_11_32 c_11_33)
+ 
+95:
+(pick-package t1 p3 c_11_33)
+ 
+96:
+(move t1 c_11_33 c_11_32)
+ 
+97:
+(move t1 c_11_32 c_11_31)
+ 
+98:
+(drop-package t1 p3 c_11_31)
+ 
+99:
+(move t1 c_11_31 c_11_32)
+ 
+100:
+(pick-package t1 p2 c_11_32)
+ 
+101:
+(move t1 c_11_32 c_11_31)
+ 
+102:
+(move t1 c_11_31 c_11_30)
+ 
+103:
+(drop-package t1 p2 c_11_30)
+ 
+104:
+(move t1 c_11_30 c_11_31)
+ 
+105:
+(pick-package t1 p3 c_11_31)
+ 
+106:
+(move t1 c_11_31 c_11_30)
+ 
+107:
+(move t1 c_11_30 c_11_29)
+ 
+108:
+(drop-package t1 p3 c_11_29)
+ 
+109:
+(move t1 c_11_29 c_11_30)
+ 
+110:
+(pick-package t1 p2 c_11_30)
+ 
+111:
+(move t1 c_11_30 c_11_29)
+ 
+112:
+(move t1 c_11_29 c_11_28)
+ 
+113:
+(drop-package t1 p2 c_11_28)
+ 
+114:
+(move t1 c_11_28 c_11_29)
+ 
+115:
+(pick-package t1 p3 c_11_29)
+ 
+116:
+(move t1 c_11_29 c_11_28)
+ 
+117:
+(move t1 c_11_28 c_11_27)
+ 
+118:
+(drop-package t1 p3 c_11_27)
+ 
+119:
+(move t1 c_11_27 c_11_28)
+ 
+120:
+(pick-package t1 p2 c_11_28)
+ 
+121:
+(move t1 c_11_28 c_11_27)
+ 
+122:
+(move t1 c_11_27 c_11_26)
+ 
+123:
+(drop-package t1 p2 c_11_26)
+ 
+124:
+(move t1 c_11_26 c_11_27)
+ 
+125:
+(pick-package t1 p3 c_11_27)
+ 
+126:
+(move t1 c_11_27 c_11_26)
+ 
+127:
+(move t1 c_11_26 c_11_25)
+ 
+128:
+(drop-package t1 p3 c_11_25)
+ 
+129:
+(move t1 c_11_25 c_11_26)
+ 
+130:
+(pick-package t1 p2 c_11_26)
+ 
+131:
+(move t1 c_11_26 c_11_25)
+ 
+132:
+(move t1 c_11_25 c_11_24)
+ 
+133:
+(drop-package t1 p2 c_11_24)
+ 
+134:
+(move t1 c_11_24 c_11_25)
+ 
+135:
+(pick-package t1 p3 c_11_25)
+ 
+136:
+(move t1 c_11_25 c_11_24)
+ 
+137:
+(move t1 c_11_24 c_11_23)
+ 
+138:
+(drop-package t1 p3 c_11_23)
+ 
+139:
+(move t1 c_11_23 c_11_24)
+ 
+140:
+(pick-package t1 p2 c_11_24)
+ 
+141:
+(move t1 c_11_24 c_11_23)
+ 
+142:
+(move t1 c_11_23 c_11_22)
+ 
+143:
+(drop-package t1 p2 c_11_22)
+ 
+144:
+(move t1 c_11_22 c_11_23)
+ 
+145:
+(pick-package t1 p3 c_11_23)
+ 
+146:
+(move t1 c_11_23 c_11_22)
+ 
+147:
+(move t1 c_11_22 c_11_21)
+ 
+148:
+(drop-package t1 p3 c_11_21)
+ 
+149:
+(move t1 c_11_21 c_11_22)
+ 
+150:
+(pick-package t1 p2 c_11_22)
+ 
+151:
+(move t1 c_11_22 c_11_21)
+ 
+152:
+(move t1 c_11_21 c_11_20)
+ 
+153:
+(drop-package t1 p2 c_11_20)
+ 
+154:
+(move t1 c_11_20 c_11_21)
+ 
+155:
+(pick-package t1 p3 c_11_21)
+ 
+156:
+(move t1 c_11_21 c_11_20)
+ 
+157:
+(move t1 c_11_20 c_11_19)
+ 
+158:
+(move t1 c_11_19 c_11_18)
+ 
+159:
+(move t1 c_11_18 c_11_17)
+ 
+160:
+(move t1 c_11_17 c_11_16)
+ 
+161:
+(move t1 c_11_16 c_12_16)
+ 
+162:
+(move t1 c_12_16 c_13_16)
+ 
+163:
+(move t1 c_13_16 c_14_16)
+ 
+164:
+(move t1 c_14_16 c_15_16)
+ 
+165:
+(move t1 c_15_16 c_15_15)
+ 
+166:
+(move t1 c_15_15 c_15_14)
+ 
+167:
+(drop-package t1 p3 c_15_14)
+ 
+168:
+(move t1 c_15_14 c_15_13)
+ 
+169:
+(move t1 c_15_13 c_15_12)
+ 
+170:
+(move t1 c_15_12 c_15_11)
+ 
+171:
+(pick-package t1 p1 c_15_11)
+ 
+172:
+(move t1 c_15_11 c_15_12)
+ 
+173:
+(move t1 c_15_12 c_15_13)
+ 
+174:
+(move t1 c_15_13 c_15_14)
+ 
+175:
+(move t1 c_15_14 c_15_15)
+ 
+176:
+(move t1 c_15_15 c_15_16)
+ 
+177:
+(drop-package t1 p1 c_15_16)
+ 
+178:
+(move t1 c_15_16 c_15_15)
+ 
+179:
+(move t1 c_15_15 c_15_14)
+ 
+180:
+(pick-package t1 p3 c_15_14)
+ 
+181:
+(move t1 c_15_14 c_15_15)
+ 
+182:
+(move t1 c_15_15 c_15_16)
+ 
+183:
+(move t1 c_15_16 c_14_16)
+ 
+184:
+(move t1 c_14_16 c_13_16)
+ 
+185:
+(move t1 c_13_16 c_12_16)
+ 
+186:
+(move t1 c_12_16 c_11_16)
+ 
+187:
+(move t1 c_11_16 c_11_17)
+ 
+188:
+(move t1 c_11_17 c_11_18)
+ 
+189:
+(move t1 c_11_18 c_11_19)
+ 
+190:
+(drop-package t1 p3 c_11_19)
+ 
+191:
+(move t1 c_11_19 c_11_20)
+ 
+192:
+(pick-package t1 p2 c_11_20)
+ 
+193:
+(move t1 c_11_20 c_11_19)
+ 
+194:
+(move t1 c_11_19 c_11_18)
+ 
+195:
+(drop-package t1 p2 c_11_18)
+ 
+196:
+(move t1 c_11_18 c_11_19)
+ 
+197:
+(pick-package t1 p3 c_11_19)
+ 
+198:
+(move t1 c_11_19 c_11_18)
+ 
+199:
+(move t1 c_11_18 c_11_17)
+ 
+200:
+(drop-package t1 p3 c_11_17)
+ 
+201:
+(move t1 c_11_17 c_11_18)
+ 
+202:
+(pick-package t1 p2 c_11_18)
+ 
+203:
+(move t1 c_11_18 c_11_17)
+ 
+204:
+(move t1 c_11_17 c_11_16)
+ 
+205:
+(drop-package t1 p2 c_11_16)
+ 
+206:
+(move t1 c_11_16 c_11_17)
+ 
+207:
+(pick-package t1 p3 c_11_17)
+ 
+208:
+(move t1 c_11_17 c_11_16)
+ 
+209:
+(move t1 c_11_16 c_12_16)
+ 
+210:
+(drop-package t1 p3 c_12_16)
+ 
+211:
+(move t1 c_12_16 c_11_16)
+ 
+212:
+(pick-package t1 p2 c_11_16)
+ 
+213:
+(move t1 c_11_16 c_12_16)
+ 
+214:
+(move t1 c_12_16 c_13_16)
+ 
+215:
+(drop-package t1 p2 c_13_16)
+ 
+216:
+(move t1 c_13_16 c_12_16)
+ 
+217:
+(pick-package t1 p3 c_12_16)
+ 
+218:
+(move t1 c_12_16 c_13_16)
+ 
+219:
+(move t1 c_13_16 c_14_16)
+ 
+220:
+(drop-package t1 p3 c_14_16)
+ 
+221:
+(move t1 c_14_16 c_13_16)
+ 
+222:
+(pick-package t1 p2 c_13_16)
+ 
+223:
+(move t1 c_13_16 c_14_16)
+ 
+224:
+(move t1 c_14_16 c_15_16)
+ 
+225:
+(drop-package t1 p2 c_15_16)
+ 
+226:
+(move t1 c_15_16 c_14_16)
+ 
+227:
+(pick-package t1 p3 c_14_16)
+ 
+228:
+(move t1 c_14_16 c_15_16)
+ 
+229:
+(move t1 c_15_16 c_16_16)
+ 
+230:
+(drop-package t1 p3 c_16_16)
+ 
+231:
+(move t1 c_16_16 c_15_16)
+ 
+232:
+(pick-package t1 p2 c_15_16)
+ 
+233:
+(move t1 c_15_16 c_16_16)
+ 
+234:
+(drop-package t1 p2 c_16_16)
+ 
+235:
+(move t1 c_16_16 c_15_16)
+ 
+236:
+(pick-package t1 p1 c_15_16)
+ 
+237:
+(move t1 c_15_16 c_16_16)
+ 
+238:
+(move t1 c_16_16 c_17_16)
+ 
+239:
+(drop-package t1 p1 c_17_16)
+ 
+240:
+(move t1 c_17_16 c_16_16)
+ 
+241:
+(pick-package t1 p3 c_16_16)
+ 
+242:
+(move t1 c_16_16 c_17_16)
+ 
+243:
+(drop-package t1 p3 c_17_16)
+ 
+244:
+(move t1 c_17_16 c_16_16)
+ 
+245:
+(pick-package t1 p2 c_16_16)
+ 
+246:
+(move t1 c_16_16 c_17_16)
+ 
+247:
+(move t1 c_17_16 c_18_16)
+ 
+248:
+(drop-package t1 p2 c_18_16)
+ 
+249:
+(move t1 c_18_16 c_17_16)
+ 
+250:
+(pick-package t1 p3 c_17_16)
+ 
+251:
+(move t1 c_17_16 c_18_16)
+ 
+252:
+(drop-package t1 p3 c_18_16)
+ 
+253:
+(move t1 c_18_16 c_17_16)
+ 
+254:
+(pick-package t1 p1 c_17_16)
+ 
+255:
+(move t1 c_17_16 c_18_16)
+ 
+256:
+(move t1 c_18_16 c_19_16)
+ 
+257:
+(drop-package t1 p1 c_19_16)
+ 
+258:
+(move t1 c_19_16 c_18_16)
+ 
+259:
+(pick-package t1 p3 c_18_16)
+ 
+260:
+(move t1 c_18_16 c_19_16)
+ 
+261:
+(drop-package t1 p3 c_19_16)
+ 
+262:
+(move t1 c_19_16 c_18_16)
+ 
+263:
+(pick-package t1 p2 c_18_16)
+ 
+264:
+(move t1 c_18_16 c_19_16)
+ 
+265:
+(move t1 c_19_16 c_20_16)
+ 
+266:
+(drop-package t1 p2 c_20_16)
+ 
+267:
+(move t1 c_20_16 c_19_16)
+ 
+268:
+(pick-package t1 p3 c_19_16)
+ 
+269:
+(move t1 c_19_16 c_20_16)
+ 
+270:
+(drop-package t1 p3 c_20_16)
+ 
+271:
+(move t1 c_20_16 c_19_16)
+ 
+272:
+(pick-package t1 p1 c_19_16)
+ 
+273:
+(move t1 c_19_16 c_20_16)
+ 
+274:
+(move t1 c_20_16 c_21_16)
+ 
+275:
+(drop-package t1 p1 c_21_16)
+ 
+276:
+(move t1 c_21_16 c_20_16)
+ 
+277:
+(pick-package t1 p3 c_20_16)
+ 
+278:
+(move t1 c_20_16 c_21_16)
+ 
+279:
+(drop-package t1 p3 c_21_16)
+ 
+280:
+(move t1 c_21_16 c_20_16)
+ 
+281:
+(pick-package t1 p2 c_20_16)
+ 
+282:
+(move t1 c_20_16 c_21_16)
+ 
+283:
+(move t1 c_21_16 c_22_16)
+ 
+284:
+(drop-package t1 p2 c_22_16)
+ 
+285:
+(move t1 c_22_16 c_21_16)
+ 
+286:
+(pick-package t1 p3 c_21_16)
+ 
+287:
+(move t1 c_21_16 c_22_16)
+ 
+288:
+(drop-package t1 p3 c_22_16)
+ 
+289:
+(move t1 c_22_16 c_21_16)
+ 
+290:
+(pick-package t1 p1 c_21_16)
+ 
+291:
+(move t1 c_21_16 c_22_16)
+ 
+292:
+(move t1 c_22_16 c_23_16)
+ 
+293:
+(move t1 c_23_16 c_24_16)
+ 
+294:
+(move t1 c_24_16 c_25_16)
+ 
+295:
+(move t1 c_25_16 c_26_16)
+ 
+296:
+(move t1 c_26_16 c_27_16)
+ 
+297:
+(move t1 c_27_16 c_28_16)
+ 
+298:
+(move t1 c_28_16 c_29_16)
+ 
+299:
+(move t1 c_29_16 c_30_16)
+ 
+300:
+(move t1 c_30_16 c_31_16)
+ 
+301:
+(drop-package t1 p1 c_31_16)
+ 
+302:
+(move t1 c_31_16 c_30_16)
+ 
+303:
+(move t1 c_30_16 c_29_16)
+ 
+304:
+(move t1 c_29_16 c_28_16)
+ 
+305:
+(move t1 c_28_16 c_27_16)
+ 
+306:
+(move t1 c_27_16 c_26_16)
+ 
+307:
+(move t1 c_26_16 c_25_16)
+ 
+308:
+(move t1 c_25_16 c_24_16)
+ 
+309:
+(move t1 c_24_16 c_23_16)
+ 
+310:
+(move t1 c_23_16 c_22_16)
+ 
+311:
+(pick-package t1 p3 c_22_16)
+ 
+312:
+(move t1 c_22_16 c_23_16)
+ 
+313:
+(drop-package t1 p3 c_23_16)
+ 
+314:
+(move t1 c_23_16 c_22_16)
+ 
+315:
+(pick-package t1 p2 c_22_16)
+ 
+316:
+(move t1 c_22_16 c_23_16)
+ 
+317:
+(move t1 c_23_16 c_24_16)
+ 
+318:
+(drop-package t1 p2 c_24_16)
+ 
+319:
+(move t1 c_24_16 c_23_16)
+ 
+320:
+(pick-package t1 p3 c_23_16)
+ 
+321:
+(move t1 c_23_16 c_24_16)
+ 
+322:
+(move t1 c_24_16 c_25_16)
+ 
+323:
+(drop-package t1 p3 c_25_16)
+ 
+324:
+(move t1 c_25_16 c_24_16)
+ 
+325:
+(pick-package t1 p2 c_24_16)
+ 
+326:
+(move t1 c_24_16 c_25_16)
+ 
+327:
+(move t1 c_25_16 c_26_16)
+ 
+328:
+(drop-package t1 p2 c_26_16)
+ 
+329:
+(move t1 c_26_16 c_25_16)
+ 
+330:
+(pick-package t1 p3 c_25_16)
+ 
+331:
+(move t1 c_25_16 c_26_16)
+ 
+332:
+(move t1 c_26_16 c_27_16)
+ 
+333:
+(move t1 c_27_16 c_28_16)
+ 
+334:
+(move t1 c_28_16 c_29_16)
+ 
+335:
+(move t1 c_29_16 c_30_16)
+ 
+336:
+(move t1 c_30_16 c_31_16)
+ 
+337:
+(drop-package t1 p3 c_31_16)
+ 
+338:
+(move t1 c_31_16 c_30_16)
+ 
+339:
+(move t1 c_30_16 c_29_16)
+ 
+340:
+(move t1 c_29_16 c_28_16)
+ 
+341:
+(move t1 c_28_16 c_27_16)
+ 
+342:
+(move t1 c_27_16 c_26_16)
+ 
+343:
+(pick-package t1 p2 c_26_16)
+ 
+344:
+(move t1 c_26_16 c_27_16)
+ 
+345:
+(move t1 c_27_16 c_28_16)
+ 
+346:
+(move t1 c_28_16 c_29_16)
+ 
+347:
+(move t1 c_29_16 c_30_16)
+ 
+348:
+(move t1 c_30_16 c_31_16)
+ 
+349:
+(drop-package t1 p2 c_31_16)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_18_20)
+Adding (at t1 c_17_20)
+
+Checking next happening (time 2)
+Deleting (at t1 c_17_20)
+Adding (at t1 c_16_20)
+
+Checking next happening (time 3)
+Deleting (at t1 c_16_20)
+Adding (at t1 c_15_20)
+
+Checking next happening (time 4)
+Deleting (at t1 c_15_20)
+Adding (at t1 c_15_21)
+
+Checking next happening (time 5)
+Deleting (at t1 c_15_21)
+Adding (at t1 c_15_22)
+
+Checking next happening (time 6)
+Deleting (at t1 c_15_22)
+Adding (at t1 c_15_23)
+
+Checking next happening (time 7)
+Deleting (at t1 c_15_23)
+Adding (at t1 c_15_24)
+
+Checking next happening (time 8)
+Deleting (at t1 c_15_24)
+Adding (at t1 c_15_25)
+
+Checking next happening (time 9)
+Deleting (at t1 c_15_25)
+Adding (at t1 c_15_26)
+
+Checking next happening (time 10)
+Deleting (at t1 c_15_26)
+Adding (at t1 c_15_27)
+
+Checking next happening (time 11)
+Deleting (at t1 c_15_27)
+Adding (at t1 c_15_28)
+
+Checking next happening (time 12)
+Deleting (at t1 c_15_28)
+Adding (at t1 c_15_29)
+
+Checking next happening (time 13)
+Deleting (at t1 c_15_29)
+Adding (at t1 c_15_30)
+
+Checking next happening (time 14)
+Deleting (at t1 c_15_30)
+Adding (at t1 c_15_31)
+
+Checking next happening (time 15)
+Deleting (at t1 c_15_31)
+Adding (at t1 c_15_32)
+
+Checking next happening (time 16)
+Deleting (at t1 c_15_32)
+Adding (at t1 c_15_33)
+
+Checking next happening (time 17)
+Deleting (at t1 c_15_33)
+Adding (at t1 c_15_34)
+
+Checking next happening (time 18)
+Deleting (at t1 c_15_34)
+Adding (at t1 c_15_35)
+
+Checking next happening (time 19)
+Deleting (at t1 c_15_35)
+Adding (at t1 c_15_36)
+
+Checking next happening (time 20)
+Deleting (at t1 c_15_36)
+Adding (at t1 c_15_37)
+
+Checking next happening (time 21)
+Deleting (at t1 c_15_37)
+Adding (at t1 c_15_38)
+
+Checking next happening (time 22)
+Deleting (at t1 c_15_38)
+Adding (at t1 c_15_39)
+
+Checking next happening (time 23)
+Deleting (at t1 c_15_39)
+Adding (at t1 c_15_40)
+
+Checking next happening (time 24)
+Deleting (at t1 c_15_40)
+Adding (at t1 c_15_41)
+
+Checking next happening (time 25)
+Deleting (at t1 c_15_41)
+Adding (at t1 c_15_42)
+
+Checking next happening (time 26)
+Deleting (at t1 c_15_42)
+Adding (at t1 c_16_42)
+
+Checking next happening (time 27)
+Deleting (at t1 c_16_42)
+Adding (at t1 c_17_42)
+
+Checking next happening (time 28)
+Deleting (at t1 c_17_42)
+Adding (at t1 c_18_42)
+
+Checking next happening (time 29)
+Deleting (at p3 c_18_42)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 30)
+Deleting (at t1 c_18_42)
+Adding (at t1 c_17_42)
+
+Checking next happening (time 31)
+Deleting (at t1 c_17_42)
+Adding (at t1 c_16_42)
+
+Checking next happening (time 32)
+Deleting (at t1 c_16_42)
+Adding (at t1 c_15_42)
+
+Checking next happening (time 33)
+Deleting (at t1 c_15_42)
+Adding (at t1 c_15_41)
+
+Checking next happening (time 34)
+Deleting (at t1 c_15_41)
+Adding (at t1 c_14_41)
+
+Checking next happening (time 35)
+Deleting (at t1 c_14_41)
+Adding (at t1 c_13_41)
+
+Checking next happening (time 36)
+Deleting (at t1 c_13_41)
+Adding (at t1 c_12_41)
+
+Checking next happening (time 37)
+Deleting (at t1 c_12_41)
+Adding (at t1 c_11_41)
+
+Checking next happening (time 38)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_41)
+
+Checking next happening (time 39)
+Deleting (at t1 c_11_41)
+Adding (at t1 c_10_41)
+
+Checking next happening (time 40)
+Deleting (at t1 c_10_41)
+Adding (at t1 c_9_41)
+
+Checking next happening (time 41)
+Deleting (at t1 c_9_41)
+Adding (at t1 c_8_41)
+
+Checking next happening (time 42)
+Deleting (at t1 c_8_41)
+Adding (at t1 c_7_41)
+
+Checking next happening (time 43)
+Deleting (at t1 c_7_41)
+Adding (at t1 c_6_41)
+
+Checking next happening (time 44)
+Deleting (at t1 c_6_41)
+Adding (at t1 c_5_41)
+
+Checking next happening (time 45)
+Deleting (at p2 c_5_41)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 46)
+Deleting (at t1 c_5_41)
+Adding (at t1 c_6_41)
+
+Checking next happening (time 47)
+Deleting (at t1 c_6_41)
+Adding (at t1 c_7_41)
+
+Checking next happening (time 48)
+Deleting (at t1 c_7_41)
+Adding (at t1 c_8_41)
+
+Checking next happening (time 49)
+Deleting (at t1 c_8_41)
+Adding (at t1 c_9_41)
+
+Checking next happening (time 50)
+Deleting (at t1 c_9_41)
+Adding (at t1 c_10_41)
+
+Checking next happening (time 51)
+Deleting (at t1 c_10_41)
+Adding (at t1 c_11_41)
+
+Checking next happening (time 52)
+Deleting (at t1 c_11_41)
+Adding (at t1 c_11_40)
+
+Checking next happening (time 53)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_40)
+
+Checking next happening (time 54)
+Deleting (at t1 c_11_40)
+Adding (at t1 c_11_41)
+
+Checking next happening (time 55)
+Deleting (at p3 c_11_41)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 56)
+Deleting (at t1 c_11_41)
+Adding (at t1 c_11_40)
+
+Checking next happening (time 57)
+Deleting (at t1 c_11_40)
+Adding (at t1 c_11_39)
+
+Checking next happening (time 58)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_39)
+
+Checking next happening (time 59)
+Deleting (at t1 c_11_39)
+Adding (at t1 c_11_40)
+
+Checking next happening (time 60)
+Deleting (at p2 c_11_40)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 61)
+Deleting (at t1 c_11_40)
+Adding (at t1 c_11_39)
+
+Checking next happening (time 62)
+Deleting (at t1 c_11_39)
+Adding (at t1 c_11_38)
+
+Checking next happening (time 63)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_38)
+
+Checking next happening (time 64)
+Deleting (at t1 c_11_38)
+Adding (at t1 c_11_39)
+
+Checking next happening (time 65)
+Deleting (at p3 c_11_39)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 66)
+Deleting (at t1 c_11_39)
+Adding (at t1 c_11_38)
+
+Checking next happening (time 67)
+Deleting (at t1 c_11_38)
+Adding (at t1 c_11_37)
+
+Checking next happening (time 68)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_37)
+
+Checking next happening (time 69)
+Deleting (at t1 c_11_37)
+Adding (at t1 c_11_38)
+
+Checking next happening (time 70)
+Deleting (at p2 c_11_38)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 71)
+Deleting (at t1 c_11_38)
+Adding (at t1 c_11_37)
+
+Checking next happening (time 72)
+Deleting (at t1 c_11_37)
+Adding (at t1 c_11_36)
+
+Checking next happening (time 73)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_36)
+
+Checking next happening (time 74)
+Deleting (at t1 c_11_36)
+Adding (at t1 c_11_37)
+
+Checking next happening (time 75)
+Deleting (at p3 c_11_37)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 76)
+Deleting (at t1 c_11_37)
+Adding (at t1 c_11_36)
+
+Checking next happening (time 77)
+Deleting (at t1 c_11_36)
+Adding (at t1 c_11_35)
+
+Checking next happening (time 78)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_35)
+
+Checking next happening (time 79)
+Deleting (at t1 c_11_35)
+Adding (at t1 c_11_36)
+
+Checking next happening (time 80)
+Deleting (at p2 c_11_36)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 81)
+Deleting (at t1 c_11_36)
+Adding (at t1 c_11_35)
+
+Checking next happening (time 82)
+Deleting (at t1 c_11_35)
+Adding (at t1 c_11_34)
+
+Checking next happening (time 83)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_34)
+
+Checking next happening (time 84)
+Deleting (at t1 c_11_34)
+Adding (at t1 c_11_35)
+
+Checking next happening (time 85)
+Deleting (at p3 c_11_35)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 86)
+Deleting (at t1 c_11_35)
+Adding (at t1 c_11_34)
+
+Checking next happening (time 87)
+Deleting (at t1 c_11_34)
+Adding (at t1 c_11_33)
+
+Checking next happening (time 88)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_33)
+
+Checking next happening (time 89)
+Deleting (at t1 c_11_33)
+Adding (at t1 c_11_34)
+
+Checking next happening (time 90)
+Deleting (at p2 c_11_34)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 91)
+Deleting (at t1 c_11_34)
+Adding (at t1 c_11_33)
+
+Checking next happening (time 92)
+Deleting (at t1 c_11_33)
+Adding (at t1 c_11_32)
+
+Checking next happening (time 93)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_32)
+
+Checking next happening (time 94)
+Deleting (at t1 c_11_32)
+Adding (at t1 c_11_33)
+
+Checking next happening (time 95)
+Deleting (at p3 c_11_33)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 96)
+Deleting (at t1 c_11_33)
+Adding (at t1 c_11_32)
+
+Checking next happening (time 97)
+Deleting (at t1 c_11_32)
+Adding (at t1 c_11_31)
+
+Checking next happening (time 98)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_31)
+
+Checking next happening (time 99)
+Deleting (at t1 c_11_31)
+Adding (at t1 c_11_32)
+
+Checking next happening (time 100)
+Deleting (at p2 c_11_32)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 101)
+Deleting (at t1 c_11_32)
+Adding (at t1 c_11_31)
+
+Checking next happening (time 102)
+Deleting (at t1 c_11_31)
+Adding (at t1 c_11_30)
+
+Checking next happening (time 103)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_30)
+
+Checking next happening (time 104)
+Deleting (at t1 c_11_30)
+Adding (at t1 c_11_31)
+
+Checking next happening (time 105)
+Deleting (at p3 c_11_31)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 106)
+Deleting (at t1 c_11_31)
+Adding (at t1 c_11_30)
+
+Checking next happening (time 107)
+Deleting (at t1 c_11_30)
+Adding (at t1 c_11_29)
+
+Checking next happening (time 108)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_29)
+
+Checking next happening (time 109)
+Deleting (at t1 c_11_29)
+Adding (at t1 c_11_30)
+
+Checking next happening (time 110)
+Deleting (at p2 c_11_30)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 111)
+Deleting (at t1 c_11_30)
+Adding (at t1 c_11_29)
+
+Checking next happening (time 112)
+Deleting (at t1 c_11_29)
+Adding (at t1 c_11_28)
+
+Checking next happening (time 113)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_28)
+
+Checking next happening (time 114)
+Deleting (at t1 c_11_28)
+Adding (at t1 c_11_29)
+
+Checking next happening (time 115)
+Deleting (at p3 c_11_29)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 116)
+Deleting (at t1 c_11_29)
+Adding (at t1 c_11_28)
+
+Checking next happening (time 117)
+Deleting (at t1 c_11_28)
+Adding (at t1 c_11_27)
+
+Checking next happening (time 118)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_27)
+
+Checking next happening (time 119)
+Deleting (at t1 c_11_27)
+Adding (at t1 c_11_28)
+
+Checking next happening (time 120)
+Deleting (at p2 c_11_28)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 121)
+Deleting (at t1 c_11_28)
+Adding (at t1 c_11_27)
+
+Checking next happening (time 122)
+Deleting (at t1 c_11_27)
+Adding (at t1 c_11_26)
+
+Checking next happening (time 123)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_26)
+
+Checking next happening (time 124)
+Deleting (at t1 c_11_26)
+Adding (at t1 c_11_27)
+
+Checking next happening (time 125)
+Deleting (at p3 c_11_27)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 126)
+Deleting (at t1 c_11_27)
+Adding (at t1 c_11_26)
+
+Checking next happening (time 127)
+Deleting (at t1 c_11_26)
+Adding (at t1 c_11_25)
+
+Checking next happening (time 128)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_25)
+
+Checking next happening (time 129)
+Deleting (at t1 c_11_25)
+Adding (at t1 c_11_26)
+
+Checking next happening (time 130)
+Deleting (at p2 c_11_26)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 131)
+Deleting (at t1 c_11_26)
+Adding (at t1 c_11_25)
+
+Checking next happening (time 132)
+Deleting (at t1 c_11_25)
+Adding (at t1 c_11_24)
+
+Checking next happening (time 133)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_24)
+
+Checking next happening (time 134)
+Deleting (at t1 c_11_24)
+Adding (at t1 c_11_25)
+
+Checking next happening (time 135)
+Deleting (at p3 c_11_25)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 136)
+Deleting (at t1 c_11_25)
+Adding (at t1 c_11_24)
+
+Checking next happening (time 137)
+Deleting (at t1 c_11_24)
+Adding (at t1 c_11_23)
+
+Checking next happening (time 138)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_23)
+
+Checking next happening (time 139)
+Deleting (at t1 c_11_23)
+Adding (at t1 c_11_24)
+
+Checking next happening (time 140)
+Deleting (at p2 c_11_24)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 141)
+Deleting (at t1 c_11_24)
+Adding (at t1 c_11_23)
+
+Checking next happening (time 142)
+Deleting (at t1 c_11_23)
+Adding (at t1 c_11_22)
+
+Checking next happening (time 143)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_22)
+
+Checking next happening (time 144)
+Deleting (at t1 c_11_22)
+Adding (at t1 c_11_23)
+
+Checking next happening (time 145)
+Deleting (at p3 c_11_23)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 146)
+Deleting (at t1 c_11_23)
+Adding (at t1 c_11_22)
+
+Checking next happening (time 147)
+Deleting (at t1 c_11_22)
+Adding (at t1 c_11_21)
+
+Checking next happening (time 148)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_21)
+
+Checking next happening (time 149)
+Deleting (at t1 c_11_21)
+Adding (at t1 c_11_22)
+
+Checking next happening (time 150)
+Deleting (at p2 c_11_22)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 151)
+Deleting (at t1 c_11_22)
+Adding (at t1 c_11_21)
+
+Checking next happening (time 152)
+Deleting (at t1 c_11_21)
+Adding (at t1 c_11_20)
+
+Checking next happening (time 153)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_20)
+
+Checking next happening (time 154)
+Deleting (at t1 c_11_20)
+Adding (at t1 c_11_21)
+
+Checking next happening (time 155)
+Deleting (at p3 c_11_21)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 156)
+Deleting (at t1 c_11_21)
+Adding (at t1 c_11_20)
+
+Checking next happening (time 157)
+Deleting (at t1 c_11_20)
+Adding (at t1 c_11_19)
+
+Checking next happening (time 158)
+Deleting (at t1 c_11_19)
+Adding (at t1 c_11_18)
+
+Checking next happening (time 159)
+Deleting (at t1 c_11_18)
+Adding (at t1 c_11_17)
+
+Checking next happening (time 160)
+Deleting (at t1 c_11_17)
+Adding (at t1 c_11_16)
+
+Checking next happening (time 161)
+Deleting (at t1 c_11_16)
+Adding (at t1 c_12_16)
+
+Checking next happening (time 162)
+Deleting (at t1 c_12_16)
+Adding (at t1 c_13_16)
+
+Checking next happening (time 163)
+Deleting (at t1 c_13_16)
+Adding (at t1 c_14_16)
+
+Checking next happening (time 164)
+Deleting (at t1 c_14_16)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 165)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_15_15)
+
+Checking next happening (time 166)
+Deleting (at t1 c_15_15)
+Adding (at t1 c_15_14)
+
+Checking next happening (time 167)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_15_14)
+
+Checking next happening (time 168)
+Deleting (at t1 c_15_14)
+Adding (at t1 c_15_13)
+
+Checking next happening (time 169)
+Deleting (at t1 c_15_13)
+Adding (at t1 c_15_12)
+
+Checking next happening (time 170)
+Deleting (at t1 c_15_12)
+Adding (at t1 c_15_11)
+
+Checking next happening (time 171)
+Deleting (at p1 c_15_11)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 172)
+Deleting (at t1 c_15_11)
+Adding (at t1 c_15_12)
+
+Checking next happening (time 173)
+Deleting (at t1 c_15_12)
+Adding (at t1 c_15_13)
+
+Checking next happening (time 174)
+Deleting (at t1 c_15_13)
+Adding (at t1 c_15_14)
+
+Checking next happening (time 175)
+Deleting (at t1 c_15_14)
+Adding (at t1 c_15_15)
+
+Checking next happening (time 176)
+Deleting (at t1 c_15_15)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 177)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_15_16)
+
+Checking next happening (time 178)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_15_15)
+
+Checking next happening (time 179)
+Deleting (at t1 c_15_15)
+Adding (at t1 c_15_14)
+
+Checking next happening (time 180)
+Deleting (at p3 c_15_14)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 181)
+Deleting (at t1 c_15_14)
+Adding (at t1 c_15_15)
+
+Checking next happening (time 182)
+Deleting (at t1 c_15_15)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 183)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_14_16)
+
+Checking next happening (time 184)
+Deleting (at t1 c_14_16)
+Adding (at t1 c_13_16)
+
+Checking next happening (time 185)
+Deleting (at t1 c_13_16)
+Adding (at t1 c_12_16)
+
+Checking next happening (time 186)
+Deleting (at t1 c_12_16)
+Adding (at t1 c_11_16)
+
+Checking next happening (time 187)
+Deleting (at t1 c_11_16)
+Adding (at t1 c_11_17)
+
+Checking next happening (time 188)
+Deleting (at t1 c_11_17)
+Adding (at t1 c_11_18)
+
+Checking next happening (time 189)
+Deleting (at t1 c_11_18)
+Adding (at t1 c_11_19)
+
+Checking next happening (time 190)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_19)
+
+Checking next happening (time 191)
+Deleting (at t1 c_11_19)
+Adding (at t1 c_11_20)
+
+Checking next happening (time 192)
+Deleting (at p2 c_11_20)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 193)
+Deleting (at t1 c_11_20)
+Adding (at t1 c_11_19)
+
+Checking next happening (time 194)
+Deleting (at t1 c_11_19)
+Adding (at t1 c_11_18)
+
+Checking next happening (time 195)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_18)
+
+Checking next happening (time 196)
+Deleting (at t1 c_11_18)
+Adding (at t1 c_11_19)
+
+Checking next happening (time 197)
+Deleting (at p3 c_11_19)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 198)
+Deleting (at t1 c_11_19)
+Adding (at t1 c_11_18)
+
+Checking next happening (time 199)
+Deleting (at t1 c_11_18)
+Adding (at t1 c_11_17)
+
+Checking next happening (time 200)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_11_17)
+
+Checking next happening (time 201)
+Deleting (at t1 c_11_17)
+Adding (at t1 c_11_18)
+
+Checking next happening (time 202)
+Deleting (at p2 c_11_18)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 203)
+Deleting (at t1 c_11_18)
+Adding (at t1 c_11_17)
+
+Checking next happening (time 204)
+Deleting (at t1 c_11_17)
+Adding (at t1 c_11_16)
+
+Checking next happening (time 205)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_16)
+
+Checking next happening (time 206)
+Deleting (at t1 c_11_16)
+Adding (at t1 c_11_17)
+
+Checking next happening (time 207)
+Deleting (at p3 c_11_17)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 208)
+Deleting (at t1 c_11_17)
+Adding (at t1 c_11_16)
+
+Checking next happening (time 209)
+Deleting (at t1 c_11_16)
+Adding (at t1 c_12_16)
+
+Checking next happening (time 210)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_12_16)
+
+Checking next happening (time 211)
+Deleting (at t1 c_12_16)
+Adding (at t1 c_11_16)
+
+Checking next happening (time 212)
+Deleting (at p2 c_11_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 213)
+Deleting (at t1 c_11_16)
+Adding (at t1 c_12_16)
+
+Checking next happening (time 214)
+Deleting (at t1 c_12_16)
+Adding (at t1 c_13_16)
+
+Checking next happening (time 215)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_13_16)
+
+Checking next happening (time 216)
+Deleting (at t1 c_13_16)
+Adding (at t1 c_12_16)
+
+Checking next happening (time 217)
+Deleting (at p3 c_12_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 218)
+Deleting (at t1 c_12_16)
+Adding (at t1 c_13_16)
+
+Checking next happening (time 219)
+Deleting (at t1 c_13_16)
+Adding (at t1 c_14_16)
+
+Checking next happening (time 220)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_14_16)
+
+Checking next happening (time 221)
+Deleting (at t1 c_14_16)
+Adding (at t1 c_13_16)
+
+Checking next happening (time 222)
+Deleting (at p2 c_13_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 223)
+Deleting (at t1 c_13_16)
+Adding (at t1 c_14_16)
+
+Checking next happening (time 224)
+Deleting (at t1 c_14_16)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 225)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_15_16)
+
+Checking next happening (time 226)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_14_16)
+
+Checking next happening (time 227)
+Deleting (at p3 c_14_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 228)
+Deleting (at t1 c_14_16)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 229)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_16_16)
+
+Checking next happening (time 230)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_16_16)
+
+Checking next happening (time 231)
+Deleting (at t1 c_16_16)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 232)
+Deleting (at p2 c_15_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 233)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_16_16)
+
+Checking next happening (time 234)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_16_16)
+
+Checking next happening (time 235)
+Deleting (at t1 c_16_16)
+Adding (at t1 c_15_16)
+
+Checking next happening (time 236)
+Deleting (at p1 c_15_16)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 237)
+Deleting (at t1 c_15_16)
+Adding (at t1 c_16_16)
+
+Checking next happening (time 238)
+Deleting (at t1 c_16_16)
+Adding (at t1 c_17_16)
+
+Checking next happening (time 239)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_17_16)
+
+Checking next happening (time 240)
+Deleting (at t1 c_17_16)
+Adding (at t1 c_16_16)
+
+Checking next happening (time 241)
+Deleting (at p3 c_16_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 242)
+Deleting (at t1 c_16_16)
+Adding (at t1 c_17_16)
+
+Checking next happening (time 243)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_17_16)
+
+Checking next happening (time 244)
+Deleting (at t1 c_17_16)
+Adding (at t1 c_16_16)
+
+Checking next happening (time 245)
+Deleting (at p2 c_16_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 246)
+Deleting (at t1 c_16_16)
+Adding (at t1 c_17_16)
+
+Checking next happening (time 247)
+Deleting (at t1 c_17_16)
+Adding (at t1 c_18_16)
+
+Checking next happening (time 248)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_18_16)
+
+Checking next happening (time 249)
+Deleting (at t1 c_18_16)
+Adding (at t1 c_17_16)
+
+Checking next happening (time 250)
+Deleting (at p3 c_17_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 251)
+Deleting (at t1 c_17_16)
+Adding (at t1 c_18_16)
+
+Checking next happening (time 252)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_18_16)
+
+Checking next happening (time 253)
+Deleting (at t1 c_18_16)
+Adding (at t1 c_17_16)
+
+Checking next happening (time 254)
+Deleting (at p1 c_17_16)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 255)
+Deleting (at t1 c_17_16)
+Adding (at t1 c_18_16)
+
+Checking next happening (time 256)
+Deleting (at t1 c_18_16)
+Adding (at t1 c_19_16)
+
+Checking next happening (time 257)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_19_16)
+
+Checking next happening (time 258)
+Deleting (at t1 c_19_16)
+Adding (at t1 c_18_16)
+
+Checking next happening (time 259)
+Deleting (at p3 c_18_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 260)
+Deleting (at t1 c_18_16)
+Adding (at t1 c_19_16)
+
+Checking next happening (time 261)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_19_16)
+
+Checking next happening (time 262)
+Deleting (at t1 c_19_16)
+Adding (at t1 c_18_16)
+
+Checking next happening (time 263)
+Deleting (at p2 c_18_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 264)
+Deleting (at t1 c_18_16)
+Adding (at t1 c_19_16)
+
+Checking next happening (time 265)
+Deleting (at t1 c_19_16)
+Adding (at t1 c_20_16)
+
+Checking next happening (time 266)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_20_16)
+
+Checking next happening (time 267)
+Deleting (at t1 c_20_16)
+Adding (at t1 c_19_16)
+
+Checking next happening (time 268)
+Deleting (at p3 c_19_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 269)
+Deleting (at t1 c_19_16)
+Adding (at t1 c_20_16)
+
+Checking next happening (time 270)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_20_16)
+
+Checking next happening (time 271)
+Deleting (at t1 c_20_16)
+Adding (at t1 c_19_16)
+
+Checking next happening (time 272)
+Deleting (at p1 c_19_16)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 273)
+Deleting (at t1 c_19_16)
+Adding (at t1 c_20_16)
+
+Checking next happening (time 274)
+Deleting (at t1 c_20_16)
+Adding (at t1 c_21_16)
+
+Checking next happening (time 275)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_21_16)
+
+Checking next happening (time 276)
+Deleting (at t1 c_21_16)
+Adding (at t1 c_20_16)
+
+Checking next happening (time 277)
+Deleting (at p3 c_20_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 278)
+Deleting (at t1 c_20_16)
+Adding (at t1 c_21_16)
+
+Checking next happening (time 279)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_21_16)
+
+Checking next happening (time 280)
+Deleting (at t1 c_21_16)
+Adding (at t1 c_20_16)
+
+Checking next happening (time 281)
+Deleting (at p2 c_20_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 282)
+Deleting (at t1 c_20_16)
+Adding (at t1 c_21_16)
+
+Checking next happening (time 283)
+Deleting (at t1 c_21_16)
+Adding (at t1 c_22_16)
+
+Checking next happening (time 284)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_22_16)
+
+Checking next happening (time 285)
+Deleting (at t1 c_22_16)
+Adding (at t1 c_21_16)
+
+Checking next happening (time 286)
+Deleting (at p3 c_21_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 287)
+Deleting (at t1 c_21_16)
+Adding (at t1 c_22_16)
+
+Checking next happening (time 288)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_22_16)
+
+Checking next happening (time 289)
+Deleting (at t1 c_22_16)
+Adding (at t1 c_21_16)
+
+Checking next happening (time 290)
+Deleting (at p1 c_21_16)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 291)
+Deleting (at t1 c_21_16)
+Adding (at t1 c_22_16)
+
+Checking next happening (time 292)
+Deleting (at t1 c_22_16)
+Adding (at t1 c_23_16)
+
+Checking next happening (time 293)
+Deleting (at t1 c_23_16)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 294)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_25_16)
+
+Checking next happening (time 295)
+Deleting (at t1 c_25_16)
+Adding (at t1 c_26_16)
+
+Checking next happening (time 296)
+Deleting (at t1 c_26_16)
+Adding (at t1 c_27_16)
+
+Checking next happening (time 297)
+Deleting (at t1 c_27_16)
+Adding (at t1 c_28_16)
+
+Checking next happening (time 298)
+Deleting (at t1 c_28_16)
+Adding (at t1 c_29_16)
+
+Checking next happening (time 299)
+Deleting (at t1 c_29_16)
+Adding (at t1 c_30_16)
+
+Checking next happening (time 300)
+Deleting (at t1 c_30_16)
+Adding (at t1 c_31_16)
+
+Checking next happening (time 301)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_31_16)
+
+Checking next happening (time 302)
+Deleting (at t1 c_31_16)
+Adding (at t1 c_30_16)
+
+Checking next happening (time 303)
+Deleting (at t1 c_30_16)
+Adding (at t1 c_29_16)
+
+Checking next happening (time 304)
+Deleting (at t1 c_29_16)
+Adding (at t1 c_28_16)
+
+Checking next happening (time 305)
+Deleting (at t1 c_28_16)
+Adding (at t1 c_27_16)
+
+Checking next happening (time 306)
+Deleting (at t1 c_27_16)
+Adding (at t1 c_26_16)
+
+Checking next happening (time 307)
+Deleting (at t1 c_26_16)
+Adding (at t1 c_25_16)
+
+Checking next happening (time 308)
+Deleting (at t1 c_25_16)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 309)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_23_16)
+
+Checking next happening (time 310)
+Deleting (at t1 c_23_16)
+Adding (at t1 c_22_16)
+
+Checking next happening (time 311)
+Deleting (at p3 c_22_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 312)
+Deleting (at t1 c_22_16)
+Adding (at t1 c_23_16)
+
+Checking next happening (time 313)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_23_16)
+
+Checking next happening (time 314)
+Deleting (at t1 c_23_16)
+Adding (at t1 c_22_16)
+
+Checking next happening (time 315)
+Deleting (at p2 c_22_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 316)
+Deleting (at t1 c_22_16)
+Adding (at t1 c_23_16)
+
+Checking next happening (time 317)
+Deleting (at t1 c_23_16)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 318)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_24_16)
+
+Checking next happening (time 319)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_23_16)
+
+Checking next happening (time 320)
+Deleting (at p3 c_23_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 321)
+Deleting (at t1 c_23_16)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 322)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_25_16)
+
+Checking next happening (time 323)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_25_16)
+
+Checking next happening (time 324)
+Deleting (at t1 c_25_16)
+Adding (at t1 c_24_16)
+
+Checking next happening (time 325)
+Deleting (at p2 c_24_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 326)
+Deleting (at t1 c_24_16)
+Adding (at t1 c_25_16)
+
+Checking next happening (time 327)
+Deleting (at t1 c_25_16)
+Adding (at t1 c_26_16)
+
+Checking next happening (time 328)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_26_16)
+
+Checking next happening (time 329)
+Deleting (at t1 c_26_16)
+Adding (at t1 c_25_16)
+
+Checking next happening (time 330)
+Deleting (at p3 c_25_16)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 331)
+Deleting (at t1 c_25_16)
+Adding (at t1 c_26_16)
+
+Checking next happening (time 332)
+Deleting (at t1 c_26_16)
+Adding (at t1 c_27_16)
+
+Checking next happening (time 333)
+Deleting (at t1 c_27_16)
+Adding (at t1 c_28_16)
+
+Checking next happening (time 334)
+Deleting (at t1 c_28_16)
+Adding (at t1 c_29_16)
+
+Checking next happening (time 335)
+Deleting (at t1 c_29_16)
+Adding (at t1 c_30_16)
+
+Checking next happening (time 336)
+Deleting (at t1 c_30_16)
+Adding (at t1 c_31_16)
+
+Checking next happening (time 337)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_31_16)
+
+Checking next happening (time 338)
+Deleting (at t1 c_31_16)
+Adding (at t1 c_30_16)
+
+Checking next happening (time 339)
+Deleting (at t1 c_30_16)
+Adding (at t1 c_29_16)
+
+Checking next happening (time 340)
+Deleting (at t1 c_29_16)
+Adding (at t1 c_28_16)
+
+Checking next happening (time 341)
+Deleting (at t1 c_28_16)
+Adding (at t1 c_27_16)
+
+Checking next happening (time 342)
+Deleting (at t1 c_27_16)
+Adding (at t1 c_26_16)
+
+Checking next happening (time 343)
+Deleting (at p2 c_26_16)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 344)
+Deleting (at t1 c_26_16)
+Adding (at t1 c_27_16)
+
+Checking next happening (time 345)
+Deleting (at t1 c_27_16)
+Adding (at t1 c_28_16)
+
+Checking next happening (time 346)
+Deleting (at t1 c_28_16)
+Adding (at t1 c_29_16)
+
+Checking next happening (time 347)
+Deleting (at t1 c_29_16)
+Adding (at t1 c_30_16)
+
+Checking next happening (time 348)
+Deleting (at t1 c_30_16)
+Adding (at t1 c_31_16)
+
+Checking next happening (time 349)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_31_16)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 349 
+
+Successful plans:
+Value: 349
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size44_packages1_seed44001.plan 349

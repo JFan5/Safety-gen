@@ -1,0 +1,2445 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260215_223618/blocksworld/optic_results/bw_ops3_n42_seed42001.plan
+Plan to validate:
+
+Plan size: 254
+1:
+(unstack b33 b36)
+ 
+2:
+(putdown b33)
+ 
+3:
+(unstack b9 b13)
+ 
+4:
+(putdown b9)
+ 
+5:
+(unstack b13 b30)
+ 
+6:
+(putdown b13)
+ 
+7:
+(unstack b30 b15)
+ 
+8:
+(stack b30 b33)
+ 
+9:
+(unstack b36 b27)
+ 
+10:
+(putdown b36)
+ 
+11:
+(unstack b27 b28)
+ 
+12:
+(putdown b27)
+ 
+13:
+(unstack b28 b38)
+ 
+14:
+(putdown b28)
+ 
+15:
+(unstack b38 b10)
+ 
+16:
+(stack b38 b9)
+ 
+17:
+(unstack b10 b8)
+ 
+18:
+(putdown b10)
+ 
+19:
+(unstack b8 b4)
+ 
+20:
+(putdown b8)
+ 
+21:
+(unstack b4 b41)
+ 
+22:
+(putdown b4)
+ 
+23:
+(unstack b41 b5)
+ 
+24:
+(stack b41 b8)
+ 
+25:
+(unstack b5 b24)
+ 
+26:
+(putdown b5)
+ 
+27:
+(pickup b36)
+ 
+28:
+(stack b36 b41)
+ 
+29:
+(pickup b10)
+ 
+30:
+(stack b10 b24)
+ 
+31:
+(unstack b36 b41)
+ 
+32:
+(putdown b36)
+ 
+33:
+(unstack b15 b16)
+ 
+34:
+(putdown b15)
+ 
+35:
+(unstack b10 b24)
+ 
+36:
+(putdown b10)
+ 
+37:
+(unstack b24 b2)
+ 
+38:
+(putdown b24)
+ 
+39:
+(pickup b36)
+ 
+40:
+(stack b36 b41)
+ 
+41:
+(unstack b2 b31)
+ 
+42:
+(stack b2 b16)
+ 
+43:
+(pickup b10)
+ 
+44:
+(stack b10 b24)
+ 
+45:
+(unstack b31 b11)
+ 
+46:
+(putdown b31)
+ 
+47:
+(unstack b11 b14)
+ 
+48:
+(putdown b11)
+ 
+49:
+(unstack b14 b7)
+ 
+50:
+(stack b14 b13)
+ 
+51:
+(unstack b7 b22)
+ 
+52:
+(putdown b7)
+ 
+53:
+(unstack b22 b26)
+ 
+54:
+(stack b22 b14)
+ 
+55:
+(unstack b26 b6)
+ 
+56:
+(stack b26 b27)
+ 
+57:
+(pickup b15)
+ 
+58:
+(stack b15 b22)
+ 
+59:
+(unstack b6 b34)
+ 
+60:
+(putdown b6)
+ 
+61:
+(unstack b34 b20)
+ 
+62:
+(stack b34 b30)
+ 
+63:
+(unstack b20 b12)
+ 
+64:
+(putdown b20)
+ 
+65:
+(unstack b12 b39)
+ 
+66:
+(stack b12 b11)
+ 
+67:
+(unstack b39 b3)
+ 
+68:
+(stack b39 b28)
+ 
+69:
+(pickup b7)
+ 
+70:
+(stack b7 b3)
+ 
+71:
+(unstack b36 b41)
+ 
+72:
+(putdown b36)
+ 
+73:
+(unstack b41 b8)
+ 
+74:
+(putdown b41)
+ 
+75:
+(pickup b8)
+ 
+76:
+(stack b8 b6)
+ 
+77:
+(pickup b41)
+ 
+78:
+(stack b41 b8)
+ 
+79:
+(pickup b36)
+ 
+80:
+(stack b36 b41)
+ 
+81:
+(unstack b7 b3)
+ 
+82:
+(putdown b7)
+ 
+83:
+(unstack b3 b17)
+ 
+84:
+(putdown b3)
+ 
+85:
+(unstack b17 b37)
+ 
+86:
+(putdown b17)
+ 
+87:
+(pickup b7)
+ 
+88:
+(stack b7 b3)
+ 
+89:
+(unstack b37 b21)
+ 
+90:
+(stack b37 b4)
+ 
+91:
+(unstack b21 b25)
+ 
+92:
+(putdown b21)
+ 
+93:
+(unstack b25 b42)
+ 
+94:
+(stack b25 b15)
+ 
+95:
+(unstack b42 b29)
+ 
+96:
+(stack b42 b36)
+ 
+97:
+(unstack b29 b40)
+ 
+98:
+(putdown b29)
+ 
+99:
+(unstack b40 b19)
+ 
+100:
+(stack b40 b2)
+ 
+101:
+(pickup b31)
+ 
+102:
+(stack b31 b42)
+ 
+103:
+(pickup b20)
+ 
+104:
+(stack b20 b19)
+ 
+105:
+(unstack b26 b27)
+ 
+106:
+(putdown b26)
+ 
+107:
+(pickup b27)
+ 
+108:
+(stack b27 b40)
+ 
+109:
+(pickup b26)
+ 
+110:
+(stack b26 b27)
+ 
+111:
+(unstack b20 b19)
+ 
+112:
+(putdown b20)
+ 
+113:
+(unstack b19 b32)
+ 
+114:
+(stack b19 b38)
+ 
+115:
+(unstack b32 b1)
+ 
+116:
+(stack b32 b5)
+ 
+117:
+(unstack b1 b23)
+ 
+118:
+(putdown b1)
+ 
+119:
+(unstack b23 b18)
+ 
+120:
+(putdown b23)
+ 
+121:
+(pickup b21)
+ 
+122:
+(stack b21 b1)
+ 
+123:
+(pickup b20)
+ 
+124:
+(stack b20 b19)
+ 
+125:
+(unstack b18 b35)
+ 
+126:
+(stack b18 b34)
+ 
+127:
+(pickup b35)
+ 
+128:
+(stack b35 b39)
+ 
+129:
+(unstack b7 b3)
+ 
+130:
+(putdown b7)
+ 
+131:
+(pickup b3)
+ 
+132:
+(stack b3 b18)
+ 
+133:
+(pickup b7)
+ 
+134:
+(stack b7 b3)
+ 
+135:
+(unstack b10 b24)
+ 
+136:
+(putdown b10)
+ 
+137:
+(pickup b24)
+ 
+138:
+(stack b24 b35)
+ 
+139:
+(pickup b10)
+ 
+140:
+(stack b10 b24)
+ 
+141:
+(unstack b12 b11)
+ 
+142:
+(putdown b12)
+ 
+143:
+(pickup b11)
+ 
+144:
+(stack b11 b25)
+ 
+145:
+(pickup b12)
+ 
+146:
+(stack b12 b11)
+ 
+147:
+(unstack b20 b19)
+ 
+148:
+(putdown b20)
+ 
+149:
+(unstack b19 b38)
+ 
+150:
+(putdown b19)
+ 
+151:
+(unstack b38 b9)
+ 
+152:
+(putdown b38)
+ 
+153:
+(pickup b9)
+ 
+154:
+(stack b9 b23)
+ 
+155:
+(pickup b38)
+ 
+156:
+(stack b38 b9)
+ 
+157:
+(pickup b20)
+ 
+158:
+(stack b20 b19)
+ 
+159:
+(unstack b31 b42)
+ 
+160:
+(putdown b31)
+ 
+161:
+(unstack b42 b36)
+ 
+162:
+(putdown b42)
+ 
+163:
+(unstack b20 b19)
+ 
+164:
+(putdown b20)
+ 
+165:
+(pickup b19)
+ 
+166:
+(stack b19 b38)
+ 
+167:
+(pickup b20)
+ 
+168:
+(stack b20 b19)
+ 
+169:
+(pickup b42)
+ 
+170:
+(stack b42 b36)
+ 
+171:
+(pickup b31)
+ 
+172:
+(stack b31 b42)
+ 
+173:
+(unstack b10 b24)
+ 
+174:
+(putdown b10)
+ 
+175:
+(unstack b24 b35)
+ 
+176:
+(putdown b24)
+ 
+177:
+(unstack b35 b39)
+ 
+178:
+(putdown b35)
+ 
+179:
+(unstack b39 b28)
+ 
+180:
+(putdown b39)
+ 
+181:
+(pickup b28)
+ 
+182:
+(stack b28 b32)
+ 
+183:
+(pickup b39)
+ 
+184:
+(stack b39 b28)
+ 
+185:
+(pickup b35)
+ 
+186:
+(stack b35 b39)
+ 
+187:
+(pickup b24)
+ 
+188:
+(stack b24 b35)
+ 
+189:
+(pickup b10)
+ 
+190:
+(stack b10 b24)
+ 
+191:
+(unstack b31 b42)
+ 
+192:
+(putdown b31)
+ 
+193:
+(unstack b42 b36)
+ 
+194:
+(putdown b42)
+ 
+195:
+(unstack b36 b41)
+ 
+196:
+(putdown b36)
+ 
+197:
+(unstack b41 b8)
+ 
+198:
+(putdown b41)
+ 
+199:
+(unstack b8 b6)
+ 
+200:
+(putdown b8)
+ 
+201:
+(pickup b6)
+ 
+202:
+(stack b6 b29)
+ 
+203:
+(pickup b8)
+ 
+204:
+(stack b8 b6)
+ 
+205:
+(pickup b41)
+ 
+206:
+(stack b41 b8)
+ 
+207:
+(pickup b42)
+ 
+208:
+(stack b42 b36)
+ 
+209:
+(pickup b31)
+ 
+210:
+(stack b31 b42)
+ 
+211:
+(unstack b12 b11)
+ 
+212:
+(putdown b12)
+ 
+213:
+(unstack b11 b25)
+ 
+214:
+(putdown b11)
+ 
+215:
+(unstack b31 b42)
+ 
+216:
+(putdown b31)
+ 
+217:
+(unstack b42 b36)
+ 
+218:
+(putdown b42)
+ 
+219:
+(pickup b36)
+ 
+220:
+(stack b36 b41)
+ 
+221:
+(pickup b42)
+ 
+222:
+(stack b42 b36)
+ 
+223:
+(pickup b31)
+ 
+224:
+(stack b31 b42)
+ 
+225:
+(pickup b12)
+ 
+226:
+(stack b12 b11)
+ 
+227:
+(unstack b25 b15)
+ 
+228:
+(putdown b25)
+ 
+229:
+(unstack b15 b22)
+ 
+230:
+(putdown b15)
+ 
+231:
+(unstack b22 b14)
+ 
+232:
+(putdown b22)
+ 
+233:
+(unstack b14 b13)
+ 
+234:
+(putdown b14)
+ 
+235:
+(pickup b25)
+ 
+236:
+(stack b25 b15)
+ 
+237:
+(pickup b13)
+ 
+238:
+(stack b13 b20)
+ 
+239:
+(pickup b14)
+ 
+240:
+(stack b14 b13)
+ 
+241:
+(pickup b22)
+ 
+242:
+(stack b22 b14)
+ 
+243:
+(unstack b25 b15)
+ 
+244:
+(putdown b25)
+ 
+245:
+(pickup b15)
+ 
+246:
+(stack b15 b22)
+ 
+247:
+(pickup b25)
+ 
+248:
+(stack b25 b15)
+ 
+249:
+(unstack b12 b11)
+ 
+250:
+(putdown b12)
+ 
+251:
+(pickup b11)
+ 
+252:
+(stack b11 b25)
+ 
+253:
+(pickup b12)
+ 
+254:
+(stack b12 b11)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (on b33 b36)
+Deleting (clear b33)
+Deleting (arm-empty)
+Adding (holding b33)
+Adding (clear b36)
+
+Checking next happening (time 2)
+Deleting (holding b33)
+Adding (clear b33)
+Adding (arm-empty)
+Adding (on-table b33)
+
+Checking next happening (time 3)
+Deleting (on b9 b13)
+Deleting (clear b9)
+Deleting (arm-empty)
+Adding (holding b9)
+Adding (clear b13)
+
+Checking next happening (time 4)
+Deleting (holding b9)
+Adding (clear b9)
+Adding (arm-empty)
+Adding (on-table b9)
+
+Checking next happening (time 5)
+Deleting (on b13 b30)
+Deleting (clear b13)
+Deleting (arm-empty)
+Adding (holding b13)
+Adding (clear b30)
+
+Checking next happening (time 6)
+Deleting (holding b13)
+Adding (clear b13)
+Adding (arm-empty)
+Adding (on-table b13)
+
+Checking next happening (time 7)
+Deleting (on b30 b15)
+Deleting (clear b30)
+Deleting (arm-empty)
+Adding (holding b30)
+Adding (clear b15)
+
+Checking next happening (time 8)
+Deleting (clear b33)
+Deleting (holding b30)
+Adding (arm-empty)
+Adding (clear b30)
+Adding (on b30 b33)
+
+Checking next happening (time 9)
+Deleting (on b36 b27)
+Deleting (clear b36)
+Deleting (arm-empty)
+Adding (holding b36)
+Adding (clear b27)
+
+Checking next happening (time 10)
+Deleting (holding b36)
+Adding (clear b36)
+Adding (arm-empty)
+Adding (on-table b36)
+
+Checking next happening (time 11)
+Deleting (on b27 b28)
+Deleting (clear b27)
+Deleting (arm-empty)
+Adding (holding b27)
+Adding (clear b28)
+
+Checking next happening (time 12)
+Deleting (holding b27)
+Adding (clear b27)
+Adding (arm-empty)
+Adding (on-table b27)
+
+Checking next happening (time 13)
+Deleting (on b28 b38)
+Deleting (clear b28)
+Deleting (arm-empty)
+Adding (holding b28)
+Adding (clear b38)
+
+Checking next happening (time 14)
+Deleting (holding b28)
+Adding (clear b28)
+Adding (arm-empty)
+Adding (on-table b28)
+
+Checking next happening (time 15)
+Deleting (on b38 b10)
+Deleting (clear b38)
+Deleting (arm-empty)
+Adding (holding b38)
+Adding (clear b10)
+
+Checking next happening (time 16)
+Deleting (clear b9)
+Deleting (holding b38)
+Adding (arm-empty)
+Adding (clear b38)
+Adding (on b38 b9)
+
+Checking next happening (time 17)
+Deleting (on b10 b8)
+Deleting (clear b10)
+Deleting (arm-empty)
+Adding (holding b10)
+Adding (clear b8)
+
+Checking next happening (time 18)
+Deleting (holding b10)
+Adding (clear b10)
+Adding (arm-empty)
+Adding (on-table b10)
+
+Checking next happening (time 19)
+Deleting (on b8 b4)
+Deleting (clear b8)
+Deleting (arm-empty)
+Adding (holding b8)
+Adding (clear b4)
+
+Checking next happening (time 20)
+Deleting (holding b8)
+Adding (clear b8)
+Adding (arm-empty)
+Adding (on-table b8)
+
+Checking next happening (time 21)
+Deleting (on b4 b41)
+Deleting (clear b4)
+Deleting (arm-empty)
+Adding (holding b4)
+Adding (clear b41)
+
+Checking next happening (time 22)
+Deleting (holding b4)
+Adding (clear b4)
+Adding (arm-empty)
+Adding (on-table b4)
+
+Checking next happening (time 23)
+Deleting (on b41 b5)
+Deleting (clear b41)
+Deleting (arm-empty)
+Adding (holding b41)
+Adding (clear b5)
+
+Checking next happening (time 24)
+Deleting (clear b8)
+Deleting (holding b41)
+Adding (arm-empty)
+Adding (clear b41)
+Adding (on b41 b8)
+
+Checking next happening (time 25)
+Deleting (on b5 b24)
+Deleting (clear b5)
+Deleting (arm-empty)
+Adding (holding b5)
+Adding (clear b24)
+
+Checking next happening (time 26)
+Deleting (holding b5)
+Adding (clear b5)
+Adding (arm-empty)
+Adding (on-table b5)
+
+Checking next happening (time 27)
+Deleting (clear b36)
+Deleting (on-table b36)
+Deleting (arm-empty)
+Adding (holding b36)
+
+Checking next happening (time 28)
+Deleting (clear b41)
+Deleting (holding b36)
+Adding (arm-empty)
+Adding (clear b36)
+Adding (on b36 b41)
+
+Checking next happening (time 29)
+Deleting (clear b10)
+Deleting (on-table b10)
+Deleting (arm-empty)
+Adding (holding b10)
+
+Checking next happening (time 30)
+Deleting (clear b24)
+Deleting (holding b10)
+Adding (arm-empty)
+Adding (clear b10)
+Adding (on b10 b24)
+
+Checking next happening (time 31)
+Deleting (on b36 b41)
+Deleting (clear b36)
+Deleting (arm-empty)
+Adding (holding b36)
+Adding (clear b41)
+
+Checking next happening (time 32)
+Deleting (holding b36)
+Adding (clear b36)
+Adding (arm-empty)
+Adding (on-table b36)
+
+Checking next happening (time 33)
+Deleting (on b15 b16)
+Deleting (clear b15)
+Deleting (arm-empty)
+Adding (holding b15)
+Adding (clear b16)
+
+Checking next happening (time 34)
+Deleting (holding b15)
+Adding (clear b15)
+Adding (arm-empty)
+Adding (on-table b15)
+
+Checking next happening (time 35)
+Deleting (on b10 b24)
+Deleting (clear b10)
+Deleting (arm-empty)
+Adding (holding b10)
+Adding (clear b24)
+
+Checking next happening (time 36)
+Deleting (holding b10)
+Adding (clear b10)
+Adding (arm-empty)
+Adding (on-table b10)
+
+Checking next happening (time 37)
+Deleting (on b24 b2)
+Deleting (clear b24)
+Deleting (arm-empty)
+Adding (holding b24)
+Adding (clear b2)
+
+Checking next happening (time 38)
+Deleting (holding b24)
+Adding (clear b24)
+Adding (arm-empty)
+Adding (on-table b24)
+
+Checking next happening (time 39)
+Deleting (clear b36)
+Deleting (on-table b36)
+Deleting (arm-empty)
+Adding (holding b36)
+
+Checking next happening (time 40)
+Deleting (clear b41)
+Deleting (holding b36)
+Adding (arm-empty)
+Adding (clear b36)
+Adding (on b36 b41)
+
+Checking next happening (time 41)
+Deleting (on b2 b31)
+Deleting (clear b2)
+Deleting (arm-empty)
+Adding (holding b2)
+Adding (clear b31)
+
+Checking next happening (time 42)
+Deleting (clear b16)
+Deleting (holding b2)
+Adding (arm-empty)
+Adding (clear b2)
+Adding (on b2 b16)
+
+Checking next happening (time 43)
+Deleting (clear b10)
+Deleting (on-table b10)
+Deleting (arm-empty)
+Adding (holding b10)
+
+Checking next happening (time 44)
+Deleting (clear b24)
+Deleting (holding b10)
+Adding (arm-empty)
+Adding (clear b10)
+Adding (on b10 b24)
+
+Checking next happening (time 45)
+Deleting (on b31 b11)
+Deleting (clear b31)
+Deleting (arm-empty)
+Adding (holding b31)
+Adding (clear b11)
+
+Checking next happening (time 46)
+Deleting (holding b31)
+Adding (clear b31)
+Adding (arm-empty)
+Adding (on-table b31)
+
+Checking next happening (time 47)
+Deleting (on b11 b14)
+Deleting (clear b11)
+Deleting (arm-empty)
+Adding (holding b11)
+Adding (clear b14)
+
+Checking next happening (time 48)
+Deleting (holding b11)
+Adding (clear b11)
+Adding (arm-empty)
+Adding (on-table b11)
+
+Checking next happening (time 49)
+Deleting (on b14 b7)
+Deleting (clear b14)
+Deleting (arm-empty)
+Adding (holding b14)
+Adding (clear b7)
+
+Checking next happening (time 50)
+Deleting (clear b13)
+Deleting (holding b14)
+Adding (arm-empty)
+Adding (clear b14)
+Adding (on b14 b13)
+
+Checking next happening (time 51)
+Deleting (on b7 b22)
+Deleting (clear b7)
+Deleting (arm-empty)
+Adding (holding b7)
+Adding (clear b22)
+
+Checking next happening (time 52)
+Deleting (holding b7)
+Adding (clear b7)
+Adding (arm-empty)
+Adding (on-table b7)
+
+Checking next happening (time 53)
+Deleting (on b22 b26)
+Deleting (clear b22)
+Deleting (arm-empty)
+Adding (holding b22)
+Adding (clear b26)
+
+Checking next happening (time 54)
+Deleting (clear b14)
+Deleting (holding b22)
+Adding (arm-empty)
+Adding (clear b22)
+Adding (on b22 b14)
+
+Checking next happening (time 55)
+Deleting (on b26 b6)
+Deleting (clear b26)
+Deleting (arm-empty)
+Adding (holding b26)
+Adding (clear b6)
+
+Checking next happening (time 56)
+Deleting (clear b27)
+Deleting (holding b26)
+Adding (arm-empty)
+Adding (clear b26)
+Adding (on b26 b27)
+
+Checking next happening (time 57)
+Deleting (clear b15)
+Deleting (on-table b15)
+Deleting (arm-empty)
+Adding (holding b15)
+
+Checking next happening (time 58)
+Deleting (clear b22)
+Deleting (holding b15)
+Adding (arm-empty)
+Adding (clear b15)
+Adding (on b15 b22)
+
+Checking next happening (time 59)
+Deleting (on b6 b34)
+Deleting (clear b6)
+Deleting (arm-empty)
+Adding (holding b6)
+Adding (clear b34)
+
+Checking next happening (time 60)
+Deleting (holding b6)
+Adding (clear b6)
+Adding (arm-empty)
+Adding (on-table b6)
+
+Checking next happening (time 61)
+Deleting (on b34 b20)
+Deleting (clear b34)
+Deleting (arm-empty)
+Adding (holding b34)
+Adding (clear b20)
+
+Checking next happening (time 62)
+Deleting (clear b30)
+Deleting (holding b34)
+Adding (arm-empty)
+Adding (clear b34)
+Adding (on b34 b30)
+
+Checking next happening (time 63)
+Deleting (on b20 b12)
+Deleting (clear b20)
+Deleting (arm-empty)
+Adding (holding b20)
+Adding (clear b12)
+
+Checking next happening (time 64)
+Deleting (holding b20)
+Adding (clear b20)
+Adding (arm-empty)
+Adding (on-table b20)
+
+Checking next happening (time 65)
+Deleting (on b12 b39)
+Deleting (clear b12)
+Deleting (arm-empty)
+Adding (holding b12)
+Adding (clear b39)
+
+Checking next happening (time 66)
+Deleting (clear b11)
+Deleting (holding b12)
+Adding (arm-empty)
+Adding (clear b12)
+Adding (on b12 b11)
+
+Checking next happening (time 67)
+Deleting (on b39 b3)
+Deleting (clear b39)
+Deleting (arm-empty)
+Adding (holding b39)
+Adding (clear b3)
+
+Checking next happening (time 68)
+Deleting (clear b28)
+Deleting (holding b39)
+Adding (arm-empty)
+Adding (clear b39)
+Adding (on b39 b28)
+
+Checking next happening (time 69)
+Deleting (clear b7)
+Deleting (on-table b7)
+Deleting (arm-empty)
+Adding (holding b7)
+
+Checking next happening (time 70)
+Deleting (clear b3)
+Deleting (holding b7)
+Adding (arm-empty)
+Adding (clear b7)
+Adding (on b7 b3)
+
+Checking next happening (time 71)
+Deleting (on b36 b41)
+Deleting (clear b36)
+Deleting (arm-empty)
+Adding (holding b36)
+Adding (clear b41)
+
+Checking next happening (time 72)
+Deleting (holding b36)
+Adding (clear b36)
+Adding (arm-empty)
+Adding (on-table b36)
+
+Checking next happening (time 73)
+Deleting (on b41 b8)
+Deleting (clear b41)
+Deleting (arm-empty)
+Adding (holding b41)
+Adding (clear b8)
+
+Checking next happening (time 74)
+Deleting (holding b41)
+Adding (clear b41)
+Adding (arm-empty)
+Adding (on-table b41)
+
+Checking next happening (time 75)
+Deleting (clear b8)
+Deleting (on-table b8)
+Deleting (arm-empty)
+Adding (holding b8)
+
+Checking next happening (time 76)
+Deleting (clear b6)
+Deleting (holding b8)
+Adding (arm-empty)
+Adding (clear b8)
+Adding (on b8 b6)
+
+Checking next happening (time 77)
+Deleting (clear b41)
+Deleting (on-table b41)
+Deleting (arm-empty)
+Adding (holding b41)
+
+Checking next happening (time 78)
+Deleting (clear b8)
+Deleting (holding b41)
+Adding (arm-empty)
+Adding (clear b41)
+Adding (on b41 b8)
+
+Checking next happening (time 79)
+Deleting (clear b36)
+Deleting (on-table b36)
+Deleting (arm-empty)
+Adding (holding b36)
+
+Checking next happening (time 80)
+Deleting (clear b41)
+Deleting (holding b36)
+Adding (arm-empty)
+Adding (clear b36)
+Adding (on b36 b41)
+
+Checking next happening (time 81)
+Deleting (on b7 b3)
+Deleting (clear b7)
+Deleting (arm-empty)
+Adding (holding b7)
+Adding (clear b3)
+
+Checking next happening (time 82)
+Deleting (holding b7)
+Adding (clear b7)
+Adding (arm-empty)
+Adding (on-table b7)
+
+Checking next happening (time 83)
+Deleting (on b3 b17)
+Deleting (clear b3)
+Deleting (arm-empty)
+Adding (holding b3)
+Adding (clear b17)
+
+Checking next happening (time 84)
+Deleting (holding b3)
+Adding (clear b3)
+Adding (arm-empty)
+Adding (on-table b3)
+
+Checking next happening (time 85)
+Deleting (on b17 b37)
+Deleting (clear b17)
+Deleting (arm-empty)
+Adding (holding b17)
+Adding (clear b37)
+
+Checking next happening (time 86)
+Deleting (holding b17)
+Adding (clear b17)
+Adding (arm-empty)
+Adding (on-table b17)
+
+Checking next happening (time 87)
+Deleting (clear b7)
+Deleting (on-table b7)
+Deleting (arm-empty)
+Adding (holding b7)
+
+Checking next happening (time 88)
+Deleting (clear b3)
+Deleting (holding b7)
+Adding (arm-empty)
+Adding (clear b7)
+Adding (on b7 b3)
+
+Checking next happening (time 89)
+Deleting (on b37 b21)
+Deleting (clear b37)
+Deleting (arm-empty)
+Adding (holding b37)
+Adding (clear b21)
+
+Checking next happening (time 90)
+Deleting (clear b4)
+Deleting (holding b37)
+Adding (arm-empty)
+Adding (clear b37)
+Adding (on b37 b4)
+
+Checking next happening (time 91)
+Deleting (on b21 b25)
+Deleting (clear b21)
+Deleting (arm-empty)
+Adding (holding b21)
+Adding (clear b25)
+
+Checking next happening (time 92)
+Deleting (holding b21)
+Adding (clear b21)
+Adding (arm-empty)
+Adding (on-table b21)
+
+Checking next happening (time 93)
+Deleting (on b25 b42)
+Deleting (clear b25)
+Deleting (arm-empty)
+Adding (holding b25)
+Adding (clear b42)
+
+Checking next happening (time 94)
+Deleting (clear b15)
+Deleting (holding b25)
+Adding (arm-empty)
+Adding (clear b25)
+Adding (on b25 b15)
+
+Checking next happening (time 95)
+Deleting (on b42 b29)
+Deleting (clear b42)
+Deleting (arm-empty)
+Adding (holding b42)
+Adding (clear b29)
+
+Checking next happening (time 96)
+Deleting (clear b36)
+Deleting (holding b42)
+Adding (arm-empty)
+Adding (clear b42)
+Adding (on b42 b36)
+
+Checking next happening (time 97)
+Deleting (on b29 b40)
+Deleting (clear b29)
+Deleting (arm-empty)
+Adding (holding b29)
+Adding (clear b40)
+
+Checking next happening (time 98)
+Deleting (holding b29)
+Adding (clear b29)
+Adding (arm-empty)
+Adding (on-table b29)
+
+Checking next happening (time 99)
+Deleting (on b40 b19)
+Deleting (clear b40)
+Deleting (arm-empty)
+Adding (holding b40)
+Adding (clear b19)
+
+Checking next happening (time 100)
+Deleting (clear b2)
+Deleting (holding b40)
+Adding (arm-empty)
+Adding (clear b40)
+Adding (on b40 b2)
+
+Checking next happening (time 101)
+Deleting (clear b31)
+Deleting (on-table b31)
+Deleting (arm-empty)
+Adding (holding b31)
+
+Checking next happening (time 102)
+Deleting (clear b42)
+Deleting (holding b31)
+Adding (arm-empty)
+Adding (clear b31)
+Adding (on b31 b42)
+
+Checking next happening (time 103)
+Deleting (clear b20)
+Deleting (on-table b20)
+Deleting (arm-empty)
+Adding (holding b20)
+
+Checking next happening (time 104)
+Deleting (clear b19)
+Deleting (holding b20)
+Adding (arm-empty)
+Adding (clear b20)
+Adding (on b20 b19)
+
+Checking next happening (time 105)
+Deleting (on b26 b27)
+Deleting (clear b26)
+Deleting (arm-empty)
+Adding (holding b26)
+Adding (clear b27)
+
+Checking next happening (time 106)
+Deleting (holding b26)
+Adding (clear b26)
+Adding (arm-empty)
+Adding (on-table b26)
+
+Checking next happening (time 107)
+Deleting (clear b27)
+Deleting (on-table b27)
+Deleting (arm-empty)
+Adding (holding b27)
+
+Checking next happening (time 108)
+Deleting (clear b40)
+Deleting (holding b27)
+Adding (arm-empty)
+Adding (clear b27)
+Adding (on b27 b40)
+
+Checking next happening (time 109)
+Deleting (clear b26)
+Deleting (on-table b26)
+Deleting (arm-empty)
+Adding (holding b26)
+
+Checking next happening (time 110)
+Deleting (clear b27)
+Deleting (holding b26)
+Adding (arm-empty)
+Adding (clear b26)
+Adding (on b26 b27)
+
+Checking next happening (time 111)
+Deleting (on b20 b19)
+Deleting (clear b20)
+Deleting (arm-empty)
+Adding (holding b20)
+Adding (clear b19)
+
+Checking next happening (time 112)
+Deleting (holding b20)
+Adding (clear b20)
+Adding (arm-empty)
+Adding (on-table b20)
+
+Checking next happening (time 113)
+Deleting (on b19 b32)
+Deleting (clear b19)
+Deleting (arm-empty)
+Adding (holding b19)
+Adding (clear b32)
+
+Checking next happening (time 114)
+Deleting (clear b38)
+Deleting (holding b19)
+Adding (arm-empty)
+Adding (clear b19)
+Adding (on b19 b38)
+
+Checking next happening (time 115)
+Deleting (on b32 b1)
+Deleting (clear b32)
+Deleting (arm-empty)
+Adding (holding b32)
+Adding (clear b1)
+
+Checking next happening (time 116)
+Deleting (clear b5)
+Deleting (holding b32)
+Adding (arm-empty)
+Adding (clear b32)
+Adding (on b32 b5)
+
+Checking next happening (time 117)
+Deleting (on b1 b23)
+Deleting (clear b1)
+Deleting (arm-empty)
+Adding (holding b1)
+Adding (clear b23)
+
+Checking next happening (time 118)
+Deleting (holding b1)
+Adding (clear b1)
+Adding (arm-empty)
+Adding (on-table b1)
+
+Checking next happening (time 119)
+Deleting (on b23 b18)
+Deleting (clear b23)
+Deleting (arm-empty)
+Adding (holding b23)
+Adding (clear b18)
+
+Checking next happening (time 120)
+Deleting (holding b23)
+Adding (clear b23)
+Adding (arm-empty)
+Adding (on-table b23)
+
+Checking next happening (time 121)
+Deleting (clear b21)
+Deleting (on-table b21)
+Deleting (arm-empty)
+Adding (holding b21)
+
+Checking next happening (time 122)
+Deleting (clear b1)
+Deleting (holding b21)
+Adding (arm-empty)
+Adding (clear b21)
+Adding (on b21 b1)
+
+Checking next happening (time 123)
+Deleting (clear b20)
+Deleting (on-table b20)
+Deleting (arm-empty)
+Adding (holding b20)
+
+Checking next happening (time 124)
+Deleting (clear b19)
+Deleting (holding b20)
+Adding (arm-empty)
+Adding (clear b20)
+Adding (on b20 b19)
+
+Checking next happening (time 125)
+Deleting (on b18 b35)
+Deleting (clear b18)
+Deleting (arm-empty)
+Adding (holding b18)
+Adding (clear b35)
+
+Checking next happening (time 126)
+Deleting (clear b34)
+Deleting (holding b18)
+Adding (arm-empty)
+Adding (clear b18)
+Adding (on b18 b34)
+
+Checking next happening (time 127)
+Deleting (clear b35)
+Deleting (on-table b35)
+Deleting (arm-empty)
+Adding (holding b35)
+
+Checking next happening (time 128)
+Deleting (clear b39)
+Deleting (holding b35)
+Adding (arm-empty)
+Adding (clear b35)
+Adding (on b35 b39)
+
+Checking next happening (time 129)
+Deleting (on b7 b3)
+Deleting (clear b7)
+Deleting (arm-empty)
+Adding (holding b7)
+Adding (clear b3)
+
+Checking next happening (time 130)
+Deleting (holding b7)
+Adding (clear b7)
+Adding (arm-empty)
+Adding (on-table b7)
+
+Checking next happening (time 131)
+Deleting (clear b3)
+Deleting (on-table b3)
+Deleting (arm-empty)
+Adding (holding b3)
+
+Checking next happening (time 132)
+Deleting (clear b18)
+Deleting (holding b3)
+Adding (arm-empty)
+Adding (clear b3)
+Adding (on b3 b18)
+
+Checking next happening (time 133)
+Deleting (clear b7)
+Deleting (on-table b7)
+Deleting (arm-empty)
+Adding (holding b7)
+
+Checking next happening (time 134)
+Deleting (clear b3)
+Deleting (holding b7)
+Adding (arm-empty)
+Adding (clear b7)
+Adding (on b7 b3)
+
+Checking next happening (time 135)
+Deleting (on b10 b24)
+Deleting (clear b10)
+Deleting (arm-empty)
+Adding (holding b10)
+Adding (clear b24)
+
+Checking next happening (time 136)
+Deleting (holding b10)
+Adding (clear b10)
+Adding (arm-empty)
+Adding (on-table b10)
+
+Checking next happening (time 137)
+Deleting (clear b24)
+Deleting (on-table b24)
+Deleting (arm-empty)
+Adding (holding b24)
+
+Checking next happening (time 138)
+Deleting (clear b35)
+Deleting (holding b24)
+Adding (arm-empty)
+Adding (clear b24)
+Adding (on b24 b35)
+
+Checking next happening (time 139)
+Deleting (clear b10)
+Deleting (on-table b10)
+Deleting (arm-empty)
+Adding (holding b10)
+
+Checking next happening (time 140)
+Deleting (clear b24)
+Deleting (holding b10)
+Adding (arm-empty)
+Adding (clear b10)
+Adding (on b10 b24)
+
+Checking next happening (time 141)
+Deleting (on b12 b11)
+Deleting (clear b12)
+Deleting (arm-empty)
+Adding (holding b12)
+Adding (clear b11)
+
+Checking next happening (time 142)
+Deleting (holding b12)
+Adding (clear b12)
+Adding (arm-empty)
+Adding (on-table b12)
+
+Checking next happening (time 143)
+Deleting (clear b11)
+Deleting (on-table b11)
+Deleting (arm-empty)
+Adding (holding b11)
+
+Checking next happening (time 144)
+Deleting (clear b25)
+Deleting (holding b11)
+Adding (arm-empty)
+Adding (clear b11)
+Adding (on b11 b25)
+
+Checking next happening (time 145)
+Deleting (clear b12)
+Deleting (on-table b12)
+Deleting (arm-empty)
+Adding (holding b12)
+
+Checking next happening (time 146)
+Deleting (clear b11)
+Deleting (holding b12)
+Adding (arm-empty)
+Adding (clear b12)
+Adding (on b12 b11)
+
+Checking next happening (time 147)
+Deleting (on b20 b19)
+Deleting (clear b20)
+Deleting (arm-empty)
+Adding (holding b20)
+Adding (clear b19)
+
+Checking next happening (time 148)
+Deleting (holding b20)
+Adding (clear b20)
+Adding (arm-empty)
+Adding (on-table b20)
+
+Checking next happening (time 149)
+Deleting (on b19 b38)
+Deleting (clear b19)
+Deleting (arm-empty)
+Adding (holding b19)
+Adding (clear b38)
+
+Checking next happening (time 150)
+Deleting (holding b19)
+Adding (clear b19)
+Adding (arm-empty)
+Adding (on-table b19)
+
+Checking next happening (time 151)
+Deleting (on b38 b9)
+Deleting (clear b38)
+Deleting (arm-empty)
+Adding (holding b38)
+Adding (clear b9)
+
+Checking next happening (time 152)
+Deleting (holding b38)
+Adding (clear b38)
+Adding (arm-empty)
+Adding (on-table b38)
+
+Checking next happening (time 153)
+Deleting (clear b9)
+Deleting (on-table b9)
+Deleting (arm-empty)
+Adding (holding b9)
+
+Checking next happening (time 154)
+Deleting (clear b23)
+Deleting (holding b9)
+Adding (arm-empty)
+Adding (clear b9)
+Adding (on b9 b23)
+
+Checking next happening (time 155)
+Deleting (clear b38)
+Deleting (on-table b38)
+Deleting (arm-empty)
+Adding (holding b38)
+
+Checking next happening (time 156)
+Deleting (clear b9)
+Deleting (holding b38)
+Adding (arm-empty)
+Adding (clear b38)
+Adding (on b38 b9)
+
+Checking next happening (time 157)
+Deleting (clear b20)
+Deleting (on-table b20)
+Deleting (arm-empty)
+Adding (holding b20)
+
+Checking next happening (time 158)
+Deleting (clear b19)
+Deleting (holding b20)
+Adding (arm-empty)
+Adding (clear b20)
+Adding (on b20 b19)
+
+Checking next happening (time 159)
+Deleting (on b31 b42)
+Deleting (clear b31)
+Deleting (arm-empty)
+Adding (holding b31)
+Adding (clear b42)
+
+Checking next happening (time 160)
+Deleting (holding b31)
+Adding (clear b31)
+Adding (arm-empty)
+Adding (on-table b31)
+
+Checking next happening (time 161)
+Deleting (on b42 b36)
+Deleting (clear b42)
+Deleting (arm-empty)
+Adding (holding b42)
+Adding (clear b36)
+
+Checking next happening (time 162)
+Deleting (holding b42)
+Adding (clear b42)
+Adding (arm-empty)
+Adding (on-table b42)
+
+Checking next happening (time 163)
+Deleting (on b20 b19)
+Deleting (clear b20)
+Deleting (arm-empty)
+Adding (holding b20)
+Adding (clear b19)
+
+Checking next happening (time 164)
+Deleting (holding b20)
+Adding (clear b20)
+Adding (arm-empty)
+Adding (on-table b20)
+
+Checking next happening (time 165)
+Deleting (clear b19)
+Deleting (on-table b19)
+Deleting (arm-empty)
+Adding (holding b19)
+
+Checking next happening (time 166)
+Deleting (clear b38)
+Deleting (holding b19)
+Adding (arm-empty)
+Adding (clear b19)
+Adding (on b19 b38)
+
+Checking next happening (time 167)
+Deleting (clear b20)
+Deleting (on-table b20)
+Deleting (arm-empty)
+Adding (holding b20)
+
+Checking next happening (time 168)
+Deleting (clear b19)
+Deleting (holding b20)
+Adding (arm-empty)
+Adding (clear b20)
+Adding (on b20 b19)
+
+Checking next happening (time 169)
+Deleting (clear b42)
+Deleting (on-table b42)
+Deleting (arm-empty)
+Adding (holding b42)
+
+Checking next happening (time 170)
+Deleting (clear b36)
+Deleting (holding b42)
+Adding (arm-empty)
+Adding (clear b42)
+Adding (on b42 b36)
+
+Checking next happening (time 171)
+Deleting (clear b31)
+Deleting (on-table b31)
+Deleting (arm-empty)
+Adding (holding b31)
+
+Checking next happening (time 172)
+Deleting (clear b42)
+Deleting (holding b31)
+Adding (arm-empty)
+Adding (clear b31)
+Adding (on b31 b42)
+
+Checking next happening (time 173)
+Deleting (on b10 b24)
+Deleting (clear b10)
+Deleting (arm-empty)
+Adding (holding b10)
+Adding (clear b24)
+
+Checking next happening (time 174)
+Deleting (holding b10)
+Adding (clear b10)
+Adding (arm-empty)
+Adding (on-table b10)
+
+Checking next happening (time 175)
+Deleting (on b24 b35)
+Deleting (clear b24)
+Deleting (arm-empty)
+Adding (holding b24)
+Adding (clear b35)
+
+Checking next happening (time 176)
+Deleting (holding b24)
+Adding (clear b24)
+Adding (arm-empty)
+Adding (on-table b24)
+
+Checking next happening (time 177)
+Deleting (on b35 b39)
+Deleting (clear b35)
+Deleting (arm-empty)
+Adding (holding b35)
+Adding (clear b39)
+
+Checking next happening (time 178)
+Deleting (holding b35)
+Adding (clear b35)
+Adding (arm-empty)
+Adding (on-table b35)
+
+Checking next happening (time 179)
+Deleting (on b39 b28)
+Deleting (clear b39)
+Deleting (arm-empty)
+Adding (holding b39)
+Adding (clear b28)
+
+Checking next happening (time 180)
+Deleting (holding b39)
+Adding (clear b39)
+Adding (arm-empty)
+Adding (on-table b39)
+
+Checking next happening (time 181)
+Deleting (clear b28)
+Deleting (on-table b28)
+Deleting (arm-empty)
+Adding (holding b28)
+
+Checking next happening (time 182)
+Deleting (clear b32)
+Deleting (holding b28)
+Adding (arm-empty)
+Adding (clear b28)
+Adding (on b28 b32)
+
+Checking next happening (time 183)
+Deleting (clear b39)
+Deleting (on-table b39)
+Deleting (arm-empty)
+Adding (holding b39)
+
+Checking next happening (time 184)
+Deleting (clear b28)
+Deleting (holding b39)
+Adding (arm-empty)
+Adding (clear b39)
+Adding (on b39 b28)
+
+Checking next happening (time 185)
+Deleting (clear b35)
+Deleting (on-table b35)
+Deleting (arm-empty)
+Adding (holding b35)
+
+Checking next happening (time 186)
+Deleting (clear b39)
+Deleting (holding b35)
+Adding (arm-empty)
+Adding (clear b35)
+Adding (on b35 b39)
+
+Checking next happening (time 187)
+Deleting (clear b24)
+Deleting (on-table b24)
+Deleting (arm-empty)
+Adding (holding b24)
+
+Checking next happening (time 188)
+Deleting (clear b35)
+Deleting (holding b24)
+Adding (arm-empty)
+Adding (clear b24)
+Adding (on b24 b35)
+
+Checking next happening (time 189)
+Deleting (clear b10)
+Deleting (on-table b10)
+Deleting (arm-empty)
+Adding (holding b10)
+
+Checking next happening (time 190)
+Deleting (clear b24)
+Deleting (holding b10)
+Adding (arm-empty)
+Adding (clear b10)
+Adding (on b10 b24)
+
+Checking next happening (time 191)
+Deleting (on b31 b42)
+Deleting (clear b31)
+Deleting (arm-empty)
+Adding (holding b31)
+Adding (clear b42)
+
+Checking next happening (time 192)
+Deleting (holding b31)
+Adding (clear b31)
+Adding (arm-empty)
+Adding (on-table b31)
+
+Checking next happening (time 193)
+Deleting (on b42 b36)
+Deleting (clear b42)
+Deleting (arm-empty)
+Adding (holding b42)
+Adding (clear b36)
+
+Checking next happening (time 194)
+Deleting (holding b42)
+Adding (clear b42)
+Adding (arm-empty)
+Adding (on-table b42)
+
+Checking next happening (time 195)
+Deleting (on b36 b41)
+Deleting (clear b36)
+Deleting (arm-empty)
+Adding (holding b36)
+Adding (clear b41)
+
+Checking next happening (time 196)
+Deleting (holding b36)
+Adding (clear b36)
+Adding (arm-empty)
+Adding (on-table b36)
+
+Checking next happening (time 197)
+Deleting (on b41 b8)
+Deleting (clear b41)
+Deleting (arm-empty)
+Adding (holding b41)
+Adding (clear b8)
+
+Checking next happening (time 198)
+Deleting (holding b41)
+Adding (clear b41)
+Adding (arm-empty)
+Adding (on-table b41)
+
+Checking next happening (time 199)
+Deleting (on b8 b6)
+Deleting (clear b8)
+Deleting (arm-empty)
+Adding (holding b8)
+Adding (clear b6)
+
+Checking next happening (time 200)
+Deleting (holding b8)
+Adding (clear b8)
+Adding (arm-empty)
+Adding (on-table b8)
+
+Checking next happening (time 201)
+Deleting (clear b6)
+Deleting (on-table b6)
+Deleting (arm-empty)
+Adding (holding b6)
+
+Checking next happening (time 202)
+Deleting (clear b29)
+Deleting (holding b6)
+Adding (arm-empty)
+Adding (clear b6)
+Adding (on b6 b29)
+
+Checking next happening (time 203)
+Deleting (clear b8)
+Deleting (on-table b8)
+Deleting (arm-empty)
+Adding (holding b8)
+
+Checking next happening (time 204)
+Deleting (clear b6)
+Deleting (holding b8)
+Adding (arm-empty)
+Adding (clear b8)
+Adding (on b8 b6)
+
+Checking next happening (time 205)
+Deleting (clear b41)
+Deleting (on-table b41)
+Deleting (arm-empty)
+Adding (holding b41)
+
+Checking next happening (time 206)
+Deleting (clear b8)
+Deleting (holding b41)
+Adding (arm-empty)
+Adding (clear b41)
+Adding (on b41 b8)
+
+Checking next happening (time 207)
+Deleting (clear b42)
+Deleting (on-table b42)
+Deleting (arm-empty)
+Adding (holding b42)
+
+Checking next happening (time 208)
+Deleting (clear b36)
+Deleting (holding b42)
+Adding (arm-empty)
+Adding (clear b42)
+Adding (on b42 b36)
+
+Checking next happening (time 209)
+Deleting (clear b31)
+Deleting (on-table b31)
+Deleting (arm-empty)
+Adding (holding b31)
+
+Checking next happening (time 210)
+Deleting (clear b42)
+Deleting (holding b31)
+Adding (arm-empty)
+Adding (clear b31)
+Adding (on b31 b42)
+
+Checking next happening (time 211)
+Deleting (on b12 b11)
+Deleting (clear b12)
+Deleting (arm-empty)
+Adding (holding b12)
+Adding (clear b11)
+
+Checking next happening (time 212)
+Deleting (holding b12)
+Adding (clear b12)
+Adding (arm-empty)
+Adding (on-table b12)
+
+Checking next happening (time 213)
+Deleting (on b11 b25)
+Deleting (clear b11)
+Deleting (arm-empty)
+Adding (holding b11)
+Adding (clear b25)
+
+Checking next happening (time 214)
+Deleting (holding b11)
+Adding (clear b11)
+Adding (arm-empty)
+Adding (on-table b11)
+
+Checking next happening (time 215)
+Deleting (on b31 b42)
+Deleting (clear b31)
+Deleting (arm-empty)
+Adding (holding b31)
+Adding (clear b42)
+
+Checking next happening (time 216)
+Deleting (holding b31)
+Adding (clear b31)
+Adding (arm-empty)
+Adding (on-table b31)
+
+Checking next happening (time 217)
+Deleting (on b42 b36)
+Deleting (clear b42)
+Deleting (arm-empty)
+Adding (holding b42)
+Adding (clear b36)
+
+Checking next happening (time 218)
+Deleting (holding b42)
+Adding (clear b42)
+Adding (arm-empty)
+Adding (on-table b42)
+
+Checking next happening (time 219)
+Deleting (clear b36)
+Deleting (on-table b36)
+Deleting (arm-empty)
+Adding (holding b36)
+
+Checking next happening (time 220)
+Deleting (clear b41)
+Deleting (holding b36)
+Adding (arm-empty)
+Adding (clear b36)
+Adding (on b36 b41)
+
+Checking next happening (time 221)
+Deleting (clear b42)
+Deleting (on-table b42)
+Deleting (arm-empty)
+Adding (holding b42)
+
+Checking next happening (time 222)
+Deleting (clear b36)
+Deleting (holding b42)
+Adding (arm-empty)
+Adding (clear b42)
+Adding (on b42 b36)
+
+Checking next happening (time 223)
+Deleting (clear b31)
+Deleting (on-table b31)
+Deleting (arm-empty)
+Adding (holding b31)
+
+Checking next happening (time 224)
+Deleting (clear b42)
+Deleting (holding b31)
+Adding (arm-empty)
+Adding (clear b31)
+Adding (on b31 b42)
+
+Checking next happening (time 225)
+Deleting (clear b12)
+Deleting (on-table b12)
+Deleting (arm-empty)
+Adding (holding b12)
+
+Checking next happening (time 226)
+Deleting (clear b11)
+Deleting (holding b12)
+Adding (arm-empty)
+Adding (clear b12)
+Adding (on b12 b11)
+
+Checking next happening (time 227)
+Deleting (on b25 b15)
+Deleting (clear b25)
+Deleting (arm-empty)
+Adding (holding b25)
+Adding (clear b15)
+
+Checking next happening (time 228)
+Deleting (holding b25)
+Adding (clear b25)
+Adding (arm-empty)
+Adding (on-table b25)
+
+Checking next happening (time 229)
+Deleting (on b15 b22)
+Deleting (clear b15)
+Deleting (arm-empty)
+Adding (holding b15)
+Adding (clear b22)
+
+Checking next happening (time 230)
+Deleting (holding b15)
+Adding (clear b15)
+Adding (arm-empty)
+Adding (on-table b15)
+
+Checking next happening (time 231)
+Deleting (on b22 b14)
+Deleting (clear b22)
+Deleting (arm-empty)
+Adding (holding b22)
+Adding (clear b14)
+
+Checking next happening (time 232)
+Deleting (holding b22)
+Adding (clear b22)
+Adding (arm-empty)
+Adding (on-table b22)
+
+Checking next happening (time 233)
+Deleting (on b14 b13)
+Deleting (clear b14)
+Deleting (arm-empty)
+Adding (holding b14)
+Adding (clear b13)
+
+Checking next happening (time 234)
+Deleting (holding b14)
+Adding (clear b14)
+Adding (arm-empty)
+Adding (on-table b14)
+
+Checking next happening (time 235)
+Deleting (clear b25)
+Deleting (on-table b25)
+Deleting (arm-empty)
+Adding (holding b25)
+
+Checking next happening (time 236)
+Deleting (clear b15)
+Deleting (holding b25)
+Adding (arm-empty)
+Adding (clear b25)
+Adding (on b25 b15)
+
+Checking next happening (time 237)
+Deleting (clear b13)
+Deleting (on-table b13)
+Deleting (arm-empty)
+Adding (holding b13)
+
+Checking next happening (time 238)
+Deleting (clear b20)
+Deleting (holding b13)
+Adding (arm-empty)
+Adding (clear b13)
+Adding (on b13 b20)
+
+Checking next happening (time 239)
+Deleting (clear b14)
+Deleting (on-table b14)
+Deleting (arm-empty)
+Adding (holding b14)
+
+Checking next happening (time 240)
+Deleting (clear b13)
+Deleting (holding b14)
+Adding (arm-empty)
+Adding (clear b14)
+Adding (on b14 b13)
+
+Checking next happening (time 241)
+Deleting (clear b22)
+Deleting (on-table b22)
+Deleting (arm-empty)
+Adding (holding b22)
+
+Checking next happening (time 242)
+Deleting (clear b14)
+Deleting (holding b22)
+Adding (arm-empty)
+Adding (clear b22)
+Adding (on b22 b14)
+
+Checking next happening (time 243)
+Deleting (on b25 b15)
+Deleting (clear b25)
+Deleting (arm-empty)
+Adding (holding b25)
+Adding (clear b15)
+
+Checking next happening (time 244)
+Deleting (holding b25)
+Adding (clear b25)
+Adding (arm-empty)
+Adding (on-table b25)
+
+Checking next happening (time 245)
+Deleting (clear b15)
+Deleting (on-table b15)
+Deleting (arm-empty)
+Adding (holding b15)
+
+Checking next happening (time 246)
+Deleting (clear b22)
+Deleting (holding b15)
+Adding (arm-empty)
+Adding (clear b15)
+Adding (on b15 b22)
+
+Checking next happening (time 247)
+Deleting (clear b25)
+Deleting (on-table b25)
+Deleting (arm-empty)
+Adding (holding b25)
+
+Checking next happening (time 248)
+Deleting (clear b15)
+Deleting (holding b25)
+Adding (arm-empty)
+Adding (clear b25)
+Adding (on b25 b15)
+
+Checking next happening (time 249)
+Deleting (on b12 b11)
+Deleting (clear b12)
+Deleting (arm-empty)
+Adding (holding b12)
+Adding (clear b11)
+
+Checking next happening (time 250)
+Deleting (holding b12)
+Adding (clear b12)
+Adding (arm-empty)
+Adding (on-table b12)
+
+Checking next happening (time 251)
+Deleting (clear b11)
+Deleting (on-table b11)
+Deleting (arm-empty)
+Adding (holding b11)
+
+Checking next happening (time 252)
+Deleting (clear b25)
+Deleting (holding b11)
+Adding (arm-empty)
+Adding (clear b11)
+Adding (on b11 b25)
+
+Checking next happening (time 253)
+Deleting (clear b12)
+Deleting (on-table b12)
+Deleting (arm-empty)
+Adding (holding b12)
+
+Checking next happening (time 254)
+Deleting (clear b11)
+Deleting (holding b12)
+Adding (arm-empty)
+Adding (clear b12)
+Adding (on b12 b11)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 254 
+
+Successful plans:
+Value: 254
+ /home/jfan5/Safety-gen/runs/benchmark/optic/blocksworld_20260215_223618/blocksworld/optic_results/bw_ops3_n42_seed42001.plan 254

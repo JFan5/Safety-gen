@@ -1,0 +1,999 @@
+{
+  "timestamp": "2026-02-15T22:53:02.157144",
+  "solver": "optic",
+  "scenario": "spanner",
+  "domain_file": "/home/jfan5/Safety-gen/pddl3/spanner/domain3.pddl",
+  "problems_dir": "/home/jfan5/Safety-gen/benchmark_problems/spanner",
+  "time_limit": 300.0,
+  "total_tests": 48,
+  "success_count": 6,
+  "success_rate": 12.5,
+  "category_counts": {
+    "success_plans": 6,
+    "plan_format_error": 42,
+    "precondition_violation": 0,
+    "safety_constraints_violation": 0,
+    "goal_not_satisfied": 0,
+    "generation_error": 0,
+    "others": 0
+  },
+  "category_rates": {
+    "success_plans": 12.5,
+    "plan_format_error": 87.5,
+    "precondition_violation": 0.0,
+    "safety_constraints_violation": 0.0,
+    "goal_not_satisfied": 0.0,
+    "generation_error": 0.0,
+    "others": 0.0
+  },
+  "size_success_rates": {
+    "s10-n9-l15": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s11-n10-l16": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s12-n11-l18": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s13-n12-l19": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s14-n13-l21": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s15-n14-l22": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s16-n15-l24": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s17-n16-l25": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s18-n17-l27": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s19-n18-l28": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s20-n19-l30": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s21-n20-l31": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s22-n21-l33": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s23-n22-l34": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s24-n23-l36": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s25-n24-l37": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s26-n25-l39": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s27-n26-l40": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s28-n27-l42": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s29-n28-l43": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s3-n2-l5": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "s30-n29-l45": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s31-n30-l46": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s32-n31-l48": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s33-n32-l49": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s34-n33-l51": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s35-n34-l52": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s36-n35-l54": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s37-n36-l55": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s38-n37-l57": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s39-n38-l58": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s4-n3-l6": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "s40-n39-l60": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s41-n40-l61": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s42-n41-l63": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s43-n42-l64": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s44-n43-l66": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s45-n44-l67": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s46-n45-l69": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s47-n46-l70": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s48-n47-l72": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s49-n48-l73": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s5-n4-l7": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "s50-n49-l75": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    },
+    "s6-n5-l9": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "s7-n6-l10": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "s8-n7-l12": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0
+    },
+    "s9-n8-l13": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0
+    }
+  },
+  "timing": {
+    "total_time_seconds": 601.55,
+    "total_solve_time_seconds": 11332.23,
+    "avg_solve_time_seconds": 236.088,
+    "problems_per_second": 0.08
+  },
+  "results": [
+    {
+      "index": 1,
+      "problem_name": "spanner-s10-n9-l15-s10001",
+      "size_key": "s10-n9-l15",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s10-n9-l15-s10001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 24.569,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 2,
+      "problem_name": "spanner-s11-n10-l16-s11001",
+      "size_key": "s11-n10-l16",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s11-n10-l16-s11001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 53.637,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 3,
+      "problem_name": "spanner-s12-n11-l18-s12001",
+      "size_key": "s12-n11-l18",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s12-n11-l18-s12001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 256.778,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 4,
+      "problem_name": "spanner-s13-n12-l19-s13001",
+      "size_key": "s13-n12-l19",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s13-n12-l19-s13001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 243.383,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 5,
+      "problem_name": "spanner-s14-n13-l21-s14001",
+      "size_key": "s14-n13-l21",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s14-n13-l21-s14001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 137.554,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 6,
+      "problem_name": "spanner-s15-n14-l22-s15001",
+      "size_key": "s15-n14-l22",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s15-n14-l22-s15001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 259.397,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 7,
+      "problem_name": "spanner-s16-n15-l24-s16001",
+      "size_key": "s16-n15-l24",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s16-n15-l24-s16001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 179.065,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 8,
+      "problem_name": "spanner-s17-n16-l25-s17001",
+      "size_key": "s17-n16-l25",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s17-n16-l25-s17001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 142.177,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 9,
+      "problem_name": "spanner-s18-n17-l27-s18001",
+      "size_key": "s18-n17-l27",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s18-n17-l27-s18001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 83.026,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 10,
+      "problem_name": "spanner-s19-n18-l28-s19001",
+      "size_key": "s19-n18-l28",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s19-n18-l28-s19001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 221.45,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 11,
+      "problem_name": "spanner-s20-n19-l30-s20001",
+      "size_key": "s20-n19-l30",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s20-n19-l30-s20001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 263.3,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 12,
+      "problem_name": "spanner-s21-n20-l31-s21001",
+      "size_key": "s21-n20-l31",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s21-n20-l31-s21001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 266.308,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 13,
+      "problem_name": "spanner-s22-n21-l33-s22001",
+      "size_key": "s22-n21-l33",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s22-n21-l33-s22001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 224.928,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 14,
+      "problem_name": "spanner-s23-n22-l34-s23001",
+      "size_key": "s23-n22-l34",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s23-n22-l34-s23001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 269.187,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 15,
+      "problem_name": "spanner-s24-n23-l36-s24001",
+      "size_key": "s24-n23-l36",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s24-n23-l36-s24001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.768,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 16,
+      "problem_name": "spanner-s25-n24-l37-s25001",
+      "size_key": "s25-n24-l37",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s25-n24-l37-s25001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.046,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 17,
+      "problem_name": "spanner-s26-n25-l39-s26001",
+      "size_key": "s26-n25-l39",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s26-n25-l39-s26001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 241.572,
+      "optic_status": "error:-9"
+    },
+    {
+      "index": 18,
+      "problem_name": "spanner-s27-n26-l40-s27001",
+      "size_key": "s27-n26-l40",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s27-n26-l40-s27001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.119,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 19,
+      "problem_name": "spanner-s28-n27-l42-s28001",
+      "size_key": "s28-n27-l42",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s28-n27-l42-s28001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.113,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 20,
+      "problem_name": "spanner-s29-n28-l43-s29001",
+      "size_key": "s29-n28-l43",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s29-n28-l43-s29001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.05,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 21,
+      "problem_name": "spanner-s3-n2-l5-s3001",
+      "size_key": "s3-n2-l5",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s3-n2-l5-s3001.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s3-n2-l5-s3001.plan\nPlan to validate:\n\nPlan size: 10\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(walk location2 location3 bob)\n \n4:\n(pickup_spanner location3 spanner1 bob)\n \n5:\n(walk location3 location4 bob)\n \n6:\n(pickup_spanner location4 spanner2 bob)\n \n7:\n(walk location4 location5 bob)\n \n8:\n(walk location5 gate bob)\n \n9:\n(tighten_nut gate spanner1 bob nut2)\n \n10:\n(tighten_nut gate spanner2 bob nut1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking next happening (time 3)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking next happening (time 4)\nDeleting (at spanner1 location3)\nAdding (carrying bob spanner1)\n\nChecking next happening (time 5)\nDeleting (at bob location3)\nAdding (at bob location4)\n\nChecking next happening (time 6)\nDeleting (at spanner2 location4)\nAdding (carrying bob spanner2)\n\nChecking next happening (time 7)\nDeleting (at bob location4)\nAdding (at bob location5)\n\nChecking next happening (time 8)\nDeleting (at bob location5)\nAdding (at bob gate)\n\nChecking next happening (time 9)\nDeleting (loose nut2)\nDeleting (useable spanner1)\nAdding (tightened nut2)\n\nChecking next happening (time 10)\nDeleting (loose nut1)\nDeleting (useable spanner2)\nAdding (tightened nut1)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 10 \n\nSuccessful plans:\nValue: 10\n /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s3-n2-l5-s3001.plan 10",
+      "raw_solution": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(pickup_spanner location3 spanner1 bob)\n(walk location3 location4 bob)\n(pickup_spanner location4 spanner2 bob)\n(walk location4 location5 bob)\n(walk location5 gate bob)\n(tighten_nut gate spanner1 bob nut2)\n(tighten_nut gate spanner2 bob nut1)",
+      "generation_error": null,
+      "solve_time_seconds": 0.015,
+      "optic_status": "solved"
+    },
+    {
+      "index": 22,
+      "problem_name": "spanner-s30-n29-l45-s30001",
+      "size_key": "s30-n29-l45",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s30-n29-l45-s30001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.136,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 23,
+      "problem_name": "spanner-s31-n30-l46-s31001",
+      "size_key": "s31-n30-l46",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s31-n30-l46-s31001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.069,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 24,
+      "problem_name": "spanner-s32-n31-l48-s32001",
+      "size_key": "s32-n31-l48",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s32-n31-l48-s32001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.14,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 25,
+      "problem_name": "spanner-s33-n32-l49-s33001",
+      "size_key": "s33-n32-l49",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s33-n32-l49-s33001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.072,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 26,
+      "problem_name": "spanner-s34-n33-l51-s34001",
+      "size_key": "s34-n33-l51",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s34-n33-l51-s34001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.033,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 27,
+      "problem_name": "spanner-s35-n34-l52-s35001",
+      "size_key": "s35-n34-l52",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s35-n34-l52-s35001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.115,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 28,
+      "problem_name": "spanner-s36-n35-l54-s36001",
+      "size_key": "s36-n35-l54",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s36-n35-l54-s36001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.065,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 29,
+      "problem_name": "spanner-s37-n36-l55-s37001",
+      "size_key": "s37-n36-l55",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s37-n36-l55-s37001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.004,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 30,
+      "problem_name": "spanner-s38-n37-l57-s38001",
+      "size_key": "s38-n37-l57",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s38-n37-l57-s38001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.216,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 31,
+      "problem_name": "spanner-s39-n38-l58-s39001",
+      "size_key": "s39-n38-l58",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s39-n38-l58-s39001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 304.369,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 32,
+      "problem_name": "spanner-s4-n3-l6-s4001",
+      "size_key": "s4-n3-l6",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s4-n3-l6-s4001.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s4-n3-l6-s4001.plan\nPlan to validate:\n\nPlan size: 13\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(walk location2 location3 bob)\n \n4:\n(walk location3 location4 bob)\n \n5:\n(pickup_spanner location4 spanner1 bob)\n \n6:\n(pickup_spanner location4 spanner4 bob)\n \n7:\n(walk location4 location5 bob)\n \n8:\n(walk location5 location6 bob)\n \n9:\n(pickup_spanner location6 spanner2 bob)\n \n10:\n(walk location6 gate bob)\n \n11:\n(tighten_nut gate spanner1 bob nut3)\n \n12:\n(tighten_nut gate spanner2 bob nut2)\n \n13:\n(tighten_nut gate spanner4 bob nut1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking next happening (time 3)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking next happening (time 4)\nDeleting (at bob location3)\nAdding (at bob location4)\n\nChecking next happening (time 5)\nDeleting (at spanner1 location4)\nAdding (carrying bob spanner1)\n\nChecking next happening (time 6)\nDeleting (at spanner4 location4)\nAdding (carrying bob spanner4)\n\nChecking next happening (time 7)\nDeleting (at bob location4)\nAdding (at bob location5)\n\nChecking next happening (time 8)\nDeleting (at bob location5)\nAdding (at bob location6)\n\nChecking next happening (time 9)\nDeleting (at spanner2 location6)\nAdding (carrying bob spanner2)\n\nChecking next happening (time 10)\nDeleting (at bob location6)\nAdding (at bob gate)\n\nChecking next happening (time 11)\nDeleting (loose nut3)\nDeleting (useable spanner1)\nAdding (tightened nut3)\n\nChecking next happening (time 12)\nDeleting (loose nut2)\nDeleting (useable spanner2)\nAdding (tightened nut2)\n\nChecking next happening (time 13)\nDeleting (loose nut1)\nDeleting (useable spanner4)\nAdding (tightened nut1)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 13 \n\nSuccessful plans:\nValue: 13\n /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s4-n3-l6-s4001.plan 13",
+      "raw_solution": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(walk location3 location4 bob)\n(pickup_spanner location4 spanner1 bob)\n(pickup_spanner location4 spanner4 bob)\n(walk location4 location5 bob)\n(walk location5 location6 bob)\n(pickup_spanner location6 spanner2 bob)\n(walk location6 gate bob)\n(tighten_nut gate spanner1 bob nut3)\n(tighten_nut gate spanner2 bob nut2)\n(tighten_nut gate spanner4 bob nut1)",
+      "generation_error": null,
+      "solve_time_seconds": 0.105,
+      "optic_status": "solved"
+    },
+    {
+      "index": 33,
+      "problem_name": "spanner-s40-n39-l60-s40001",
+      "size_key": "s40-n39-l60",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s40-n39-l60-s40001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 302.137,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 34,
+      "problem_name": "spanner-s41-n40-l61-s41001",
+      "size_key": "s41-n40-l61",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s41-n40-l61-s41001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 301.293,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 35,
+      "problem_name": "spanner-s42-n41-l63-s42001",
+      "size_key": "s42-n41-l63",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s42-n41-l63-s42001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.213,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 36,
+      "problem_name": "spanner-s43-n42-l64-s43001",
+      "size_key": "s43-n42-l64",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s43-n42-l64-s43001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 307.628,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 37,
+      "problem_name": "spanner-s44-n43-l66-s44001",
+      "size_key": "s44-n43-l66",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s44-n43-l66-s44001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.633,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 38,
+      "problem_name": "spanner-s45-n44-l67-s45001",
+      "size_key": "s45-n44-l67",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s45-n44-l67-s45001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.143,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 39,
+      "problem_name": "spanner-s46-n45-l69-s46001",
+      "size_key": "s46-n45-l69",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s46-n45-l69-s46001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.281,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 40,
+      "problem_name": "spanner-s47-n46-l70-s47001",
+      "size_key": "s47-n46-l70",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s47-n46-l70-s47001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.189,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 41,
+      "problem_name": "spanner-s48-n47-l72-s48001",
+      "size_key": "s48-n47-l72",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s48-n47-l72-s48001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.27,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 42,
+      "problem_name": "spanner-s49-n48-l73-s49001",
+      "size_key": "s49-n48-l73",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s49-n48-l73-s49001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.267,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 43,
+      "problem_name": "spanner-s5-n4-l7-s5001",
+      "size_key": "s5-n4-l7",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s5-n4-l7-s5001.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s5-n4-l7-s5001.plan\nPlan to validate:\n\nPlan size: 16\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(walk location2 location3 bob)\n \n4:\n(walk location3 location4 bob)\n \n5:\n(pickup_spanner location4 spanner4 bob)\n \n6:\n(walk location4 location5 bob)\n \n7:\n(pickup_spanner location5 spanner1 bob)\n \n8:\n(walk location5 location6 bob)\n \n9:\n(pickup_spanner location6 spanner3 bob)\n \n10:\n(pickup_spanner location6 spanner5 bob)\n \n11:\n(walk location6 location7 bob)\n \n12:\n(walk location7 gate bob)\n \n13:\n(tighten_nut gate spanner1 bob nut4)\n \n14:\n(tighten_nut gate spanner3 bob nut3)\n \n15:\n(tighten_nut gate spanner4 bob nut2)\n \n16:\n(tighten_nut gate spanner5 bob nut1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking next happening (time 3)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking next happening (time 4)\nDeleting (at bob location3)\nAdding (at bob location4)\n\nChecking next happening (time 5)\nDeleting (at spanner4 location4)\nAdding (carrying bob spanner4)\n\nChecking next happening (time 6)\nDeleting (at bob location4)\nAdding (at bob location5)\n\nChecking next happening (time 7)\nDeleting (at spanner1 location5)\nAdding (carrying bob spanner1)\n\nChecking next happening (time 8)\nDeleting (at bob location5)\nAdding (at bob location6)\n\nChecking next happening (time 9)\nDeleting (at spanner3 location6)\nAdding (carrying bob spanner3)\n\nChecking next happening (time 10)\nDeleting (at spanner5 location6)\nAdding (carrying bob spanner5)\n\nChecking next happening (time 11)\nDeleting (at bob location6)\nAdding (at bob location7)\n\nChecking next happening (time 12)\nDeleting (at bob location7)\nAdding (at bob gate)\n\nChecking next happening (time 13)\nDeleting (loose nut4)\nDeleting (useable spanner1)\nAdding (tightened nut4)\n\nChecking next happening (time 14)\nDeleting (loose nut3)\nDeleting (useable spanner3)\nAdding (tightened nut3)\n\nChecking next happening (time 15)\nDeleting (loose nut2)\nDeleting (useable spanner4)\nAdding (tightened nut2)\n\nChecking next happening (time 16)\nDeleting (loose nut1)\nDeleting (useable spanner5)\nAdding (tightened nut1)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 16 \n\nSuccessful plans:\nValue: 16\n /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s5-n4-l7-s5001.plan 16",
+      "raw_solution": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(walk location3 location4 bob)\n(pickup_spanner location4 spanner4 bob)\n(walk location4 location5 bob)\n(pickup_spanner location5 spanner1 bob)\n(walk location5 location6 bob)\n(pickup_spanner location6 spanner3 bob)\n(pickup_spanner location6 spanner5 bob)\n(walk location6 location7 bob)\n(walk location7 gate bob)\n(tighten_nut gate spanner1 bob nut4)\n(tighten_nut gate spanner3 bob nut3)\n(tighten_nut gate spanner4 bob nut2)\n(tighten_nut gate spanner5 bob nut1)",
+      "generation_error": null,
+      "solve_time_seconds": 0.167,
+      "optic_status": "solved"
+    },
+    {
+      "index": 44,
+      "problem_name": "spanner-s50-n49-l75-s50001",
+      "size_key": "s50-n49-l75",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s50-n49-l75-s50001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.257,
+      "optic_status": "timeout"
+    },
+    {
+      "index": 45,
+      "problem_name": "spanner-s6-n5-l9-s6001",
+      "size_key": "s6-n5-l9",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s6-n5-l9-s6001.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s6-n5-l9-s6001.plan\nPlan to validate:\n\nPlan size: 20\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(walk location2 location3 bob)\n \n4:\n(pickup_spanner location3 spanner3 bob)\n \n5:\n(walk location3 location4 bob)\n \n6:\n(walk location4 location5 bob)\n \n7:\n(walk location5 location6 bob)\n \n8:\n(pickup_spanner location6 spanner1 bob)\n \n9:\n(walk location6 location7 bob)\n \n10:\n(walk location7 location8 bob)\n \n11:\n(pickup_spanner location8 spanner6 bob)\n \n12:\n(walk location8 location9 bob)\n \n13:\n(pickup_spanner location9 spanner2 bob)\n \n14:\n(pickup_spanner location9 spanner5 bob)\n \n15:\n(walk location9 gate bob)\n \n16:\n(tighten_nut gate spanner1 bob nut5)\n \n17:\n(tighten_nut gate spanner2 bob nut4)\n \n18:\n(tighten_nut gate spanner3 bob nut3)\n \n19:\n(tighten_nut gate spanner5 bob nut2)\n \n20:\n(tighten_nut gate spanner6 bob nut1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking next happening (time 3)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking next happening (time 4)\nDeleting (at spanner3 location3)\nAdding (carrying bob spanner3)\n\nChecking next happening (time 5)\nDeleting (at bob location3)\nAdding (at bob location4)\n\nChecking next happening (time 6)\nDeleting (at bob location4)\nAdding (at bob location5)\n\nChecking next happening (time 7)\nDeleting (at bob location5)\nAdding (at bob location6)\n\nChecking next happening (time 8)\nDeleting (at spanner1 location6)\nAdding (carrying bob spanner1)\n\nChecking next happening (time 9)\nDeleting (at bob location6)\nAdding (at bob location7)\n\nChecking next happening (time 10)\nDeleting (at bob location7)\nAdding (at bob location8)\n\nChecking next happening (time 11)\nDeleting (at spanner6 location8)\nAdding (carrying bob spanner6)\n\nChecking next happening (time 12)\nDeleting (at bob location8)\nAdding (at bob location9)\n\nChecking next happening (time 13)\nDeleting (at spanner2 location9)\nAdding (carrying bob spanner2)\n\nChecking next happening (time 14)\nDeleting (at spanner5 location9)\nAdding (carrying bob spanner5)\n\nChecking next happening (time 15)\nDeleting (at bob location9)\nAdding (at bob gate)\n\nChecking next happening (time 16)\nDeleting (loose nut5)\nDeleting (useable spanner1)\nAdding (tightened nut5)\n\nChecking next happening (time 17)\nDeleting (loose nut4)\nDeleting (useable spanner2)\nAdding (tightened nut4)\n\nChecking next happening (time 18)\nDeleting (loose nut3)\nDeleting (useable spanner3)\nAdding (tightened nut3)\n\nChecking next happening (time 19)\nDeleting (loose nut2)\nDeleting (useable spanner5)\nAdding (tightened nut2)\n\nChecking next happening (time 20)\nDeleting (loose nut1)\nDeleting (useable spanner6)\nAdding (tightened nut1)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 20 \n\nSuccessful plans:\nValue: 20\n /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s6-n5-l9-s6001.plan 20",
+      "raw_solution": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(pickup_spanner location3 spanner3 bob)\n(walk location3 location4 bob)\n(walk location4 location5 bob)\n(walk location5 location6 bob)\n(pickup_spanner location6 spanner1 bob)\n(walk location6 location7 bob)\n(walk location7 location8 bob)\n(pickup_spanner location8 spanner6 bob)\n(walk location8 location9 bob)\n(pickup_spanner location9 spanner2 bob)\n(pickup_spanner location9 spanner5 bob)\n(walk location9 gate bob)\n(tighten_nut gate spanner1 bob nut5)\n(tighten_nut gate spanner2 bob nut4)\n(tighten_nut gate spanner3 bob nut3)\n(tighten_nut gate spanner5 bob nut2)\n(tighten_nut gate spanner6 bob nut1)",
+      "generation_error": null,
+      "solve_time_seconds": 3.119,
+      "optic_status": "solved"
+    },
+    {
+      "index": 46,
+      "problem_name": "spanner-s7-n6-l10-s7001",
+      "size_key": "s7-n6-l10",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s7-n6-l10-s7001.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s7-n6-l10-s7001.plan\nPlan to validate:\n\nPlan size: 23\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(pickup_spanner location2 spanner1 bob)\n \n4:\n(walk location2 location3 bob)\n \n5:\n(pickup_spanner location3 spanner4 bob)\n \n6:\n(walk location3 location4 bob)\n \n7:\n(walk location4 location5 bob)\n \n8:\n(walk location5 location6 bob)\n \n9:\n(pickup_spanner location6 spanner2 bob)\n \n10:\n(pickup_spanner location6 spanner3 bob)\n \n11:\n(pickup_spanner location6 spanner5 bob)\n \n12:\n(pickup_spanner location6 spanner7 bob)\n \n13:\n(walk location6 location7 bob)\n \n14:\n(walk location7 location8 bob)\n \n15:\n(walk location8 location9 bob)\n \n16:\n(walk location9 location10 bob)\n \n17:\n(walk location10 gate bob)\n \n18:\n(tighten_nut gate spanner1 bob nut6)\n \n19:\n(tighten_nut gate spanner2 bob nut5)\n \n20:\n(tighten_nut gate spanner3 bob nut4)\n \n21:\n(tighten_nut gate spanner4 bob nut3)\n \n22:\n(tighten_nut gate spanner5 bob nut2)\n \n23:\n(tighten_nut gate spanner7 bob nut1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking next happening (time 3)\nDeleting (at spanner1 location2)\nAdding (carrying bob spanner1)\n\nChecking next happening (time 4)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking next happening (time 5)\nDeleting (at spanner4 location3)\nAdding (carrying bob spanner4)\n\nChecking next happening (time 6)\nDeleting (at bob location3)\nAdding (at bob location4)\n\nChecking next happening (time 7)\nDeleting (at bob location4)\nAdding (at bob location5)\n\nChecking next happening (time 8)\nDeleting (at bob location5)\nAdding (at bob location6)\n\nChecking next happening (time 9)\nDeleting (at spanner2 location6)\nAdding (carrying bob spanner2)\n\nChecking next happening (time 10)\nDeleting (at spanner3 location6)\nAdding (carrying bob spanner3)\n\nChecking next happening (time 11)\nDeleting (at spanner5 location6)\nAdding (carrying bob spanner5)\n\nChecking next happening (time 12)\nDeleting (at spanner7 location6)\nAdding (carrying bob spanner7)\n\nChecking next happening (time 13)\nDeleting (at bob location6)\nAdding (at bob location7)\n\nChecking next happening (time 14)\nDeleting (at bob location7)\nAdding (at bob location8)\n\nChecking next happening (time 15)\nDeleting (at bob location8)\nAdding (at bob location9)\n\nChecking next happening (time 16)\nDeleting (at bob location9)\nAdding (at bob location10)\n\nChecking next happening (time 17)\nDeleting (at bob location10)\nAdding (at bob gate)\n\nChecking next happening (time 18)\nDeleting (loose nut6)\nDeleting (useable spanner1)\nAdding (tightened nut6)\n\nChecking next happening (time 19)\nDeleting (loose nut5)\nDeleting (useable spanner2)\nAdding (tightened nut5)\n\nChecking next happening (time 20)\nDeleting (loose nut4)\nDeleting (useable spanner3)\nAdding (tightened nut4)\n\nChecking next happening (time 21)\nDeleting (loose nut3)\nDeleting (useable spanner4)\nAdding (tightened nut3)\n\nChecking next happening (time 22)\nDeleting (loose nut2)\nDeleting (useable spanner5)\nAdding (tightened nut2)\n\nChecking next happening (time 23)\nDeleting (loose nut1)\nDeleting (useable spanner7)\nAdding (tightened nut1)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 23 \n\nSuccessful plans:\nValue: 23\n /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s7-n6-l10-s7001.plan 23",
+      "raw_solution": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(pickup_spanner location2 spanner1 bob)\n(walk location2 location3 bob)\n(pickup_spanner location3 spanner4 bob)\n(walk location3 location4 bob)\n(walk location4 location5 bob)\n(walk location5 location6 bob)\n(pickup_spanner location6 spanner2 bob)\n(pickup_spanner location6 spanner3 bob)\n(pickup_spanner location6 spanner5 bob)\n(pickup_spanner location6 spanner7 bob)\n(walk location6 location7 bob)\n(walk location7 location8 bob)\n(walk location8 location9 bob)\n(walk location9 location10 bob)\n(walk location10 gate bob)\n(tighten_nut gate spanner1 bob nut6)\n(tighten_nut gate spanner2 bob nut5)\n(tighten_nut gate spanner3 bob nut4)\n(tighten_nut gate spanner4 bob nut3)\n(tighten_nut gate spanner5 bob nut2)\n(tighten_nut gate spanner7 bob nut1)",
+      "generation_error": null,
+      "solve_time_seconds": 41.233,
+      "optic_status": "solved"
+    },
+    {
+      "index": 47,
+      "problem_name": "spanner-s8-n7-l12-s8001",
+      "size_key": "s8-n7-l12",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s8-n7-l12-s8001.pddl",
+      "is_valid": true,
+      "category": "success_plans",
+      "validation_message": "Plan valid",
+      "validation_stdout": "Type-checking walk\n...action passes type checking.\nType-checking pickup_spanner\n...action passes type checking.\nType-checking tighten_nut\n...action passes type checking.\nChecking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s8-n7-l12-s8001.plan\nPlan to validate:\n\nPlan size: 27\n1:\n(walk shed location1 bob)\n \n2:\n(walk location1 location2 bob)\n \n3:\n(walk location2 location3 bob)\n \n4:\n(walk location3 location4 bob)\n \n5:\n(walk location4 location5 bob)\n \n6:\n(pickup_spanner location5 spanner4 bob)\n \n7:\n(walk location5 location6 bob)\n \n8:\n(walk location6 location7 bob)\n \n9:\n(pickup_spanner location7 spanner8 bob)\n \n10:\n(walk location7 location8 bob)\n \n11:\n(walk location8 location9 bob)\n \n12:\n(walk location9 location10 bob)\n \n13:\n(pickup_spanner location10 spanner1 bob)\n \n14:\n(pickup_spanner location10 spanner2 bob)\n \n15:\n(pickup_spanner location10 spanner6 bob)\n \n16:\n(walk location10 location11 bob)\n \n17:\n(pickup_spanner location11 spanner7 bob)\n \n18:\n(walk location11 location12 bob)\n \n19:\n(pickup_spanner location12 spanner3 bob)\n \n20:\n(walk location12 gate bob)\n \n21:\n(tighten_nut gate spanner1 bob nut7)\n \n22:\n(tighten_nut gate spanner2 bob nut6)\n \n23:\n(tighten_nut gate spanner3 bob nut5)\n \n24:\n(tighten_nut gate spanner4 bob nut4)\n \n25:\n(tighten_nut gate spanner6 bob nut3)\n \n26:\n(tighten_nut gate spanner7 bob nut2)\n \n27:\n(tighten_nut gate spanner8 bob nut1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at bob shed)\nAdding (at bob location1)\n\nChecking next happening (time 2)\nDeleting (at bob location1)\nAdding (at bob location2)\n\nChecking next happening (time 3)\nDeleting (at bob location2)\nAdding (at bob location3)\n\nChecking next happening (time 4)\nDeleting (at bob location3)\nAdding (at bob location4)\n\nChecking next happening (time 5)\nDeleting (at bob location4)\nAdding (at bob location5)\n\nChecking next happening (time 6)\nDeleting (at spanner4 location5)\nAdding (carrying bob spanner4)\n\nChecking next happening (time 7)\nDeleting (at bob location5)\nAdding (at bob location6)\n\nChecking next happening (time 8)\nDeleting (at bob location6)\nAdding (at bob location7)\n\nChecking next happening (time 9)\nDeleting (at spanner8 location7)\nAdding (carrying bob spanner8)\n\nChecking next happening (time 10)\nDeleting (at bob location7)\nAdding (at bob location8)\n\nChecking next happening (time 11)\nDeleting (at bob location8)\nAdding (at bob location9)\n\nChecking next happening (time 12)\nDeleting (at bob location9)\nAdding (at bob location10)\n\nChecking next happening (time 13)\nDeleting (at spanner1 location10)\nAdding (carrying bob spanner1)\n\nChecking next happening (time 14)\nDeleting (at spanner2 location10)\nAdding (carrying bob spanner2)\n\nChecking next happening (time 15)\nDeleting (at spanner6 location10)\nAdding (carrying bob spanner6)\n\nChecking next happening (time 16)\nDeleting (at bob location10)\nAdding (at bob location11)\n\nChecking next happening (time 17)\nDeleting (at spanner7 location11)\nAdding (carrying bob spanner7)\n\nChecking next happening (time 18)\nDeleting (at bob location11)\nAdding (at bob location12)\n\nChecking next happening (time 19)\nDeleting (at spanner3 location12)\nAdding (carrying bob spanner3)\n\nChecking next happening (time 20)\nDeleting (at bob location12)\nAdding (at bob gate)\n\nChecking next happening (time 21)\nDeleting (loose nut7)\nDeleting (useable spanner1)\nAdding (tightened nut7)\n\nChecking next happening (time 22)\nDeleting (loose nut6)\nDeleting (useable spanner2)\nAdding (tightened nut6)\n\nChecking next happening (time 23)\nDeleting (loose nut5)\nDeleting (useable spanner3)\nAdding (tightened nut5)\n\nChecking next happening (time 24)\nDeleting (loose nut4)\nDeleting (useable spanner4)\nAdding (tightened nut4)\n\nChecking next happening (time 25)\nDeleting (loose nut3)\nDeleting (useable spanner6)\nAdding (tightened nut3)\n\nChecking next happening (time 26)\nDeleting (loose nut2)\nDeleting (useable spanner7)\nAdding (tightened nut2)\n\nChecking next happening (time 27)\nDeleting (loose nut1)\nDeleting (useable spanner8)\nAdding (tightened nut1)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 27 \n\nSuccessful plans:\nValue: 27\n /home/jfan5/Safety-gen/runs/benchmark/optic/spanner_20260215_224300/spanner/optic_results/spanner-s8-n7-l12-s8001.plan 27",
+      "raw_solution": "(walk shed location1 bob)\n(walk location1 location2 bob)\n(walk location2 location3 bob)\n(walk location3 location4 bob)\n(walk location4 location5 bob)\n(pickup_spanner location5 spanner4 bob)\n(walk location5 location6 bob)\n(walk location6 location7 bob)\n(pickup_spanner location7 spanner8 bob)\n(walk location7 location8 bob)\n(walk location8 location9 bob)\n(walk location9 location10 bob)\n(pickup_spanner location10 spanner1 bob)\n(pickup_spanner location10 spanner2 bob)\n(pickup_spanner location10 spanner6 bob)\n(walk location10 location11 bob)\n(pickup_spanner location11 spanner7 bob)\n(walk location11 location12 bob)\n(pickup_spanner location12 spanner3 bob)\n(walk location12 gate bob)\n(tighten_nut gate spanner1 bob nut7)\n(tighten_nut gate spanner2 bob nut6)\n(tighten_nut gate spanner3 bob nut5)\n(tighten_nut gate spanner4 bob nut4)\n(tighten_nut gate spanner6 bob nut3)\n(tighten_nut gate spanner7 bob nut2)\n(tighten_nut gate spanner8 bob nut1)",
+      "generation_error": null,
+      "solve_time_seconds": 289.153,
+      "optic_status": "solved"
+    },
+    {
+      "index": 48,
+      "problem_name": "spanner-s9-n8-l13-s9001",
+      "size_key": "s9-n8-l13",
+      "scenario": "spanner",
+      "problem_file": "Safety-gen/benchmark_problems/spanner/spanner-s9-n8-l13-s9001.pddl",
+      "is_valid": false,
+      "category": "plan_format_error",
+      "validation_message": "Validation error: ",
+      "validation_stdout": "",
+      "raw_solution": "",
+      "generation_error": null,
+      "solve_time_seconds": 300.48,
+      "optic_status": "timeout"
+    }
+  ]
+}

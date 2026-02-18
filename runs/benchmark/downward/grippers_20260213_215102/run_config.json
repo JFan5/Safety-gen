@@ -1,0 +1,18 @@
+{
+  "command": "script/run_benchmark.py --solver downward --domain all --time-limit 300 --search-config astar(lmcut())",
+  "timestamp": "2026-02-13T21:51:02.427275",
+  "solver_type": "downward",
+  "model": "fast-downward",
+  "domain": "grippers",
+  "parameters": {
+    "domain": "grippers",
+    "domain_file": "/home/jfan5/Safety-gen/pddl3/grippers/domain.pddl",
+    "domain3_file": "/home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl",
+    "problems_dir": "/home/jfan5/Safety-gen/benchmark_problems/grippers",
+    "selected_problems_count": 48,
+    "time_limit": 300.0,
+    "max_problems": 0,
+    "search_config": "astar(lmcut())",
+    "downward_path": "/home/jfan5/downward/fast-downward.py"
+  }
+}

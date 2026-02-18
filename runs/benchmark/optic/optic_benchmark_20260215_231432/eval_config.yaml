@@ -1,0 +1,16 @@
+command: script/run_benchmark.py --solver optic --domain all --time-limit 300
+domains:
+- blocksworld
+- ferry
+- spanner
+- grippers
+- delivery
+- grid
+eval_id: optic_benchmark_20260215_231432
+eval_type: benchmark_optic
+max_problems: 0
+model: optic
+solver: optic
+temperature: 0.6
+time_limit: 300.0
+timestamp: '2026-02-15T23:14:32.591578'

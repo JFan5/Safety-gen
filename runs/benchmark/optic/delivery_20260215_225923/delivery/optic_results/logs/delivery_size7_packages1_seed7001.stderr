@@ -1,0 +1,272 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size7_packages1_seed7001.plan
+Plan to validate:
+
+Plan size: 35
+1:
+(move t1 c_6_2 c_6_1)
+ 
+2:
+(move t1 c_6_1 c_6_0)
+ 
+3:
+(pick-package t1 p2 c_6_0)
+ 
+4:
+(move t1 c_6_0 c_6_1)
+ 
+5:
+(drop-package t1 p2 c_6_1)
+ 
+6:
+(move t1 c_6_1 c_5_1)
+ 
+7:
+(move t1 c_5_1 c_4_1)
+ 
+8:
+(move t1 c_4_1 c_3_1)
+ 
+9:
+(move t1 c_3_1 c_3_2)
+ 
+10:
+(pick-package t1 p3 c_3_2)
+ 
+11:
+(move t1 c_3_2 c_3_1)
+ 
+12:
+(move t1 c_3_1 c_4_1)
+ 
+13:
+(move t1 c_4_1 c_5_1)
+ 
+14:
+(move t1 c_5_1 c_6_1)
+ 
+15:
+(drop-package t1 p3 c_6_1)
+ 
+16:
+(move t1 c_6_1 c_5_1)
+ 
+17:
+(move t1 c_5_1 c_4_1)
+ 
+18:
+(move t1 c_4_1 c_3_1)
+ 
+19:
+(move t1 c_3_1 c_2_1)
+ 
+20:
+(move t1 c_2_1 c_2_2)
+ 
+21:
+(move t1 c_2_2 c_2_3)
+ 
+22:
+(move t1 c_2_3 c_2_4)
+ 
+23:
+(move t1 c_2_4 c_2_5)
+ 
+24:
+(move t1 c_2_5 c_2_6)
+ 
+25:
+(pick-package t1 p1 c_2_6)
+ 
+26:
+(move t1 c_2_6 c_2_5)
+ 
+27:
+(move t1 c_2_5 c_2_4)
+ 
+28:
+(move t1 c_2_4 c_2_3)
+ 
+29:
+(move t1 c_2_3 c_2_2)
+ 
+30:
+(move t1 c_2_2 c_2_1)
+ 
+31:
+(move t1 c_2_1 c_3_1)
+ 
+32:
+(move t1 c_3_1 c_4_1)
+ 
+33:
+(move t1 c_4_1 c_5_1)
+ 
+34:
+(move t1 c_5_1 c_6_1)
+ 
+35:
+(drop-package t1 p1 c_6_1)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_6_2)
+Adding (at t1 c_6_1)
+
+Checking next happening (time 2)
+Deleting (at t1 c_6_1)
+Adding (at t1 c_6_0)
+
+Checking next happening (time 3)
+Deleting (at p2 c_6_0)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 4)
+Deleting (at t1 c_6_0)
+Adding (at t1 c_6_1)
+
+Checking next happening (time 5)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_6_1)
+
+Checking next happening (time 6)
+Deleting (at t1 c_6_1)
+Adding (at t1 c_5_1)
+
+Checking next happening (time 7)
+Deleting (at t1 c_5_1)
+Adding (at t1 c_4_1)
+
+Checking next happening (time 8)
+Deleting (at t1 c_4_1)
+Adding (at t1 c_3_1)
+
+Checking next happening (time 9)
+Deleting (at t1 c_3_1)
+Adding (at t1 c_3_2)
+
+Checking next happening (time 10)
+Deleting (at p3 c_3_2)
+Deleting (empty t1)
+Adding (carrying t1 p3)
+
+Checking next happening (time 11)
+Deleting (at t1 c_3_2)
+Adding (at t1 c_3_1)
+
+Checking next happening (time 12)
+Deleting (at t1 c_3_1)
+Adding (at t1 c_4_1)
+
+Checking next happening (time 13)
+Deleting (at t1 c_4_1)
+Adding (at t1 c_5_1)
+
+Checking next happening (time 14)
+Deleting (at t1 c_5_1)
+Adding (at t1 c_6_1)
+
+Checking next happening (time 15)
+Deleting (carrying t1 p3)
+Adding (empty t1)
+Adding (at p3 c_6_1)
+
+Checking next happening (time 16)
+Deleting (at t1 c_6_1)
+Adding (at t1 c_5_1)
+
+Checking next happening (time 17)
+Deleting (at t1 c_5_1)
+Adding (at t1 c_4_1)
+
+Checking next happening (time 18)
+Deleting (at t1 c_4_1)
+Adding (at t1 c_3_1)
+
+Checking next happening (time 19)
+Deleting (at t1 c_3_1)
+Adding (at t1 c_2_1)
+
+Checking next happening (time 20)
+Deleting (at t1 c_2_1)
+Adding (at t1 c_2_2)
+
+Checking next happening (time 21)
+Deleting (at t1 c_2_2)
+Adding (at t1 c_2_3)
+
+Checking next happening (time 22)
+Deleting (at t1 c_2_3)
+Adding (at t1 c_2_4)
+
+Checking next happening (time 23)
+Deleting (at t1 c_2_4)
+Adding (at t1 c_2_5)
+
+Checking next happening (time 24)
+Deleting (at t1 c_2_5)
+Adding (at t1 c_2_6)
+
+Checking next happening (time 25)
+Deleting (at p1 c_2_6)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 26)
+Deleting (at t1 c_2_6)
+Adding (at t1 c_2_5)
+
+Checking next happening (time 27)
+Deleting (at t1 c_2_5)
+Adding (at t1 c_2_4)
+
+Checking next happening (time 28)
+Deleting (at t1 c_2_4)
+Adding (at t1 c_2_3)
+
+Checking next happening (time 29)
+Deleting (at t1 c_2_3)
+Adding (at t1 c_2_2)
+
+Checking next happening (time 30)
+Deleting (at t1 c_2_2)
+Adding (at t1 c_2_1)
+
+Checking next happening (time 31)
+Deleting (at t1 c_2_1)
+Adding (at t1 c_3_1)
+
+Checking next happening (time 32)
+Deleting (at t1 c_3_1)
+Adding (at t1 c_4_1)
+
+Checking next happening (time 33)
+Deleting (at t1 c_4_1)
+Adding (at t1 c_5_1)
+
+Checking next happening (time 34)
+Deleting (at t1 c_5_1)
+Adding (at t1 c_6_1)
+
+Checking next happening (time 35)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_6_1)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 35 
+
+Successful plans:
+Value: 35
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size7_packages1_seed7001.plan 35

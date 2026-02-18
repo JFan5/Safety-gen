@@ -1,0 +1,879 @@
+{
+  "timestamp": "2026-02-15T22:43:00.588890",
+  "domain": "ferry",
+  "level_statistics": {
+    "l3-c2": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l03-c02-s3001"
+      ],
+      "total_solve_time_seconds": 0.029,
+      "avg_solve_time_seconds": 0.029,
+      "min_solve_time_seconds": 0.029,
+      "max_solve_time_seconds": 0.029
+    },
+    "l4-c3": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l04-c03-s4001"
+      ],
+      "total_solve_time_seconds": 0.03,
+      "avg_solve_time_seconds": 0.03,
+      "min_solve_time_seconds": 0.03,
+      "max_solve_time_seconds": 0.03
+    },
+    "l5-c3": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l05-c03-s5001"
+      ],
+      "total_solve_time_seconds": 0.03,
+      "avg_solve_time_seconds": 0.03,
+      "min_solve_time_seconds": 0.03,
+      "max_solve_time_seconds": 0.03
+    },
+    "l6-c4": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l06-c04-s6001"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l7-c4": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l07-c04-s7001"
+      ],
+      "total_solve_time_seconds": 0.029,
+      "avg_solve_time_seconds": 0.029,
+      "min_solve_time_seconds": 0.029,
+      "max_solve_time_seconds": 0.029
+    },
+    "l8-c5": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l08-c05-s8001"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l9-c5": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l09-c05-s9001"
+      ],
+      "total_solve_time_seconds": 0.031,
+      "avg_solve_time_seconds": 0.031,
+      "min_solve_time_seconds": 0.031,
+      "max_solve_time_seconds": 0.031
+    },
+    "l10-c6": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l10-c06-s10001"
+      ],
+      "total_solve_time_seconds": 0.045,
+      "avg_solve_time_seconds": 0.045,
+      "min_solve_time_seconds": 0.045,
+      "max_solve_time_seconds": 0.045
+    },
+    "l11-c6": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l11-c06-s11001"
+      ],
+      "total_solve_time_seconds": 0.039,
+      "avg_solve_time_seconds": 0.039,
+      "min_solve_time_seconds": 0.039,
+      "max_solve_time_seconds": 0.039
+    },
+    "l12-c7": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l12-c07-s12001"
+      ],
+      "total_solve_time_seconds": 0.041,
+      "avg_solve_time_seconds": 0.041,
+      "min_solve_time_seconds": 0.041,
+      "max_solve_time_seconds": 0.041
+    },
+    "l13-c7": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l13-c07-s13001"
+      ],
+      "total_solve_time_seconds": 0.058,
+      "avg_solve_time_seconds": 0.058,
+      "min_solve_time_seconds": 0.058,
+      "max_solve_time_seconds": 0.058
+    },
+    "l14-c8": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l14-c08-s14001"
+      ],
+      "total_solve_time_seconds": 0.078,
+      "avg_solve_time_seconds": 0.078,
+      "min_solve_time_seconds": 0.078,
+      "max_solve_time_seconds": 0.078
+    },
+    "l15-c8": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l15-c08-s15001"
+      ],
+      "total_solve_time_seconds": 0.061,
+      "avg_solve_time_seconds": 0.061,
+      "min_solve_time_seconds": 0.061,
+      "max_solve_time_seconds": 0.061
+    },
+    "l16-c9": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l16-c09-s16001"
+      ],
+      "total_solve_time_seconds": 0.105,
+      "avg_solve_time_seconds": 0.105,
+      "min_solve_time_seconds": 0.105,
+      "max_solve_time_seconds": 0.105
+    },
+    "l17-c9": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l17-c09-s17001"
+      ],
+      "total_solve_time_seconds": 0.113,
+      "avg_solve_time_seconds": 0.113,
+      "min_solve_time_seconds": 0.113,
+      "max_solve_time_seconds": 0.113
+    },
+    "l18-c10": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l18-c10-s18001"
+      ],
+      "total_solve_time_seconds": 0.142,
+      "avg_solve_time_seconds": 0.142,
+      "min_solve_time_seconds": 0.142,
+      "max_solve_time_seconds": 0.142
+    },
+    "l19-c10": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l19-c10-s19001"
+      ],
+      "total_solve_time_seconds": 0.174,
+      "avg_solve_time_seconds": 0.174,
+      "min_solve_time_seconds": 0.174,
+      "max_solve_time_seconds": 0.174
+    },
+    "l20-c11": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l20-c11-s20001"
+      ],
+      "total_solve_time_seconds": 0.209,
+      "avg_solve_time_seconds": 0.209,
+      "min_solve_time_seconds": 0.209,
+      "max_solve_time_seconds": 0.209
+    },
+    "l21-c11": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l21-c11-s21001"
+      ],
+      "total_solve_time_seconds": 0.242,
+      "avg_solve_time_seconds": 0.242,
+      "min_solve_time_seconds": 0.242,
+      "max_solve_time_seconds": 0.242
+    },
+    "l22-c12": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l22-c12-s22001"
+      ],
+      "total_solve_time_seconds": 0.363,
+      "avg_solve_time_seconds": 0.363,
+      "min_solve_time_seconds": 0.363,
+      "max_solve_time_seconds": 0.363
+    },
+    "l23-c12": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l23-c12-s23001"
+      ],
+      "total_solve_time_seconds": 0.296,
+      "avg_solve_time_seconds": 0.296,
+      "min_solve_time_seconds": 0.296,
+      "max_solve_time_seconds": 0.296
+    },
+    "l24-c13": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l24-c13-s24001"
+      ],
+      "total_solve_time_seconds": 0.359,
+      "avg_solve_time_seconds": 0.359,
+      "min_solve_time_seconds": 0.359,
+      "max_solve_time_seconds": 0.359
+    },
+    "l25-c13": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l25-c13-s25001"
+      ],
+      "total_solve_time_seconds": 0.599,
+      "avg_solve_time_seconds": 0.599,
+      "min_solve_time_seconds": 0.599,
+      "max_solve_time_seconds": 0.599
+    },
+    "l26-c14": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l26-c14-s26001"
+      ],
+      "total_solve_time_seconds": 0.45,
+      "avg_solve_time_seconds": 0.45,
+      "min_solve_time_seconds": 0.45,
+      "max_solve_time_seconds": 0.45
+    },
+    "l27-c14": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l27-c14-s27001"
+      ],
+      "total_solve_time_seconds": 0.864,
+      "avg_solve_time_seconds": 0.864,
+      "min_solve_time_seconds": 0.864,
+      "max_solve_time_seconds": 0.864
+    },
+    "l28-c15": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l28-c15-s28001"
+      ],
+      "total_solve_time_seconds": 0.796,
+      "avg_solve_time_seconds": 0.796,
+      "min_solve_time_seconds": 0.796,
+      "max_solve_time_seconds": 0.796
+    },
+    "l29-c15": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l29-c15-s29001"
+      ],
+      "total_solve_time_seconds": 0.673,
+      "avg_solve_time_seconds": 0.673,
+      "min_solve_time_seconds": 0.673,
+      "max_solve_time_seconds": 0.673
+    },
+    "l30-c16": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l30-c16-s30001"
+      ],
+      "total_solve_time_seconds": 1.02,
+      "avg_solve_time_seconds": 1.02,
+      "min_solve_time_seconds": 1.02,
+      "max_solve_time_seconds": 1.02
+    },
+    "l31-c16": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l31-c16-s31001"
+      ],
+      "total_solve_time_seconds": 0.923,
+      "avg_solve_time_seconds": 0.923,
+      "min_solve_time_seconds": 0.923,
+      "max_solve_time_seconds": 0.923
+    },
+    "l32-c17": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l32-c17-s32001"
+      ],
+      "total_solve_time_seconds": 1.292,
+      "avg_solve_time_seconds": 1.292,
+      "min_solve_time_seconds": 1.292,
+      "max_solve_time_seconds": 1.292
+    },
+    "l33-c17": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l33-c17-s33001"
+      ],
+      "total_solve_time_seconds": 1.66,
+      "avg_solve_time_seconds": 1.66,
+      "min_solve_time_seconds": 1.66,
+      "max_solve_time_seconds": 1.66
+    },
+    "l34-c18": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l34-c18-s34001"
+      ],
+      "total_solve_time_seconds": 1.487,
+      "avg_solve_time_seconds": 1.487,
+      "min_solve_time_seconds": 1.487,
+      "max_solve_time_seconds": 1.487
+    },
+    "l35-c18": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l35-c18-s35001"
+      ],
+      "total_solve_time_seconds": 2.271,
+      "avg_solve_time_seconds": 2.271,
+      "min_solve_time_seconds": 2.271,
+      "max_solve_time_seconds": 2.271
+    },
+    "l36-c19": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l36-c19-s36001"
+      ],
+      "total_solve_time_seconds": 1.43,
+      "avg_solve_time_seconds": 1.43,
+      "min_solve_time_seconds": 1.43,
+      "max_solve_time_seconds": 1.43
+    },
+    "l37-c19": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l37-c19-s37001"
+      ],
+      "total_solve_time_seconds": 1.78,
+      "avg_solve_time_seconds": 1.78,
+      "min_solve_time_seconds": 1.78,
+      "max_solve_time_seconds": 1.78
+    },
+    "l38-c20": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l38-c20-s38001"
+      ],
+      "total_solve_time_seconds": 2.791,
+      "avg_solve_time_seconds": 2.791,
+      "min_solve_time_seconds": 2.791,
+      "max_solve_time_seconds": 2.791
+    },
+    "l39-c20": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l39-c20-s39001"
+      ],
+      "total_solve_time_seconds": 2.131,
+      "avg_solve_time_seconds": 2.131,
+      "min_solve_time_seconds": 2.131,
+      "max_solve_time_seconds": 2.131
+    },
+    "l40-c21": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l40-c21-s40001"
+      ],
+      "total_solve_time_seconds": 3.008,
+      "avg_solve_time_seconds": 3.008,
+      "min_solve_time_seconds": 3.008,
+      "max_solve_time_seconds": 3.008
+    },
+    "l41-c21": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l41-c21-s41001"
+      ],
+      "total_solve_time_seconds": 3.319,
+      "avg_solve_time_seconds": 3.319,
+      "min_solve_time_seconds": 3.319,
+      "max_solve_time_seconds": 3.319
+    },
+    "l42-c22": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l42-c22-s42001"
+      ],
+      "total_solve_time_seconds": 3.672,
+      "avg_solve_time_seconds": 3.672,
+      "min_solve_time_seconds": 3.672,
+      "max_solve_time_seconds": 3.672
+    },
+    "l43-c22": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l43-c22-s43001"
+      ],
+      "total_solve_time_seconds": 2.871,
+      "avg_solve_time_seconds": 2.871,
+      "min_solve_time_seconds": 2.871,
+      "max_solve_time_seconds": 2.871
+    },
+    "l44-c23": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l44-c23-s44001"
+      ],
+      "total_solve_time_seconds": 3.238,
+      "avg_solve_time_seconds": 3.238,
+      "min_solve_time_seconds": 3.238,
+      "max_solve_time_seconds": 3.238
+    },
+    "l45-c23": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l45-c23-s45001"
+      ],
+      "total_solve_time_seconds": 3.117,
+      "avg_solve_time_seconds": 3.117,
+      "min_solve_time_seconds": 3.117,
+      "max_solve_time_seconds": 3.117
+    },
+    "l46-c24": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l46-c24-s46001"
+      ],
+      "total_solve_time_seconds": 3.925,
+      "avg_solve_time_seconds": 3.925,
+      "min_solve_time_seconds": 3.925,
+      "max_solve_time_seconds": 3.925
+    },
+    "l47-c24": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l47-c24-s47001"
+      ],
+      "total_solve_time_seconds": 4.13,
+      "avg_solve_time_seconds": 4.13,
+      "min_solve_time_seconds": 4.13,
+      "max_solve_time_seconds": 4.13
+    },
+    "l48-c25": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l48-c25-s48001"
+      ],
+      "total_solve_time_seconds": 4.366,
+      "avg_solve_time_seconds": 4.366,
+      "min_solve_time_seconds": 4.366,
+      "max_solve_time_seconds": 4.366
+    },
+    "l49-c25": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l49-c25-s49001"
+      ],
+      "total_solve_time_seconds": 4.302,
+      "avg_solve_time_seconds": 4.302,
+      "min_solve_time_seconds": 4.302,
+      "max_solve_time_seconds": 4.302
+    },
+    "l50-c26": {
+      "total_problems": 1,
+      "success_count": 1,
+      "success_rate": 100.0,
+      "problems": [
+        "ferry-l50-c26-s50001"
+      ],
+      "total_solve_time_seconds": 4.934,
+      "avg_solve_time_seconds": 4.934,
+      "min_solve_time_seconds": 4.934,
+      "max_solve_time_seconds": 4.934
+    }
+  },
+  "overall_statistics": {
+    "total_problems": 48,
+    "success_count": 48,
+    "success_rate": 100.0,
+    "total_time_seconds": 63.584999999999994,
+    "avg_time_per_problem": 1.3246874999999998
+  },
+  "results": [
+    {
+      "problem_name": "ferry-l03-c02-s3001",
+      "is_valid": true,
+      "solve_time_seconds": 0.029,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l04-c03-s4001",
+      "is_valid": true,
+      "solve_time_seconds": 0.03,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l05-c03-s5001",
+      "is_valid": true,
+      "solve_time_seconds": 0.03,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l06-c04-s6001",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l07-c04-s7001",
+      "is_valid": true,
+      "solve_time_seconds": 0.029,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l08-c05-s8001",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l09-c05-s9001",
+      "is_valid": true,
+      "solve_time_seconds": 0.031,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l10-c06-s10001",
+      "is_valid": true,
+      "solve_time_seconds": 0.045,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l11-c06-s11001",
+      "is_valid": true,
+      "solve_time_seconds": 0.039,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l12-c07-s12001",
+      "is_valid": true,
+      "solve_time_seconds": 0.041,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l13-c07-s13001",
+      "is_valid": true,
+      "solve_time_seconds": 0.058,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l14-c08-s14001",
+      "is_valid": true,
+      "solve_time_seconds": 0.078,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l15-c08-s15001",
+      "is_valid": true,
+      "solve_time_seconds": 0.061,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l16-c09-s16001",
+      "is_valid": true,
+      "solve_time_seconds": 0.105,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l17-c09-s17001",
+      "is_valid": true,
+      "solve_time_seconds": 0.113,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l18-c10-s18001",
+      "is_valid": true,
+      "solve_time_seconds": 0.142,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l19-c10-s19001",
+      "is_valid": true,
+      "solve_time_seconds": 0.174,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l20-c11-s20001",
+      "is_valid": true,
+      "solve_time_seconds": 0.209,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l21-c11-s21001",
+      "is_valid": true,
+      "solve_time_seconds": 0.242,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l22-c12-s22001",
+      "is_valid": true,
+      "solve_time_seconds": 0.363,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l23-c12-s23001",
+      "is_valid": true,
+      "solve_time_seconds": 0.296,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l24-c13-s24001",
+      "is_valid": true,
+      "solve_time_seconds": 0.359,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l25-c13-s25001",
+      "is_valid": true,
+      "solve_time_seconds": 0.599,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l26-c14-s26001",
+      "is_valid": true,
+      "solve_time_seconds": 0.45,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l27-c14-s27001",
+      "is_valid": true,
+      "solve_time_seconds": 0.864,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l28-c15-s28001",
+      "is_valid": true,
+      "solve_time_seconds": 0.796,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l29-c15-s29001",
+      "is_valid": true,
+      "solve_time_seconds": 0.673,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l30-c16-s30001",
+      "is_valid": true,
+      "solve_time_seconds": 1.02,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l31-c16-s31001",
+      "is_valid": true,
+      "solve_time_seconds": 0.923,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l32-c17-s32001",
+      "is_valid": true,
+      "solve_time_seconds": 1.292,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l33-c17-s33001",
+      "is_valid": true,
+      "solve_time_seconds": 1.66,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l34-c18-s34001",
+      "is_valid": true,
+      "solve_time_seconds": 1.487,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l35-c18-s35001",
+      "is_valid": true,
+      "solve_time_seconds": 2.271,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l36-c19-s36001",
+      "is_valid": true,
+      "solve_time_seconds": 1.43,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l37-c19-s37001",
+      "is_valid": true,
+      "solve_time_seconds": 1.78,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l38-c20-s38001",
+      "is_valid": true,
+      "solve_time_seconds": 2.791,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l39-c20-s39001",
+      "is_valid": true,
+      "solve_time_seconds": 2.131,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l40-c21-s40001",
+      "is_valid": true,
+      "solve_time_seconds": 3.008,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l41-c21-s41001",
+      "is_valid": true,
+      "solve_time_seconds": 3.319,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l42-c22-s42001",
+      "is_valid": true,
+      "solve_time_seconds": 3.672,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l43-c22-s43001",
+      "is_valid": true,
+      "solve_time_seconds": 2.871,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l44-c23-s44001",
+      "is_valid": true,
+      "solve_time_seconds": 3.238,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l45-c23-s45001",
+      "is_valid": true,
+      "solve_time_seconds": 3.117,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l46-c24-s46001",
+      "is_valid": true,
+      "solve_time_seconds": 3.925,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l47-c24-s47001",
+      "is_valid": true,
+      "solve_time_seconds": 4.13,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l48-c25-s48001",
+      "is_valid": true,
+      "solve_time_seconds": 4.366,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l49-c25-s49001",
+      "is_valid": true,
+      "solve_time_seconds": 4.302,
+      "category": "success_plans"
+    },
+    {
+      "problem_name": "ferry-l50-c26-s50001",
+      "is_valid": true,
+      "solve_time_seconds": 4.934,
+      "category": "success_plans"
+    }
+  ]
+}

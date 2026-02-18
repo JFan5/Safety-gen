@@ -1,0 +1,15 @@
+{
+  "command": "script/run_benchmark.py --solver optic --domain all --time-limit 300",
+  "timestamp": "2026-02-15T22:53:02.196014",
+  "solver_type": "optic",
+  "model": "optic",
+  "domain": "grippers",
+  "parameters": {
+    "domain": "grippers",
+    "domain_file": "/home/jfan5/Safety-gen/pddl3/grippers/domain3.pddl",
+    "problems_dir": "/home/jfan5/Safety-gen/benchmark_problems/grippers",
+    "selected_problems_count": 48,
+    "time_limit": 300.0,
+    "max_problems": 0
+  }
+}

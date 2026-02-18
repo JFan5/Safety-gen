@@ -2,6 +2,7 @@ Figure 3, Benchmark comparasion
 
 Source: runs/benchmark/compare
 
+script: script/generate_benchmark_table.py
 
 Figure 4 single-domain sft and grpo
 

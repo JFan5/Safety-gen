@@ -1,0 +1,330 @@
+{
+  "timestamp": "2026-02-13T18:34:03.764914",
+  "overall": {
+    "total_problems": 48,
+    "success_count": 23,
+    "success_rate": 47.91666666666667,
+    "total_time_seconds": 7884.57,
+    "avg_time_per_problem": 164.261875
+  },
+  "by_level": {
+    "l3-c2": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.075
+    },
+    "l4-c3": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.068
+    },
+    "l5-c3": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.074
+    },
+    "l6-c4": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.067
+    },
+    "l7-c4": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.07
+    },
+    "l8-c5": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.076
+    },
+    "l9-c5": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.069
+    },
+    "l10-c6": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.096
+    },
+    "l11-c6": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.076
+    },
+    "l12-c7": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.077
+    },
+    "l13-c7": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.234
+    },
+    "l14-c8": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.124
+    },
+    "l15-c8": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.13
+    },
+    "l16-c9": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.269
+    },
+    "l17-c9": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 1.478
+    },
+    "l18-c10": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 7.981
+    },
+    "l19-c10": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 12.175
+    },
+    "l20-c11": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 2.259
+    },
+    "l21-c11": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 0.834
+    },
+    "l22-c12": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 264.53
+    },
+    "l23-c12": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 53.709
+    },
+    "l24-c13": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 1.993
+    },
+    "l25-c13": {
+      "total": 1,
+      "success": 1,
+      "success_rate": 100.0,
+      "avg_time": 59.57
+    },
+    "l26-c14": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.106
+    },
+    "l27-c14": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.111
+    },
+    "l28-c15": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.101
+    },
+    "l29-c15": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.108
+    },
+    "l30-c16": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.108
+    },
+    "l31-c16": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.108
+    },
+    "l32-c17": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.12
+    },
+    "l33-c17": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.117
+    },
+    "l34-c18": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.119
+    },
+    "l35-c18": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.142
+    },
+    "l36-c19": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.131
+    },
+    "l37-c19": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.139
+    },
+    "l38-c20": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.135
+    },
+    "l39-c20": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.132
+    },
+    "l40-c21": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.174
+    },
+    "l41-c21": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.147
+    },
+    "l42-c22": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.16
+    },
+    "l43-c22": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.15
+    },
+    "l44-c23": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.16
+    },
+    "l45-c23": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.165
+    },
+    "l46-c24": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.165
+    },
+    "l47-c24": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.171
+    },
+    "l48-c25": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.178
+    },
+    "l49-c25": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.184
+    },
+    "l50-c26": {
+      "total": 1,
+      "success": 0,
+      "success_rate": 0.0,
+      "avg_time": 299.205
+    }
+  },
+  "categories": {
+    "success_plans": {
+      "count": 23,
+      "rate": 47.91666666666667
+    },
+    "plan_format_error": {
+      "count": 25,
+      "rate": 52.083333333333336
+    },
+    "precondition_violation": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "safety_constraints_violation": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "goal_not_satisfied": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "generation_error": {
+      "count": 0,
+      "rate": 0.0
+    },
+    "others": {
+      "count": 0,
+      "rate": 0.0
+    }
+  }
+}

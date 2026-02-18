@@ -1,0 +1,27 @@
+# Three-Way Comparison Chart Source Folders
+# Generated: Sun Feb 15 11:00:56 PM EST 2026
+
+## blocksworld
+Chart: comparison_blocksworld_3way.png
+Downward: runs/benchmark/downward/blocksworld_20260213_132757
+OPTIC:    runs/benchmark/optic/blocksworld_20260215_223618
+GPT-5.2:  runs/benchmark/openai/gpt-5.2_blocksworld_20260126_200314
+
+## ferry
+Chart: comparison_ferry_3way.png
+Downward: runs/benchmark/downward/ferry_20260213_162239
+OPTIC:    runs/benchmark/optic/ferry_20260215_224255
+GPT-5.2:  runs/benchmark/openai/gpt-5.2_ferry_20260126_202046
+
+## grippers
+Chart: comparison_grippers_3way.png
+Downward: runs/benchmark/downward/grippers_20260213_215102
+OPTIC:    runs/benchmark/optic/grippers_20260215_225302
+GPT-5.2:  runs/benchmark/openai/gpt-5.2_grippers_20260126_203623
+
+## spanner
+Chart: comparison_spanner_3way.png
+Downward: runs/benchmark/downward/spanner_20260213_183403
+OPTIC:    runs/benchmark/optic/spanner_20260215_224300
+GPT-5.2:  runs/benchmark/openai/gpt-5.2_spanner_20260126_202806
+

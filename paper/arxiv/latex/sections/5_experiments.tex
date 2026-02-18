@@ -23,28 +23,28 @@ All models use quantized 4-bit variants throughout our experiments unless otherw
 Training details, hyperparameters, reward function, and curriculum learning settings are provided in Appendix~\ref{app:training-details} and~\ref{app:reward-curriculum}.
 
 \subsection{Running Time and Scalability Comparison}
-We compare the runtime and success rates of GPT-5.2~\cite{openai2025gpt5} (LLM-based) with OPTIC~\cite{benton2012temporal} (classical planner) on $48$ problems of increasing complexity in Blocksworld and Grippers, with a $300$s timeout.
+We compare the runtime and success rates of GPT-5.2~\cite{openai2025gpt5} (LLM-based) with two classical planners---OPTIC~\cite{benton2012temporal} and Fast Downward~\cite{helmert2006fast}---on $48$ problems of increasing complexity in Blocksworld and Grippers, with a $300$s timeout.
 
 \begin{figure}[!ht]
   \centering
   \begin{subfigure}[b]{\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/comparison_blocksworld_gpt5.2_vs_optic.png}
-    \caption{Blocksworld: GPT-5.2 100\% (48/48), avg 102.3s vs OPTIC 39.6\% (19/48), avg 114.4s.}
+    \includegraphics[width=\linewidth]{figures/comparison_blocksworld_3way.png}
+    \caption{Blocksworld: GPT-5.2 100\% (48/48), avg 102.3s; OPTIC 45.8\% (22/48), avg 101.4s; Fast Downward 27.1\% (13/48), avg 218.4s.}
     \label{fig:benchmark-blocksworld}
   \end{subfigure}
   \vspace{0.3em}
   \begin{subfigure}[b]{\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/comparison_grippers_gpt5.2_vs_optic.png}
-    \caption{Grippers: GPT-5.2 100\% (48/48), avg 102.6s vs OPTIC 64.6\% (31/48), avg 146.0s.}
+    \includegraphics[width=\linewidth]{figures/comparison_grippers_3way.png}
+    \caption{Grippers: GPT-5.2 100\% (48/48), avg 102.6s; OPTIC 64.6\% (31/48), avg 148.1s; Fast Downward 14.6\% (7/48), avg 255.8s.}
     \label{fig:benchmark-grippers}
   \end{subfigure}
-  \caption{Benchmark comparison: GPT-5.2 (solid) vs OPTIC (dashed). Green squares = success, red circles = failure.}
+  \caption{Three-way benchmark comparison: GPT-5.2 vs OPTIC vs Fast Downward. Green squares = success, red circles = failure.}
   \label{fig:benchmark-comparison}
 \end{figure}
 
-As shown in Figure~\ref{fig:benchmark-comparison}, GPT-5.2 achieves 100\% success in both domains with stable runtime ($\sim$102s), while OPTIC's success rate drops significantly (39.6\% Blocksworld, 64.6\% Grippers) and runtime increases dramatically as problem complexity grows. These results suggest that LLM-based solvers can alleviate scalability bottlenecks of classical planners.
+As shown in Figure~\ref{fig:benchmark-comparison}, GPT-5.2 achieves 100\% success in both domains with stable runtime ($\sim$102s), while both classical planners struggle as problem complexity grows. OPTIC solves 45.8\% of Blocksworld and 64.6\% of Grippers problems; Fast Downward performs worse at 27.1\% and 14.6\%, respectively, with the highest average runtimes. These results suggest that LLM-based solvers can alleviate scalability bottlenecks of classical planners.
 
 \begin{figure}[h]
   \centering
@@ -148,8 +148,14 @@ We summarize the key observations as follows:
 
 These results on Mistral-7B demonstrate that even with a relatively small model, our framework achieves substantial improvements in safety-aware planning through the combination of SFT and GRPO.
 
-Table~\ref{tab:error_percentages} summarizes the error-type distributions across all training stages---Pretrained (PT), SFT, and GRPO---for both Qwen3-14B and Llama-8B.
-We highlight several key findings that demonstrate the progressive improvements from each training stage:
+\subsection{Cross-domain Safety Generalizability}
+
+We next evaluate whether the proposed framework generalizes across both model scales and planning domains.
+To this end, we apply the same two-stage training pipeline (SFT followed by GRPO) to two additional models---Qwen3-14B and Llama-8B---and train each on all four domains simultaneously using domain-balanced batching and curriculum learning.
+Both models follow the identical training protocol and hyperparameters described in Section~\ref{subsec:experimental-setup} and Appendix~\ref{app:training-details}.
+
+Table~\ref{tab:error_percentages} summarizes the error-type distributions across all training stages---Pretrained (PT), SFT, and GRPO---for both models.
+We highlight several key findings:
 
 \begin{enumerate}
     \item \textbf{Pretrained models produce mostly format and precondition errors.}
@@ -280,7 +286,7 @@ We further deploy the safety-aware planner on a desktop robot arm (Elephant myCo
 The LLM-generated plan is transmitted via SSH and executed on the real robot.
 We compare the safety-aware plan with a baseline unsafe sequence that mirrors the violation observed in simulation.
 
-Figure~\ref{fig:experiment-snapshot} shows snapshots from the execution.
+Figure~\ref{fig:real-world-validation}(b) shows snapshots from the execution.
 The unsafe baseline results in a physical collision during stacking, whereas the safety-aware plan completes the task without violating the safety requirement.
 This experiment confirms that the proposed framework not only improves symbolic safety in simulation but also yields robust, collision-free behaviors when deployed on real robotic hardware.
 

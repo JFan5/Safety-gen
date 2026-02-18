@@ -1,0 +1,128 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size10_packages1_seed10001.plan
+Plan to validate:
+
+Plan size: 15
+1:
+(move t1 c_5_3 c_5_4)
+ 
+2:
+(move t1 c_5_4 c_4_4)
+ 
+3:
+(move t1 c_4_4 c_3_4)
+ 
+4:
+(move t1 c_3_4 c_2_4)
+ 
+5:
+(move t1 c_2_4 c_1_4)
+ 
+6:
+(move t1 c_1_4 c_1_5)
+ 
+7:
+(pick-package t1 p1 c_1_5)
+ 
+8:
+(move t1 c_1_5 c_1_4)
+ 
+9:
+(move t1 c_1_4 c_2_4)
+ 
+10:
+(move t1 c_2_4 c_3_4)
+ 
+11:
+(move t1 c_3_4 c_4_4)
+ 
+12:
+(move t1 c_4_4 c_5_4)
+ 
+13:
+(move t1 c_5_4 c_6_4)
+ 
+14:
+(move t1 c_6_4 c_7_4)
+ 
+15:
+(drop-package t1 p1 c_7_4)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_5_3)
+Adding (at t1 c_5_4)
+
+Checking next happening (time 2)
+Deleting (at t1 c_5_4)
+Adding (at t1 c_4_4)
+
+Checking next happening (time 3)
+Deleting (at t1 c_4_4)
+Adding (at t1 c_3_4)
+
+Checking next happening (time 4)
+Deleting (at t1 c_3_4)
+Adding (at t1 c_2_4)
+
+Checking next happening (time 5)
+Deleting (at t1 c_2_4)
+Adding (at t1 c_1_4)
+
+Checking next happening (time 6)
+Deleting (at t1 c_1_4)
+Adding (at t1 c_1_5)
+
+Checking next happening (time 7)
+Deleting (at p1 c_1_5)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 8)
+Deleting (at t1 c_1_5)
+Adding (at t1 c_1_4)
+
+Checking next happening (time 9)
+Deleting (at t1 c_1_4)
+Adding (at t1 c_2_4)
+
+Checking next happening (time 10)
+Deleting (at t1 c_2_4)
+Adding (at t1 c_3_4)
+
+Checking next happening (time 11)
+Deleting (at t1 c_3_4)
+Adding (at t1 c_4_4)
+
+Checking next happening (time 12)
+Deleting (at t1 c_4_4)
+Adding (at t1 c_5_4)
+
+Checking next happening (time 13)
+Deleting (at t1 c_5_4)
+Adding (at t1 c_6_4)
+
+Checking next happening (time 14)
+Deleting (at t1 c_6_4)
+Adding (at t1 c_7_4)
+
+Checking next happening (time 15)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_7_4)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 15 
+
+Successful plans:
+Value: 15
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size10_packages1_seed10001.plan 15

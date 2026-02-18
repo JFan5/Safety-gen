@@ -1,0 +1,82 @@
+[VALIDATOR STDOUT]
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260215_224255/ferry/optic_results/ferry-l04-c03-s4001.plan
+Plan to validate:
+
+Plan size: 9
+1:
+(sail l1 l3)
+ 
+2:
+(sail l3 l2)
+ 
+3:
+(board c2 l2)
+ 
+4:
+(sail l2 l3)
+ 
+5:
+(debark c2 l3)
+ 
+6:
+(sail l3 l0)
+ 
+7:
+(board c0 l0)
+ 
+8:
+(sail l0 l3)
+ 
+9:
+(debark c0 l3)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at-ferry l1)
+Adding (at-ferry l3)
+
+Checking next happening (time 2)
+Deleting (at-ferry l3)
+Adding (at-ferry l2)
+
+Checking next happening (time 3)
+Deleting (at c2 l2)
+Deleting (empty-ferry)
+Adding (on c2)
+
+Checking next happening (time 4)
+Deleting (at-ferry l2)
+Adding (at-ferry l3)
+
+Checking next happening (time 5)
+Deleting (on c2)
+Adding (at c2 l3)
+Adding (empty-ferry)
+
+Checking next happening (time 6)
+Deleting (at-ferry l3)
+Adding (at-ferry l0)
+
+Checking next happening (time 7)
+Deleting (at c0 l0)
+Deleting (empty-ferry)
+Adding (on c0)
+
+Checking next happening (time 8)
+Deleting (at-ferry l0)
+Adding (at-ferry l3)
+
+Checking next happening (time 9)
+Deleting (on c0)
+Adding (at c0 l3)
+Adding (empty-ferry)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 9 
+
+Successful plans:
+Value: 9
+ /home/jfan5/Safety-gen/runs/benchmark/optic/ferry_20260215_224255/ferry/optic_results/ferry-l04-c03-s4001.plan 9

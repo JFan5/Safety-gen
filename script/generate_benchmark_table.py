@@ -107,6 +107,7 @@ def load_results(benchmark_folder: str) -> dict:
     Supports multiple formats:
     - results_*.json (LLM benchmark format)
     - solver_cache.json (OPTIC benchmark format)
+    - results.json with level_statistics (downward benchmark format)
     """
     folder = Path(benchmark_folder)
 
@@ -161,7 +162,44 @@ def load_results(benchmark_folder: str) -> dict:
             "problems_dir": str(folder),
         }
 
-    raise FileNotFoundError(f"No results_*.json or solver_cache.json found in {benchmark_folder}")
+    # Try results.json (downward benchmark format with level_statistics)
+    results_json = folder / "results.json"
+    if results_json.exists():
+        with open(results_json, 'r') as f:
+            raw = json.load(f)
+        if "level_statistics" in raw:
+            results = []
+            for size_key, level in raw["level_statistics"].items():
+                problems = level.get("problems", [])
+                avg_time = level.get("avg_solve_time_seconds", 0)
+                success_count = level.get("success_count", 0)
+                for i, pname in enumerate(problems):
+                    results.append({
+                        "problem_name": pname,
+                        "size_key": size_key,
+                        "solve_time_seconds": avg_time,
+                        "category": "success_plans" if i < success_count else "failed",
+                    })
+
+            run_config = folder / "run_config.json"
+            config_data = {}
+            if run_config.exists():
+                with open(run_config, 'r') as f:
+                    config_data = json.load(f)
+
+            scenario = raw.get("domain", config_data.get("domain", folder.name.split("_")[0]))
+            model_name = config_data.get("model", "Fast Downward")
+
+            results.sort(key=lambda x: natural_sort_key(x["size_key"]))
+
+            return {
+                "results": results,
+                "scenario": scenario,
+                "model_name": model_name,
+                "problems_dir": str(folder),
+            }
+
+    raise FileNotFoundError(f"No results_*.json, solver_cache.json, or results.json found in {benchmark_folder}")
 
 
 def natural_sort_key(key: str) -> tuple:
@@ -601,6 +639,150 @@ def generate_comparison_time_chart(results1: dict, results2: dict, output_path: 
     return output_path
 
 
+def generate_multi_comparison_time_chart(results_list: list, output_path: str = None) -> str:
+    """
+    Generate a comparison chart showing solve time vs complexity for N solvers.
+
+    Args:
+        results_list: List of benchmark results dicts (2 or more solvers)
+        output_path: Path to save the chart (optional)
+
+    Returns:
+        Path to the saved chart
+    """
+    try:
+        import matplotlib.pyplot as plt
+        import matplotlib
+        matplotlib.use('Agg')
+        from matplotlib.lines import Line2D
+    except ImportError:
+        raise ImportError("matplotlib is required for chart generation.")
+
+    # Style config: same line color, different markers and line styles
+    line_color = '#2980b9'
+    solver_markers = ['o', 's', '^', 'v', 'D']
+    solver_linestyles = ['-', '--', ':']
+
+    # Build data for each solver
+    def build_time_data(results: dict) -> dict:
+        by_key = {}
+        for problem in results.get("results", []):
+            size_key = problem.get("size_key", "unknown")
+            solve_time = problem.get("solve_time_seconds", 0)
+            is_success = problem.get("category") == "success_plans"
+            if size_key not in by_key:
+                by_key[size_key] = []
+            by_key[size_key].append((solve_time, is_success))
+        return by_key
+
+    all_data = [build_time_data(r) for r in results_list]
+    model_names = [r.get("model_name", f"Solver {i+1}") for i, r in enumerate(results_list)]
+    scenario = results_list[0].get("scenario", "Unknown")
+
+    # Collect all size_keys
+    all_keys = set()
+    for data in all_data:
+        all_keys |= set(data.keys())
+    sorted_keys = sort_complexity_keys(list(all_keys))
+
+    def get_avg_times(data: dict, keys: list) -> tuple:
+        times = []
+        success_rates = []
+        for key in keys:
+            if key in data:
+                entries = data[key]
+                avg_time = sum(t for t, _ in entries) / len(entries)
+                success_rate = sum(1 for _, s in entries if s) / len(entries)
+                times.append(avg_time)
+                success_rates.append(success_rate)
+            else:
+                times.append(None)
+                success_rates.append(None)
+        return times, success_rates
+
+    # Create figure
+    fig_width = max(14, len(sorted_keys) * 0.4)
+    _fig, ax = plt.subplots(figsize=(fig_width, 6))
+
+    legend_elements = []
+    summary_lines = []
+    n_solvers = len(all_data)
+    # Horizontal offset to prevent marker overlap (centered around 0)
+    jitter_width = 0.25
+    offsets = [jitter_width * (i - (n_solvers - 1) / 2) for i in range(n_solvers)]
+
+    for idx, (data, model_name) in enumerate(zip(all_data, model_names)):
+        marker = solver_markers[idx % len(solver_markers)]
+        linestyle = solver_linestyles[idx % len(solver_linestyles)]
+        offset = offsets[idx]
+
+        times, sr = get_avg_times(data, sorted_keys)
+
+        valid_x = [i for i, t in enumerate(times) if t is not None]
+        valid_times = [times[i] for i in valid_x]
+        valid_sr = [sr[i] for i in valid_x]
+        # Apply jitter offset to x positions for scatter points
+        jittered_x = [x + offset for x in valid_x]
+
+        # Plot each point individually: green fill for success, red for failure
+        for xi, ti, si in zip(jittered_x, valid_times, valid_sr):
+            fill = '#2ecc71' if si == 1.0 else '#e74c3c' if si == 0.0 else '#f39c12'
+            ax.scatter([xi], [ti], c=[fill], s=80, alpha=0.9,
+                       edgecolors=line_color, linewidths=2, zorder=3, marker=marker)
+
+        ax.plot(jittered_x, valid_times, color=line_color, linewidth=2, alpha=0.8,
+                zorder=2, linestyle=linestyle, label=model_name)
+
+        legend_elements.append(
+            Line2D([0], [0], color=line_color, linewidth=2, linestyle=linestyle, marker=marker,
+                   markerfacecolor='white', markeredgecolor=line_color, markersize=8, label=model_name)
+        )
+
+        # Stats
+        total = sum(len(data.get(k, [])) for k in sorted_keys)
+        success = sum(sum(1 for _, s in data.get(k, []) if s) for k in sorted_keys)
+        avg_time = sum(t for t in valid_times) / len(valid_times) if valid_times else 0
+        rate = (success / total * 100) if total > 0 else 0
+        summary_lines.append(f"{model_name}: {success}/{total} ({rate:.1f}%), Avg: {avg_time:.1f}s")
+
+    # Success/failure legend entries
+    legend_elements.append(Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71',
+                                  markeredgecolor=line_color, markersize=10, label='Success'))
+    legend_elements.append(Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c',
+                                  markeredgecolor=line_color, markersize=10, label='Failure'))
+
+    ax.set_xlabel("Problem Complexity", fontsize=12)
+    ax.set_ylabel("Solve Time (seconds)", fontsize=12)
+    title_names = " vs ".join(model_names)
+    ax.set_title(f"Benchmark Comparison: {scenario} - {title_names}", fontsize=14)
+
+    if len(sorted_keys) <= 30:
+        ax.set_xticks(list(range(len(sorted_keys))))
+        ax.set_xticklabels(sorted_keys, rotation=45, ha='right')
+    else:
+        step = max(1, len(sorted_keys) // 25)
+        ax.set_xticks(list(range(len(sorted_keys)))[::step])
+        ax.set_xticklabels(sorted_keys[::step], rotation=45, ha='right')
+
+    ax.grid(True, alpha=0.3)
+    ax.legend(handles=legend_elements, loc='upper left', fontsize=12)
+
+    summary_text = "\n".join(summary_lines)
+    ax.text(0.98, 0.02, summary_text, transform=ax.transAxes, fontsize=12,
+            verticalalignment='bottom', horizontalalignment='right',
+            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+
+    plt.tight_layout()
+
+    if output_path is None:
+        output_path = f"comparison_{'_vs_'.join(model_names)}_{scenario}.png".replace(" ", "_")
+
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
+
+    return output_path
+
+
 def generate_comparison_chart(results1: dict, results2: dict, output_path: str = None, aggregate_levels: int = 1, chart_style: str = "line") -> str:
     """
     Generate a comparison chart for two benchmark results.
@@ -790,7 +972,8 @@ def main():
     parser.add_argument(
         "--compare",
         metavar="FOLDER",
-        help="Second benchmark folder to compare against (generates comparison chart)"
+        nargs="+",
+        help="One or more benchmark folders to compare against (generates comparison chart)"
     )
     parser.add_argument(
         "--aggregate-levels",
@@ -816,27 +999,32 @@ def main():
     if args.compare:
         try:
             results1 = load_results(args.benchmark_folder)
-            results2 = load_results(args.compare)
+            all_results = [results1] + [load_results(f) for f in args.compare]
 
             # Validate same scenario (optional warning)
-            scenario1 = results1.get("scenario", "unknown")
-            scenario2 = results2.get("scenario", "unknown")
-            if scenario1 != scenario2:
-                print(f"Warning: Comparing different scenarios ({scenario1} vs {scenario2})", file=sys.stderr)
+            scenarios = [r.get("scenario", "unknown") for r in all_results]
+            unique_scenarios = set(scenarios)
+            if len(unique_scenarios) > 1:
+                print(f"Warning: Comparing different scenarios ({', '.join(unique_scenarios)})", file=sys.stderr)
 
             # Generate comparison chart
             chart_output = args.chart_output
             if chart_output is None:
-                model1 = results1.get("model_name", "solver1").replace(" ", "_")
-                model2 = results2.get("model_name", "solver2").replace(" ", "_")
-                chart_output = str(Path(args.benchmark_folder) / f"comparison_{model1}_vs_{model2}.png")
+                model_names = [r.get("model_name", f"solver{i+1}").replace(" ", "_") for i, r in enumerate(all_results)]
+                chart_output = str(Path(args.benchmark_folder) / f"comparison_{'_vs_'.join(model_names)}.png")
 
             if args.time_chart:
-                chart_path = generate_comparison_time_chart(results1, results2, chart_output)
+                if len(all_results) == 2:
+                    chart_path = generate_comparison_time_chart(all_results[0], all_results[1], chart_output)
+                else:
+                    chart_path = generate_multi_comparison_time_chart(all_results, chart_output)
             else:
-                chart_path = generate_comparison_chart(
-                    results1, results2, chart_output, args.aggregate_levels, args.chart_style
-                )
+                if len(all_results) == 2:
+                    chart_path = generate_comparison_chart(
+                        all_results[0], all_results[1], chart_output, args.aggregate_levels, args.chart_style
+                    )
+                else:
+                    chart_path = generate_multi_comparison_time_chart(all_results, chart_output)
             print(f"Comparison chart saved to: {chart_path}")
 
         except FileNotFoundError as e:

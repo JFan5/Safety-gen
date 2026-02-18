@@ -1,0 +1,228 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size23_packages1_seed23001.plan
+Plan to validate:
+
+Plan size: 29
+1:
+(move t1 c_11_2 c_11_1)
+ 
+2:
+(pick-package t1 p1 c_11_1)
+ 
+3:
+(move t1 c_11_1 c_11_2)
+ 
+4:
+(move t1 c_11_2 c_11_3)
+ 
+5:
+(move t1 c_11_3 c_11_4)
+ 
+6:
+(move t1 c_11_4 c_11_5)
+ 
+7:
+(move t1 c_11_5 c_11_6)
+ 
+8:
+(move t1 c_11_6 c_11_7)
+ 
+9:
+(drop-package t1 p1 c_11_7)
+ 
+10:
+(move t1 c_11_7 c_10_7)
+ 
+11:
+(move t1 c_10_7 c_10_6)
+ 
+12:
+(move t1 c_10_6 c_10_5)
+ 
+13:
+(move t1 c_10_5 c_10_4)
+ 
+14:
+(move t1 c_10_4 c_10_3)
+ 
+15:
+(move t1 c_10_3 c_10_2)
+ 
+16:
+(move t1 c_10_2 c_9_2)
+ 
+17:
+(move t1 c_9_2 c_8_2)
+ 
+18:
+(move t1 c_8_2 c_7_2)
+ 
+19:
+(pick-package t1 p2 c_7_2)
+ 
+20:
+(move t1 c_7_2 c_7_3)
+ 
+21:
+(move t1 c_7_3 c_7_4)
+ 
+22:
+(move t1 c_7_4 c_7_5)
+ 
+23:
+(move t1 c_7_5 c_7_6)
+ 
+24:
+(move t1 c_7_6 c_7_7)
+ 
+25:
+(move t1 c_7_7 c_8_7)
+ 
+26:
+(move t1 c_8_7 c_9_7)
+ 
+27:
+(move t1 c_9_7 c_10_7)
+ 
+28:
+(move t1 c_10_7 c_11_7)
+ 
+29:
+(drop-package t1 p2 c_11_7)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_11_2)
+Adding (at t1 c_11_1)
+
+Checking next happening (time 2)
+Deleting (at p1 c_11_1)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 3)
+Deleting (at t1 c_11_1)
+Adding (at t1 c_11_2)
+
+Checking next happening (time 4)
+Deleting (at t1 c_11_2)
+Adding (at t1 c_11_3)
+
+Checking next happening (time 5)
+Deleting (at t1 c_11_3)
+Adding (at t1 c_11_4)
+
+Checking next happening (time 6)
+Deleting (at t1 c_11_4)
+Adding (at t1 c_11_5)
+
+Checking next happening (time 7)
+Deleting (at t1 c_11_5)
+Adding (at t1 c_11_6)
+
+Checking next happening (time 8)
+Deleting (at t1 c_11_6)
+Adding (at t1 c_11_7)
+
+Checking next happening (time 9)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_11_7)
+
+Checking next happening (time 10)
+Deleting (at t1 c_11_7)
+Adding (at t1 c_10_7)
+
+Checking next happening (time 11)
+Deleting (at t1 c_10_7)
+Adding (at t1 c_10_6)
+
+Checking next happening (time 12)
+Deleting (at t1 c_10_6)
+Adding (at t1 c_10_5)
+
+Checking next happening (time 13)
+Deleting (at t1 c_10_5)
+Adding (at t1 c_10_4)
+
+Checking next happening (time 14)
+Deleting (at t1 c_10_4)
+Adding (at t1 c_10_3)
+
+Checking next happening (time 15)
+Deleting (at t1 c_10_3)
+Adding (at t1 c_10_2)
+
+Checking next happening (time 16)
+Deleting (at t1 c_10_2)
+Adding (at t1 c_9_2)
+
+Checking next happening (time 17)
+Deleting (at t1 c_9_2)
+Adding (at t1 c_8_2)
+
+Checking next happening (time 18)
+Deleting (at t1 c_8_2)
+Adding (at t1 c_7_2)
+
+Checking next happening (time 19)
+Deleting (at p2 c_7_2)
+Deleting (empty t1)
+Adding (carrying t1 p2)
+
+Checking next happening (time 20)
+Deleting (at t1 c_7_2)
+Adding (at t1 c_7_3)
+
+Checking next happening (time 21)
+Deleting (at t1 c_7_3)
+Adding (at t1 c_7_4)
+
+Checking next happening (time 22)
+Deleting (at t1 c_7_4)
+Adding (at t1 c_7_5)
+
+Checking next happening (time 23)
+Deleting (at t1 c_7_5)
+Adding (at t1 c_7_6)
+
+Checking next happening (time 24)
+Deleting (at t1 c_7_6)
+Adding (at t1 c_7_7)
+
+Checking next happening (time 25)
+Deleting (at t1 c_7_7)
+Adding (at t1 c_8_7)
+
+Checking next happening (time 26)
+Deleting (at t1 c_8_7)
+Adding (at t1 c_9_7)
+
+Checking next happening (time 27)
+Deleting (at t1 c_9_7)
+Adding (at t1 c_10_7)
+
+Checking next happening (time 28)
+Deleting (at t1 c_10_7)
+Adding (at t1 c_11_7)
+
+Checking next happening (time 29)
+Deleting (carrying t1 p2)
+Adding (empty t1)
+Adding (at p2 c_11_7)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 29 
+
+Successful plans:
+Value: 29
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size23_packages1_seed23001.plan 29

@@ -1,0 +1,155 @@
+[VALIDATOR STDOUT]
+Type-checking move
+...action passes type checking.
+Type-checking pick
+...action passes type checking.
+Type-checking drop
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/grippers_20260215_225302/grippers/optic_results/grippers-n1-r7-o5-s5001.plan
+Plan to validate:
+
+Plan size: 18
+1:
+(move robot1 room2 room7)
+ 
+2:
+(move robot1 room7 room6)
+ 
+3:
+(pick robot1 ball1 room6 lgripper1)
+ 
+4:
+(move robot1 room6 room4)
+ 
+5:
+(drop robot1 ball1 room4 lgripper1)
+ 
+6:
+(pick robot1 ball4 room4 rgripper1)
+ 
+7:
+(move robot1 room4 room7)
+ 
+8:
+(drop robot1 ball4 room7 rgripper1)
+ 
+9:
+(move robot1 room7 room6)
+ 
+10:
+(move robot1 room6 room3)
+ 
+11:
+(pick robot1 ball3 room3 lgripper1)
+ 
+12:
+(move robot1 room3 room6)
+ 
+13:
+(drop robot1 ball3 room6 lgripper1)
+ 
+14:
+(move robot1 room6 room3)
+ 
+15:
+(move robot1 room3 room1)
+ 
+16:
+(pick robot1 ball2 room1 lgripper1)
+ 
+17:
+(move robot1 room1 room3)
+ 
+18:
+(drop robot1 ball2 room3 lgripper1)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at-robby robot1 room2)
+Adding (at-robby robot1 room7)
+
+Checking next happening (time 2)
+Deleting (at-robby robot1 room7)
+Adding (at-robby robot1 room6)
+
+Checking next happening (time 3)
+Deleting (at ball1 room6)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball1 lgripper1)
+
+Checking next happening (time 4)
+Deleting (at-robby robot1 room6)
+Adding (at-robby robot1 room4)
+
+Checking next happening (time 5)
+Deleting (carry robot1 ball1 lgripper1)
+Adding (at ball1 room4)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 6)
+Deleting (at ball4 room4)
+Deleting (free robot1 rgripper1)
+Adding (carry robot1 ball4 rgripper1)
+
+Checking next happening (time 7)
+Deleting (at-robby robot1 room4)
+Adding (at-robby robot1 room7)
+
+Checking next happening (time 8)
+Deleting (carry robot1 ball4 rgripper1)
+Adding (at ball4 room7)
+Adding (free robot1 rgripper1)
+
+Checking next happening (time 9)
+Deleting (at-robby robot1 room7)
+Adding (at-robby robot1 room6)
+
+Checking next happening (time 10)
+Deleting (at-robby robot1 room6)
+Adding (at-robby robot1 room3)
+
+Checking next happening (time 11)
+Deleting (at ball3 room3)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball3 lgripper1)
+
+Checking next happening (time 12)
+Deleting (at-robby robot1 room3)
+Adding (at-robby robot1 room6)
+
+Checking next happening (time 13)
+Deleting (carry robot1 ball3 lgripper1)
+Adding (at ball3 room6)
+Adding (free robot1 lgripper1)
+
+Checking next happening (time 14)
+Deleting (at-robby robot1 room6)
+Adding (at-robby robot1 room3)
+
+Checking next happening (time 15)
+Deleting (at-robby robot1 room3)
+Adding (at-robby robot1 room1)
+
+Checking next happening (time 16)
+Deleting (at ball2 room1)
+Deleting (free robot1 lgripper1)
+Adding (carry robot1 ball2 lgripper1)
+
+Checking next happening (time 17)
+Deleting (at-robby robot1 room1)
+Adding (at-robby robot1 room3)
+
+Checking next happening (time 18)
+Deleting (carry robot1 ball2 lgripper1)
+Adding (at ball2 room3)
+Adding (free robot1 lgripper1)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 18 
+
+Successful plans:
+Value: 18
+ /home/jfan5/Safety-gen/runs/benchmark/optic/grippers_20260215_225302/grippers/optic_results/grippers-n1-r7-o5-s5001.plan 18

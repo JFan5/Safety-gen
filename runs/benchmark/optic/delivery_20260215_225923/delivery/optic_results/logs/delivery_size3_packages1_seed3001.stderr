@@ -1,0 +1,65 @@
+[VALIDATOR STDOUT]
+Type-checking pick-package
+...action passes type checking.
+Type-checking drop-package
+...action passes type checking.
+Type-checking move
+...action passes type checking.
+Checking plan: /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size3_packages1_seed3001.plan
+Plan to validate:
+
+Plan size: 6
+1:
+(move t1 c_1_2 c_0_2)
+ 
+2:
+(pick-package t1 p1 c_0_2)
+ 
+3:
+(move t1 c_0_2 c_0_1)
+ 
+4:
+(move t1 c_0_1 c_0_0)
+ 
+5:
+(move t1 c_0_0 c_1_0)
+ 
+6:
+(drop-package t1 p1 c_1_0)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at t1 c_1_2)
+Adding (at t1 c_0_2)
+
+Checking next happening (time 2)
+Deleting (at p1 c_0_2)
+Deleting (empty t1)
+Adding (carrying t1 p1)
+
+Checking next happening (time 3)
+Deleting (at t1 c_0_2)
+Adding (at t1 c_0_1)
+
+Checking next happening (time 4)
+Deleting (at t1 c_0_1)
+Adding (at t1 c_0_0)
+
+Checking next happening (time 5)
+Deleting (at t1 c_0_0)
+Adding (at t1 c_1_0)
+
+Checking next happening (time 6)
+Deleting (carrying t1 p1)
+Adding (empty t1)
+Adding (at p1 c_1_0)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 6 
+
+Successful plans:
+Value: 6
+ /home/jfan5/Safety-gen/runs/benchmark/optic/delivery_20260215_225923/delivery/optic_results/delivery_size3_packages1_seed3001.plan 6
