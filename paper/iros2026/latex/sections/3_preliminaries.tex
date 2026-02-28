@@ -1,0 +1,104 @@
+
+\section{Preliminaries}\label{sec:preliminaries}
+This section briefly reviews classical planning and PDDL with safety constraints,
+and then introduces the formal robotic task-planning model studied in this work.
+
+\subsection{Classical Planning and PDDL}
+In classical planning, a problem is defined as
+$\Pi=\langle \mathcal{F}, \mathcal{A}, I, \mathcal{G} \rangle$,
+where $\mathcal{F}$ denotes the set of fluents, $\mathcal{A}$ the action set,
+$I\subseteq\mathcal{F}$ the initial state, and $\mathcal{G}$ the goal condition.
+Each action $a\in\mathcal{A}$ is associated with preconditions $\mathrm{Pre}(a)$
+and effects $\mathrm{Eff}(a)$.
+A plan is a finite action sequence whose execution from $I$ leads to a state
+satisfying $\mathcal{G}$.
+
+Planning problems are commonly specified using
+PDDL~\cite{aeronautiques1998pddl}, which provides a structured format
+to describe actions, predicates, objects, initial states, and goals.
+PDDL has become the de facto standard for representing classical planning benchmarks.
+
+PDDL3 extends PDDL with constructs for specifying temporal constraints and preferences
+over plans~\cite{gerevini2005plan}.
+In particular, safety constraints can be encoded using the \texttt{:constraints}
+field as temporal formulas that restrict all valid plans.
+For example, the following constraint enforces that no block is ever placed on top
+of a fragile block:
+\begin{lstlisting}[style=lispstyle]
+(:constraints
+  (always
+    (forall (?x - fragile-block ?y - block)
+      (not (on ?y ?x)))))
+\end{lstlisting}
+In this work, we focus on hard safety constraints that must be satisfied by all
+valid plans.
+
+\subsection{Robotic Task Planning}
+We formalize a robotic task-planning problem as a tuple
+$\mathcal{P} = (\mathcal{S}, \mathcal{A}, s_0, \mathcal{G}, \mathcal{C})$,
+where $\mathcal{S}$ denotes the (possibly hybrid) state space of the robotic system,
+$\mathcal{A}$ is the set of available actions or control decisions,
+$s_0 \in \mathcal{S}$ is the initial state,
+$\mathcal{G}$ is the goal condition,
+and $\mathcal{C}$ is a set of formal safety constraints that define the safe operating
+region of the system.
+Each constraint $C \in \mathcal{C}$ may specify either a state invariant that must hold
+at every state along execution or a trajectory-level requirement capturing temporal
+patterns such as ``eventually,'' ``until,'' or ``before.''
+
+\paragraph{Safety-Aware Planning.}
+A plan is defined as a finite sequence of actions
+$\pi = [a_1, a_2, \dots, a_n]$
+that induces a state trajectory
+$s_0 \xrightarrow{a_1} s_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} s_n$.
+The plan is \emph{goal-reaching} if the final state satisfies the goal condition,
+i.e., $s_n \models \mathcal{G}$, and it is \emph{safe} if it respects all safety
+constraints, denoted by $\pi \models \mathcal{C}$.
+Safety-aware planning requires finding a plan that satisfies both conditions:
+\begin{equation}
+  \text{find } \pi \text{ s.t. } s_n \models \mathcal{G} \;\land\; \pi \models \mathcal{C}.
+\end{equation}
+While classical search-based planners enforce safety constraints explicitly during planning, LLM-based planners generate plans as sequences and do not inherently simulate state transitions against formal constraints. As a result, safety must be learned from data or feedback, or enforced through external
+verification and correction mechanisms.
+
+\paragraph{Safety-Generalizable Planning.}
+Beyond solving individual problems, we require planners to generalize safety reasoning to unseen problems and domains, a property we call \emph{safety generalizability}. We distinguish two forms.
+
+\noindent\textbf{Cross-Problem Safety Generalizability.}
+Within a fixed domain $D=(\mathcal{S}, \mathcal{A}, \mathcal{C})$, the model must produce safe and goal-reaching plans for unseen problems with different initial states and goals.
+
+\noindent\textbf{Cross-Domain Safety Generalizability.}
+This property further requires safety generalization across a collection of domains $\{D_1, \dots, D_K\}$, each with distinct action semantics and safety constraints. Formally, a model $\mathcal{M}$ is safety-generalizable if:
+\begin{equation}
+  \forall D_j,\;
+  \forall \mathcal{P}_i \in D_j:\;
+  \pi_i = \mathcal{M}(\mathcal{P}_i)
+  \Rightarrow
+  (s_n^i \models \mathcal{G}_i \;\land\; \pi_i \models \mathcal{C}_j).
+\end{equation}
+\begin{table}[t]
+  \centering
+  \caption{Domains and their safety constraints.}
+  \label{tab:domain-introduction}
+  \begin{tabularx}{\linewidth}{l|X|X}
+    \hline
+    \textbf{Domain} & \textbf{Description} & \textbf{Safety Constraints} \\
+    \hline
+    \textbf{Blocksworld} &
+    Rearrange stacked blocks into a target configuration using pick-and-place actions. &
+    Maintain stable stacking order; a supporting block must be placed before the blocks above it. \\
+    \hline
+    \textbf{Ferry} &
+    Transport cars between locations using a ferry. &
+    Avoid overloading; ensure cars reach destinations before departure or return. \\
+    \hline
+    \textbf{Grippers} &
+    Use two grippers to move objects to a target room. &
+    Prevent simultaneous operation in narrow rooms; restrict certain grippers for safety-critical objects. \\
+    \hline
+    \textbf{Spanner} &
+    Collect spanners and tighten nuts across locations. &
+    Tighten bolts in a safe order; limit shared tool access to avoid congestion. \\
+    \hline
+  \end{tabularx}
+\end{table}

@@ -50,6 +50,7 @@ script/generate_input_format_table.py
 
 ## table 5
 shells/generate_safepilot_comparison_table.sh
+
 ./shells/generate_safepilot_comparison_table.sh
 
 ## 新图片

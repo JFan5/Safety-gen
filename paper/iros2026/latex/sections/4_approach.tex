@@ -1,0 +1,161 @@
+
+
+
+\section{SafeGen-LLM}\label{IV}
+
+Our framework consists of three stages: dataset construction (Section~\ref{subsec:dataset}), SFT (Section~\ref{subsec:sft}), and online RL via GRPO (Section~\ref{subsec:grpo}).
+
+\subsection{Dataset Construction}\label{subsec:dataset}
+
+We construct a unified safety-oriented dataset for both SFT and as the problem pool for GRPO training. The process includes three stages: (1) domain selection and safety knowledge design, (2) constrained problem generation and solving, and (3) instruction–response formatting.
+
+\noindent\textbf{Domain-specific safety knowledge design.}
+We select four task-planning domains from the PDDL2 problem generators~\cite{seipp2022pddl} based on:
+
+\begin{itemize}
+  \item relevance to real-world robotic task planning;
+  \item presence of safety-critical objects, locations, or actions;
+  \item availability of problem instances with varying difficulty.
+\end{itemize}
+The selected domains are Blocksworld, Ferry, Grippers, and Spanner (Table~\ref{tab:domain-introduction}). For each domain, we design additional high-level safety constraints reflecting realistic robotic requirements (e.g., collision avoidance, load limits, safe operation ordering). These constraints are encoded in PDDL3 \texttt{:constraints} and used to generate safety-compliant demonstrations.
+
+\noindent\textbf{Dataset construction pipeline.}
+The overall pipeline is shown in Figure~\ref{fig:dataset-construction}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\linewidth]{sft_diagram.pdf}
+  \caption{Pipeline for dataset construction.}
+  \label{fig:dataset-construction}
+\end{figure}
+
+First, we generate problem instances using PDDL2 generators, remove isomorphic or trivial cases to reduce redundancy, and ensure feasibility with a classical planner.
+
+Second, we encode safety constraints in PDDL3 and solve the constrained problems using the temporal planner OPTIC~\cite{benton2012temporal}. Candidate solutions are validated with VAL~\cite{howey2004val}. Only plans satisfying both domain preconditions and safety constraints are retained.
+
+Third, each validated solution is converted into an instruction–response pair. The instruction contains the domain, problem instance, and safety constraints (if any), and the response is the validated plan.
+Each problem is wrapped in a fixed instruction template that specifies the task format and expected output structure, as shown below.
+
+\begin{userbox}
+  You are a planning expert. Your task is to generate a \textbf{valid plan} for the given domain and problem.
+
+  \texttt{DOMAIN:}
+  \{\{domain\_content\}\}
+
+  \texttt{PROBLEM:}
+  \{\{problem\_content\}\}
+
+  \textbf{Output Requirements:}
+  \begin{itemize}
+    \item Return \textbf{ONLY} the plan steps, one per line.
+    \item Each line must follow the format: \texttt{(<ACTION\_NAME> <param1> <param2> ...)}.
+    \item Use only objects defined in the \texttt{PROBLEM}.
+    \item Do \textbf{NOT} include any explanations, comments, or headers.
+    \item Do \textbf{NOT} output anything except the plan lines.
+    \item The output must \textbf{NOT} contain natural language sentences.
+    \item If the \texttt{PROBLEM} includes constraints, the plan must satisfy all of them; otherwise, solve as a standard goal-directed task.
+    \item Ensure that all action preconditions hold and no constraints or invariants are violated at any step.
+  \end{itemize}
+
+  \textbf{Plan:}
+\end{userbox}
+
+This template explicitly instructs the model to behave as a planning expert and to produce strictly formatted action sequences.
+By providing the domain and problem specifications in a structured form and enforcing strong output requirements (no extra text, strict syntax, constraint satisfaction), the template helps ensure that the generated plans remain syntactically correct, executable, and consistent with the safety constraints. This yields a supervised dataset
+\[
+\mathcal{D}_{\text{SFT}} = \{(x_i, y_i)\}_{i=1}^{N},
+\]
+where $x_i$ is an input prompt and $y_i$ is the target plan.
+For SFT, the instruction--response pairs are used directly as training examples.
+For GRPO, the same problems serve as training prompts---the model generates its own candidate plans online---and the validated reference solutions $y_i$ are retained to compute the reference solution length $L_{\text{ref}}$ used in the progress-based reward function (Section~\ref{subsubsec:reward}).
+
+\subsection{Supervised Fine-Tuning}\label{subsec:sft}
+
+Given the dataset $\mathcal{D}_{\text{SFT}}=\{(x_i, y_i)\}_{i=1}^{N}$ from Section~\ref{subsec:dataset}, SFT optimizes the model parameters $\theta$ by minimizing the negative log-likelihood:
+\begin{equation}
+\mathcal{L}_{\text{SFT}}(\theta)=
+- \mathbb{E}_{(x,y)\sim\mathcal{D}_{\text{SFT}}}
+\left[ \log \pi_{\theta}(y\mid x) \right],
+\label{eq:sft_loss}
+\end{equation}
+where $\pi_{\theta}(y\mid x)$ denotes the probability of producing $y$ given input $x$.
+SFT teaches the model both \emph{what} to output (valid, safety-compliant plans) and \emph{how} to output it (strict action syntax without natural-language explanations), providing a strong initialization for the subsequent GRPO stage.
+
+
+\subsection{Group Relative Policy Optimization}\label{subsec:grpo}
+
+GRPO~\cite{shao2024deepseekmath} is an online RL algorithm designed to optimize language models using
+verifiable, programmatic reward signals.
+Given a prompt $x$, GRPO samples a group of $K$ candidate responses
+$\{y_1, \dots, y_K\}$ from the current policy $\pi_\theta(\cdot \mid x)$.
+Each response is evaluated by a reward function $r(x, y_i)$, and policy updates are
+performed by comparing responses \emph{within the same group} rather than relying on
+absolute reward values.
+
+Specifically, GRPO defines a relative advantage for each response by normalizing
+rewards within the group:
+\begin{equation}
+  A_i = r(x, y_i) - \frac{1}{K} \sum_{j=1}^{K} r(x, y_j),
+\end{equation}
+and optimizes the policy by maximizing:
+\begin{equation}
+  \mathcal{L}_{\mathrm{GRPO}}(\theta)
+  = \mathbb{E}_{x,\, y_i \sim \pi_\theta}
+  \big[ A_i \log \pi_\theta(y_i \mid x) \big].
+\end{equation}
+
+We adopt GRPO because it naturally integrates with our verifiable reward signal and is more lightweight than PPO (no separate critic network).
+Starting from the SFT-trained policy, we next describe the reward function and curriculum strategy used in GRPO training.
+
+\subsubsection{Reward design.}\label{subsubsec:reward}
+We design a dense, hierarchical reward function based on automated plan verification using the VAL tool~\cite{howey2004val}.
+For each generated plan, the validation pipeline classifies it into one of five ordered categories $\mathcal{C} = \{c_1, c_2, c_3, c_4, c_5\}$:
+\begin{itemize}
+  \item $c_1$: \textbf{Plan Format Error} --- syntactically invalid or unparseable;
+  \item $c_2$: \textbf{Safety Constraint Violation} --- violates at least one PDDL3 safety constraint;
+  \item $c_3$: \textbf{Precondition Violation} --- one or more action preconditions fail during execution;
+  \item $c_4$: \textbf{Goal Not Satisfied} --- executes safely but fails to achieve the goal;
+  \item $c_5$: \textbf{Success Plan} --- satisfies all safety constraints and achieves the goal.
+\end{itemize}
+
+\noindent\textbf{Hierarchical reward with progress-based interpolation.}
+We assign each category $c_k$ a reward interval $[r_k^{-}, r_k^{+}]$ satisfying the \emph{strict separation} constraint:
+\begin{equation}\label{eq:separation}
+  r_1 \;\leq\; r_2^{-} \;<\; r_2^{+} \;\leq\; r_3^{-} \;<\; r_3^{+} \;\leq\; r_4^{-} \;<\; r_4^{+} \;\leq\; r_5,
+\end{equation}
+which guarantees that any plan in a more severe failure category always receives a lower reward than any plan in a less severe category, regardless of within-category progress.
+
+For the two anchor categories, the reward is fixed: $r(x,y) = r_5$ for success and $r(x,y) = r_1$ for format errors.
+For intermediate failure categories $c_k$ ($k \in \{2,3,4\}$), we interpolate using a \emph{progress function} $\rho_k(x, y) \in [0, 1]$:
+\begin{equation}\label{eq:reward}
+  r(x, y) = r_k^{-} + (r_k^{+} - r_k^{-}) \cdot \rho_k(x, y).
+\end{equation}
+
+The progress function is defined according to the failure type:
+\begin{equation}\label{eq:progress}
+\rho_k(x, y) =
+\begin{cases}
+  t_v / L_{\text{ref}} & k \in \{2, 3\}, \\[4pt]
+  n_{\text{sat}} / n_{\text{total}} & k = 4,
+\end{cases}
+\end{equation}
+where $t_v$ is the plan step at which the first violation occurs, $L_{\text{ref}}$ is the length of the ground-truth reference solution, and $n_{\text{sat}} / n_{\text{total}}$ is the fraction of satisfied goal predicates.
+
+The strict separation (Eq.~\ref{eq:separation}) encodes a severity hierarchy (safety $>$ precondition $>$ goal), ensuring the model prioritizes constraint compliance.
+The progress-based interpolation (Eq.~\ref{eq:reward}) provides dense gradient signals within each failure category.
+The denominator $L_{\text{ref}}$ in Eq.~\ref{eq:progress} uses the reference solution length to prevent \textbf{reward hacking}---without it, a model could inflate its progress ratio by generating shorter plans.
+
+\subsubsection{Curriculum learning.}\label{subsubsec:curriculum}
+To improve training stability and sample efficiency, we adopt a curriculum that progressively increases problem difficulty during GRPO training.
+
+\noindent\textbf{Difficulty scoring.}
+We define domain-specific difficulty scores based on structural parameters: $d = n^2$ for Blocksworld ($n$ blocks), $d = l \times c$ for Ferry ($l$ locations, $c$ cars), $d = n \times r \times o$ for Grippers ($n$ robots, $r$ rooms, $o$ objects), and $d = s \times n \times l$ for Spanner ($s$ spanners, $n$ nuts, $l$ locations).
+
+\noindent\textbf{Three-level bucketing.}
+Within each domain, problems are partitioned into \emph{Easy} ($\leq$ 40th percentile), \emph{Medium} (40th--80th), and \emph{Hard} ($>$ 80th) buckets based on difficulty score.
+
+\noindent\textbf{Phased training schedule.}
+Training proceeds in three phases: the early phase emphasizes easy problems, the mid phase balances all levels, and the late phase focuses on hard problems requiring complex multi-constraint reasoning.
+
+\noindent\textbf{Domain-balanced batching.}
+Each batch contains equal samples from every domain, preventing overfitting and ensuring balanced exposure at every training step.

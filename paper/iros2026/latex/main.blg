@@ -9,51 +9,51 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: sample-base.bib
 Warning--entry type for "unsloth" isn't style-file defined
---line 44 of file sample-base.bib
+--line 46 of file sample-base.bib
 -- IEEEtran.bst version 1.11 (2003/04/02) by Michael Shell.
 -- http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 40 entries,
+You've used 30 entries,
             3975 wiz_defined-function locations,
-            1006 strings with 15415 characters,
-and the built_in function-call counts, 28508 in all, are:
-= -- 2131
-> -- 945
-< -- 174
-+ -- 505
-- -- 212
-* -- 1372
-:= -- 4249
-add.period$ -- 85
-call.type$ -- 40
-change.case$ -- 38
-chr.to.int$ -- 405
-cite$ -- 40
-duplicate$ -- 2098
-empty$ -- 2338
-format.name$ -- 228
-if$ -- 6511
+            951 strings with 13171 characters,
+and the built_in function-call counts, 21214 in all, are:
+= -- 1595
+> -- 657
+< -- 139
++ -- 355
+- -- 142
+* -- 1012
+:= -- 3175
+add.period$ -- 64
+call.type$ -- 30
+change.case$ -- 29
+chr.to.int$ -- 339
+cite$ -- 30
+duplicate$ -- 1545
+empty$ -- 1759
+format.name$ -- 154
+if$ -- 4843
 int.to.chr$ -- 0
-int.to.str$ -- 40
-missing$ -- 424
-newline$ -- 142
-num.names$ -- 40
-pop$ -- 1081
+int.to.str$ -- 30
+missing$ -- 303
+newline$ -- 112
+num.names$ -- 30
+pop$ -- 771
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 2163
+skip$ -- 1613
 stack$ -- 0
-substring$ -- 1047
-swap$ -- 1627
-text.length$ -- 39
+substring$ -- 852
+swap$ -- 1198
+text.length$ -- 26
 text.prefix$ -- 0
 top$ -- 5
 type$ -- 0
 warning$ -- 0
-while$ -- 103
-width$ -- 42
-write$ -- 381
+while$ -- 82
+width$ -- 32
+write$ -- 289
 (There was 1 warning)

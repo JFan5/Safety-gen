@@ -70,3 +70,133 @@ Tables~\ref{tab:reward-config} and~\ref{tab:curriculum-config} detail the reward
     \hline
   \end{tabular}
 \end{table}
+
+\subsection{Dataset Statistics}\label{app:dataset-stats}
+
+Table~\ref{tab:dataset-stats} summarizes the dataset statistics for each domain.
+For each domain, we generate 500 training problems (used for both SFT and GRPO) and 50 test problems, all solved by OPTIC and validated by VAL.
+Problem complexity varies within each domain based on the number of objects and structural parameters.
+
+\begin{table}[h]
+  \centering
+  \caption{Dataset statistics and problem size ranges per domain.}
+  \label{tab:dataset-stats}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{lccl}
+    \hline
+    \textbf{Domain} & \textbf{Train} & \textbf{Test} & \textbf{Problem size range} \\
+    \hline
+    Blocksworld & 500 & 50 & 3--6 blocks \\
+    Ferry       & 500 & 50 & 3--4 locations, 2--3 cars \\
+    Grippers    & 500 & 50 & 1 robot, 3--4 rooms, 3 objects \\
+    Spanner     & 500 & 50 & 2--3 spanners, 2 nuts, 3--4 locations \\
+    \hline
+    \textbf{Total} & \textbf{2{,}000} & \textbf{200} & --- \\
+    \hline
+  \end{tabular}%
+  }
+\end{table}
+
+\subsection{PDDL3 Constraint Examples}\label{app:constraint-examples}
+
+Each domain uses distinct PDDL3 constraint types that encode domain-specific safety requirements.
+Below we provide a representative constraint instance from each domain's test set.
+
+\noindent\textbf{Blocksworld} uses \texttt{sometime-before} constraints to enforce safe stacking order:
+\begin{lstlisting}[style=lispstyle]
+(:constraints
+  (sometime-before (on-table b2)
+                   (on-table b1)))
+\end{lstlisting}
+This requires that block~\texttt{b1} must be placed on the table at some point \emph{before} block~\texttt{b2} is placed on the table, preventing unsafe intermediate configurations.
+
+\noindent\textbf{Ferry} uses \texttt{sometime-before} constraints to enforce safe transport ordering:
+\begin{lstlisting}[style=lispstyle]
+(:constraints
+  (and
+    (sometime-before (at c0 l0)
+                     (at-ferry l2))
+    (sometime-before (at c1 l0)
+                     (at-ferry l1))))
+\end{lstlisting}
+This requires the ferry to visit specific locations before delivering each car to its destination.
+
+\noindent\textbf{Spanner} uses compound \texttt{always-imply} and \texttt{at-most-once} constraints with quantifiers:
+\begin{lstlisting}[style=lispstyle]
+(:constraints
+  (and
+    (always (imply (not (tightened nut1))
+                   (not (tightened nut2))))
+    (forall (?m - man)
+      (at-most-once (at ?m shed)))))
+\end{lstlisting}
+The first constraint enforces a tightening order (nut2 cannot be tightened before nut1), and the second restricts each worker to enter the tool shed at most once.
+
+\noindent\textbf{Grippers} uses \texttt{always} constraints with universal quantification:
+\begin{lstlisting}[style=lispstyle]
+(:constraints
+  (always (forall (?b - object)
+    (not (carry robot1 ?b rgripper1)))))
+\end{lstlisting}
+This prohibits a specific gripper from ever carrying any object throughout the entire plan, modeling a safety restriction on a malfunctioning or reserved gripper.
+
+\subsection{Validation Pipeline}\label{app:validation-pipeline}
+
+We use the VAL tool~\cite{howey2004val} to validate generated plans.
+Each plan is written to a temporary file and validated by running \texttt{Validate -v <domain> <problem> <plan>} with a 30-second timeout.
+The validation output is then classified into one of five categories based on pattern matching on the validator's stdout:
+
+\begin{enumerate}
+  \item \textbf{Success}: Output contains \texttt{"Plan valid"} --- the plan satisfies all preconditions, safety constraints, and goals.
+  \item \textbf{Plan format error}: Output contains indicators such as \texttt{"bad operator in plan"}, \texttt{"no matching action defined"}, or \texttt{"type problem with proposition"} --- the plan is syntactically malformed or references undefined actions/objects.
+  \item \textbf{Goal not satisfied}: Output contains \texttt{"goal not satisfied"} --- the plan executes without errors but does not achieve the goal state.
+  \item \textbf{Precondition violation}: Output contains \texttt{"plan failed to execute"} together with \texttt{"unsatisfied precondition"} --- an action's preconditions are not met at the point of execution.
+  \item \textbf{Safety constraint violation}: Output contains \texttt{"plan failed to execute"} without any precondition failure --- a PDDL3 constraint is violated during execution.
+\end{enumerate}
+
+This classification is used both for evaluation metrics (Section~\ref{V}) and for computing GRPO rewards during training (Section~\ref{subsubsec:reward}).
+
+\subsection{Evaluation Configuration}\label{app:eval-config}
+
+Table~\ref{tab:eval-config} summarizes the evaluation parameters for both local models and API-based models.
+
+\begin{table}[h]
+  \centering
+  \caption{Evaluation parameters for local and API-based models.}
+  \label{tab:eval-config}
+  \begin{tabular}{lcc}
+    \hline
+    \textbf{Parameter} & \textbf{Local} & \textbf{API} \\
+    \hline
+    Temperature         & 0.6      & default \\
+    Top-$p$             & 0.9      & default \\
+    Max new tokens      & 1{,}024  & default \\
+    Max sequence length  & 5{,}000  & --- \\
+    Quantization        & 4-bit    & --- \\
+    Timeout per problem & ---      & 300s \\
+    Max retries         & ---      & 5 \\
+    Concurrent threads  & ---      & 5 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+For local models, we use greedy-like sampling with temperature~0.6 and top-$p$~0.9.
+API-based models (e.g., GPT-5 Nano) use their default generation settings.
+All models receive the same zero-shot prompt template described in Section~\ref{subsec:dataset}.
+
+\subsection{Input Format Conversion}\label{app:input-format}
+
+To evaluate robustness to different input representations (Section~\ref{V}), we convert PDDL3 problem files into natural language (NL) and JSON formats.
+
+\noindent\textbf{Natural language conversion.}
+Each PDDL3 problem is converted to a structured NL description using domain-specific templates.
+The NL output includes sections for objects, initial state, goal, and constraints.
+For example, the Blocksworld predicate \texttt{(on b3 b2)} is rendered as ``Block b3 is on block b2,'' and the constraint \texttt{(sometime-before (on-table b2) (on-table b1))} becomes ``Before `block b2 is on the table' becomes true, `block b1 is on the table' must be true at some point.''
+All PDDL3 constraint types (\texttt{sometime-before}, \texttt{always}, \texttt{at-most-once}, \texttt{forall}, etc.) have corresponding NL templates.
+
+\noindent\textbf{JSON conversion.}
+The JSON format preserves the semantic structure of PDDL3 using key-value pairs.
+Objects, initial state predicates, goal conditions, and constraints are represented as structured fields.
+For example, an initial state predicate \texttt{(on b3 b2)} becomes \texttt{\{"pred": "on", "args": ["b3", "b2"]\}}, and constraints are stored with their type as the key (e.g., \texttt{"sometime\_before": [\ldots]}).
+
+Both formats are generated automatically from the original PDDL3 files and validated by ensuring that the corresponding PDDL3 solution file remains applicable.

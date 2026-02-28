@@ -32,41 +32,20 @@ H.~Geffner and B.~Bonet, \emph{A Concise Introduction to Models and Methods for
   Automated Planning}.\hskip 1em plus 0.5em minus 0.4em\relax Morgan \&
   Claypool Publishers, 2013.
 
-\bibitem{ghallab2004automated}
-M.~Ghallab, D.~Nau, and P.~Traverso, \emph{Automated Planning: Theory and
-  Practice}.\hskip 1em plus 0.5em minus 0.4em\relax Elsevier, 2004.
-
 \bibitem{wang2022ensuring}
 X.~Wang, ``Ensuring safety of learning-based motion planners using control
   barrier functions,'' \emph{IEEE Robotics and Automation Letters}, vol.~7,
   no.~2, pp. 4773--4780, 2022.
-
-\bibitem{yu2021learning}
-X.~Yu, P.~Wang, and Z.~Zhang, ``Learning-based end-to-end path planning for
-  lunar rovers with safety constraints,'' \emph{Sensors}, vol.~21, no.~3, p.
-  796, 2021.
 
 \bibitem{packer2018assessing}
 C.~Packer, K.~Gao, J.~Kos, P.~Kr{\"a}henb{\"u}hl, V.~Koltun, and D.~Song,
   ``Assessing generalization in deep reinforcement learning,'' \emph{arXiv
   preprint arXiv:1810.12282}, 2018.
 
-\bibitem{kansky2017schema}
-K.~Kansky, T.~Silver, D.~A. M{\'e}ly, M.~Eldawy, M.~L{\'a}zaro-Gredilla,
-  X.~Lou, N.~Dorfman, S.~Sidor, S.~Phoenix, and D.~George, ``Schema networks:
-  Zero-shot transfer with a generative causal model of intuitive physics,'' in
-  \emph{International conference on machine learning}.\hskip 1em plus 0.5em
-  minus 0.4em\relax PMLR, 2017, pp. 1809--1818.
-
 \bibitem{shivadekar2025artificial}
 S.~Shivadekar, \emph{Artificial Intelligence for Cognitive Systems: Deep
   Learning, Neuro-symbolic Integration, and Human-Centric Intelligence}.\hskip
   1em plus 0.5em minus 0.4em\relax Deep Science Publishing, 2025.
-
-\bibitem{dulac2020empirical}
-G.~Dulac-Arnold, N.~Levine, D.~J. Mankowitz, J.~Li, C.~Paduraru, S.~Gowal, and
-  T.~Hester, ``An empirical investigation of the challenges of real-world
-  reinforcement learning,'' \emph{arXiv preprint arXiv:2003.11881}, 2020.
 
 \bibitem{cao2025large}
 P.~Cao, T.~Men, W.~Liu, J.~Zhang, X.~Li, X.~Lin, D.~Sui, Y.~Cao, K.~Liu, and
@@ -78,11 +57,6 @@ A.~Plaat, A.~Wong, S.~Verberne, J.~Broekens, N.~van Stein, and T.~Back,
   ``Reasoning with large language models, a survey,'' \emph{arXiv preprint
   arXiv:2407.11511}, 2024.
 
-\bibitem{liang2025ai}
-B.~Liang, Y.~Wang, and C.~Tong, ``Ai reasoning in deep learning era: From
-  symbolic ai to neural--symbolic ai,'' \emph{Mathematics}, vol.~13, no.~11, p.
-  1707, 2025.
-
 \bibitem{yang2022automaton}
 Y.~Yang, J.-R. Gaglione, C.~Neary, and U.~Topcu, ``Automaton-based
   representations of task knowledge from generative language models,''
@@ -92,11 +66,6 @@ Y.~Yang, J.-R. Gaglione, C.~Neary, and U.~Topcu, ``Automaton-based
 J.~Pan, G.~Chou, and D.~Berenson, ``Data-efficient learning of natural language
   to linear temporal logic translators for robot task specification,''
   \emph{arXiv preprint arXiv:2303.08006}, 2023.
-
-\bibitem{van2024vernacopter}
-T.~van~de Laar, Z.~Zhang, S.~Qi, S.~Haesaert, and Z.~Sun, ``Vernacopter:
-  Disambiguated natural-language-driven robot via formal specifications,''
-  \emph{arXiv preprint arXiv:2409.09536}, 2024.
 
 \bibitem{silver2024generalized}
 T.~Silver, S.~Dan, K.~Srinivas, J.~B. Tenenbaum, L.~Kaelbling, and M.~Katz,
@@ -205,26 +174,5 @@ T.~Wolf, L.~Debut, V.~Sanh, J.~Chaumond, C.~Delangue, A.~Moi, P.~Cistac,
 OpenAI, ``Introducing {GPT}-5,''
   \url{https://openai.com/index/introducing-gpt-5/}, 2025, accessed:
   2025-05-14.
-
-\bibitem{paszke2019pytorch}
-A.~Paszke, S.~Gross, F.~Massa, A.~Lerer, J.~Bradbury, G.~Chanan, T.~Killeen,
-  Z.~Lin, N.~Gimelshein, L.~Antiga, \emph{et~al.}, ``Pytorch: An imperative
-  style, high-performance deep learning library,'' \emph{Advances in neural
-  information processing systems}, vol.~32, 2019.
-
-\bibitem{vonwerra2022trl}
-L.~von Werra, Y.~Belkada, L.~Tunstall, E.~Beeching, T.~Thrush, N.~Lambert,
-  S.~Huang, K.~Rasul, and Q.~Gallou{\'e}dec, ``{TRL: Transformer Reinforcement
-  Learning},'' \url{https://github.com/huggingface/trl}, 2020.
-
-\bibitem{hu2022lora}
-E.~J. Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, W.~Chen,
-  \emph{et~al.}, ``Lora: Low-rank adaptation of large language models.''
-  \emph{ICLR}, vol.~1, no.~2, p.~3, 2022.
-
-\bibitem{dettmers2023qlora}
-T.~Dettmers, A.~Pagnoni, A.~Holtzman, and L.~Zettlemoyer, ``Qlora: Efficient
-  finetuning of quantized llms,'' \emph{Advances in neural information
-  processing systems}, vol.~36, pp. 10\,088--10\,115, 2023.
 
 \end{thebibliography}

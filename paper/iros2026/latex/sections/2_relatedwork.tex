@@ -1,0 +1,10 @@
+\section{Related Work}\label{sec:related}
+
+\noindent\textbf{Classical task planning.}
+Classical planners such as Fast Downward~\cite{helmert2006fast}, Metric-FF~\cite{hoffmann2001ff}, and OPTIC~\cite{benton2012temporal} solve symbolic planning problems by heuristic search over PDDL models. Extensions including HTN planners~\cite{nau2005applications} improve scalability through structural decomposition. However, these methods rely on expert-designed heuristics, scale poorly with problem size, and become brittle under additional safety constraints~\cite{geffner2013concise}.
+
+\noindent\textbf{Learning-based planners.}
+Learning-driven approaches include learned heuristics~\cite{yoon2008learning,shivashankar2015hierarchical} and RL-based task policies. However, RL planners suffer from state-space explosion, extensive data requirements, and limited generalization~\cite{shivadekar2025artificial}. Neuro-symbolic approaches~\cite{acharya2023neurosymbolic,lyu2022towards} integrate symbolic reasoning with learned components but remain domain-specific. Overall, existing learning-based planners do not jointly achieve strong generalization and verifiable safety compliance.
+
+\noindent\textbf{LLM-based planning.}
+LLMs have shown promise as planners for robotic and task-planning settings~\cite{song2023llm,silver2024generalized}. Methods such as iterative self-refinement~\cite{zhou2024isr} and hybrid LLM-search approaches~\cite{zhang2025lamma} improve plan feasibility, while recent benchmarks reveal that fine-grained constraints expose LLM robustness limitations~\cite{huang2025language}. However, most approaches rely on frozen or lightly adapted models without intrinsically learning safety-aware planning behavior or systematically generalizing safety constraints across domains.

@@ -42,17 +42,7 @@ Only solutions that are successfully validated by VAL (i.e., respect both domain
 
 Third, we convert each verified solution into an instruction--response pair.
 The instruction consists of a natural-language prompt that includes the planning domain, problem instance, and (when applicable) safety constraints; the response is the corresponding validated plan.
-Formally, we obtain a supervised dataset
-\[
-\mathcal{D}_{\text{SFT}} = \{(x_i, y_i)\}_{i=1}^{N},
-\]
-where $x_i$ is an input prompt and $y_i$ is the desired output plan.
-For SFT, the instruction--response pairs are used directly as training examples.
-For GRPO, the same problems serve as training prompts---the model generates its own candidate plans online---and the validated reference solutions $y_i$ are retained to compute the reference solution length $L_{\text{ref}}$ used in the progress-based reward function (Section~\ref{subsubsec:reward}).
-
-To enhance data diversity and reduce overfitting, we design ten instruction templates.
-For each problem, we randomly sample a fixed number of templates from this pool, which encourages variation in surface forms and prevents the model from simply memorizing a single prompt pattern.
-A representative template is shown below.
+Each problem is wrapped in a fixed instruction template that specifies the task format and expected output structure, as shown below.
 
 \begin{userbox}
   You are a planning expert. Your task is to generate a \textbf{valid plan} for the given domain and problem.
@@ -81,6 +71,10 @@ A representative template is shown below.
 This template explicitly instructs the model to behave as a planning expert and to produce strictly formatted action sequences.
 By providing the domain and problem specifications in a structured form and enforcing strong output requirements (no extra text, strict syntax, constraint satisfaction), the template helps ensure that the generated plans remain syntactically correct, executable, and consistent with the safety constraints.
 
+The resulting instruction--response pairs form the supervised dataset $\mathcal{D}_{\text{SFT}} = \{(x_i, y_i)\}_{i=1}^{N}$.
+For SFT, these pairs are used directly as training examples.
+For GRPO, the same problems serve as training prompts---the model generates its own candidate plans online---and the validated reference solutions $y_i$ are retained to compute the reference solution length $L_{\text{ref}}$ used in the progress-based reward function (Section~\ref{subsubsec:reward}).
+
 \subsection{Supervised Fine-Tuning}\label{subsec:sft}
 
 SFT adapts a pre-trained LLM to a specialized task by training on
@@ -107,7 +101,7 @@ Beyond learning \emph{what} plan to output, SFT also enforces \emph{how} to outp
 The resulting SFT model provides a capable initialization for the subsequent GRPO stage, which further refines safety compliance through online RL.
 
 
-\subsection{GRPO}\label{subsec:grpo}
+\subsection{Group Relative Policy Optimization}\label{subsec:grpo}
 
 GRPO~\cite{shao2024deepseekmath} is an online RL algorithm designed to optimize language models using
 verifiable, programmatic reward signals.
@@ -180,28 +174,17 @@ This reference-anchored normalization prevents \textbf{reward hacking}: without 
 To improve training stability and sample efficiency, we adopt a curriculum learning strategy that progressively increases problem difficulty during GRPO training.
 
 \noindent\textbf{Difficulty scoring.}
-We define domain-specific difficulty scores based on problem parameters that correlate with planning complexity.
-For each domain, we extract structural parameters from the problem filename and compute a scalar difficulty score:
-\begin{itemize}
-  \item \textbf{Blocksworld}: $d = n^2$, where $n$ is the number of blocks.
-  \item \textbf{Ferry}: $d = l \times c$, where $l$ is the number of locations and $c$ is the number of cars.
-  \item \textbf{Grippers}: $d = n \times r \times o$, where $n$ is the number of robots, $r$ is the number of rooms, and $o$ is the number of objects.
-  \item \textbf{Spanner}: $d = s \times n \times l$, where $s$ is the number of spanners, $n$ is the number of nuts, and $l$ is the number of locations.
-\end{itemize}
+We define domain-specific difficulty scores based on structural parameters that correlate with planning complexity: $d = n^2$ for Blocksworld ($n$ blocks), $d = l \times c$ for Ferry ($l$ locations, $c$ cars), $d = n \times r \times o$ for Grippers ($n$ robots, $r$ rooms, $o$ objects), and $d = s \times n \times l$ for Spanner ($s$ spanners, $n$ nuts, $l$ locations).
 
 \noindent\textbf{Three-level bucketing.}
-Within each domain, problems are sorted by difficulty score and partitioned into three buckets using percentile thresholds: \emph{Easy} (score $\leq$ 40th percentile), \emph{Medium} (40th--80th percentile), and \emph{Hard} ($>$ 80th percentile).
-Bucketing is performed per domain to ensure that each domain has a balanced distribution of difficulty levels, since raw scores are not comparable across domains.
+Within each domain, problems are sorted by difficulty score and partitioned into three buckets using percentile thresholds: \emph{Easy} ($\leq$ 40th percentile), \emph{Medium} (40th--80th percentile), and \emph{Hard} ($>$ 80th percentile).
+Bucketing is performed per domain since raw scores are not comparable across domains.
 
 \noindent\textbf{Phased training schedule.}
 Training is divided into three phases---early, mid, and late---with shifting sampling probabilities that progressively increase the proportion of harder problems.
-In the early phase, the model predominantly trains on easy problems to build foundational skills such as correct action syntax, basic sequencing, and simple constraint satisfaction.
-The mid phase transitions to a more balanced distribution, exposing the model to a wider range of constraint complexity.
-In the late phase, hard problems dominate, requiring the model to handle complex multi-constraint interactions and longer planning horizons.
+The early phase builds foundational skills on easy problems; the mid phase transitions to a balanced distribution; the late phase emphasizes hard problems requiring complex multi-constraint reasoning.
 
 \noindent\textbf{Domain-balanced batching.}
-To prevent the model from overfitting to any single domain, each training batch contains an equal number of samples from every domain.
-Concretely, given a batch size $B$ and $K{=}4$ generations per prompt, the number of prompts per step is $B/K$, and each domain contributes exactly $(B/K)/|\mathcal{D}|$ prompts, where $|\mathcal{D}|$ is the number of domains.
-This constraint ensures that the model receives balanced domain exposure at every training step, which is critical for cross-domain generalization.
+Each training batch contains an equal number of samples from every domain, preventing overfitting to any single domain and ensuring balanced exposure at every training step.
 
 The combination of difficulty-based curriculum and domain-balanced batching enables GRPO to efficiently explore the solution space: easy problems build syntax and sequencing foundations, while progressively harder problems introduce complex constraint interactions that require deeper safety reasoning.
